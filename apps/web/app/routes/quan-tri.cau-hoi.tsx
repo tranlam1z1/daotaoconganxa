@@ -225,7 +225,9 @@ export default function QuanTriCauHoi({ loaderData, actionData }: Route.Componen
       <div className="flex flex-wrap items-center justify-between gap-3">
         <h2 className="text-xl font-semibold">Ngân hàng câu hỏi</h2>
         <div className="flex flex-wrap gap-2">
-          <ButtonLink to="/quan-tri/cau-hoi/moi">Thêm câu hỏi</ButtonLink>
+          <ButtonLink to="/quan-tri/cau-hoi/moi" icon="plus">
+            Thêm câu hỏi
+          </ButtonLink>
           <ButtonLink to="/quan-tri/cau-hoi?sinh=ai#sinh-ai" variant="secondary">
             Sinh bằng AI
           </ButtonLink>

@@ -4,7 +4,7 @@ import { Link, useLocation } from "react-router";
 import { cn } from "../../lib/cn";
 import { BOTTOM_NAV, dangOMuc } from "../../lib/site";
 import { Icon } from "../ui/Icon";
-import { LogoKhien } from "../ui/LogoKhien";
+import { LogoHocTap } from "../ui/LogoHocTap";
 
 const O_NHAP =
   "input:not([type=checkbox],[type=radio],[type=button],[type=submit],[type=range]), textarea, select";
@@ -149,11 +149,12 @@ export function BottomNav() {
                   {giua ? (
                     <span
                       className={cn(
-                        "mb-0.5 grid size-16 shrink-0 place-items-center rounded-full border-2 bg-canvas shadow-noi transition-colors",
-                        active ? "border-primary" : "border-line group-active:bg-surface-2",
+                        // Nút tròn giữa: dấu logo trắng trên nền xanh dương (giống icon ứng dụng).
+                        "mb-0.5 grid size-16 shrink-0 place-items-center rounded-full bg-primary shadow-noi transition-opacity",
+                        active ? "opacity-100" : "opacity-90",
                       )}
                     >
-                      <LogoKhien className="size-11" />
+                      <LogoHocTap variant="trang" className="h-9 w-auto" />
                     </span>
                   ) : (
                     <span

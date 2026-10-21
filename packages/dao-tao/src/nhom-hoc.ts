@@ -7,7 +7,7 @@
  *   chỗ khi đơn vị chốt số khác.
  * - Ngày của lượt cổ vũ tính theo giờ Việt Nam, nhận `now` làm tham số để test mốc 0 giờ.
  */
-import { ngayVietNam } from "./diem-thuong.ts";
+import { ngayVietNam } from "./ngay.ts";
 
 /* ------------------------------------------------------------------ */
 /* Giới hạn                                                            */

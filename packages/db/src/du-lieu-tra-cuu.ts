@@ -123,6 +123,16 @@ export async function demChoDuyetMoiLoai(): Promise<Record<LoaiDuLieuTraCuu, num
   return Object.fromEntries(dem) as Record<LoaiDuLieuTraCuu, number>;
 }
 
+/** Lịch sử duyệt của một dòng dữ liệu tra cứu, đọc từ `content_reviews`. */
+export async function lichSuDuyetDuLieu(
+  kind: string,
+  ref: string,
+): Promise<Array<{ version: number; action: string; actor: string; note: string | null; created_at: Date }>> {
+  return await sql`
+    SELECT version, action, actor, note, created_at FROM content_reviews
+    WHERE kind = ${kind} AND ref = ${ref} ORDER BY created_at, id`;
+}
+
 async function ghiLichSu(
   tx: Tx,
   kind: string,

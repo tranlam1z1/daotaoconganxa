@@ -5,25 +5,15 @@
  * packages/dao-tao/src/luyen-tap.ts. `items` của phiên có đáp án (ảnh chụp để chấm), nên hàm
  * trả phiên chỉ dùng ở máy chủ; route người học tự lọc ra phần đề trước khi gửi đi.
  */
-import { khoaXpDeOnTap, xpPhienLuyenTap } from "@qdpl/dao-tao";
+import { type CauHoiNguon, ngayVietNam } from "@qdpl/dao-tao";
 import { sql, type Tx } from "./client.ts";
-import { congXp } from "./diem-thuong.ts";
+import { ghiHoatDong, ghiHoatDongHomNay } from "./hoat-dong.ts";
 import { ghiKetQuaChuDe } from "./ho-so-chu-de.ts";
 
 /**
- * Các nguồn `game:*` là phiên của trò chơi (GĐ10, xem packages/db/src/tro-choi.ts). `nhom` là phiên
- * đề ôn tập của nhóm học cùng (GĐ16a), gắn với mục qua `group_item_id`.
+ * `nhom` là phiên đề ôn tập của nhóm học cùng (GĐ16a), gắn với mục qua `group_item_id`.
  */
-export type NguonPhien =
-  | "chu_de"
-  | "cau_sai"
-  | "thu_thach"
-  | "nhom"
-  | "game:vuot_man"
-  | "game:dua_thoi_gian"
-  | "game:ghep_cap"
-  | "game:doan_bien_bao"
-  | "game:hoi_nhanh_giong_noi";
+export type NguonPhien = "chu_de" | "cau_sai" | "nhom";
 
 /* ------------------------------------------------------------------ */
 /* Chủ đề và nguồn câu                                                 */
@@ -307,19 +297,10 @@ export async function ketThucPhien(id: string): Promise<PhienLuyenTapRow> {
       WHERE s.id = ${id} AND s.finished_at IS NULL
       RETURNING account_id, source, correct, group_item_id,
         (SELECT count(*)::int FROM practice_answers a WHERE a.session_id = s.id) AS da_tra_loi`) as any[];
-    // Cộng XP trong cùng giao dịch (docs/PLAN.md GĐ9). Phiên đã kết thúc thì UPDATE không trả
-    // dòng nào nên không cộng lại. Phiên trò chơi (source 'game:*') do GĐ10 tự cộng XP.
-    if (!xong || String(xong.source).startsWith("game:")) return;
-    await congXp(tx, {
-      accountId: xong.account_id,
-      nguon: xong.source === "thu_thach" ? "thu_thach" : "phien_luyen_tap",
-      // Đề ôn tập của nhóm (N17): khóa theo người và mục, nên làm lại cùng đề không cộng thêm XP.
-      nguonId:
-        xong.source === "nhom" && xong.group_item_id
-          ? khoaXpDeOnTap(xong.group_item_id, xong.account_id)
-          : id,
-      xp: xpPhienLuyenTap({ nguon: xong.source, dung: Number(xong.correct), daTraLoi: xong.da_tra_loi }),
-    });
+    // Ghi nhật hoạt động học trong cùng giao dịch (dùng cho nhắc học). Phiên đã kết thúc thì
+    // UPDATE không trả dòng nào nên không ghi lại.
+    if (!xong) return;
+    await ghiHoatDongHomNay(tx, xong.account_id);
   });
   return (await phienLuyenTap(id))!;
 }
@@ -401,6 +382,17 @@ export async function cauHoiTheoIds(ids: string[]): Promise<CauHoiNguonRow[]> {
 }
 
 /**
+ * Nội dung câu đã duyệt theo đúng danh sách id. Câu không còn ở trạng thái `da_duyet` (bị gỡ
+ * duyệt) thì không trả về, nên người gọi tự quyết định dùng bao nhiêu câu còn lại.
+ */
+export async function cauHoiDaDuyetTheoId(ids: string[]): Promise<CauHoiNguon[]> {
+  if (!ids.length) return [];
+  return (await sql`
+    SELECT id, version, topic_id, kind, level, stem, options, answer, explanation, citations, image_uris
+    FROM questions WHERE status = 'da_duyet' AND id = ANY(${ids}::uuid[])`) as unknown as CauHoiNguon[];
+}
+
+/**
  * Tạo phiên offline theo `client_id`, hoặc trả phiên đã có. `cuaNguoiKhac` khi `client_id` đã
  * thuộc tài khoản khác: người gọi bỏ qua phiên đó, không ghi gì vào.
  */
@@ -428,20 +420,20 @@ export async function layHoacTaoPhienOffline(inp: {
   };
 }
 
-/** Số ngày tối đa tính từ lúc làm bài mà kết quả offline còn được cộng XP khi đồng bộ. */
-export const SO_NGAY_CONG_XP_OFFLINE = 7;
+/** Số ngày tối đa tính từ lúc làm bài mà kết quả offline còn được ghi nhận khi đồng bộ. */
+export const SO_NGAY_GHI_NHAN_OFFLINE = 7;
 
 /**
- * Kết thúc phiên offline theo thời điểm làm bài thật `ketThuc` (không muộn hơn `now`). XP cộng
- * theo ngày làm bài thật (chuỗi ngày học tính đúng ngày), nhưng chỉ khi ngày đó còn trong
- * SO_NGAY_CONG_XP_OFFLINE ngày: kết quả để quá lâu mới gửi vẫn được lưu, không được cộng XP.
- * Phiên đã kết thúc thì không làm gì (gửi lại không cộng hai lần).
+ * Kết thúc phiên offline theo thời điểm làm bài thật `ketThuc` (không muộn hơn `now`). Hoạt động
+ * học ghi theo ngày làm bài thật, nhưng chỉ khi ngày đó còn trong SO_NGAY_GHI_NHAN_OFFLINE ngày:
+ * kết quả để quá lâu mới gửi vẫn được lưu, không ghi nhận hoạt động.
+ * Phiên đã kết thúc thì không làm gì (gửi lại không ghi hai lần).
  */
 export async function ketThucPhienOffline(
   id: string,
   ketThuc: Date,
   now: Date = new Date(),
-): Promise<{ daKetThuc: boolean; xp: number }> {
+): Promise<{ daKetThuc: boolean }> {
   const luc = ketThuc > now ? now : ketThuc;
   return (await sql.begin(async (tx) => {
     const [xong] = (await tx`
@@ -450,16 +442,10 @@ export async function ketThucPhienOffline(
         correct = (SELECT count(*) FROM practice_answers a WHERE a.session_id = s.id AND a.correct),
         seconds_spent = COALESCE((SELECT sum(seconds) FROM practice_answers a WHERE a.session_id = s.id), 0)::int
       WHERE s.id = ${id} AND s.finished_at IS NULL
-      RETURNING account_id, source, correct,
-        (SELECT count(*)::int FROM practice_answers a WHERE a.session_id = s.id) AS da_tra_loi`) as any[];
-    if (!xong) return { daKetThuc: false, xp: 0 };
-    const quaHan = now.getTime() - luc.getTime() > SO_NGAY_CONG_XP_OFFLINE * 24 * 3600 * 1000;
-    const xp = quaHan
-      ? 0
-      : xpPhienLuyenTap({ nguon: xong.source, dung: Number(xong.correct), daTraLoi: xong.da_tra_loi });
-    const daCong =
-      xp > 0 &&
-      (await congXp(tx, { accountId: xong.account_id, nguon: "phien_luyen_tap", nguonId: id, xp, luc }));
-    return { daKetThuc: true, xp: daCong ? xp : 0 };
-  })) as { daKetThuc: boolean; xp: number };
+      RETURNING account_id`) as any[];
+    if (!xong) return { daKetThuc: false };
+    const quaHan = now.getTime() - luc.getTime() > SO_NGAY_GHI_NHAN_OFFLINE * 24 * 3600 * 1000;
+    if (!quaHan) await ghiHoatDong(tx, xong.account_id, ngayVietNam(luc));
+    return { daKetThuc: true };
+  })) as { daKetThuc: boolean };
 }

@@ -11,26 +11,27 @@ import {
   MORE_NAV,
   type NavItem,
   SITE_NAME,
+  SITE_NAME_SHORT,
   SITE_TAGLINE,
 } from "../../lib/site";
 import type { NguoiDung } from "../../lib/types";
 import { ChipChuoiNgay } from "../tro-choi/ChipChuoiNgay";
 import { AnhDaiDien } from "../ui/AnhDaiDien";
 import { Icon } from "../ui/Icon";
-import { LogoKhien } from "../ui/LogoKhien";
+import { LogoHocTap } from "../ui/LogoHocTap";
 import { NganTienIch } from "./NganTienIch";
 
 export function BrandMark() {
   // Điện thoại: tên được co lại (cắt bằng "…") khi chip điểm, chuông, ảnh đại diện hết chỗ.
   return (
     <Link to="/" className="flex min-h-11 min-w-0 items-center gap-2.5 md:shrink-0">
-      <LogoKhien className="size-9 shrink-0" />
+      <LogoHocTap className="h-9 w-auto shrink-0 min-[400px]:h-10" />
       {/* 768–1023px: menu ngang, chip điểm và các nút hết chỗ, chỉ giữ logo (tên vẫn đọc được). */}
       <span className="flex min-w-0 flex-col py-1 md:max-lg:sr-only">
-        <span className="truncate font-serif text-[15px] font-semibold leading-tight min-[400px]:text-[17px]">
+        <span className="truncate font-display text-[13px] font-bold uppercase leading-tight tracking-wide text-primary min-[400px]:text-[15px]">
           {SITE_NAME}
         </span>
-        <span className="truncate text-[11px] leading-tight text-ink-2 min-[400px]:text-xs">
+        <span className="truncate text-[10px] uppercase leading-tight tracking-[0.14em] text-ink-2 min-[400px]:text-[11px]">
           {SITE_TAGLINE}
         </span>
       </span>
@@ -56,7 +57,8 @@ function mucCha(pathname: string): { to: string; label: string } {
   );
 }
 
-const DUOI_TIEU_DE = ` | ${SITE_NAME}`;
+// pageMeta() gắn tiêu đề thẻ theo dạng "<tên trang> | <tên rút gọn>"; đầu trang con cắt đuôi này.
+const DUOI_TIEU_DE = ` | ${SITE_NAME_SHORT}`;
 
 /**
  * Đầu trang con trên điện thoại: nút quay lại + tiêu đề trang. Tiêu đề lấy từ thẻ <title> (hàm
@@ -145,10 +147,10 @@ export function SiteHeader({ nguoiDung }: { nguoiDung: NguoiDung | null }) {
   };
 
   return (
-    // Vạch vàng kim dưới đầu trang lấy từ viền vàng của logo.
+    // Vạch màu dưới đầu trang lấy theo thứ tự màu trong logo: xanh dương → xanh lá → vàng.
     <header
       className={cn(
-        "no-print sticky top-0 z-40 border-b-2 border-vang bg-canvas/90 backdrop-blur-md",
+        "no-print sticky top-0 z-40 border-b border-line bg-canvas/90 backdrop-blur-md",
         anDauTrangDienThoai(pathname) && "max-md:hidden",
       )}
     >
@@ -196,6 +198,11 @@ export function SiteHeader({ nguoiDung }: { nguoiDung: NguoiDung | null }) {
           {nguoiDung && pathname === "/" ? <NganTienIch nguoiDung={nguoiDung} /> : null}
         </div>
       </div>
+      {/* Vạch màu thương hiệu ngay dưới thanh đầu trang. */}
+      <div
+        aria-hidden="true"
+        className="h-[3px] bg-linear-to-r from-primary via-[#1E9E4A] to-[#FFC107]"
+      />
     </header>
   );
 }

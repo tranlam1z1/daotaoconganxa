@@ -78,39 +78,10 @@ export interface KhungQuaTaiTep extends KhoangTocDo {
   loai: LoaiQuaTai;
 }
 
-/** Cử chỉ của một bước quy trình khi đưa vào trò chơi (docs/PLAN.md GĐ-T4). */
-export const THAO_TAC_BUOC = ["vuot", "cham", "keo", "giu"] as const;
-export type ThaoTacBuoc = (typeof THAO_TAC_BUOC)[number];
-
-/**
- * Nguồn của một bước: `van_ban` (có điều khoản trong kho, phải ghi `can_cu`), `tai_lieu_nghiep_vu`
- * (tài liệu nghiệp vụ do đơn vị cung cấp, không có trong văn bản công khai), `chua_co_can_cu`
- * (chưa đối chiếu được, chờ đơn vị chuyên môn).
- */
-export const NGUON_BUOC = ["van_ban", "tai_lieu_nghiep_vu", "chua_co_can_cu"] as const;
-export type NguonBuoc = (typeof NGUON_BUOC)[number];
-
-/**
- * Phần trò chơi của một bước quy trình (GĐ-T4). Quy trình cũ không có phần này và không đổi. Trò
- * chơi biết cách chạy từng loại bước theo `ma`; dữ liệu quyết định thứ tự, bước nào bắt buộc và điều
- * kiện áp dụng.
- */
-export interface BuocCoThaoTac {
-  /** Loại bước, do trò chơi định nghĩa (ví dụ `hieu_lenh_dung`). */
-  ma: string;
-  thao_tac: ThaoTacBuoc;
-  bat_buoc: boolean;
-  /** Điều kiện áp dụng, do trò chơi định nghĩa (ví dụ `co_do_con`); null là luôn áp dụng. */
-  dieu_kien?: string | null;
-  nguon: NguonBuoc;
-}
-
 export interface BuocQuyTrinh {
   tieu_de: string;
   mo_ta: string;
   can_cu?: string | null;
-  /** Chỉ có ở quy trình dùng cho trò chơi; tra cứu nhanh không hiện phần này. */
-  tro_choi?: BuocCoThaoTac | null;
 }
 
 /** Một quy trình, đúng hình dạng trong data/tra-cuu/quy-trinh.json. */
@@ -293,35 +264,11 @@ export function kiemTraQuyTrinh(ds: QuyTrinh[]): LoiDuLieu[] {
     if (!q.tieu_de?.trim()) bao("Thiếu tiêu đề");
     if (!TRANG_THAI_TRA_CUU.includes(q.trang_thai)) bao(`Trạng thái không hợp lệ: ${q.trang_thai}`);
     if (!q.cac_buoc?.length) bao("Quy trình chưa có bước nào");
-    const maBuoc = new Set<string>();
     (q.cac_buoc ?? []).forEach((b, i) => {
       if (!b.tieu_de?.trim()) bao(`Bước ${i + 1} thiếu tiêu đề`);
       if (b.can_cu && !URN_DIEU_KHOAN.test(b.can_cu)) bao(`Bước ${i + 1} có căn cứ sai dạng: ${b.can_cu}`);
-      if (b.tro_choi != null) {
-        for (const s of kiemTraBuocCoThaoTac(b)) bao(`Bước ${i + 1}: ${s}`);
-        if (b.tro_choi.ma && maBuoc.has(b.tro_choi.ma))
-          bao(`Bước ${i + 1}: trùng loại bước "${b.tro_choi.ma}"`);
-        maBuoc.add(b.tro_choi.ma);
-      }
     });
   }
-  return loi;
-}
-
-/** Kiểm phần trò chơi của một bước quy trình. Trả danh sách lỗi; rỗng là hợp lệ. */
-export function kiemTraBuocCoThaoTac(b: BuocQuyTrinh): string[] {
-  const t = b.tro_choi;
-  if (!t || typeof t !== "object") return ["thiếu phần thao tác"];
-  const loi: string[] = [];
-  if (typeof t.ma !== "string" || !/^[a-z_]{3,40}$/.test(t.ma))
-    loi.push("loại bước phải là chữ thường không dấu");
-  if (!(THAO_TAC_BUOC as readonly string[]).includes(t.thao_tac))
-    loi.push(`thao tác không hợp lệ: ${t.thao_tac}`);
-  if (typeof t.bat_buoc !== "boolean") loi.push("thiếu cờ bắt buộc");
-  if (t.dieu_kien != null && (typeof t.dieu_kien !== "string" || !/^[a-z_]{3,40}$/.test(t.dieu_kien)))
-    loi.push("điều kiện phải là chữ thường không dấu hoặc để trống");
-  if (!(NGUON_BUOC as readonly string[]).includes(t.nguon)) loi.push(`nguồn không hợp lệ: ${t.nguon}`);
-  else if (t.nguon === "van_ban" && !b.can_cu) loi.push("bước lấy từ văn bản phải có căn cứ");
   return loi;
 }
 

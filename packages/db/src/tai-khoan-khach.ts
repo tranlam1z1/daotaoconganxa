@@ -3,47 +3,27 @@
  *
  * Tạo khách, đổi tên và kiểm token nằm ở @qdpl/auth (khach.ts); tệp này chỉ lo dữ liệu học.
  *
- * Gộp: bảng lịch sử (phiên, lượt chơi, sổ XP…) chỉ đổi `account_id`. Bảng có khóa theo người (tiến
- * độ màn, câu sai, XP theo ngày…) thì hợp hai dòng theo quy tắc riêng của từng bảng, ghi vào dòng
- * của tài khoản thật; dòng của khách bị xóa theo tài khoản khách (ON DELETE CASCADE).
- *
- * XP lúc làm khách giữ `unit_id` rỗng: đơn vị là đơn vị TẠI LÚC nhận XP (diem-thuong.ts), và lúc đó
- * khách chưa thuộc đơn vị nào, nên mùa giải đơn vị không được cộng bù.
+ * Gộp: bảng lịch sử (phiên luyện tập…) chỉ đổi `account_id`. Bảng có khóa theo người (câu sai, ngày
+ * học…) thì hợp hai dòng theo quy tắc riêng của từng bảng, ghi vào dòng của tài khoản thật; dòng
+ * của khách bị xóa theo tài khoản khách (ON DELETE CASCADE).
  *
  * GOP_TIEN_DO_BANG liệt kê mọi bảng có khóa ngoại tới `accounts` mà khách có thể có dữ liệu; test
  * so danh sách này với khóa ngoại thật trong CSDL để bảng mới thêm sau không bị quên.
  */
-import { ghiNgayHoc, type TrangThaiChuoi } from "@qdpl/dao-tao";
 import { sql, type Tx } from "./client.ts";
-import { xetHuyHieu } from "./diem-thuong.ts";
 
 /** Bảng có cột tham chiếu `accounts` được gộp ở gopTienDoKhach. */
 export const GOP_TIEN_DO_BANG = [
   "enrollments",
   "practice_sessions",
   "wrong_questions",
-  "xp_ledger",
   "daily_activity",
-  "streaks",
-  "account_badges",
-  "game_progress",
-  "game_scores",
   "audio_positions",
-  "game_packs",
-  "game_runs",
   "topic_stats",
-  "game_level_progress",
 ] as const;
 
 /** Số ngày khách không dùng phiên thì phiên hết tác dụng và tài khoản bị dọn. */
 export const KHACH_NGAY_KHONG_HOAT_DONG = 30;
-
-/** Ngày kiểu date của DB (Date nửa đêm UTC) về dạng YYYY-MM-DD. */
-function chuoiNgay(v: unknown): string | null {
-  if (!v) return null;
-  if (v instanceof Date) return v.toISOString().slice(0, 10);
-  return String(v).slice(0, 10);
-}
 
 /**
  * Chuyển toàn bộ tiến độ của khách `khachId` sang tài khoản `thatId`, trong giao dịch `tx` của người
@@ -52,15 +32,12 @@ function chuoiNgay(v: unknown): string | null {
 export async function gopTienDoKhach(tx: Tx, khachId: string, thatId: string): Promise<void> {
   // Bảng lịch sử: mỗi dòng là một sự kiện riêng, không trùng khóa theo người.
   await tx`UPDATE practice_sessions SET account_id = ${thatId} WHERE account_id = ${khachId}`;
-  await tx`UPDATE game_scores SET account_id = ${thatId} WHERE account_id = ${khachId}`;
-  await tx`UPDATE game_packs SET account_id = ${thatId} WHERE account_id = ${khachId}`;
-  await tx`UPDATE game_runs SET account_id = ${thatId} WHERE account_id = ${khachId}`;
-  await tx`UPDATE xp_ledger SET account_id = ${thatId} WHERE account_id = ${khachId}`;
 
+  // Ngày có học: mỗi ngày một dòng, giữ dòng của tài khoản thật nếu đã có.
   await tx`
     INSERT INTO daily_activity (account_id, day, xp)
     SELECT ${thatId}, day, xp FROM daily_activity WHERE account_id = ${khachId}
-    ON CONFLICT (account_id, day) DO UPDATE SET xp = daily_activity.xp + EXCLUDED.xp`;
+    ON CONFLICT (account_id, day) DO NOTHING`;
 
   // Câu sai: còn sai ở một bên là còn trong danh sách.
   await tx`
@@ -75,28 +52,6 @@ export async function gopTienDoKhach(tx: Tx, khachId: string, thatId: string): P
         WHEN wrong_questions.cleared_at IS NULL OR EXCLUDED.cleared_at IS NULL THEN NULL
         ELSE GREATEST(wrong_questions.cleared_at, EXCLUDED.cleared_at)
       END`;
-
-  // Tiến độ màn và hồ sơ chủ đề: giữ kết quả tốt hơn, cộng số lần. LEAST/GREATEST bỏ qua NULL.
-  await tx`
-    INSERT INTO game_progress (account_id, level_id, best_ratio, stars, completed_at, updated_at)
-    SELECT ${thatId}, level_id, best_ratio, stars, completed_at, updated_at
-    FROM game_progress WHERE account_id = ${khachId}
-    ON CONFLICT (account_id, level_id) DO UPDATE SET
-      best_ratio = GREATEST(game_progress.best_ratio, EXCLUDED.best_ratio),
-      stars = GREATEST(game_progress.stars, EXCLUDED.stars),
-      completed_at = LEAST(game_progress.completed_at, EXCLUDED.completed_at),
-      updated_at = GREATEST(game_progress.updated_at, EXCLUDED.updated_at)`;
-
-  await tx`
-    INSERT INTO game_level_progress (account_id, game_code, level, best_stars, best_score, plays, cleared_at, updated_at)
-    SELECT ${thatId}, game_code, level, best_stars, best_score, plays, cleared_at, updated_at
-    FROM game_level_progress WHERE account_id = ${khachId}
-    ON CONFLICT (account_id, game_code, level) DO UPDATE SET
-      best_stars = GREATEST(game_level_progress.best_stars, EXCLUDED.best_stars),
-      best_score = GREATEST(game_level_progress.best_score, EXCLUDED.best_score),
-      plays = game_level_progress.plays + EXCLUDED.plays,
-      cleared_at = LEAST(game_level_progress.cleared_at, EXCLUDED.cleared_at),
-      updated_at = GREATEST(game_level_progress.updated_at, EXCLUDED.updated_at)`;
 
   // Điểm trung bình trượt: lấy trung bình theo số lần làm của hai bên.
   await tx`
@@ -123,16 +78,6 @@ export async function gopTienDoKhach(tx: Tx, khachId: string, thatId: string): P
     WHERE EXCLUDED.updated_at > audio_positions.updated_at`;
 
   await gopGhiDanh(tx, khachId, thatId);
-
-  await tx`
-    INSERT INTO account_badges (account_id, badge_code, awarded_at)
-    SELECT ${thatId}, badge_code, awarded_at FROM account_badges WHERE account_id = ${khachId}
-    ON CONFLICT (account_id, badge_code) DO UPDATE SET
-      awarded_at = LEAST(account_badges.awarded_at, EXCLUDED.awarded_at)`;
-
-  const best = await tinhLaiChuoi(tx, khachId, thatId);
-  // Gộp số liệu có thể vừa đủ ngưỡng một huy hiệu mà riêng bên nào cũng chưa đạt.
-  await xetHuyHieu(tx, thatId, best);
 }
 
 /**
@@ -198,34 +143,6 @@ async function gopGhiDanh(tx: Tx, khachId: string, thatId: string): Promise<void
     await tx`UPDATE certificates SET enrollment_id = ${t} WHERE enrollment_id = ${g}`;
     await tx`UPDATE mascot_events SET enrollment_id = ${t} WHERE enrollment_id = ${g}`;
   }
-}
-
-/**
- * Chuỗi ngày học tính lại từ đầu trên các ngày học của cả hai (đã gộp vào daily_activity của tài
- * khoản thật), cùng luật với lúc ghi từng ngày. Trả chuỗi dài nhất để xét huy hiệu.
- */
-async function tinhLaiChuoi(tx: Tx, khachId: string, thatId: string): Promise<number> {
-  const cu = (await tx`
-    SELECT best FROM streaks WHERE account_id IN (${khachId}, ${thatId}) FOR UPDATE`) as unknown as {
-    best: number;
-  }[];
-  const ngay = (await tx`
-    SELECT day FROM daily_activity WHERE account_id = ${thatId} AND xp > 0 ORDER BY day`) as unknown as {
-    day: unknown;
-  }[];
-  if (!ngay.length) return Math.max(0, ...cu.map((r) => r.best));
-
-  let s: TrangThaiChuoi | null = null;
-  for (const r of ngay) s = ghiNgayHoc(s, chuoiNgay(r.day)!);
-  const sau = s!;
-  const best = Math.max(sau.best, ...cu.map((r) => r.best));
-  await tx`
-    INSERT INTO streaks (account_id, current, best, last_day, freezes_left, freeze_week, updated_at)
-    VALUES (${thatId}, ${sau.current}, ${best}, ${sau.last_day}, ${sau.freezes_left}, ${sau.freeze_week}, now())
-    ON CONFLICT (account_id) DO UPDATE SET
-      current = EXCLUDED.current, best = EXCLUDED.best, last_day = EXCLUDED.last_day,
-      freezes_left = EXCLUDED.freezes_left, freeze_week = EXCLUDED.freeze_week, updated_at = now()`;
-  return best;
 }
 
 /**

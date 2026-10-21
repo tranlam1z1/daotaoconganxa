@@ -59,7 +59,9 @@ export default function QuanTriVanBan({ loaderData }: Route.ComponentProps) {
             bản gốc. Thêm văn bản mới nhận tệp PDF có lớp chữ.
           </p>
         </div>
-        <ButtonLink to="/quan-tri/van-ban/moi">Thêm văn bản</ButtonLink>
+        <ButtonLink to="/quan-tri/van-ban/moi" icon="plus">
+          Thêm văn bản
+        </ButtonLink>
       </div>
 
       {daXoa ? <Notice className="mt-4">Đã xóa văn bản {daXoa}.</Notice> : null}

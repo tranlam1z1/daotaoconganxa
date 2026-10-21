@@ -12,26 +12,22 @@
 
 import type { Role } from "@qdpl/auth";
 import {
-  type BuocQuyTrinh,
   CHU_DE_MUC_PHAT,
   chuyenTrangThai,
   type HanhDongDuyet,
   hauQuaSua,
-  kiemTraBuocCoThaoTac,
   kiemTraLuatGiayTo,
   LOAI_QUA_TAI,
   LOAI_XE,
   LOAI_XE_TAI,
   laMaBienBao,
   maBienDungNhom,
-  NGUON_BUOC,
   NHOM_BIEN_BAO,
   NHOM_LUAT,
   type NhomBienBao,
   PHAN_LOAI_XE,
   TEN_NHOM_BIEN_BAO,
   THAO_TAC_BIEN_BAO,
-  THAO_TAC_BUOC,
   TRANG_THAI_DUYET,
   TRUONG_KHOP_XE,
   trangThaiTruoc,
@@ -51,7 +47,7 @@ import {
   type LoaiCoPhanLoai,
   type LoaiDuLieuTraCuu,
   type LoaiSoanDuoc,
-  lichSuDuyetNoiDung,
+  lichSuDuyetDuLieu,
   phanLoaiTaiLieu,
   sangTrangThaiChung,
   suaDuLieuTraCuu,
@@ -263,27 +259,10 @@ function quyTrinhSchema() {
           tieu_de: z.string().trim().min(2).max(300),
           mo_ta: z.string().trim().min(2).max(3000),
           can_cu: urn.nullish(),
-          // Phần trò chơi của bước (GĐ-T4); giữ nguyên khi sửa, kiểm bằng kiemTraBuocCoThaoTac.
-          tro_choi: z
-            .object({
-              ma: z.string().trim().max(40),
-              thao_tac: z.enum(THAO_TAC_BUOC),
-              bat_buoc: z.boolean(),
-              dieu_kien: z.string().trim().max(40).nullish(),
-              nguon: z.enum(NGUON_BUOC),
-            })
-            .nullish(),
         }),
       )
       .min(1)
-      .max(40)
-      .superRefine((ds, ctx) => {
-        ds.forEach((b, i) => {
-          if (b.tro_choi)
-            for (const loi of kiemTraBuocCoThaoTac(b as BuocQuyTrinh))
-              ctx.addIssue({ code: "custom", path: [i, "tro_choi"], message: `Bước ${i + 1}: ${loi}` });
-        });
-      }),
+      .max(40),
     note: ghiChu,
     topic_id: topic,
   });
@@ -657,7 +636,7 @@ duLieuTraCuuRoute.get("/:loai/:ma", async (c) => {
   return c.json({
     ...d,
     trang_thai: sangTrangThaiChung(d.status),
-    lich_su: await lichSuDuyetNoiDung(tenLichSuDuLieu(loai), d.code),
+    lich_su: await lichSuDuyetDuLieu(tenLichSuDuLieu(loai), d.code),
   });
 });
 

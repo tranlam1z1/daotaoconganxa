@@ -34,10 +34,10 @@ import {
   type TraLoiCauHoi,
   tinhDiemRubric,
   tongHopDiem,
-  xpLuotThi,
+
 } from "@qdpl/dao-tao";
 import { sql, type Tx } from "./client.ts";
-import { congXp } from "./diem-thuong.ts";
+import { ghiHoatDongHomNay } from "./hoat-dong.ts";
 import { LoiNghiepVu } from "./don-vi.ts";
 import { ghiKetQuaChuDe } from "./ho-so-chu-de.ts";
 import { nguCanhCanCu } from "./ngan-hang.ts";
@@ -539,14 +539,8 @@ export async function nopLuot(
       UPDATE exam_attempts SET status = 'da_nop', submitted_at = ${nopLuc},
         submit_kind = ${submitKind}, correct = ${kq.dung}, score = ${kq.diem}, passed = ${kq.dat}
       WHERE id = ${attemptId}`;
-    // XP nộp bài và thưởng đạt, trong cùng giao dịch (docs/PLAN.md GĐ9). Lượt đã nộp thì dừng ở trên.
-    await congXp(tx, {
-      accountId: luot.account_id,
-      nguon: "luot_thi",
-      nguonId: attemptId,
-      xp: xpLuotThi({ dat: kq.dat }),
-      luc: now,
-    });
+    // Ghi nhận hoạt động học, trong cùng giao dịch. Lượt đã nộp thì dừng ở trên.
+    await ghiHoatDongHomNay(tx, luot.account_id, now);
     return { choCham: false };
   })) as { choCham: boolean };
 }
@@ -709,13 +703,7 @@ export async function chotLuotNeuDu(attemptId: string, now: Date = new Date()): 
           luc: now,
         });
       }
-      await congXp(tx, {
-        accountId: luot.account_id,
-        nguon: "luot_thi",
-        nguonId: attemptId,
-        xp: xpLuotThi({ dat: kq.dat }),
-        luc: now,
-      });
+      await ghiHoatDongHomNay(tx, luot.account_id, now);
     }
     return true;
   })) as boolean;

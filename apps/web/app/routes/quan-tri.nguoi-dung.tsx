@@ -627,7 +627,11 @@ export default function QuanTriNguoiDung({ loaderData, actionData }: Route.Compo
               : "Tài khoản thuộc đơn vị của bạn và các đơn vị cấp dưới. Bấm một dòng để xem chi tiết."}
           </p>
         </div>
-        {laQuanTri ? <Button onClick={() => hop.mo("them")}>Thêm người dùng</Button> : null}
+        {laQuanTri ? (
+          <Button icon="plus" onClick={() => hop.mo("them")}>
+            Thêm người dùng
+          </Button>
+        ) : null}
       </div>
 
       {soChoXacMinh > 0 && params.get("xac_minh") !== "cho_duyet" ? (

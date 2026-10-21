@@ -2,10 +2,12 @@
 @import "./fonts.css";
 
 /*
- * Hệ thiết kế "Công báo" theo màu logo Khiên tri thức: nền giấy ấm, chữ mực, màu chính đỏ cờ,
- * vàng kim làm điểm nhấn (vạch đầu trang, sao, huy hiệu). Đỏ cờ đúng mã logo (#DA251D) là --seal;
- * --primary đậm hơn một chút để chữ đỏ đạt 4.5:1 trên mọi nền. Báo sai (--danger) dùng đỏ sẫm,
- * khác hẳn độ sáng của --primary, và luôn đi kèm nhãn chữ hoặc biểu tượng.
+ * Hệ thiết kế theo bộ nhận diện "Học tập pháp luật & Bồi dưỡng nghiệp vụ" (người dùng cung cấp):
+ * nền xanh
+ * nhạt #E8F2FF, màu chính xanh dương #0052CC (tin cậy), xanh lá #28A745 (học tập, phát triển),
+ * vàng #FFC107 (động lực, thành công). --primary dùng đúng #0052CC (chữ đạt 4.5:1 trên nền
+ * trắng); các sắc trạng thái dùng bản đậm hơn để chữ vẫn đọc được. Báo sai (--danger) dùng đỏ
+ * riêng, khác hẳn độ sáng của --primary, và luôn đi kèm nhãn chữ hoặc biểu tượng.
  * Mọi màu đi qua token dưới đây; thành phần KHÔNG viết mã màu trực tiếp.
  *
  * Chế độ tối điều khiển bằng data-theme trên <html> (lib/theme.ts), nên token tự đổi giá trị
@@ -14,8 +16,10 @@
 @custom-variant dark (&:where([data-theme="dark"], [data-theme="dark"] *));
 
 @theme inline {
-  --font-sans: "Be Vietnam Pro", system-ui, -apple-system, "Segoe UI", Roboto, "Noto Sans", sans-serif;
-  --font-serif: "Noto Serif", Georgia, "Times New Roman", serif;
+  --font-sans: "Inter", system-ui, -apple-system, "Segoe UI", Roboto, "Noto Sans", sans-serif;
+  /* Chữ hiển thị (tiêu đề, chữ nhấn): Poppins theo thương hiệu. Poppins không có bộ ký tự tiếng
+     Việt nên kèm "Be Vietnam Pro" làm dự phòng, không phụ thuộc font hệ thống. */
+  --font-display: "Poppins", "Be Vietnam Pro", system-ui, sans-serif;
 
   --color-canvas: var(--canvas);
   --color-surface: var(--surface);
@@ -70,92 +74,94 @@
 :root,
 [data-theme="light"] {
   color-scheme: light;
-  --canvas: #f7f5f0;
+  --canvas: #f3f7fd;
   --surface: #ffffff;
-  --surface-2: #f0ede5;
-  --ink: #1a1c22;
-  --ink-2: #434753;
-  --ink-3: #62666f;
-  --line: #e3ded3;
-  --line-strong: #cbc4b4;
-  --primary: #c8201a;
-  --primary-hover: #a91a14;
+  --surface-2: #e8f2ff;
+  --ink: #14243d;
+  --ink-2: #3c5170;
+  --ink-3: #64748b;
+  --line: #dbe6f5;
+  --line-strong: #b9cdea;
+  --primary: #0052cc;
+  --primary-hover: #00409e;
   --on-primary: #ffffff;
-  --primary-soft: #fcebe8;
-  --seal: #da251d;
+  --primary-soft: #e8f2ff;
+  --seal: #e03131;
 
-  --ok: #17623a;
-  --ok-soft: #e4f2e9;
-  --warn: #8a4a0b;
-  --warn-soft: #fbefd9;
-  --danger: #8e1b16;
-  --danger-soft: #f9e6df;
-  --info: #1d4d86;
-  --info-soft: #e3edf8;
-  --muted: #4a4f5b;
-  --muted-soft: #ece9e2;
+  --ok: #1b7f3b;
+  --ok-soft: #e4f6ea;
+  --warn: #8a5a00;
+  --warn-soft: #fdf3d8;
+  --danger: #c0272d;
+  --danger-soft: #fdeaea;
+  --info: #0b6bcb;
+  --info-soft: #e8f2ff;
+  --muted: #4a5a72;
+  --muted-soft: #eef3fa;
 
-  /* Phản hồi trỏ chuột (lớp the-bam, dong-bam): bóng thẻ đang nhấc, nền ngả đỏ rất nhạt. */
-  --bong-noi: 0 2px 4px rgb(20 22 30 / 0.05), 0 14px 28px -12px rgb(20 22 30 / 0.24);
+  /* Phản hồi trỏ chuột (lớp the-bam, dong-bam): bóng thẻ đang nhấc, nền ngả xanh rất nhạt. */
+  --bong-noi: 0 2px 4px rgb(16 32 64 / 0.05), 0 14px 28px -12px rgb(16 32 64 / 0.24);
   --nen-tro: color-mix(in srgb, var(--primary) 5%, var(--surface));
 
   /* Bộ biểu tượng (components/ui/Icon.tsx): hai sắc riêng và độ đậm lớp nền. --g-nhan,
-     --g-tren-nhan cùng giá trị với tro-choi.css, khai ở đây để biểu tượng ngoài khu trò chơi dùng. */
+     --g-tren-nhan cùng giá trị với tro-choi.css, khai ở đây để biểu tượng ngoài khu trò chơi dùng.
+     Màu biểu tượng theo thương hiệu: điều hướng xanh dương, thao tác xanh lá/đỏ/tím, trạng thái
+     xanh/vàng/đỏ/xám. */
   --tim: #6d3fc0;
   --ngoc: #0f766e;
-  --g-nhan: #f4c20d;
-  --g-tren-nhan: #1a1407;
+  --g-nhan: #ffc107;
+  --g-tren-nhan: #241a00;
   --ic-dam: 25%;
 
-  /* Băng chào trang chủ (.bang-chao): nền giấy ngả đỏ nhạt, quầng vàng kim. */
-  --chao-nen-1: #fffdf9;
-  --chao-nen-2: #faf3ea;
-  --chao-nen-3: #fbe9e4;
-  --chao-quang: rgb(244 194 13 / 0.16);
-  --chao-quang-2: rgb(218 37 29 / 0.07);
+  /* Băng chào trang chủ (.bang-chao): nền xanh nhạt, quầng xanh dương và vàng. */
+  --chao-nen-1: #ffffff;
+  --chao-nen-2: #f1f7ff;
+  --chao-nen-3: #e8f2ff;
+  --chao-quang: rgb(0 82 204 / 0.12);
+  --chao-quang-2: rgb(255 193 7 / 0.14);
 }
 
 [data-theme="dark"] {
   color-scheme: dark;
-  --canvas: #111317;
-  --surface: #181b21;
-  --surface-2: #20242c;
-  --ink: #edebe5;
-  --ink-2: #c4c2bb;
-  --ink-3: #9d9b94;
-  --line: #2b3039;
-  --line-strong: #3c424d;
-  --primary: #ff7a70;
-  --primary-hover: #ff958c;
-  --on-primary: #1a0b0a;
-  --primary-soft: #3a1a19;
-  --seal: #ff6b62;
+  --canvas: #0b1524;
+  --surface: #121e33;
+  --surface-2: #1a2942;
+  --ink: #e9f0fa;
+  --ink-2: #b7c6dc;
+  --ink-3: #8698b3;
+  --line: #22334f;
+  --line-strong: #33486b;
+  --primary: #6aa6ff;
+  --primary-hover: #8dbbff;
+  --on-primary: #06162e;
+  --primary-soft: #16294a;
+  --seal: #ff8787;
 
-  --ok: #8ee0ae;
-  --ok-soft: #13291c;
-  --warn: #f7cc85;
-  --warn-soft: #2f2410;
-  --danger: #fbbcb5;
-  --danger-soft: #35171a;
-  --info: #a2c6ff;
-  --info-soft: #152439;
-  --muted: #c4c2bb;
-  --muted-soft: #252a32;
+  --ok: #6ede9f;
+  --ok-soft: #10281c;
+  --warn: #ffd43b;
+  --warn-soft: #2e2410;
+  --danger: #ffa8a8;
+  --danger-soft: #341618;
+  --info: #91c2ff;
+  --info-soft: #14263d;
+  --muted: #b7c6dc;
+  --muted-soft: #1b2740;
 
   --bong-noi: 0 2px 4px rgb(0 0 0 / 0.3), 0 14px 28px -12px rgb(0 0 0 / 0.75);
   --nen-tro: color-mix(in srgb, var(--primary) 7%, var(--surface));
 
   --tim: #c4a8ff;
   --ngoc: #5eead4;
-  --g-nhan: #f7cf3d;
-  --g-tren-nhan: #1a1407;
+  --g-nhan: #ffc107;
+  --g-tren-nhan: #241a00;
   --ic-dam: 35%;
 
-  --chao-nen-1: #182033;
-  --chao-nen-2: #161b28;
-  --chao-nen-3: #1c1a29;
-  --chao-quang: rgb(255 255 255 / 0.08);
-  --chao-quang-2: rgb(218 37 29 / 0.1);
+  --chao-nen-1: #16233c;
+  --chao-nen-2: #121c30;
+  --chao-nen-3: #172a3a;
+  --chao-quang: rgb(106 166 255 / 0.12);
+  --chao-quang-2: rgb(255 193 7 / 0.1);
 }
 
 /*
@@ -343,11 +349,11 @@
     accent-color: var(--primary);
   }
 
-  /* Tiêu đề dùng cùng họ chữ sans với thân bài; serif chỉ còn ở logo và vùng văn bản pháp lý. */
+  /* Tiêu đề dùng họ chữ hiển thị của thương hiệu (Poppins); thân bài dùng Inter. */
   h1,
   h2,
   h3 {
-    font-family: var(--font-sans);
+    font-family: var(--font-display);
     line-height: 1.25;
     letter-spacing: -0.01em;
     text-wrap: balance;
@@ -397,7 +403,7 @@
     max-width: 70ch;
   }
   .prose-legal :is(h1, h2, h3) {
-    font-family: var(--font-serif);
+    font-family: var(--font-display);
   }
   .prose-legal p {
     margin: 0 0 0.7em;
@@ -890,16 +896,19 @@
  * Sắc khai trên chính thẻ <svg> nên theo token của vùng chứa (khu trò chơi đổi --primary thì biểu
  * tượng đổi theo). --ic-nen: sắc pha trong suốt (25% sáng, 35% tối); --ic-nhan: sắc pha 10% màu
  * chữ cho đậm hơn một chút; --ic-tren: màu nét trên ô tô đặc (kiểu "dac").
+ * Màu theo thương hiệu: điều hướng xanh dương #0052CC, thao tác xanh lá/đỏ/tím, trạng thái
+ * xanh/vàng/đỏ/xám. Ô tô đặc (--ic-o) dùng bản đậm hơn một chút (--ic-*-nen) để nét trắng trên
+ * đó vẫn đọc được.
  * Viết ngoài @layer để thắng lớp tiện ích text-* đặt trên chính <svg> ở kiểu "dac".
  */
 .ic {
   --ic-chinh: var(--primary);
-  --ic-vang: var(--g-nhan);
-  --ic-cam: var(--warn);
+  --ic-vang: #e0a800;
+  --ic-cam: #c2410c;
   --ic-do: var(--seal);
-  --ic-luc: var(--ok);
-  --ic-tim: var(--tim);
-  --ic-ngoc: var(--ngoc);
+  --ic-luc: #1e9e4a;
+  --ic-tim: #6d3fc0;
+  --ic-ngoc: #0d9488;
   --ic-trung: var(--ink-3);
   --ic-s: var(--ic-chinh);
   --ic-nen: color-mix(in srgb, var(--ic-s) var(--ic-dam), transparent);
@@ -931,6 +940,33 @@
 :is(.ic, .ic-nhan)[data-sac="trung"] {
   --ic-s: var(--ic-trung);
 }
+
+/* Màu nền ô tô đặc (kiểu "dac"): bản đậm hơn sắc để nét trắng trên đó đủ tương phản. */
+.ic[data-kieu="dac"] {
+  --ic-o-fill: var(--primary);
+}
+.ic[data-kieu="dac"][data-sac="vang"] {
+  --ic-o-fill: #c98500;
+}
+.ic[data-kieu="dac"][data-sac="cam"] {
+  --ic-o-fill: #b23c0a;
+}
+.ic[data-kieu="dac"][data-sac="do"] {
+  --ic-o-fill: #d92d2d;
+}
+.ic[data-kieu="dac"][data-sac="luc"] {
+  --ic-o-fill: #1b8f46;
+}
+.ic[data-kieu="dac"][data-sac="tim"] {
+  --ic-o-fill: #6d3fc0;
+}
+.ic[data-kieu="dac"][data-sac="ngoc"] {
+  --ic-o-fill: #0b8073;
+}
+.ic[data-kieu="dac"][data-sac="trung"] {
+  --ic-o-fill: #64748b;
+}
+
 .ic-nen {
   fill: var(--ic-nen);
 }
@@ -940,7 +976,7 @@
   stroke: var(--ic-nhan);
 }
 .ic-o {
-  fill: var(--ic-s);
+  fill: var(--ic-o-fill, var(--ic-s));
 }
 .ic-tren,
 .ic-tren .ic-nhan {

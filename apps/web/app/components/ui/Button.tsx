@@ -2,6 +2,7 @@ import type { ComponentProps } from "react";
 import { Link } from "react-router";
 
 import { cn } from "../../lib/cn";
+import { Icon, type IconName } from "./Icon";
 
 type Variant = "primary" | "secondary" | "ghost";
 type Size = "lg" | "md" | "sm";
@@ -10,6 +11,8 @@ interface ButtonStyle {
   variant?: Variant;
   size?: Size;
   className?: string;
+  /** Biểu tượng đặt trước chữ (mặc định lấy màu chữ của nút). */
+  icon?: IconName;
 }
 
 const VARIANT: Record<Variant, string> = {
@@ -38,21 +41,40 @@ export function buttonClass({ variant = "primary", size = "md", className }: But
   );
 }
 
+/** Biểu tượng đặt trước chữ nút; dùng chung kích thước cho mọi cỡ nút. */
+function BieuTuongNut({ name }: { name: IconName }) {
+  return <Icon name={name} kieu="net" className="size-5 shrink-0" />;
+}
+
 export function Button({
   variant,
   size,
   className,
+  icon,
   type = "button",
+  children,
   ...props
 }: ComponentProps<"button"> & ButtonStyle) {
-  return <button type={type} className={buttonClass({ variant, size, className })} {...props} />;
+  return (
+    <button type={type} className={buttonClass({ variant, size, className })} {...props}>
+      {icon ? <BieuTuongNut name={icon} /> : null}
+      {children}
+    </button>
+  );
 }
 
 export function ButtonLink({
   variant,
   size,
   className,
+  icon,
+  children,
   ...props
 }: ComponentProps<typeof Link> & ButtonStyle) {
-  return <Link className={buttonClass({ variant, size, className })} {...props} />;
+  return (
+    <Link className={buttonClass({ variant, size, className })} {...props}>
+      {icon ? <BieuTuongNut name={icon} /> : null}
+      {children}
+    </Link>
+  );
 }

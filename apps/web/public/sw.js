@@ -23,13 +23,13 @@ const TEP_CAI_DAT = [
   TRANG_DU_PHONG,
   "/manifest.webmanifest",
   // "?v=" khớp với manifest.webmanifest và root.tsx; đổi URL để máy đã cài lấy icon mới.
-  "/icons/icon-192.png?v=3",
-  "/icons/icon-512.png?v=3",
-  "/icons/maskable-512.png?v=3",
-  "/icons/apple-touch-icon.png?v=3",
+  "/icons/icon-192.png?v=4",
+  "/icons/icon-512.png?v=4",
+  "/icons/maskable-512.png?v=4",
+  "/icons/apple-touch-icon.png?v=4",
   // Biểu tượng thẻ trình duyệt (root.tsx): tải lại trang khi mất mạng vẫn có.
-  "/logo.svg?v=3",
-  "/icons/icon-48.png?v=3",
+  "/logo.svg?v=4",
+  "/icons/icon-48.png?v=4",
 ];
 
 self.addEventListener("install", (e) => {
@@ -155,8 +155,8 @@ self.addEventListener("push", (e) => {
   e.waitUntil(
     self.registration.showNotification(d.tieu_de || "Quy định Pháp luật", {
       body: d.noi_dung || "",
-      icon: "/icons/icon-192.png?v=3",
-      badge: "/icons/icon-192.png?v=3",
+      icon: "/icons/icon-192.png?v=4",
+      badge: "/icons/icon-192.png?v=4",
       // Cùng loại thì thông báo mới thay thông báo cũ, không chất đống trên màn hình khóa.
       tag: d.loai || "qdpl",
       data: { url: typeof d.url === "string" && d.url.startsWith("/") ? d.url : "/" },

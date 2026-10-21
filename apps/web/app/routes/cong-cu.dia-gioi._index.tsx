@@ -6,7 +6,7 @@ import { Link } from "react-router";
 
 import { NutLichSuDiaGioi, TheLuaChon } from "../components/dia-gioi/ChungDiaGioi";
 import { Icon } from "../components/ui/Icon";
-import { LogoKhien } from "../components/ui/LogoKhien";
+import { LogoHocTap } from "../components/ui/LogoHocTap";
 import { DUONG_DIA_GIOI } from "../lib/dia-gioi";
 import { pageMeta } from "../lib/site";
 import type { Route } from "./+types/cong-cu.dia-gioi._index";
@@ -55,7 +55,7 @@ export default function DiaGioiHanhChinh() {
         </Link>
       </p>
       <div className="text-center">
-        <LogoKhien className="mx-auto size-20 sm:size-24" />
+        <LogoHocTap className="mx-auto h-20 w-auto sm:h-24" />
         <h1 className="mt-3 text-2xl font-bold leading-tight sm:text-3xl">Chuyển đổi địa giới hành chính</h1>
         <p className="mx-auto mt-2 max-w-md text-base text-ink-2">
           Chọn cách tra cứu phù hợp để chuẩn hóa địa chỉ theo địa giới hành chính mới.

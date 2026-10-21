@@ -35,6 +35,13 @@ const LOA = "M3 10a1 1 0 0 1 1-1h3.5L12 5v14l-4.5-4H4a1 1 0 0 1-1-1Z";
 const DIEN_THOAI = "M9.5 3.5h5a2 2 0 0 1 2 2v13a2 2 0 0 1-2 2h-5a2 2 0 0 1-2-2v-13a2 2 0 0 1 2-2Z";
 const BANH = (x: number) => `M${x} 18.5a2 2 0 1 0 0-4 2 2 0 0 0 0 4Z`;
 const DEN = (y: number) => `M13 ${y}a1 1 0 1 1-2 0 1 1 0 0 1 2 0Z`;
+/** Khiên có dấu tick: dùng cho "Hiệu lực" và "Phân quyền" trong thương hiệu. */
+const KHIEN = {
+  net: "M12 3 5 6v5c0 4.5 3 8.5 7 10 4-1.5 7-5.5 7-10V6l-7-3Zm-3.5 9 2.5 2.5 4.5-4.5",
+  nen: "M12 3 5 6v5c0 4.5 3 8.5 7 10 4-1.5 7-5.5 7-10V6Z",
+  nhan: vach("M8.5 12l2.5 2.5 4.5-4.5"),
+  sac: "luc",
+} as const satisfies Hinh;
 
 const BO = {
   /* Điều hướng và thao tác chung */
@@ -286,12 +293,11 @@ const BO = {
     sac: "tim",
     sacNhan: "do",
   },
-  shield: {
-    net: "M12 3 5 6v5c0 4.5 3 8.5 7 10 4-1.5 7-5.5 7-10V6l-7-3Zm-3.5 9 2.5 2.5 4.5-4.5",
-    nen: "M12 3 5 6v5c0 4.5 3 8.5 7 10 4-1.5 7-5.5 7-10V6Z",
-    nhan: vach("M8.5 12l2.5 2.5 4.5-4.5"),
-    sac: "luc",
-  },
+  shield: KHIEN,
+  /** Hiệu lực văn bản: khiên xanh lá có tick (docs/brand). */
+  hieuLuc: KHIEN,
+  /** Phân quyền: khiên xanh lá có tick (docs/brand). */
+  phanQuyen: KHIEN,
   ban: { net: `${TRON}M5.6 5.6l12.8 12.8`, nen: TRON, sac: "do" },
   alert: { net: `${TRON}M12 7.5V13m0 3.5v.01`, nen: TRON, sac: "do" },
   info: { net: `${TRON}M12 11v5.5m0-9v.01`, nen: TRON, sac: "chinh" },
@@ -380,6 +386,227 @@ const BO = {
   },
   vibrate: { net: `${DIEN_THOAI}M4.5 8.5v7M2 10.5v3m17.5-5v7m2.5-5v3`, nen: DIEN_THOAI, sac: "tim" },
   vibrateOff: { net: `${DIEN_THOAI}M3.5 3.5l17 17`, nen: DIEN_THOAI, sac: "tim" },
+
+  /* ------------------------------------------------------------------ */
+  /* Bộ biểu tượng theo thương hiệu (docs/brand)                          */
+  /* Nhóm đúng như ảnh hướng dẫn: thao tác, học tập, văn bản pháp luật,   */
+  /* người dùng & đơn vị, trạng thái, loại tệp, giao diện.                 */
+  /* ------------------------------------------------------------------ */
+
+  /* Thao tác (nút bấm): thêm xanh dương, sửa xanh lá, xóa đỏ, tải xuống tím, tải lên ngọc. */
+  plus: {
+    net: "M12 5v14M5 12h14",
+    nen: "M11 5h2v6h6v2h-6v6h-2v-6H5v-2h6Z",
+    sac: "chinh",
+  },
+  pencil: {
+    net: "M4 20.5l1-4.5L16.4 4.6a2.12 2.12 0 0 1 3 3L8 19l-4 1.5ZM14.5 6.5l3 3",
+    nen: "M4.5 20.5l.6-2.8L17 5.8a1.6 1.6 0 0 1 2.2 0l.9.9a1.6 1.6 0 0 1 0 2.2L8.2 20.8Z",
+    nhan: "M16.9 4.1 19.9 7.1",
+    sac: "luc",
+  },
+  trash: {
+    net: "M4.5 7h15M9.5 7V5.5A1.5 1.5 0 0 1 11 4h2a1.5 1.5 0 0 1 1.5 1.5V7M6.5 7l1 12.5A1.5 1.5 0 0 0 9 21h6a1.5 1.5 0 0 0 1.5-1.5L17.5 7M10 11v6m4-6v6",
+    nen: "M7 7.5h10l-.8 12a1 1 0 0 1-1 .9H8.8a1 1 0 0 1-1-.9Z",
+    sac: "do",
+  },
+  download: {
+    net: "M12 3.5v11m-4-4 4 4 4-4M4.5 17v2a1.5 1.5 0 0 0 1.5 1.5h12a1.5 1.5 0 0 0 1.5-1.5v-2",
+    sac: "tim",
+  },
+  upload: {
+    net: "M12 15.5v-11m-4 4 4-4 4 4M4.5 17v2a1.5 1.5 0 0 0 1.5 1.5h12a1.5 1.5 0 0 0 1.5-1.5v-2",
+    sac: "ngoc",
+  },
+
+  /* Học tập & đào tạo. */
+  video: {
+    net: "M3.5 6.5h9A1.5 1.5 0 0 1 14 8v8a1.5 1.5 0 0 1-1.5 1.5h-9A1.5 1.5 0 0 1 2 16V8a1.5 1.5 0 0 1 1.5-1.5Zm11.5 3.8 4.6-3.1a.75.75 0 0 1 1.2.63v8.34a.75.75 0 0 1-1.2.63L15 13.7Z",
+    nen: "M3.5 6.5h9A1.5 1.5 0 0 1 14 8v8a1.5 1.5 0 0 1-1.5 1.5h-9A1.5 1.5 0 0 1 2 16V8a1.5 1.5 0 0 1 1.5-1.5Z",
+    nhan: "M8 9.5 11 12l-3 2.5Z",
+    sac: "chinh",
+  },
+  taiNghe: {
+    net: "M4 15.5V12a8 8 0 0 1 16 0v3.5M4 14.5h1.75A1.25 1.25 0 0 1 7 15.75v3A1.25 1.25 0 0 1 5.75 20H5a1 1 0 0 1-1-1Zm16 0h-1.75A1.25 1.25 0 0 0 17 15.75v3a1.25 1.25 0 0 0 1.25 1.25h.75a1 1 0 0 0 1-1Z",
+    nen: "M5 15h3a1 1 0 0 1 1 1v3a1 1 0 0 1-1 1H5a1 1 0 0 1-1-1Zm11 0h3a1 1 0 0 1 1 1v3a1 1 0 0 1-1 1h-3a1 1 0 0 1-1-1Z",
+    sac: "chinh",
+  },
+  /** Tài liệu: trang giấy gấp góc, không có dòng chữ. */
+  taiLieu: {
+    net: "M13.5 3H7a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V8.5Zm0 0V9h4.5",
+    nen: "M7 3h6.5l5 5v11a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2Z",
+    nhan: "M13.5 3v6h4.5Z",
+    sac: "chinh",
+    sacNhan: "vang",
+  },
+  /** Chứng chỉ: huy hiệu tròn có ruy băng. */
+  chungChi: {
+    net: "M12 3.5a5 5 0 1 1 0 10 5 5 0 0 1 0-10ZM9.6 13.4 8 21l4-2 4 2-1.6-7.6",
+    nen: "M12 3.5a5 5 0 1 1 0 10 5 5 0 0 1 0-10Z",
+    nhan: vach("M9.6 8.6l1.7 1.7 3.3-3.3"),
+    sac: "chinh",
+    sacNhan: "vang",
+  },
+
+  /* Văn bản pháp luật. */
+  vanBan: {
+    net: "M13.5 3H7a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V8.5Zm0 0V9h4.5M8 12.5h4.5M8 16h3",
+    nen: "M7 3h6.5l5 5v11a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2Z",
+    nhan: "M16.25 15.75a2.25 2.25 0 1 1 4.5 0 2.25 2.25 0 0 1-4.5 0Z",
+    sac: "chinh",
+    sacNhan: "vang",
+  },
+  /** Lưu trữ: thư mục. */
+  thuMuc: {
+    net: "M3.5 7.5A1.5 1.5 0 0 1 5 6h4l2 2.5h8a1.5 1.5 0 0 1 1.5 1.5v8A1.5 1.5 0 0 1 19 19.5H5A1.5 1.5 0 0 1 3.5 18Z",
+    nen: "M3.5 8.5A1.5 1.5 0 0 1 5 7h4l2 2.5h8a1.5 1.5 0 0 1 1.5 1.5v7A1.5 1.5 0 0 1 19 19.5H5A1.5 1.5 0 0 1 3.5 18Z",
+    sac: "chinh",
+  },
+  /** Liên kết: hai mắt xích. */
+  lienKet: {
+    net: "M10 13.5a3.5 3.5 0 0 0 5 0l2.5-2.5a3.54 3.54 0 0 0-5-5L11 7.5M14 10.5a3.5 3.5 0 0 0-5 0l-2.5 2.5a3.54 3.54 0 0 0 5 5l1.5-1.5",
+    sac: "chinh",
+  },
+  /** Cập nhật: vòng quay có mũi tên. */
+  capNhat: {
+    net: "M19.5 12a7.5 7.5 0 1 1-2.2-5.3M19.5 3v4.5H15",
+    nen: "M19.5 12a7.5 7.5 0 1 1-2.2-5.3l-.3 3.8",
+    sac: "luc",
+  },
+
+  /* Người dùng & đơn vị. */
+  /** Cá nhân: nhóm người. */
+  caNhan: {
+    net: "M8.5 12a3 3 0 1 0 0-6 3 3 0 0 0 0 6Zm-5.5 8a5.5 5.5 0 0 1 11 0M16 6.6a2.6 2.6 0 1 1 0 5.2M17.2 14.6a4.8 4.8 0 0 1 4.3 5.4",
+    nen: "M8.5 12a3 3 0 1 0 0-6 3 3 0 0 0 0 6Zm-5.5 8a5.5 5.5 0 0 1 11 0Z",
+    sac: "chinh",
+  },
+  /** Đơn vị: sơ đồ tổ chức. */
+  donVi: {
+    net: "M9 3.5h6v4H9ZM4.5 16.5h5v4h-5Zm10 0h5v4h-5ZM12 7.5v4.5M7 16.5v-2.5h10v2.5",
+    nen: "M9 3.5h6v4H9ZM4.5 16.5h5v4h-5Zm10 0h5v4h-5Z",
+    sac: "chinh",
+  },
+  /** Cài đặt: răng cưa. */
+  caiDat: {
+    net: "M12 8.75a3.25 3.25 0 1 0 0 6.5 3.25 3.25 0 0 0 0-6.5ZM12 2.5v3M12 18.5v3M2.5 12h3M18.5 12h3M5.2 5.2l2.1 2.1M16.7 16.7l2.1 2.1M18.8 5.2l-2.1 2.1M7.3 16.7l-2.1 2.1",
+    nen: "M12 8.75a3.25 3.25 0 1 0 0 6.5 3.25 3.25 0 0 0 0-6.5Z",
+    sac: "chinh",
+  },
+
+  /* Trạng thái. */
+  /** Đang học: mũi tên xuống vào khay. */
+  dangHoc: {
+    net: "M12 4v9.5m-3.5-3.5L12 13.5l3.5-3.5M5 15v2.5a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V15",
+    sac: "vang",
+  },
+  /** Tạm dừng: hai vạch trong vòng tròn. */
+  tamDung: {
+    net: `${TRON}M10 9.5v5m4-5v5`,
+    nen: TRON,
+    sac: "trung",
+  },
+  /** Hoàn thành: tick trong vòng tròn xanh. */
+  hoanThanh: {
+    net: `${TRON}M8 12.2l2.6 2.6L16 9.4`,
+    nen: TRON,
+    sac: "luc",
+  },
+  /** Chưa hoàn thành: chéo trong vòng tròn đỏ. */
+  chuaHoanThanh: {
+    net: `${TRON}M9 9l6 6m0-6-6 6`,
+    nen: TRON,
+    sac: "do",
+  },
+
+  /* Tính năng đặc thù. */
+  /** Mục tiêu học tập: hai vòng tròn đồng tâm. */
+  mucTieu: {
+    net: "M19 12a7 7 0 1 1-14 0 7 7 0 0 1 14 0ZM15.25 12a3.25 3.25 0 1 1-6.5 0 3.25 3.25 0 0 1 6.5 0Z",
+    nen: "M19 12a7 7 0 1 1-14 0 7 7 0 0 1 14 0Z",
+    nhan: "M12 12h.01",
+    sac: "chinh",
+  },
+  /** Trợ lý AI: con chip có chữ AI. */
+  ai: {
+    net: "M8 4.5h8a3 3 0 0 1 3 3v9a3 3 0 0 1-3 3H8a3 3 0 0 1-3-3v-9a3 3 0 0 1 3-3Zm-2 0V2.5m4 2V2.5m4 2V2.5m-8 19v2m4-2v2m4-2v2M4.5 8.5h-2m2 3.5h-2m2 3.5h-2m19-7h-2m2 3.5h-2m2 3.5h-2",
+    nen: "M8 4.5h8a3 3 0 0 1 3 3v9a3 3 0 0 1-3 3H8a3 3 0 0 1-3-3v-9a3 3 0 0 1 3-3Z",
+    nhan: "M8 14.5l2-4 2 4M8.8 13h2.4M14.5 10.5v4",
+    sac: "chinh",
+    sacNhan: "vang",
+  },
+  /** Bản đồ đơn vị: bản gấp có ghim. */
+  banDo: {
+    net: "M9 4 3 6.5V20l6-2.5 6 2.5 6-2.5V4l-6 2.5L9 4Zm0 0v13.5m6-11V20",
+    nen: "M9 4 3 6.5V20l6-2.5 6 2.5 6-2.5V4l-6 2.5L9 4Z",
+    nhan: "M17.5 4.8a2.6 2.6 0 0 1 2.6 2.6c0 2.3-2.6 5.1-2.6 5.1s-2.6-2.8-2.6-5.1a2.6 2.6 0 0 1 2.6-2.6Z",
+    sac: "luc",
+    sacNhan: "chinh",
+  },
+
+  /* Loại tệp: cùng khung trang giấy, khác dấu hiệu và màu. */
+  filePdf: {
+    net: "M13.5 3H7a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V8.5Zm0 0V9h4.5M8.5 13.5h7M8.5 16.5h4",
+    nen: "M7 3h6.5l5 5v11a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2Z",
+    nhan: "M13.5 3v6h4.5Z",
+    sac: "do",
+    sacNhan: "vang",
+  },
+  fileWord: {
+    net: "M13.5 3H7a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V8.5Zm0 0V9h4.5M8 12.5l1.6 4.5 1.4-3 1.4 3 1.6-4.5",
+    nen: "M7 3h6.5l5 5v11a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2Z",
+    nhan: "M13.5 3v6h4.5Z",
+    sac: "chinh",
+    sacNhan: "vang",
+  },
+  fileExcel: {
+    net: "M13.5 3H7a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V8.5Zm0 0V9h4.5M8.5 12.5h7M8.5 16.5h7M12 12.5v4",
+    nen: "M7 3h6.5l5 5v11a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2Z",
+    nhan: "M13.5 3v6h4.5Z",
+    sac: "luc",
+    sacNhan: "vang",
+  },
+  filePowerPoint: {
+    net: "M13.5 3H7a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V8.5Zm0 0V9h4.5M8.5 17.5v-5h2.5a2 2 0 0 1 0 4H8.5",
+    nen: "M7 3h6.5l5 5v11a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2Z",
+    nhan: "M13.5 3v6h4.5Z",
+    sac: "cam",
+    sacNhan: "vang",
+  },
+  /** Ảnh: trang giấy có khung cảnh. */
+  fileAnh: {
+    net: "M13.5 3H7a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V8.5Zm0 0V9h4.5M8 16.8l2.5-3.2 2 2.2 1.5-1.7 2 2.7",
+    nen: "M7 3h6.5l5 5v11a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2Z",
+    nhan: "M13.5 3v6h4.5Z",
+    sac: "ngoc",
+    sacNhan: "vang",
+  },
+
+  /* Giao diện (UI elements). */
+  /** Lọc: phễu. */
+  loc: {
+    net: "M3.5 5h17l-6.5 7.6V19l-4 2v-8.4Z",
+    nen: "M3.5 5.5h17l-6.5 7.6V19l-4 2Z",
+    sac: "chinh",
+  },
+  /** Dạng lưới: bốn ô vuông. */
+  luoi: {
+    net: "M4 4h6.5v6.5H4Zm9.5 0H20v6.5h-6.5ZM4 13.5h6.5V20H4Zm9.5 0H20v6.5h-6.5Z",
+    nen: "M4 4h6.5v6.5H4Zm9.5 0H20v6.5h-6.5ZM4 13.5h6.5V20H4Zm9.5 0H20v6.5h-6.5Z",
+    sac: "chinh",
+  },
+  /** Chia sẻ: ba nút nối. */
+  chiaSe: {
+    net: "M18 8.5a2.5 2.5 0 1 0 0-5 2.5 2.5 0 0 0 0 5ZM6 14.5a2.5 2.5 0 1 0 0-5 2.5 2.5 0 0 0 0 5Zm12 6.5a2.5 2.5 0 1 0 0-5 2.5 2.5 0 0 0 0 5ZM8.3 10.8l7.4-4M8.3 13.2l7.4 4",
+    nen: "M18 8.5a2.5 2.5 0 1 0 0-5 2.5 2.5 0 0 0 0 5ZM6 14.5a2.5 2.5 0 1 0 0-5 2.5 2.5 0 0 0 0 5Zm12 6.5a2.5 2.5 0 1 0 0-5 2.5 2.5 0 0 0 0 5Z",
+    sac: "chinh",
+  },
+  /** Yêu thích: trái tim. */
+  yeuThich: {
+    net: "M12 20.3s-7.6-4.7-7.6-9.7A4.4 4.4 0 0 1 12 7.7a4.4 4.4 0 0 1 7.6 2.9c0 5-7.6 9.7-7.6 9.7Z",
+    nen: "M12 20.3s-7.6-4.7-7.6-9.7A4.4 4.4 0 0 1 12 7.7a4.4 4.4 0 0 1 7.6 2.9c0 5-7.6 9.7-7.6 9.7Z",
+    sac: "do",
+  },
 } satisfies Record<string, Hinh>;
 
 export type IconName = keyof typeof BO;

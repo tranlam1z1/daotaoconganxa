@@ -1,86 +1,8 @@
 /**
- * Biển báo (docs/PLAN.md GĐ12): kiểm tra tệp dữ liệu, và game đoán biển báo: 4 phương án khác
- * nhau, cùng nhóm, đúng một đáp án đúng.
+ * Biển báo (docs/PLAN.md GĐ12): kiểm tra tệp dữ liệu biển báo.
  */
 import { describe, expect, test } from "bun:test";
-import {
-  type BienBao,
-  type BienBaoGame,
-  chamCauDoan,
-  chuoiTimBienBao,
-  deCauDoan,
-  kiemTraBienBao,
-  LoiDoanBienBao,
-  taoVanDoan,
-  xpTroChoi,
-} from "../src/index.ts";
-
-const bien = (ma: string, nhom: string): BienBaoGame => ({
-  ma,
-  nhom,
-  ten: `Tên ${ma}`,
-  y_nghia: "Ý nghĩa",
-  anh: `${ma}.svg`,
-  can_cu: "vn:x",
-});
-
-/** 6 biển cấm, 5 biển nguy hiểm, 2 biển phụ. */
-const DS: BienBaoGame[] = [
-  ...["P.101", "P.102", "P.103a", "P.123a", "P.130", "P.131a"].map((m) => bien(m, "cam")),
-  ...["W.201a", "W.202a", "W.208", "W.224", "W.225"].map((m) => bien(m, "nguy_hiem")),
-  ...["S.501", "S.502"].map((m) => bien(m, "phu")),
-];
-const theoMa = new Map(DS.map((b) => [b.ma, b]));
-
-describe("đoán biển báo", () => {
-  test("mỗi câu có 4 phương án khác nhau, cùng nhóm, đúng một đáp án đúng", () => {
-    for (const seed of ["a", "b", "c", "d"]) {
-      for (const cau of taoVanDoan(DS, seed)) {
-        expect(new Set(cau.phuong_an).size).toBe(4);
-        expect(cau.phuong_an.filter((m) => m === cau.ma)).toHaveLength(1);
-        const nhom = theoMa.get(cau.ma)!.nhom;
-        if (nhom !== "phu") {
-          // Nhóm đủ 4 biển trở lên thì mọi phương án cùng nhóm.
-          expect(cau.phuong_an.every((m) => theoMa.get(m)!.nhom === nhom)).toBe(true);
-        }
-      }
-    }
-  });
-
-  test("nhóm không đủ 4 biển thì bù phương án từ nhóm khác, vẫn 4 phương án khác nhau", () => {
-    const van = taoVanDoan(DS, "x", DS.length);
-    const cauPhu = van.find((c) => theoMa.get(c.ma)!.nhom === "phu")!;
-    expect(new Set(cauPhu.phuong_an).size).toBe(4);
-    expect(cauPhu.phuong_an.filter((m) => theoMa.get(m)!.nhom === "phu")).toHaveLength(2);
-  });
-
-  test("một ván 10 câu không lặp biển; cùng seed thì cùng ván", () => {
-    const van = taoVanDoan(DS, "seed");
-    expect(van).toHaveLength(10);
-    expect(new Set(van.map((c) => c.ma)).size).toBe(10);
-    expect(taoVanDoan([...DS].reverse(), "seed")).toEqual(van);
-  });
-
-  test("chấm theo phương án đã chọn; đề gửi đi không có mã biển", () => {
-    const [cau] = taoVanDoan(DS, "k");
-    const dungO = cau!.phuong_an.indexOf(cau!.ma);
-    expect(chamCauDoan(cau!, String(dungO))).toBe(true);
-    expect(chamCauDoan(cau!, String((dungO + 1) % 4))).toBe(false);
-    expect(chamCauDoan(cau!, "9")).toBe(false);
-    const de = deCauDoan(cau!, theoMa);
-    expect(de.phuong_an[dungO]!.text).toBe(theoMa.get(cau!.ma)!.ten);
-    expect(JSON.stringify(de)).not.toContain(`"${cau!.ma}"`);
-  });
-
-  test("ít hơn 4 biển đã duyệt thì báo thiếu dữ liệu", () => {
-    expect(() => taoVanDoan(DS.slice(0, 3), "s")).toThrow(LoiDoanBienBao);
-  });
-
-  test("XP: 1 mỗi câu đúng, thêm 5 khi đúng hết", () => {
-    expect(xpTroChoi("doan_bien_bao", { soDung: 10, tong: 10 })).toBe(15);
-    expect(xpTroChoi("doan_bien_bao", { soDung: 7, tong: 10 })).toBe(7);
-  });
-});
+import { type BienBao, chuoiTimBienBao, kiemTraBienBao } from "../src/index.ts";
 
 describe("kiểm tra tệp biển báo", () => {
   const hopLe: BienBao = {

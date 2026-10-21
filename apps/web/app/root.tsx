@@ -24,7 +24,7 @@ import { VungThongBaoNhanh } from "./components/ui/ThongBaoNhanh";
 import { nguoiDungHienTai } from "./lib/auth.server";
 import { cn } from "./lib/cn";
 import { urlTrang } from "./lib/session.server";
-import { coCotTrai, coThanhDuoi, SITE_NAME } from "./lib/site";
+import { coCotTrai, coThanhDuoi, SITE_NAME_SHORT } from "./lib/site";
 
 // Font tự lưu trong styles/fonts.css (docs/VISUAL_STYLE.md §2.4): tệp nằm trong bản build nên
 // service worker giữ được khi offline, không còn tải từ Google Fonts.
@@ -51,18 +51,18 @@ export function Layout({ children }: { children: React.ReactNode }) {
       <head>
         <meta charSet="utf-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
-        <meta name="theme-color" content="#c8201a" />
+        <meta name="theme-color" content="#0052CC" />
         {/* Cài lên màn hình chính (docs/PLAN.md GĐ13). */}
         <link rel="manifest" href="/manifest.webmanifest" />
-        <link rel="icon" type="image/svg+xml" href="/logo.svg?v=3" />
-        <link rel="icon" type="image/png" sizes="48x48" href="/icons/icon-48.png?v=3" />
+        <link rel="icon" type="image/svg+xml" href="/logo.svg?v=4" />
+        <link rel="icon" type="image/png" sizes="48x48" href="/icons/icon-48.png?v=4" />
         {/* Icon iPhone, iPad; "?v=" đổi mỗi lần sinh lại icon (scripts/pwa-icons.ts). */}
-        <link rel="apple-touch-icon" sizes="120x120" href="/icons/apple-touch-icon-120.png?v=3" />
-        <link rel="apple-touch-icon" sizes="152x152" href="/icons/apple-touch-icon-152.png?v=3" />
-        <link rel="apple-touch-icon" sizes="167x167" href="/icons/apple-touch-icon-167.png?v=3" />
-        <link rel="apple-touch-icon" sizes="180x180" href="/icons/apple-touch-icon.png?v=3" />
+        <link rel="apple-touch-icon" sizes="120x120" href="/icons/apple-touch-icon-120.png?v=4" />
+        <link rel="apple-touch-icon" sizes="152x152" href="/icons/apple-touch-icon-152.png?v=4" />
+        <link rel="apple-touch-icon" sizes="167x167" href="/icons/apple-touch-icon-167.png?v=4" />
+        <link rel="apple-touch-icon" sizes="180x180" href="/icons/apple-touch-icon.png?v=4" />
         <meta name="apple-mobile-web-app-capable" content="yes" />
-        <meta name="apple-mobile-web-app-title" content="Pháp luật" />
+        <meta name="apple-mobile-web-app-title" content="Học tập pháp luật" />
         <Meta />
         <Links />
       </head>
@@ -167,7 +167,7 @@ export function ErrorBoundary() {
   return (
     <main id="noi-dung-chinh" tabIndex={-1} className="wrap max-w-2xl py-20 focus:outline-none">
       {/* Trang lỗi không chạy meta() của route nên tự đặt tiêu đề; React đưa thẻ này lên <head>. */}
-      <title>{`${title} | ${SITE_NAME}`}</title>
+      <title>{`${title} | ${SITE_NAME_SHORT}`}</title>
       <p className="text-xs font-semibold uppercase tracking-[0.12em] text-seal">
         {isRouteErrorResponse(error) ? `Mã ${error.status}` : "Lỗi"}
       </p>

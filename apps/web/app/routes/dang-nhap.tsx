@@ -4,7 +4,7 @@ import { Form, Link, useNavigation, useSubmit } from "react-router";
 import { Button, ButtonLink } from "../components/ui/Button";
 import { Card } from "../components/ui/Card";
 import { Input, Label, Notice } from "../components/ui/Field";
-import { LogoKhien } from "../components/ui/LogoKhien";
+import { LogoHocTap } from "../components/ui/LogoHocTap";
 import { OCoIcon } from "../components/ui/OCoIcon";
 import {
   cauHinhDangNhap,
@@ -145,10 +145,14 @@ export default function DangNhap({ loaderData, actionData }: Route.ComponentProp
     <div className="wrap flex max-w-md flex-col items-center py-12">
       {/* Trang này không có thanh đầu trang: logo đứng trên, tên và dòng phụ căn giữa bên dưới. */}
       <Link to="/" className="flex flex-col items-center gap-3 text-center">
-        <LogoKhien className="size-20" />
+        <LogoHocTap className="h-20 w-auto" />
         <span className="flex flex-col gap-1">
-          <span className="font-serif text-2xl font-semibold leading-tight">{SITE_NAME}</span>
-          <span className="text-sm leading-tight text-ink-2">{SITE_TAGLINE}</span>
+          <span className="font-display text-xl font-bold uppercase leading-tight text-primary">
+            {SITE_NAME}
+          </span>
+          <span className="text-xs uppercase tracking-[0.14em] leading-tight text-ink-2">
+            {SITE_TAGLINE}
+          </span>
         </span>
       </Link>
 

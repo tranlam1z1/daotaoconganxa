@@ -1,0 +1,173 @@
+slug: uc-cntt-0004-chi-phi-van-hanh-sau-ban-giao
+title: Xác định chi phí quản trị, vận hành, bảo trì thuộc tổng mức đầu tư hay chi thường xuyên
+
+taxonomy_codes: [PD.03.003, PD.26.003, NB.CNTT.DTUD.QTVH, NB.CNTT.DTUD.TMDT]
+actor_kinds: [co_quan_nha_nuoc, don_vi_su_nghiep]
+work_kinds: [lap_ke_hoach_du_an, nghia_vu_tuan_thu]
+
+as_of: 2026-06-01
+effectivity_note: >-
+  Gán nhãn tại 01/6/2026. Từ 01/7/2026, quy định tương ứng nằm tại Điều 60 và điểm a khoản 2 Điều 49
+  Nghị định số 224/2026/NĐ-CP. Điểm mới: khoản 3 Điều 60 Nghị định số 224/2026/NĐ-CP cho phép chỉ
+  định thầu tổ chức, cá nhân đã cung cấp sản phẩm của dự án để thực hiện quản trị, vận hành, bảo trì.
+
+situation: |
+  Sở Z của tỉnh T đang lập báo cáo nghiên cứu khả thi cho một hệ thống thông tin chuyên ngành. Đơn vị
+  tư vấn đưa vào tổng mức đầu tư ba khoản: chi phí hỗ trợ vận hành trong 06 tháng trước khi nghiệm
+  thu bàn giao toàn bộ; chi phí thuê đơn vị vận hành hệ thống trong 03 năm đầu sau khi bàn giao; và
+  chi phí bảo trì phần mềm trong 03 năm đầu sau khi bàn giao. Phòng Tài chính của Sở phản đối, cho
+  rằng cả ba khoản đều không được đưa vào tổng mức đầu tư. Sở Z hỏi cách xử lý đúng.
+
+questions:
+  - Chi phí hỗ trợ vận hành trước khi nghiệm thu bàn giao có được tính vào tổng mức đầu tư không?
+  - Chi phí vận hành và bảo trì sau khi bàn giao lấy từ nguồn nào?
+  - Mốc phân định giữa hai loại chi phí này là gì?
+
+analysis:
+  - step: 1
+    claim: >-
+      Chi phí triển khai, hỗ trợ, quản trị, vận hành sản phẩm trước khi nghiệm thu bàn giao toàn bộ
+      sản phẩm của dự án là một nội dung của chi phí trang thiết bị, nằm trong tổng mức đầu tư.
+    citations:
+      - vn:vbqppl:nd:45/2026/NĐ-CP#dieu-16.khoan-2@2026-03-01
+    quote: >-
+      Chi phí triển khai, hỗ trợ, quản trị, vận hành sản phẩm hoặc hạng mục công việc của dự án trước
+      khi nghiệm thu bàn giao toàn bộ sản phẩm của dự án (nếu có).
+    reasoning: >-
+      Điểm a khoản 2 Điều 16 liệt kê khoản mục này trong chi phí trang thiết bị. Đây là khoản mục mà
+      nhiều hồ sơ bỏ sót, dẫn tới thiếu kinh phí cho giai đoạn chạy thử trước nghiệm thu. Vì vậy khoản
+      thứ nhất mà đơn vị tư vấn đề xuất là **đúng** và được giữ lại.
+
+  - step: 2
+    claim: >-
+      Chi phí quản trị, vận hành, bảo trì sau khi bàn giao là nhiệm vụ đặc thù, được bảo đảm từ nguồn
+      kinh phí chi thường xuyên ngân sách nhà nước, không nằm trong tổng mức đầu tư.
+    citations:
+      - vn:vbqppl:nd:45/2026/NĐ-CP#dieu-27.khoan-3@2026-03-01
+    quote: >-
+      Quản trị, vận hành và bảo trì … là nhiệm vụ đặc thù và được bảo đảm từ nguồn kinh phí chi thường
+      xuyên ngân sách nhà nước.
+    reasoning: >-
+      Khoản 3 Điều 27 xác định rõ nguồn kinh phí. Do đó khoản thứ hai và khoản thứ ba mà đơn vị tư vấn
+      đề xuất là **sai** và phải loại khỏi tổng mức đầu tư; Phòng Tài chính đúng ở hai khoản này.
+
+  - step: 3
+    claim: >-
+      Mốc phân định giữa hai loại chi phí là thời điểm nghiệm thu bàn giao toàn bộ sản phẩm của dự án.
+    citations:
+      - vn:vbqppl:nd:45/2026/NĐ-CP#dieu-16.khoan-2@2026-03-01
+      - vn:vbqppl:nd:45/2026/NĐ-CP#dieu-27.khoan-3@2026-03-01
+      - vn:vbqppl:nd:45/2026/NĐ-CP#dieu-24@2026-03-01
+    quote: >-
+      … trước khi nghiệm thu bàn giao toàn bộ sản phẩm của dự án (nếu có).
+    reasoning: >-
+      Cụm "trước khi nghiệm thu bàn giao toàn bộ sản phẩm của dự án" trong điểm a khoản 2 Điều 16 đặt
+      ra ranh giới thời gian rõ ràng. Trước mốc đó là chi phí đầu tư; từ mốc đó trở đi là chi thường
+      xuyên theo khoản 3 Điều 27. Việc nghiệm thu, bàn giao thực hiện theo Điều 24.
+
+  - step: 4
+    claim: >-
+      Bảo hành khác với bảo trì; nghĩa vụ bảo hành thuộc về nhà thầu và được bảo đảm bằng tiền bảo
+      hành, không phải khoản chi vận hành của chủ đầu tư.
+    citations:
+      - vn:vbqppl:nd:45/2026/NĐ-CP#dieu-26.khoan-1@2026-03-01
+      - vn:vbqppl:nd:45/2026/NĐ-CP#dieu-26.khoan-2@2026-03-01
+    quote: >-
+      Thời hạn bảo hành tối thiểu 24 tháng đối với dự án quan trọng quốc gia, dự án nhóm A; 12 tháng
+      đối với dự án nhóm B, nhóm C.
+    reasoning: >-
+      Trong thời hạn bảo hành, nhà thầu chịu trách nhiệm sửa lỗi thuộc phạm vi bảo hành và được bảo
+      đảm bằng thư bảo lãnh ngân hàng hoặc hình thức khác theo khoản 2 Điều 26. Vì vậy dự toán chi
+      thường xuyên cho bảo trì trong thời hạn bảo hành cần trừ phần thuộc nghĩa vụ bảo hành, tránh
+      trả tiền hai lần cho cùng một việc.
+
+conclusion: |
+  Cả Sở Z và Phòng Tài chính đều đúng một phần.
+
+  **Được giữ trong tổng mức đầu tư**: chi phí hỗ trợ vận hành 06 tháng **trước khi nghiệm thu bàn
+  giao toàn bộ**, vì đây là khoản mục được liệt kê tại điểm a khoản 2 Điều 16.
+
+  **Phải loại khỏi tổng mức đầu tư**: chi phí thuê đơn vị vận hành 03 năm và chi phí bảo trì 03 năm
+  sau khi bàn giao. Hai khoản này là nhiệm vụ đặc thù, bảo đảm từ kinh phí chi thường xuyên (khoản 3
+  Điều 27), phải lập dự toán chi thường xuyên hằng năm riêng.
+
+  **Mốc phân định** là thời điểm nghiệm thu bàn giao toàn bộ sản phẩm của dự án.
+
+  **Lưu ý về bảo hành**: dự án nhóm C có thời hạn bảo hành tối thiểu 12 tháng với mức tiền bảo hành
+  tối thiểu 05% giá trị sản phẩm (điểm b khoản 1 và điểm b khoản 2 Điều 26). Trong 12 tháng đó, phần
+  sửa lỗi thuộc phạm vi bảo hành do nhà thầu chịu, nên dự toán chi thường xuyên năm đầu cần loại phần
+  này để tránh chi trùng.
+
+procedure:
+  - order: 1
+    step: Rà từng khoản chi trong dự thảo tổng mức đầu tư, xác định khoản nào phát sinh trước và khoản nào phát sinh sau mốc nghiệm thu bàn giao
+    authority: Chủ đầu tư phối hợp đơn vị tư vấn và bộ phận tài chính
+    timeline: Trong quá trình lập báo cáo nghiên cứu khả thi
+    inputs: [Dự thảo tổng mức đầu tư, Kế hoạch tiến độ]
+    outputs: [Bảng phân loại chi phí theo mốc nghiệm thu bàn giao]
+    citations:
+      - vn:vbqppl:nd:45/2026/NĐ-CP#dieu-16.khoan-2@2026-03-01
+      - vn:vbqppl:nd:45/2026/NĐ-CP#dieu-27.khoan-3@2026-03-01
+    templates: []
+    needs_citation: false
+  - order: 2
+    step: Loại các khoản phát sinh sau mốc ra khỏi tổng mức đầu tư và chuyển sang kế hoạch dự toán chi thường xuyên
+    authority: Chủ đầu tư
+    timeline: Trước khi trình thẩm định dự án
+    inputs: [Bảng phân loại chi phí]
+    outputs: [Tổng mức đầu tư đã chỉnh, Dự kiến dự toán chi thường xuyên hằng năm]
+    citations: [vn:vbqppl:nd:45/2026/NĐ-CP#dieu-27.khoan-3@2026-03-01]
+    templates: []
+    needs_citation: false
+  - order: 3
+    step: >-
+      Lập phương án quản trị, vận hành, bảo trì và nguồn kinh phí bảo đảm, đưa vào báo cáo nghiên cứu
+      khả thi để chứng minh tính bền vững sau khi kết thúc dự án
+    authority: Chủ đầu tư
+    timeline: Trong báo cáo nghiên cứu khả thi
+    inputs: [Yêu cầu kỹ thuật của hệ thống, Nhân lực hiện có]
+    outputs: [Phương án quản trị, vận hành, bảo trì]
+    citations: [vn:vbqppl:nd:45/2026/NĐ-CP#dieu-27@2026-03-01]
+    templates: [asset://bcnckt]
+    needs_citation: false
+  - order: 4
+    step: Bố trí dự toán chi thường xuyên cho năm đầu tiên sau bàn giao, trừ phần thuộc nghĩa vụ bảo hành của nhà thầu
+    authority: Chủ đầu tư và cơ quan tài chính
+    timeline: Theo chu trình lập dự toán ngân sách hằng năm
+    inputs: [Phương án quản trị, vận hành, bảo trì; Điều khoản bảo hành trong hợp đồng]
+    outputs: [Dự toán chi thường xuyên được giao]
+    citations:
+      - vn:vbqppl:nd:45/2026/NĐ-CP#dieu-27.khoan-3@2026-03-01
+      - vn:vbqppl:nd:45/2026/NĐ-CP#dieu-26.khoan-1@2026-03-01
+    templates: []
+    needs_citation: false
+
+risks:
+  - risk: Đưa chi phí vận hành sau bàn giao vào tổng mức đầu tư
+    consequence: Bị loại ở bước thẩm định; nếu lọt qua thì bị xuất toán khi quyết toán hoặc kiểm toán
+    mitigation: Áp dụng mốc nghiệm thu bàn giao toàn bộ làm ranh giới, rà từng khoản chi
+    citations: [vn:vbqppl:nd:45/2026/NĐ-CP#dieu-27.khoan-3@2026-03-01]
+  - risk: Bỏ sót khoản chi phí triển khai, hỗ trợ, vận hành trước khi nghiệm thu bàn giao
+    consequence: Thiếu kinh phí cho giai đoạn chạy thử; nhà thầu không có nghĩa vụ hỗ trợ, hệ thống chậm đưa vào sử dụng
+    mitigation: Đưa khoản mục này vào ngay từ dự thảo tổng mức đầu tư, ước lượng theo độ dài giai đoạn vận hành thử
+    citations: [vn:vbqppl:nd:45/2026/NĐ-CP#dieu-16.khoan-2@2026-03-01]
+  - risk: Không bố trí được kinh phí chi thường xuyên cho vận hành sau khi bàn giao
+    consequence: Hệ thống xuống cấp, dừng hoạt động sau vài tháng, lãng phí toàn bộ vốn đầu tư
+    mitigation: Cam kết bố trí kinh phí ngay trong báo cáo nghiên cứu khả thi và trong quyết định đầu tư
+    citations: [vn:vbqppl:nd:45/2026/NĐ-CP#dieu-27.khoan-3@2026-03-01]
+  - risk: Chi trùng giữa bảo trì theo hợp đồng dịch vụ và bảo hành theo nghĩa vụ của nhà thầu
+    consequence: Chi sai, bị xuất toán phần chi trùng
+    mitigation: Xác định rõ ranh giới phạm vi bảo hành trong hợp đồng; dự toán bảo trì năm đầu trừ phần thuộc bảo hành
+    citations: [vn:vbqppl:nd:45/2026/NĐ-CP#dieu-26@2026-03-01]
+
+related_questions:
+  - Tổng mức đầu tư gồm những khoản mục nào?
+  - Thời hạn và mức tiền bảo hành là bao nhiêu?
+  - Có được chỉ định thầu đơn vị đã triển khai để vận hành hệ thống không?
+
+gaps: []
+status: draft
+citation_health: ok
+author: Tổ biên soạn nội dung quydinhphapluat.vn
+legal_reviewer: null
+reviewed_at: null

@@ -1,0 +1,110 @@
+# Ứng dụng `qdpl` ở cấu hình tiết kiệm nhất trên DigitalOcean App Platform: MỘT thành phần,
+# gói $5/tháng (apps-s-1vcpu-0.5gb, 512 MiB). Đây là cấu hình đang chạy thật.
+#
+# Khác .do/app.yaml (cấu hình đầy đủ, cùng tên app `qdpl`, dùng một trong hai) ở chỗ web và api
+# chạy chung một container: api nghe 127.0.0.1:3031 (không ra Internet), web nghe cổng 8080 do
+# nền tảng đặt và gọi api qua loopback. Không có worker, không có việc migrate (lược đồ CSDL do
+# máy vận hành migrate), không có MCP. Đo thực tế: api ~100 MB + web ~125 MB.
+#
+# Tạo bằng doctl: chép tệp này ra ngoài kho, thay DIEN_O_BANG_DIEU_KHIEN bằng giá trị thật, rồi
+#   doctl apps create --spec - < duong-dan/app-gon.yaml
+# (doctl cài qua snap không đọc được /tmp, nên truyền đặc tả qua stdin.)
+name: qdpl
+region: sgp
+
+services:
+  - name: web
+    github:
+      repo: KHCN-Thanh-Hoa/qdpl
+      branch: main
+      deploy_on_push: true
+    source_dir: /
+    # Phải tự `bun install`: từ lần build thứ hai buildpack khôi phục node_modules từ bộ đệm và bỏ qua
+    # bước cài, bộ đệm đó thiếu lối tắt bin của workspace nên `react-router: command not found`.
+    build_command: bun install --frozen-lockfile && bun run build:web
+    # `&` chạy api nền; `exec` để web là tiến trình chính nhận tín hiệu dừng của nền tảng.
+    # HOST chỉ gán cho api: react-router-serve cũng đọc HOST, gán chung thì web chỉ nghe loopback.
+    run_command: "HOST=127.0.0.1 API_PORT=3031 bun run start:api & exec bun run start:web"
+    http_port: 8080
+    instance_size_slug: apps-s-1vcpu-0.5gb
+    instance_count: 1
+    routes:
+      - path: /
+    health_check:
+      http_path: /
+      initial_delay_seconds: 30
+      period_seconds: 15
+      timeout_seconds: 10
+      failure_threshold: 6
+    # Mọi biến để RUN_TIME: NODE_ENV=production lúc build có thể khiến bun bỏ devDependencies
+    # (vite, react-router dev) mà bước build web cần.
+    envs:
+      - key: NODE_ENV
+        scope: RUN_TIME
+        value: production
+      - key: PG_POOL_MAX
+        scope: RUN_TIME
+        value: "3"
+      - key: API_URL
+        scope: RUN_TIME
+        value: http://127.0.0.1:3031
+      - key: LLM_PROVIDER
+        scope: RUN_TIME
+        value: auto
+      - key: LLM_MODEL_BULK
+        scope: RUN_TIME
+        value: claude-sonnet-5
+      - key: LLM_MODEL_HEAVY
+        scope: RUN_TIME
+        value: claude-opus-5
+      - key: LLM_MODEL_LIGHT
+        scope: RUN_TIME
+        value: claude-haiku-4-5
+      - key: EMBEDDING_PROVIDER
+        scope: RUN_TIME
+        value: local
+      - key: EMBEDDING_DIM
+        scope: RUN_TIME
+        value: "1024"
+      - key: GOOGLE_CLIENT_ID
+        scope: RUN_TIME
+        value: DIEN_O_BANG_DIEU_KHIEN
+      - key: AUTH_ALLOWED_DOMAINS
+        scope: RUN_TIME
+        value: ""
+      - key: AUTH_DEFAULT_ROLE
+        scope: RUN_TIME
+        value: khach
+      # Ứng dụng công khai: không để người lạ đăng nhập đầu tiên thành quản trị.
+      - key: AUTH_BOOTSTRAP_ADMIN
+        scope: RUN_TIME
+        value: "0"
+      - key: STORAGE_BACKEND
+        scope: RUN_TIME
+        value: r2
+      - key: R2_BUCKET
+        scope: RUN_TIME
+        value: DIEN_O_BANG_DIEU_KHIEN
+      - key: R2_PUBLIC_URL
+        scope: RUN_TIME
+        value: DIEN_O_BANG_DIEU_KHIEN
+      - key: DATABASE_URL
+        scope: RUN_TIME
+        type: SECRET
+        value: DIEN_O_BANG_DIEU_KHIEN
+      - key: REDIS_URL
+        scope: RUN_TIME
+        type: SECRET
+        value: DIEN_O_BANG_DIEU_KHIEN
+      - key: R2_ACCOUNT_ID
+        scope: RUN_TIME
+        type: SECRET
+        value: DIEN_O_BANG_DIEU_KHIEN
+      - key: R2_ACCESS_KEY_ID
+        scope: RUN_TIME
+        type: SECRET
+        value: DIEN_O_BANG_DIEU_KHIEN
+      - key: R2_SECRET_ACCESS_KEY
+        scope: RUN_TIME
+        type: SECRET
+        value: DIEN_O_BANG_DIEU_KHIEN

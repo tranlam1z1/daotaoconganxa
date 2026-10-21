@@ -1,0 +1,1240 @@
+{
+  "mo_ta": "Xe tải mẫu trò Trạm cân tải trọng (docs/PLAN.md GĐ-T12). Nạp vào chờ duyệt: bun run packages/db/src/seed-tro-choi.ts",
+  "luu_y_bien_tap": [
+    "DỮ LIỆU DEMO, CHƯA DUYỆT. Biển số, số phiếu, số giấy, tuyến đường đều giả định; nếu trùng xe thật là ngẫu nhiên.",
+    "Xe chỉ có dữ kiện. Dấu đúng, cặp số quyết định, phần trăm vượt suy ra lúc chơi từ giới hạn tải trọng (data/tra-cuu/tai-trong.json) và khung phần trăm quá tải (data/tra-cuu/muc-phat.json) đã duyệt; hai tệp này là số minh họa. y_do ghi ý đồ theo số minh họa hiện có, ngưỡng đổi thì đáp án đổi theo."
+  ],
+  "xe": [
+    {
+      "ma": "TC-01",
+      "tieu_de": "[Demo] TC-01 · Màn 1 · 29C-111.01",
+      "muc": 1,
+      "y_do": "Dưới giới hạn khoảng 5%.",
+      "xe": {
+        "loai_xe": "xe_tai_2_truc",
+        "bien_so": "29C-111.01",
+        "tuyen_dang_di": "Quốc lộ giả định 1, km 10 – km 80",
+        "nhom_truc": [
+          {
+            "loai": "don"
+          },
+          {
+            "loai": "don"
+          }
+        ],
+        "phieu_can": {
+          "so": "PC-1001",
+          "ngay_can": "2026-09-15",
+          "tong_kg": 9650,
+          "truc_kg": [
+            3400,
+            6250
+          ]
+        },
+        "giay_kiem_dinh": {
+          "so": "KD-5001",
+          "bien_so": "29C-111.01",
+          "tu_trong_kg": 4000,
+          "hang_cho_phep_kg": 6000,
+          "toan_bo_cho_phep_kg": 10150,
+          "co_gia_tri_den": "2027-06-30"
+        },
+        "giay_phep_luu_hanh": null
+      }
+    },
+    {
+      "ma": "TC-02",
+      "tieu_de": "[Demo] TC-02 · Màn 1 · 29C-111.02",
+      "muc": 1,
+      "y_do": "Đúng bằng giới hạn: không vượt.",
+      "xe": {
+        "loai_xe": "xe_tai_2_truc",
+        "bien_so": "29C-111.02",
+        "tuyen_dang_di": "Quốc lộ giả định 1, km 10 – km 80",
+        "nhom_truc": [
+          {
+            "loai": "don"
+          },
+          {
+            "loai": "don"
+          }
+        ],
+        "phieu_can": {
+          "so": "PC-1002",
+          "ngay_can": "2026-09-15",
+          "tong_kg": 10150,
+          "truc_kg": [
+            3550,
+            6600
+          ]
+        },
+        "giay_kiem_dinh": {
+          "so": "KD-5002",
+          "bien_so": "29C-111.02",
+          "tu_trong_kg": 4000,
+          "hang_cho_phep_kg": 6000,
+          "toan_bo_cho_phep_kg": 10150,
+          "co_gia_tri_den": "2027-06-30"
+        },
+        "giay_phep_luu_hanh": null
+      }
+    },
+    {
+      "ma": "TC-03",
+      "tieu_de": "[Demo] TC-03 · Màn 1 · 29C-111.03",
+      "muc": 1,
+      "y_do": "Vượt khoảng 6%: hạ tải.",
+      "xe": {
+        "loai_xe": "xe_tai_2_truc",
+        "bien_so": "29C-111.03",
+        "tuyen_dang_di": "Quốc lộ giả định 1, km 10 – km 80",
+        "nhom_truc": [
+          {
+            "loai": "don"
+          },
+          {
+            "loai": "don"
+          }
+        ],
+        "phieu_can": {
+          "so": "PC-1003",
+          "ngay_can": "2026-09-15",
+          "tong_kg": 10760,
+          "truc_kg": [
+            3760,
+            7000
+          ]
+        },
+        "giay_kiem_dinh": {
+          "so": "KD-5003",
+          "bien_so": "29C-111.03",
+          "tu_trong_kg": 4000,
+          "hang_cho_phep_kg": 6000,
+          "toan_bo_cho_phep_kg": 10150,
+          "co_gia_tri_den": "2027-06-30"
+        },
+        "giay_phep_luu_hanh": null
+      }
+    },
+    {
+      "ma": "TC-04",
+      "tieu_de": "[Demo] TC-04 · Màn 1 · 29C-111.04",
+      "muc": 1,
+      "y_do": "Vượt đúng 10%: còn hạ tải (khung phạt từ trên 10%).",
+      "xe": {
+        "loai_xe": "xe_tai_2_truc",
+        "bien_so": "29C-111.04",
+        "tuyen_dang_di": "Quốc lộ giả định 1, km 10 – km 80",
+        "nhom_truc": [
+          {
+            "loai": "don"
+          },
+          {
+            "loai": "don"
+          }
+        ],
+        "phieu_can": {
+          "so": "PC-1004",
+          "ngay_can": "2026-09-15",
+          "tong_kg": 11165,
+          "truc_kg": [
+            3900,
+            7265
+          ]
+        },
+        "giay_kiem_dinh": {
+          "so": "KD-5004",
+          "bien_so": "29C-111.04",
+          "tu_trong_kg": 4000,
+          "hang_cho_phep_kg": 6000,
+          "toan_bo_cho_phep_kg": 10150,
+          "co_gia_tri_den": "2027-06-30"
+        },
+        "giay_phep_luu_hanh": null
+      }
+    },
+    {
+      "ma": "TC-05",
+      "tieu_de": "[Demo] TC-05 · Màn 1 · 29C-111.05",
+      "muc": 1,
+      "y_do": "Vượt khoảng 25%: lập biên bản.",
+      "xe": {
+        "loai_xe": "xe_tai_2_truc",
+        "bien_so": "29C-111.05",
+        "tuyen_dang_di": "Quốc lộ giả định 1, km 10 – km 80",
+        "nhom_truc": [
+          {
+            "loai": "don"
+          },
+          {
+            "loai": "don"
+          }
+        ],
+        "phieu_can": {
+          "so": "PC-1005",
+          "ngay_can": "2026-09-15",
+          "tong_kg": 12690,
+          "truc_kg": [
+            4400,
+            8290
+          ]
+        },
+        "giay_kiem_dinh": {
+          "so": "KD-5005",
+          "bien_so": "29C-111.05",
+          "tu_trong_kg": 4000,
+          "hang_cho_phep_kg": 6000,
+          "toan_bo_cho_phep_kg": 10150,
+          "co_gia_tri_den": "2027-06-30"
+        },
+        "giay_phep_luu_hanh": null
+      }
+    },
+    {
+      "ma": "TC-06",
+      "tieu_de": "[Demo] TC-06 · Màn 1 · 29C-111.06",
+      "muc": 1,
+      "y_do": "Vượt khoảng 45%: lập biên bản.",
+      "xe": {
+        "loai_xe": "xe_tai_2_truc",
+        "bien_so": "29C-111.06",
+        "tuyen_dang_di": "Quốc lộ giả định 1, km 10 – km 80",
+        "nhom_truc": [
+          {
+            "loai": "don"
+          },
+          {
+            "loai": "don"
+          }
+        ],
+        "phieu_can": {
+          "so": "PC-1006",
+          "ngay_can": "2026-09-15",
+          "tong_kg": 14720,
+          "truc_kg": [
+            5100,
+            9620
+          ]
+        },
+        "giay_kiem_dinh": {
+          "so": "KD-5006",
+          "bien_so": "29C-111.06",
+          "tu_trong_kg": 4000,
+          "hang_cho_phep_kg": 6000,
+          "toan_bo_cho_phep_kg": 10150,
+          "co_gia_tri_den": "2027-06-30"
+        },
+        "giay_phep_luu_hanh": null
+      }
+    },
+    {
+      "ma": "TC-07",
+      "tieu_de": "[Demo] TC-07 · Màn 1 · 29C-111.07",
+      "muc": 1,
+      "y_do": "Vượt 10,1%: vừa qua ngưỡng, lập biên bản.",
+      "xe": {
+        "loai_xe": "xe_tai_2_truc",
+        "bien_so": "29C-111.07",
+        "tuyen_dang_di": "Quốc lộ giả định 1, km 10 – km 80",
+        "nhom_truc": [
+          {
+            "loai": "don"
+          },
+          {
+            "loai": "don"
+          }
+        ],
+        "phieu_can": {
+          "so": "PC-1007",
+          "ngay_can": "2026-09-15",
+          "tong_kg": 11176,
+          "truc_kg": [
+            3910,
+            7266
+          ]
+        },
+        "giay_kiem_dinh": {
+          "so": "KD-5007",
+          "bien_so": "29C-111.07",
+          "tu_trong_kg": 4000,
+          "hang_cho_phep_kg": 6000,
+          "toan_bo_cho_phep_kg": 10150,
+          "co_gia_tri_den": "2027-06-30"
+        },
+        "giay_phep_luu_hanh": null
+      }
+    },
+    {
+      "ma": "TC-08",
+      "tieu_de": "[Demo] TC-08 · Màn 2 · 15C-222.01",
+      "muc": 2,
+      "y_do": "Tổng vượt 5,6% nhưng hàng vượt 12,5%: lập biên bản theo hàng.",
+      "xe": {
+        "loai_xe": "xe_tai_2_truc",
+        "bien_so": "15C-222.01",
+        "tuyen_dang_di": "Quốc lộ giả định 1, km 10 – km 80",
+        "nhom_truc": [
+          {
+            "loai": "don"
+          },
+          {
+            "loai": "don"
+          }
+        ],
+        "phieu_can": {
+          "so": "PC-1008",
+          "ngay_can": "2026-09-15",
+          "tong_kg": 16000,
+          "truc_kg": [
+            5600,
+            10400
+          ]
+        },
+        "giay_kiem_dinh": {
+          "so": "KD-5008",
+          "bien_so": "15C-222.01",
+          "tu_trong_kg": 7000,
+          "hang_cho_phep_kg": 8000,
+          "toan_bo_cho_phep_kg": 15150,
+          "co_gia_tri_den": "2027-06-30"
+        },
+        "giay_phep_luu_hanh": null
+      }
+    },
+    {
+      "ma": "TC-09",
+      "tieu_de": "[Demo] TC-09 · Màn 2 · 15C-222.02",
+      "muc": 2,
+      "y_do": "Hàng vượt 8%: hạ tải.",
+      "xe": {
+        "loai_xe": "xe_tai_2_truc",
+        "bien_so": "15C-222.02",
+        "tuyen_dang_di": "Quốc lộ giả định 1, km 10 – km 80",
+        "nhom_truc": [
+          {
+            "loai": "don"
+          },
+          {
+            "loai": "don"
+          }
+        ],
+        "phieu_can": {
+          "so": "PC-1009",
+          "ngay_can": "2026-09-15",
+          "tong_kg": 15640,
+          "truc_kg": [
+            5300,
+            10340
+          ]
+        },
+        "giay_kiem_dinh": {
+          "so": "KD-5009",
+          "bien_so": "15C-222.02",
+          "tu_trong_kg": 7000,
+          "hang_cho_phep_kg": 8000,
+          "toan_bo_cho_phep_kg": 15150,
+          "co_gia_tri_den": "2027-06-30"
+        },
+        "giay_phep_luu_hanh": null
+      }
+    },
+    {
+      "ma": "TC-10",
+      "tieu_de": "[Demo] TC-10 · Màn 2 · 15C-222.03",
+      "muc": 2,
+      "y_do": "Hàng đúng bằng giới hạn: cho đi.",
+      "xe": {
+        "loai_xe": "xe_tai_2_truc",
+        "bien_so": "15C-222.03",
+        "tuyen_dang_di": "Quốc lộ giả định 1, km 10 – km 80",
+        "nhom_truc": [
+          {
+            "loai": "don"
+          },
+          {
+            "loai": "don"
+          }
+        ],
+        "phieu_can": {
+          "so": "PC-1010",
+          "ngay_can": "2026-09-15",
+          "tong_kg": 15000,
+          "truc_kg": [
+            5200,
+            9800
+          ]
+        },
+        "giay_kiem_dinh": {
+          "so": "KD-5010",
+          "bien_so": "15C-222.03",
+          "tu_trong_kg": 7000,
+          "hang_cho_phep_kg": 8000,
+          "toan_bo_cho_phep_kg": 15150,
+          "co_gia_tri_den": "2027-06-30"
+        },
+        "giay_phep_luu_hanh": null
+      }
+    },
+    {
+      "ma": "TC-11",
+      "tieu_de": "[Demo] TC-11 · Màn 2 · 15C-222.04",
+      "muc": 2,
+      "y_do": "Xe ba trục, hàng vượt 35%.",
+      "xe": {
+        "loai_xe": "xe_tai_3_truc",
+        "bien_so": "15C-222.04",
+        "tuyen_dang_di": "Quốc lộ giả định 1, km 10 – km 80",
+        "nhom_truc": [
+          {
+            "loai": "don"
+          },
+          {
+            "loai": "cum",
+            "so_truc": 2,
+            "khoang_cach_cm": 135
+          }
+        ],
+        "phieu_can": {
+          "so": "PC-1011",
+          "ngay_can": "2026-09-15",
+          "tong_kg": 21250,
+          "truc_kg": [
+            6000,
+            15250
+          ]
+        },
+        "giay_kiem_dinh": {
+          "so": "KD-5011",
+          "bien_so": "15C-222.04",
+          "tu_trong_kg": 9000,
+          "hang_cho_phep_kg": 9000,
+          "toan_bo_cho_phep_kg": 18150,
+          "co_gia_tri_den": "2027-06-30"
+        },
+        "giay_phep_luu_hanh": null
+      }
+    },
+    {
+      "ma": "TC-12",
+      "tieu_de": "[Demo] TC-12 · Màn 2 · 15C-222.05",
+      "muc": 2,
+      "y_do": "Xe ba trục, dưới giới hạn.",
+      "xe": {
+        "loai_xe": "xe_tai_3_truc",
+        "bien_so": "15C-222.05",
+        "tuyen_dang_di": "Quốc lộ giả định 1, km 10 – km 80",
+        "nhom_truc": [
+          {
+            "loai": "don"
+          },
+          {
+            "loai": "cum",
+            "so_truc": 2,
+            "khoang_cach_cm": 135
+          }
+        ],
+        "phieu_can": {
+          "so": "PC-1012",
+          "ngay_can": "2026-09-15",
+          "tong_kg": 17400,
+          "truc_kg": [
+            5500,
+            11900
+          ]
+        },
+        "giay_kiem_dinh": {
+          "so": "KD-5012",
+          "bien_so": "15C-222.05",
+          "tu_trong_kg": 9000,
+          "hang_cho_phep_kg": 9000,
+          "toan_bo_cho_phep_kg": 18150,
+          "co_gia_tri_den": "2027-06-30"
+        },
+        "giay_phep_luu_hanh": null
+      }
+    },
+    {
+      "ma": "TC-13",
+      "tieu_de": "[Demo] TC-13 · Màn 2 · 15C-222.06",
+      "muc": 2,
+      "y_do": "Tổng vượt 9,5%, hàng vượt 20%: lập biên bản theo hàng.",
+      "xe": {
+        "loai_xe": "xe_tai_2_truc",
+        "bien_so": "15C-222.06",
+        "tuyen_dang_di": "Quốc lộ giả định 1, km 10 – km 80",
+        "nhom_truc": [
+          {
+            "loai": "don"
+          },
+          {
+            "loai": "don"
+          }
+        ],
+        "phieu_can": {
+          "so": "PC-1013",
+          "ngay_can": "2026-09-15",
+          "tong_kg": 16400,
+          "truc_kg": [
+            6000,
+            10400
+          ]
+        },
+        "giay_kiem_dinh": {
+          "so": "KD-5013",
+          "bien_so": "15C-222.06",
+          "tu_trong_kg": 7000,
+          "hang_cho_phep_kg": 8000,
+          "toan_bo_cho_phep_kg": 15150,
+          "co_gia_tri_den": "2027-06-30"
+        },
+        "giay_phep_luu_hanh": null
+      }
+    },
+    {
+      "ma": "TC-14",
+      "tieu_de": "[Demo] TC-14 · Màn 3 · 51D-333.01",
+      "muc": 3,
+      "y_do": "Cụm 2 trục cách 1,35 m: 20.000 so với 18.000, vượt 11,1%.",
+      "xe": {
+        "loai_xe": "xe_tai_3_truc",
+        "bien_so": "51D-333.01",
+        "tuyen_dang_di": "Quốc lộ giả định 1, km 10 – km 80",
+        "nhom_truc": [
+          {
+            "loai": "don"
+          },
+          {
+            "loai": "cum",
+            "so_truc": 2,
+            "khoang_cach_cm": 135
+          }
+        ],
+        "phieu_can": {
+          "so": "PC-1014",
+          "ngay_can": "2026-09-15",
+          "tong_kg": 24000,
+          "truc_kg": [
+            4000,
+            20000
+          ]
+        },
+        "giay_kiem_dinh": {
+          "so": "KD-5014",
+          "bien_so": "51D-333.01",
+          "tu_trong_kg": 10000,
+          "hang_cho_phep_kg": 17000,
+          "toan_bo_cho_phep_kg": 27150,
+          "co_gia_tri_den": "2027-06-30"
+        },
+        "giay_phep_luu_hanh": null
+      }
+    },
+    {
+      "ma": "TC-15",
+      "tieu_de": "[Demo] TC-15 · Màn 3 · 51D-333.02",
+      "muc": 3,
+      "y_do": "Cụm 2 trục cách 1,2 m: phải dùng dòng 16.000 kg, vượt 12,5%.",
+      "xe": {
+        "loai_xe": "xe_tai_3_truc",
+        "bien_so": "51D-333.02",
+        "tuyen_dang_di": "Quốc lộ giả định 1, km 10 – km 80",
+        "nhom_truc": [
+          {
+            "loai": "don"
+          },
+          {
+            "loai": "cum",
+            "so_truc": 2,
+            "khoang_cach_cm": 120
+          }
+        ],
+        "phieu_can": {
+          "so": "PC-1015",
+          "ngay_can": "2026-09-15",
+          "tong_kg": 24500,
+          "truc_kg": [
+            6500,
+            18000
+          ]
+        },
+        "giay_kiem_dinh": {
+          "so": "KD-5015",
+          "bien_so": "51D-333.02",
+          "tu_trong_kg": 10000,
+          "hang_cho_phep_kg": 17000,
+          "toan_bo_cho_phep_kg": 27150,
+          "co_gia_tri_den": "2027-06-30"
+        },
+        "giay_phep_luu_hanh": null
+      }
+    },
+    {
+      "ma": "TC-16",
+      "tieu_de": "[Demo] TC-16 · Màn 3 · 51D-333.03",
+      "muc": 3,
+      "y_do": "Trục đơn 10.600 so với 10.000: vượt 6%, hạ tải.",
+      "xe": {
+        "loai_xe": "xe_tai_3_truc",
+        "bien_so": "51D-333.03",
+        "tuyen_dang_di": "Quốc lộ giả định 1, km 10 – km 80",
+        "nhom_truc": [
+          {
+            "loai": "don"
+          },
+          {
+            "loai": "cum",
+            "so_truc": 2,
+            "khoang_cach_cm": 135
+          }
+        ],
+        "phieu_can": {
+          "so": "PC-1016",
+          "ngay_can": "2026-09-15",
+          "tong_kg": 22600,
+          "truc_kg": [
+            10600,
+            12000
+          ]
+        },
+        "giay_kiem_dinh": {
+          "so": "KD-5016",
+          "bien_so": "51D-333.03",
+          "tu_trong_kg": 10000,
+          "hang_cho_phep_kg": 17000,
+          "toan_bo_cho_phep_kg": 27150,
+          "co_gia_tri_den": "2027-06-30"
+        },
+        "giay_phep_luu_hanh": null
+      }
+    },
+    {
+      "ma": "TC-17",
+      "tieu_de": "[Demo] TC-17 · Màn 3 · 51D-333.04",
+      "muc": 3,
+      "y_do": "Mọi số dưới giới hạn; gần nhất là cụm trục.",
+      "xe": {
+        "loai_xe": "xe_tai_3_truc",
+        "bien_so": "51D-333.04",
+        "tuyen_dang_di": "Quốc lộ giả định 1, km 10 – km 80",
+        "nhom_truc": [
+          {
+            "loai": "don"
+          },
+          {
+            "loai": "cum",
+            "so_truc": 2,
+            "khoang_cach_cm": 135
+          }
+        ],
+        "phieu_can": {
+          "so": "PC-1017",
+          "ngay_can": "2026-09-15",
+          "tong_kg": 22500,
+          "truc_kg": [
+            5000,
+            17500
+          ]
+        },
+        "giay_kiem_dinh": {
+          "so": "KD-5017",
+          "bien_so": "51D-333.04",
+          "tu_trong_kg": 10000,
+          "hang_cho_phep_kg": 17000,
+          "toan_bo_cho_phep_kg": 27150,
+          "co_gia_tri_den": "2027-06-30"
+        },
+        "giay_phep_luu_hanh": null
+      }
+    },
+    {
+      "ma": "TC-18",
+      "tieu_de": "[Demo] TC-18 · Màn 3 · 51D-333.05",
+      "muc": 3,
+      "y_do": "Tổng 26.500 so với 24.000 của xe ba trục: vượt 10,4%.",
+      "xe": {
+        "loai_xe": "xe_tai_3_truc",
+        "bien_so": "51D-333.05",
+        "tuyen_dang_di": "Quốc lộ giả định 1, km 10 – km 80",
+        "nhom_truc": [
+          {
+            "loai": "don"
+          },
+          {
+            "loai": "cum",
+            "so_truc": 2,
+            "khoang_cach_cm": 135
+          }
+        ],
+        "phieu_can": {
+          "so": "PC-1018",
+          "ngay_can": "2026-09-15",
+          "tong_kg": 26500,
+          "truc_kg": [
+            8700,
+            17800
+          ]
+        },
+        "giay_kiem_dinh": {
+          "so": "KD-5018",
+          "bien_so": "51D-333.05",
+          "tu_trong_kg": 10000,
+          "hang_cho_phep_kg": 17000,
+          "toan_bo_cho_phep_kg": 27150,
+          "co_gia_tri_den": "2027-06-30"
+        },
+        "giay_phep_luu_hanh": null
+      }
+    },
+    {
+      "ma": "TC-19",
+      "tieu_de": "[Demo] TC-19 · Màn 3 · 51D-333.06",
+      "muc": 3,
+      "y_do": "Xe bốn trục, cụm 2 trục vượt 30%.",
+      "xe": {
+        "loai_xe": "xe_tai_4_truc",
+        "bien_so": "51D-333.06",
+        "tuyen_dang_di": "Quốc lộ giả định 1, km 10 – km 80",
+        "nhom_truc": [
+          {
+            "loai": "don"
+          },
+          {
+            "loai": "don"
+          },
+          {
+            "loai": "cum",
+            "so_truc": 2,
+            "khoang_cach_cm": 135
+          }
+        ],
+        "phieu_can": {
+          "so": "PC-1019",
+          "ngay_can": "2026-09-15",
+          "tong_kg": 36400,
+          "truc_kg": [
+            6000,
+            7000,
+            23400
+          ]
+        },
+        "giay_kiem_dinh": {
+          "so": "KD-5019",
+          "bien_so": "51D-333.06",
+          "tu_trong_kg": 12000,
+          "hang_cho_phep_kg": 20000,
+          "toan_bo_cho_phep_kg": 32150,
+          "co_gia_tri_den": "2027-06-30"
+        },
+        "giay_phep_luu_hanh": null
+      }
+    },
+    {
+      "ma": "TC-20",
+      "tieu_de": "[Demo] TC-20 · Màn 4 · 43C-444.01",
+      "muc": 4,
+      "y_do": "Giấy phép còn hạn, đúng tuyến: cụm 20.500 dưới 21.000 của giấy phép; mọi số dưới giới hạn, gần nhất là khối lượng hàng. Cho đi.",
+      "xe": {
+        "loai_xe": "xe_tai_3_truc",
+        "bien_so": "43C-444.01",
+        "tuyen_dang_di": "Quốc lộ giả định 1, km 10 – km 80",
+        "nhom_truc": [
+          {
+            "loai": "don"
+          },
+          {
+            "loai": "cum",
+            "so_truc": 2,
+            "khoang_cach_cm": 135
+          }
+        ],
+        "phieu_can": {
+          "so": "PC-1020",
+          "ngay_can": "2026-09-15",
+          "tong_kg": 27500,
+          "truc_kg": [
+            7000,
+            20500
+          ]
+        },
+        "giay_kiem_dinh": {
+          "so": "KD-5020",
+          "bien_so": "43C-444.01",
+          "tu_trong_kg": 10000,
+          "hang_cho_phep_kg": 17600,
+          "toan_bo_cho_phep_kg": 27750,
+          "co_gia_tri_den": "2027-06-30"
+        },
+        "giay_phep_luu_hanh": {
+          "so": "GP-020/2026",
+          "bien_so": "43C-444.01",
+          "tuyen": "Quốc lộ giả định 1, km 10 – km 80",
+          "tu_ngay": "2026-07-01",
+          "den_ngay": "2026-12-31",
+          "tong_cho_phep_kg": 34000,
+          "truc_don_cho_phep_kg": 11000,
+          "cum_truc_cho_phep_kg": 21000
+        }
+      }
+    },
+    {
+      "ma": "TC-21",
+      "tieu_de": "[Demo] TC-21 · Màn 4 · 43C-444.02",
+      "muc": 4,
+      "y_do": "Giấy phép hết hạn 31/08/2026: áp bảng tại trạm, tổng 27.500 so với 24.000 vượt 14,6%.",
+      "xe": {
+        "loai_xe": "xe_tai_3_truc",
+        "bien_so": "43C-444.02",
+        "tuyen_dang_di": "Quốc lộ giả định 1, km 10 – km 80",
+        "nhom_truc": [
+          {
+            "loai": "don"
+          },
+          {
+            "loai": "cum",
+            "so_truc": 2,
+            "khoang_cach_cm": 135
+          }
+        ],
+        "phieu_can": {
+          "so": "PC-1021",
+          "ngay_can": "2026-09-15",
+          "tong_kg": 27500,
+          "truc_kg": [
+            7000,
+            20500
+          ]
+        },
+        "giay_kiem_dinh": {
+          "so": "KD-5021",
+          "bien_so": "43C-444.02",
+          "tu_trong_kg": 10000,
+          "hang_cho_phep_kg": 17600,
+          "toan_bo_cho_phep_kg": 27750,
+          "co_gia_tri_den": "2027-06-30"
+        },
+        "giay_phep_luu_hanh": {
+          "so": "GP-021/2026",
+          "bien_so": "43C-444.02",
+          "tuyen": "Quốc lộ giả định 1, km 10 – km 80",
+          "tu_ngay": "2026-07-01",
+          "den_ngay": "2026-08-31",
+          "tong_cho_phep_kg": 34000,
+          "truc_don_cho_phep_kg": 11000,
+          "cum_truc_cho_phep_kg": 21000
+        }
+      }
+    },
+    {
+      "ma": "TC-22",
+      "tieu_de": "[Demo] TC-22 · Màn 4 · 43C-444.03",
+      "muc": 4,
+      "y_do": "Giấy phép cấp cho tuyến khác: áp bảng tại trạm, tổng vượt 15,8%.",
+      "xe": {
+        "loai_xe": "xe_tai_3_truc",
+        "bien_so": "43C-444.03",
+        "tuyen_dang_di": "Quốc lộ giả định 1, km 10 – km 80",
+        "nhom_truc": [
+          {
+            "loai": "don"
+          },
+          {
+            "loai": "cum",
+            "so_truc": 2,
+            "khoang_cach_cm": 135
+          }
+        ],
+        "phieu_can": {
+          "so": "PC-1022",
+          "ngay_can": "2026-09-15",
+          "tong_kg": 27800,
+          "truc_kg": [
+            7200,
+            20600
+          ]
+        },
+        "giay_kiem_dinh": {
+          "so": "KD-5022",
+          "bien_so": "43C-444.03",
+          "tu_trong_kg": 10000,
+          "hang_cho_phep_kg": 17600,
+          "toan_bo_cho_phep_kg": 27750,
+          "co_gia_tri_den": "2027-06-30"
+        },
+        "giay_phep_luu_hanh": {
+          "so": "GP-022/2026",
+          "bien_so": "43C-444.03",
+          "tuyen": "Tỉnh lộ giả định 5",
+          "tu_ngay": "2026-07-01",
+          "den_ngay": "2026-12-31",
+          "tong_cho_phep_kg": 34000,
+          "truc_don_cho_phep_kg": 11000,
+          "cum_truc_cho_phep_kg": 21000
+        }
+      }
+    },
+    {
+      "ma": "TC-23",
+      "tieu_de": "[Demo] TC-23 · Màn 4 · 43C-444.04",
+      "muc": 4,
+      "y_do": "Giấy phép còn hạn nhưng cụm 22.000 vượt 21.000 của giấy phép 4,8%: hạ tải.",
+      "xe": {
+        "loai_xe": "xe_tai_3_truc",
+        "bien_so": "43C-444.04",
+        "tuyen_dang_di": "Quốc lộ giả định 1, km 10 – km 80",
+        "nhom_truc": [
+          {
+            "loai": "don"
+          },
+          {
+            "loai": "cum",
+            "so_truc": 2,
+            "khoang_cach_cm": 135
+          }
+        ],
+        "phieu_can": {
+          "so": "PC-1023",
+          "ngay_can": "2026-09-15",
+          "tong_kg": 28500,
+          "truc_kg": [
+            6500,
+            22000
+          ]
+        },
+        "giay_kiem_dinh": {
+          "so": "KD-5023",
+          "bien_so": "43C-444.04",
+          "tu_trong_kg": 10000,
+          "hang_cho_phep_kg": 18600,
+          "toan_bo_cho_phep_kg": 28750,
+          "co_gia_tri_den": "2027-06-30"
+        },
+        "giay_phep_luu_hanh": {
+          "so": "GP-023/2026",
+          "bien_so": "43C-444.04",
+          "tuyen": "Quốc lộ giả định 1, km 10 – km 80",
+          "tu_ngay": "2026-07-01",
+          "den_ngay": "2026-12-31",
+          "tong_cho_phep_kg": 34000,
+          "truc_don_cho_phep_kg": 11000,
+          "cum_truc_cho_phep_kg": 21000
+        }
+      }
+    },
+    {
+      "ma": "TC-24",
+      "tieu_de": "[Demo] TC-24 · Màn 4 · 43C-444.05",
+      "muc": 4,
+      "y_do": "Giấy phép còn hạn, tổng 36.000 vượt 34.000 của giấy phép 5,9%; kiểm định vượt nhiều hơn.",
+      "xe": {
+        "loai_xe": "xe_tai_4_truc",
+        "bien_so": "43C-444.05",
+        "tuyen_dang_di": "Quốc lộ giả định 1, km 10 – km 80",
+        "nhom_truc": [
+          {
+            "loai": "don"
+          },
+          {
+            "loai": "don"
+          },
+          {
+            "loai": "cum",
+            "so_truc": 2,
+            "khoang_cach_cm": 135
+          }
+        ],
+        "phieu_can": {
+          "so": "PC-1024",
+          "ngay_can": "2026-09-15",
+          "tong_kg": 36000,
+          "truc_kg": [
+            8000,
+            8000,
+            20000
+          ]
+        },
+        "giay_kiem_dinh": {
+          "so": "KD-5024",
+          "bien_so": "43C-444.05",
+          "tu_trong_kg": 12000,
+          "hang_cho_phep_kg": 20000,
+          "toan_bo_cho_phep_kg": 32150,
+          "co_gia_tri_den": "2027-06-30"
+        },
+        "giay_phep_luu_hanh": {
+          "so": "GP-024/2026",
+          "bien_so": "43C-444.05",
+          "tuyen": "Quốc lộ giả định 1, km 10 – km 80",
+          "tu_ngay": "2026-07-01",
+          "den_ngay": "2026-12-31",
+          "tong_cho_phep_kg": 34000,
+          "truc_don_cho_phep_kg": 11000,
+          "cum_truc_cho_phep_kg": 21000
+        }
+      }
+    },
+    {
+      "ma": "TC-25",
+      "tieu_de": "[Demo] TC-25 · Màn 4 · 43C-444.06",
+      "muc": 4,
+      "y_do": "Không có giấy phép: trục đơn vượt 15%.",
+      "xe": {
+        "loai_xe": "xe_tai_3_truc",
+        "bien_so": "43C-444.06",
+        "tuyen_dang_di": "Quốc lộ giả định 1, km 10 – km 80",
+        "nhom_truc": [
+          {
+            "loai": "don"
+          },
+          {
+            "loai": "cum",
+            "so_truc": 2,
+            "khoang_cach_cm": 135
+          }
+        ],
+        "phieu_can": {
+          "so": "PC-1025",
+          "ngay_can": "2026-09-15",
+          "tong_kg": 25500,
+          "truc_kg": [
+            11500,
+            14000
+          ]
+        },
+        "giay_kiem_dinh": {
+          "so": "KD-5025",
+          "bien_so": "43C-444.06",
+          "tu_trong_kg": 10000,
+          "hang_cho_phep_kg": 17000,
+          "toan_bo_cho_phep_kg": 27150,
+          "co_gia_tri_den": "2027-06-30"
+        },
+        "giay_phep_luu_hanh": null
+      }
+    },
+    {
+      "ma": "TC-26",
+      "tieu_de": "[Demo] TC-26 · Màn 5 · 29H-555.01",
+      "muc": 5,
+      "y_do": "Đầu kéo dưới mọi giới hạn.",
+      "xe": {
+        "loai_xe": "dau_keo_so_mi",
+        "bien_so": "29H-555.01",
+        "tuyen_dang_di": "Quốc lộ giả định 1, km 10 – km 80",
+        "nhom_truc": [
+          {
+            "loai": "don"
+          },
+          {
+            "loai": "cum",
+            "so_truc": 2,
+            "khoang_cach_cm": 130
+          },
+          {
+            "loai": "cum",
+            "so_truc": 3,
+            "khoang_cach_cm": 135
+          }
+        ],
+        "phieu_can": {
+          "so": "PC-1026",
+          "ngay_can": "2026-09-15",
+          "tong_kg": 39500,
+          "truc_kg": [
+            6500,
+            15000,
+            18000
+          ]
+        },
+        "giay_kiem_dinh": {
+          "so": "KD-5026",
+          "bien_so": "29H-555.01",
+          "tu_trong_kg": 15000,
+          "hang_cho_phep_kg": 25000,
+          "toan_bo_cho_phep_kg": 40150,
+          "co_gia_tri_den": "2027-06-30"
+        },
+        "giay_phep_luu_hanh": null
+      }
+    },
+    {
+      "ma": "TC-27",
+      "tieu_de": "[Demo] TC-27 · Màn 5 · 29H-555.02",
+      "muc": 5,
+      "y_do": "Cụm 3 trục cách 1,35 m: 27.000 so với 24.000, vượt 12,5%.",
+      "xe": {
+        "loai_xe": "dau_keo_so_mi",
+        "bien_so": "29H-555.02",
+        "tuyen_dang_di": "Quốc lộ giả định 1, km 10 – km 80",
+        "nhom_truc": [
+          {
+            "loai": "don"
+          },
+          {
+            "loai": "cum",
+            "so_truc": 2,
+            "khoang_cach_cm": 130
+          },
+          {
+            "loai": "cum",
+            "so_truc": 3,
+            "khoang_cach_cm": 135
+          }
+        ],
+        "phieu_can": {
+          "so": "PC-1027",
+          "ngay_can": "2026-09-15",
+          "tong_kg": 44000,
+          "truc_kg": [
+            5000,
+            12000,
+            27000
+          ]
+        },
+        "giay_kiem_dinh": {
+          "so": "KD-5027",
+          "bien_so": "29H-555.02",
+          "tu_trong_kg": 15000,
+          "hang_cho_phep_kg": 35000,
+          "toan_bo_cho_phep_kg": 50150,
+          "co_gia_tri_den": "2027-06-30"
+        },
+        "giay_phep_luu_hanh": null
+      }
+    },
+    {
+      "ma": "TC-28",
+      "tieu_de": "[Demo] TC-28 · Màn 5 · 29H-555.03",
+      "muc": 5,
+      "y_do": "Cụm 3 trục cách 1,25 m: phải dùng dòng 21.000 kg, 23.000 vượt 9,5%, hạ tải.",
+      "xe": {
+        "loai_xe": "dau_keo_so_mi",
+        "bien_so": "29H-555.03",
+        "tuyen_dang_di": "Quốc lộ giả định 1, km 10 – km 80",
+        "nhom_truc": [
+          {
+            "loai": "don"
+          },
+          {
+            "loai": "cum",
+            "so_truc": 2,
+            "khoang_cach_cm": 130
+          },
+          {
+            "loai": "cum",
+            "so_truc": 3,
+            "khoang_cach_cm": 125
+          }
+        ],
+        "phieu_can": {
+          "so": "PC-1028",
+          "ngay_can": "2026-09-15",
+          "tong_kg": 40000,
+          "truc_kg": [
+            5000,
+            12000,
+            23000
+          ]
+        },
+        "giay_kiem_dinh": {
+          "so": "KD-5028",
+          "bien_so": "29H-555.03",
+          "tu_trong_kg": 15000,
+          "hang_cho_phep_kg": 35000,
+          "toan_bo_cho_phep_kg": 50150,
+          "co_gia_tri_den": "2027-06-30"
+        },
+        "giay_phep_luu_hanh": null
+      }
+    },
+    {
+      "ma": "TC-29",
+      "tieu_de": "[Demo] TC-29 · Màn 5 · 29H-555.04",
+      "muc": 5,
+      "y_do": "Tổng 45.000 so với 40.000 của đầu kéo: vượt 12,5%.",
+      "xe": {
+        "loai_xe": "dau_keo_so_mi",
+        "bien_so": "29H-555.04",
+        "tuyen_dang_di": "Quốc lộ giả định 1, km 10 – km 80",
+        "nhom_truc": [
+          {
+            "loai": "don"
+          },
+          {
+            "loai": "cum",
+            "so_truc": 2,
+            "khoang_cach_cm": 130
+          },
+          {
+            "loai": "cum",
+            "so_truc": 3,
+            "khoang_cach_cm": 135
+          }
+        ],
+        "phieu_can": {
+          "so": "PC-1029",
+          "ngay_can": "2026-09-15",
+          "tong_kg": 45000,
+          "truc_kg": [
+            7000,
+            17000,
+            21000
+          ]
+        },
+        "giay_kiem_dinh": {
+          "so": "KD-5029",
+          "bien_so": "29H-555.04",
+          "tu_trong_kg": 15000,
+          "hang_cho_phep_kg": 35000,
+          "toan_bo_cho_phep_kg": 50150,
+          "co_gia_tri_den": "2027-06-30"
+        },
+        "giay_phep_luu_hanh": null
+      }
+    },
+    {
+      "ma": "TC-30",
+      "tieu_de": "[Demo] TC-30 · Màn 5 · 29H-555.05",
+      "muc": 5,
+      "y_do": "Hàng vượt 60% so với giấy kiểm định dù trục trong giới hạn.",
+      "xe": {
+        "loai_xe": "dau_keo_so_mi",
+        "bien_so": "29H-555.05",
+        "tuyen_dang_di": "Quốc lộ giả định 1, km 10 – km 80",
+        "nhom_truc": [
+          {
+            "loai": "don"
+          },
+          {
+            "loai": "cum",
+            "so_truc": 2,
+            "khoang_cach_cm": 130
+          },
+          {
+            "loai": "cum",
+            "so_truc": 3,
+            "khoang_cach_cm": 135
+          }
+        ],
+        "phieu_can": {
+          "so": "PC-1030",
+          "ngay_can": "2026-09-15",
+          "tong_kg": 39000,
+          "truc_kg": [
+            6000,
+            14000,
+            19000
+          ]
+        },
+        "giay_kiem_dinh": {
+          "so": "KD-5030",
+          "bien_so": "29H-555.05",
+          "tu_trong_kg": 15000,
+          "hang_cho_phep_kg": 15000,
+          "toan_bo_cho_phep_kg": 30150,
+          "co_gia_tri_den": "2027-06-30"
+        },
+        "giay_phep_luu_hanh": null
+      }
+    }
+  ]
+}

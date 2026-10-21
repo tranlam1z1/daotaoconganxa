@@ -1,0 +1,78 @@
+# Hạ tầng phát triển. Dùng: docker compose -f infra/docker-compose.yml up -d
+# Profile "full" bật thêm OpenSearch, MinIO và máy chủ embedding (cần nhiều RAM/đĩa).
+name: quydinhphapluat
+
+services:
+  # CHỈ dùng để chạy `bun test`. Kho thật nằm trên Postgres của DigitalOcean
+  # (cụm db-postgresql-sgp1-06837, đặt trong DATABASE_URL) — không dựng bản sao ở đây nữa.
+  # test-setup tự tạo CSDL quydinhphapluat_test qua CSDL quản trị `postgres`.
+  postgres:
+    image: pgvector/pgvector:pg16
+    container_name: qdpl-postgres
+    environment:
+      POSTGRES_USER: qdpl
+      POSTGRES_PASSWORD: qdpl_dev
+      POSTGRES_DB: quydinhphapluat_test
+    ports: ["5436:5432"]
+    volumes: ["qdpl_pgdata:/var/lib/postgresql/data"]
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U qdpl"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
+  # DỰ PHÒNG khi chạy ngoại tuyến. Mặc định REDIS_URL trỏ tới Valkey trên DigitalOcean
+  # (cụm db-valkey-sgp1-39341); dùng container này thì phải sửa lại REDIS_URL.
+  redis:
+    image: redis:7.4-alpine
+    container_name: qdpl-redis
+    # appendonly: job đang chờ không mất khi Redis khởi động lại — quan trọng vì
+    # một đợt nạp kho chạy nhiều ngày.
+    # noeviction: KHÔNG được xóa key khi đầy bộ nhớ, nếu không sẽ mất job âm thầm.
+    command: ["redis-server", "--appendonly", "yes", "--maxmemory", "512mb", "--maxmemory-policy", "noeviction"]
+    ports: ["6380:6379"]
+    volumes: ["qdpl_redis:/data"]
+    healthcheck:
+      test: ["CMD", "redis-cli", "ping"]
+      interval: 10s
+      timeout: 3s
+      retries: 5
+    restart: unless-stopped
+
+  minio:
+    image: minio/minio:latest
+    container_name: qdpl-minio
+    profiles: ["full"]
+    command: server /data --console-address ":9001"
+    environment:
+      MINIO_ROOT_USER: qdpl
+      MINIO_ROOT_PASSWORD: qdpl_dev_secret
+    ports: ["9000:9000", "9001:9001"]
+    volumes: ["qdpl_minio:/data"]
+
+  opensearch:
+    image: opensearchproject/opensearch:2.19.0
+    container_name: qdpl-opensearch
+    profiles: ["full"]
+    environment:
+      discovery.type: single-node
+      DISABLE_SECURITY_PLUGIN: "true"
+      OPENSEARCH_JAVA_OPTS: "-Xms1g -Xmx1g"
+    ports: ["9200:9200"]
+    volumes: ["qdpl_os:/usr/share/opensearch/data"]
+
+  # Máy chủ embedding bge-m3. Cần GPU để đạt thông lượng; CPU chạy được nhưng chậm.
+  embeddings:
+    image: ghcr.io/huggingface/text-embeddings-inference:cpu-1.6
+    container_name: qdpl-embeddings
+    profiles: ["full"]
+    command: ["--model-id", "BAAI/bge-m3", "--max-batch-tokens", "16384"]
+    ports: ["8080:80"]
+    volumes: ["qdpl_models:/data"]
+
+volumes:
+  qdpl_pgdata:
+  qdpl_redis:
+  qdpl_minio:
+  qdpl_os:
+  qdpl_models:

@@ -1,0 +1,107 @@
+{
+  "mo_ta": "Tốc độ tối đa cho phép theo loại xe và loại đường (docs/PLAN.md GĐ-G2). Nạp bằng: bun run tra-cuu:nap",
+  "luu_y_bien_tap": [
+    "KHUNG CHỜ ĐIỀN, CHƯA CÓ SỐ LIỆU. Kho văn bản của hệ thống chưa có văn bản quy định tốc độ và khoảng cách khai thác trên đường bộ, nên mọi ô toc_do_toi_da và can_cu để null (docs/GAME_DESIGN.md §7 câu Q6). Không điền theo trí nhớ.",
+    "Nhờ đơn vị chuyên môn: (1) xác định văn bản đang có hiệu lực quy định tốc độ tối đa theo loại xe và loại đường; (2) kiểm tra danh sách loại xe chi tiết và loại đường dưới đây có khớp cách phân loại của văn bản không, thêm hoặc bớt dòng cho khớp; (3) điền toc_do_toi_da và can_cu (URN tới đúng điều, khoản) cho từng dòng.",
+    "Sau khi văn bản được nạp vào kho và các ô được điền, chạy bun run tra-cuu:nap: dòng có số liệu vào trạng thái chờ duyệt, người duyệt duyệt ở /quan-tri/du-lieu-tra-cuu (tab Tốc độ tối đa). Dòng còn null không được nạp.",
+    "Khi chưa có dòng nào được duyệt, trò Súng bắn tốc độ chỉ dùng tốc độ ghi trên biển P.127 của từng tình huống."
+  ],
+  "dong": [
+    {
+      "ma": "oto-con-kdc-duong-doi",
+      "loai_xe_chi_tiet": "Xe ô tô con (cần đối chiếu cách gọi trong văn bản)",
+      "xe": "o_to",
+      "loai_duong": "kdc_duong_doi",
+      "ten_loai_duong": "Trong khu vực đông dân cư, đường đôi",
+      "toc_do_toi_da": null,
+      "can_cu": null,
+      "hieu_luc_tu": "2025-01-01",
+      "trang_thai": "nhap",
+      "ghi_chu": "Chờ đơn vị chuyên môn điền tốc độ và căn cứ; kiểm cả ngày hiệu lực."
+    },
+    {
+      "ma": "oto-con-kdc-hai-chieu",
+      "loai_xe_chi_tiet": "Xe ô tô con (cần đối chiếu cách gọi trong văn bản)",
+      "xe": "o_to",
+      "loai_duong": "kdc_hai_chieu",
+      "ten_loai_duong": "Trong khu vực đông dân cư, đường hai chiều",
+      "toc_do_toi_da": null,
+      "can_cu": null,
+      "hieu_luc_tu": "2025-01-01",
+      "trang_thai": "nhap",
+      "ghi_chu": "Chờ đơn vị chuyên môn điền tốc độ và căn cứ; kiểm cả ngày hiệu lực."
+    },
+    {
+      "ma": "oto-con-ngoai-kdc-duong-doi",
+      "loai_xe_chi_tiet": "Xe ô tô con (cần đối chiếu cách gọi trong văn bản)",
+      "xe": "o_to",
+      "loai_duong": "ngoai_kdc_duong_doi",
+      "ten_loai_duong": "Ngoài khu vực đông dân cư, đường đôi",
+      "toc_do_toi_da": null,
+      "can_cu": null,
+      "hieu_luc_tu": "2025-01-01",
+      "trang_thai": "nhap",
+      "ghi_chu": "Chờ đơn vị chuyên môn điền tốc độ và căn cứ; kiểm cả ngày hiệu lực."
+    },
+    {
+      "ma": "oto-con-ngoai-kdc-hai-chieu",
+      "loai_xe_chi_tiet": "Xe ô tô con (cần đối chiếu cách gọi trong văn bản)",
+      "xe": "o_to",
+      "loai_duong": "ngoai_kdc_hai_chieu",
+      "ten_loai_duong": "Ngoài khu vực đông dân cư, đường hai chiều",
+      "toc_do_toi_da": null,
+      "can_cu": null,
+      "hieu_luc_tu": "2025-01-01",
+      "trang_thai": "nhap",
+      "ghi_chu": "Chờ đơn vị chuyên môn điền tốc độ và căn cứ; kiểm cả ngày hiệu lực."
+    },
+    {
+      "ma": "mo-to-kdc-duong-doi",
+      "loai_xe_chi_tiet": "Xe mô tô (cần đối chiếu cách gọi trong văn bản)",
+      "xe": "mo_to",
+      "loai_duong": "kdc_duong_doi",
+      "ten_loai_duong": "Trong khu vực đông dân cư, đường đôi",
+      "toc_do_toi_da": null,
+      "can_cu": null,
+      "hieu_luc_tu": "2025-01-01",
+      "trang_thai": "nhap",
+      "ghi_chu": "Chờ đơn vị chuyên môn điền tốc độ và căn cứ; kiểm cả ngày hiệu lực."
+    },
+    {
+      "ma": "mo-to-kdc-hai-chieu",
+      "loai_xe_chi_tiet": "Xe mô tô (cần đối chiếu cách gọi trong văn bản)",
+      "xe": "mo_to",
+      "loai_duong": "kdc_hai_chieu",
+      "ten_loai_duong": "Trong khu vực đông dân cư, đường hai chiều",
+      "toc_do_toi_da": null,
+      "can_cu": null,
+      "hieu_luc_tu": "2025-01-01",
+      "trang_thai": "nhap",
+      "ghi_chu": "Chờ đơn vị chuyên môn điền tốc độ và căn cứ; kiểm cả ngày hiệu lực."
+    },
+    {
+      "ma": "mo-to-ngoai-kdc-duong-doi",
+      "loai_xe_chi_tiet": "Xe mô tô (cần đối chiếu cách gọi trong văn bản)",
+      "xe": "mo_to",
+      "loai_duong": "ngoai_kdc_duong_doi",
+      "ten_loai_duong": "Ngoài khu vực đông dân cư, đường đôi",
+      "toc_do_toi_da": null,
+      "can_cu": null,
+      "hieu_luc_tu": "2025-01-01",
+      "trang_thai": "nhap",
+      "ghi_chu": "Chờ đơn vị chuyên môn điền tốc độ và căn cứ; kiểm cả ngày hiệu lực."
+    },
+    {
+      "ma": "mo-to-ngoai-kdc-hai-chieu",
+      "loai_xe_chi_tiet": "Xe mô tô (cần đối chiếu cách gọi trong văn bản)",
+      "xe": "mo_to",
+      "loai_duong": "ngoai_kdc_hai_chieu",
+      "ten_loai_duong": "Ngoài khu vực đông dân cư, đường hai chiều",
+      "toc_do_toi_da": null,
+      "can_cu": null,
+      "hieu_luc_tu": "2025-01-01",
+      "trang_thai": "nhap",
+      "ghi_chu": "Chờ đơn vị chuyên môn điền tốc độ và căn cứ; kiểm cả ngày hiệu lực."
+    }
+  ]
+}

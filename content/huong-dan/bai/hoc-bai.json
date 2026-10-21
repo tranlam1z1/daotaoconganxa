@@ -1,0 +1,74 @@
+{
+  "tieu_de": "Học bài",
+  "tom_tat": "Đọc các khối nội dung theo chế độ học, tra căn cứ, làm bài tập và học cùng nhân vật đồng hành.",
+  "routes": ["routes/training.lesson.tsx"],
+  "anh": [
+    {
+      "ten": "hoc-bai-bo-cuc",
+      "chu_thich": "Bố cục trang học bài",
+      "url": "/dao-tao/dau-tu-cntt-ngan-sach-nha-nuoc/bai-1-tong-quan-thu-bac",
+      "danh_dau": [
+        { "o": "nav[aria-label='Đường dẫn']", "ghi_chu": "Vị trí bài trong chuyên đề", "huong": "tren" },
+        { "o": "role=progressbar[name='Tiến độ đọc bài']", "ghi_chu": "Phần bài đã đọc", "huong": "duoi" },
+        { "o": "nav[aria-label='Chế độ học']", "ghi_chu": "Chọn chế độ học", "huong": "phai" },
+        { "o": "details:has(summary:text-is('Mục lục bài học'))", "ghi_chu": "Chuyển tới từng khối", "huong": "trai" }
+      ]
+    },
+    {
+      "ten": "hoc-bai-khoi-can-cu",
+      "chu_thich": "Một khối căn cứ trong bài học",
+      "url": "/dao-tao/dau-tu-cntt-ngan-sach-nha-nuoc/bai-1-tong-quan-thu-bac",
+      "thao_tac": [{ "bam": "aside[aria-label^='Gia sư'] >> role=button[name='Thu gọn']" }, { "doi_ms": 300 }],
+      "vung": "section[data-khoi-ordinal='4']",
+      "danh_dau": [
+        { "o": "section[data-khoi-ordinal='4'] > p", "ghi_chu": "Số thứ tự và loại khối", "huong": "phai" },
+        { "o": "section[data-khoi-ordinal='4'] blockquote", "ghi_chu": "Nguyên văn quy định", "huong": "phai" },
+        { "o": "section[data-khoi-ordinal='4'] >> text=Hiệu lực tại:", "ghi_chu": "Thời điểm hiệu lực", "huong": "phai" },
+        { "o": "section[data-khoi-ordinal='4'] a[href^='/tim-kiem'] >> nth=0", "ghi_chu": "Tra cứu điều khoản viện dẫn", "huong": "phai" }
+      ]
+    },
+    {
+      "ten": "hoc-bai-bai-tap",
+      "chu_thich": "Bài tập cuối bài học",
+      "url": "/dao-tao/dau-tu-cntt-ngan-sach-nha-nuoc/bai-1-tong-quan-thu-bac",
+      "thao_tac": [{ "bam": "aside[aria-label^='Gia sư'] >> role=button[name='Thu gọn']" }, { "doi_ms": 300 }],
+      "vung": "section:has(> h2:text-is('Bài tập'))",
+      "danh_dau": [
+        { "o": "role=link[name='Ghi danh chuyên đề']", "ghi_chu": "Ghi danh để lưu kết quả", "huong": "phai" },
+        { "o": "section:has(> h2:text-is('Bài tập')) fieldset >> nth=0", "ghi_chu": "Chọn phương án", "huong": "phai" },
+        { "o": "role=button[name='Chuyển xuống'] >> nth=0", "ghi_chu": "Đổi thứ tự bằng nút mũi tên", "huong": "phai" },
+        { "o": "role=button[name='Nộp bài'] >> nth=0", "ghi_chu": "Khoá khi chưa ghi danh", "huong": "phai" }
+      ]
+    },
+    {
+      "ten": "hoc-bai-nhan-vat-dong-hanh",
+      "chu_thich": "Khung nhân vật đồng hành khi mở bài",
+      "url": "/dao-tao/dau-tu-cntt-ngan-sach-nha-nuoc/bai-1-tong-quan-thu-bac",
+      "vung": "aside[aria-label^='Gia sư']",
+      "danh_dau": [
+        { "o": "aside[aria-label^='Gia sư'] button >> nth=0 >> span[aria-hidden='true']", "ghi_chu": "Kéo để di chuyển", "huong": "trai" },
+        { "o": "aside[aria-label^='Gia sư'] >> role=button[name='Thu gọn']", "ghi_chu": "Thu gọn", "huong": "trai" },
+        { "o": "role=button[name='Tắt gia sư trong bài này']", "ghi_chu": "Tắt trong bài này", "huong": "tren" },
+        { "o": "role=button[name='Bắt đầu']", "ghi_chu": "Bắt đầu dẫn dắt", "huong": "trai" },
+        { "o": "role=button[name='Tự đọc, không cần dẫn dắt']", "ghi_chu": "Tự đọc bài", "huong": "trai" }
+      ]
+    },
+    {
+      "ten": "hoc-bai-dien-thoai",
+      "chu_thich": "Dẫn dắt từng phần trên điện thoại",
+      "url": "/dao-tao/dau-tu-cntt-ngan-sach-nha-nuoc/bai-1-tong-quan-thu-bac",
+      "thiet_bi": "dien-thoai",
+      "thao_tac": [
+        { "bam": "role=button[name='Bắt đầu']" },
+        { "bam": "role=button[name='Tiếp theo']" },
+        { "doi_ms": 1200 }
+      ],
+      "danh_dau": [
+        { "o": ".khoi-duoc-chi", "ghi_chu": "Phần đang được giới thiệu", "huong": "tren" },
+        { "o": "aside[aria-label^='Gia sư'] div[aria-live] > p >> nth=0", "ghi_chu": "Tên phần đang dẫn", "huong": "tren" },
+        { "o": "role=button[name='Quay lại']", "ghi_chu": "Quay lại", "huong": "trai" },
+        { "o": "role=button[name='Dừng dẫn dắt']", "ghi_chu": "Dừng dẫn dắt", "huong": "trai" }
+      ]
+    }
+  ]
+}

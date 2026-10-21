@@ -1,0 +1,37 @@
+# Ảnh dùng chung cho apps/api, apps/web, apps/workers-ts.
+# Build: docker build -f infra/Dockerfile.bun --build-arg APP=api -t qdpl-api .
+FROM oven/bun:1.3-alpine AS deps
+WORKDIR /app
+COPY package.json bun.lock* ./
+COPY packages/db/package.json packages/db/
+COPY packages/legal-model/package.json packages/legal-model/
+COPY packages/citation/package.json packages/citation/
+COPY packages/search/package.json packages/search/
+COPY packages/llm/package.json packages/llm/
+COPY apps/api/package.json apps/api/
+COPY apps/web/package.json apps/web/
+COPY apps/workers-ts/package.json apps/workers-ts/
+RUN bun install --frozen-lockfile
+
+FROM deps AS build
+ARG APP=api
+COPY . .
+# Chỉ web cần bước build (SSR bundle); api và worker chạy thẳng TypeScript bằng Bun.
+RUN if [ "$APP" = "web" ]; then bun run --cwd apps/web build; fi
+
+FROM oven/bun:1.3-alpine AS runtime
+ARG APP=api
+ENV NODE_ENV=production APP=$APP
+WORKDIR /app
+RUN addgroup -S qdpl && adduser -S qdpl -G qdpl
+COPY --from=build --chown=qdpl:qdpl /app /app
+USER qdpl
+EXPOSE 3000 3001
+HEALTHCHECK --interval=30s --timeout=5s --start-period=20s --retries=3 \
+  CMD wget -qO- "http://127.0.0.1:${PORT:-3001}/health" || exit 1
+# APP quyết định tiến trình chạy.
+CMD ["sh", "-c", "case \"$APP\" in \
+  api) exec bun apps/api/src/index.ts ;; \
+  web) exec bun apps/web/build/server/index.js ;; \
+  worker) exec bun apps/workers-ts/src/worker.ts ;; \
+  *) echo 'APP phải là api|web|worker'; exit 1 ;; esac"]

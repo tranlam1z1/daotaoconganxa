@@ -1,0 +1,17 @@
+{
+  "name": "@qdpl/db",
+  "version": "0.1.0",
+  "type": "module",
+  "main": "src/index.ts",
+  "scripts": {
+    "typecheck": "tsc --noEmit -p tsconfig.json",
+    "push": "bun run src/migrate.ts",
+    "seed": "bun run src/seed.ts"
+  },
+  "dependencies": {
+    "@qdpl/dao-tao": "workspace:*",
+    "drizzle-orm": "^0.45.2",
+    "exceljs": "^4.4.0",
+    "postgres": "^3.4.9"
+  }
+}

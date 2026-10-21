@@ -1,0 +1,235 @@
+slug: uc-cntt-0009-chuyen-tiep-nd45-nd224
+title: Xác định nghị định áp dụng cho dự án đang dở dang khi Nghị định 45/2026/NĐ-CP bị thay thế
+
+taxonomy_codes: [PD.03.003, PD.34.007, NB.BHVB.HL, NB.CNTT.DTUD]
+actor_kinds: [co_quan_nha_nuoc, don_vi_su_nghiep, to_chuc_tu_van]
+work_kinds: [nghia_vu_tuan_thu, lap_ke_hoach_du_an]
+
+as_of: 2026-09-06
+effectivity_note: >-
+  Đây là trường hợp về chính vấn đề hiệu lực, nên as_of lấy theo thời điểm biên soạn (06/9/2026), khi
+  Nghị định số 224/2026/NĐ-CP đang có hiệu lực và Nghị định số 45/2026/NĐ-CP chỉ còn áp dụng cho nhóm
+  dự án chuyển tiếp.
+
+situation: |
+  Tại tỉnh T có ba dự án ứng dụng công nghệ thông tin ở ba trạng thái khác nhau tính đến ngày
+  30/6/2026:
+
+  - Dự án A: đã được quyết định đầu tư ngày 15/5/2026 theo Nghị định số 45/2026/NĐ-CP, đang ở bước
+    lập kế hoạch lựa chọn nhà thầu.
+  - Dự án B: đã có báo cáo thẩm định ngày 20/6/2026 nhưng đến ngày 30/6/2026 vẫn chưa được quyết định
+    đầu tư.
+  - Dự án C: đang lập báo cáo nghiên cứu khả thi, chưa trình thẩm định.
+
+  Sở Khoa học và Công nghệ tỉnh T được giao rà soát, hướng dẫn các chủ đầu tư xác định nghị định áp
+  dụng cho từng dự án và những việc phải làm.
+
+questions:
+  - Mỗi dự án áp dụng nghị định nào từ ngày 01/7/2026?
+  - Dự án đang áp dụng Nghị định số 45/2026/NĐ-CP có được chuyển sang Nghị định số 224/2026/NĐ-CP không?
+  - Nếu chuyển thì ai quyết định và thủ tục thế nào?
+  - Có được áp dụng xen kẽ hai nghị định cho các bước khác nhau của cùng một dự án không?
+
+analysis:
+  - step: 1
+    claim: >-
+      Nghị định số 45/2026/NĐ-CP hết hiệu lực kể từ ngày 01/7/2026, khi Nghị định số 224/2026/NĐ-CP
+      có hiệu lực thi hành.
+    citations:
+      - vn:vbqppl:nd:224/2026/NĐ-CP#dieu-90.khoan-2@2026-07-01
+      - vn:vbqppl:nd:224/2026/NĐ-CP#dieu-90.khoan-1@2026-07-01
+    quote: >-
+      1. Nghị định này có hiệu lực thi hành từ ngày 01 tháng 7 năm 2026.
+      2. Các nghị định sau hết hiệu lực từ ngày Nghị định này có hiệu lực thi hành, trừ trường hợp quy
+      định tại Điều 91 Nghị định này: a) Nghị định số 45/2026/NĐ-CP ngày 26 tháng 01 năm 2026 của
+      Chính phủ quy định quản lý đầu tư ứng dụng công nghệ thông tin sử dụng nguồn vốn ngân sách nhà
+      nước; …
+    reasoning: >-
+      Điểm a khoản 2 Điều 90 nêu đích danh Nghị định số 45/2026/NĐ-CP. Cụm "trừ trường hợp quy định
+      tại Điều 91" báo hiệu có ngoại lệ chuyển tiếp, phải đọc tiếp Điều 91 trước khi kết luận cho từng
+      dự án.
+
+  - step: 2
+    claim: >-
+      Dự án chưa được quyết định đầu tư trước ngày 01/7/2026 thì thực hiện theo Nghị định số
+      224/2026/NĐ-CP.
+    citations:
+      - vn:vbqppl:nd:224/2026/NĐ-CP#dieu-91.khoan-1@2026-07-01
+    quote: >-
+      Dự án, nhiệm vụ mua sắm, thuê dịch vụ công nghệ thông tin sử dụng nguồn vốn ngân sách nhà nước
+      chưa được quyết định đầu tư, mua sắm, thuê dịch vụ trước ngày Nghị định này có hiệu lực thi hành
+      thì thực hiện theo quy định tại Nghị định này.
+    reasoning: >-
+      Khoản 1 Điều 91 đặt nguyên tắc chung. Dự án C thuộc trường hợp này: chưa trình thẩm định nên
+      đương nhiên chưa được quyết định đầu tư. Dự án C áp dụng Nghị định số 224/2026/NĐ-CP.
+
+  - step: 3
+    claim: >-
+      Dự án đã được quyết định đầu tư theo Nghị định số 45/2026/NĐ-CP hoặc đã có báo cáo thẩm định
+      trước ngày 01/7/2026 thì được tiếp tục áp dụng Nghị định số 45/2026/NĐ-CP.
+    citations:
+      - vn:vbqppl:nd:224/2026/NĐ-CP#dieu-91.khoan-2@2026-07-01
+    quote: >-
+      Dự án, nhiệm vụ mua sắm, thuê dịch vụ công nghệ thông tin sử dụng nguồn vốn ngân sách nhà nước
+      đã được quyết định đầu tư, mua sắm, thuê dịch vụ theo Nghị định số 45/2026/NĐ-CP hoặc đã có báo
+      cáo thẩm định trước ngày Nghị định này có hiệu lực thi hành thì được tiếp tục áp dụng theo các
+      quy định tại Nghị định số 45/2026/NĐ-CP, trừ trường hợp cấp có thẩm quyền quyết định đầu tư, mua
+      sắm, thuê dịch vụ lựa chọn thực hiện theo quy định tại Nghị định này.
+    reasoning: >-
+      Khoản 2 Điều 91 nêu **hai** mốc thay thế nhau: đã được quyết định đầu tư, **hoặc** đã có báo cáo
+      thẩm định. Dự án A thỏa mãn mốc thứ nhất; dự án B thỏa mãn mốc thứ hai. Cả hai đều được tiếp tục
+      áp dụng Nghị định số 45/2026/NĐ-CP.
+
+  - step: 4
+    claim: >-
+      Việc chuyển sang áp dụng Nghị định số 224/2026/NĐ-CP là quyền lựa chọn của cấp có thẩm quyền
+      quyết định đầu tư, không phải quyền của chủ đầu tư và cũng không tự động.
+    citations:
+      - vn:vbqppl:nd:224/2026/NĐ-CP#dieu-91.khoan-2@2026-07-01
+    quote: >-
+      … trừ trường hợp cấp có thẩm quyền quyết định đầu tư, mua sắm, thuê dịch vụ lựa chọn thực hiện
+      theo quy định tại Nghị định này.
+    reasoning: >-
+      Mệnh đề "trừ trường hợp cấp có thẩm quyền … lựa chọn" xác định rõ chủ thể có quyền lựa chọn.
+      Chủ đầu tư chỉ có thể đề xuất; quyết định thuộc cấp có thẩm quyền quyết định đầu tư và phải được
+      thể hiện bằng văn bản để làm căn cứ cho các bước sau.
+
+  - step: 5
+    claim: >-
+      Không được áp dụng xen kẽ hai nghị định cho các bước khác nhau của cùng một dự án.
+    citations:
+      - vn:vbqppl:nd:224/2026/NĐ-CP#dieu-91.khoan-2@2026-07-01
+    quote: ""
+    reasoning: >-
+      Khoản 2 Điều 91 dùng cấu trúc lựa chọn giữa hai chế độ áp dụng cho cả dự án: "tiếp tục áp dụng
+      theo các quy định tại Nghị định số 45/2026/NĐ-CP" **hoặc** "thực hiện theo quy định tại Nghị
+      định này". Đây là lựa chọn ở cấp dự án, không phải ở cấp từng bước. Áp dụng xen kẽ sẽ tạo mâu
+      thuẫn nội tại trong hồ sơ, ví dụ thiết kế chi tiết lập theo Điều 20 Nghị định số 45/2026/NĐ-CP
+      thì chủ đầu tư phải thẩm định và phê duyệt, trong khi khoản 6 Điều 53 Nghị định số
+      224/2026/NĐ-CP lại quy định chủ đầu tư không phải thẩm định, phê duyệt.
+
+  - step: 6
+    claim: >-
+      Việc lựa chọn nghị định áp dụng có hệ quả thực chất, không chỉ là đổi số điều khi viện dẫn.
+    citations:
+      - vn:vbqppl:nd:224/2026/NĐ-CP#dieu-53@2026-07-01
+      - vn:vbqppl:nd:224/2026/NĐ-CP#dieu-60@2026-07-01
+      - vn:vbqppl:nd:45/2026/NĐ-CP#dieu-20@2026-03-01
+    quote: ""
+    reasoning: >-
+      Ba khác biệt thực chất đáng cân nhắc: (1) khoản 6 Điều 53 Nghị định số 224/2026/NĐ-CP quy định
+      chủ đầu tư không phải thẩm định, phê duyệt thiết kế chi tiết do nhà thầu triển khai lập, rút
+      ngắn quy trình so với khoản 5 và khoản 6 Điều 20 Nghị định số 45/2026/NĐ-CP; (2) khoản 3 Điều 60
+      Nghị định số 224/2026/NĐ-CP cho phép chỉ định thầu đơn vị đã cung cấp sản phẩm để quản trị, vận
+      hành, bảo trì; (3) nội dung báo cáo nghiên cứu khả thi theo Điều 45 Nghị định số 224/2026/NĐ-CP
+      bổ sung yêu cầu thuyết minh sự phù hợp với Kế hoạch chuyển đổi số.
+      `[CẦN ĐỐI CHIẾU: nguyên văn khoản 6 Điều 53, khoản 3 Điều 60 và Điều 45 Nghị định số
+      224/2026/NĐ-CP]`
+
+conclusion: |
+  **Dự án A** (đã được quyết định đầu tư ngày 15/5/2026): tiếp tục áp dụng **Nghị định số
+  45/2026/NĐ-CP** theo khoản 2 Điều 91 Nghị định số 224/2026/NĐ-CP.
+
+  **Dự án B** (đã có báo cáo thẩm định ngày 20/6/2026, chưa quyết định đầu tư): cũng tiếp tục áp dụng
+  **Nghị định số 45/2026/NĐ-CP**, vì khoản 2 Điều 91 nêu hai mốc thay thế nhau và dự án B thỏa mãn
+  mốc "đã có báo cáo thẩm định".
+
+  **Dự án C** (chưa trình thẩm định): áp dụng **Nghị định số 224/2026/NĐ-CP** theo khoản 1 Điều 91.
+
+  Dự án A và dự án B **được phép** chuyển sang Nghị định số 224/2026/NĐ-CP, nhưng phải do **cấp có
+  thẩm quyền quyết định đầu tư lựa chọn** và thể hiện bằng văn bản. Chủ đầu tư không tự quyết định.
+
+  **Không được áp dụng xen kẽ** hai nghị định cho các bước khác nhau của cùng một dự án. Đã chọn thì
+  áp dụng nhất quán cho toàn bộ các bước còn lại.
+
+  Việc chuyển đổi có hệ quả thực chất, đáng cân nhắc với dự án A và dự án B: Nghị định số
+  224/2026/NĐ-CP rút ngắn quy trình thiết kế chi tiết với dự án có phần mềm nội bộ và mở cơ chế chỉ
+  định thầu cho khâu quản trị, vận hành, bảo trì.
+
+procedure:
+  - order: 1
+    step: >-
+      Rà soát danh mục dự án đang triển khai, xác định trạng thái của từng dự án tính đến ngày
+      30/6/2026: đã quyết định đầu tư; đã có báo cáo thẩm định; hay chưa có cả hai
+    authority: Chủ đầu tư; cơ quan chuyên môn về chuyển đổi số của tỉnh tổng hợp
+    timeline: Ngay sau ngày 01/7/2026
+    inputs: [Danh mục dự án, Quyết định đầu tư, Báo cáo thẩm định]
+    outputs: [Bảng phân loại dự án theo nhóm chuyển tiếp]
+    citations:
+      - vn:vbqppl:nd:224/2026/NĐ-CP#dieu-91.khoan-1@2026-07-01
+      - vn:vbqppl:nd:224/2026/NĐ-CP#dieu-91.khoan-2@2026-07-01
+    templates: []
+    needs_citation: false
+  - order: 2
+    step: >-
+      Với dự án thuộc nhóm chuyển tiếp, đánh giá lợi ích và rủi ro của việc chuyển sang Nghị định số
+      224/2026/NĐ-CP, đặc biệt ở khâu thiết kế chi tiết và khâu quản trị, vận hành, bảo trì
+    authority: Chủ đầu tư
+    timeline: Trước bước tiếp theo của dự án
+    inputs: [Bảng đối chiếu hai nghị định, Tiến độ còn lại của dự án]
+    outputs: [Báo cáo đề xuất phương án áp dụng]
+    citations: [vn:vbqppl:nd:224/2026/NĐ-CP#dieu-91.khoan-2@2026-07-01]
+    templates: []
+    needs_citation: false
+  - order: 3
+    step: >-
+      Trình cấp có thẩm quyền quyết định đầu tư quyết định phương án áp dụng bằng văn bản, nếu đề xuất
+      chuyển sang Nghị định số 224/2026/NĐ-CP
+    authority: Chủ đầu tư trình; cấp có thẩm quyền quyết định đầu tư quyết định
+    timeline: Văn bản không quy định thời hạn cho bước này
+    inputs: [Báo cáo đề xuất phương án]
+    outputs: [Văn bản quyết định phương án áp dụng]
+    citations: [vn:vbqppl:nd:224/2026/NĐ-CP#dieu-91.khoan-2@2026-07-01]
+    templates: []
+    needs_citation: false
+  - order: 4
+    step: >-
+      Cập nhật bản đồ pháp lý của dự án và rà lại toàn bộ viện dẫn trong hồ sơ theo nghị định đã chọn;
+      bổ sung nội dung của Thông tư số 39/2026/TT-BKHCN và Thông tư số 41/2026/TT-BKHCN nếu áp dụng
+      Nghị định số 224/2026/NĐ-CP
+    authority: Chủ đầu tư
+    timeline: Trước khi trình bước tiếp theo
+    inputs: [Văn bản quyết định phương án áp dụng]
+    outputs: [Hồ sơ đã cập nhật viện dẫn nhất quán]
+    citations: []
+    templates: []
+    needs_citation: true
+
+risks:
+  - risk: Hiểu nhầm rằng mọi dự án đang dở dang đều tự động chuyển sang Nghị định số 224/2026/NĐ-CP
+    consequence: Lập lại hồ sơ không cần thiết, chậm tiến độ nhiều tháng
+    mitigation: "Đọc kỹ khoản 2 Điều 91: hai mốc chuyển tiếp là điều kiện thay thế nhau"
+    citations: [vn:vbqppl:nd:224/2026/NĐ-CP#dieu-91.khoan-2@2026-07-01]
+  - risk: Chủ đầu tư tự quyết định chuyển sang nghị định mới mà không trình cấp có thẩm quyền
+    consequence: Thiếu căn cứ pháp lý cho các bước sau; hồ sơ bị bác khi thẩm định hoặc khi kiểm tra
+    mitigation: Xin văn bản quyết định của cấp có thẩm quyền quyết định đầu tư trước khi áp dụng
+    citations: [vn:vbqppl:nd:224/2026/NĐ-CP#dieu-91.khoan-2@2026-07-01]
+  - risk: Áp dụng xen kẽ hai nghị định cho các bước khác nhau
+    consequence: >-
+      Hồ sơ mâu thuẫn nội tại, đặc biệt ở khâu thẩm định và phê duyệt thiết kế chi tiết của dự án có
+      phần mềm nội bộ; khó giải trình khi kiểm tra, thanh tra, kiểm toán
+    mitigation: Chọn một chế độ áp dụng cho cả dự án và ghi rõ trong văn bản quyết định
+    citations: [vn:vbqppl:nd:224/2026/NĐ-CP#dieu-91.khoan-2@2026-07-01]
+  - risk: Sau khi chọn nghị định, vẫn viện dẫn số điều của nghị định kia trong hồ sơ
+    consequence: Viện dẫn sai, hồ sơ bị trả lại để chỉnh sửa
+    mitigation: Dùng bảng đối chiếu điều theo điều để rà toàn bộ viện dẫn; cập nhật bản đồ pháp lý của dự án
+    citations: []
+
+related_questions:
+  - Bảng đối chiếu điều theo điều giữa hai nghị định như thế nào?
+  - Khác biệt thực chất giữa hai nghị định ở khâu thiết kế chi tiết là gì?
+  - Thông tư nào hướng dẫn Nghị định số 224/2026/NĐ-CP?
+
+gaps:
+  - what: Nguyên văn khoản 6 Điều 53, khoản 3 Điều 60 và Điều 45 Nghị định số 224/2026/NĐ-CP
+    why: Cần để đánh giá chính xác lợi ích và rủi ro khi chuyển sang nghị định mới
+    suggested_source: Toàn văn Nghị định số 224/2026/NĐ-CP đăng Công báo số 387 ngày 12/7/2026
+  - what: Nội dung chi tiết Thông tư số 39/2026/TT-BKHCN và Thông tư số 41/2026/TT-BKHCN
+    why: Dự án chuyển sang Nghị định số 224/2026/NĐ-CP phải áp dụng hai thông tư này ở khâu chi phí, kiểm thử, nghiệm thu
+    suggested_source: Toàn văn hai thông tư của Bộ Khoa học và Công nghệ, hiệu lực từ ngày 01/7/2026
+
+status: draft
+citation_health: ok
+author: Tổ biên soạn nội dung quydinhphapluat.vn
+legal_reviewer: null
+reviewed_at: null

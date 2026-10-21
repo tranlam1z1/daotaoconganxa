@@ -1,0 +1,167 @@
+# Đặc tả ứng dụng chính trên DigitalOcean App Platform: web + api + worker + việc migrate.
+#
+# Cách dùng: bảng điều khiển -> Apps -> ứng dụng -> Settings -> App Spec -> dán tệp này rồi Save.
+# (Không bắt buộc. Có thể tạo bằng giao diện theo docs/trien-khai-do.md, tệp này là bản đối chiếu.)
+#
+# Không có Dockerfile: App Platform tự nhận Bun nhờ bun.lock ở gốc kho, phiên bản lấy từ .bun-version.
+# MCP server nằm ở ứng dụng riêng (.do/mcp.yaml) vì nó cần tên miền riêng: điểm cuối /mcp,
+# trang đăng nhập ở / và metadata OAuth ở /.well-known đều phải nằm ngay gốc tên miền.
+name: qdpl
+region: sgp
+
+# Bí mật dùng chung cho mọi thành phần. Điền giá trị thật ở bảng điều khiển, đừng đưa vào kho mã.
+envs:
+  - key: NODE_ENV
+    scope: RUN_AND_BUILD_TIME
+    value: production
+  - key: DATABASE_URL
+    scope: RUN_AND_BUILD_TIME
+    type: SECRET
+    value: DIEN_O_BANG_DIEU_KHIEN
+  - key: DATABASE_URL_DIRECT
+    scope: RUN_AND_BUILD_TIME
+    type: SECRET
+    value: DIEN_O_BANG_DIEU_KHIEN
+  - key: PG_POOL_MAX
+    scope: RUN_AND_BUILD_TIME
+    value: "3"
+  - key: REDIS_URL
+    scope: RUN_AND_BUILD_TIME
+    type: SECRET
+    value: DIEN_O_BANG_DIEU_KHIEN
+  - key: ANTHROPIC_API_KEY
+    scope: RUN_AND_BUILD_TIME
+    type: SECRET
+    value: DIEN_O_BANG_DIEU_KHIEN
+  - key: LLM_PROVIDER
+    scope: RUN_AND_BUILD_TIME
+    value: auto
+  - key: GOOGLE_CLIENT_ID
+    scope: RUN_AND_BUILD_TIME
+    value: DIEN_O_BANG_DIEU_KHIEN
+  - key: AUTH_ALLOWED_DOMAINS
+    scope: RUN_AND_BUILD_TIME
+    value: ""
+  - key: AUTH_DEFAULT_ROLE
+    scope: RUN_AND_BUILD_TIME
+    value: khach
+  - key: AUTH_BOOTSTRAP_ADMIN
+    scope: RUN_AND_BUILD_TIME
+    value: "1"
+  - key: STORAGE_BACKEND
+    scope: RUN_AND_BUILD_TIME
+    value: r2
+  - key: R2_ACCOUNT_ID
+    scope: RUN_AND_BUILD_TIME
+    type: SECRET
+    value: DIEN_O_BANG_DIEU_KHIEN
+  - key: R2_BUCKET
+    scope: RUN_AND_BUILD_TIME
+    value: DIEN_O_BANG_DIEU_KHIEN
+  - key: R2_ACCESS_KEY_ID
+    scope: RUN_AND_BUILD_TIME
+    type: SECRET
+    value: DIEN_O_BANG_DIEU_KHIEN
+  - key: R2_SECRET_ACCESS_KEY
+    scope: RUN_AND_BUILD_TIME
+    type: SECRET
+    value: DIEN_O_BANG_DIEU_KHIEN
+  # Thông báo đẩy (docs/PLAN.md GĐ15). Sinh một lần: bunx web-push generate-vapid-keys.
+  # API đọc khóa công khai để trình duyệt đăng ký; worker nhac-hoc dùng cả hai khóa để gửi.
+  - key: VAPID_PUBLIC_KEY
+    scope: RUN_TIME
+    value: DIEN_O_BANG_DIEU_KHIEN
+  - key: VAPID_PRIVATE_KEY
+    scope: RUN_TIME
+    type: SECRET
+    value: DIEN_O_BANG_DIEU_KHIEN
+  - key: VAPID_SUBJECT
+    scope: RUN_TIME
+    value: mailto:hotro@quydinhphapluat.vn
+
+services:
+  # Giao diện người đọc. Đây là thành phần DUY NHẤT mở ra Internet.
+  - name: web
+    github:
+      repo: KHCN-Thanh-Hoa/qdpl
+      branch: main
+      deploy_on_push: true
+    source_dir: /
+    # Cài đặt chạy ở gốc kho để bun giải được các phụ thuộc workspace:* của apps/web.
+    # Cài lại phụ thuộc mỗi lần build: buildpack Bun khôi phục node_modules từ bộ đệm rồi bỏ qua bước cài,
+    # bộ đệm thiếu lối tắt bin của workspace apps/web nên `react-router` báo command not found (exit 127).
+    build_command: bun install --frozen-lockfile && bun run build:web
+    run_command: bun run start:web
+    http_port: 8080
+    instance_size_slug: apps-s-1vcpu-1gb
+    instance_count: 1
+    routes:
+      - path: /
+    envs:
+      # Web gọi API qua mạng nội bộ của ứng dụng, không đi vòng ra Internet.
+      - key: API_URL
+        scope: RUN_TIME
+        value: ${api.PRIVATE_URL}
+
+  # API nội bộ. Không khai routes => không có đường vào từ Internet, chỉ web gọi được.
+  - name: api
+    github:
+      repo: KHCN-Thanh-Hoa/qdpl
+      branch: main
+      deploy_on_push: true
+    source_dir: /
+    build_command: bun install --frozen-lockfile && bun run build:server
+    run_command: bun run start:api
+    http_port: 8080
+    instance_size_slug: apps-s-1vcpu-1gb
+    instance_count: 1
+    health_check:
+      http_path: /health
+      initial_delay_seconds: 20
+      period_seconds: 15
+      failure_threshold: 5
+
+workers:
+  # Worker BullMQ cho các việc do ứng dụng kích hoạt (soạn bài bằng AI, sinh ảnh nhân vật, đối soát).
+  # Không mở cổng nào.
+  #
+  # KHÔNG chạy đường ống nạp kho ở đây. Đường ống nạp kho (fetch, discover, ingest, convert, sohoa,
+  # parse, extract-ops, consolidate, relations, index) chạy từ máy vận hành, có Chromium và nhiều
+  # nhân CPU (xem LENH.md mục 3 và 3.7). Redis là hàng đợi chung: nếu worker ở đây cũng nghe các
+  # hàng đợi đó, nó sẽ nhận job nặng từ đợt nạp kho của máy vận hành.
+  # Bài học 08/9/2026 (khi `qdpl` CHƯA triển khai lên App Platform): đợt nạp kho từ máy vận hành
+  # làm CPU cụm Postgres dùng chung (db-s-1vcpu-1gb) lên 100%. Bộ hãm BULL_MAX_ACTIVE / BULL_CPU_DUTY
+  # và giới hạn tốc độ BULL_RATE_* áp cho mọi worker.
+  - name: worker
+    github:
+      repo: KHCN-Thanh-Hoa/qdpl
+      branch: main
+      deploy_on_push: true
+    source_dir: /
+    build_command: bun install --frozen-lockfile && bun run build:server
+    run_command: bun run start:worker -- --queues reconcile,soan-bai,mascot-anh,thi-het-gio,sach-noi,nhac-hoc,mua-giai,don-khach
+    instance_size_slug: apps-s-1vcpu-1gb
+    instance_count: 1
+    envs:
+      - key: BULL_MAX_ACTIVE
+        scope: RUN_TIME
+        value: "1"
+      - key: BULL_CPU_DUTY
+        scope: RUN_TIME
+        value: "0.5"
+
+jobs:
+  # Chạy TRƯỚC khi bản mới nhận lưu lượng: lược đồ CSDL luôn đi trước mã.
+  # Dùng kết nối trực tiếp (cổng 25060) vì migration có lệnh cần trạng thái phiên,
+  # PgBouncer ở chế độ transaction không giữ được.
+  - name: migrate
+    kind: PRE_DEPLOY
+    github:
+      repo: KHCN-Thanh-Hoa/qdpl
+      branch: main
+      deploy_on_push: true
+    source_dir: /
+    build_command: bun install --frozen-lockfile && bun run build:server
+    run_command: bun run deploy:migrate
+    instance_size_slug: apps-s-1vcpu-1gb
+    instance_count: 1

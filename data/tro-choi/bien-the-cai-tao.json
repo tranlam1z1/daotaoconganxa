@@ -1,0 +1,95 @@
+{
+  "mo_ta": "Danh mục biến thể cải tạo cho trò Soi xe cải tạo (docs/PLAN.md GĐ-T14). Mỗi mục là một game_content (payload.kieu = bien_the), trỏ tới dòng mức phạt. Nạp bằng: bun run db:seed:tro-choi (vào chờ duyệt).",
+  "luu_y_bien_tap": [
+    "DỮ LIỆU DEMO, CHƯA DUYỆT. Ngày soạn 29/9/2026, máy chủ tra cứu văn bản (quydinhphapluat) mất kết nối nên CHƯA TRA ĐƯỢC KHO về cải tạo phương tiện, tự ý thay đổi kết cấu, kích thước thùng, màu sơn, lắp thêm đèn, còi. Căn cứ ghi vn:chua-co-trong-kho: không viện dẫn theo trí nhớ.",
+    "Trước khi duyệt: tra kho, đơn vị chuyên môn xác định hành vi nào là vi phạm, văn bản, điều, khoản; đối chiếu mã mức phạt (dòng oto-cai-tao-* trong data/tra-cuu/muc-phat.json là số minh họa).",
+    "bien_doi là kiểu biến đổi hình trong packages/dao-tao/src/tro-choi/hinh-xe-tham-so.ts; dong là dòng giấy chứng nhận kiểm định mà chỗ sai không khớp; man_tu là màn đầu tiên có biến thể.",
+    "Danh sách cần đơn vị chuyên môn kiểm tra ở docs/GAME_DESIGN.md §5.14."
+  ],
+  "bien_the": [
+    {
+      "tieu_de": "[Demo] Biến thể: Đổi màu sơn",
+      "ma": "bt-doi-mau-son",
+      "ten": "Màu sơn không đúng giấy chứng nhận",
+      "bien_doi": "doi_mau_son",
+      "dong": "mau_son",
+      "loai_xe": ["o_to_con", "xe_khach_16", "xe_tai_thung"],
+      "man_tu": 1,
+      "ma_muc_phat": "oto-cai-tao-mau-son",
+      "can_cu": "vn:chua-co-trong-kho",
+      "giai_thich": "Màu sơn thực tế của xe khác màu ghi trên giấy chứng nhận. Chưa đối chiếu văn bản: cần đơn vị chuyên môn xác nhận khi nào đổi màu sơn là vi phạm và thủ tục phải làm."
+    },
+    {
+      "tieu_de": "[Demo] Biến thể: Đèn gắn thêm trên nóc",
+      "ma": "bt-den-noc",
+      "ten": "Lắp thêm đèn không đúng thiết kế",
+      "bien_doi": "den_noc",
+      "dong": "den",
+      "loai_xe": ["o_to_con", "xe_khach_16", "xe_tai_thung"],
+      "man_tu": 1,
+      "ma_muc_phat": "oto-cai-tao-den",
+      "can_cu": "vn:chua-co-trong-kho",
+      "giai_thich": "Xe lắp thêm dàn đèn trên nóc, giấy chứng nhận không ghi. Chưa đối chiếu văn bản về lắp thêm đèn chiếu sáng, đèn tín hiệu."
+    },
+    {
+      "tieu_de": "[Demo] Biến thể: Ống xả độ",
+      "ma": "bt-ong-xa",
+      "ten": "Thay ống xả nhô ra ngoài thân xe",
+      "bien_doi": "ong_xa_do",
+      "dong": "kich_thuoc_bao",
+      "loai_xe": ["o_to_con", "xe_khach_16", "xe_tai_thung"],
+      "man_tu": 3,
+      "ma_muc_phat": "oto-cai-tao-ket-cau",
+      "can_cu": "vn:chua-co-trong-kho",
+      "giai_thich": "Ống xả thay mới nhô ra sau thân xe, vượt kích thước bao ghi trên giấy. Chưa đối chiếu văn bản về tự ý thay đổi kết cấu, hệ thống của xe."
+    },
+    {
+      "tieu_de": "[Demo] Biến thể: Lốp khác cỡ",
+      "ma": "bt-lop-lon",
+      "ten": "Lốp không đúng cỡ ghi trên giấy chứng nhận",
+      "bien_doi": "lop_khac_co",
+      "dong": "co_lop",
+      "loai_xe": ["o_to_con", "xe_khach_16", "xe_tai_thung"],
+      "man_tu": 3,
+      "ma_muc_phat": "oto-cai-tao-ket-cau",
+      "can_cu": "vn:chua-co-trong-kho",
+      "giai_thich": "Bánh xe lớn hơn rõ so với cỡ lốp ghi trên giấy. Chưa đối chiếu văn bản: cần đơn vị chuyên môn xác nhận sai lệch cỡ lốp bao nhiêu thì là vi phạm."
+    },
+    {
+      "tieu_de": "[Demo] Biến thể: Thùng cơi nới chiều cao",
+      "ma": "bt-thung-coi-cao",
+      "ten": "Thùng xe cơi nới chiều cao",
+      "bien_doi": "thung_cao_them",
+      "dong": "kich_thuoc_thung",
+      "loai_xe": ["xe_tai_thung"],
+      "man_tu": 4,
+      "ma_muc_phat": "oto-cai-tao-thung",
+      "can_cu": "vn:chua-co-trong-kho",
+      "giai_thich": "Thùng xe cao hơn kích thước lòng thùng ghi trên giấy. Cơi nới ít chỉ thấy khi đo bằng thước (màn 5). Chưa đối chiếu văn bản về kích thước thùng xe."
+    },
+    {
+      "tieu_de": "[Demo] Biến thể: Thùng cơi nới chiều dài",
+      "ma": "bt-thung-dai",
+      "ten": "Thùng xe cơi nới chiều dài",
+      "bien_doi": "thung_dai_them",
+      "dong": "kich_thuoc_thung",
+      "loai_xe": ["xe_tai_thung"],
+      "man_tu": 5,
+      "ma_muc_phat": "oto-cai-tao-thung",
+      "can_cu": "vn:chua-co-trong-kho",
+      "giai_thich": "Thùng xe dài hơn kích thước lòng thùng ghi trên giấy, phải đo bằng thước. Chưa đối chiếu văn bản về kích thước thùng xe."
+    },
+    {
+      "tieu_de": "[Demo] Biến thể: Lắp thêm ghế",
+      "ma": "bt-them-ghe",
+      "ten": "Lắp thêm ghế, vượt số chỗ ghi trên giấy",
+      "bien_doi": "them_ghe",
+      "dong": "so_cho",
+      "loai_xe": ["xe_khach_16"],
+      "man_tu": 4,
+      "ma_muc_phat": "oto-cai-tao-ket-cau",
+      "can_cu": "vn:chua-co-trong-kho",
+      "giai_thich": "Khoang hành lý phía sau lắp thêm hàng ghế, nhìn thấy qua cửa sổ cuối. Chưa đối chiếu văn bản về tự ý thay đổi kết cấu, số chỗ."
+    }
+  ]
+}

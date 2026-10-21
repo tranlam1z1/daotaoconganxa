@@ -1,0 +1,1029 @@
+{
+  "mo_ta": "Hồ sơ mẫu trò Duyệt hồ sơ phạt nguội (docs/PLAN.md GĐ-T11). Nạp vào chờ duyệt: bun run packages/db/src/seed-tro-choi.ts",
+  "luu_y_bien_tap": [
+    "DỮ LIỆU DEMO, CHƯA DUYỆT. Biển số, mã thiết bị, vị trí đều giả định; nếu trùng xe, địa điểm thật là ngẫu nhiên.",
+    "Chỗ thiếu của từng hồ sơ suy ra từ luật kiểm hồ sơ (data/tra-cuu/luat-ho-so-phat-nguoi.json), luật này còn là bản nháp chưa đối chiếu văn bản. cho_thieu là dự kiến của người soạn: hồ sơ mà luật đã duyệt cho kết quả khác thì không vào lượt.",
+    "Mã mức phạt (de_xuat.ma_muc_phat) trỏ tới data/tra-cuu/muc-phat.json; hành vi đi sai làn, đi vào đường cấm chưa có dòng mức phạt nên để null."
+  ],
+  "ho_so": [
+    {
+      "ma": "PN-01",
+      "tieu_de": "[Demo] PN-01 · Màn 1 · 30A-123.45 · đủ căn cứ",
+      "muc": 1,
+      "cho_thieu": [],
+      "y_do": "Ô tô qua vạch khi đèn đỏ, ảnh rõ, đủ căn cứ.",
+      "ho_so": {
+        "bien_so_he_thong": "30A-123.45",
+        "loai_xe": "o_to",
+        "bien_so": "30A-123.45",
+        "ky_tu_mo": [],
+        "thoi_diem": "2026-09-10T07:42:10",
+        "vi_tri": "Nút giao đường số 3 – đường số 7, phường A (địa điểm giả định)",
+        "thiet_bi": {
+          "loai": "den_tin_hieu",
+          "ma": "CAM-DTH-012",
+          "han_kiem_dinh": "2027-03-31"
+        },
+        "de_xuat": {
+          "hanh_vi": "vuot_den_do",
+          "ma_muc_phat": "oto-den-do"
+        },
+        "anh": {
+          "canh": "giao_lo",
+          "den": "do",
+          "qua_vach": true,
+          "do_mo": 0,
+          "toi": false,
+          "che": "khong"
+        }
+      }
+    },
+    {
+      "ma": "PN-02",
+      "tieu_de": "[Demo] PN-02 · Màn 1 · 29-E2 345.67 · đủ căn cứ",
+      "muc": 1,
+      "cho_thieu": [],
+      "y_do": "Mô tô, người lái không đội mũ, ảnh rõ.",
+      "ho_so": {
+        "bien_so_he_thong": "29-E2 345.67",
+        "loai_xe": "mo_to",
+        "bien_so": "29-E2 345.67",
+        "ky_tu_mo": [],
+        "thoi_diem": "2026-09-11T16:05:33",
+        "vi_tri": "Đường số 12, đoạn trước trường học, phường B (địa điểm giả định)",
+        "thiet_bi": {
+          "loai": "giam_sat",
+          "ma": "CAM-GS-104",
+          "han_kiem_dinh": "2027-03-31"
+        },
+        "de_xuat": {
+          "hanh_vi": "khong_mu_bao_hiem",
+          "ma_muc_phat": "mt-mu-bao-hiem"
+        },
+        "anh": {
+          "canh": "duong_thang",
+          "mu": false,
+          "do_mo": 0,
+          "toi": false,
+          "che": "khong"
+        }
+      }
+    },
+    {
+      "ma": "PN-03",
+      "tieu_de": "[Demo] PN-03 · Màn 1 · 51F-456.78 · đủ căn cứ",
+      "muc": 1,
+      "cho_thieu": [],
+      "y_do": "Đo 78/60 km/h, thiết bị còn hạn.",
+      "ho_so": {
+        "bien_so_he_thong": "51F-456.78",
+        "loai_xe": "o_to",
+        "bien_so": "51F-456.78",
+        "ky_tu_mo": [],
+        "thoi_diem": "2026-09-12T10:18:02",
+        "vi_tri": "Quốc lộ giả định, km 23+400, chiều đi (địa điểm giả định)",
+        "thiet_bi": {
+          "loai": "toc_do",
+          "ma": "TD-QL-007",
+          "han_kiem_dinh": "2027-03-31"
+        },
+        "de_xuat": {
+          "hanh_vi": "qua_toc_do",
+          "ma_muc_phat": "oto-toc-do-10-20"
+        },
+        "do_toc_do": {
+          "do_duoc": 78,
+          "gioi_han": 60
+        },
+        "anh": {
+          "canh": "duong_thang",
+          "do_mo": 0,
+          "toi": false,
+          "che": "khong"
+        }
+      }
+    },
+    {
+      "ma": "PN-04",
+      "tieu_de": "[Demo] PN-04 · Màn 1 · 30-H1 876.54 · đủ căn cứ",
+      "muc": 1,
+      "cho_thieu": [],
+      "y_do": "Mô tô qua vạch khi đèn đỏ.",
+      "ho_so": {
+        "bien_so_he_thong": "30-H1 876.54",
+        "loai_xe": "mo_to",
+        "bien_so": "30-H1 876.54",
+        "ky_tu_mo": [],
+        "thoi_diem": "2026-09-13T18:20:45",
+        "vi_tri": "Nút giao đường số 3 – đường số 7, phường A (địa điểm giả định)",
+        "thiet_bi": {
+          "loai": "den_tin_hieu",
+          "ma": "CAM-DTH-012",
+          "han_kiem_dinh": "2027-03-31"
+        },
+        "de_xuat": {
+          "hanh_vi": "vuot_den_do",
+          "ma_muc_phat": "mt-den-do"
+        },
+        "anh": {
+          "canh": "giao_lo",
+          "den": "do",
+          "qua_vach": true,
+          "do_mo": 0,
+          "toi": false,
+          "che": "khong"
+        }
+      }
+    },
+    {
+      "ma": "PN-05",
+      "tieu_de": "[Demo] PN-05 · Màn 1 · 30E-765.43 · thiếu 1 chỗ",
+      "muc": 1,
+      "cho_thieu": [
+        "thieu_thoi_diem"
+      ],
+      "y_do": "Ô tô vượt đèn đỏ nhưng hồ sơ không có thời điểm.",
+      "ho_so": {
+        "bien_so_he_thong": "30E-765.43",
+        "loai_xe": "o_to",
+        "bien_so": "30E-765.43",
+        "ky_tu_mo": [],
+        "thoi_diem": null,
+        "vi_tri": "Nút giao đường số 3 – đường số 7, phường A (địa điểm giả định)",
+        "thiet_bi": {
+          "loai": "den_tin_hieu",
+          "ma": "CAM-DTH-012",
+          "han_kiem_dinh": "2027-03-31"
+        },
+        "de_xuat": {
+          "hanh_vi": "vuot_den_do",
+          "ma_muc_phat": "oto-den-do"
+        },
+        "anh": {
+          "canh": "giao_lo",
+          "den": "do",
+          "qua_vach": true,
+          "do_mo": 0,
+          "toi": false,
+          "che": "khong"
+        }
+      }
+    },
+    {
+      "ma": "PN-06",
+      "tieu_de": "[Demo] PN-06 · Màn 1 · 36-K1 112.23 · thiếu 1 chỗ",
+      "muc": 1,
+      "cho_thieu": [
+        "thieu_thoi_diem"
+      ],
+      "y_do": "Không mũ bảo hiểm, thiếu thời điểm.",
+      "ho_so": {
+        "bien_so_he_thong": "36-K1 112.23",
+        "loai_xe": "mo_to",
+        "bien_so": "36-K1 112.23",
+        "ky_tu_mo": [],
+        "thoi_diem": null,
+        "vi_tri": "Đường số 12, đoạn trước trường học, phường B (địa điểm giả định)",
+        "thiet_bi": {
+          "loai": "giam_sat",
+          "ma": "CAM-GS-104",
+          "han_kiem_dinh": "2027-03-31"
+        },
+        "de_xuat": {
+          "hanh_vi": "khong_mu_bao_hiem",
+          "ma_muc_phat": "mt-mu-bao-hiem"
+        },
+        "anh": {
+          "canh": "duong_thang",
+          "mu": false,
+          "do_mo": 0,
+          "toi": false,
+          "che": "khong"
+        }
+      }
+    },
+    {
+      "ma": "PN-07",
+      "tieu_de": "[Demo] PN-07 · Màn 1 · 43A-908.12 · thiếu 1 chỗ",
+      "muc": 1,
+      "cho_thieu": [
+        "thieu_thoi_diem"
+      ],
+      "y_do": "Quá tốc độ 85/60, thiếu thời điểm.",
+      "ho_so": {
+        "bien_so_he_thong": "43A-908.12",
+        "loai_xe": "o_to",
+        "bien_so": "43A-908.12",
+        "ky_tu_mo": [],
+        "thoi_diem": null,
+        "vi_tri": "Quốc lộ giả định, km 23+400, chiều đi (địa điểm giả định)",
+        "thiet_bi": {
+          "loai": "toc_do",
+          "ma": "TD-QL-007",
+          "han_kiem_dinh": "2027-03-31"
+        },
+        "de_xuat": {
+          "hanh_vi": "qua_toc_do",
+          "ma_muc_phat": "oto-toc-do-20-35"
+        },
+        "do_toc_do": {
+          "do_duoc": 85,
+          "gioi_han": 60
+        },
+        "anh": {
+          "canh": "duong_thang",
+          "do_mo": 0,
+          "toi": false,
+          "che": "khong"
+        }
+      }
+    },
+    {
+      "ma": "PN-08",
+      "tieu_de": "[Demo] PN-08 · Màn 1 · 29D-345.21 · thiếu 1 chỗ",
+      "muc": 1,
+      "cho_thieu": [
+        "anh_khong_ro_hanh_vi"
+      ],
+      "y_do": "Ảnh mờ hẳn, không thấy đèn và vạch.",
+      "ho_so": {
+        "bien_so_he_thong": "29D-345.21",
+        "loai_xe": "o_to",
+        "bien_so": "29D-345.21",
+        "ky_tu_mo": [],
+        "thoi_diem": "2026-09-10T07:42:10",
+        "vi_tri": "Nút giao đường số 3 – đường số 7, phường A (địa điểm giả định)",
+        "thiet_bi": {
+          "loai": "den_tin_hieu",
+          "ma": "CAM-DTH-012",
+          "han_kiem_dinh": "2027-03-31"
+        },
+        "de_xuat": {
+          "hanh_vi": "vuot_den_do",
+          "ma_muc_phat": "oto-den-do"
+        },
+        "anh": {
+          "canh": "giao_lo",
+          "den": "do",
+          "qua_vach": true,
+          "do_mo": 3,
+          "toi": false,
+          "che": "khong"
+        }
+      }
+    },
+    {
+      "ma": "PN-09",
+      "tieu_de": "[Demo] PN-09 · Màn 1 · 15-B2 667.80 · thiếu 1 chỗ",
+      "muc": 1,
+      "cho_thieu": [
+        "anh_khong_ro_hanh_vi"
+      ],
+      "y_do": "Ảnh đêm mờ hẳn, không thấy người lái có đội mũ không.",
+      "ho_so": {
+        "bien_so_he_thong": "15-B2 667.80",
+        "loai_xe": "mo_to",
+        "bien_so": "15-B2 667.80",
+        "ky_tu_mo": [],
+        "thoi_diem": "2026-09-11T21:40:12",
+        "vi_tri": "Đường số 12, đoạn trước trường học, phường B (địa điểm giả định)",
+        "thiet_bi": {
+          "loai": "giam_sat",
+          "ma": "CAM-GS-104",
+          "han_kiem_dinh": "2027-03-31"
+        },
+        "de_xuat": {
+          "hanh_vi": "khong_mu_bao_hiem",
+          "ma_muc_phat": "mt-mu-bao-hiem"
+        },
+        "anh": {
+          "canh": "duong_thang",
+          "mu": false,
+          "do_mo": 3,
+          "toi": true,
+          "che": "khong"
+        }
+      }
+    },
+    {
+      "ma": "PN-10",
+      "tieu_de": "[Demo] PN-10 · Màn 1 · 18-G1 440.19 · thiếu 1 chỗ",
+      "muc": 1,
+      "cho_thieu": [
+        "anh_khong_ro_hanh_vi"
+      ],
+      "y_do": "Mô tô, ảnh mờ hẳn do mưa.",
+      "ho_so": {
+        "bien_so_he_thong": "18-G1 440.19",
+        "loai_xe": "mo_to",
+        "bien_so": "18-G1 440.19",
+        "ky_tu_mo": [],
+        "thoi_diem": "2026-09-10T07:42:10",
+        "vi_tri": "Nút giao đường số 3 – đường số 7, phường A (địa điểm giả định)",
+        "thiet_bi": {
+          "loai": "den_tin_hieu",
+          "ma": "CAM-DTH-012",
+          "han_kiem_dinh": "2027-03-31"
+        },
+        "de_xuat": {
+          "hanh_vi": "vuot_den_do",
+          "ma_muc_phat": "mt-den-do"
+        },
+        "anh": {
+          "canh": "giao_lo",
+          "den": "do",
+          "qua_vach": true,
+          "do_mo": 3,
+          "toi": false,
+          "che": "khong"
+        }
+      }
+    },
+    {
+      "ma": "PN-11",
+      "tieu_de": "[Demo] PN-11 · Màn 2 · 47A-310.66 · đủ căn cứ",
+      "muc": 2,
+      "cho_thieu": [],
+      "y_do": "Ảnh tối nhưng vẫn thấy rõ đèn đỏ, vạch và biển số: đủ căn cứ.",
+      "ho_so": {
+        "bien_so_he_thong": "47A-310.66",
+        "loai_xe": "o_to",
+        "bien_so": "47A-310.66",
+        "ky_tu_mo": [],
+        "thoi_diem": "2026-09-14T19:55:08",
+        "vi_tri": "Nút giao đường số 3 – đường số 7, phường A (địa điểm giả định)",
+        "thiet_bi": {
+          "loai": "den_tin_hieu",
+          "ma": "CAM-DTH-012",
+          "han_kiem_dinh": "2027-03-31"
+        },
+        "de_xuat": {
+          "hanh_vi": "vuot_den_do",
+          "ma_muc_phat": "oto-den-do"
+        },
+        "anh": {
+          "canh": "giao_lo",
+          "den": "do",
+          "qua_vach": true,
+          "do_mo": 1,
+          "toi": true,
+          "che": "khong"
+        }
+      }
+    },
+    {
+      "ma": "PN-12",
+      "tieu_de": "[Demo] PN-12 · Màn 2 · 30G-518.27 · thiếu 1 chỗ",
+      "muc": 2,
+      "cho_thieu": [
+        "bien_so_khong_doc_duoc"
+      ],
+      "y_do": "Hai ký tự của biển số bị lóa, không đọc được.",
+      "ho_so": {
+        "bien_so_he_thong": "30G-5??.27",
+        "loai_xe": "o_to",
+        "bien_so": "30G-518.27",
+        "ky_tu_mo": [
+          5,
+          6
+        ],
+        "thoi_diem": "2026-09-10T07:42:10",
+        "vi_tri": "Nút giao đường số 3 – đường số 7, phường A (địa điểm giả định)",
+        "thiet_bi": {
+          "loai": "den_tin_hieu",
+          "ma": "CAM-DTH-012",
+          "han_kiem_dinh": "2027-03-31"
+        },
+        "de_xuat": {
+          "hanh_vi": "vuot_den_do",
+          "ma_muc_phat": "oto-den-do"
+        },
+        "anh": {
+          "canh": "giao_lo",
+          "den": "do",
+          "qua_vach": true,
+          "do_mo": 0,
+          "toi": false,
+          "che": "khong"
+        }
+      }
+    },
+    {
+      "ma": "PN-13",
+      "tieu_de": "[Demo] PN-13 · Màn 2 · 65-C1 209.84 · thiếu 1 chỗ",
+      "muc": 2,
+      "cho_thieu": [
+        "bien_so_khong_doc_duoc"
+      ],
+      "y_do": "Một ký tự biển số mô tô dính bùn.",
+      "ho_so": {
+        "bien_so_he_thong": "65-C1 209.?4",
+        "loai_xe": "mo_to",
+        "bien_so": "65-C1 209.84",
+        "ky_tu_mo": [
+          10
+        ],
+        "thoi_diem": "2026-09-11T16:05:33",
+        "vi_tri": "Đường số 12, đoạn trước trường học, phường B (địa điểm giả định)",
+        "thiet_bi": {
+          "loai": "giam_sat",
+          "ma": "CAM-GS-104",
+          "han_kiem_dinh": "2027-03-31"
+        },
+        "de_xuat": {
+          "hanh_vi": "khong_mu_bao_hiem",
+          "ma_muc_phat": "mt-mu-bao-hiem"
+        },
+        "anh": {
+          "canh": "duong_thang",
+          "mu": false,
+          "do_mo": 0,
+          "toi": false,
+          "che": "khong"
+        }
+      }
+    },
+    {
+      "ma": "PN-14",
+      "tieu_de": "[Demo] PN-14 · Màn 2 · 59A-771.03 · thiếu 1 chỗ",
+      "muc": 2,
+      "cho_thieu": [
+        "thiet_bi_het_han_kiem_dinh"
+      ],
+      "y_do": "Thiết bị đo tốc độ hết hạn kiểm định từ 30/06/2026.",
+      "ho_so": {
+        "bien_so_he_thong": "59A-771.03",
+        "loai_xe": "o_to",
+        "bien_so": "59A-771.03",
+        "ky_tu_mo": [],
+        "thoi_diem": "2026-09-12T10:18:02",
+        "vi_tri": "Quốc lộ giả định, km 23+400, chiều đi (địa điểm giả định)",
+        "thiet_bi": {
+          "loai": "toc_do",
+          "ma": "TD-QL-011",
+          "han_kiem_dinh": "2026-06-30"
+        },
+        "de_xuat": {
+          "hanh_vi": "qua_toc_do",
+          "ma_muc_phat": "oto-toc-do-20-35"
+        },
+        "do_toc_do": {
+          "do_duoc": 80,
+          "gioi_han": 60
+        },
+        "anh": {
+          "canh": "duong_thang",
+          "do_mo": 0,
+          "toi": false,
+          "che": "khong"
+        }
+      }
+    },
+    {
+      "ma": "PN-15",
+      "tieu_de": "[Demo] PN-15 · Màn 2 · 75-D1 553.60 · thiếu 1 chỗ",
+      "muc": 2,
+      "cho_thieu": [
+        "thiet_bi_het_han_kiem_dinh"
+      ],
+      "y_do": "Camera đèn tín hiệu hết hạn kiểm định trước ngày ghi hình.",
+      "ho_so": {
+        "bien_so_he_thong": "75-D1 553.60",
+        "loai_xe": "mo_to",
+        "bien_so": "75-D1 553.60",
+        "ky_tu_mo": [],
+        "thoi_diem": "2026-09-10T07:42:10",
+        "vi_tri": "Nút giao đường số 3 – đường số 7, phường A (địa điểm giả định)",
+        "thiet_bi": {
+          "loai": "den_tin_hieu",
+          "ma": "CAM-DTH-031",
+          "han_kiem_dinh": "2026-08-15"
+        },
+        "de_xuat": {
+          "hanh_vi": "vuot_den_do",
+          "ma_muc_phat": "mt-den-do"
+        },
+        "anh": {
+          "canh": "giao_lo",
+          "den": "do",
+          "qua_vach": true,
+          "do_mo": 0,
+          "toi": false,
+          "che": "khong"
+        }
+      }
+    },
+    {
+      "ma": "PN-16",
+      "tieu_de": "[Demo] PN-16 · Màn 3 · 30K-102.88 · đủ căn cứ",
+      "muc": 3,
+      "cho_thieu": [],
+      "y_do": "Ô tô đi vào làn dành cho xe mô tô, xe gắn máy.",
+      "ho_so": {
+        "bien_so_he_thong": "30K-102.88",
+        "loai_xe": "o_to",
+        "bien_so": "30K-102.88",
+        "ky_tu_mo": [],
+        "thoi_diem": "2026-09-10T07:42:10",
+        "vi_tri": "Nút giao đường số 3 – đường số 7, phường A (địa điểm giả định)",
+        "thiet_bi": {
+          "loai": "giam_sat",
+          "ma": "CAM-GS-220",
+          "han_kiem_dinh": "2027-03-31"
+        },
+        "de_xuat": {
+          "hanh_vi": "sai_lan",
+          "ma_muc_phat": null
+        },
+        "anh": {
+          "canh": "duong_lan",
+          "lan": "xe_may",
+          "do_mo": 0,
+          "toi": false,
+          "che": "khong"
+        }
+      }
+    },
+    {
+      "ma": "PN-17",
+      "tieu_de": "[Demo] PN-17 · Màn 3 · 92A-640.15 · thiếu 1 chỗ",
+      "muc": 3,
+      "cho_thieu": [
+        "hanh_vi_khong_khop"
+      ],
+      "y_do": "Đề xuất vượt đèn đỏ nhưng ảnh cho thấy đèn xanh.",
+      "ho_so": {
+        "bien_so_he_thong": "92A-640.15",
+        "loai_xe": "o_to",
+        "bien_so": "92A-640.15",
+        "ky_tu_mo": [],
+        "thoi_diem": "2026-09-10T07:42:10",
+        "vi_tri": "Nút giao đường số 3 – đường số 7, phường A (địa điểm giả định)",
+        "thiet_bi": {
+          "loai": "den_tin_hieu",
+          "ma": "CAM-DTH-012",
+          "han_kiem_dinh": "2027-03-31"
+        },
+        "de_xuat": {
+          "hanh_vi": "vuot_den_do",
+          "ma_muc_phat": "oto-den-do"
+        },
+        "anh": {
+          "canh": "giao_lo",
+          "den": "xanh",
+          "qua_vach": true,
+          "do_mo": 0,
+          "toi": false,
+          "che": "khong"
+        }
+      }
+    },
+    {
+      "ma": "PN-18",
+      "tieu_de": "[Demo] PN-18 · Màn 3 · 51H-233.90 · thiếu 1 chỗ",
+      "muc": 3,
+      "cho_thieu": [
+        "hanh_vi_khong_khop"
+      ],
+      "y_do": "Đề xuất quá tốc độ nhưng đo 58/60 km/h.",
+      "ho_so": {
+        "bien_so_he_thong": "51H-233.90",
+        "loai_xe": "o_to",
+        "bien_so": "51H-233.90",
+        "ky_tu_mo": [],
+        "thoi_diem": "2026-09-12T10:18:02",
+        "vi_tri": "Quốc lộ giả định, km 23+400, chiều đi (địa điểm giả định)",
+        "thiet_bi": {
+          "loai": "toc_do",
+          "ma": "TD-QL-007",
+          "han_kiem_dinh": "2027-03-31"
+        },
+        "de_xuat": {
+          "hanh_vi": "qua_toc_do",
+          "ma_muc_phat": null
+        },
+        "do_toc_do": {
+          "do_duoc": 58,
+          "gioi_han": 60
+        },
+        "anh": {
+          "canh": "duong_thang",
+          "do_mo": 0,
+          "toi": false,
+          "che": "khong"
+        }
+      }
+    },
+    {
+      "ma": "PN-19",
+      "tieu_de": "[Demo] PN-19 · Màn 3 · 36-L1 780.02 · thiếu 1 chỗ",
+      "muc": 3,
+      "cho_thieu": [
+        "hanh_vi_khong_khop"
+      ],
+      "y_do": "Đề xuất không đội mũ nhưng ảnh cho thấy có đội mũ.",
+      "ho_so": {
+        "bien_so_he_thong": "36-L1 780.02",
+        "loai_xe": "mo_to",
+        "bien_so": "36-L1 780.02",
+        "ky_tu_mo": [],
+        "thoi_diem": "2026-09-11T16:05:33",
+        "vi_tri": "Đường số 12, đoạn trước trường học, phường B (địa điểm giả định)",
+        "thiet_bi": {
+          "loai": "giam_sat",
+          "ma": "CAM-GS-104",
+          "han_kiem_dinh": "2027-03-31"
+        },
+        "de_xuat": {
+          "hanh_vi": "khong_mu_bao_hiem",
+          "ma_muc_phat": "mt-mu-bao-hiem"
+        },
+        "anh": {
+          "canh": "duong_thang",
+          "mu": true,
+          "do_mo": 0,
+          "toi": false,
+          "che": "khong"
+        }
+      }
+    },
+    {
+      "ma": "PN-20",
+      "tieu_de": "[Demo] PN-20 · Màn 3 · 29E-118.47 · thiếu 1 chỗ",
+      "muc": 3,
+      "cho_thieu": [
+        "anh_khong_ro_hanh_vi"
+      ],
+      "y_do": "Xe buýt che khuất xe bị ghi hình ở vạch dừng.",
+      "ho_so": {
+        "bien_so_he_thong": "29E-118.47",
+        "loai_xe": "o_to",
+        "bien_so": "29E-118.47",
+        "ky_tu_mo": [],
+        "thoi_diem": "2026-09-10T07:42:10",
+        "vi_tri": "Nút giao đường số 3 – đường số 7, phường A (địa điểm giả định)",
+        "thiet_bi": {
+          "loai": "den_tin_hieu",
+          "ma": "CAM-DTH-012",
+          "han_kiem_dinh": "2027-03-31"
+        },
+        "de_xuat": {
+          "hanh_vi": "vuot_den_do",
+          "ma_muc_phat": "oto-den-do"
+        },
+        "anh": {
+          "canh": "giao_lo",
+          "den": "do",
+          "qua_vach": true,
+          "do_mo": 0,
+          "toi": false,
+          "che": "xe_khac"
+        }
+      }
+    },
+    {
+      "ma": "PN-21",
+      "tieu_de": "[Demo] PN-21 · Màn 4 · 43-F1 505.36 · đủ căn cứ",
+      "muc": 4,
+      "cho_thieu": [],
+      "y_do": "Ảnh tối, hơi mờ nhưng vẫn thấy rõ không đội mũ và đọc được biển số.",
+      "ho_so": {
+        "bien_so_he_thong": "43-F1 505.36",
+        "loai_xe": "mo_to",
+        "bien_so": "43-F1 505.36",
+        "ky_tu_mo": [],
+        "thoi_diem": "2026-09-15T20:10:40",
+        "vi_tri": "Đường số 12, đoạn trước trường học, phường B (địa điểm giả định)",
+        "thiet_bi": {
+          "loai": "giam_sat",
+          "ma": "CAM-GS-104",
+          "han_kiem_dinh": "2027-03-31"
+        },
+        "de_xuat": {
+          "hanh_vi": "khong_mu_bao_hiem",
+          "ma_muc_phat": "mt-mu-bao-hiem"
+        },
+        "anh": {
+          "canh": "duong_thang",
+          "mu": false,
+          "do_mo": 1,
+          "toi": true,
+          "che": "khong"
+        }
+      }
+    },
+    {
+      "ma": "PN-22",
+      "tieu_de": "[Demo] PN-22 · Màn 4 · 30L-221.09 · đủ căn cứ",
+      "muc": 4,
+      "cho_thieu": [],
+      "y_do": "Đo 66/60 km/h: vượt ít nhưng vẫn quá tốc độ.",
+      "ho_so": {
+        "bien_so_he_thong": "30L-221.09",
+        "loai_xe": "o_to",
+        "bien_so": "30L-221.09",
+        "ky_tu_mo": [],
+        "thoi_diem": "2026-09-12T10:18:02",
+        "vi_tri": "Quốc lộ giả định, km 23+400, chiều đi (địa điểm giả định)",
+        "thiet_bi": {
+          "loai": "toc_do",
+          "ma": "TD-QL-007",
+          "han_kiem_dinh": "2027-03-31"
+        },
+        "de_xuat": {
+          "hanh_vi": "qua_toc_do",
+          "ma_muc_phat": "oto-toc-do-5-10"
+        },
+        "do_toc_do": {
+          "do_duoc": 66,
+          "gioi_han": 60
+        },
+        "anh": {
+          "canh": "duong_thang",
+          "do_mo": 0,
+          "toi": false,
+          "che": "khong"
+        }
+      }
+    },
+    {
+      "ma": "PN-23",
+      "tieu_de": "[Demo] PN-23 · Màn 4 · 88A-376.52 · thiếu 2 chỗ",
+      "muc": 4,
+      "cho_thieu": [
+        "thieu_thoi_diem",
+        "bien_so_khong_doc_duoc"
+      ],
+      "y_do": "Thiếu thời điểm và biển số mờ một ký tự.",
+      "ho_so": {
+        "bien_so_he_thong": "88A-?76.52",
+        "loai_xe": "o_to",
+        "bien_so": "88A-376.52",
+        "ky_tu_mo": [
+          4
+        ],
+        "thoi_diem": null,
+        "vi_tri": "Nút giao đường số 3 – đường số 7, phường A (địa điểm giả định)",
+        "thiet_bi": {
+          "loai": "den_tin_hieu",
+          "ma": "CAM-DTH-012",
+          "han_kiem_dinh": "2027-03-31"
+        },
+        "de_xuat": {
+          "hanh_vi": "vuot_den_do",
+          "ma_muc_phat": "oto-den-do"
+        },
+        "anh": {
+          "canh": "giao_lo",
+          "den": "do",
+          "qua_vach": true,
+          "do_mo": 0,
+          "toi": false,
+          "che": "khong"
+        }
+      }
+    },
+    {
+      "ma": "PN-24",
+      "tieu_de": "[Demo] PN-24 · Màn 4 · 30A-123.45 · thiếu 2 chỗ",
+      "muc": 4,
+      "cho_thieu": [
+        "bien_so_khong_doc_duoc",
+        "thiet_bi_het_han_kiem_dinh"
+      ],
+      "y_do": "Hệ thống đọc sai một chữ số; thiết bị hết hạn kiểm định trước ngày ghi hình đúng một ngày.",
+      "ho_so": {
+        "bien_so_he_thong": "30A-128.45",
+        "loai_xe": "o_to",
+        "bien_so": "30A-123.45",
+        "ky_tu_mo": [],
+        "thoi_diem": "2026-09-10T07:42:10",
+        "vi_tri": "Nút giao đường số 3 – đường số 7, phường A (địa điểm giả định)",
+        "thiet_bi": {
+          "loai": "den_tin_hieu",
+          "ma": "CAM-DTH-044",
+          "han_kiem_dinh": "2026-09-09"
+        },
+        "de_xuat": {
+          "hanh_vi": "vuot_den_do",
+          "ma_muc_phat": "oto-den-do"
+        },
+        "anh": {
+          "canh": "giao_lo",
+          "den": "do",
+          "qua_vach": true,
+          "do_mo": 0,
+          "toi": false,
+          "che": "khong"
+        }
+      }
+    },
+    {
+      "ma": "PN-25",
+      "tieu_de": "[Demo] PN-25 · Màn 4 · 60A-914.07 · thiếu 2 chỗ",
+      "muc": 4,
+      "cho_thieu": [
+        "hanh_vi_khong_khop",
+        "thiet_bi_het_han_kiem_dinh"
+      ],
+      "y_do": "Đề xuất sai làn nhưng ô tô đi đúng làn ô tô; camera hết hạn kiểm định.",
+      "ho_so": {
+        "bien_so_he_thong": "60A-914.07",
+        "loai_xe": "o_to",
+        "bien_so": "60A-914.07",
+        "ky_tu_mo": [],
+        "thoi_diem": "2026-09-10T07:42:10",
+        "vi_tri": "Nút giao đường số 3 – đường số 7, phường A (địa điểm giả định)",
+        "thiet_bi": {
+          "loai": "giam_sat",
+          "ma": "CAM-GS-301",
+          "han_kiem_dinh": "2026-05-31"
+        },
+        "de_xuat": {
+          "hanh_vi": "sai_lan",
+          "ma_muc_phat": null
+        },
+        "anh": {
+          "canh": "duong_lan",
+          "lan": "o_to",
+          "do_mo": 0,
+          "toi": false,
+          "che": "khong"
+        }
+      }
+    },
+    {
+      "ma": "PN-26",
+      "tieu_de": "[Demo] PN-26 · Màn 5 · 29-B1 456.78 · thiếu 1 chỗ",
+      "muc": 5,
+      "cho_thieu": [
+        "bien_so_khong_doc_duoc"
+      ],
+      "y_do": "Ký tự dễ nhầm: biển B1, hệ thống đọc 81.",
+      "ho_so": {
+        "bien_so_he_thong": "29-81 456.78",
+        "loai_xe": "mo_to",
+        "bien_so": "29-B1 456.78",
+        "ky_tu_mo": [],
+        "thoi_diem": "2026-09-11T16:05:33",
+        "vi_tri": "Đường số 12, đoạn trước trường học, phường B (địa điểm giả định)",
+        "thiet_bi": {
+          "loai": "giam_sat",
+          "ma": "CAM-GS-104",
+          "han_kiem_dinh": "2027-03-31"
+        },
+        "de_xuat": {
+          "hanh_vi": "khong_mu_bao_hiem",
+          "ma_muc_phat": "mt-mu-bao-hiem"
+        },
+        "anh": {
+          "canh": "duong_thang",
+          "mu": false,
+          "do_mo": 0,
+          "toi": false,
+          "che": "khong"
+        }
+      }
+    },
+    {
+      "ma": "PN-27",
+      "tieu_de": "[Demo] PN-27 · Màn 5 · 51D-202.19 · thiếu 1 chỗ",
+      "muc": 5,
+      "cho_thieu": [
+        "bien_so_khong_doc_duoc"
+      ],
+      "y_do": "Ký tự dễ nhầm: biển 51D, hệ thống đọc 510.",
+      "ho_so": {
+        "bien_so_he_thong": "510-202.19",
+        "loai_xe": "o_to",
+        "bien_so": "51D-202.19",
+        "ky_tu_mo": [],
+        "thoi_diem": "2026-09-10T07:42:10",
+        "vi_tri": "Nút giao đường số 3 – đường số 7, phường A (địa điểm giả định)",
+        "thiet_bi": {
+          "loai": "den_tin_hieu",
+          "ma": "CAM-DTH-012",
+          "han_kiem_dinh": "2027-03-31"
+        },
+        "de_xuat": {
+          "hanh_vi": "vuot_den_do",
+          "ma_muc_phat": "oto-den-do"
+        },
+        "anh": {
+          "canh": "giao_lo",
+          "den": "do",
+          "qua_vach": true,
+          "do_mo": 0,
+          "toi": false,
+          "che": "khong"
+        }
+      }
+    },
+    {
+      "ma": "PN-28",
+      "tieu_de": "[Demo] PN-28 · Màn 5 · 30M-450.61 · thiếu 1 chỗ",
+      "muc": 5,
+      "cho_thieu": [
+        "ngoai_khung_gio"
+      ],
+      "y_do": "Biển cấm 06:00–09:00, xe vào lúc 09:12: ngoài giờ cấm.",
+      "ho_so": {
+        "bien_so_he_thong": "30M-450.61",
+        "loai_xe": "o_to",
+        "bien_so": "30M-450.61",
+        "ky_tu_mo": [],
+        "thoi_diem": "2026-09-16T09:12:30",
+        "vi_tri": "Lối vào phố giả định C, phường D (địa điểm giả định)",
+        "thiet_bi": {
+          "loai": "giam_sat",
+          "ma": "CAM-GS-415",
+          "han_kiem_dinh": "2027-03-31"
+        },
+        "de_xuat": {
+          "hanh_vi": "vao_duong_cam",
+          "ma_muc_phat": null
+        },
+        "anh": {
+          "canh": "loi_vao_cam",
+          "vao_duong_cam": true,
+          "khung_gio": {
+            "tu": "06:00",
+            "den": "09:00"
+          },
+          "do_mo": 0,
+          "toi": false,
+          "che": "khong"
+        }
+      }
+    },
+    {
+      "ma": "PN-29",
+      "tieu_de": "[Demo] PN-29 · Màn 5 · 30N-387.20 · đủ căn cứ",
+      "muc": 5,
+      "cho_thieu": [],
+      "y_do": "Biển cấm 16:00–19:00, xe vào lúc 17:45; thiết bị hết hạn kiểm định đúng ngày ghi hình (vẫn còn hạn).",
+      "ho_so": {
+        "bien_so_he_thong": "30N-387.20",
+        "loai_xe": "o_to",
+        "bien_so": "30N-387.20",
+        "ky_tu_mo": [],
+        "thoi_diem": "2026-09-16T17:45:03",
+        "vi_tri": "Lối vào phố giả định C, phường D (địa điểm giả định)",
+        "thiet_bi": {
+          "loai": "giam_sat",
+          "ma": "CAM-GS-415",
+          "han_kiem_dinh": "2026-09-16"
+        },
+        "de_xuat": {
+          "hanh_vi": "vao_duong_cam",
+          "ma_muc_phat": null
+        },
+        "anh": {
+          "canh": "loi_vao_cam",
+          "vao_duong_cam": true,
+          "khung_gio": {
+            "tu": "16:00",
+            "den": "19:00"
+          },
+          "do_mo": 0,
+          "toi": false,
+          "che": "khong"
+        }
+      }
+    },
+    {
+      "ma": "PN-30",
+      "tieu_de": "[Demo] PN-30 · Màn 5 · 34-M1 620.44 · thiếu 1 chỗ",
+      "muc": 5,
+      "cho_thieu": [
+        "anh_khong_ro_hanh_vi"
+      ],
+      "y_do": "Hai mô tô chồng lên nhau ở vạch dừng, không rõ xe nào vượt.",
+      "ho_so": {
+        "bien_so_he_thong": "34-M1 620.44",
+        "loai_xe": "mo_to",
+        "bien_so": "34-M1 620.44",
+        "ky_tu_mo": [],
+        "thoi_diem": "2026-09-10T07:42:10",
+        "vi_tri": "Nút giao đường số 3 – đường số 7, phường A (địa điểm giả định)",
+        "thiet_bi": {
+          "loai": "den_tin_hieu",
+          "ma": "CAM-DTH-012",
+          "han_kiem_dinh": "2027-03-31"
+        },
+        "de_xuat": {
+          "hanh_vi": "vuot_den_do",
+          "ma_muc_phat": "mt-den-do"
+        },
+        "anh": {
+          "canh": "giao_lo",
+          "den": "do",
+          "qua_vach": true,
+          "do_mo": 0,
+          "toi": false,
+          "che": "chong_xe"
+        }
+      }
+    }
+  ]
+}

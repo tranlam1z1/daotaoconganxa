@@ -1,0 +1,17 @@
+{
+  "tieu_de": "Ôn tập",
+  "tom_tat": "Phiên ôn các thẻ đến hạn: xem lại nội dung, tự đánh giá mức nhớ để hệ thống xếp lần ôn tiếp theo.",
+  "routes": ["routes/training.review.tsx"],
+  "anh": [
+    {
+      "ten": "on-tap-chua-ghi-danh",
+      "chu_thich": "Trang ôn tập khi chưa ghi danh chuyên đề",
+      "url": "/dao-tao/dau-tu-cntt-ngan-sach-nha-nuoc/on-tap",
+      "vung": "div:has(> h1:text-is('Ôn tập'))",
+      "danh_dau": [
+        { "o": "h1:text-is('Ôn tập') + p", "ghi_chu": "Chưa có lịch ôn", "huong": "duoi" },
+        { "o": "role=link[name='Xem chuyên đề']", "ghi_chu": "Mở trang chuyên đề", "huong": "duoi" }
+      ]
+    }
+  ]
+}

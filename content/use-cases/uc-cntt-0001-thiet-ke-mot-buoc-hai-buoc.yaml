@@ -1,0 +1,234 @@
+# Trường hợp ứng dụng — quydinhphapluat.vn
+# Khớp bảng `use_cases` trong packages/db/migrations/0001_init.sql
+# Cấu trúc theo ke-hoach/08-truong-hop-ung-dung.md §3
+
+slug: uc-cntt-0001-thiet-ke-mot-buoc-hai-buoc
+title: Xác định dự án đầu tư ứng dụng công nghệ thông tin áp dụng thiết kế một bước hay hai bước
+
+taxonomy_codes:
+  - PD.03.003          # Bộ pháp điển: Công nghệ thông tin
+  - PD.34.007          # Bộ pháp điển: Đầu tư công
+  - NB.CNTT.DTUD.TK    # Nội bộ: Thiết kế
+actor_kinds: [co_quan_nha_nuoc, to_chuc_tu_van]
+work_kinds: [lap_ke_hoach_du_an]
+
+as_of: 2026-06-01
+effectivity_note: >-
+  Trường hợp này gán nhãn tại thời điểm 01/6/2026, khi Nghị định số 45/2026/NĐ-CP đang có hiệu lực.
+  Từ ngày 01/7/2026, nghị định này bị thay thế bởi Nghị định số 224/2026/NĐ-CP; quy định tương ứng
+  nằm tại điểm a khoản 2 Điều 42 Nghị định số 224/2026/NĐ-CP với ngưỡng giữ nguyên là 20 tỷ đồng.
+  Dự án đã được quyết định đầu tư hoặc đã có báo cáo thẩm định trước ngày 01/7/2026 tiếp tục áp dụng
+  Nghị định số 45/2026/NĐ-CP theo khoản 2 Điều 91 Nghị định số 224/2026/NĐ-CP.
+
+situation: |
+  Sở X của tỉnh T dự kiến đầu tư một hệ thống thông tin quản lý chuyên ngành, gồm phần mềm nội bộ,
+  thiết bị phần cứng đặt tại trung tâm dữ liệu của tỉnh và việc tạo lập, chuyển đổi cơ sở dữ liệu từ
+  hồ sơ giấy. Nguồn vốn là vốn đầu tư công từ ngân sách tỉnh, chiếm 100% tổng mức đầu tư. Tổng mức
+  đầu tư dự kiến trong báo cáo đề xuất chủ trương đầu tư là 18 tỷ đồng. Trong quá trình lập báo cáo
+  nghiên cứu khả thi, đơn vị tư vấn đề nghị bổ sung hạng mục hạ tầng mạng cho các đơn vị cấp xã, làm
+  tổng mức đầu tư tăng lên 23 tỷ đồng. Sở X hỏi phải áp dụng thiết kế mấy bước, và việc tổng mức đầu
+  tư thay đổi có ảnh hưởng gì tới hồ sơ đã chuẩn bị hay không.
+
+questions:
+  - Dự án thuộc loại nào trong ba loại dự án đầu tư ứng dụng công nghệ thông tin?
+  - Với tổng mức đầu tư 18 tỷ đồng thì áp dụng thiết kế một bước hay hai bước?
+  - Khi tổng mức đầu tư tăng lên 23 tỷ đồng thì số bước thiết kế có thay đổi không?
+  - Có cách nào để dự án 23 tỷ đồng vẫn được áp dụng thiết kế một bước hay không?
+
+analysis:
+  - step: 1
+    claim: >-
+      Dự án là dự án đầu tư hệ thống vì đầu tư đồng thời hệ thống thông tin, phần cứng, phần mềm và
+      cơ sở dữ liệu, do đó thuộc trường hợp phải thực hiện thiết kế dự án.
+    citations:
+      - vn:vbqppl:nd:45/2026/NĐ-CP#dieu-7.khoan-1@2026-03-01
+      - vn:vbqppl:nd:45/2026/NĐ-CP#dieu-3@2026-03-01
+    quote: >-
+      Dự án đầu tư hệ thống là dự án đầu tư hệ thống thông tin, phần cứng, phần mềm, cơ sở dữ liệu
+      theo quy định tại khoản 5 Điều 3 Nghị định này.
+    reasoning: >-
+      Điểm a khoản 1 Điều 7 xác định dự án đầu tư hệ thống bằng cách dẫn chiếu khoản 5 Điều 3. Vì dự
+      án của Sở X có đủ các cấu phần nêu tại khoản 5 Điều 3 và các cấu phần này phụ thuộc nhau về kỹ
+      thuật, dự án không thuộc nhóm dự án mua sắm tại điểm b. Chỉ dự án đầu tư hệ thống mới có bước
+      thiết kế theo khoản 1 Điều 9.
+
+  - step: 2
+    claim: >-
+      Với tổng mức đầu tư 18 tỷ đồng, dự án được áp dụng thiết kế một bước vì không quá 20 tỷ đồng.
+    citations:
+      - vn:vbqppl:nd:45/2026/NĐ-CP#dieu-9.khoan-2.diem-a@2026-03-01
+    quote: Dự án có tổng mức đầu tư không quá 20 tỷ đồng.
+    reasoning: >-
+      Điểm a khoản 2 Điều 9 đặt ngưỡng cứng theo tổng mức đầu tư. 18 tỷ đồng không quá 20 tỷ đồng nên
+      thỏa mãn điều kiện. Theo khoản 1 Điều 9, thiết kế một bước chỉ gồm thiết kế chi tiết, và báo cáo
+      nghiên cứu khả thi trong trường hợp này được gọi là báo cáo kinh tế - kỹ thuật.
+
+  - step: 3
+    claim: >-
+      Khi tổng mức đầu tư tăng lên 23 tỷ đồng, dự án vượt ngưỡng 20 tỷ đồng nên phải áp dụng thiết kế
+      hai bước, gồm thiết kế cơ sở và thiết kế chi tiết.
+    citations:
+      - vn:vbqppl:nd:45/2026/NĐ-CP#dieu-9.khoan-3@2026-03-01
+      - vn:vbqppl:nd:45/2026/NĐ-CP#dieu-9.khoan-1@2026-03-01
+    quote: Thiết kế hai bước gồm thiết kế cơ sở và thiết kế chi tiết.
+    reasoning: >-
+      Khoản 3 Điều 9 quy định các dự án không thuộc khoản 2 thì áp dụng thiết kế hai bước. Hệ quả với
+      hồ sơ đang chuẩn bị: báo cáo nghiên cứu khả thi phải thuyết minh rõ thiết kế cơ sở theo Điều 13
+      thay vì thiết kế chi tiết theo Điều 14; thiết kế chi tiết được lập sau khi có quyết định đầu tư
+      và phải phù hợp với thiết kế cơ sở đã phê duyệt về mô hình tổng thể, mô hình lô-gic và mô hình
+      vật lý theo khoản 4 Điều 9.
+
+  - step: 4
+    claim: >-
+      Dự án 23 tỷ đồng vẫn có thể được áp dụng thiết kế một bước nếu chủ đầu tư xét thấy có thể thiết
+      kế một bước và báo cáo cấp có thẩm quyền quyết định đầu tư cho phép.
+    citations:
+      - vn:vbqppl:nd:45/2026/NĐ-CP#dieu-9.khoan-2.diem-b@2026-03-01
+    quote: >-
+      Dự án không thuộc trường hợp quy định tại điểm a khoản này nếu chủ đầu tư xét thấy có thể thiết
+      kế một bước thì báo cáo cấp có thẩm quyền quyết định đầu tư cho phép.
+    reasoning: >-
+      Điểm b khoản 2 Điều 9 mở một lối đi có điều kiện. Đây là cơ chế xin phép, không phải quyền đương
+      nhiên của chủ đầu tư: phải có văn bản báo cáo và phải được cấp có thẩm quyền quyết định đầu tư
+      cho phép bằng văn bản trước khi lập hồ sơ theo hướng một bước.
+
+  - step: 5
+    claim: >-
+      Việc tách dự án thành nhiều dự án nhỏ để mỗi dự án dưới 20 tỷ đồng chỉ hợp pháp khi các cấu phần
+      độc lập vận hành được và đã được ghi trong chủ trương đầu tư.
+    citations:
+      - vn:vbqppl:nd:45/2026/NĐ-CP#dieu-7.khoan-5@2026-03-01
+    quote: >-
+      Dự án thành phần, tiểu dự án độc lập vận hành được đã được ghi trong chủ trương đầu tư thì được
+      thực hiện như dự án độc lập ngay từ giai đoạn chuẩn bị đầu tư, trừ bước chủ trương đầu tư.
+    reasoning: >-
+      Khoản 5 Điều 7 đặt hai điều kiện đồng thời: độc lập vận hành được, và đã được ghi trong chủ
+      trương đầu tư. Trong tình huống này, chủ trương đầu tư đã được quyết định với một dự án duy nhất
+      18 tỷ đồng, nên không thể tách sau. Việc tách nhằm né ngưỡng thiết kế là hành vi bị công tác
+      kiểm tra theo Điều 36 xem xét.
+
+conclusion: |
+  Dự án là dự án đầu tư hệ thống (điểm a khoản 1 Điều 7 Nghị định 45/2026/NĐ-CP), do đó bắt buộc có
+  bước thiết kế.
+
+  Nếu giữ tổng mức đầu tư 18 tỷ đồng: áp dụng thiết kế một bước, chỉ gồm thiết kế chi tiết; báo cáo
+  nghiên cứu khả thi được gọi là báo cáo kinh tế - kỹ thuật (điểm a khoản 2 và khoản 1 Điều 9).
+
+  Nếu tổng mức đầu tư tăng lên 23 tỷ đồng: mặc định áp dụng thiết kế hai bước (khoản 3 Điều 9). Sở X
+  có hai lựa chọn hợp pháp: (a) lập hồ sơ theo hướng hai bước, trong đó báo cáo nghiên cứu khả thi
+  thuyết minh thiết kế cơ sở theo Điều 13; hoặc (b) báo cáo cấp có thẩm quyền quyết định đầu tư xin
+  cho phép áp dụng thiết kế một bước theo điểm b khoản 2 Điều 9, và chỉ triển khai theo hướng một
+  bước sau khi có văn bản cho phép.
+
+  Sở X không được tách dự án thành nhiều dự án nhỏ để né ngưỡng, vì chủ trương đầu tư đã được quyết
+  định với một dự án duy nhất (khoản 5 Điều 7).
+
+procedure:
+  - order: 1
+    step: Xác định loại dự án và đối chiếu tổng mức đầu tư với ngưỡng 20 tỷ đồng
+    authority: Chủ đầu tư
+    timeline: Trước khi lập báo cáo nghiên cứu khả thi
+    inputs: [Quyết định chủ trương đầu tư, Phương án kỹ thuật sơ bộ]
+    outputs: [Phiếu xác định số bước thiết kế]
+    citations:
+      - vn:vbqppl:nd:45/2026/NĐ-CP#dieu-7.khoan-1@2026-03-01
+      - vn:vbqppl:nd:45/2026/NĐ-CP#dieu-9.khoan-2@2026-03-01
+    templates: []
+    needs_citation: false
+
+  - order: 2
+    step: >-
+      Nếu vượt 20 tỷ đồng và muốn áp dụng thiết kế một bước, lập văn bản báo cáo cấp có thẩm quyền
+      quyết định đầu tư, nêu rõ lý do và mức độ rõ ràng của yêu cầu kỹ thuật
+    authority: Chủ đầu tư trình; cấp có thẩm quyền quyết định đầu tư quyết định
+    timeline: Văn bản không quy định thời hạn cho bước này
+    inputs: [Văn bản đề nghị, Thuyết minh lý do]
+    outputs: [Văn bản cho phép hoặc không cho phép áp dụng thiết kế một bước]
+    citations:
+      - vn:vbqppl:nd:45/2026/NĐ-CP#dieu-9.khoan-2.diem-b@2026-03-01
+    templates: []
+    needs_citation: false
+
+  - order: 3
+    step: >-
+      Lập báo cáo nghiên cứu khả thi hoặc báo cáo kinh tế - kỹ thuật, thuyết minh rõ thiết kế cơ sở
+      hoặc thiết kế chi tiết tương ứng với số bước đã xác định
+    authority: Chủ đầu tư hoặc tổ chức tư vấn được thuê
+    timeline: Văn bản không quy định thời hạn cho bước này
+    inputs: [Kết quả bước 1 và bước 2]
+    outputs: [Báo cáo nghiên cứu khả thi hoặc báo cáo kinh tế - kỹ thuật]
+    citations:
+      - vn:vbqppl:nd:45/2026/NĐ-CP#dieu-12.khoan-1@2026-03-01
+      - vn:vbqppl:nd:45/2026/NĐ-CP#dieu-13@2026-03-01
+      - vn:vbqppl:nd:45/2026/NĐ-CP#dieu-14@2026-03-01
+    templates: [asset://bcnckt]
+    needs_citation: false
+
+  - order: 4
+    step: Trình thẩm định và quyết định đầu tư
+    authority: Đầu mối thẩm định; cấp có thẩm quyền quyết định đầu tư
+    timeline: >-
+      Thẩm định dự án không quá 20 ngày làm việc với dự án nhóm B, nhóm C; thẩm định thiết kế không
+      quá 10 ngày làm việc; quyết định đầu tư không quá 03 ngày làm việc
+    inputs: [Hồ sơ trình theo khoản 6 Điều 17]
+    outputs: [Báo cáo thẩm định, Quyết định đầu tư]
+    citations:
+      - vn:vbqppl:nd:45/2026/NĐ-CP#dieu-17.khoan-5@2026-03-01
+      - vn:vbqppl:nd:45/2026/NĐ-CP#dieu-17.khoan-7@2026-03-01
+    templates: [asset://mau-so-01, asset://mau-so-03, asset://mau-so-04]
+    needs_citation: false
+
+risks:
+  - risk: Tách dự án thành nhiều dự án nhỏ để mỗi dự án dưới 20 tỷ đồng, nhằm né thiết kế hai bước
+    consequence: >-
+      Bị công tác kiểm tra, thanh tra, kiểm toán kết luận là chia nhỏ dự án; có thể phải hủy kết quả
+      lựa chọn nhà thầu, xuất toán và xử lý trách nhiệm tổ chức, cá nhân liên quan
+    mitigation: >-
+      Chỉ tách khi các cấu phần thực sự độc lập vận hành được và đã được ghi trong chủ trương đầu tư
+      ngay từ đầu
+    citations:
+      - vn:vbqppl:nd:45/2026/NĐ-CP#dieu-7.khoan-5@2026-03-01
+      - vn:vbqppl:nd:45/2026/NĐ-CP#dieu-36@2026-03-01
+
+  - risk: >-
+      Triển khai theo hướng thiết kế một bước khi tổng mức đầu tư vượt 20 tỷ đồng mà chưa có văn bản
+      cho phép của cấp có thẩm quyền quyết định đầu tư
+    consequence: Hồ sơ bị trả lại ở bước thẩm định, mất thời gian lập lại theo hướng hai bước
+    mitigation: Xin văn bản cho phép trước khi bắt đầu lập hồ sơ, không làm song song
+    citations:
+      - vn:vbqppl:nd:45/2026/NĐ-CP#dieu-9.khoan-2.diem-b@2026-03-01
+
+  - risk: >-
+      Với thiết kế hai bước, thiết kế chi tiết được lập không phù hợp với thiết kế cơ sở đã phê duyệt
+    consequence: Phải điều chỉnh thiết kế, kéo dài tiến độ, có thể phải điều chỉnh dự án
+    mitigation: >-
+      Đưa yêu cầu về sự phù hợp với thiết kế cơ sở vào hồ sơ mời thầu và vào nhiệm vụ giám sát tác giả
+    citations:
+      - vn:vbqppl:nd:45/2026/NĐ-CP#dieu-9.khoan-4@2026-03-01
+      - vn:vbqppl:nd:45/2026/NĐ-CP#dieu-9.khoan-5@2026-03-01
+
+  - risk: >-
+      Xác định tổng mức đầu tư thiếu khoản mục, làm con số nằm dưới ngưỡng 20 tỷ đồng một cách không
+      thực chất
+    consequence: >-
+      Khi bổ sung đủ khoản mục, dự án vượt ngưỡng và phải làm lại theo hướng hai bước; đồng thời có
+      nguy cơ phải điều chỉnh dự án
+    mitigation: >-
+      Rà đủ các khoản mục tại khoản 2 Điều 16, đặc biệt là chi phí tạo lập cơ sở dữ liệu, chi phí đào
+      tạo và chi phí triển khai, hỗ trợ, quản trị, vận hành trước khi nghiệm thu bàn giao toàn bộ
+    citations:
+      - vn:vbqppl:nd:45/2026/NĐ-CP#dieu-16.khoan-2@2026-03-01
+
+related_questions:
+  - Nội dung báo cáo nghiên cứu khả thi của dự án đầu tư hệ thống gồm những gì?
+  - Thiết kế cơ sở khác thiết kế chi tiết ở điểm nào?
+  - Ai thẩm định thiết kế đối với dự án của sở chuyên môn ở địa phương?
+  - Chủ đầu tư có được tự phê duyệt điều chỉnh thiết kế chi tiết không?
+
+gaps: []
+
+status: draft
+citation_health: ok
+author: Tổ biên soạn nội dung quydinhphapluat.vn
+legal_reviewer: null
+reviewed_at: null

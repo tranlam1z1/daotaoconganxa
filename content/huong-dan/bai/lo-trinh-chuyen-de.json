@@ -1,0 +1,29 @@
+{
+  "tieu_de": "Lộ trình chuyên đề",
+  "tom_tat": "Vị trí của chuyên đề trong lĩnh vực, ghi danh theo chế độ học, danh sách bài và bước học kế tiếp.",
+  "routes": ["routes/training.course.tsx"],
+  "anh": [
+    {
+      "ten": "lo-trinh-dau-trang",
+      "chu_thich": "Vị trí trong lĩnh vực và khối ghi danh",
+      "url": "/dao-tao/dau-tu-cntt-ngan-sach-nha-nuoc",
+      "vung": "section:has(h2:text-is('Vị trí trong lĩnh vực'))",
+      "danh_dau": [
+        { "o": "section:has(h2:text-is('Vị trí trong lĩnh vực'))", "ghi_chu": "Vị trí chuyên đề", "huong": "trai" },
+        { "o": "role=combobox[name='Chế độ học']", "ghi_chu": "Chọn chế độ học", "huong": "duoi" },
+        { "o": "role=button[name='Ghi danh']", "ghi_chu": "Ghi danh chuyên đề", "huong": "phai" }
+      ]
+    },
+    {
+      "ten": "lo-trinh-danh-sach-bai",
+      "chu_thich": "Danh sách bài trong lộ trình",
+      "url": "/dao-tao/dau-tu-cntt-ngan-sach-nha-nuoc",
+      "vung": "h2:text-is('Lộ trình') + ol",
+      "danh_dau": [
+        { "o": "h2:text-is('Lộ trình') + ol > li span[aria-hidden='true'] >> nth=0", "ghi_chu": "Số thứ tự bài", "huong": "trai" },
+        { "o": "h2:text-is('Lộ trình') + ol h3 a >> nth=0", "ghi_chu": "Mở bài học", "huong": "phai" },
+        { "o": "h2:text-is('Lộ trình') + ol span:text-is('Chưa học') >> nth=1", "ghi_chu": "Trạng thái học của bài", "huong": "duoi" }
+      ]
+    }
+  ]
+}

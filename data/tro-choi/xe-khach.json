@@ -1,0 +1,3598 @@
+{
+  "mo_ta": "20 xe khách mẫu cho trò Lên xe khách (docs/PLAN.md GĐ-T13). Nạp bằng: bun run seed:tro-choi (vào chờ duyệt).",
+  "luu_y_bien_tap": [
+    "DỮ LIỆU DEMO, CHƯA DUYỆT. Xe, hành khách, giấy tờ, dữ liệu giám sát giả định; biển số, họ tên không có thật.",
+    "`loi` là lỗi người soạn dự kiến; máy chủ chạy luật đã duyệt và bỏ xe có kết quả khác. Ngày kiểm tra của mọi xe là 15/09/2026 (ngày ghi trên xe, không phải ngày chơi).",
+    "XK-07, XK-08, XK-20 có trẻ em: chỉ vào lượt khi có luật cách tính trẻ em đã duyệt (chưa có).",
+    "Ô trên sơ đồ theo packages/dao-tao/src/tro-choi/len-xe-khach.ts (soDoKhoang): g<hàng>-<cột> ghế, l<hàng> lối đi, b<tầng>-<hàng>-<cột> giường, s<hàng>-<cột> sàn."
+  ],
+  "xe": [
+    {
+      "ma": "XK-01",
+      "tieu_de": "[Demo] XK-01 · 16 chỗ, còn ghế trống, túi trên ghế",
+      "muc": 1,
+      "loi": [],
+      "y_do": "12 người ngồi, 2 túi trên ghế: không vượt. Túi dễ bị đếm nhầm.",
+      "xe": {
+        "loai_xe": "xe_16_cho",
+        "bien_so": "29B-316.25",
+        "ngay_kiem_tra": "2026-09-15",
+        "gio_kiem_tra": "09:30",
+        "lai_xe": "Nguyễn Văn Hải",
+        "phan_tu": [
+          {
+            "o": "g1-3",
+            "hinh": "nguoi_lon"
+          },
+          {
+            "o": "g0-0",
+            "hinh": "nguoi_lon"
+          },
+          {
+            "o": "g0-3",
+            "hinh": "nguoi_lon"
+          },
+          {
+            "o": "g4-0",
+            "hinh": "nguoi_lon"
+          },
+          {
+            "o": "g1-0",
+            "hinh": "nguoi_lon"
+          },
+          {
+            "o": "g4-3",
+            "hinh": "nguoi_lon"
+          },
+          {
+            "o": "g4-1",
+            "hinh": "nguoi_lon"
+          },
+          {
+            "o": "g3-1",
+            "hinh": "nguoi_lon"
+          },
+          {
+            "o": "g0-1",
+            "hinh": "nguoi_lon"
+          },
+          {
+            "o": "g2-0",
+            "hinh": "nguoi_lon"
+          },
+          {
+            "o": "g2-1",
+            "hinh": "nguoi_lon"
+          },
+          {
+            "o": "g3-3",
+            "hinh": "nguoi_lon"
+          },
+          {
+            "o": "g2-3",
+            "hinh": "tui"
+          },
+          {
+            "o": "g1-1",
+            "hinh": "tui"
+          }
+        ],
+        "lenh_van_chuyen": {
+          "so": "LVC-010915",
+          "don_vi": "[Demo] Công ty vận tải Sông Hồng",
+          "bien_so": "29B-316.25",
+          "lai_xe": "Nguyễn Văn Hải",
+          "ngay": "2026-09-15",
+          "tuyen": "Hà Nội – Nam Định"
+        },
+        "phu_hieu": {
+          "so": "PH-0125",
+          "loai": "Xe hợp đồng",
+          "bien_so": "29B-316.25",
+          "co_gia_tri_den": "2027-03-31"
+        },
+        "giam_sat_hanh_trinh": {
+          "thiet_bi": "GSHT-2931625",
+          "ngay": "2026-09-15",
+          "doan": [
+            {
+              "tu": "07:00",
+              "den": "08:30",
+              "chay": true
+            },
+            {
+              "tu": "08:30",
+              "den": "08:45",
+              "chay": false
+            },
+            {
+              "tu": "08:45",
+              "den": "09:20",
+              "chay": true
+            }
+          ],
+          "toc_do_toi_da_kmh": 78
+        }
+      }
+    },
+    {
+      "ma": "XK-02",
+      "tieu_de": "[Demo] XK-02 · 16 chỗ, 3 người đứng, áo treo",
+      "muc": 1,
+      "loi": [
+        "cho_qua_nguoi"
+      ],
+      "y_do": "14 người ngồi, 1 ghế có áo treo, 3 người đứng lối đi: 17 người trên 15 chỗ, vượt 2.",
+      "xe": {
+        "loai_xe": "xe_16_cho",
+        "bien_so": "30B-208.14",
+        "ngay_kiem_tra": "2026-09-15",
+        "gio_kiem_tra": "09:30",
+        "lai_xe": "Trần Minh Tuấn",
+        "phan_tu": [
+          {
+            "o": "g0-0",
+            "hinh": "nguoi_lon"
+          },
+          {
+            "o": "g2-1",
+            "hinh": "nguoi_lon"
+          },
+          {
+            "o": "g2-0",
+            "hinh": "nguoi_lon"
+          },
+          {
+            "o": "g1-1",
+            "hinh": "nguoi_lon"
+          },
+          {
+            "o": "g3-1",
+            "hinh": "nguoi_lon"
+          },
+          {
+            "o": "g4-0",
+            "hinh": "nguoi_lon"
+          },
+          {
+            "o": "g1-3",
+            "hinh": "nguoi_lon"
+          },
+          {
+            "o": "g4-1",
+            "hinh": "nguoi_lon"
+          },
+          {
+            "o": "g0-1",
+            "hinh": "nguoi_lon"
+          },
+          {
+            "o": "g4-3",
+            "hinh": "nguoi_lon"
+          },
+          {
+            "o": "g3-3",
+            "hinh": "nguoi_lon"
+          },
+          {
+            "o": "g3-0",
+            "hinh": "nguoi_lon"
+          },
+          {
+            "o": "g0-3",
+            "hinh": "nguoi_lon"
+          },
+          {
+            "o": "g1-0",
+            "hinh": "nguoi_lon"
+          },
+          {
+            "o": "g2-3",
+            "hinh": "ao_treo"
+          },
+          {
+            "o": "l3",
+            "hinh": "nguoi_lon"
+          },
+          {
+            "o": "l0",
+            "hinh": "nguoi_lon"
+          },
+          {
+            "o": "l4",
+            "hinh": "nguoi_lon"
+          }
+        ],
+        "lenh_van_chuyen": {
+          "so": "LVC-020915",
+          "don_vi": "[Demo] Công ty vận tải Sông Hồng",
+          "bien_so": "30B-208.14",
+          "lai_xe": "Trần Minh Tuấn",
+          "ngay": "2026-09-15",
+          "tuyen": "Hà Nội – Nam Định"
+        },
+        "phu_hieu": {
+          "so": "PH-0225",
+          "loai": "Xe hợp đồng",
+          "bien_so": "30B-208.14",
+          "co_gia_tri_den": "2027-03-31"
+        },
+        "giam_sat_hanh_trinh": {
+          "thiet_bi": "GSHT-3020814",
+          "ngay": "2026-09-15",
+          "doan": [
+            {
+              "tu": "07:00",
+              "den": "08:30",
+              "chay": true
+            },
+            {
+              "tu": "08:30",
+              "den": "08:45",
+              "chay": false
+            },
+            {
+              "tu": "08:45",
+              "den": "09:20",
+              "chay": true
+            }
+          ],
+          "toc_do_toi_da_kmh": 78
+        }
+      }
+    },
+    {
+      "ma": "XK-03",
+      "tieu_de": "[Demo] XK-03 · 16 chỗ, kín ghế, một người đứng, hành lý",
+      "muc": 1,
+      "loi": [
+        "cho_qua_nguoi"
+      ],
+      "y_do": "15 người ngồi kín ghế, 1 người đứng, 1 hành lý ở lối đi: vượt 1.",
+      "xe": {
+        "loai_xe": "xe_16_cho",
+        "bien_so": "18B-117.90",
+        "ngay_kiem_tra": "2026-09-15",
+        "gio_kiem_tra": "09:30",
+        "lai_xe": "Lê Quốc Việt",
+        "phan_tu": [
+          {
+            "o": "g0-0",
+            "hinh": "nguoi_lon"
+          },
+          {
+            "o": "g4-3",
+            "hinh": "nguoi_lon"
+          },
+          {
+            "o": "g2-3",
+            "hinh": "nguoi_lon"
+          },
+          {
+            "o": "g2-1",
+            "hinh": "nguoi_lon"
+          },
+          {
+            "o": "g3-0",
+            "hinh": "nguoi_lon"
+          },
+          {
+            "o": "g1-3",
+            "hinh": "nguoi_lon"
+          },
+          {
+            "o": "g1-0",
+            "hinh": "nguoi_lon"
+          },
+          {
+            "o": "g0-1",
+            "hinh": "nguoi_lon"
+          },
+          {
+            "o": "g3-3",
+            "hinh": "nguoi_lon"
+          },
+          {
+            "o": "g4-0",
+            "hinh": "nguoi_lon"
+          },
+          {
+            "o": "g3-1",
+            "hinh": "nguoi_lon"
+          },
+          {
+            "o": "g2-0",
+            "hinh": "nguoi_lon"
+          },
+          {
+            "o": "g4-1",
+            "hinh": "nguoi_lon"
+          },
+          {
+            "o": "g1-1",
+            "hinh": "nguoi_lon"
+          },
+          {
+            "o": "g0-3",
+            "hinh": "nguoi_lon"
+          },
+          {
+            "o": "l2",
+            "hinh": "nguoi_lon"
+          },
+          {
+            "o": "l4",
+            "hinh": "hanh_ly"
+          }
+        ],
+        "lenh_van_chuyen": {
+          "so": "LVC-030915",
+          "don_vi": "[Demo] Công ty vận tải Sông Hồng",
+          "bien_so": "18B-117.90",
+          "lai_xe": "Lê Quốc Việt",
+          "ngay": "2026-09-15",
+          "tuyen": "Hà Nội – Nam Định"
+        },
+        "phu_hieu": {
+          "so": "PH-0325",
+          "loai": "Xe hợp đồng",
+          "bien_so": "18B-117.90",
+          "co_gia_tri_den": "2027-03-31"
+        },
+        "giam_sat_hanh_trinh": {
+          "thiet_bi": "GSHT-1811790",
+          "ngay": "2026-09-15",
+          "doan": [
+            {
+              "tu": "07:00",
+              "den": "08:30",
+              "chay": true
+            },
+            {
+              "tu": "08:30",
+              "den": "08:45",
+              "chay": false
+            },
+            {
+              "tu": "08:45",
+              "den": "09:20",
+              "chay": true
+            }
+          ],
+          "toc_do_toi_da_kmh": 78
+        }
+      }
+    },
+    {
+      "ma": "XK-04",
+      "tieu_de": "[Demo] XK-04 · 16 chỗ, đúng bằng số chỗ",
+      "muc": 1,
+      "loi": [],
+      "y_do": "13 người ngồi, 2 túi trên ghế, 2 người đứng: 15 người trên 15 chỗ, đúng bằng số chỗ là không vượt.",
+      "xe": {
+        "loai_xe": "xe_16_cho",
+        "bien_so": "36B-402.66",
+        "ngay_kiem_tra": "2026-09-15",
+        "gio_kiem_tra": "09:30",
+        "lai_xe": "Phạm Hữu Long",
+        "phan_tu": [
+          {
+            "o": "g4-0",
+            "hinh": "nguoi_lon"
+          },
+          {
+            "o": "g2-0",
+            "hinh": "nguoi_lon"
+          },
+          {
+            "o": "g0-3",
+            "hinh": "nguoi_lon"
+          },
+          {
+            "o": "g4-1",
+            "hinh": "nguoi_lon"
+          },
+          {
+            "o": "g0-1",
+            "hinh": "nguoi_lon"
+          },
+          {
+            "o": "g0-0",
+            "hinh": "nguoi_lon"
+          },
+          {
+            "o": "g2-3",
+            "hinh": "nguoi_lon"
+          },
+          {
+            "o": "g2-1",
+            "hinh": "nguoi_lon"
+          },
+          {
+            "o": "g3-3",
+            "hinh": "nguoi_lon"
+          },
+          {
+            "o": "g4-3",
+            "hinh": "nguoi_lon"
+          },
+          {
+            "o": "g1-1",
+            "hinh": "nguoi_lon"
+          },
+          {
+            "o": "g1-0",
+            "hinh": "nguoi_lon"
+          },
+          {
+            "o": "g3-0",
+            "hinh": "nguoi_lon"
+          },
+          {
+            "o": "g1-3",
+            "hinh": "tui"
+          },
+          {
+            "o": "g3-1",
+            "hinh": "tui"
+          },
+          {
+            "o": "l2",
+            "hinh": "nguoi_lon"
+          },
+          {
+            "o": "l0",
+            "hinh": "nguoi_lon"
+          }
+        ],
+        "lenh_van_chuyen": {
+          "so": "LVC-040915",
+          "don_vi": "[Demo] Công ty vận tải Sông Hồng",
+          "bien_so": "36B-402.66",
+          "lai_xe": "Phạm Hữu Long",
+          "ngay": "2026-09-15",
+          "tuyen": "Hà Nội – Nam Định"
+        },
+        "phu_hieu": {
+          "so": "PH-0425",
+          "loai": "Xe hợp đồng",
+          "bien_so": "36B-402.66",
+          "co_gia_tri_den": "2027-03-31"
+        },
+        "giam_sat_hanh_trinh": {
+          "thiet_bi": "GSHT-3640266",
+          "ngay": "2026-09-15",
+          "doan": [
+            {
+              "tu": "07:00",
+              "den": "08:30",
+              "chay": true
+            },
+            {
+              "tu": "08:30",
+              "den": "08:45",
+              "chay": false
+            },
+            {
+              "tu": "08:45",
+              "den": "09:20",
+              "chay": true
+            }
+          ],
+          "toc_do_toi_da_kmh": 78
+        }
+      }
+    },
+    {
+      "ma": "XK-05",
+      "tieu_de": "[Demo] XK-05 · 29 chỗ, người đứng giữa hành lý",
+      "muc": 2,
+      "loi": [
+        "cho_qua_nguoi"
+      ],
+      "y_do": "26 người ngồi, 2 túi trên ghế, 3 người đứng: 29 người trên 28 chỗ, vượt 1.",
+      "xe": {
+        "loai_xe": "xe_29_cho",
+        "bien_so": "29B-520.31",
+        "ngay_kiem_tra": "2026-09-15",
+        "gio_kiem_tra": "09:30",
+        "lai_xe": "Đỗ Thành Nam",
+        "phan_tu": [
+          {
+            "o": "g4-3",
+            "hinh": "nguoi_lon"
+          },
+          {
+            "o": "g3-4",
+            "hinh": "nguoi_lon"
+          },
+          {
+            "o": "g4-1",
+            "hinh": "nguoi_lon"
+          },
+          {
+            "o": "g0-1",
+            "hinh": "nguoi_lon"
+          },
+          {
+            "o": "g0-4",
+            "hinh": "nguoi_lon"
+          },
+          {
+            "o": "g6-4",
+            "hinh": "nguoi_lon"
+          },
+          {
+            "o": "g6-1",
+            "hinh": "nguoi_lon"
+          },
+          {
+            "o": "g4-4",
+            "hinh": "nguoi_lon"
+          },
+          {
+            "o": "g1-1",
+            "hinh": "nguoi_lon"
+          },
+          {
+            "o": "g6-0",
+            "hinh": "nguoi_lon"
+          },
+          {
+            "o": "g6-3",
+            "hinh": "nguoi_lon"
+          },
+          {
+            "o": "g2-3",
+            "hinh": "nguoi_lon"
+          },
+          {
+            "o": "g1-3",
+            "hinh": "nguoi_lon"
+          },
+          {
+            "o": "g0-3",
+            "hinh": "nguoi_lon"
+          },
+          {
+            "o": "g5-4",
+            "hinh": "nguoi_lon"
+          },
+          {
+            "o": "g1-4",
+            "hinh": "nguoi_lon"
+          },
+          {
+            "o": "g1-0",
+            "hinh": "nguoi_lon"
+          },
+          {
+            "o": "g5-0",
+            "hinh": "nguoi_lon"
+          },
+          {
+            "o": "g2-1",
+            "hinh": "nguoi_lon"
+          },
+          {
+            "o": "g2-0",
+            "hinh": "nguoi_lon"
+          },
+          {
+            "o": "g2-4",
+            "hinh": "nguoi_lon"
+          },
+          {
+            "o": "g0-0",
+            "hinh": "nguoi_lon"
+          },
+          {
+            "o": "g4-0",
+            "hinh": "nguoi_lon"
+          },
+          {
+            "o": "g3-3",
+            "hinh": "nguoi_lon"
+          },
+          {
+            "o": "g5-1",
+            "hinh": "nguoi_lon"
+          },
+          {
+            "o": "g3-1",
+            "hinh": "nguoi_lon"
+          },
+          {
+            "o": "g3-0",
+            "hinh": "tui"
+          },
+          {
+            "o": "g5-3",
+            "hinh": "tui"
+          },
+          {
+            "o": "l0",
+            "hinh": "nguoi_lon"
+          },
+          {
+            "o": "l5",
+            "hinh": "nguoi_lon"
+          },
+          {
+            "o": "l6",
+            "hinh": "nguoi_lon"
+          }
+        ],
+        "lenh_van_chuyen": {
+          "so": "LVC-050915",
+          "don_vi": "[Demo] Công ty vận tải Sông Hồng",
+          "bien_so": "29B-520.31",
+          "lai_xe": "Đỗ Thành Nam",
+          "ngay": "2026-09-15",
+          "tuyen": "Hà Nội – Nam Định"
+        },
+        "phu_hieu": {
+          "so": "PH-0525",
+          "loai": "Xe tuyến cố định",
+          "bien_so": "29B-520.31",
+          "co_gia_tri_den": "2027-03-31"
+        },
+        "giam_sat_hanh_trinh": {
+          "thiet_bi": "GSHT-2952031",
+          "ngay": "2026-09-15",
+          "doan": [
+            {
+              "tu": "07:00",
+              "den": "08:30",
+              "chay": true
+            },
+            {
+              "tu": "08:30",
+              "den": "08:45",
+              "chay": false
+            },
+            {
+              "tu": "08:45",
+              "den": "09:20",
+              "chay": true
+            }
+          ],
+          "toc_do_toi_da_kmh": 78
+        }
+      }
+    },
+    {
+      "ma": "XK-06",
+      "tieu_de": "[Demo] XK-06 · 29 chỗ, kín ghế, hành lý ở lối đi",
+      "muc": 2,
+      "loi": [],
+      "y_do": "28 người ngồi kín ghế, 2 hành lý ở lối đi: không vượt. Hành lý dễ bị đếm là người đứng.",
+      "xe": {
+        "loai_xe": "xe_29_cho",
+        "bien_so": "15B-044.72",
+        "ngay_kiem_tra": "2026-09-15",
+        "gio_kiem_tra": "09:30",
+        "lai_xe": "Vũ Công Sơn",
+        "phan_tu": [
+          {
+            "o": "g5-3",
+            "hinh": "nguoi_lon"
+          },
+          {
+            "o": "g0-4",
+            "hinh": "nguoi_lon"
+          },
+          {
+            "o": "g3-1",
+            "hinh": "nguoi_lon"
+          },
+          {
+            "o": "g1-4",
+            "hinh": "nguoi_lon"
+          },
+          {
+            "o": "g0-1",
+            "hinh": "nguoi_lon"
+          },
+          {
+            "o": "g6-4",
+            "hinh": "nguoi_lon"
+          },
+          {
+            "o": "g6-1",
+            "hinh": "nguoi_lon"
+          },
+          {
+            "o": "g3-4",
+            "hinh": "nguoi_lon"
+          },
+          {
+            "o": "g5-4",
+            "hinh": "nguoi_lon"
+          },
+          {
+            "o": "g2-4",
+            "hinh": "nguoi_lon"
+          },
+          {
+            "o": "g2-0",
+            "hinh": "nguoi_lon"
+          },
+          {
+            "o": "g3-0",
+            "hinh": "nguoi_lon"
+          },
+          {
+            "o": "g2-1",
+            "hinh": "nguoi_lon"
+          },
+          {
+            "o": "g4-3",
+            "hinh": "nguoi_lon"
+          },
+          {
+            "o": "g0-0",
+            "hinh": "nguoi_lon"
+          },
+          {
+            "o": "g4-0",
+            "hinh": "nguoi_lon"
+          },
+          {
+            "o": "g5-0",
+            "hinh": "nguoi_lon"
+          },
+          {
+            "o": "g3-3",
+            "hinh": "nguoi_lon"
+          },
+          {
+            "o": "g1-0",
+            "hinh": "nguoi_lon"
+          },
+          {
+            "o": "g5-1",
+            "hinh": "nguoi_lon"
+          },
+          {
+            "o": "g1-3",
+            "hinh": "nguoi_lon"
+          },
+          {
+            "o": "g4-1",
+            "hinh": "nguoi_lon"
+          },
+          {
+            "o": "g2-3",
+            "hinh": "nguoi_lon"
+          },
+          {
+            "o": "g1-1",
+            "hinh": "nguoi_lon"
+          },
+          {
+            "o": "g6-3",
+            "hinh": "nguoi_lon"
+          },
+          {
+            "o": "g6-0",
+            "hinh": "nguoi_lon"
+          },
+          {
+            "o": "g0-3",
+            "hinh": "nguoi_lon"
+          },
+          {
+            "o": "g4-4",
+            "hinh": "nguoi_lon"
+          },
+          {
+            "o": "l1",
+            "hinh": "hanh_ly"
+          },
+          {
+            "o": "l0",
+            "hinh": "hanh_ly"
+          }
+        ],
+        "lenh_van_chuyen": {
+          "so": "LVC-060915",
+          "don_vi": "[Demo] Công ty vận tải Sông Hồng",
+          "bien_so": "15B-044.72",
+          "lai_xe": "Vũ Công Sơn",
+          "ngay": "2026-09-15",
+          "tuyen": "Hà Nội – Nam Định"
+        },
+        "phu_hieu": {
+          "so": "PH-0625",
+          "loai": "Xe tuyến cố định",
+          "bien_so": "15B-044.72",
+          "co_gia_tri_den": "2027-03-31"
+        },
+        "giam_sat_hanh_trinh": {
+          "thiet_bi": "GSHT-1504472",
+          "ngay": "2026-09-15",
+          "doan": [
+            {
+              "tu": "07:00",
+              "den": "08:30",
+              "chay": true
+            },
+            {
+              "tu": "08:30",
+              "den": "08:45",
+              "chay": false
+            },
+            {
+              "tu": "08:45",
+              "den": "09:20",
+              "chay": true
+            }
+          ],
+          "toc_do_toi_da_kmh": 78
+        }
+      }
+    },
+    {
+      "ma": "XK-07",
+      "tieu_de": "[Demo] XK-07 · 29 chỗ, có trẻ em, vượt rõ",
+      "muc": 2,
+      "loi": [
+        "cho_qua_nguoi"
+      ],
+      "y_do": "26 người lớn ngồi, 2 trẻ em ngồi, 3 người lớn đứng: người lớn đã 29 trên 28 chỗ nên vượt với mọi cách tính trẻ em; số vượt phụ thuộc luật trẻ em. Chưa có luật trẻ em đã duyệt thì không vào lượt.",
+      "xe": {
+        "loai_xe": "xe_29_cho",
+        "bien_so": "43B-330.08",
+        "ngay_kiem_tra": "2026-09-15",
+        "gio_kiem_tra": "09:30",
+        "lai_xe": "Bùi Gia Khánh",
+        "phan_tu": [
+          {
+            "o": "g3-0",
+            "hinh": "nguoi_lon"
+          },
+          {
+            "o": "g2-0",
+            "hinh": "nguoi_lon"
+          },
+          {
+            "o": "g3-1",
+            "hinh": "nguoi_lon"
+          },
+          {
+            "o": "g6-3",
+            "hinh": "nguoi_lon"
+          },
+          {
+            "o": "g0-0",
+            "hinh": "nguoi_lon"
+          },
+          {
+            "o": "g6-1",
+            "hinh": "nguoi_lon"
+          },
+          {
+            "o": "g4-3",
+            "hinh": "nguoi_lon"
+          },
+          {
+            "o": "g0-1",
+            "hinh": "nguoi_lon"
+          },
+          {
+            "o": "g6-0",
+            "hinh": "nguoi_lon"
+          },
+          {
+            "o": "g4-4",
+            "hinh": "nguoi_lon"
+          },
+          {
+            "o": "g0-4",
+            "hinh": "nguoi_lon"
+          },
+          {
+            "o": "g4-0",
+            "hinh": "nguoi_lon"
+          },
+          {
+            "o": "g3-3",
+            "hinh": "nguoi_lon"
+          },
+          {
+            "o": "g5-0",
+            "hinh": "nguoi_lon"
+          },
+          {
+            "o": "g2-3",
+            "hinh": "nguoi_lon"
+          },
+          {
+            "o": "g5-3",
+            "hinh": "nguoi_lon"
+          },
+          {
+            "o": "g2-1",
+            "hinh": "nguoi_lon"
+          },
+          {
+            "o": "g0-3",
+            "hinh": "nguoi_lon"
+          },
+          {
+            "o": "g1-3",
+            "hinh": "nguoi_lon"
+          },
+          {
+            "o": "g1-0",
+            "hinh": "nguoi_lon"
+          },
+          {
+            "o": "g5-1",
+            "hinh": "nguoi_lon"
+          },
+          {
+            "o": "g5-4",
+            "hinh": "nguoi_lon"
+          },
+          {
+            "o": "g6-4",
+            "hinh": "nguoi_lon"
+          },
+          {
+            "o": "g1-4",
+            "hinh": "nguoi_lon"
+          },
+          {
+            "o": "g2-4",
+            "hinh": "nguoi_lon"
+          },
+          {
+            "o": "g4-1",
+            "hinh": "nguoi_lon"
+          },
+          {
+            "o": "g1-1",
+            "hinh": "tre_em"
+          },
+          {
+            "o": "g3-4",
+            "hinh": "tre_em"
+          },
+          {
+            "o": "l4",
+            "hinh": "nguoi_lon"
+          },
+          {
+            "o": "l1",
+            "hinh": "nguoi_lon"
+          },
+          {
+            "o": "l2",
+            "hinh": "nguoi_lon"
+          }
+        ],
+        "lenh_van_chuyen": {
+          "so": "LVC-070915",
+          "don_vi": "[Demo] Công ty vận tải Sông Hồng",
+          "bien_so": "43B-330.08",
+          "lai_xe": "Bùi Gia Khánh",
+          "ngay": "2026-09-15",
+          "tuyen": "Hà Nội – Nam Định"
+        },
+        "phu_hieu": {
+          "so": "PH-0725",
+          "loai": "Xe tuyến cố định",
+          "bien_so": "43B-330.08",
+          "co_gia_tri_den": "2027-03-31"
+        },
+        "giam_sat_hanh_trinh": {
+          "thiet_bi": "GSHT-4333008",
+          "ngay": "2026-09-15",
+          "doan": [
+            {
+              "tu": "07:00",
+              "den": "08:30",
+              "chay": true
+            },
+            {
+              "tu": "08:30",
+              "den": "08:45",
+              "chay": false
+            },
+            {
+              "tu": "08:45",
+              "den": "09:20",
+              "chay": true
+            }
+          ],
+          "toc_do_toi_da_kmh": 78
+        }
+      }
+    },
+    {
+      "ma": "XK-08",
+      "tieu_de": "[Demo] XK-08 · 29 chỗ, có trẻ em, không vượt",
+      "muc": 2,
+      "loi": [],
+      "y_do": "18 người lớn, 4 trẻ em, 1 áo treo: dưới số chỗ với mọi cách tính trẻ em (một trẻ không tính hơn một người). Chưa có luật trẻ em đã duyệt thì không vào lượt.",
+      "xe": {
+        "loai_xe": "xe_29_cho",
+        "bien_so": "47B-091.55",
+        "ngay_kiem_tra": "2026-09-15",
+        "gio_kiem_tra": "09:30",
+        "lai_xe": "Ngô Đức Bình",
+        "phan_tu": [
+          {
+            "o": "g2-4",
+            "hinh": "nguoi_lon"
+          },
+          {
+            "o": "g3-1",
+            "hinh": "nguoi_lon"
+          },
+          {
+            "o": "g5-3",
+            "hinh": "nguoi_lon"
+          },
+          {
+            "o": "g0-0",
+            "hinh": "nguoi_lon"
+          },
+          {
+            "o": "g0-1",
+            "hinh": "nguoi_lon"
+          },
+          {
+            "o": "g2-0",
+            "hinh": "nguoi_lon"
+          },
+          {
+            "o": "g5-0",
+            "hinh": "nguoi_lon"
+          },
+          {
+            "o": "g4-1",
+            "hinh": "nguoi_lon"
+          },
+          {
+            "o": "g1-3",
+            "hinh": "nguoi_lon"
+          },
+          {
+            "o": "g6-3",
+            "hinh": "nguoi_lon"
+          },
+          {
+            "o": "g6-1",
+            "hinh": "nguoi_lon"
+          },
+          {
+            "o": "g4-0",
+            "hinh": "nguoi_lon"
+          },
+          {
+            "o": "g3-3",
+            "hinh": "nguoi_lon"
+          },
+          {
+            "o": "g2-3",
+            "hinh": "nguoi_lon"
+          },
+          {
+            "o": "g0-4",
+            "hinh": "nguoi_lon"
+          },
+          {
+            "o": "g3-4",
+            "hinh": "nguoi_lon"
+          },
+          {
+            "o": "g6-4",
+            "hinh": "nguoi_lon"
+          },
+          {
+            "o": "g4-3",
+            "hinh": "nguoi_lon"
+          },
+          {
+            "o": "g1-0",
+            "hinh": "tre_em"
+          },
+          {
+            "o": "g5-1",
+            "hinh": "tre_em"
+          },
+          {
+            "o": "g6-0",
+            "hinh": "tre_em"
+          },
+          {
+            "o": "g4-4",
+            "hinh": "tre_em"
+          },
+          {
+            "o": "g0-3",
+            "hinh": "ao_treo"
+          }
+        ],
+        "lenh_van_chuyen": {
+          "so": "LVC-080915",
+          "don_vi": "[Demo] Công ty vận tải Sông Hồng",
+          "bien_so": "47B-091.55",
+          "lai_xe": "Ngô Đức Bình",
+          "ngay": "2026-09-15",
+          "tuyen": "Hà Nội – Nam Định"
+        },
+        "phu_hieu": {
+          "so": "PH-0825",
+          "loai": "Xe tuyến cố định",
+          "bien_so": "47B-091.55",
+          "co_gia_tri_den": "2027-03-31"
+        },
+        "giam_sat_hanh_trinh": {
+          "thiet_bi": "GSHT-4709155",
+          "ngay": "2026-09-15",
+          "doan": [
+            {
+              "tu": "07:00",
+              "den": "08:30",
+              "chay": true
+            },
+            {
+              "tu": "08:30",
+              "den": "08:45",
+              "chay": false
+            },
+            {
+              "tu": "08:45",
+              "den": "09:20",
+              "chay": true
+            }
+          ],
+          "toc_do_toi_da_kmh": 78
+        }
+      }
+    },
+    {
+      "ma": "XK-09",
+      "tieu_de": "[Demo] XK-09 · 29 chỗ, lệnh vận chuyển của hôm trước",
+      "muc": 3,
+      "loi": [
+        "lenh_sai_ngay"
+      ],
+      "y_do": "Đếm không vượt (25 người). Lệnh vận chuyển ghi ngày 14/09, kiểm tra ngày 15/09.",
+      "xe": {
+        "loai_xe": "xe_29_cho",
+        "bien_so": "29B-611.47",
+        "ngay_kiem_tra": "2026-09-15",
+        "gio_kiem_tra": "09:30",
+        "lai_xe": "Hoàng Văn An",
+        "phan_tu": [
+          {
+            "o": "g2-4",
+            "hinh": "nguoi_lon"
+          },
+          {
+            "o": "g1-0",
+            "hinh": "nguoi_lon"
+          },
+          {
+            "o": "g5-0",
+            "hinh": "nguoi_lon"
+          },
+          {
+            "o": "g0-1",
+            "hinh": "nguoi_lon"
+          },
+          {
+            "o": "g6-0",
+            "hinh": "nguoi_lon"
+          },
+          {
+            "o": "g5-1",
+            "hinh": "nguoi_lon"
+          },
+          {
+            "o": "g1-3",
+            "hinh": "nguoi_lon"
+          },
+          {
+            "o": "g3-4",
+            "hinh": "nguoi_lon"
+          },
+          {
+            "o": "g6-4",
+            "hinh": "nguoi_lon"
+          },
+          {
+            "o": "g0-0",
+            "hinh": "nguoi_lon"
+          },
+          {
+            "o": "g0-3",
+            "hinh": "nguoi_lon"
+          },
+          {
+            "o": "g4-1",
+            "hinh": "nguoi_lon"
+          },
+          {
+            "o": "g5-4",
+            "hinh": "nguoi_lon"
+          },
+          {
+            "o": "g4-3",
+            "hinh": "nguoi_lon"
+          },
+          {
+            "o": "g6-3",
+            "hinh": "nguoi_lon"
+          },
+          {
+            "o": "g5-3",
+            "hinh": "nguoi_lon"
+          },
+          {
+            "o": "g1-1",
+            "hinh": "nguoi_lon"
+          },
+          {
+            "o": "g2-3",
+            "hinh": "nguoi_lon"
+          },
+          {
+            "o": "g4-4",
+            "hinh": "nguoi_lon"
+          },
+          {
+            "o": "g2-0",
+            "hinh": "nguoi_lon"
+          },
+          {
+            "o": "g1-4",
+            "hinh": "nguoi_lon"
+          },
+          {
+            "o": "g6-1",
+            "hinh": "nguoi_lon"
+          },
+          {
+            "o": "g3-3",
+            "hinh": "nguoi_lon"
+          },
+          {
+            "o": "g4-0",
+            "hinh": "nguoi_lon"
+          },
+          {
+            "o": "g2-1",
+            "hinh": "nguoi_lon"
+          },
+          {
+            "o": "g3-0",
+            "hinh": "tui"
+          }
+        ],
+        "lenh_van_chuyen": {
+          "so": "LVC-090915",
+          "don_vi": "[Demo] Công ty vận tải Sông Hồng",
+          "bien_so": "29B-611.47",
+          "lai_xe": "Hoàng Văn An",
+          "ngay": "2026-09-14",
+          "tuyen": "Hà Nội – Nam Định"
+        },
+        "phu_hieu": {
+          "so": "PH-0925",
+          "loai": "Xe tuyến cố định",
+          "bien_so": "29B-611.47",
+          "co_gia_tri_den": "2027-03-31"
+        },
+        "giam_sat_hanh_trinh": {
+          "thiet_bi": "GSHT-2961147",
+          "ngay": "2026-09-15",
+          "doan": [
+            {
+              "tu": "07:00",
+              "den": "08:30",
+              "chay": true
+            },
+            {
+              "tu": "08:30",
+              "den": "08:45",
+              "chay": false
+            },
+            {
+              "tu": "08:45",
+              "den": "09:20",
+              "chay": true
+            }
+          ],
+          "toc_do_toi_da_kmh": 78
+        }
+      }
+    },
+    {
+      "ma": "XK-10",
+      "tieu_de": "[Demo] XK-10 · 45 chỗ, người đứng, phù hiệu hết hạn",
+      "muc": 3,
+      "loi": [
+        "cho_qua_nguoi",
+        "phu_hieu_het_han"
+      ],
+      "y_do": "44 người ngồi kín ghế, 2 người đứng: vượt 2. Phù hiệu hết hạn 31/08. Sắp lỗi: chở quá số người (4 triệu) trước phù hiệu (2 triệu).",
+      "xe": {
+        "loai_xe": "xe_45_cho",
+        "bien_so": "30B-775.12",
+        "ngay_kiem_tra": "2026-09-15",
+        "gio_kiem_tra": "09:30",
+        "lai_xe": "Lý Minh Quang",
+        "phan_tu": [
+          {
+            "o": "g9-0",
+            "hinh": "nguoi_lon"
+          },
+          {
+            "o": "g5-4",
+            "hinh": "nguoi_lon"
+          },
+          {
+            "o": "g3-4",
+            "hinh": "nguoi_lon"
+          },
+          {
+            "o": "g7-0",
+            "hinh": "nguoi_lon"
+          },
+          {
+            "o": "g3-1",
+            "hinh": "nguoi_lon"
+          },
+          {
+            "o": "g10-3",
+            "hinh": "nguoi_lon"
+          },
+          {
+            "o": "g1-1",
+            "hinh": "nguoi_lon"
+          },
+          {
+            "o": "g0-1",
+            "hinh": "nguoi_lon"
+          },
+          {
+            "o": "g2-1",
+            "hinh": "nguoi_lon"
+          },
+          {
+            "o": "g1-3",
+            "hinh": "nguoi_lon"
+          },
+          {
+            "o": "g2-0",
+            "hinh": "nguoi_lon"
+          },
+          {
+            "o": "g8-3",
+            "hinh": "nguoi_lon"
+          },
+          {
+            "o": "g1-0",
+            "hinh": "nguoi_lon"
+          },
+          {
+            "o": "g5-3",
+            "hinh": "nguoi_lon"
+          },
+          {
+            "o": "g5-1",
+            "hinh": "nguoi_lon"
+          },
+          {
+            "o": "g3-3",
+            "hinh": "nguoi_lon"
+          },
+          {
+            "o": "g4-3",
+            "hinh": "nguoi_lon"
+          },
+          {
+            "o": "g10-1",
+            "hinh": "nguoi_lon"
+          },
+          {
+            "o": "g0-4",
+            "hinh": "nguoi_lon"
+          },
+          {
+            "o": "g6-1",
+            "hinh": "nguoi_lon"
+          },
+          {
+            "o": "g2-4",
+            "hinh": "nguoi_lon"
+          },
+          {
+            "o": "g6-4",
+            "hinh": "nguoi_lon"
+          },
+          {
+            "o": "g4-0",
+            "hinh": "nguoi_lon"
+          },
+          {
+            "o": "g8-4",
+            "hinh": "nguoi_lon"
+          },
+          {
+            "o": "g1-4",
+            "hinh": "nguoi_lon"
+          },
+          {
+            "o": "g9-3",
+            "hinh": "nguoi_lon"
+          },
+          {
+            "o": "g0-0",
+            "hinh": "nguoi_lon"
+          },
+          {
+            "o": "g7-4",
+            "hinh": "nguoi_lon"
+          },
+          {
+            "o": "g8-1",
+            "hinh": "nguoi_lon"
+          },
+          {
+            "o": "g0-3",
+            "hinh": "nguoi_lon"
+          },
+          {
+            "o": "g9-1",
+            "hinh": "nguoi_lon"
+          },
+          {
+            "o": "g5-0",
+            "hinh": "nguoi_lon"
+          },
+          {
+            "o": "g4-4",
+            "hinh": "nguoi_lon"
+          },
+          {
+            "o": "g6-3",
+            "hinh": "nguoi_lon"
+          },
+          {
+            "o": "g2-3",
+            "hinh": "nguoi_lon"
+          },
+          {
+            "o": "g8-0",
+            "hinh": "nguoi_lon"
+          },
+          {
+            "o": "g6-0",
+            "hinh": "nguoi_lon"
+          },
+          {
+            "o": "g4-1",
+            "hinh": "nguoi_lon"
+          },
+          {
+            "o": "g7-3",
+            "hinh": "nguoi_lon"
+          },
+          {
+            "o": "g10-4",
+            "hinh": "nguoi_lon"
+          },
+          {
+            "o": "g7-1",
+            "hinh": "nguoi_lon"
+          },
+          {
+            "o": "g10-0",
+            "hinh": "nguoi_lon"
+          },
+          {
+            "o": "g3-0",
+            "hinh": "nguoi_lon"
+          },
+          {
+            "o": "g9-4",
+            "hinh": "nguoi_lon"
+          },
+          {
+            "o": "l5",
+            "hinh": "nguoi_lon"
+          },
+          {
+            "o": "l10",
+            "hinh": "nguoi_lon"
+          },
+          {
+            "o": "l6",
+            "hinh": "hanh_ly"
+          }
+        ],
+        "lenh_van_chuyen": {
+          "so": "LVC-100915",
+          "don_vi": "[Demo] Công ty vận tải Sông Hồng",
+          "bien_so": "30B-775.12",
+          "lai_xe": "Lý Minh Quang",
+          "ngay": "2026-09-15",
+          "tuyen": "Hà Nội – Nam Định"
+        },
+        "phu_hieu": {
+          "so": "PH-1025",
+          "loai": "Xe tuyến cố định",
+          "bien_so": "30B-775.12",
+          "co_gia_tri_den": "2026-08-31"
+        },
+        "giam_sat_hanh_trinh": {
+          "thiet_bi": "GSHT-3077512",
+          "ngay": "2026-09-15",
+          "doan": [
+            {
+              "tu": "07:00",
+              "den": "08:30",
+              "chay": true
+            },
+            {
+              "tu": "08:30",
+              "den": "08:45",
+              "chay": false
+            },
+            {
+              "tu": "08:45",
+              "den": "09:20",
+              "chay": true
+            }
+          ],
+          "toc_do_toi_da_kmh": 78
+        }
+      }
+    },
+    {
+      "ma": "XK-11",
+      "tieu_de": "[Demo] XK-11 · 45 chỗ, mọi thứ đúng",
+      "muc": 3,
+      "loi": [],
+      "y_do": "40 người ngồi, túi và áo treo trên ghế, lệnh và phù hiệu đúng: cho đi. Phù hiệu hết hạn đúng ngày kiểm tra vẫn còn giá trị.",
+      "xe": {
+        "loai_xe": "xe_45_cho",
+        "bien_so": "51B-190.36",
+        "ngay_kiem_tra": "2026-09-15",
+        "gio_kiem_tra": "09:30",
+        "lai_xe": "Dương Quốc Cường",
+        "phan_tu": [
+          {
+            "o": "g8-0",
+            "hinh": "nguoi_lon"
+          },
+          {
+            "o": "g9-4",
+            "hinh": "nguoi_lon"
+          },
+          {
+            "o": "g8-3",
+            "hinh": "nguoi_lon"
+          },
+          {
+            "o": "g7-0",
+            "hinh": "nguoi_lon"
+          },
+          {
+            "o": "g9-0",
+            "hinh": "nguoi_lon"
+          },
+          {
+            "o": "g7-1",
+            "hinh": "nguoi_lon"
+          },
+          {
+            "o": "g6-4",
+            "hinh": "nguoi_lon"
+          },
+          {
+            "o": "g0-0",
+            "hinh": "nguoi_lon"
+          },
+          {
+            "o": "g2-1",
+            "hinh": "nguoi_lon"
+          },
+          {
+            "o": "g0-3",
+            "hinh": "nguoi_lon"
+          },
+          {
+            "o": "g3-1",
+            "hinh": "nguoi_lon"
+          },
+          {
+            "o": "g7-4",
+            "hinh": "nguoi_lon"
+          },
+          {
+            "o": "g1-3",
+            "hinh": "nguoi_lon"
+          },
+          {
+            "o": "g3-4",
+            "hinh": "nguoi_lon"
+          },
+          {
+            "o": "g10-3",
+            "hinh": "nguoi_lon"
+          },
+          {
+            "o": "g1-4",
+            "hinh": "nguoi_lon"
+          },
+          {
+            "o": "g10-4",
+            "hinh": "nguoi_lon"
+          },
+          {
+            "o": "g9-1",
+            "hinh": "nguoi_lon"
+          },
+          {
+            "o": "g6-1",
+            "hinh": "nguoi_lon"
+          },
+          {
+            "o": "g2-0",
+            "hinh": "nguoi_lon"
+          },
+          {
+            "o": "g6-0",
+            "hinh": "nguoi_lon"
+          },
+          {
+            "o": "g3-3",
+            "hinh": "nguoi_lon"
+          },
+          {
+            "o": "g9-3",
+            "hinh": "nguoi_lon"
+          },
+          {
+            "o": "g1-1",
+            "hinh": "nguoi_lon"
+          },
+          {
+            "o": "g4-4",
+            "hinh": "nguoi_lon"
+          },
+          {
+            "o": "g10-1",
+            "hinh": "nguoi_lon"
+          },
+          {
+            "o": "g10-0",
+            "hinh": "nguoi_lon"
+          },
+          {
+            "o": "g0-1",
+            "hinh": "nguoi_lon"
+          },
+          {
+            "o": "g3-0",
+            "hinh": "nguoi_lon"
+          },
+          {
+            "o": "g8-4",
+            "hinh": "nguoi_lon"
+          },
+          {
+            "o": "g4-1",
+            "hinh": "nguoi_lon"
+          },
+          {
+            "o": "g4-3",
+            "hinh": "nguoi_lon"
+          },
+          {
+            "o": "g0-4",
+            "hinh": "nguoi_lon"
+          },
+          {
+            "o": "g2-3",
+            "hinh": "nguoi_lon"
+          },
+          {
+            "o": "g5-1",
+            "hinh": "nguoi_lon"
+          },
+          {
+            "o": "g5-4",
+            "hinh": "nguoi_lon"
+          },
+          {
+            "o": "g4-0",
+            "hinh": "nguoi_lon"
+          },
+          {
+            "o": "g7-3",
+            "hinh": "nguoi_lon"
+          },
+          {
+            "o": "g1-0",
+            "hinh": "nguoi_lon"
+          },
+          {
+            "o": "g5-3",
+            "hinh": "nguoi_lon"
+          },
+          {
+            "o": "g6-3",
+            "hinh": "tui"
+          },
+          {
+            "o": "g5-0",
+            "hinh": "tui"
+          },
+          {
+            "o": "g8-1",
+            "hinh": "ao_treo"
+          },
+          {
+            "o": "l0",
+            "hinh": "hanh_ly"
+          }
+        ],
+        "lenh_van_chuyen": {
+          "so": "LVC-110915",
+          "don_vi": "[Demo] Công ty vận tải Sông Hồng",
+          "bien_so": "51B-190.36",
+          "lai_xe": "Dương Quốc Cường",
+          "ngay": "2026-09-15",
+          "tuyen": "Hà Nội – Nam Định"
+        },
+        "phu_hieu": {
+          "so": "PH-1125",
+          "loai": "Xe tuyến cố định",
+          "bien_so": "51B-190.36",
+          "co_gia_tri_den": "2026-09-15"
+        },
+        "giam_sat_hanh_trinh": {
+          "thiet_bi": "GSHT-5119036",
+          "ngay": "2026-09-15",
+          "doan": [
+            {
+              "tu": "07:00",
+              "den": "08:30",
+              "chay": true
+            },
+            {
+              "tu": "08:30",
+              "den": "08:45",
+              "chay": false
+            },
+            {
+              "tu": "08:45",
+              "den": "09:20",
+              "chay": true
+            }
+          ],
+          "toc_do_toi_da_kmh": 78
+        }
+      }
+    },
+    {
+      "ma": "XK-12",
+      "tieu_de": "[Demo] XK-12 · 29 chỗ, đổi lái, không phù hiệu",
+      "muc": 3,
+      "loi": [
+        "lenh_sai_lai_xe",
+        "thieu_phu_hieu"
+      ],
+      "y_do": "Đếm không vượt. Lệnh giao cho lái xe khác người đang lái; xe không có phù hiệu. Hai lỗi cùng mức phạt tối đa: thứ tự nào cũng đúng.",
+      "xe": {
+        "loai_xe": "xe_29_cho",
+        "bien_so": "65B-004.19",
+        "ngay_kiem_tra": "2026-09-15",
+        "gio_kiem_tra": "09:30",
+        "lai_xe": "Đặng Thành Công",
+        "phan_tu": [
+          {
+            "o": "g2-0",
+            "hinh": "nguoi_lon"
+          },
+          {
+            "o": "g5-4",
+            "hinh": "nguoi_lon"
+          },
+          {
+            "o": "g1-0",
+            "hinh": "nguoi_lon"
+          },
+          {
+            "o": "g4-4",
+            "hinh": "nguoi_lon"
+          },
+          {
+            "o": "g6-4",
+            "hinh": "nguoi_lon"
+          },
+          {
+            "o": "g0-1",
+            "hinh": "nguoi_lon"
+          },
+          {
+            "o": "g4-1",
+            "hinh": "nguoi_lon"
+          },
+          {
+            "o": "g6-3",
+            "hinh": "nguoi_lon"
+          },
+          {
+            "o": "g1-4",
+            "hinh": "nguoi_lon"
+          },
+          {
+            "o": "g6-1",
+            "hinh": "nguoi_lon"
+          },
+          {
+            "o": "g3-3",
+            "hinh": "nguoi_lon"
+          },
+          {
+            "o": "g1-1",
+            "hinh": "nguoi_lon"
+          },
+          {
+            "o": "g3-0",
+            "hinh": "nguoi_lon"
+          },
+          {
+            "o": "g5-3",
+            "hinh": "nguoi_lon"
+          },
+          {
+            "o": "g3-4",
+            "hinh": "nguoi_lon"
+          },
+          {
+            "o": "g1-3",
+            "hinh": "nguoi_lon"
+          },
+          {
+            "o": "g6-0",
+            "hinh": "nguoi_lon"
+          },
+          {
+            "o": "g4-3",
+            "hinh": "nguoi_lon"
+          },
+          {
+            "o": "g0-3",
+            "hinh": "nguoi_lon"
+          },
+          {
+            "o": "g3-1",
+            "hinh": "nguoi_lon"
+          },
+          {
+            "o": "g0-0",
+            "hinh": "nguoi_lon"
+          },
+          {
+            "o": "g2-3",
+            "hinh": "nguoi_lon"
+          },
+          {
+            "o": "g5-0",
+            "hinh": "ao_treo"
+          }
+        ],
+        "lenh_van_chuyen": {
+          "so": "LVC-120915",
+          "don_vi": "[Demo] Công ty vận tải Sông Hồng",
+          "bien_so": "65B-004.19",
+          "lai_xe": "Đặng Văn Công",
+          "ngay": "2026-09-15",
+          "tuyen": "Hà Nội – Nam Định"
+        },
+        "phu_hieu": null,
+        "giam_sat_hanh_trinh": {
+          "thiet_bi": "GSHT-6500419",
+          "ngay": "2026-09-15",
+          "doan": [
+            {
+              "tu": "07:00",
+              "den": "08:30",
+              "chay": true
+            },
+            {
+              "tu": "08:30",
+              "den": "08:45",
+              "chay": false
+            },
+            {
+              "tu": "08:45",
+              "den": "09:20",
+              "chay": true
+            }
+          ],
+          "toc_do_toi_da_kmh": 78
+        }
+      }
+    },
+    {
+      "ma": "XK-13",
+      "tieu_de": "[Demo] XK-13 · 45 chỗ, lái liên tục 4 giờ 30 phút",
+      "muc": 4,
+      "loi": [
+        "lai_lien_tuc_qua_gio"
+      ],
+      "y_do": "Đoạn 06:00–10:30 lái liên tục 270 phút, quá ngưỡng 240 phút (số minh họa).",
+      "xe": {
+        "loai_xe": "xe_45_cho",
+        "bien_so": "29B-842.60",
+        "ngay_kiem_tra": "2026-09-15",
+        "gio_kiem_tra": "10:40",
+        "lai_xe": "Nguyễn Hữu Phong",
+        "phan_tu": [
+          {
+            "o": "g1-0",
+            "hinh": "nguoi_lon"
+          },
+          {
+            "o": "g10-1",
+            "hinh": "nguoi_lon"
+          },
+          {
+            "o": "g3-4",
+            "hinh": "nguoi_lon"
+          },
+          {
+            "o": "g9-0",
+            "hinh": "nguoi_lon"
+          },
+          {
+            "o": "g7-3",
+            "hinh": "nguoi_lon"
+          },
+          {
+            "o": "g6-1",
+            "hinh": "nguoi_lon"
+          },
+          {
+            "o": "g1-4",
+            "hinh": "nguoi_lon"
+          },
+          {
+            "o": "g10-0",
+            "hinh": "nguoi_lon"
+          },
+          {
+            "o": "g6-0",
+            "hinh": "nguoi_lon"
+          },
+          {
+            "o": "g4-4",
+            "hinh": "nguoi_lon"
+          },
+          {
+            "o": "g5-0",
+            "hinh": "nguoi_lon"
+          },
+          {
+            "o": "g10-4",
+            "hinh": "nguoi_lon"
+          },
+          {
+            "o": "g9-4",
+            "hinh": "nguoi_lon"
+          },
+          {
+            "o": "g4-1",
+            "hinh": "nguoi_lon"
+          },
+          {
+            "o": "g8-1",
+            "hinh": "nguoi_lon"
+          },
+          {
+            "o": "g3-1",
+            "hinh": "nguoi_lon"
+          },
+          {
+            "o": "g2-4",
+            "hinh": "nguoi_lon"
+          },
+          {
+            "o": "g7-1",
+            "hinh": "nguoi_lon"
+          },
+          {
+            "o": "g6-3",
+            "hinh": "nguoi_lon"
+          },
+          {
+            "o": "g0-0",
+            "hinh": "nguoi_lon"
+          },
+          {
+            "o": "g7-0",
+            "hinh": "nguoi_lon"
+          },
+          {
+            "o": "g3-3",
+            "hinh": "nguoi_lon"
+          },
+          {
+            "o": "g4-0",
+            "hinh": "nguoi_lon"
+          },
+          {
+            "o": "g0-1",
+            "hinh": "nguoi_lon"
+          },
+          {
+            "o": "g10-3",
+            "hinh": "nguoi_lon"
+          },
+          {
+            "o": "g3-0",
+            "hinh": "nguoi_lon"
+          },
+          {
+            "o": "g7-4",
+            "hinh": "nguoi_lon"
+          },
+          {
+            "o": "g8-4",
+            "hinh": "nguoi_lon"
+          },
+          {
+            "o": "g8-0",
+            "hinh": "nguoi_lon"
+          },
+          {
+            "o": "g9-3",
+            "hinh": "nguoi_lon"
+          },
+          {
+            "o": "g1-1",
+            "hinh": "nguoi_lon"
+          },
+          {
+            "o": "g8-3",
+            "hinh": "nguoi_lon"
+          },
+          {
+            "o": "g2-0",
+            "hinh": "nguoi_lon"
+          },
+          {
+            "o": "g2-1",
+            "hinh": "nguoi_lon"
+          },
+          {
+            "o": "g0-3",
+            "hinh": "nguoi_lon"
+          },
+          {
+            "o": "g5-4",
+            "hinh": "nguoi_lon"
+          },
+          {
+            "o": "g5-1",
+            "hinh": "nguoi_lon"
+          },
+          {
+            "o": "g5-3",
+            "hinh": "nguoi_lon"
+          },
+          {
+            "o": "g0-4",
+            "hinh": "tui"
+          },
+          {
+            "o": "g1-3",
+            "hinh": "tui"
+          }
+        ],
+        "lenh_van_chuyen": {
+          "so": "LVC-130915",
+          "don_vi": "[Demo] Công ty vận tải Sông Hồng",
+          "bien_so": "29B-842.60",
+          "lai_xe": "Nguyễn Hữu Phong",
+          "ngay": "2026-09-15",
+          "tuyen": "Hà Nội – Nam Định"
+        },
+        "phu_hieu": {
+          "so": "PH-1325",
+          "loai": "Xe tuyến cố định",
+          "bien_so": "29B-842.60",
+          "co_gia_tri_den": "2027-03-31"
+        },
+        "giam_sat_hanh_trinh": {
+          "thiet_bi": "GSHT-2984260",
+          "ngay": "2026-09-15",
+          "doan": [
+            {
+              "tu": "06:00",
+              "den": "10:30",
+              "chay": true
+            }
+          ],
+          "toc_do_toi_da_kmh": 82
+        }
+      }
+    },
+    {
+      "ma": "XK-14",
+      "tieu_de": "[Demo] XK-14 · 45 chỗ, lái liên tục đúng 4 giờ",
+      "muc": 4,
+      "loi": [],
+      "y_do": "Đoạn 06:00–10:00 đúng 240 phút (bằng ngưỡng là không vượt), nghỉ 30 phút, lái tiếp 90 phút. Tốc độ lớn nhất 96 km/h chỉ để đọc.",
+      "xe": {
+        "loai_xe": "xe_45_cho",
+        "bien_so": "30B-561.83",
+        "ngay_kiem_tra": "2026-09-15",
+        "gio_kiem_tra": "12:10",
+        "lai_xe": "Trần Văn Dũng",
+        "phan_tu": [
+          {
+            "o": "g5-4",
+            "hinh": "nguoi_lon"
+          },
+          {
+            "o": "g0-1",
+            "hinh": "nguoi_lon"
+          },
+          {
+            "o": "g10-1",
+            "hinh": "nguoi_lon"
+          },
+          {
+            "o": "g7-3",
+            "hinh": "nguoi_lon"
+          },
+          {
+            "o": "g10-3",
+            "hinh": "nguoi_lon"
+          },
+          {
+            "o": "g6-0",
+            "hinh": "nguoi_lon"
+          },
+          {
+            "o": "g6-1",
+            "hinh": "nguoi_lon"
+          },
+          {
+            "o": "g10-4",
+            "hinh": "nguoi_lon"
+          },
+          {
+            "o": "g8-1",
+            "hinh": "nguoi_lon"
+          },
+          {
+            "o": "g5-0",
+            "hinh": "nguoi_lon"
+          },
+          {
+            "o": "g8-4",
+            "hinh": "nguoi_lon"
+          },
+          {
+            "o": "g1-1",
+            "hinh": "nguoi_lon"
+          },
+          {
+            "o": "g2-3",
+            "hinh": "nguoi_lon"
+          },
+          {
+            "o": "g4-3",
+            "hinh": "nguoi_lon"
+          },
+          {
+            "o": "g1-0",
+            "hinh": "nguoi_lon"
+          },
+          {
+            "o": "g5-1",
+            "hinh": "nguoi_lon"
+          },
+          {
+            "o": "g7-4",
+            "hinh": "nguoi_lon"
+          },
+          {
+            "o": "g9-1",
+            "hinh": "nguoi_lon"
+          },
+          {
+            "o": "g1-3",
+            "hinh": "nguoi_lon"
+          },
+          {
+            "o": "g4-1",
+            "hinh": "nguoi_lon"
+          },
+          {
+            "o": "g3-4",
+            "hinh": "nguoi_lon"
+          },
+          {
+            "o": "g7-1",
+            "hinh": "nguoi_lon"
+          },
+          {
+            "o": "g6-3",
+            "hinh": "nguoi_lon"
+          },
+          {
+            "o": "g0-0",
+            "hinh": "nguoi_lon"
+          },
+          {
+            "o": "g3-1",
+            "hinh": "nguoi_lon"
+          },
+          {
+            "o": "g4-0",
+            "hinh": "nguoi_lon"
+          },
+          {
+            "o": "g6-4",
+            "hinh": "nguoi_lon"
+          },
+          {
+            "o": "g9-0",
+            "hinh": "nguoi_lon"
+          },
+          {
+            "o": "g3-3",
+            "hinh": "nguoi_lon"
+          },
+          {
+            "o": "g4-4",
+            "hinh": "nguoi_lon"
+          },
+          {
+            "o": "g2-4",
+            "hinh": "nguoi_lon"
+          },
+          {
+            "o": "g9-3",
+            "hinh": "nguoi_lon"
+          },
+          {
+            "o": "g2-1",
+            "hinh": "nguoi_lon"
+          },
+          {
+            "o": "g10-0",
+            "hinh": "nguoi_lon"
+          },
+          {
+            "o": "g3-0",
+            "hinh": "nguoi_lon"
+          },
+          {
+            "o": "g7-0",
+            "hinh": "nguoi_lon"
+          },
+          {
+            "o": "g8-3",
+            "hinh": "nguoi_lon"
+          },
+          {
+            "o": "g2-0",
+            "hinh": "nguoi_lon"
+          },
+          {
+            "o": "g0-3",
+            "hinh": "nguoi_lon"
+          },
+          {
+            "o": "g1-4",
+            "hinh": "nguoi_lon"
+          },
+          {
+            "o": "g8-0",
+            "hinh": "nguoi_lon"
+          },
+          {
+            "o": "l9",
+            "hinh": "hanh_ly"
+          }
+        ],
+        "lenh_van_chuyen": {
+          "so": "LVC-140915",
+          "don_vi": "[Demo] Công ty vận tải Sông Hồng",
+          "bien_so": "30B-561.83",
+          "lai_xe": "Trần Văn Dũng",
+          "ngay": "2026-09-15",
+          "tuyen": "Hà Nội – Nam Định"
+        },
+        "phu_hieu": {
+          "so": "PH-1425",
+          "loai": "Xe tuyến cố định",
+          "bien_so": "30B-561.83",
+          "co_gia_tri_den": "2027-03-31"
+        },
+        "giam_sat_hanh_trinh": {
+          "thiet_bi": "GSHT-3056183",
+          "ngay": "2026-09-15",
+          "doan": [
+            {
+              "tu": "06:00",
+              "den": "10:00",
+              "chay": true
+            },
+            {
+              "tu": "10:00",
+              "den": "10:30",
+              "chay": false
+            },
+            {
+              "tu": "10:30",
+              "den": "12:00",
+              "chay": true
+            }
+          ],
+          "toc_do_toi_da_kmh": 96
+        }
+      }
+    },
+    {
+      "ma": "XK-15",
+      "tieu_de": "[Demo] XK-15 · 45 chỗ, lái cả ngày, lệnh sai xe",
+      "muc": 4,
+      "loi": [
+        "lenh_sai_xe",
+        "lai_trong_ngay_qua_gio"
+      ],
+      "y_do": "Ba lần lái 240 + 240 + 140 phút, nghỉ đủ giữa các lần: liên tục không vượt, tổng 620 phút quá 600 (số minh họa). Lệnh ghi biển số xe khác. Sắp lỗi: thời gian lái trước lệnh.",
+      "xe": {
+        "loai_xe": "xe_45_cho",
+        "bien_so": "18B-250.94",
+        "ngay_kiem_tra": "2026-09-15",
+        "gio_kiem_tra": "16:40",
+        "lai_xe": "Phạm Minh Sơn",
+        "phan_tu": [
+          {
+            "o": "g0-4",
+            "hinh": "nguoi_lon"
+          },
+          {
+            "o": "g6-4",
+            "hinh": "nguoi_lon"
+          },
+          {
+            "o": "g2-1",
+            "hinh": "nguoi_lon"
+          },
+          {
+            "o": "g6-0",
+            "hinh": "nguoi_lon"
+          },
+          {
+            "o": "g7-4",
+            "hinh": "nguoi_lon"
+          },
+          {
+            "o": "g9-4",
+            "hinh": "nguoi_lon"
+          },
+          {
+            "o": "g0-1",
+            "hinh": "nguoi_lon"
+          },
+          {
+            "o": "g8-0",
+            "hinh": "nguoi_lon"
+          },
+          {
+            "o": "g7-1",
+            "hinh": "nguoi_lon"
+          },
+          {
+            "o": "g7-0",
+            "hinh": "nguoi_lon"
+          },
+          {
+            "o": "g2-0",
+            "hinh": "nguoi_lon"
+          },
+          {
+            "o": "g1-1",
+            "hinh": "nguoi_lon"
+          },
+          {
+            "o": "g2-3",
+            "hinh": "nguoi_lon"
+          },
+          {
+            "o": "g4-4",
+            "hinh": "nguoi_lon"
+          },
+          {
+            "o": "g6-3",
+            "hinh": "nguoi_lon"
+          },
+          {
+            "o": "g3-4",
+            "hinh": "nguoi_lon"
+          },
+          {
+            "o": "g10-0",
+            "hinh": "nguoi_lon"
+          },
+          {
+            "o": "g5-3",
+            "hinh": "nguoi_lon"
+          },
+          {
+            "o": "g1-0",
+            "hinh": "nguoi_lon"
+          },
+          {
+            "o": "g9-3",
+            "hinh": "nguoi_lon"
+          },
+          {
+            "o": "g0-3",
+            "hinh": "nguoi_lon"
+          },
+          {
+            "o": "g4-0",
+            "hinh": "nguoi_lon"
+          },
+          {
+            "o": "g8-1",
+            "hinh": "nguoi_lon"
+          },
+          {
+            "o": "g6-1",
+            "hinh": "nguoi_lon"
+          },
+          {
+            "o": "g5-4",
+            "hinh": "nguoi_lon"
+          },
+          {
+            "o": "g4-3",
+            "hinh": "nguoi_lon"
+          },
+          {
+            "o": "g4-1",
+            "hinh": "nguoi_lon"
+          },
+          {
+            "o": "g5-0",
+            "hinh": "nguoi_lon"
+          },
+          {
+            "o": "g10-3",
+            "hinh": "nguoi_lon"
+          },
+          {
+            "o": "g5-1",
+            "hinh": "nguoi_lon"
+          },
+          {
+            "o": "g3-0",
+            "hinh": "tui"
+          }
+        ],
+        "lenh_van_chuyen": {
+          "so": "LVC-150915",
+          "don_vi": "[Demo] Công ty vận tải Sông Hồng",
+          "bien_so": "18B-250.49",
+          "lai_xe": "Phạm Minh Sơn",
+          "ngay": "2026-09-15",
+          "tuyen": "Hà Nội – Nam Định"
+        },
+        "phu_hieu": {
+          "so": "PH-1525",
+          "loai": "Xe tuyến cố định",
+          "bien_so": "18B-250.94",
+          "co_gia_tri_den": "2027-03-31"
+        },
+        "giam_sat_hanh_trinh": {
+          "thiet_bi": "GSHT-1825094",
+          "ngay": "2026-09-15",
+          "doan": [
+            {
+              "tu": "05:00",
+              "den": "09:00",
+              "chay": true
+            },
+            {
+              "tu": "09:00",
+              "den": "09:30",
+              "chay": false
+            },
+            {
+              "tu": "09:30",
+              "den": "13:30",
+              "chay": true
+            },
+            {
+              "tu": "13:30",
+              "den": "14:00",
+              "chay": false
+            },
+            {
+              "tu": "14:00",
+              "den": "16:20",
+              "chay": true
+            }
+          ],
+          "toc_do_toi_da_kmh": 78
+        }
+      }
+    },
+    {
+      "ma": "XK-16",
+      "tieu_de": "[Demo] XK-16 · 45 chỗ, một người đứng, không có lệnh",
+      "muc": 4,
+      "loi": [
+        "cho_qua_nguoi",
+        "thieu_lenh_van_chuyen"
+      ],
+      "y_do": "44 người ngồi, 1 người đứng: vượt 1. Không xuất trình lệnh vận chuyển. Dữ liệu giám sát bình thường.",
+      "xe": {
+        "loai_xe": "xe_45_cho",
+        "bien_so": "36B-127.03",
+        "ngay_kiem_tra": "2026-09-15",
+        "gio_kiem_tra": "09:30",
+        "lai_xe": "Vũ Hoàng Nam",
+        "phan_tu": [
+          {
+            "o": "g6-3",
+            "hinh": "nguoi_lon"
+          },
+          {
+            "o": "g4-4",
+            "hinh": "nguoi_lon"
+          },
+          {
+            "o": "g3-1",
+            "hinh": "nguoi_lon"
+          },
+          {
+            "o": "g5-4",
+            "hinh": "nguoi_lon"
+          },
+          {
+            "o": "g7-4",
+            "hinh": "nguoi_lon"
+          },
+          {
+            "o": "g3-3",
+            "hinh": "nguoi_lon"
+          },
+          {
+            "o": "g2-0",
+            "hinh": "nguoi_lon"
+          },
+          {
+            "o": "g6-4",
+            "hinh": "nguoi_lon"
+          },
+          {
+            "o": "g8-3",
+            "hinh": "nguoi_lon"
+          },
+          {
+            "o": "g7-0",
+            "hinh": "nguoi_lon"
+          },
+          {
+            "o": "g0-4",
+            "hinh": "nguoi_lon"
+          },
+          {
+            "o": "g8-4",
+            "hinh": "nguoi_lon"
+          },
+          {
+            "o": "g1-4",
+            "hinh": "nguoi_lon"
+          },
+          {
+            "o": "g10-4",
+            "hinh": "nguoi_lon"
+          },
+          {
+            "o": "g10-0",
+            "hinh": "nguoi_lon"
+          },
+          {
+            "o": "g9-3",
+            "hinh": "nguoi_lon"
+          },
+          {
+            "o": "g6-1",
+            "hinh": "nguoi_lon"
+          },
+          {
+            "o": "g1-1",
+            "hinh": "nguoi_lon"
+          },
+          {
+            "o": "g4-1",
+            "hinh": "nguoi_lon"
+          },
+          {
+            "o": "g3-4",
+            "hinh": "nguoi_lon"
+          },
+          {
+            "o": "g1-3",
+            "hinh": "nguoi_lon"
+          },
+          {
+            "o": "g2-1",
+            "hinh": "nguoi_lon"
+          },
+          {
+            "o": "g7-3",
+            "hinh": "nguoi_lon"
+          },
+          {
+            "o": "g4-3",
+            "hinh": "nguoi_lon"
+          },
+          {
+            "o": "g0-1",
+            "hinh": "nguoi_lon"
+          },
+          {
+            "o": "g9-0",
+            "hinh": "nguoi_lon"
+          },
+          {
+            "o": "g10-1",
+            "hinh": "nguoi_lon"
+          },
+          {
+            "o": "g10-3",
+            "hinh": "nguoi_lon"
+          },
+          {
+            "o": "g4-0",
+            "hinh": "nguoi_lon"
+          },
+          {
+            "o": "g7-1",
+            "hinh": "nguoi_lon"
+          },
+          {
+            "o": "g2-3",
+            "hinh": "nguoi_lon"
+          },
+          {
+            "o": "g1-0",
+            "hinh": "nguoi_lon"
+          },
+          {
+            "o": "g0-3",
+            "hinh": "nguoi_lon"
+          },
+          {
+            "o": "g2-4",
+            "hinh": "nguoi_lon"
+          },
+          {
+            "o": "g3-0",
+            "hinh": "nguoi_lon"
+          },
+          {
+            "o": "g9-1",
+            "hinh": "nguoi_lon"
+          },
+          {
+            "o": "g5-3",
+            "hinh": "nguoi_lon"
+          },
+          {
+            "o": "g9-4",
+            "hinh": "nguoi_lon"
+          },
+          {
+            "o": "g8-0",
+            "hinh": "nguoi_lon"
+          },
+          {
+            "o": "g0-0",
+            "hinh": "nguoi_lon"
+          },
+          {
+            "o": "g5-1",
+            "hinh": "nguoi_lon"
+          },
+          {
+            "o": "g8-1",
+            "hinh": "nguoi_lon"
+          },
+          {
+            "o": "g6-0",
+            "hinh": "nguoi_lon"
+          },
+          {
+            "o": "g5-0",
+            "hinh": "nguoi_lon"
+          },
+          {
+            "o": "l6",
+            "hinh": "nguoi_lon"
+          }
+        ],
+        "lenh_van_chuyen": null,
+        "phu_hieu": {
+          "so": "PH-1625",
+          "loai": "Xe tuyến cố định",
+          "bien_so": "36B-127.03",
+          "co_gia_tri_den": "2027-03-31"
+        },
+        "giam_sat_hanh_trinh": {
+          "thiet_bi": "GSHT-3612703",
+          "ngay": "2026-09-15",
+          "doan": [
+            {
+              "tu": "07:00",
+              "den": "08:30",
+              "chay": true
+            },
+            {
+              "tu": "08:30",
+              "den": "08:45",
+              "chay": false
+            },
+            {
+              "tu": "08:45",
+              "den": "09:20",
+              "chay": true
+            }
+          ],
+          "toc_do_toi_da_kmh": 78
+        }
+      }
+    },
+    {
+      "ma": "XK-17",
+      "tieu_de": "[Demo] XK-17 · Giường nằm đêm, khách nằm sàn, dừng ngắn",
+      "muc": 5,
+      "loi": [
+        "cho_qua_nguoi",
+        "lai_lien_tuc_qua_gio"
+      ],
+      "y_do": "36 giường kín, 3 người nằm sàn: vượt 3. Lái 18:00–20:00, dừng 10 phút (ngắn hơn 15 phút nên không ngắt), lái tiếp tới 22:30: liên tục 260 phút. Sắp lỗi: thời gian lái (5 triệu) trước chở quá số người (4 triệu).",
+      "xe": {
+        "loai_xe": "xe_giuong_nam",
+        "bien_so": "24B-013.58",
+        "ngay_kiem_tra": "2026-09-15",
+        "gio_kiem_tra": "22:40",
+        "lai_xe": "Lê Văn Hùng",
+        "phan_tu": [
+          {
+            "o": "b2-0-0",
+            "hinh": "nguoi_lon"
+          },
+          {
+            "o": "b1-3-2",
+            "hinh": "nguoi_lon"
+          },
+          {
+            "o": "b1-5-2",
+            "hinh": "nguoi_lon"
+          },
+          {
+            "o": "b1-4-2",
+            "hinh": "nguoi_lon"
+          },
+          {
+            "o": "b2-3-2",
+            "hinh": "nguoi_lon"
+          },
+          {
+            "o": "b1-0-2",
+            "hinh": "nguoi_lon"
+          },
+          {
+            "o": "b1-3-4",
+            "hinh": "nguoi_lon"
+          },
+          {
+            "o": "b2-0-4",
+            "hinh": "nguoi_lon"
+          },
+          {
+            "o": "b1-4-4",
+            "hinh": "nguoi_lon"
+          },
+          {
+            "o": "b1-0-4",
+            "hinh": "nguoi_lon"
+          },
+          {
+            "o": "b1-5-0",
+            "hinh": "nguoi_lon"
+          },
+          {
+            "o": "b2-2-2",
+            "hinh": "nguoi_lon"
+          },
+          {
+            "o": "b1-1-4",
+            "hinh": "nguoi_lon"
+          },
+          {
+            "o": "b1-2-4",
+            "hinh": "nguoi_lon"
+          },
+          {
+            "o": "b2-5-0",
+            "hinh": "nguoi_lon"
+          },
+          {
+            "o": "b2-4-2",
+            "hinh": "nguoi_lon"
+          },
+          {
+            "o": "b2-4-4",
+            "hinh": "nguoi_lon"
+          },
+          {
+            "o": "b1-4-0",
+            "hinh": "nguoi_lon"
+          },
+          {
+            "o": "b1-2-0",
+            "hinh": "nguoi_lon"
+          },
+          {
+            "o": "b1-5-4",
+            "hinh": "nguoi_lon"
+          },
+          {
+            "o": "b2-3-0",
+            "hinh": "nguoi_lon"
+          },
+          {
+            "o": "b1-1-2",
+            "hinh": "nguoi_lon"
+          },
+          {
+            "o": "b2-1-4",
+            "hinh": "nguoi_lon"
+          },
+          {
+            "o": "b1-1-0",
+            "hinh": "nguoi_lon"
+          },
+          {
+            "o": "b2-5-4",
+            "hinh": "nguoi_lon"
+          },
+          {
+            "o": "b2-0-2",
+            "hinh": "nguoi_lon"
+          },
+          {
+            "o": "b2-5-2",
+            "hinh": "nguoi_lon"
+          },
+          {
+            "o": "b2-2-0",
+            "hinh": "nguoi_lon"
+          },
+          {
+            "o": "b1-0-0",
+            "hinh": "nguoi_lon"
+          },
+          {
+            "o": "b2-1-2",
+            "hinh": "nguoi_lon"
+          },
+          {
+            "o": "b2-2-4",
+            "hinh": "nguoi_lon"
+          },
+          {
+            "o": "b2-1-0",
+            "hinh": "nguoi_lon"
+          },
+          {
+            "o": "b2-3-4",
+            "hinh": "nguoi_lon"
+          },
+          {
+            "o": "b1-3-0",
+            "hinh": "nguoi_lon"
+          },
+          {
+            "o": "b2-4-0",
+            "hinh": "nguoi_lon"
+          },
+          {
+            "o": "b1-2-2",
+            "hinh": "nguoi_lon"
+          },
+          {
+            "o": "s4-3",
+            "hinh": "nguoi_lon"
+          },
+          {
+            "o": "s2-3",
+            "hinh": "nguoi_lon"
+          },
+          {
+            "o": "s0-3",
+            "hinh": "nguoi_lon"
+          },
+          {
+            "o": "s1-1",
+            "hinh": "hanh_ly"
+          }
+        ],
+        "lenh_van_chuyen": {
+          "so": "LVC-170915",
+          "don_vi": "[Demo] Công ty vận tải Sông Hồng",
+          "bien_so": "24B-013.58",
+          "lai_xe": "Lê Văn Hùng",
+          "ngay": "2026-09-15",
+          "tuyen": "Hà Nội – Lào Cai"
+        },
+        "phu_hieu": {
+          "so": "PH-1725",
+          "loai": "Xe tuyến cố định",
+          "bien_so": "24B-013.58",
+          "co_gia_tri_den": "2027-03-31"
+        },
+        "giam_sat_hanh_trinh": {
+          "thiet_bi": "GSHT-2401358",
+          "ngay": "2026-09-15",
+          "doan": [
+            {
+              "tu": "18:00",
+              "den": "20:00",
+              "chay": true
+            },
+            {
+              "tu": "20:00",
+              "den": "20:10",
+              "chay": false
+            },
+            {
+              "tu": "20:10",
+              "den": "22:30",
+              "chay": true
+            }
+          ],
+          "toc_do_toi_da_kmh": 78
+        }
+      }
+    },
+    {
+      "ma": "XK-18",
+      "tieu_de": "[Demo] XK-18 · Giường nằm đêm, ba lỗi chồng nhau",
+      "muc": 5,
+      "loi": [
+        "lenh_sai_ngay",
+        "phu_hieu_sai_xe",
+        "lai_trong_ngay_qua_gio"
+      ],
+      "y_do": "34 người trên giường, 2 hành lý trên giường: không vượt. Lệnh của hôm trước, phù hiệu ghi biển số xe khác, tổng lái 610 phút. Sắp lỗi: thời gian lái trước, hai lỗi giấy cùng mức sau (thứ tự nào cũng đúng).",
+      "xe": {
+        "loai_xe": "xe_giuong_nam",
+        "bien_so": "29B-930.27",
+        "ngay_kiem_tra": "2026-09-15",
+        "gio_kiem_tra": "23:10",
+        "lai_xe": "Hoàng Quốc Toàn",
+        "phan_tu": [
+          {
+            "o": "b2-5-2",
+            "hinh": "nguoi_lon"
+          },
+          {
+            "o": "b2-2-4",
+            "hinh": "nguoi_lon"
+          },
+          {
+            "o": "b2-0-0",
+            "hinh": "nguoi_lon"
+          },
+          {
+            "o": "b2-4-4",
+            "hinh": "nguoi_lon"
+          },
+          {
+            "o": "b2-2-2",
+            "hinh": "nguoi_lon"
+          },
+          {
+            "o": "b1-0-4",
+            "hinh": "nguoi_lon"
+          },
+          {
+            "o": "b2-3-4",
+            "hinh": "nguoi_lon"
+          },
+          {
+            "o": "b2-3-0",
+            "hinh": "nguoi_lon"
+          },
+          {
+            "o": "b1-0-2",
+            "hinh": "nguoi_lon"
+          },
+          {
+            "o": "b1-4-2",
+            "hinh": "nguoi_lon"
+          },
+          {
+            "o": "b1-2-4",
+            "hinh": "nguoi_lon"
+          },
+          {
+            "o": "b2-0-4",
+            "hinh": "nguoi_lon"
+          },
+          {
+            "o": "b1-3-4",
+            "hinh": "nguoi_lon"
+          },
+          {
+            "o": "b2-3-2",
+            "hinh": "nguoi_lon"
+          },
+          {
+            "o": "b1-1-4",
+            "hinh": "nguoi_lon"
+          },
+          {
+            "o": "b1-3-2",
+            "hinh": "nguoi_lon"
+          },
+          {
+            "o": "b1-5-2",
+            "hinh": "nguoi_lon"
+          },
+          {
+            "o": "b1-4-0",
+            "hinh": "nguoi_lon"
+          },
+          {
+            "o": "b1-2-0",
+            "hinh": "nguoi_lon"
+          },
+          {
+            "o": "b1-1-2",
+            "hinh": "nguoi_lon"
+          },
+          {
+            "o": "b2-1-0",
+            "hinh": "nguoi_lon"
+          },
+          {
+            "o": "b1-5-0",
+            "hinh": "nguoi_lon"
+          },
+          {
+            "o": "b1-4-4",
+            "hinh": "nguoi_lon"
+          },
+          {
+            "o": "b2-1-4",
+            "hinh": "nguoi_lon"
+          },
+          {
+            "o": "b1-2-2",
+            "hinh": "nguoi_lon"
+          },
+          {
+            "o": "b1-3-0",
+            "hinh": "nguoi_lon"
+          },
+          {
+            "o": "b1-5-4",
+            "hinh": "nguoi_lon"
+          },
+          {
+            "o": "b2-2-0",
+            "hinh": "nguoi_lon"
+          },
+          {
+            "o": "b2-1-2",
+            "hinh": "nguoi_lon"
+          },
+          {
+            "o": "b2-0-2",
+            "hinh": "nguoi_lon"
+          },
+          {
+            "o": "b1-1-0",
+            "hinh": "nguoi_lon"
+          },
+          {
+            "o": "b2-4-0",
+            "hinh": "nguoi_lon"
+          },
+          {
+            "o": "b1-0-0",
+            "hinh": "nguoi_lon"
+          },
+          {
+            "o": "b2-4-2",
+            "hinh": "nguoi_lon"
+          },
+          {
+            "o": "b2-5-0",
+            "hinh": "hanh_ly"
+          },
+          {
+            "o": "b2-5-4",
+            "hinh": "hanh_ly"
+          }
+        ],
+        "lenh_van_chuyen": {
+          "so": "LVC-180915",
+          "don_vi": "[Demo] Công ty vận tải Sông Hồng",
+          "bien_so": "29B-930.27",
+          "lai_xe": "Hoàng Quốc Toàn",
+          "ngay": "2026-09-14",
+          "tuyen": "Hà Nội – Lào Cai"
+        },
+        "phu_hieu": {
+          "so": "PH-1825",
+          "loai": "Xe tuyến cố định",
+          "bien_so": "29B-903.27",
+          "co_gia_tri_den": "2027-03-31"
+        },
+        "giam_sat_hanh_trinh": {
+          "thiet_bi": "GSHT-2993027",
+          "ngay": "2026-09-15",
+          "doan": [
+            {
+              "tu": "12:00",
+              "den": "16:00",
+              "chay": true
+            },
+            {
+              "tu": "16:00",
+              "den": "16:20",
+              "chay": false
+            },
+            {
+              "tu": "16:20",
+              "den": "20:20",
+              "chay": true
+            },
+            {
+              "tu": "20:20",
+              "den": "20:50",
+              "chay": false
+            },
+            {
+              "tu": "20:50",
+              "den": "23:00",
+              "chay": true
+            }
+          ],
+          "toc_do_toi_da_kmh": 78
+        }
+      }
+    },
+    {
+      "ma": "XK-19",
+      "tieu_de": "[Demo] XK-19 · Giường nằm đêm, người và hành lý trên sàn",
+      "muc": 5,
+      "loi": [
+        "cho_qua_nguoi"
+      ],
+      "y_do": "35 người và 1 túi trên giường, 3 người và 2 hành lý trên sàn: 38 người trên 36 giường, vượt 2. Giấy tờ, giám sát đúng.",
+      "xe": {
+        "loai_xe": "xe_giuong_nam",
+        "bien_so": "75B-221.40",
+        "ngay_kiem_tra": "2026-09-15",
+        "gio_kiem_tra": "22:30",
+        "lai_xe": "Bùi Văn Thành",
+        "phan_tu": [
+          {
+            "o": "b1-2-2",
+            "hinh": "nguoi_lon"
+          },
+          {
+            "o": "b1-5-2",
+            "hinh": "nguoi_lon"
+          },
+          {
+            "o": "b2-5-0",
+            "hinh": "nguoi_lon"
+          },
+          {
+            "o": "b1-2-0",
+            "hinh": "nguoi_lon"
+          },
+          {
+            "o": "b2-1-2",
+            "hinh": "nguoi_lon"
+          },
+          {
+            "o": "b1-0-0",
+            "hinh": "nguoi_lon"
+          },
+          {
+            "o": "b1-1-4",
+            "hinh": "nguoi_lon"
+          },
+          {
+            "o": "b2-1-4",
+            "hinh": "nguoi_lon"
+          },
+          {
+            "o": "b1-3-0",
+            "hinh": "nguoi_lon"
+          },
+          {
+            "o": "b1-4-0",
+            "hinh": "nguoi_lon"
+          },
+          {
+            "o": "b2-1-0",
+            "hinh": "nguoi_lon"
+          },
+          {
+            "o": "b1-1-0",
+            "hinh": "nguoi_lon"
+          },
+          {
+            "o": "b2-0-0",
+            "hinh": "nguoi_lon"
+          },
+          {
+            "o": "b2-3-2",
+            "hinh": "nguoi_lon"
+          },
+          {
+            "o": "b1-4-4",
+            "hinh": "nguoi_lon"
+          },
+          {
+            "o": "b2-5-4",
+            "hinh": "nguoi_lon"
+          },
+          {
+            "o": "b2-0-4",
+            "hinh": "nguoi_lon"
+          },
+          {
+            "o": "b1-5-0",
+            "hinh": "nguoi_lon"
+          },
+          {
+            "o": "b2-2-2",
+            "hinh": "nguoi_lon"
+          },
+          {
+            "o": "b1-0-2",
+            "hinh": "nguoi_lon"
+          },
+          {
+            "o": "b2-0-2",
+            "hinh": "nguoi_lon"
+          },
+          {
+            "o": "b2-3-0",
+            "hinh": "nguoi_lon"
+          },
+          {
+            "o": "b1-1-2",
+            "hinh": "nguoi_lon"
+          },
+          {
+            "o": "b2-4-0",
+            "hinh": "nguoi_lon"
+          },
+          {
+            "o": "b1-3-2",
+            "hinh": "nguoi_lon"
+          },
+          {
+            "o": "b1-4-2",
+            "hinh": "nguoi_lon"
+          },
+          {
+            "o": "b2-4-2",
+            "hinh": "nguoi_lon"
+          },
+          {
+            "o": "b1-3-4",
+            "hinh": "nguoi_lon"
+          },
+          {
+            "o": "b2-3-4",
+            "hinh": "nguoi_lon"
+          },
+          {
+            "o": "b1-5-4",
+            "hinh": "nguoi_lon"
+          },
+          {
+            "o": "b2-5-2",
+            "hinh": "nguoi_lon"
+          },
+          {
+            "o": "b1-0-4",
+            "hinh": "nguoi_lon"
+          },
+          {
+            "o": "b2-2-0",
+            "hinh": "nguoi_lon"
+          },
+          {
+            "o": "b2-2-4",
+            "hinh": "nguoi_lon"
+          },
+          {
+            "o": "b1-2-4",
+            "hinh": "nguoi_lon"
+          },
+          {
+            "o": "b2-4-4",
+            "hinh": "tui"
+          },
+          {
+            "o": "s5-3",
+            "hinh": "nguoi_lon"
+          },
+          {
+            "o": "s4-3",
+            "hinh": "nguoi_lon"
+          },
+          {
+            "o": "s1-3",
+            "hinh": "nguoi_lon"
+          },
+          {
+            "o": "s2-1",
+            "hinh": "hanh_ly"
+          },
+          {
+            "o": "s0-1",
+            "hinh": "hanh_ly"
+          }
+        ],
+        "lenh_van_chuyen": {
+          "so": "LVC-190915",
+          "don_vi": "[Demo] Công ty vận tải Sông Hồng",
+          "bien_so": "75B-221.40",
+          "lai_xe": "Bùi Văn Thành",
+          "ngay": "2026-09-15",
+          "tuyen": "Hà Nội – Lào Cai"
+        },
+        "phu_hieu": {
+          "so": "PH-1925",
+          "loai": "Xe tuyến cố định",
+          "bien_so": "75B-221.40",
+          "co_gia_tri_den": "2027-03-31"
+        },
+        "giam_sat_hanh_trinh": {
+          "thiet_bi": "GSHT-7522140",
+          "ngay": "2026-09-15",
+          "doan": [
+            {
+              "tu": "19:00",
+              "den": "21:00",
+              "chay": true
+            },
+            {
+              "tu": "21:00",
+              "den": "21:30",
+              "chay": false
+            },
+            {
+              "tu": "21:30",
+              "den": "22:20",
+              "chay": true
+            }
+          ],
+          "toc_do_toi_da_kmh": 78
+        }
+      }
+    },
+    {
+      "ma": "XK-20",
+      "tieu_de": "[Demo] XK-20 · Giường nằm đêm, trẻ em, phù hiệu hết hạn",
+      "muc": 5,
+      "loi": [
+        "phu_hieu_het_han"
+      ],
+      "y_do": "30 người lớn, 4 trẻ em trên giường, 1 người lớn nằm sàn: dưới số giường với mọi cách tính trẻ em. Phù hiệu hết hạn. Chưa có luật trẻ em đã duyệt thì không vào lượt.",
+      "xe": {
+        "loai_xe": "xe_giuong_nam",
+        "bien_so": "92B-116.72",
+        "ngay_kiem_tra": "2026-09-15",
+        "gio_kiem_tra": "22:30",
+        "lai_xe": "Ngô Minh Việt",
+        "phan_tu": [
+          {
+            "o": "b1-1-2",
+            "hinh": "nguoi_lon"
+          },
+          {
+            "o": "b1-0-2",
+            "hinh": "nguoi_lon"
+          },
+          {
+            "o": "b2-3-2",
+            "hinh": "nguoi_lon"
+          },
+          {
+            "o": "b2-2-0",
+            "hinh": "nguoi_lon"
+          },
+          {
+            "o": "b1-0-4",
+            "hinh": "nguoi_lon"
+          },
+          {
+            "o": "b1-4-2",
+            "hinh": "nguoi_lon"
+          },
+          {
+            "o": "b2-0-4",
+            "hinh": "nguoi_lon"
+          },
+          {
+            "o": "b1-1-0",
+            "hinh": "nguoi_lon"
+          },
+          {
+            "o": "b2-5-4",
+            "hinh": "nguoi_lon"
+          },
+          {
+            "o": "b2-1-4",
+            "hinh": "nguoi_lon"
+          },
+          {
+            "o": "b2-0-0",
+            "hinh": "nguoi_lon"
+          },
+          {
+            "o": "b1-3-0",
+            "hinh": "nguoi_lon"
+          },
+          {
+            "o": "b2-0-2",
+            "hinh": "nguoi_lon"
+          },
+          {
+            "o": "b2-5-2",
+            "hinh": "nguoi_lon"
+          },
+          {
+            "o": "b1-2-2",
+            "hinh": "nguoi_lon"
+          },
+          {
+            "o": "b1-3-4",
+            "hinh": "nguoi_lon"
+          },
+          {
+            "o": "b1-4-4",
+            "hinh": "nguoi_lon"
+          },
+          {
+            "o": "b2-4-4",
+            "hinh": "nguoi_lon"
+          },
+          {
+            "o": "b2-2-4",
+            "hinh": "nguoi_lon"
+          },
+          {
+            "o": "b2-4-2",
+            "hinh": "nguoi_lon"
+          },
+          {
+            "o": "b1-5-2",
+            "hinh": "nguoi_lon"
+          },
+          {
+            "o": "b1-5-0",
+            "hinh": "nguoi_lon"
+          },
+          {
+            "o": "b2-4-0",
+            "hinh": "nguoi_lon"
+          },
+          {
+            "o": "b1-0-0",
+            "hinh": "nguoi_lon"
+          },
+          {
+            "o": "b1-1-4",
+            "hinh": "nguoi_lon"
+          },
+          {
+            "o": "b2-5-0",
+            "hinh": "nguoi_lon"
+          },
+          {
+            "o": "b2-3-4",
+            "hinh": "nguoi_lon"
+          },
+          {
+            "o": "b1-2-0",
+            "hinh": "nguoi_lon"
+          },
+          {
+            "o": "b2-3-0",
+            "hinh": "nguoi_lon"
+          },
+          {
+            "o": "b1-5-4",
+            "hinh": "nguoi_lon"
+          },
+          {
+            "o": "b2-1-2",
+            "hinh": "tre_em"
+          },
+          {
+            "o": "b1-2-4",
+            "hinh": "tre_em"
+          },
+          {
+            "o": "b2-1-0",
+            "hinh": "tre_em"
+          },
+          {
+            "o": "b1-4-0",
+            "hinh": "tre_em"
+          },
+          {
+            "o": "s3-1",
+            "hinh": "nguoi_lon"
+          }
+        ],
+        "lenh_van_chuyen": {
+          "so": "LVC-200915",
+          "don_vi": "[Demo] Công ty vận tải Sông Hồng",
+          "bien_so": "92B-116.72",
+          "lai_xe": "Ngô Minh Việt",
+          "ngay": "2026-09-15",
+          "tuyen": "Hà Nội – Lào Cai"
+        },
+        "phu_hieu": {
+          "so": "PH-2025",
+          "loai": "Xe tuyến cố định",
+          "bien_so": "92B-116.72",
+          "co_gia_tri_den": "2026-06-30"
+        },
+        "giam_sat_hanh_trinh": {
+          "thiet_bi": "GSHT-9211672",
+          "ngay": "2026-09-15",
+          "doan": [
+            {
+              "tu": "19:30",
+              "den": "22:10",
+              "chay": true
+            }
+          ],
+          "toc_do_toi_da_kmh": 78
+        }
+      }
+    }
+  ]
+}

@@ -1,0 +1,85 @@
+name: CI
+
+on:
+  push: { branches: [main] }
+  pull_request:
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    services:
+      postgres:
+        image: pgvector/pgvector:pg16
+        env:
+          POSTGRES_USER: qdpl
+          POSTGRES_PASSWORD: qdpl_dev
+          POSTGRES_DB: quydinhphapluat
+        ports: ["5436:5432"]
+        options: >-
+          --health-cmd "pg_isready -U qdpl" --health-interval 10s
+          --health-timeout 5s --health-retries 10
+    env:
+      # CI luôn chạy trên Postgres của chính nó (service ở trên), không đụng vào CSDL
+      # chính trên DigitalOcean và không cần bí mật nào.
+      DATABASE_URL: postgres://qdpl:qdpl_dev@127.0.0.1:5436/quydinhphapluat
+      LLM_PROVIDER: mock
+    steps:
+      - uses: actions/checkout@v4
+      - uses: oven-sh/setup-bun@v2
+        with: { bun-version: latest }
+      - run: bun install --frozen-lockfile
+      - name: Chuẩn bị CSDL phát triển (cho smoke test và báo cáo chất lượng)
+        run: |
+          bun run packages/db/src/migrate.ts
+          bun run packages/db/src/seed.ts
+      - name: Kiểm tra kiểu
+        run: bun run --filter '*' typecheck
+      - name: Kiểm tra định dạng và lint
+        run: bunx @biomejs/biome check .
+      - name: Test
+        # bun test tự chạy trên CSDL riêng quydinhphapluat_test (xem bunfig.toml)
+        run: bun test
+      - name: Báo cáo chất lượng kho văn bản
+        run: bun run scripts/quality-report.ts
+      - name: Kiểm dữ liệu tra cứu nhanh (hợp lệ tệp, căn cứ của dòng đã duyệt)
+        # Thoát mã khác 0 khi tệp data/tra-cuu/*.json sai dạng, có khoảng tốc độ chồng nhau,
+        # hoặc dòng đã duyệt dẫn tới điều khoản không có trong kho (docs/PLAN.md GĐ5).
+        run: bun run tra-cuu:nap --kiem-tra
+      - name: Kiểm thử khói
+        run: bun run scripts/smoke.ts
+      - name: Kiểm nội dung đào tạo (cấu trúc bài và hành văn)
+        # Thoát mã khác 0 khi nội dung đã xuất bản còn lỗi chặn: thiếu thẻ căn cứ, rubric
+        # không có tiêu chí can_cu, hoặc vi phạm QUY-TAC-HANH-VAN.md.
+        run: bun run scripts/kiem-tra-bai-hoc.ts
+      - name: Cổng đánh giá chất lượng (eval gate)
+        # Thoát mã khác 0 khi không đạt ngưỡng ở ke-hoach/12 §2 -> chặn merge.
+        run: |
+          bun run evals/run-citation-eval.ts
+          bun run evals/run-structure-eval.ts
+
+  docproc:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with: { python-version: "3.12" }
+      - name: Cài đặt
+        working-directory: services/docproc
+        run: |
+          if [ -f requirements.txt ]; then
+            python -m pip install --upgrade pip
+            pip install -r requirements.txt
+          fi
+      - name: Test
+        working-directory: services/docproc
+        run: |
+          if [ -d tests ]; then python -m pytest -q; fi
+
+  web-build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: oven-sh/setup-bun@v2
+        with: { bun-version: latest }
+      - run: bun install --frozen-lockfile
+      - run: bun run --cwd apps/web build

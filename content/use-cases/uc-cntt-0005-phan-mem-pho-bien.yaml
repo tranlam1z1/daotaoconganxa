@@ -1,0 +1,180 @@
+slug: uc-cntt-0005-phan-mem-pho-bien
+title: Xác định có phải lập dự án phần mềm nội bộ khi chức năng đã có trong danh mục phần mềm phổ biến
+
+taxonomy_codes: [PD.03.003, PD.34.007, NB.CNTT.PM.PB, NB.CNTT.PM.NB]
+actor_kinds: [co_quan_nha_nuoc, to_chuc_tu_van]
+work_kinds: [lap_ke_hoach_du_an, thu_tuc_hanh_chinh]
+
+as_of: 2026-06-01
+effectivity_note: >-
+  Gán nhãn tại 01/6/2026. Từ 01/7/2026, quy định tương ứng nằm tại Điều 38 Nghị định số
+  224/2026/NĐ-CP, giữ nguyên mốc công bố trước ngày 30 tháng 01 hằng năm và giữ nguyên quy tắc tại
+  khoản 4 về trình tự áp dụng.
+
+situation: |
+  Sở W của tỉnh T dự kiến đầu tư một phần mềm quản lý văn bản và điều hành nội bộ với tổng mức đầu tư
+  dự kiến 6 tỷ đồng từ vốn đầu tư công. Trong quá trình lập hồ sơ, một chuyên viên phát hiện danh mục
+  phần mềm phổ biến quốc gia do Bộ Khoa học và Công nghệ công bố có một phần mềm đáp ứng khoảng 85%
+  chức năng Sở cần; 15% còn lại là các đặc thù nghiệp vụ của tỉnh, cần sửa đổi, bổ sung một số chức
+  năng và tính năng. Sở W hỏi có bắt buộc dùng phần mềm phổ biến không, và nếu dùng thì phần sửa đổi,
+  bổ sung đi theo trình tự nào.
+
+questions:
+  - Sở W có bắt buộc phải sử dụng phần mềm trong danh mục phần mềm phổ biến không?
+  - Phần sửa đổi, bổ sung chức năng đi theo trình tự phần mềm nội bộ hay phần mềm thương mại?
+  - Danh mục phần mềm phổ biến do ai công bố và công bố khi nào?
+
+analysis:
+  - step: 1
+    claim: >-
+      Danh mục phần mềm phổ biến được công bố định kỳ hằng năm trước ngày 30 tháng 01, hoặc đột xuất
+      khi có thay đổi, nên chủ đầu tư phải tra danh mục mới nhất trước khi quyết định phương án đầu tư.
+    citations:
+      - vn:vbqppl:nd:45/2026/NĐ-CP#dieu-5.khoan-3@2026-03-01
+    quote: >-
+      Việc công bố được thực hiện định kỳ hằng năm trước ngày 30 tháng 01 hoặc đột xuất sau khi có
+      thay đổi, điều chỉnh, bổ sung danh mục phần mềm phổ biến.
+    reasoning: >-
+      Mốc 30 tháng 01 có ý nghĩa thực tiễn: đơn vị chuẩn bị kế hoạch đầu tư cho năm sau phải tra danh
+      mục mới nhất, vì danh mục có thể bổ sung phần mềm đáp ứng đúng nhu cầu của mình.
+
+  - step: 2
+    claim: >-
+      Danh mục phần mềm phổ biến được công bố ở hai cấp: bộ, cơ quan trung ương công bố danh mục
+      ngành, chuyên ngành, lĩnh vực; Bộ Khoa học và Công nghệ công bố danh mục quốc gia.
+    citations:
+      - vn:vbqppl:nd:45/2026/NĐ-CP#dieu-5.khoan-2@2026-03-01
+    quote: >-
+      Bộ, cơ quan trung ương công bố danh mục phần mềm phổ biến ngành, chuyên ngành, lĩnh vực; Bộ Khoa
+      học và Công nghệ công bố danh mục phần mềm phổ biến quốc gia.
+    reasoning: >-
+      Chủ đầu tư phải tra **cả hai** danh mục: danh mục quốc gia và danh mục của bộ quản lý ngành có
+      liên quan. Chỉ tra một danh mục là chưa đủ.
+
+  - step: 3
+    claim: >-
+      Việc đầu tư, mua sắm, thuê dịch vụ đối với phần mềm phổ biến, kể cả phần sửa đổi, bổ sung một số
+      chức năng, tính năng, hiệu năng, được thực hiện theo trình tự, thủ tục của phần mềm thương mại
+      hoặc dịch vụ công nghệ thông tin sẵn có trên thị trường.
+    citations:
+      - vn:vbqppl:nd:45/2026/NĐ-CP#dieu-5.khoan-4@2026-03-01
+    quote: >-
+      Việc đầu tư, mua sắm, thuê dịch vụ công nghệ thông tin đối với phần mềm phổ biến (bao gồm phần
+      sửa đổi, bổ sung một số chức năng, tính năng, hiệu năng) được thực hiện theo trình tự, thủ tục
+      đầu tư, mua sắm phần mềm thương mại, thuê dịch vụ công nghệ thông tin sẵn có trên thị trường.
+    reasoning: >-
+      Đây là điểm mấu chốt của tình huống. Cụm trong ngoặc đơn nói rõ phần sửa đổi, bổ sung **cũng**
+      đi theo trình tự phần mềm thương mại, không tách ra làm phần mềm nội bộ. Vì vậy Sở W không phải
+      lập hồ sơ theo trình tự phần mềm nội bộ cho 15% chức năng đặc thù, miễn là mức độ thay đổi nằm
+      trong phạm vi "sửa đổi, bổ sung một số chức năng, tính năng, hiệu năng".
+
+  - step: 4
+    claim: >-
+      Quy định không đặt nghĩa vụ bắt buộc phải chọn phần mềm trong danh mục, nhưng nếu chọn xây dựng
+      phần mềm nội bộ trong khi đã có phần mềm phổ biến đáp ứng thì chủ đầu tư phải thuyết minh được
+      lý do khi thẩm định và khi kiểm tra.
+    citations:
+      - vn:vbqppl:nd:45/2026/NĐ-CP#dieu-5.khoan-4@2026-03-01
+      - vn:vbqppl:nd:45/2026/NĐ-CP#dieu-5.khoan-5@2026-03-01
+      - vn:vbqppl:nd:45/2026/NĐ-CP#dieu-36@2026-03-01
+    quote: Bộ Khoa học và Công nghệ đôn đốc, kiểm tra việc công bố danh mục phần mềm phổ biến.
+    reasoning: >-
+      Khoản 4 Điều 5 quy định trình tự áp dụng **khi** đầu tư đối với phần mềm phổ biến, không dùng
+      từ "bắt buộc phải sử dụng". Tuy vậy, nội dung thẩm định dự án theo khoản 4 Điều 17 và công tác
+      kiểm tra theo Điều 36 sẽ đặt câu hỏi về tính hợp lý và hiệu quả nếu bỏ qua một phần mềm phổ biến
+      đã có sẵn để tự xây dựng với chi phí cao hơn. `[CẦN ĐỐI CHIẾU: nguyên văn từng điểm khoản 4
+      Điều 17 Nghị định số 45/2026/NĐ-CP về nội dung thẩm định để xác định điểm nào yêu cầu đánh giá
+      phương án lựa chọn]`
+
+conclusion: |
+  Sở W **không bị bắt buộc** phải chọn phần mềm trong danh mục phần mềm phổ biến, nhưng nếu chọn thì
+  được hưởng trình tự ngắn hơn đáng kể.
+
+  Nếu chọn phần mềm phổ biến: cả phần lõi 85% **và** phần sửa đổi, bổ sung 15% đều đi theo **trình tự,
+  thủ tục đầu tư, mua sắm phần mềm thương mại** (khoản 4 Điều 5). Sở W không phải lập hồ sơ theo
+  trình tự phần mềm nội bộ, không phải lập mô tả yêu cầu kỹ thuật của phần mềm nội bộ theo Điều 15,
+  và không đi theo luồng thiết kế chi tiết của Điều 20.
+
+  Nếu chọn tự xây dựng phần mềm nội bộ: phải thuyết minh được lý do trong báo cáo nghiên cứu khả thi,
+  vì đây là nội dung cơ quan thẩm định và cơ quan kiểm tra sẽ xem xét về tính hợp lý và hiệu quả.
+
+  Khuyến nghị: tra **cả hai** danh mục — danh mục quốc gia do Bộ Khoa học và Công nghệ công bố và danh
+  mục ngành do bộ quản lý ngành công bố (khoản 2 Điều 5) — và lưu kết quả tra cứu kèm ngày tra vào hồ
+  sơ dự án.
+
+procedure:
+  - order: 1
+    step: Tra danh mục phần mềm phổ biến quốc gia và danh mục ngành, chuyên ngành, lĩnh vực có liên quan
+    authority: Chủ đầu tư
+    timeline: Ngay ở bước hình thành ý tưởng dự án; danh mục cập nhật hằng năm trước ngày 30 tháng 01
+    inputs: [Danh sách chức năng cần có]
+    outputs: [Biên bản hoặc phiếu tra cứu, ghi rõ ngày tra và nguồn]
+    citations:
+      - vn:vbqppl:nd:45/2026/NĐ-CP#dieu-5.khoan-2@2026-03-01
+      - vn:vbqppl:nd:45/2026/NĐ-CP#dieu-5.khoan-3@2026-03-01
+    templates: []
+    needs_citation: false
+  - order: 2
+    step: >-
+      Đối chiếu chức năng cần có với chức năng, tính năng kỹ thuật cơ bản của phần mềm phổ biến đã
+      công bố; xác định tỷ lệ đáp ứng và phần cần sửa đổi, bổ sung
+    authority: Chủ đầu tư, có thể thuê tư vấn
+    timeline: Trước khi lập báo cáo nghiên cứu khả thi
+    inputs: [Kết quả tra cứu, Danh sách yêu cầu người sử dụng]
+    outputs: [Bảng đối chiếu chức năng]
+    citations: [vn:vbqppl:nd:45/2026/NĐ-CP#dieu-5.khoan-1@2026-03-01]
+    templates: []
+    needs_citation: false
+  - order: 3
+    step: >-
+      Quyết định phương án: dùng phần mềm phổ biến kèm sửa đổi, bổ sung theo trình tự phần mềm thương
+      mại; hoặc tự xây dựng phần mềm nội bộ kèm thuyết minh lý do
+    authority: Chủ đầu tư
+    timeline: Trước khi lập báo cáo nghiên cứu khả thi
+    inputs: [Bảng đối chiếu chức năng, So sánh chi phí và thời gian hai phương án]
+    outputs: [Quyết định phương án có thuyết minh, đưa vào báo cáo nghiên cứu khả thi]
+    citations: [vn:vbqppl:nd:45/2026/NĐ-CP#dieu-5.khoan-4@2026-03-01]
+    templates: [asset://bcnckt]
+    needs_citation: false
+
+risks:
+  - risk: Không tra danh mục phần mềm phổ biến trước khi lập hồ sơ
+    consequence: >-
+      Lập cả bộ hồ sơ theo trình tự phần mềm nội bộ trong khi có con đường ngắn hơn; bị cơ quan thẩm
+      định yêu cầu giải trình hoặc lập lại hồ sơ, mất nhiều tháng
+    mitigation: Đưa bước tra danh mục thành bước bắt buộc đầu tiên; lưu phiếu tra cứu vào hồ sơ
+    citations: [vn:vbqppl:nd:45/2026/NĐ-CP#dieu-5@2026-03-01]
+  - risk: Chỉ tra danh mục quốc gia mà bỏ qua danh mục ngành
+    consequence: Bỏ sót phần mềm phổ biến phù hợp nhất, vì phần mềm chuyên ngành thường nằm ở danh mục của bộ quản lý ngành
+    mitigation: Tra cả hai cấp danh mục theo khoản 2 Điều 5
+    citations: [vn:vbqppl:nd:45/2026/NĐ-CP#dieu-5.khoan-2@2026-03-01]
+  - risk: >-
+      Tách phần sửa đổi, bổ sung 15% ra thành một dự án phần mềm nội bộ riêng để đi theo trình tự phần
+      mềm nội bộ
+    consequence: Trái với khoản 4 Điều 5, làm phức tạp hồ sơ và kéo dài thời gian không cần thiết
+    mitigation: Áp dụng đúng khoản 4 Điều 5, coi phần sửa đổi, bổ sung là một phần của phần mềm phổ biến
+    citations: [vn:vbqppl:nd:45/2026/NĐ-CP#dieu-5.khoan-4@2026-03-01]
+  - risk: >-
+      Mức độ thay đổi vượt xa phạm vi "sửa đổi, bổ sung một số chức năng, tính năng, hiệu năng", thực
+      chất là xây dựng phần mềm mới
+    consequence: Áp dụng sai trình tự; bị kết luận là lách quy định khi kiểm tra
+    mitigation: >-
+      Lượng hóa mức độ thay đổi bằng bảng đối chiếu chức năng; nếu phần thay đổi chiếm tỷ trọng lớn
+      thì lập theo trình tự phần mềm nội bộ và ghi rõ lập luận
+    citations: [vn:vbqppl:nd:45/2026/NĐ-CP#dieu-5.khoan-4@2026-03-01]
+
+related_questions:
+  - Phần mềm nội bộ khác phần mềm thương mại ở điểm nào?
+  - Mô tả yêu cầu kỹ thuật của phần mềm nội bộ gồm những nội dung gì?
+  - Nội dung thẩm định dự án gồm những nhóm nào?
+
+gaps:
+  - what: Nội dung cụ thể từng điểm của khoản 4 Điều 17 Nghị định số 45/2026/NĐ-CP về nội dung thẩm định
+    why: Cần thiết để xác định chính xác cơ quan thẩm định xem xét phương án lựa chọn ở nội dung nào
+    suggested_source: Toàn văn khoản 4 Điều 17 Nghị định số 45/2026/NĐ-CP
+
+status: draft
+citation_health: ok
+author: Tổ biên soạn nội dung quydinhphapluat.vn
+legal_reviewer: null
+reviewed_at: null

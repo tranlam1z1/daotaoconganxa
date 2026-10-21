@@ -1,0 +1,88 @@
+{
+  "doc": "02-nd-mau-sua-doi.md",
+  "urn": "vn:vbqppl:nd:150/2027/NĐ-CP",
+  "title": "Nghị định mẫu sửa đổi, bổ sung — mỗi khoản của Điều 1 là một lệnh sửa đổi",
+  "note": "Giống hệt data/fixtures/nd-mau-sua-doi.md. Đây là ca kiểm thử KHÓ và có chủ đích: nội dung mới của lệnh sửa đổi được đặt trong dấu ngoặc kép và tự nó cũng mang nhãn khoản (\"1. …\", \"4. …\") hoặc nhãn điều (\"Điều 3a. …\"). Cây nút ĐÚNG phải coi phần trong ngoặc kép là NỘI DUNG của khoản chứa lệnh, KHÔNG tách thành nút mới. Vì vậy Điều 1 có đúng 05 khoản, đánh số liên tục từ 1 đến 5.",
+  "source": "Văn bản mẫu do tổ biên soạn tạo cho mục đích kiểm thử; không phải văn bản quy phạm pháp luật có thật.",
+  "known_limitation": "Tại thời điểm lập bộ dữ liệu vàng, parser trong packages/legal-model tách nhãn nằm trong ngoặc kép thành nút riêng, sinh ra 07 khoản cho Điều 1 kèm cảnh báo trùng nhãn và nhảy số. Đây là giới hạn đã biết, không phải lỗi của bộ dữ liệu vàng. Hướng xử lý gợi ý: khi máy trạng thái đang ở trong một khối trích dẫn mở bằng dấu ngoặc kép chưa đóng, tạm dừng nhận dạng nhãn cấu trúc.",
+  "counts": {
+    "dieu": 2,
+    "khoan": 5
+  },
+  "expected_warnings": [],
+  "tree": [
+    {
+      "path": "mo-dau",
+      "fullPath": "mo-dau",
+      "kind": "loi_noi_dau",
+      "label": "Phần mở đầu",
+      "children": []
+    },
+    {
+      "path": "can-cu",
+      "fullPath": "can-cu",
+      "kind": "can_cu",
+      "label": "Căn cứ ban hành",
+      "children": []
+    },
+    {
+      "path": "dieu-1",
+      "fullPath": "dieu-1",
+      "kind": "dieu",
+      "label": "Điều 1",
+      "heading": "Sửa đổi, bổ sung một số điều của Nghị định số 100/2026/NĐ-CP",
+      "children": [
+        {
+          "path": "dieu-1.khoan-1",
+          "fullPath": "dieu-1.khoan-1",
+          "kind": "khoan",
+          "label": "1.",
+          "children": []
+        },
+        {
+          "path": "dieu-1.khoan-2",
+          "fullPath": "dieu-1.khoan-2",
+          "kind": "khoan",
+          "label": "2.",
+          "children": []
+        },
+        {
+          "path": "dieu-1.khoan-3",
+          "fullPath": "dieu-1.khoan-3",
+          "kind": "khoan",
+          "label": "3.",
+          "children": []
+        },
+        {
+          "path": "dieu-1.khoan-4",
+          "fullPath": "dieu-1.khoan-4",
+          "kind": "khoan",
+          "label": "4.",
+          "children": []
+        },
+        {
+          "path": "dieu-1.khoan-5",
+          "fullPath": "dieu-1.khoan-5",
+          "kind": "khoan",
+          "label": "5.",
+          "children": []
+        }
+      ]
+    },
+    {
+      "path": "dieu-2",
+      "fullPath": "dieu-2",
+      "kind": "dieu",
+      "label": "Điều 2",
+      "heading": "Hiệu lực thi hành",
+      "children": []
+    }
+  ],
+  "expected_amend_ops": [
+    { "ordinal": 1, "amendingLabel": "khoản 1 Điều 1", "targetDocUrn": "vn:vbqppl:nd:100/2026/NĐ-CP", "targetPath": "dieu-3.khoan-1", "op": "replace" },
+    { "ordinal": 2, "amendingLabel": "khoản 2 Điều 1", "targetDocUrn": "vn:vbqppl:nd:100/2026/NĐ-CP", "targetPath": "dieu-3.khoan-3", "op": "insert_after" },
+    { "ordinal": 3, "amendingLabel": "khoản 3 Điều 1", "targetDocUrn": "vn:vbqppl:nd:100/2026/NĐ-CP", "targetPath": "dieu-3", "op": "insert_after" },
+    { "ordinal": 4, "amendingLabel": "khoản 4 Điều 1", "targetDocUrn": "vn:vbqppl:nd:100/2026/NĐ-CP", "targetPath": "dieu-1.khoan-2.diem-c", "op": "repeal" },
+    { "ordinal": 5, "amendingLabel": "khoản 5 Điều 1", "targetDocUrn": "vn:vbqppl:nd:100/2026/NĐ-CP", "targetPath": "", "op": "replace_phrase" }
+  ]
+}

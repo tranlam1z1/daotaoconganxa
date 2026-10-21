@@ -1,0 +1,40 @@
+{
+  "tieu_de": "Trang chủ",
+  "tom_tat": "Ô tra cứu, gợi ý tra cứu nhanh, văn bản mới cập nhật, chuyên đề nổi bật và lối vào các chức năng chính.",
+  "routes": ["routes/home.tsx"],
+  "anh": [
+    {
+      "ten": "trang-chu-tra-cuu",
+      "chu_thich": "Phần tra cứu ở đầu trang chủ",
+      "url": "/",
+      "vung": "section[aria-labelledby='tieu-de-chinh']",
+      "danh_dau": [
+        { "o": "#o-tim-kiem-trang-chu", "ghi_chu": "Nhập số ký hiệu, viện dẫn hoặc câu hỏi", "huong": "duoi" },
+        { "o": "section[aria-labelledby='tieu-de-chinh'] button[type=submit]", "ghi_chu": "Mở trang kết quả tra cứu", "huong": "tren" },
+        { "o": "section[aria-labelledby='tieu-de-chinh'] ul", "ghi_chu": "Gợi ý tra cứu nhanh", "huong": "phai" }
+      ]
+    },
+    {
+      "ten": "trang-chu-van-ban-moi",
+      "chu_thich": "Danh sách văn bản mới cập nhật",
+      "url": "/",
+      "vung": "section[aria-labelledby='van-ban-moi']",
+      "danh_dau": [
+        { "o": "section[aria-labelledby='van-ban-moi'] li >> nth=0", "ghi_chu": "Loại văn bản, trạng thái hiệu lực và ngày ban hành", "huong": "duoi" },
+        { "o": "section[aria-labelledby='van-ban-moi'] li h3 a >> nth=1", "ghi_chu": "Mở trang đọc toàn văn", "huong": "tren" },
+        { "o": "section[aria-labelledby='van-ban-moi'] >> role=link[name='Xem tất cả']", "ghi_chu": "Mở danh sách toàn bộ văn bản", "huong": "trai" }
+      ]
+    },
+    {
+      "ten": "trang-chu-loi-vao",
+      "chu_thich": "Chuyên đề nổi bật và lối vào các chức năng chính",
+      "url": "/",
+      "vung": "section[aria-labelledby='loi-vao']",
+      "danh_dau": [
+        { "o": "section[aria-labelledby='loi-vao'] li >> nth=0", "ghi_chu": "Hỏi đáp có trích dẫn", "huong": "duoi" },
+        { "o": "section[aria-labelledby='loi-vao'] li >> nth=1", "ghi_chu": "Trường hợp ứng dụng", "huong": "duoi" },
+        { "o": "section[aria-labelledby='loi-vao'] li >> nth=2", "ghi_chu": "Đào tạo chuyên đề", "huong": "duoi" }
+      ]
+    }
+  ]
+}

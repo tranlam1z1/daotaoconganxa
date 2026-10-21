@@ -1,0 +1,31 @@
+{
+  "tieu_de": "Thuộc tính văn bản",
+  "tom_tat": "Tra định danh, hiệu lực, lịch sử trạng thái, quan hệ, số phiên bản và nguồn gốc của một văn bản.",
+  "routes": ["routes/document.properties.tsx"],
+  "anh": [
+    {
+      "ten": "thuoc-tinh-dinh-danh",
+      "chu_thich": "Nhóm thuộc tính định danh",
+      "url": "/van-ban/l/09-2026-qh16/thuoc-tinh",
+      "danh_dau": [
+        { "o": "section[aria-labelledby='nhom-dinh-danh'] div:has(> dt:text-is('Số ký hiệu'))", "ghi_chu": "Số ký hiệu văn bản", "huong": "phai" },
+        { "o": "section[aria-labelledby='nhom-dinh-danh'] div:has(> dt:text-is('Loại văn bản'))", "ghi_chu": "Loại và thứ bậc hiệu lực", "huong": "phai" },
+        { "o": "section[aria-labelledby='nhom-dinh-danh'] div:has(> dt:text-is('Số / ngày Công báo'))", "ghi_chu": "Số và ngày đăng Công báo", "huong": "phai" }
+      ]
+    },
+    {
+      "ten": "thuoc-tinh-hieu-luc",
+      "chu_thich": "Nhóm thuộc tính hiệu lực và lịch sử trạng thái",
+      "url": "/van-ban/l/09-2026-qh16/thuoc-tinh",
+      "thao_tac": [
+        { "bam": "section[aria-labelledby='nhom-hieu-luc'] dt:text-is('Phạm vi áp dụng (địa bàn)')" },
+        { "doi_ms": 300 }
+      ],
+      "danh_dau": [
+        { "o": "section[aria-labelledby='nhom-hieu-luc'] div:has(> dt:text-is('Ngày có hiệu lực'))", "ghi_chu": "Ngày có hiệu lực", "huong": "phai" },
+        { "o": "section[aria-labelledby='nhom-hieu-luc'] div:has(> dt:text-is('Trạng thái'))", "ghi_chu": "Trạng thái hiệu lực hiện tại", "huong": "phai" },
+        { "o": "section[aria-labelledby='nhom-hieu-luc'] ol", "ghi_chu": "Các mốc thay đổi trạng thái", "huong": "phai" }
+      ]
+    }
+  ]
+}

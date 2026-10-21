@@ -1,0 +1,199 @@
+slug: uc-cntt-0008-nha-thau-khong-ban-giao-ma-nguon
+title: Xử lý khi nhà thầu không bàn giao mã nguồn của phần mềm nội bộ khi nghiệm thu
+
+taxonomy_codes: [PD.03.003, PD.34.007, NB.CNTT.DTUD.NT, NB.CNTT.PM.NB]
+actor_kinds: [co_quan_nha_nuoc, nha_thau]
+work_kinds: [hop_dong, tranh_chap, nghia_vu_tuan_thu]
+
+as_of: 2026-06-01
+effectivity_note: >-
+  Gán nhãn tại 01/6/2026. Từ 01/7/2026, quy định tương ứng nằm tại điểm b khoản 1 Điều 57 Nghị định
+  số 224/2026/NĐ-CP, giữ nguyên yêu cầu bàn giao mã nguồn của chương trình.
+
+situation: |
+  Một sở chuyên môn của tỉnh T đã hoàn thành vận hành thử một hệ thống thông tin có hạng mục phần mềm
+  nội bộ và chuẩn bị nghiệm thu. Khi lập biên bản bàn giao, nhà thầu triển khai chỉ bàn giao bộ
+  chương trình cài đặt, tài liệu hướng dẫn sử dụng và tài liệu đào tạo. Nhà thầu từ chối bàn giao mã
+  nguồn với lý do mã nguồn là tài sản trí tuệ của doanh nghiệp và hợp đồng không nêu rõ nghĩa vụ này.
+  Sở hỏi có căn cứ buộc nhà thầu bàn giao mã nguồn hay không, và nếu vẫn không bàn giao thì xử lý thế
+  nào.
+
+questions:
+  - Nhà thầu có nghĩa vụ bàn giao mã nguồn của phần mềm nội bộ hay không?
+  - Danh mục sản phẩm và tài liệu phải bàn giao gồm những gì?
+  - Nếu hợp đồng không nêu rõ thì có buộc được nhà thầu không?
+  - Chưa có mã nguồn thì có được nghiệm thu không?
+
+analysis:
+  - step: 1
+    claim: >-
+      Nhà thầu có nghĩa vụ bàn giao mã nguồn của chương trình khi bàn giao phần mềm nội bộ; đây là
+      nghĩa vụ do văn bản quy phạm pháp luật đặt ra, không phụ thuộc vào việc hợp đồng có nhắc tới hay
+      không.
+    citations:
+      - vn:vbqppl:nd:45/2026/NĐ-CP#dieu-24.khoan-1@2026-03-01
+    quote: >-
+      Đối với xây dựng, phát triển hoặc nâng cấp, mở rộng phần mềm nội bộ, nhà thầu phải bàn giao: các
+      tài liệu, thiết kế chi tiết của từng giai đoạn trong quá trình xây dựng, phát triển hoặc nâng
+      cấp, mở rộng phần mềm theo nội dung hợp đồng đã ký kết; bộ chương trình cài đặt phần mềm (nếu
+      có); mã nguồn của chương trình; các tài liệu hướng dẫn cài đặt, sử dụng, quản trị, vận hành;
+      tài liệu phục vụ đào tạo người sử dụng, quản trị, vận hành; tài liệu quy trình, điều kiện, nội
+      dung công việc bảo trì.
+    reasoning: >-
+      Điểm b khoản 1 Điều 24 dùng từ "phải bàn giao" và liệt kê "mã nguồn của chương trình" là một mục
+      độc lập trong danh mục. Đây là quy phạm bắt buộc. Lập luận của nhà thầu rằng hợp đồng không nêu
+      rõ không loại trừ nghĩa vụ luật định: hợp đồng không thể thỏa thuận trái quy định của pháp luật.
+
+  - step: 2
+    claim: >-
+      Nhà thầu mới bàn giao 3 trong 6 nhóm nội dung bắt buộc, còn thiếu mã nguồn, tài liệu thiết kế
+      chi tiết của từng giai đoạn, tài liệu hướng dẫn cài đặt, quản trị, vận hành và tài liệu bảo trì.
+    citations:
+      - vn:vbqppl:nd:45/2026/NĐ-CP#dieu-24.khoan-1@2026-03-01
+    quote: ""
+    reasoning: >-
+      Đối chiếu danh mục tại điểm b khoản 1 Điều 24 với thực tế bàn giao: đã có bộ chương trình cài
+      đặt, tài liệu hướng dẫn sử dụng và tài liệu đào tạo. Còn thiếu: mã nguồn; tài liệu thiết kế chi
+      tiết của từng giai đoạn; tài liệu hướng dẫn cài đặt, quản trị, vận hành; tài liệu quy trình,
+      điều kiện, nội dung công việc bảo trì. Vấn đề rộng hơn nhiều so với chỉ mã nguồn.
+
+  - step: 3
+    claim: >-
+      Chưa bàn giao đủ danh mục bắt buộc thì chưa đủ điều kiện nghiệm thu, bàn giao sản phẩm.
+    citations:
+      - vn:vbqppl:nd:45/2026/NĐ-CP#dieu-24@2026-03-01
+      - vn:vbqppl:nd:45/2026/NĐ-CP#dieu-25@2026-03-01
+    quote: ""
+    reasoning: >-
+      Điều 24 quy định việc nghiệm thu gắn liền với bàn giao sản phẩm và tài liệu; Điều 25 yêu cầu lập
+      và lưu trữ hồ sơ hoàn thành dự án, mà hồ sơ hoàn thành không thể đủ nếu thiếu mã nguồn và tài
+      liệu thiết kế. Chủ đầu tư có cơ sở để chưa ký biên bản nghiệm thu, hoặc ký biên bản nghiệm thu
+      có điều kiện với thời hạn khắc phục rõ ràng.
+
+  - step: 4
+    claim: >-
+      Tiền bảo hành là công cụ tài chính để bảo đảm nhà thầu thực hiện nghĩa vụ còn thiếu.
+    citations:
+      - vn:vbqppl:nd:45/2026/NĐ-CP#dieu-26.khoan-2@2026-03-01
+    quote: Nhà thầu nộp thư bảo lãnh ngân hàng hoặc hình thức bảo lãnh khác được chấp nhận.
+    reasoning: >-
+      Vì tiền bảo hành chỉ được hoàn trả sau khi kết thúc thời hạn bảo hành và được xác nhận hoàn
+      thành nghĩa vụ, chủ đầu tư có công cụ ràng buộc. Tuy vậy đây là biện pháp khắc phục hậu quả;
+      cách xử lý gốc là đưa nghĩa vụ vào hồ sơ mời thầu và hợp đồng ngay từ đầu.
+
+  - step: 5
+    claim: >-
+      Phạm vi quyền của chủ đầu tư đối với mã nguồn được bàn giao, gồm quyền sửa đổi và quyền giao cho
+      bên thứ ba bảo trì, cần được xác định bằng thỏa thuận trong hợp đồng.
+    citations: []
+    quote: ""
+    reasoning: >-
+      Nghị định quy định nghĩa vụ **bàn giao** mã nguồn, nhưng phạm vi quyền sử dụng, quyền sửa đổi và
+      quyền chuyển giao cho bên thứ ba thuộc phạm vi pháp luật về sở hữu trí tuệ và thỏa thuận hợp
+      đồng. `[CẦN ĐỐI CHIẾU: quy định của pháp luật về sở hữu trí tuệ đối với chương trình máy tính
+      được tạo ra theo hợp đồng đặt hàng bằng ngân sách nhà nước]`
+
+conclusion: |
+  Nhà thầu **có nghĩa vụ bàn giao mã nguồn của chương trình**. Đây là nghĩa vụ luật định tại điểm b
+  khoản 1 Điều 24 Nghị định 45/2026/NĐ-CP, không phụ thuộc vào việc hợp đồng có nhắc tới hay không;
+  hợp đồng không thể thỏa thuận trái quy định của pháp luật.
+
+  Thực tế nhà thầu còn thiếu nhiều hơn mã nguồn: thiếu cả tài liệu thiết kế chi tiết của từng giai
+  đoạn, tài liệu hướng dẫn cài đặt, quản trị, vận hành và tài liệu quy trình, điều kiện, nội dung
+  công việc bảo trì.
+
+  Chủ đầu tư nên xử lý theo ba bước: (1) có văn bản yêu cầu nhà thầu bàn giao đủ danh mục tại điểm b
+  khoản 1 Điều 24, kèm trích dẫn nguyên văn; (2) nếu nhà thầu vẫn không thực hiện thì chưa ký biên
+  bản nghiệm thu, hoặc ký biên bản nghiệm thu có điều kiện ghi rõ tồn tại và thời hạn khắc phục; (3)
+  sử dụng cơ chế tiền bảo hành theo khoản 2 Điều 26 làm công cụ ràng buộc.
+
+  Bài học phòng ngừa: đưa toàn bộ danh mục 6 nhóm nội dung tại điểm b khoản 1 Điều 24 vào **hồ sơ mời
+  thầu** và vào **điều khoản hợp đồng**, kèm quy định về định dạng bàn giao mã nguồn, cách bàn giao
+  và phạm vi quyền sử dụng.
+
+procedure:
+  - order: 1
+    step: Lập bảng đối chiếu danh mục bắt buộc bàn giao với thực tế nhà thầu đã bàn giao
+    authority: Chủ đầu tư, ban quản lý dự án
+    timeline: Trước khi lập biên bản nghiệm thu
+    inputs: [Danh mục tại điểm b khoản 1 Điều 24, Biên bản bàn giao của nhà thầu]
+    outputs: [Bảng đối chiếu chỉ rõ mục còn thiếu]
+    citations: [vn:vbqppl:nd:45/2026/NĐ-CP#dieu-24.khoan-1@2026-03-01]
+    templates: [asset://bien-ban-nghiem-thu]
+    needs_citation: false
+  - order: 2
+    step: Có văn bản yêu cầu nhà thầu bàn giao đủ, trích dẫn nguyên văn quy định và ấn định thời hạn
+    authority: Chủ đầu tư
+    timeline: Ngay khi phát hiện thiếu
+    inputs: [Bảng đối chiếu]
+    outputs: [Văn bản yêu cầu bàn giao]
+    citations: [vn:vbqppl:nd:45/2026/NĐ-CP#dieu-24.khoan-1@2026-03-01]
+    templates: []
+    needs_citation: false
+  - order: 3
+    step: >-
+      Nếu nhà thầu chưa bàn giao đủ, chưa ký biên bản nghiệm thu hoặc ký biên bản nghiệm thu có điều
+      kiện, ghi rõ tồn tại và thời hạn khắc phục
+    authority: Chủ đầu tư
+    timeline: Tại thời điểm nghiệm thu
+    inputs: [Văn bản yêu cầu và phản hồi của nhà thầu]
+    outputs: [Biên bản nghiệm thu có mục tồn tại và thời hạn khắc phục]
+    citations: [vn:vbqppl:nd:45/2026/NĐ-CP#dieu-24@2026-03-01]
+    templates: [asset://bien-ban-nghiem-thu]
+    needs_citation: false
+  - order: 4
+    step: Giữ tiền bảo hành cho tới khi nhà thầu hoàn thành nghĩa vụ bàn giao
+    authority: Chủ đầu tư
+    timeline: Trong thời hạn bảo hành
+    inputs: [Thư bảo lãnh ngân hàng]
+    outputs: [Văn bản xác nhận hoàn thành nghĩa vụ hoặc quyết định xử lý tiền bảo hành]
+    citations: [vn:vbqppl:nd:45/2026/NĐ-CP#dieu-26.khoan-2@2026-03-01]
+    templates: []
+    needs_citation: false
+  - order: 5
+    step: >-
+      Cập nhật mẫu hồ sơ mời thầu của đơn vị, đưa đủ 6 nhóm nội dung bắt buộc bàn giao và quy định về
+      định dạng, cách bàn giao mã nguồn, phạm vi quyền sử dụng
+    authority: Chủ đầu tư
+    timeline: Áp dụng cho các gói thầu tiếp theo
+    inputs: [Bài học từ tình huống này]
+    outputs: [Mẫu hồ sơ mời thầu đã cập nhật]
+    citations: [vn:vbqppl:nd:45/2026/NĐ-CP#dieu-24.khoan-1@2026-03-01]
+    templates: [asset://ke-hoach-lcnt]
+    needs_citation: false
+
+risks:
+  - risk: Hồ sơ mời thầu và hợp đồng không nhắc tới nghĩa vụ bàn giao mã nguồn
+    consequence: Tranh chấp ở khâu nghiệm thu; chậm đưa hệ thống vào sử dụng; khó bảo trì về sau
+    mitigation: Đưa đủ danh mục tại điểm b khoản 1 Điều 24 vào hồ sơ mời thầu và hợp đồng ngay từ đầu
+    citations: [vn:vbqppl:nd:45/2026/NĐ-CP#dieu-24.khoan-1@2026-03-01]
+  - risk: Nghiệm thu và thanh toán hết khi chưa nhận đủ tài liệu và mã nguồn
+    consequence: Mất công cụ ràng buộc; phụ thuộc hoàn toàn vào nhà thầu để bảo trì và nâng cấp về sau
+    mitigation: Không ký biên bản nghiệm thu trọn vẹn khi chưa nhận đủ; dùng biên bản nghiệm thu có điều kiện
+    citations: [vn:vbqppl:nd:45/2026/NĐ-CP#dieu-24@2026-03-01]
+  - risk: Nhận mã nguồn nhưng không kiểm tra được tính đầy đủ và khả năng biên dịch
+    consequence: Mã nguồn nhận được không dùng được; phát hiện muộn khi cần bảo trì
+    mitigation: >-
+      Quy định trong hồ sơ mời thầu việc bàn giao mã nguồn phải kèm nghiệm thu biên dịch thành công
+      trên môi trường độc lập, có biên bản xác nhận
+    citations: [vn:vbqppl:nd:45/2026/NĐ-CP#dieu-24.khoan-1@2026-03-01]
+  - risk: Không xác định phạm vi quyền của chủ đầu tư đối với mã nguồn
+    consequence: Có mã nguồn nhưng không được phép sửa đổi hoặc giao bên thứ ba bảo trì
+    mitigation: Thỏa thuận rõ phạm vi quyền trong hợp đồng, dựa trên pháp luật về sở hữu trí tuệ
+    citations: []
+
+related_questions:
+  - Hồ sơ hoàn thành dự án gồm những tài liệu gì?
+  - Thời hạn và mức tiền bảo hành là bao nhiêu?
+  - Dự án thuê dịch vụ thì dữ liệu được bàn giao thế nào khi kết thúc thuê?
+
+gaps:
+  - what: Phạm vi quyền của chủ đầu tư đối với mã nguồn được bàn giao theo hợp đồng đặt hàng bằng ngân sách nhà nước
+    why: Cần để trả lời trọn vẹn câu hỏi chủ đầu tư có được sửa đổi mã nguồn hoặc giao bên thứ ba bảo trì hay không
+    suggested_source: Pháp luật về sở hữu trí tuệ đối với chương trình máy tính; điều khoản hợp đồng
+
+status: draft
+citation_health: ok
+author: Tổ biên soạn nội dung quydinhphapluat.vn
+legal_reviewer: null
+reviewed_at: null

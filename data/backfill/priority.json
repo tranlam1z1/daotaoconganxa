@@ -1,0 +1,184 @@
+{
+  "ghi_chu": "Danh mục nạp theo thứ tự ưu tiên, theo ke-hoach/04-thu-thap-du-lieu.md §5. Số hiệu cần đối chiếu lại trên vbpl.vn/Công báo trước khi nạp.",
+  "cap_nhat": "2026-09-06 (đã đối chiếu Công báo)",
+  "nhom": [
+    {
+      "uu_tien": 1,
+      "ten": "Hạ tầng pháp lý của chính hệ thống",
+      "ly_do": "Hệ thống phải mô hình hóa đúng các quy tắc này trước khi nạp phần còn lại",
+      "van_ban": [
+        {
+          "so_ky_hieu": "64/2025/QH15",
+          "ten": "Luật Ban hành văn bản quy phạm pháp luật",
+          "ngay": "2025-02-19",
+          "hieu_luc": "2025-04-01"
+        },
+        {
+          "so_ky_hieu": "87/2025/QH15",
+          "ten": "Luật sửa đổi, bổ sung một số điều của Luật Ban hành văn bản quy phạm pháp luật",
+          "ngay": "2025-06-25",
+          "hieu_luc": "2025-07-01"
+        },
+        {
+          "so_ky_hieu": "78/2025/NĐ-CP",
+          "ten": "Quy định chi tiết một số điều và biện pháp để tổ chức, hướng dẫn thi hành Luật Ban hành văn bản quy phạm pháp luật",
+          "ngay": "2025-04-01",
+          "hieu_luc": "2025-04-01"
+        },
+        {
+          "so_ky_hieu": "01/2012/UBTVQH13",
+          "ten": "Pháp lệnh Hợp nhất văn bản quy phạm pháp luật",
+          "ngay": "2012-03-22"
+        },
+        {
+          "so_ky_hieu": "01/2026/UBTVQH16",
+          "ten": "Pháp lệnh sửa đổi, bổ sung một số điều của Pháp lệnh Hợp nhất văn bản quy phạm pháp luật",
+          "ngay": "2026-06-10",
+          "hieu_luc": "2026-07-01"
+        },
+        {
+          "so_ky_hieu": "250/2026/NĐ-CP",
+          "ten": "Quy định chi tiết về kỹ thuật trình bày văn bản hợp nhất",
+          "ngay": "2026-06-30",
+          "hieu_luc": "2026-07-01"
+        },
+        {
+          "so_ky_hieu": "52/2015/NĐ-CP",
+          "ten": "Cơ sở dữ liệu quốc gia về pháp luật",
+          "ngay": "2015-05-28"
+        }
+      ]
+    },
+    {
+      "uu_tien": 2,
+      "ten": "Hiến pháp",
+      "van_ban": [
+        {
+          "so_ky_hieu": "HP/2013",
+          "ten": "Hiến pháp nước Cộng hòa xã hội chủ nghĩa Việt Nam",
+          "ngay": "2013-11-28",
+          "ghi_chu": "Kèm nghị quyết sửa đổi 2025"
+        }
+      ]
+    },
+    {
+      "uu_tien": 3,
+      "ten": "Chuyên đề đầu tư, mua sắm, thuê dịch vụ phục vụ chuyển đổi số bằng ngân sách nhà nước",
+      "ly_do": "Nền dữ liệu cho chuyên đề đào tạo mẫu (ke-hoach/09)",
+      "van_ban": [
+        {
+          "so_ky_hieu": "148/2025/QH15",
+          "ten": "Luật Chuyển đổi số",
+          "ghi_chu": "Luật nền hiện hành của lĩnh vực"
+        },
+        {
+          "so_ky_hieu": "224/2026/NĐ-CP",
+          "ten": "Quy định chi tiết một số điều và biện pháp thi hành Luật Chuyển đổi số",
+          "ngay": "2026-06-24",
+          "hieu_luc": "2026-07-01",
+          "ghi_chu": "HIỆN HÀNH. Điều 90 bãi bỏ NĐ 45/2026, NĐ 42/2022, NĐ 64/2007; Điều 91 chuyển tiếp"
+        },
+        {
+          "so_ky_hieu": "225/2026/NĐ-CP",
+          "ten": "Nghị định đi kèm NĐ 224/2026",
+          "ghi_chu": "CẦN ĐỐI CHIẾU tên đầy đủ và phạm vi"
+        },
+        {
+          "so_ky_hieu": "39/2026/TT-BKHCN",
+          "ten": "Quy định lập và quản lý chi phí trong hoạt động đầu tư, mua sắm, thuê dịch vụ cho chuyển đổi số sử dụng NSNN",
+          "ngay": "2026-07-01",
+          "hieu_luc": "2026-07-01",
+          "ghi_chu": "HIỆN HÀNH, thay thế TT 18/2024/TT-BTTTT"
+        },
+        {
+          "so_ky_hieu": "41/2026/TT-BKHCN",
+          "ten": "Quy định chi tiết về phát triển thử nghiệm trong chuyển đổi số và quản lý chất lượng hoạt động đầu tư, mua sắm, thuê dịch vụ cho chuyển đổi số sử dụng NSNN",
+          "ngay": "2026-07-01",
+          "hieu_luc": "2026-07-01",
+          "ghi_chu": "HIỆN HÀNH, thay thế TT 16/2024/TT-BTTTT"
+        },
+        {
+          "so_ky_hieu": "45/2026/NĐ-CP",
+          "ten": "Quy định quản lý đầu tư ứng dụng công nghệ thông tin sử dụng nguồn vốn ngân sách nhà nước",
+          "ngay": "2026-01-26",
+          "hieu_luc": "2026-03-01",
+          "het_hieu_luc": "2026-07-01",
+          "ghi_chu": "HẾT HIỆU LỰC nhưng vẫn áp dụng cho dự án chuyển tiếp theo Điều 91 NĐ 224/2026"
+        },
+        {
+          "so_ky_hieu": "73/2019/NĐ-CP",
+          "ten": "Quản lý đầu tư ứng dụng CNTT sử dụng nguồn vốn NSNN",
+          "het_hieu_luc": "2026-03-01",
+          "ghi_chu": "Hết hiệu lực, nạp để tra cứu lịch sử"
+        },
+        {
+          "so_ky_hieu": "82/2024/NĐ-CP",
+          "ten": "Sửa đổi, bổ sung NĐ 73/2019/NĐ-CP",
+          "ngay": "2024-07-10",
+          "het_hieu_luc": "2026-03-01"
+        },
+        {
+          "so_ky_hieu": "18/2024/TT-BTTTT",
+          "ten": "Lập và quản lý chi phí đầu tư ứng dụng CNTT",
+          "hieu_luc": "2025-02-14",
+          "het_hieu_luc": "2026-07-01",
+          "ghi_chu": "Thay thế TT 04/2020 và TT 12/2020"
+        },
+        {
+          "so_ky_hieu": "16/2024/TT-BTTTT",
+          "ten": "Hợp đồng thuê dịch vụ CNTT; triển khai, giám sát, nghiệm thu",
+          "hieu_luc": "2025-02-14",
+          "het_hieu_luc": "2026-07-01",
+          "ghi_chu": "Thay thế TT 23/2020 và TT 24/2020"
+        },
+        {
+          "so_ky_hieu": "671/QĐ-BTTTT",
+          "ten": "Hướng dẫn xác định chi phí phần mềm nội bộ (phương pháp Use Case Point)",
+          "ngay": "2024-04-26",
+          "ghi_chu": "Không phải VBQPPL. Không còn là phương pháp pháp định từ 01/7/2026; giữ để tham chiếu và cho dự án chuyển tiếp"
+        },
+        {
+          "so_ky_hieu": "129/QĐ-BTTTT",
+          "ten": "Đơn giá nhân công trong quản lý chi phí đầu tư ứng dụng CNTT",
+          "ngay": "2021-02-03",
+          "ghi_chu": "CẦN ĐỐI CHIẾU hiệu lực"
+        },
+        {
+          "so_ky_hieu": "22/2023/QH15",
+          "ten": "Luật Đấu thầu",
+          "ghi_chu": "Sửa đổi bởi Luật 57/2024/QH15 và Luật 90/2025/QH15"
+        },
+        {
+          "so_ky_hieu": "24/2024/NĐ-CP",
+          "ten": "Quy định chi tiết Luật Đấu thầu về lựa chọn nhà thầu"
+        },
+        {
+          "so_ky_hieu": "58/2024/QH15",
+          "ten": "Luật Đầu tư công",
+          "ghi_chu": "CẦN ĐỐI CHIẾU các luật sửa đổi 2025"
+        },
+        {
+          "so_ky_hieu": "?",
+          "ten": "Luật Ngân sách nhà nước bản 2025",
+          "ghi_chu": "CẦN ĐỐI CHIẾU số hiệu"
+        }
+      ],
+      "canh_bao": "Khung pháp lý đã đổi 3 lần trong 18 tháng. Nạp cả văn bản đã hết hiệu lực để tra cứu lịch sử và phục vụ dự án chuyển tiếp."
+    },
+    {
+      "uu_tien": 4,
+      "ten": "Toàn bộ luật, bộ luật, pháp lệnh còn hiệu lực",
+      "cach_lam": "Duyệt vbpl.vn theo loại văn bản, lọc trạng thái còn hiệu lực"
+    },
+    {
+      "uu_tien": 5,
+      "ten": "Nghị định và thông tư còn hiệu lực",
+      "cach_lam": "Ưu tiên theo lĩnh vực có nhu cầu tra cứu cao; nạp kèm văn bản hợp nhất chính thức"
+    },
+    {
+      "uu_tien": 6,
+      "ten": "Văn bản địa phương",
+      "cach_lam": "Thanh Hóa trước, sau đó mở rộng theo nhu cầu"
+    }
+  ]
+}

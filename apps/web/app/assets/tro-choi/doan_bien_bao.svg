@@ -1,0 +1,14 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 128 128" width="100%" height="100%">
+<defs><linearGradient id="n" x2="1" y2="1"><stop offset="0" stop-color="#F87171"/><stop offset="1" stop-color="#B91C1C"/></linearGradient><linearGradient id="v" x2="0" y2="1"><stop offset="0" stop-color="#fff"/><stop offset="1" stop-color="#FEE2E2"/></linearGradient><linearGradient id="y" x2="0" y2="1"><stop offset="0" stop-color="#FDE68A"/><stop offset="1" stop-color="#F59E0B"/></linearGradient><pattern id="k" width="12" height="12" patternUnits="userSpaceOnUse" patternTransform="rotate(45)"><rect width="2" height="12" fill="#fff" fill-opacity=".08"/></pattern><filter id="b" x="-20%" y="-20%" width="140%" height="150%"><feDropShadow dx="2" dy="4" stdDeviation="3" flood-opacity=".2"/></filter></defs>
+<rect x="8" y="8" width="112" height="112" rx="28" fill="url(#n)"/>
+<rect x="8" y="8" width="112" height="112" rx="28" fill="url(#k)"/>
+<ellipse cx="64" cy="36" rx="46" ry="24" fill="#fff" fill-opacity=".12"/>
+<g filter="url(#b)" stroke="#450A0A" stroke-width="3" stroke-linejoin="round" stroke-linecap="round">
+<path d="M64 22L104 90H24z" fill="#EF4444" stroke-width="18"/>
+<path d="M64 22L104 90H24z" fill="#EF4444" stroke="#fff" stroke-width="14"/>
+<path d="M64 22L104 90H24z" fill="#EF4444" stroke="#EF4444" stroke-width="8"/>
+<path d="M64 34L93.5 84h-59z" fill="url(#y)" stroke="none"/>
+<path d="M57 58a7 7 0 1 1 10 6.3c-2 1.2-3 2.5-3 5.2" fill="none" stroke="#1F2937" stroke-width="5"/>
+<circle cx="64" cy="77" r="3.2" fill="#1F2937" stroke="none"/>
+</g>
+</svg>

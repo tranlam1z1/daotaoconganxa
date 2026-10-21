@@ -1,0 +1,31 @@
+{
+  "tieu_de": "Danh mục đào tạo",
+  "tom_tat": "Chọn chuyên đề theo lĩnh vực pháp luật và nhóm đối tượng, xem quan hệ giữa các chuyên đề và mở lộ trình học.",
+  "routes": ["routes/training.tsx"],
+  "anh": [
+    {
+      "ten": "danh-muc-dao-tao-cay",
+      "chu_thich": "Cây chuyên đề của một lĩnh vực",
+      "url": "/dao-tao",
+      "vung": "section:has(h2:text-is('Đầu tư và tư vấn đầu tư dự án sử dụng ngân sách Nhà nước'))",
+      "danh_dau": [
+        { "o": "h2:text-is('Đầu tư và tư vấn đầu tư dự án sử dụng ngân sách Nhà nước')", "ghi_chu": "Lĩnh vực pháp luật", "huong": "trai" },
+        { "o": "h3:text-is('Người trực tiếp áp dụng quy định')", "ghi_chu": "Nhóm đối tượng", "huong": "trai" },
+        { "o": "li:has(a:text-is('Xem lộ trình'))", "ghi_chu": "Cụ thể hoá", "huong": "trai" },
+        { "o": "li:has-text('Đang biên soạn')", "ghi_chu": "Chưa mở để học", "huong": "phai" }
+      ]
+    },
+    {
+      "ten": "danh-muc-dao-tao-the",
+      "chu_thich": "Thẻ chuyên đề đã xuất bản",
+      "url": "/dao-tao",
+      "vung": "li:has(a:text-is('Xem lộ trình'))",
+      "danh_dau": [
+        { "o": "li:has(a:text-is('Xem lộ trình')) span:text-is('Chuyên sâu')", "ghi_chu": "Mức độ, thời lượng", "huong": "trai" },
+        { "o": "li:has(a:text-is('Xem lộ trình')) >> text=Cụ thể hoá chuyên đề:", "ghi_chu": "Quan hệ chuyên đề", "huong": "trai" },
+        { "o": "li:has(a:text-is('Xem lộ trình')) >> text=Khung pháp lý tại:", "ghi_chu": "Ngày khung pháp lý", "huong": "trai" },
+        { "o": "role=link[name='Xem lộ trình']", "ghi_chu": "Mở lộ trình chuyên đề", "huong": "phai" }
+      ]
+    }
+  ]
+}

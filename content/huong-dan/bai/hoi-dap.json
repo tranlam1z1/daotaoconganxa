@@ -1,0 +1,19 @@
+{
+  "tieu_de": "Hỏi đáp có trích dẫn",
+  "tom_tat": "Đặt câu hỏi pháp lý theo ngày áp dụng, đọc câu trả lời và mở từng căn cứ được trích dẫn.",
+  "routes": ["routes/ask.tsx"],
+  "anh": [
+    {
+      "ten": "hoi-dap-dat-cau-hoi",
+      "chu_thich": "Trang Hỏi đáp có trích dẫn",
+      "url": "/hoi-dap",
+      "danh_dau": [
+        { "o": "#cau-hoi", "ghi_chu": "Nhập câu hỏi", "huong": "phai" },
+        { "o": "#hd-asof", "ghi_chu": "Ngày áp dụng quy định", "huong": "phai" },
+        { "o": "main >> role=button[name='Hỏi's]", "ghi_chu": "Gửi câu hỏi", "huong": "trai" },
+        { "o": "section[aria-labelledby='goi-y'] ul", "ghi_chu": "Câu hỏi gợi ý", "huong": "phai" },
+        { "o": "main p:has(strong)", "ghi_chu": "Miễn trừ trách nhiệm", "huong": "tren" }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,16 @@
+{
+  "name": "@qdpl/search",
+  "version": "0.1.0",
+  "type": "module",
+  "main": "src/index.ts",
+  "scripts": {
+    "typecheck": "tsc --noEmit -p tsconfig.json",
+    "test": "bun test",
+    "index": "bun run src/cli.ts"
+  },
+  "dependencies": {
+    "@qdpl/db": "workspace:*",
+    "@qdpl/legal-model": "workspace:*",
+    "@qdpl/citation": "workspace:*"
+  }
+}

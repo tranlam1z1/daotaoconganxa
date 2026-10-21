@@ -1,0 +1,7 @@
+.venv/
+__pycache__/
+.pytest_cache/
+*.pyc
+# Cache mock/replay của LLM và đầu ra tạm — không đưa vào kho mã.
+data/
+out/

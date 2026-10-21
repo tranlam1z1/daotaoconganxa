@@ -1,0 +1,1189 @@
+{
+  "$schema_note": "Khớp bảng `taxonomy` trong packages/db/migrations/0001_init.sql: (code, parent_code, name, kind, ordinal).",
+  "version": "1.0.0",
+  "as_of": "2026-09-06",
+  "sources": [
+    {
+      "what": "45 chủ đề Bộ pháp điển",
+      "where": "Điều 7 Pháp lệnh pháp điển hệ thống quy phạm pháp luật số 03/2012/UBTVQH13; đối chiếu dữ liệu vận hành phapdien.moj.gov.vn (bản cập nhật 30/6/2026)"
+    },
+    {
+      "what": "Đề mục của các chủ đề 3, 19, 26, 34",
+      "where": "Dữ liệu vận hành phapdien.moj.gov.vn (BoPhapDienDienTu.zip, jsonData.js), bản 30/6/2026"
+    },
+    {
+      "what": "Nhánh nội bộ NB.*",
+      "where": "Biên tập nội bộ, bám cấu trúc Nghị định 45/2026/NĐ-CP, Luật Đầu tư công 58/2024/QH15, Luật Đấu thầu 22/2023/QH15, Luật Ban hành VBQPPL 64/2025/QH15"
+    }
+  ],
+  "notes": [
+    "Chỉ nạp đề mục của 4 chủ đề liên quan trực tiếp đến phạm vi giai đoạn 1 (3, 19, 26, 34). Các chủ đề còn lại mới có bản ghi cấp chủ đề; đề mục sẽ được bổ sung khi mở rộng phạm vi.",
+    "Đề mục 'Giao dịch điện tử', 'Viễn thông', 'Khoa học và công nghệ', 'Năng lượng nguyên tử', 'Sở hữu trí tuệ', 'Giá', 'Ngân sách nhà nước', 'Đấu thầu', 'Đầu tư', 'Đầu tư công', 'Khu công nghiệp, khu chế xuất và khu kinh tế', 'Lập, phê duyệt và quản lý quy hoạch tổng thể phát triển kinh tế - xã hội', 'Quy hoạch', 'Đầu tư theo phương thức đối tác công tư' hiện chưa hiển thị trên cây tra cứu của cổng pháp điển (đang cập nhật sau khi có luật mới) nhưng vẫn thuộc danh mục chuẩn.",
+    "Chủ đề 11 (Đất đai) và 29 (Thi đua, khen thưởng) tạm không xuất hiện trong dropdown của cổng do đang thẩm định lại; vẫn giữ trong danh mục 45 chủ đề chuẩn.",
+    "Bộ Tư pháp công bố con số 271 đề mục (tháng 11/2024); dữ liệu vận hành hiện có nhiều hơn do bao gồm đề mục cũ, đã tách hoặc đã thay thế. Không dùng file này để khẳng định tổng số đề mục."
+  ],
+  "taxonomy": [
+    {
+      "code": "PD.01",
+      "parent_code": null,
+      "name": "An ninh quốc gia",
+      "kind": "chu_de",
+      "ordinal": 1
+    },
+    {
+      "code": "PD.02",
+      "parent_code": null,
+      "name": "Bảo hiểm",
+      "kind": "chu_de",
+      "ordinal": 2
+    },
+    {
+      "code": "PD.03",
+      "parent_code": null,
+      "name": "Bưu chính, viễn thông",
+      "kind": "chu_de",
+      "ordinal": 3
+    },
+    {
+      "code": "PD.03.001",
+      "parent_code": "PD.03",
+      "name": "An toàn thông tin mạng",
+      "kind": "de_muc",
+      "ordinal": 1
+    },
+    {
+      "code": "PD.03.002",
+      "parent_code": "PD.03",
+      "name": "Bưu chính",
+      "kind": "de_muc",
+      "ordinal": 2
+    },
+    {
+      "code": "PD.03.003",
+      "parent_code": "PD.03",
+      "name": "Công nghệ thông tin",
+      "kind": "de_muc",
+      "ordinal": 3
+    },
+    {
+      "code": "PD.03.004",
+      "parent_code": "PD.03",
+      "name": "Giao dịch điện tử",
+      "kind": "de_muc",
+      "ordinal": 4
+    },
+    {
+      "code": "PD.03.005",
+      "parent_code": "PD.03",
+      "name": "Tần số vô tuyến điện",
+      "kind": "de_muc",
+      "ordinal": 5
+    },
+    {
+      "code": "PD.03.006",
+      "parent_code": "PD.03",
+      "name": "Viễn thông",
+      "kind": "de_muc",
+      "ordinal": 6
+    },
+    {
+      "code": "PD.04",
+      "parent_code": null,
+      "name": "Bổ trợ tư pháp",
+      "kind": "chu_de",
+      "ordinal": 4
+    },
+    {
+      "code": "PD.05",
+      "parent_code": null,
+      "name": "Cán bộ, công chức, viên chức",
+      "kind": "chu_de",
+      "ordinal": 5
+    },
+    {
+      "code": "PD.06",
+      "parent_code": null,
+      "name": "Chính sách xã hội",
+      "kind": "chu_de",
+      "ordinal": 6
+    },
+    {
+      "code": "PD.07",
+      "parent_code": null,
+      "name": "Công nghiệp",
+      "kind": "chu_de",
+      "ordinal": 7
+    },
+    {
+      "code": "PD.08",
+      "parent_code": null,
+      "name": "Dân số, gia đình, trẻ em, bình đẳng giới",
+      "kind": "chu_de",
+      "ordinal": 8
+    },
+    {
+      "code": "PD.09",
+      "parent_code": null,
+      "name": "Dân sự",
+      "kind": "chu_de",
+      "ordinal": 9
+    },
+    {
+      "code": "PD.10",
+      "parent_code": null,
+      "name": "Dân tộc",
+      "kind": "chu_de",
+      "ordinal": 10
+    },
+    {
+      "code": "PD.11",
+      "parent_code": null,
+      "name": "Đất đai",
+      "kind": "chu_de",
+      "ordinal": 11
+    },
+    {
+      "code": "PD.12",
+      "parent_code": null,
+      "name": "Doanh nghiệp, hợp tác xã",
+      "kind": "chu_de",
+      "ordinal": 12
+    },
+    {
+      "code": "PD.13",
+      "parent_code": null,
+      "name": "Giáo dục, đào tạo",
+      "kind": "chu_de",
+      "ordinal": 13
+    },
+    {
+      "code": "PD.14",
+      "parent_code": null,
+      "name": "Giao thông, vận tải",
+      "kind": "chu_de",
+      "ordinal": 14
+    },
+    {
+      "code": "PD.15",
+      "parent_code": null,
+      "name": "Hành chính tư pháp",
+      "kind": "chu_de",
+      "ordinal": 15
+    },
+    {
+      "code": "PD.16",
+      "parent_code": null,
+      "name": "Hình sự",
+      "kind": "chu_de",
+      "ordinal": 16
+    },
+    {
+      "code": "PD.17",
+      "parent_code": null,
+      "name": "Kế toán, kiểm toán",
+      "kind": "chu_de",
+      "ordinal": 17
+    },
+    {
+      "code": "PD.18",
+      "parent_code": null,
+      "name": "Khiếu nại, tố cáo",
+      "kind": "chu_de",
+      "ordinal": 18
+    },
+    {
+      "code": "PD.19",
+      "parent_code": null,
+      "name": "Khoa học, công nghệ",
+      "kind": "chu_de",
+      "ordinal": 19
+    },
+    {
+      "code": "PD.19.001",
+      "parent_code": "PD.19",
+      "name": "Chất lượng sản phẩm, hàng hóa",
+      "kind": "de_muc",
+      "ordinal": 1
+    },
+    {
+      "code": "PD.19.002",
+      "parent_code": "PD.19",
+      "name": "Chuyển giao công nghệ",
+      "kind": "de_muc",
+      "ordinal": 2
+    },
+    {
+      "code": "PD.19.003",
+      "parent_code": "PD.19",
+      "name": "Công nghệ cao",
+      "kind": "de_muc",
+      "ordinal": 3
+    },
+    {
+      "code": "PD.19.004",
+      "parent_code": "PD.19",
+      "name": "Đo lường",
+      "kind": "de_muc",
+      "ordinal": 4
+    },
+    {
+      "code": "PD.19.005",
+      "parent_code": "PD.19",
+      "name": "Khoa học và công nghệ",
+      "kind": "de_muc",
+      "ordinal": 5
+    },
+    {
+      "code": "PD.19.006",
+      "parent_code": "PD.19",
+      "name": "Năng lượng nguyên tử",
+      "kind": "de_muc",
+      "ordinal": 6
+    },
+    {
+      "code": "PD.19.007",
+      "parent_code": "PD.19",
+      "name": "Sở hữu trí tuệ",
+      "kind": "de_muc",
+      "ordinal": 7
+    },
+    {
+      "code": "PD.19.008",
+      "parent_code": "PD.19",
+      "name": "Tiêu chuẩn và quy chuẩn kỹ thuật",
+      "kind": "de_muc",
+      "ordinal": 8
+    },
+    {
+      "code": "PD.20",
+      "parent_code": null,
+      "name": "Lao động",
+      "kind": "chu_de",
+      "ordinal": 20
+    },
+    {
+      "code": "PD.21",
+      "parent_code": null,
+      "name": "Môi trường",
+      "kind": "chu_de",
+      "ordinal": 21
+    },
+    {
+      "code": "PD.22",
+      "parent_code": null,
+      "name": "Ngân hàng, tiền tệ",
+      "kind": "chu_de",
+      "ordinal": 22
+    },
+    {
+      "code": "PD.23",
+      "parent_code": null,
+      "name": "Ngoại giao, điều ước quốc tế",
+      "kind": "chu_de",
+      "ordinal": 23
+    },
+    {
+      "code": "PD.24",
+      "parent_code": null,
+      "name": "Nông nghiệp, nông thôn",
+      "kind": "chu_de",
+      "ordinal": 24
+    },
+    {
+      "code": "PD.25",
+      "parent_code": null,
+      "name": "Quốc phòng",
+      "kind": "chu_de",
+      "ordinal": 25
+    },
+    {
+      "code": "PD.26",
+      "parent_code": null,
+      "name": "Tài chính",
+      "kind": "chu_de",
+      "ordinal": 26
+    },
+    {
+      "code": "PD.26.001",
+      "parent_code": "PD.26",
+      "name": "Giá",
+      "kind": "de_muc",
+      "ordinal": 1
+    },
+    {
+      "code": "PD.26.002",
+      "parent_code": "PD.26",
+      "name": "Hải quan",
+      "kind": "de_muc",
+      "ordinal": 2
+    },
+    {
+      "code": "PD.26.003",
+      "parent_code": "PD.26",
+      "name": "Ngân sách nhà nước",
+      "kind": "de_muc",
+      "ordinal": 3
+    },
+    {
+      "code": "PD.26.004",
+      "parent_code": "PD.26",
+      "name": "Thực hành tiết kiệm, chống lãng phí",
+      "kind": "de_muc",
+      "ordinal": 4
+    },
+    {
+      "code": "PD.27",
+      "parent_code": null,
+      "name": "Tài nguyên",
+      "kind": "chu_de",
+      "ordinal": 27
+    },
+    {
+      "code": "PD.28",
+      "parent_code": null,
+      "name": "Tài sản công, nợ công, dự trữ nhà nước",
+      "kind": "chu_de",
+      "ordinal": 28
+    },
+    {
+      "code": "PD.29",
+      "parent_code": null,
+      "name": "Thi đua, khen thưởng, các danh hiệu vinh dự nhà nước",
+      "kind": "chu_de",
+      "ordinal": 29
+    },
+    {
+      "code": "PD.30",
+      "parent_code": null,
+      "name": "Thi hành án",
+      "kind": "chu_de",
+      "ordinal": 30
+    },
+    {
+      "code": "PD.31",
+      "parent_code": null,
+      "name": "Thống kê",
+      "kind": "chu_de",
+      "ordinal": 31
+    },
+    {
+      "code": "PD.32",
+      "parent_code": null,
+      "name": "Thông tin, báo chí, xuất bản",
+      "kind": "chu_de",
+      "ordinal": 32
+    },
+    {
+      "code": "PD.33",
+      "parent_code": null,
+      "name": "Thuế, phí, lệ phí, các khoản thu khác",
+      "kind": "chu_de",
+      "ordinal": 33
+    },
+    {
+      "code": "PD.34",
+      "parent_code": null,
+      "name": "Thương mại, đầu tư, chứng khoán",
+      "kind": "chu_de",
+      "ordinal": 34
+    },
+    {
+      "code": "PD.34.001",
+      "parent_code": "PD.34",
+      "name": "Bảo vệ quyền lợi người tiêu dùng",
+      "kind": "de_muc",
+      "ordinal": 1
+    },
+    {
+      "code": "PD.34.002",
+      "parent_code": "PD.34",
+      "name": "Cạnh tranh",
+      "kind": "de_muc",
+      "ordinal": 2
+    },
+    {
+      "code": "PD.34.003",
+      "parent_code": "PD.34",
+      "name": "Quản lý ngoại thương",
+      "kind": "de_muc",
+      "ordinal": 3
+    },
+    {
+      "code": "PD.34.004",
+      "parent_code": "PD.34",
+      "name": "Chứng khoán",
+      "kind": "de_muc",
+      "ordinal": 4
+    },
+    {
+      "code": "PD.34.005",
+      "parent_code": "PD.34",
+      "name": "Đấu thầu",
+      "kind": "de_muc",
+      "ordinal": 5
+    },
+    {
+      "code": "PD.34.006",
+      "parent_code": "PD.34",
+      "name": "Đầu tư",
+      "kind": "de_muc",
+      "ordinal": 6
+    },
+    {
+      "code": "PD.34.007",
+      "parent_code": "PD.34",
+      "name": "Đầu tư công",
+      "kind": "de_muc",
+      "ordinal": 7
+    },
+    {
+      "code": "PD.34.008",
+      "parent_code": "PD.34",
+      "name": "Khu công nghiệp, khu chế xuất và khu kinh tế",
+      "kind": "de_muc",
+      "ordinal": 8
+    },
+    {
+      "code": "PD.34.009",
+      "parent_code": "PD.34",
+      "name": "Lập, phê duyệt và quản lý quy hoạch tổng thể phát triển kinh tế - xã hội",
+      "kind": "de_muc",
+      "ordinal": 9
+    },
+    {
+      "code": "PD.34.010",
+      "parent_code": "PD.34",
+      "name": "Một số hoạt động kinh doanh đặc thù",
+      "kind": "de_muc",
+      "ordinal": 10
+    },
+    {
+      "code": "PD.34.011",
+      "parent_code": "PD.34",
+      "name": "Quản lý thị trường",
+      "kind": "de_muc",
+      "ordinal": 11
+    },
+    {
+      "code": "PD.34.012",
+      "parent_code": "PD.34",
+      "name": "Quy hoạch",
+      "kind": "de_muc",
+      "ordinal": 12
+    },
+    {
+      "code": "PD.34.013",
+      "parent_code": "PD.34",
+      "name": "Thương mại",
+      "kind": "de_muc",
+      "ordinal": 13
+    },
+    {
+      "code": "PD.34.014",
+      "parent_code": "PD.34",
+      "name": "Đầu tư theo phương thức đối tác công tư",
+      "kind": "de_muc",
+      "ordinal": 14
+    },
+    {
+      "code": "PD.35",
+      "parent_code": null,
+      "name": "Tổ chức bộ máy nhà nước",
+      "kind": "chu_de",
+      "ordinal": 35
+    },
+    {
+      "code": "PD.36",
+      "parent_code": null,
+      "name": "Tổ chức chính trị - xã hội, hội",
+      "kind": "chu_de",
+      "ordinal": 36
+    },
+    {
+      "code": "PD.37",
+      "parent_code": null,
+      "name": "Tố tụng và các phương thức giải quyết tranh chấp",
+      "kind": "chu_de",
+      "ordinal": 37
+    },
+    {
+      "code": "PD.38",
+      "parent_code": null,
+      "name": "Tôn giáo, tín ngưỡng",
+      "kind": "chu_de",
+      "ordinal": 38
+    },
+    {
+      "code": "PD.39",
+      "parent_code": null,
+      "name": "Trật tự, an toàn xã hội",
+      "kind": "chu_de",
+      "ordinal": 39
+    },
+    {
+      "code": "PD.40",
+      "parent_code": null,
+      "name": "Tương trợ tư pháp",
+      "kind": "chu_de",
+      "ordinal": 40
+    },
+    {
+      "code": "PD.41",
+      "parent_code": null,
+      "name": "Văn hóa, thể thao, du lịch",
+      "kind": "chu_de",
+      "ordinal": 41
+    },
+    {
+      "code": "PD.42",
+      "parent_code": null,
+      "name": "Văn thư lưu trữ",
+      "kind": "chu_de",
+      "ordinal": 42
+    },
+    {
+      "code": "PD.43",
+      "parent_code": null,
+      "name": "Xây dựng, nhà ở, đô thị",
+      "kind": "chu_de",
+      "ordinal": 43
+    },
+    {
+      "code": "PD.44",
+      "parent_code": null,
+      "name": "Xây dựng pháp luật và thi hành pháp luật",
+      "kind": "chu_de",
+      "ordinal": 44
+    },
+    {
+      "code": "PD.45",
+      "parent_code": null,
+      "name": "Y tế, dược",
+      "kind": "chu_de",
+      "ordinal": 45
+    },
+    {
+      "code": "NB.CNTT",
+      "parent_code": null,
+      "name": "Công nghệ thông tin và chuyển đổi số",
+      "kind": "nhanh_noi_bo",
+      "ordinal": 1
+    },
+    {
+      "code": "NB.CNTT.DTUD",
+      "parent_code": "NB.CNTT",
+      "name": "Đầu tư ứng dụng công nghệ thông tin sử dụng ngân sách nhà nước",
+      "kind": "nhanh_noi_bo",
+      "ordinal": 1
+    },
+    {
+      "code": "NB.CNTT.DTUD.PL",
+      "parent_code": "NB.CNTT.DTUD",
+      "name": "Phân loại hoạt động: dự án đầu tư hệ thống, dự án mua sắm, dự án thuê dịch vụ",
+      "kind": "nhanh_noi_bo",
+      "ordinal": 1
+    },
+    {
+      "code": "NB.CNTT.DTUD.CT",
+      "parent_code": "NB.CNTT.DTUD",
+      "name": "Chủ trương đầu tư",
+      "kind": "nhanh_noi_bo",
+      "ordinal": 2
+    },
+    {
+      "code": "NB.CNTT.DTUD.LDA",
+      "parent_code": "NB.CNTT.DTUD",
+      "name": "Lập dự án: báo cáo nghiên cứu khả thi, báo cáo kinh tế - kỹ thuật",
+      "kind": "nhanh_noi_bo",
+      "ordinal": 3
+    },
+    {
+      "code": "NB.CNTT.DTUD.TMDT",
+      "parent_code": "NB.CNTT.DTUD",
+      "name": "Tổng mức đầu tư và các khoản mục chi phí",
+      "kind": "nhanh_noi_bo",
+      "ordinal": 4
+    },
+    {
+      "code": "NB.CNTT.DTUD.CPPM",
+      "parent_code": "NB.CNTT.DTUD",
+      "name": "Chi phí xây dựng, phát triển phần mềm nội bộ",
+      "kind": "nhanh_noi_bo",
+      "ordinal": 5
+    },
+    {
+      "code": "NB.CNTT.DTUD.TD",
+      "parent_code": "NB.CNTT.DTUD",
+      "name": "Thẩm định, quyết định đầu tư dự án",
+      "kind": "nhanh_noi_bo",
+      "ordinal": 6
+    },
+    {
+      "code": "NB.CNTT.DTUD.TK",
+      "parent_code": "NB.CNTT.DTUD",
+      "name": "Thiết kế: một bước, hai bước, thiết kế cơ sở, thiết kế chi tiết",
+      "kind": "nhanh_noi_bo",
+      "ordinal": 7
+    },
+    {
+      "code": "NB.CNTT.DTUD.DT",
+      "parent_code": "NB.CNTT.DTUD",
+      "name": "Dự toán và thẩm định, phê duyệt dự toán",
+      "kind": "nhanh_noi_bo",
+      "ordinal": 8
+    },
+    {
+      "code": "NB.CNTT.DTUD.LCNT",
+      "parent_code": "NB.CNTT.DTUD",
+      "name": "Lựa chọn nhà thầu trong dự án công nghệ thông tin",
+      "kind": "nhanh_noi_bo",
+      "ordinal": 9
+    },
+    {
+      "code": "NB.CNTT.DTUD.TRK",
+      "parent_code": "NB.CNTT.DTUD",
+      "name": "Triển khai, giám sát triển khai, kiểm thử, vận hành thử",
+      "kind": "nhanh_noi_bo",
+      "ordinal": 10
+    },
+    {
+      "code": "NB.CNTT.DTUD.NT",
+      "parent_code": "NB.CNTT.DTUD",
+      "name": "Nghiệm thu, bàn giao, hồ sơ hoàn thành",
+      "kind": "nhanh_noi_bo",
+      "ordinal": 11
+    },
+    {
+      "code": "NB.CNTT.DTUD.BH",
+      "parent_code": "NB.CNTT.DTUD",
+      "name": "Bảo hành sản phẩm của dự án",
+      "kind": "nhanh_noi_bo",
+      "ordinal": 12
+    },
+    {
+      "code": "NB.CNTT.DTUD.QTVH",
+      "parent_code": "NB.CNTT.DTUD",
+      "name": "Quản trị, vận hành, bảo trì sau bàn giao",
+      "kind": "nhanh_noi_bo",
+      "ordinal": 13
+    },
+    {
+      "code": "NB.CNTT.DTUD.QT",
+      "parent_code": "NB.CNTT.DTUD",
+      "name": "Quyết toán vốn đầu tư dự án hoàn thành",
+      "kind": "nhanh_noi_bo",
+      "ordinal": 14
+    },
+    {
+      "code": "NB.CNTT.DTUD.QLDA",
+      "parent_code": "NB.CNTT.DTUD",
+      "name": "Tổ chức quản lý dự án và ban quản lý dự án",
+      "kind": "nhanh_noi_bo",
+      "ordinal": 15
+    },
+    {
+      "code": "NB.CNTT.DTUD.TV",
+      "parent_code": "NB.CNTT.DTUD",
+      "name": "Tư vấn đầu tư: phạm vi, trách nhiệm, chi phí tư vấn",
+      "kind": "nhanh_noi_bo",
+      "ordinal": 16
+    },
+    {
+      "code": "NB.CNTT.DTUD.KT",
+      "parent_code": "NB.CNTT.DTUD",
+      "name": "Cung cấp thông tin, kiểm tra, thanh tra, kiểm toán",
+      "kind": "nhanh_noi_bo",
+      "ordinal": 17
+    },
+    {
+      "code": "NB.CNTT.CTX",
+      "parent_code": "NB.CNTT",
+      "name": "Ứng dụng công nghệ thông tin sử dụng kinh phí chi thường xuyên",
+      "kind": "nhanh_noi_bo",
+      "ordinal": 2
+    },
+    {
+      "code": "NB.CNTT.CTX.NV",
+      "parent_code": "NB.CNTT.CTX",
+      "name": "Nhiệm vụ ứng dụng công nghệ thông tin",
+      "kind": "nhanh_noi_bo",
+      "ordinal": 1
+    },
+    {
+      "code": "NB.CNTT.CTX.DA",
+      "parent_code": "NB.CNTT.CTX",
+      "name": "Dự án ứng dụng công nghệ thông tin dùng chi thường xuyên",
+      "kind": "nhanh_noi_bo",
+      "ordinal": 2
+    },
+    {
+      "code": "NB.CNTT.CTX.MS",
+      "parent_code": "NB.CNTT.CTX",
+      "name": "Mua sắm trang thiết bị công nghệ thông tin",
+      "kind": "nhanh_noi_bo",
+      "ordinal": 3
+    },
+    {
+      "code": "NB.CNTT.TDV",
+      "parent_code": "NB.CNTT",
+      "name": "Thuê dịch vụ công nghệ thông tin",
+      "kind": "nhanh_noi_bo",
+      "ordinal": 3
+    },
+    {
+      "code": "NB.CNTT.TDV.SC",
+      "parent_code": "NB.CNTT.TDV",
+      "name": "Dịch vụ sẵn có trên thị trường",
+      "kind": "nhanh_noi_bo",
+      "ordinal": 1
+    },
+    {
+      "code": "NB.CNTT.TDV.KSC",
+      "parent_code": "NB.CNTT.TDV",
+      "name": "Dịch vụ không sẵn có trên thị trường",
+      "kind": "nhanh_noi_bo",
+      "ordinal": 2
+    },
+    {
+      "code": "NB.CNTT.TDV.CLDV",
+      "parent_code": "NB.CNTT.TDV",
+      "name": "Yêu cầu và giám sát chất lượng dịch vụ",
+      "kind": "nhanh_noi_bo",
+      "ordinal": 3
+    },
+    {
+      "code": "NB.CNTT.TDV.DL",
+      "parent_code": "NB.CNTT.TDV",
+      "name": "Sở hữu và chuyển giao thông tin, dữ liệu",
+      "kind": "nhanh_noi_bo",
+      "ordinal": 4
+    },
+    {
+      "code": "NB.CNTT.PM",
+      "parent_code": "NB.CNTT",
+      "name": "Phần mềm",
+      "kind": "nhanh_noi_bo",
+      "ordinal": 4
+    },
+    {
+      "code": "NB.CNTT.PM.NB",
+      "parent_code": "NB.CNTT.PM",
+      "name": "Phần mềm nội bộ",
+      "kind": "nhanh_noi_bo",
+      "ordinal": 1
+    },
+    {
+      "code": "NB.CNTT.PM.TM",
+      "parent_code": "NB.CNTT.PM",
+      "name": "Phần mềm thương mại",
+      "kind": "nhanh_noi_bo",
+      "ordinal": 2
+    },
+    {
+      "code": "NB.CNTT.PM.PB",
+      "parent_code": "NB.CNTT.PM",
+      "name": "Phần mềm phổ biến và danh mục công bố",
+      "kind": "nhanh_noi_bo",
+      "ordinal": 3
+    },
+    {
+      "code": "NB.CNTT.PM.NCMR",
+      "parent_code": "NB.CNTT.PM",
+      "name": "Nâng cấp, mở rộng phần mềm",
+      "kind": "nhanh_noi_bo",
+      "ordinal": 4
+    },
+    {
+      "code": "NB.CNTT.PM.YCKT",
+      "parent_code": "NB.CNTT.PM",
+      "name": "Mô tả yêu cầu kỹ thuật cần đáp ứng của phần mềm",
+      "kind": "nhanh_noi_bo",
+      "ordinal": 5
+    },
+    {
+      "code": "NB.CNTT.KT",
+      "parent_code": "NB.CNTT",
+      "name": "Kiến trúc và kết nối",
+      "kind": "nhanh_noi_bo",
+      "ordinal": 5
+    },
+    {
+      "code": "NB.CNTT.KT.KKT",
+      "parent_code": "NB.CNTT.KT",
+      "name": "Khung kiến trúc tổng thể quốc gia số",
+      "kind": "nhanh_noi_bo",
+      "ordinal": 1
+    },
+    {
+      "code": "NB.CNTT.KT.LT",
+      "parent_code": "NB.CNTT.KT",
+      "name": "Kết nối, liên thông, chia sẻ dữ liệu",
+      "kind": "nhanh_noi_bo",
+      "ordinal": 2
+    },
+    {
+      "code": "NB.CNTT.KT.IPV6",
+      "parent_code": "NB.CNTT.KT",
+      "name": "Yêu cầu về tính sẵn sàng với IPv6",
+      "kind": "nhanh_noi_bo",
+      "ordinal": 3
+    },
+    {
+      "code": "NB.CNTT.KT.DDX",
+      "parent_code": "NB.CNTT.KT",
+      "name": "Định danh và xác thực điện tử",
+      "kind": "nhanh_noi_bo",
+      "ordinal": 4
+    },
+    {
+      "code": "NB.CNTT.ATTT",
+      "parent_code": "NB.CNTT",
+      "name": "An toàn, an ninh thông tin",
+      "kind": "nhanh_noi_bo",
+      "ordinal": 6
+    },
+    {
+      "code": "NB.CNTT.ATTT.CD",
+      "parent_code": "NB.CNTT.ATTT",
+      "name": "Bảo đảm an toàn hệ thống thông tin theo cấp độ",
+      "kind": "nhanh_noi_bo",
+      "ordinal": 1
+    },
+    {
+      "code": "NB.CNTT.ATTT.DLCN",
+      "parent_code": "NB.CNTT.ATTT",
+      "name": "Bảo vệ dữ liệu cá nhân",
+      "kind": "nhanh_noi_bo",
+      "ordinal": 2
+    },
+    {
+      "code": "NB.CNTT.ATTT.SC",
+      "parent_code": "NB.CNTT.ATTT",
+      "name": "Ứng cứu sự cố, giám sát an toàn thông tin",
+      "kind": "nhanh_noi_bo",
+      "ordinal": 3
+    },
+    {
+      "code": "NB.CNTT.DL",
+      "parent_code": "NB.CNTT",
+      "name": "Dữ liệu",
+      "kind": "nhanh_noi_bo",
+      "ordinal": 7
+    },
+    {
+      "code": "NB.CNTT.DL.CSDL",
+      "parent_code": "NB.CNTT.DL",
+      "name": "Xây dựng cơ sở dữ liệu",
+      "kind": "nhanh_noi_bo",
+      "ordinal": 1
+    },
+    {
+      "code": "NB.CNTT.DL.CDS",
+      "parent_code": "NB.CNTT.DL",
+      "name": "Chuẩn hóa, chuyển đổi, nhập dữ liệu",
+      "kind": "nhanh_noi_bo",
+      "ordinal": 2
+    },
+    {
+      "code": "NB.CNTT.DL.QG",
+      "parent_code": "NB.CNTT.DL",
+      "name": "Cơ sở dữ liệu quốc gia và kết nối",
+      "kind": "nhanh_noi_bo",
+      "ordinal": 3
+    },
+    {
+      "code": "NB.CNTT.TN",
+      "parent_code": "NB.CNTT",
+      "name": "Thử nghiệm sản phẩm chưa sẵn có trên thị trường",
+      "kind": "nhanh_noi_bo",
+      "ordinal": 8
+    },
+    {
+      "code": "NB.DTC",
+      "parent_code": null,
+      "name": "Đầu tư công",
+      "kind": "nhanh_noi_bo",
+      "ordinal": 2
+    },
+    {
+      "code": "NB.DTC.KH",
+      "parent_code": "NB.DTC",
+      "name": "Kế hoạch đầu tư công trung hạn và hằng năm",
+      "kind": "nhanh_noi_bo",
+      "ordinal": 1
+    },
+    {
+      "code": "NB.DTC.CT",
+      "parent_code": "NB.DTC",
+      "name": "Chủ trương đầu tư chương trình, dự án",
+      "kind": "nhanh_noi_bo",
+      "ordinal": 2
+    },
+    {
+      "code": "NB.DTC.PL",
+      "parent_code": "NB.DTC",
+      "name": "Phân loại dự án: quan trọng quốc gia, nhóm A, nhóm B, nhóm C",
+      "kind": "nhanh_noi_bo",
+      "ordinal": 3
+    },
+    {
+      "code": "NB.DTC.TQ",
+      "parent_code": "NB.DTC",
+      "name": "Thẩm quyền quyết định chủ trương đầu tư và quyết định đầu tư",
+      "kind": "nhanh_noi_bo",
+      "ordinal": 4
+    },
+    {
+      "code": "NB.DTC.TD",
+      "parent_code": "NB.DTC",
+      "name": "Thẩm định dự án và hội đồng thẩm định",
+      "kind": "nhanh_noi_bo",
+      "ordinal": 5
+    },
+    {
+      "code": "NB.DTC.DC",
+      "parent_code": "NB.DTC",
+      "name": "Điều chỉnh chương trình, dự án",
+      "kind": "nhanh_noi_bo",
+      "ordinal": 6
+    },
+    {
+      "code": "NB.DTC.GN",
+      "parent_code": "NB.DTC",
+      "name": "Giao, điều chỉnh, giải ngân kế hoạch vốn",
+      "kind": "nhanh_noi_bo",
+      "ordinal": 7
+    },
+    {
+      "code": "NB.DTC.GS",
+      "parent_code": "NB.DTC",
+      "name": "Giám sát, đánh giá đầu tư",
+      "kind": "nhanh_noi_bo",
+      "ordinal": 8
+    },
+    {
+      "code": "NB.DT",
+      "parent_code": null,
+      "name": "Đấu thầu",
+      "kind": "nhanh_noi_bo",
+      "ordinal": 3
+    },
+    {
+      "code": "NB.DT.KHLCNT",
+      "parent_code": "NB.DT",
+      "name": "Kế hoạch lựa chọn nhà thầu",
+      "kind": "nhanh_noi_bo",
+      "ordinal": 1
+    },
+    {
+      "code": "NB.DT.HT",
+      "parent_code": "NB.DT",
+      "name": "Hình thức và phương thức lựa chọn nhà thầu",
+      "kind": "nhanh_noi_bo",
+      "ordinal": 2
+    },
+    {
+      "code": "NB.DT.HSMT",
+      "parent_code": "NB.DT",
+      "name": "Hồ sơ mời thầu, hồ sơ yêu cầu",
+      "kind": "nhanh_noi_bo",
+      "ordinal": 3
+    },
+    {
+      "code": "NB.DT.DGHS",
+      "parent_code": "NB.DT",
+      "name": "Đánh giá hồ sơ dự thầu và thương thảo",
+      "kind": "nhanh_noi_bo",
+      "ordinal": 4
+    },
+    {
+      "code": "NB.DT.HD",
+      "parent_code": "NB.DT",
+      "name": "Hợp đồng và quản lý thực hiện hợp đồng",
+      "kind": "nhanh_noi_bo",
+      "ordinal": 5
+    },
+    {
+      "code": "NB.DT.DTQM",
+      "parent_code": "NB.DT",
+      "name": "Đấu thầu qua mạng",
+      "kind": "nhanh_noi_bo",
+      "ordinal": 6
+    },
+    {
+      "code": "NB.DT.KN",
+      "parent_code": "NB.DT",
+      "name": "Kiến nghị, xử lý vi phạm trong đấu thầu",
+      "kind": "nhanh_noi_bo",
+      "ordinal": 7
+    },
+    {
+      "code": "NB.NSNN",
+      "parent_code": null,
+      "name": "Ngân sách nhà nước và tài chính công",
+      "kind": "nhanh_noi_bo",
+      "ordinal": 4
+    },
+    {
+      "code": "NB.NSNN.PC",
+      "parent_code": "NB.NSNN",
+      "name": "Phân cấp nguồn thu, nhiệm vụ chi",
+      "kind": "nhanh_noi_bo",
+      "ordinal": 1
+    },
+    {
+      "code": "NB.NSNN.DT",
+      "parent_code": "NB.NSNN",
+      "name": "Lập, chấp hành dự toán ngân sách",
+      "kind": "nhanh_noi_bo",
+      "ordinal": 2
+    },
+    {
+      "code": "NB.NSNN.CDT",
+      "parent_code": "NB.NSNN",
+      "name": "Chi đầu tư phát triển",
+      "kind": "nhanh_noi_bo",
+      "ordinal": 3
+    },
+    {
+      "code": "NB.NSNN.CTX",
+      "parent_code": "NB.NSNN",
+      "name": "Chi thường xuyên",
+      "kind": "nhanh_noi_bo",
+      "ordinal": 4
+    },
+    {
+      "code": "NB.NSNN.TQT",
+      "parent_code": "NB.NSNN",
+      "name": "Thanh toán, quyết toán vốn đầu tư công",
+      "kind": "nhanh_noi_bo",
+      "ordinal": 5
+    },
+    {
+      "code": "NB.NSNN.TSC",
+      "parent_code": "NB.NSNN",
+      "name": "Quản lý, sử dụng tài sản công là sản phẩm công nghệ thông tin",
+      "kind": "nhanh_noi_bo",
+      "ordinal": 6
+    },
+    {
+      "code": "NB.KHCN",
+      "parent_code": null,
+      "name": "Khoa học, công nghệ và đổi mới sáng tạo",
+      "kind": "nhanh_noi_bo",
+      "ordinal": 5
+    },
+    {
+      "code": "NB.KHCN.NV",
+      "parent_code": "NB.KHCN",
+      "name": "Nhiệm vụ khoa học và công nghệ sử dụng ngân sách nhà nước",
+      "kind": "nhanh_noi_bo",
+      "ordinal": 1
+    },
+    {
+      "code": "NB.KHCN.XDNV",
+      "parent_code": "NB.KHCN",
+      "name": "Xác định, tuyển chọn, giao trực tiếp nhiệm vụ",
+      "kind": "nhanh_noi_bo",
+      "ordinal": 2
+    },
+    {
+      "code": "NB.KHCN.KP",
+      "parent_code": "NB.KHCN",
+      "name": "Quản lý kinh phí nhiệm vụ khoa học và công nghệ",
+      "kind": "nhanh_noi_bo",
+      "ordinal": 3
+    },
+    {
+      "code": "NB.KHCN.NTKQ",
+      "parent_code": "NB.KHCN",
+      "name": "Đánh giá, nghiệm thu và đăng ký kết quả",
+      "kind": "nhanh_noi_bo",
+      "ordinal": 4
+    },
+    {
+      "code": "NB.KHCN.UD",
+      "parent_code": "NB.KHCN",
+      "name": "Ứng dụng, chuyển giao kết quả nghiên cứu",
+      "kind": "nhanh_noi_bo",
+      "ordinal": 5
+    },
+    {
+      "code": "NB.DP",
+      "parent_code": null,
+      "name": "Văn bản của chính quyền địa phương",
+      "kind": "nhanh_noi_bo",
+      "ordinal": 6
+    },
+    {
+      "code": "NB.DP.PCDT",
+      "parent_code": "NB.DP",
+      "name": "Phân cấp thẩm quyền quyết định đầu tư ở địa phương",
+      "kind": "nhanh_noi_bo",
+      "ordinal": 1
+    },
+    {
+      "code": "NB.DP.DM",
+      "parent_code": "NB.DP",
+      "name": "Định mức chi và đơn giá của địa phương",
+      "kind": "nhanh_noi_bo",
+      "ordinal": 2
+    },
+    {
+      "code": "NB.DP.TH",
+      "parent_code": "NB.DP",
+      "name": "Văn bản của tỉnh Thanh Hóa",
+      "kind": "nhanh_noi_bo",
+      "ordinal": 3
+    },
+    {
+      "code": "NB.BHVB",
+      "parent_code": null,
+      "name": "Ban hành văn bản quy phạm pháp luật",
+      "kind": "nhanh_noi_bo",
+      "ordinal": 7
+    },
+    {
+      "code": "NB.BHVB.TB",
+      "parent_code": "NB.BHVB",
+      "name": "Hệ thống và thứ bậc hiệu lực văn bản",
+      "kind": "nhanh_noi_bo",
+      "ordinal": 1
+    },
+    {
+      "code": "NB.BHVB.HL",
+      "parent_code": "NB.BHVB",
+      "name": "Hiệu lực, ngưng hiệu lực, hết hiệu lực",
+      "kind": "nhanh_noi_bo",
+      "ordinal": 2
+    },
+    {
+      "code": "NB.BHVB.HN",
+      "parent_code": "NB.BHVB",
+      "name": "Hợp nhất văn bản quy phạm pháp luật",
+      "kind": "nhanh_noi_bo",
+      "ordinal": 3
+    },
+    {
+      "code": "NB.BHVB.KTTB",
+      "parent_code": "NB.BHVB",
+      "name": "Kỹ thuật trình bày và bố cục văn bản",
+      "kind": "nhanh_noi_bo",
+      "ordinal": 4
+    },
+    {
+      "code": "NB.BHVB.AD",
+      "parent_code": "NB.BHVB",
+      "name": "Nguyên tắc áp dụng khi có xung đột",
+      "kind": "nhanh_noi_bo",
+      "ordinal": 5
+    },
+    {
+      "code": "NB.BHVB.PD",
+      "parent_code": "NB.BHVB",
+      "name": "Pháp điển hệ thống quy phạm pháp luật",
+      "kind": "nhanh_noi_bo",
+      "ordinal": 6
+    }
+  ]
+}

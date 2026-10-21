@@ -1,0 +1,29 @@
+{
+  "tieu_de": "So sánh phiên bản",
+  "tom_tat": "Đối chiếu hai phiên bản của một văn bản theo từng điều, khoản, với phần thêm và phần bị bỏ được tô màu.",
+  "routes": ["routes/compare.tsx"],
+  "anh": [
+    {
+      "ten": "so-sanh-tong-hop",
+      "chu_thich": "Tổng hợp thay đổi giữa hai phiên bản",
+      "url": "/so-sanh?urn=vn:vbqppl:nd:100/2026/NĐ-CP&a=v1&b=v2",
+      "vung": "div:has(> h1:text('So sánh phiên bản'))",
+      "danh_dau": [
+        { "o": "h1:text('So sánh phiên bản') + p", "ghi_chu": "Văn bản và hai phiên bản so sánh", "huong": "phai" },
+        { "o": "p:has(> span:text('nút được bổ sung'))", "ghi_chu": "Số điều, khoản thay đổi", "huong": "phai" },
+        { "o": "p:has(> span.diff-add)", "ghi_chu": "Chú giải màu", "huong": "phai" }
+      ]
+    },
+    {
+      "ten": "so-sanh-dieu-khoan",
+      "chu_thich": "Khác biệt trong một điều, khoản",
+      "url": "/so-sanh?urn=vn:vbqppl:nd:100/2026/NĐ-CP&a=v1&b=v2",
+      "vung": "h1:text('So sánh phiên bản') ~ ol > li >> nth=0",
+      "danh_dau": [
+        { "o": "h1:text('So sánh phiên bản') ~ ol > li >> nth=0 >> h2", "ghi_chu": "Điều, khoản được so sánh", "huong": "duoi" },
+        { "o": "h1:text('So sánh phiên bản') ~ ol > li >> nth=0 >> h2 + span", "ghi_chu": "Loại thay đổi", "huong": "duoi" },
+        { "o": "h1:text('So sánh phiên bản') ~ ol > li >> nth=0 >> role=link[name='Xem trong văn bản']", "ghi_chu": "Mở vị trí trong toàn văn", "huong": "trai" }
+      ]
+    }
+  ]
+}

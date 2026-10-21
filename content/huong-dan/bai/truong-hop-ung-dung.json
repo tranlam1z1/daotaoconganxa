@@ -1,0 +1,17 @@
+{
+  "tieu_de": "Trường hợp ứng dụng",
+  "tom_tat": "Danh sách tình huống áp dụng quy định, kèm tình trạng hiệu lực của căn cứ và lối tra cứu căn cứ liên quan.",
+  "routes": ["routes/usecases.tsx"],
+  "anh": [
+    {
+      "ten": "ung-dung-danh-sach",
+      "chu_thich": "Trang Trường hợp ứng dụng",
+      "url": "/ung-dung",
+      "vung": "main",
+      "danh_dau": [
+        { "o": "main h1 + p", "ghi_chu": "Thông tin nêu trong mỗi tình huống", "huong": "phai" },
+        { "o": "main :is(ul > li:first-child, p.text-center)", "ghi_chu": "Danh sách tình huống", "huong": "duoi" }
+      ]
+    }
+  ]
+}

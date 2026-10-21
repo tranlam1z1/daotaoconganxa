@@ -1,0 +1,84 @@
+<!doctype html>
+<!--
+  Trang dự phòng khi mất mạng (docs/PLAN.md GĐ13). Service worker (sw.js) trả trang này cho mọi
+  trang cần mạng, ví dụ Thi và Hỏi đáp AI. Trang tĩnh, không chạy React: trang của ứng dụng cần
+  dữ liệu máy chủ nên không dựng được khi mất mạng.
+-->
+<html lang="vi">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+    <meta name="theme-color" content="#c8201a" />
+    <title>Cần có mạng | Quy định Pháp luật</title>
+    <link rel="manifest" href="/manifest.webmanifest" />
+    <link rel="icon" type="image/svg+xml" href="/logo.svg?v=3" />
+    <link rel="icon" type="image/png" href="/icons/icon-192.png?v=3" />
+    <style>
+      :root {
+        color-scheme: light dark;
+        --canvas: #f7f5f0;
+        --surface: #ffffff;
+        --ink: #1b1d22;
+        --ink-2: #4a4f5a;
+        --line: #dcd8cf;
+        --primary: #c8201a;
+        --on-primary: #ffffff;
+        --seal: #da251d;
+      }
+      @media (prefers-color-scheme: dark) {
+        :root {
+          --canvas: #111317;
+          --surface: #1b1e24;
+          --ink: #eceae4;
+          --ink-2: #b7b4ac;
+          --line: #33363e;
+          --primary: #ff7a70;
+          --on-primary: #1a0b0a;
+          --seal: #ff6b62;
+        }
+      }
+      * { box-sizing: border-box; }
+      body {
+        margin: 0;
+        background: var(--canvas);
+        color: var(--ink);
+        font: 16px/1.6 "Be Vietnam Pro", system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+      }
+      main { max-width: 34rem; margin: 0 auto; padding: 48px 16px; }
+      .dau { display: block; width: 56px; height: 56px; }
+      h1 { margin: 24px 0 8px; font-size: 28px; line-height: 1.25; }
+      p { margin: 0 0 12px; color: var(--ink-2); }
+      .nut {
+        display: flex; align-items: center; justify-content: center; min-height: 48px; margin-top: 12px;
+        padding: 0 16px; border-radius: 10px; font-weight: 600; text-decoration: none; font-size: 16px;
+        border: 1px solid var(--line); background: var(--surface); color: var(--ink); width: 100%; cursor: pointer;
+      }
+      .nut.chinh { background: var(--primary); color: var(--on-primary); border-color: var(--primary); }
+    </style>
+  </head>
+  <body>
+    <main>
+      <!-- Logo nhúng thẳng (bản gốc: logo.svg) để hiện được khi mất mạng mà không cần cache. -->
+      <svg class="dau" viewBox="0 0 120 120" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+        <path d="M60 8 L104 22 V58 C104 86 84 104 60 114 C36 104 16 86 16 58 V22 Z" fill="#DA251D"/>
+        <path d="M60 15 L97 27 V58 C97 82 80 98 60 107 C40 98 23 82 23 58 V27 Z" fill="none" stroke="#FFFF00" stroke-width="2.5"/>
+        <polygon points="60,27 63.06,35.79 72.36,35.98 64.95,41.61 67.64,50.52 60,45.2 52.36,50.52 55.05,41.61 47.64,35.98 56.94,35.79" fill="#FFFF00"/>
+        <path d="M32 62 Q46 56 58 63 V91 Q46 85 32 90 Z" fill="#FFFFFF"/>
+        <path d="M62 63 Q74 56 88 62 V90 Q74 85 62 91 Z" fill="#FFFFFF"/>
+        <path d="M38 69 Q46 66 53 70 M38 76 Q46 73 53 77 M67 70 Q74 66 82 69 M67 77 Q74 73 82 76" stroke="#DA251D" stroke-width="1.6" fill="none" stroke-linecap="round"/>
+      </svg>
+      <h1>Cần có mạng</h1>
+      <p>
+        Trang này cần kết nối mạng, ví dụ thi sát hạch, hỏi đáp AI và tra cứu văn bản. Hãy kiểm tra Wi-Fi hoặc dữ
+        liệu di động rồi thử lại.
+      </p>
+      <p>Trong lúc chờ, bạn vẫn luyện tập được các chủ đề đã tải về máy.</p>
+      <a class="nut chinh" href="/luyen-tap/offline">Luyện tập không cần mạng</a>
+      <button class="nut" type="button" onclick="location.reload()">Thử lại</button>
+    </main>
+    <script>
+      // Có mạng lại thì tự mở lại trang người dùng định vào.
+      window.addEventListener("online", () => location.reload());
+    </script>
+  </body>
+</html>

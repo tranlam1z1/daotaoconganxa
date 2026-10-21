@@ -1,0 +1,211 @@
+slug: uc-cntt-0010-chi-thuong-xuyen-hay-dau-tu-cong
+title: Xác định hoạt động ứng dụng công nghệ thông tin dùng vốn đầu tư công hay kinh phí chi thường xuyên
+
+taxonomy_codes: [PD.03.003, PD.26.003, PD.34.007, NB.CNTT.CTX, NB.NSNN.PC]
+actor_kinds: [co_quan_nha_nuoc, don_vi_su_nghiep]
+work_kinds: [lap_ke_hoach_du_an, nghia_vu_tuan_thu]
+
+as_of: 2026-06-01
+effectivity_note: >-
+  Gán nhãn tại 01/6/2026. Từ 01/7/2026, quy định tương ứng nằm tại Điều 65, Điều 66 và Điều 67 Nghị
+  định số 224/2026/NĐ-CP. Nghị định mới quy định chi tiết hơn nhiều: khoản 1 Điều 65 liệt kê sáu nhóm
+  hoạt động không phải lập dự án hoặc kế hoạch thuê.
+
+situation: |
+  Một sở chuyên môn của tỉnh T có bốn nhu cầu trong năm ngân sách:
+
+  1. Mua 40 máy tính để bàn thay thế máy đã hết khấu hao, tổng giá trị 800 triệu đồng.
+  2. Gia hạn bản quyền phần mềm diệt vi rút cho toàn sở, 150 triệu đồng một năm.
+  3. Xây dựng mới một phần mềm quản lý hồ sơ chuyên ngành kèm cơ sở dữ liệu, 4,5 tỷ đồng.
+  4. Thuê dịch vụ lưu trữ đám mây cho hệ thống hiện có, 300 triệu đồng một năm, dự kiến thuê 03 năm.
+
+  Sở hỏi từng nhu cầu dùng nguồn vốn nào, phải lập dự án hay không, và trình tự áp dụng ra sao.
+
+questions:
+  - Từng nhu cầu thuộc nhóm vốn đầu tư công hay kinh phí chi thường xuyên?
+  - Nhu cầu nào phải thực hiện theo hình thức dự án?
+  - Trình tự và thời hạn thẩm định của hoạt động dùng kinh phí chi thường xuyên là bao lâu?
+
+analysis:
+  - step: 1
+    claim: >-
+      Nghị định phân hai chế độ quản lý theo nguồn vốn: hoạt động dùng vốn ngân sách nhà nước chi cho
+      đầu tư công theo Chương II, hoạt động dùng kinh phí chi thường xuyên theo Chương III.
+    citations:
+      - vn:vbqppl:nd:45/2026/NĐ-CP#dieu-1.khoan-1@2026-03-01
+      - vn:vbqppl:nd:45/2026/NĐ-CP#dieu-32@2026-03-01
+    quote: ""
+    reasoning: >-
+      Khoản 1 Điều 1 nêu hai nhóm thuộc phạm vi điều chỉnh. Điều 32 đến Điều 34 là chế độ dành riêng
+      cho hoạt động dùng kinh phí chi thường xuyên. Xác định đúng nguồn vốn là bước đầu tiên, vì nó
+      quyết định toàn bộ trình tự phía sau, kể cả có bước chủ trương đầu tư hay không.
+
+  - step: 2
+    claim: >-
+      Việc xác định một hoạt động dùng vốn đầu tư công hay kinh phí chi thường xuyên do bản chất hoạt
+      động và pháp luật về ngân sách nhà nước quyết định, không do mong muốn về thủ tục quyết định.
+    citations: []
+    quote: ""
+    reasoning: >-
+      Nghị định số 45/2026/NĐ-CP quy định **cách quản lý** theo từng nguồn vốn, nhưng **tiêu chí phân
+      định** nguồn vốn thuộc pháp luật về ngân sách nhà nước và pháp luật về đầu tư công.
+      `[CẦN ĐỐI CHIẾU: quy định của Luật Ngân sách nhà nước số 89/2025/QH15 về nhiệm vụ chi đầu tư
+      phát triển và nhiệm vụ chi thường xuyên; quy định của Luật Đầu tư công số 58/2024/QH15 về phạm
+      vi đầu tư công]`
+
+  - step: 3
+    claim: >-
+      Việc xây dựng mới phần mềm kèm cơ sở dữ liệu là hoạt động đầu tư hệ thống, thuộc trường hợp phải
+      thực hiện theo hình thức dự án.
+    citations:
+      - vn:vbqppl:nd:45/2026/NĐ-CP#dieu-3@2026-03-01
+      - vn:vbqppl:nd:45/2026/NĐ-CP#dieu-7.khoan-1@2026-03-01
+    quote: ""
+    reasoning: >-
+      Nhu cầu thứ ba có đủ dấu hiệu của khoản 5 Điều 3: xây dựng, phát triển phần mềm và cơ sở dữ liệu
+      theo yêu cầu riêng. Nếu bố trí từ vốn đầu tư công thì áp dụng Chương II và là dự án đầu tư hệ
+      thống theo điểm a khoản 1 Điều 7; nếu bố trí từ kinh phí chi thường xuyên thì áp dụng Điều 33 về
+      quản lý dự án ứng dụng công nghệ thông tin sử dụng kinh phí chi thường xuyên.
+
+  - step: 4
+    claim: >-
+      Với hoạt động dùng kinh phí chi thường xuyên thực hiện theo hình thức dự án, tổng thời gian thẩm
+      định dự án không quá 20 ngày làm việc, thẩm định thiết kế không quá 10 ngày làm việc, phê duyệt
+      không quá 03 ngày làm việc.
+    citations:
+      - vn:vbqppl:nd:45/2026/NĐ-CP#dieu-33.khoan-5@2026-03-01
+    quote: ""
+    reasoning: >-
+      Khoản 5 đến khoản 9 Điều 33 quy định trình tự và thời hạn thẩm định cho dự án dùng kinh phí chi
+      thường xuyên. Điểm khác biệt lớn so với Chương II: **không có bước chủ trương đầu tư** theo Luật
+      Đầu tư công. `[CẦN ĐỐI CHIẾU: nguyên văn khoản 5 đến khoản 9 Điều 33 Nghị định số 45/2026/NĐ-CP
+      để xác định chính xác nội dung từng bước]`
+
+  - step: 5
+    claim: >-
+      Nội dung báo cáo nghiên cứu khả thi của dự án dùng kinh phí chi thường xuyên được quy định riêng
+      tại khoản 4 Điều 33, gồm 13 điểm.
+    citations:
+      - vn:vbqppl:nd:45/2026/NĐ-CP#dieu-33.khoan-4@2026-03-01
+    quote: ""
+    reasoning: >-
+      Khoản 4 Điều 33 liệt kê 13 điểm từ a đến m, khác với Điều 12 áp dụng cho dự án dùng vốn đầu tư
+      công. Đây là điểm nhiều đơn vị bỏ sót, dùng nhầm khung nội dung của Điều 12.
+      `[CẦN ĐỐI CHIẾU: nguyên văn 13 điểm a đến m khoản 4 Điều 33 Nghị định số 45/2026/NĐ-CP]`
+
+  - step: 6
+    claim: >-
+      Thuê dịch vụ công nghệ thông tin không sẵn có trên thị trường có chế độ quản lý riêng tại Điều 34.
+    citations:
+      - vn:vbqppl:nd:45/2026/NĐ-CP#dieu-34@2026-03-01
+      - vn:vbqppl:nd:45/2026/NĐ-CP#dieu-3@2026-03-01
+    quote: ""
+    reasoning: >-
+      Phải phân biệt dịch vụ **sẵn có** trên thị trường (khoản 2 Điều 3) với dịch vụ **không sẵn có**
+      (khoản 3 Điều 3). Dịch vụ lưu trữ đám mây là dịch vụ được nhà cung cấp phát triển và cung cấp
+      rộng rãi cho nhiều khách hàng, nên thuộc nhóm sẵn có; không áp dụng Điều 34.
+
+conclusion: |
+  **Nhu cầu 1 — mua 40 máy tính thay thế (800 triệu đồng)**: là mua dự phòng, thay thế thiết bị phần
+  cứng. Nếu bố trí từ kinh phí chi thường xuyên thì áp dụng Điều 32, không phải lập dự án. Nếu bố trí
+  từ vốn đầu tư công thì là dự án mua sắm theo điểm b khoản 1 Điều 7, không có bước thiết kế.
+
+  **Nhu cầu 2 — gia hạn bản quyền phần mềm diệt vi rút (150 triệu đồng một năm)**: là mua phần mềm
+  thương mại, thường bố trí từ kinh phí chi thường xuyên theo Điều 32, không phải lập dự án.
+
+  **Nhu cầu 3 — xây dựng mới phần mềm kèm cơ sở dữ liệu (4,5 tỷ đồng)**: có đủ dấu hiệu của khoản 5
+  Điều 3, phải thực hiện theo **hình thức dự án**. Nếu dùng vốn đầu tư công thì là dự án đầu tư hệ
+  thống theo Chương II, có bước chủ trương đầu tư; nếu dùng kinh phí chi thường xuyên thì áp dụng
+  Điều 33, không có bước chủ trương đầu tư, nội dung báo cáo nghiên cứu khả thi theo khoản 4 Điều 33.
+
+  **Nhu cầu 4 — thuê dịch vụ lưu trữ đám mây (300 triệu đồng một năm, 03 năm)**: là dịch vụ công nghệ
+  thông tin **sẵn có** trên thị trường theo khoản 2 Điều 3, không áp dụng Điều 34 vốn dành cho dịch
+  vụ không sẵn có.
+
+  **Nguyên tắc chung**: việc một hoạt động dùng vốn đầu tư công hay kinh phí chi thường xuyên do bản
+  chất hoạt động và pháp luật về ngân sách nhà nước quyết định, không do mong muốn rút ngắn thủ tục
+  quyết định. Chọn nguồn vốn để né trình tự là hành vi bị công tác kiểm tra theo Điều 36 xem xét.
+
+procedure:
+  - order: 1
+    step: Với mỗi nhu cầu, xác định bản chất hoạt động và đối chiếu với khoản 5 Điều 3
+    authority: Chủ đầu tư
+    timeline: Khi lập kế hoạch năm
+    inputs: [Mô tả nhu cầu, Dự kiến giá trị]
+    outputs: [Phiếu xác định bản chất hoạt động]
+    citations: [vn:vbqppl:nd:45/2026/NĐ-CP#dieu-3@2026-03-01]
+    templates: []
+    needs_citation: false
+  - order: 2
+    step: Xác định nguồn vốn theo pháp luật về ngân sách nhà nước và pháp luật về đầu tư công
+    authority: Chủ đầu tư phối hợp cơ quan tài chính
+    timeline: Khi lập kế hoạch năm
+    inputs: [Phiếu xác định bản chất hoạt động]
+    outputs: [Kết luận về nguồn vốn]
+    citations: []
+    templates: []
+    needs_citation: true
+  - order: 3
+    step: Chọn chương áp dụng và xác định có phải thực hiện theo hình thức dự án hay không
+    authority: Chủ đầu tư
+    timeline: Trước khi lập hồ sơ
+    inputs: [Kết luận về nguồn vốn]
+    outputs: [Phiếu xác định lối đi pháp lý]
+    citations:
+      - vn:vbqppl:nd:45/2026/NĐ-CP#dieu-7.khoan-1@2026-03-01
+      - vn:vbqppl:nd:45/2026/NĐ-CP#dieu-32@2026-03-01
+      - vn:vbqppl:nd:45/2026/NĐ-CP#dieu-33@2026-03-01
+    templates: []
+    needs_citation: false
+  - order: 4
+    step: >-
+      Với hoạt động phải lập dự án dùng kinh phí chi thường xuyên, lập báo cáo nghiên cứu khả thi theo
+      khoản 4 Điều 33 và trình thẩm định
+    authority: Chủ đầu tư
+    timeline: >-
+      Thẩm định dự án không quá 20 ngày làm việc; thẩm định thiết kế không quá 10 ngày làm việc; phê
+      duyệt không quá 03 ngày làm việc
+    inputs: [Hồ sơ trình]
+    outputs: [Báo cáo thẩm định, Quyết định phê duyệt]
+    citations:
+      - vn:vbqppl:nd:45/2026/NĐ-CP#dieu-33.khoan-4@2026-03-01
+      - vn:vbqppl:nd:45/2026/NĐ-CP#dieu-33.khoan-5@2026-03-01
+    templates: []
+    needs_citation: false
+
+risks:
+  - risk: Chọn nguồn vốn theo mong muốn về thủ tục thay vì theo bản chất hoạt động
+    consequence: Bị kết luận sử dụng sai nguồn kinh phí; xuất toán và xử lý trách nhiệm
+    mitigation: Xác định bản chất hoạt động trước, rồi mới xác định nguồn vốn; ghi rõ lập luận vào hồ sơ
+    citations: [vn:vbqppl:nd:45/2026/NĐ-CP#dieu-36@2026-03-01]
+  - risk: Dùng khung nội dung báo cáo nghiên cứu khả thi của Điều 12 cho dự án dùng kinh phí chi thường xuyên
+    consequence: Thiếu nội dung theo khoản 4 Điều 33; hồ sơ bị trả lại
+    mitigation: Đối chiếu đủ 13 điểm tại khoản 4 Điều 33 khi dự án dùng kinh phí chi thường xuyên
+    citations: [vn:vbqppl:nd:45/2026/NĐ-CP#dieu-33.khoan-4@2026-03-01]
+  - risk: Nhầm dịch vụ sẵn có với dịch vụ không sẵn có trên thị trường
+    consequence: Áp dụng thừa hoặc thiếu trình tự tại Điều 34
+    mitigation: Đối chiếu với định nghĩa tại khoản 2 và khoản 3 Điều 3 trước khi kết luận
+    citations: [vn:vbqppl:nd:45/2026/NĐ-CP#dieu-3@2026-03-01]
+  - risk: Gộp nhiều nhu cầu khác bản chất vào một hồ sơ để đơn giản hóa thủ tục
+    consequence: Hồ sơ không xác định được chế độ áp dụng; bị trả lại toàn bộ
+    mitigation: Tách theo bản chất hoạt động và theo nguồn vốn, mỗi nhóm một lối đi pháp lý
+    citations: [vn:vbqppl:nd:45/2026/NĐ-CP#dieu-7.khoan-1@2026-03-01]
+
+related_questions:
+  - Hoạt động nào không phải lập dự án hay kế hoạch thuê?
+  - Dịch vụ sẵn có và không sẵn có trên thị trường khác nhau thế nào?
+  - Chi phí quản trị, vận hành, bảo trì lấy từ nguồn nào?
+
+gaps:
+  - what: Tiêu chí phân định nhiệm vụ chi đầu tư phát triển với nhiệm vụ chi thường xuyên
+    why: Đây là căn cứ gốc để xác định nguồn vốn, nằm ngoài nghị định chuyên ngành
+    suggested_source: Luật Ngân sách nhà nước số 89/2025/QH15; Luật Đầu tư công số 58/2024/QH15
+  - what: Nguyên văn khoản 4 đến khoản 9 Điều 33 Nghị định số 45/2026/NĐ-CP
+    why: Cần để liệt kê chính xác 13 điểm nội dung báo cáo nghiên cứu khả thi và từng bước thẩm định
+    suggested_source: Toàn văn Nghị định số 45/2026/NĐ-CP
+
+status: draft
+citation_health: ok
+author: Tổ biên soạn nội dung quydinhphapluat.vn
+legal_reviewer: null
+reviewed_at: null

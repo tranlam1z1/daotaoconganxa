@@ -1,0 +1,89 @@
+{
+  "_ghi_chu": "Bộ tiêu chí chấm của trò Dựng chốt an toàn ban đêm (GĐ-T15, GAME_DESIGN §5.15). DỮ LIỆU DEMO: mọi ngưỡng là số minh họa do hệ thống đề xuất, chưa có căn cứ. Chưa tra được kho văn bản (MCP quydinhphapluat không kết nối được ngày 29/9/2026); QCVN 41:2024/BGTVT ghi 'chưa có trong kho' theo trò 3. Vị trí đứng, tác phong của chiến sĩ là tài liệu nghiệp vụ do đơn vị cung cấp. Nạp ở trạng thái chờ duyệt.",
+  "tieu_chi": [
+    {
+      "ma": "TCC-DEMO-THANG",
+      "tieu_de": "[Demo] Tiêu chí chốt đêm: đường thẳng",
+      "payload": {
+        "kieu": "tieu_chi_chot",
+        "ma": "TCC-DEMO-THANG",
+        "ten": "[Demo] Chốt ban đêm trên đường thẳng, tốc độ thường 50 km/h",
+        "nguong": {
+          "bien_dau_m_tu": 60,
+          "bien_dau_m_den": 150,
+          "coc_toi_thieu": 5,
+          "coc_khoang_m": 6,
+          "tru_moi_doan_ho": 5,
+          "tru_moi_xe_phanh_gap": 5,
+          "hang_cho_m": 20,
+          "tam_nhin_bien_m": 40,
+          "tru_moi_bien_khuat": 5
+        },
+        "nguon": [
+          { "tieu_chi": "bien_dau", "urn": null, "ghi_chu": "Số minh họa. Chưa tra được kho văn bản (MCP không kết nối); QCVN 41:2024/BGTVT chưa có trong kho. Cần đơn vị chuyên môn xác nhận (câu D21)." },
+          { "tieu_chi": "coc", "urn": null, "ghi_chu": "Số minh họa. Chưa tra được kho văn bản; cần đơn vị chuyên môn xác nhận khoảng cách cọc thu hẹp làn." },
+          { "tieu_chi": "chien_si", "urn": null, "ghi_chu": "Tài liệu nghiệp vụ do đơn vị cung cấp (chưa có). Đang dùng quy tắc chung: không xe nào đi vào vùng 1,5 m quanh chiến sĩ." },
+          { "tieu_chi": "phanh_gap", "urn": null, "ghi_chu": "Đo từ mô phỏng; mức trừ là số minh họa." },
+          { "tieu_chi": "hang_cho", "urn": null, "ghi_chu": "Phán đoán nghiệp vụ, số minh họa; cần đơn vị chuyên môn xác nhận ngưỡng ùn chấp nhận được." },
+          { "tieu_chi": "bien_khuat", "urn": null, "ghi_chu": "Số minh họa; tầm nhìn ban đêm là thông số mô phỏng, cần đơn vị chuyên môn kiểm tra." }
+        ]
+      }
+    },
+    {
+      "ma": "TCC-DEMO-KHUAT",
+      "tieu_de": "[Demo] Tiêu chí chốt đêm: đường cong, đầu dốc",
+      "payload": {
+        "kieu": "tieu_chi_chot",
+        "ma": "TCC-DEMO-KHUAT",
+        "ten": "[Demo] Chốt ban đêm sau khúc cua hoặc đỉnh dốc, tầm nhìn ngắn",
+        "nguong": {
+          "bien_dau_m_tu": 80,
+          "bien_dau_m_den": 180,
+          "coc_toi_thieu": 7,
+          "coc_khoang_m": 6,
+          "tru_moi_doan_ho": 5,
+          "tru_moi_xe_phanh_gap": 5,
+          "hang_cho_m": 30,
+          "tam_nhin_bien_m": 35,
+          "tru_moi_bien_khuat": 5
+        },
+        "nguon": [
+          { "tieu_chi": "bien_dau", "urn": null, "ghi_chu": "Số minh họa. Chưa tra được kho văn bản (MCP không kết nối); QCVN 41:2024/BGTVT chưa có trong kho. Cần đơn vị chuyên môn xác nhận (câu D21)." },
+          { "tieu_chi": "coc", "urn": null, "ghi_chu": "Số minh họa. Chưa tra được kho văn bản; cần đơn vị chuyên môn xác nhận khoảng cách cọc thu hẹp làn." },
+          { "tieu_chi": "chien_si", "urn": null, "ghi_chu": "Tài liệu nghiệp vụ do đơn vị cung cấp (chưa có). Đang dùng quy tắc chung: không xe nào đi vào vùng 1,5 m quanh chiến sĩ." },
+          { "tieu_chi": "phanh_gap", "urn": null, "ghi_chu": "Đo từ mô phỏng; mức trừ là số minh họa." },
+          { "tieu_chi": "hang_cho", "urn": null, "ghi_chu": "Phán đoán nghiệp vụ, số minh họa; cần đơn vị chuyên môn xác nhận ngưỡng ùn chấp nhận được." },
+          { "tieu_chi": "bien_khuat", "urn": null, "ghi_chu": "Số minh họa; tầm nhìn qua khúc cua, đỉnh dốc là thông số mô phỏng, cần đơn vị chuyên môn kiểm tra." }
+        ]
+      }
+    },
+    {
+      "ma": "TCC-DEMO-GIAO-LO",
+      "tieu_de": "[Demo] Tiêu chí chốt đêm: gần giao lộ",
+      "payload": {
+        "kieu": "tieu_chi_chot",
+        "ma": "TCC-DEMO-GIAO-LO",
+        "ten": "[Demo] Chốt ban đêm gần giao lộ, có xe tải, xe chạy quá tốc độ",
+        "nguong": {
+          "bien_dau_m_tu": 80,
+          "bien_dau_m_den": 180,
+          "coc_toi_thieu": 8,
+          "coc_khoang_m": 5,
+          "tru_moi_doan_ho": 5,
+          "tru_moi_xe_phanh_gap": 5,
+          "hang_cho_m": 40,
+          "tam_nhin_bien_m": 40,
+          "tru_moi_bien_khuat": 5
+        },
+        "nguon": [
+          { "tieu_chi": "bien_dau", "urn": null, "ghi_chu": "Số minh họa. Chưa tra được kho văn bản (MCP không kết nối); QCVN 41:2024/BGTVT chưa có trong kho. Cần đơn vị chuyên môn xác nhận (câu D21)." },
+          { "tieu_chi": "coc", "urn": null, "ghi_chu": "Số minh họa. Chưa tra được kho văn bản; cần đơn vị chuyên môn xác nhận khoảng cách cọc thu hẹp làn." },
+          { "tieu_chi": "chien_si", "urn": null, "ghi_chu": "Tài liệu nghiệp vụ do đơn vị cung cấp (chưa có). Đang dùng quy tắc chung: không xe nào đi vào vùng 1,5 m quanh chiến sĩ." },
+          { "tieu_chi": "phanh_gap", "urn": null, "ghi_chu": "Đo từ mô phỏng; mức trừ là số minh họa." },
+          { "tieu_chi": "hang_cho", "urn": null, "ghi_chu": "Phán đoán nghiệp vụ, số minh họa; cần đơn vị chuyên môn xác nhận ngưỡng ùn chấp nhận được." },
+          { "tieu_chi": "bien_khuat", "urn": null, "ghi_chu": "Số minh họa; tầm nhìn ban đêm là thông số mô phỏng, cần đơn vị chuyên môn kiểm tra." }
+        ]
+      }
+    }
+  ]
+}

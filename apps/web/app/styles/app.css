@@ -1,0 +1,993 @@
+@import "tailwindcss";
+@import "./fonts.css";
+
+/*
+ * Hệ thiết kế "Công báo" theo màu logo Khiên tri thức: nền giấy ấm, chữ mực, màu chính đỏ cờ,
+ * vàng kim làm điểm nhấn (vạch đầu trang, sao, huy hiệu). Đỏ cờ đúng mã logo (#DA251D) là --seal;
+ * --primary đậm hơn một chút để chữ đỏ đạt 4.5:1 trên mọi nền. Báo sai (--danger) dùng đỏ sẫm,
+ * khác hẳn độ sáng của --primary, và luôn đi kèm nhãn chữ hoặc biểu tượng.
+ * Mọi màu đi qua token dưới đây; thành phần KHÔNG viết mã màu trực tiếp.
+ *
+ * Chế độ tối điều khiển bằng data-theme trên <html> (lib/theme.ts), nên token tự đổi giá trị
+ * và lớp tiện ích không cần tiền tố dark:.
+ */
+@custom-variant dark (&:where([data-theme="dark"], [data-theme="dark"] *));
+
+@theme inline {
+  --font-sans: "Be Vietnam Pro", system-ui, -apple-system, "Segoe UI", Roboto, "Noto Sans", sans-serif;
+  --font-serif: "Noto Serif", Georgia, "Times New Roman", serif;
+
+  --color-canvas: var(--canvas);
+  --color-surface: var(--surface);
+  --color-surface-2: var(--surface-2);
+  --color-ink: var(--ink);
+  --color-ink-2: var(--ink-2);
+  --color-ink-3: var(--ink-3);
+  --color-line: var(--line);
+  --color-line-strong: var(--line-strong);
+  --color-primary: var(--primary);
+  --color-primary-hover: var(--primary-hover);
+  --color-on-primary: var(--on-primary);
+  --color-primary-soft: var(--primary-soft);
+  --color-seal: var(--seal);
+  --color-vang: var(--g-nhan);
+  --color-on-vang: var(--g-tren-nhan);
+
+  --color-ok: var(--ok);
+  --color-ok-soft: var(--ok-soft);
+  --color-warn: var(--warn);
+  --color-warn-soft: var(--warn-soft);
+  --color-danger: var(--danger);
+  --color-danger-soft: var(--danger-soft);
+  --color-info: var(--info);
+  --color-info-soft: var(--info-soft);
+  --color-muted: var(--muted);
+  --color-muted-soft: var(--muted-soft);
+  --color-tim: var(--tim);
+  --color-ngoc: var(--ngoc);
+
+  --shadow-card: 0 1px 2px rgb(20 22 30 / 0.04), 0 4px 16px -6px rgb(20 22 30 / 0.08);
+  --shadow-noi: var(--bong-noi);
+}
+
+/*
+ * Thang chữ 13 / 14 / 16 (thân) / 18 / 20 / 24 / 30 và bo góc. Chữ nhỏ nhất 13px: nâng text-xs
+ * (12px) của Tailwind. Bo góc: thẻ 12px (rounded-card), nút 10px (rounded-btn), nhãn tròn hẳn.
+ * Khoảng cách dùng thang mặc định của Tailwind (bội số 4px): 1, 2, 3, 4, 6, 8, 12.
+ */
+@theme {
+  --text-xs: 0.8125rem;
+  --text-xs--line-height: calc(1.25 / 0.8125);
+  --radius-card: 0.75rem;
+  --radius-btn: 0.625rem;
+}
+
+/*
+ * Cặp chữ/nền của mỗi sắc thái đạt tương phản ≥ 4.5:1 (WCAG 2.1 AA).
+ * [data-theme="light"] lặp lại bộ sáng để một vùng con (trang /xem-bieu-tuong) hiện sáng khi
+ * cả trang đang tối; <html> luôn mang data-theme nên không đổi gì ở chỗ khác.
+ */
+:root,
+[data-theme="light"] {
+  color-scheme: light;
+  --canvas: #f7f5f0;
+  --surface: #ffffff;
+  --surface-2: #f0ede5;
+  --ink: #1a1c22;
+  --ink-2: #434753;
+  --ink-3: #62666f;
+  --line: #e3ded3;
+  --line-strong: #cbc4b4;
+  --primary: #c8201a;
+  --primary-hover: #a91a14;
+  --on-primary: #ffffff;
+  --primary-soft: #fcebe8;
+  --seal: #da251d;
+
+  --ok: #17623a;
+  --ok-soft: #e4f2e9;
+  --warn: #8a4a0b;
+  --warn-soft: #fbefd9;
+  --danger: #8e1b16;
+  --danger-soft: #f9e6df;
+  --info: #1d4d86;
+  --info-soft: #e3edf8;
+  --muted: #4a4f5b;
+  --muted-soft: #ece9e2;
+
+  /* Phản hồi trỏ chuột (lớp the-bam, dong-bam): bóng thẻ đang nhấc, nền ngả đỏ rất nhạt. */
+  --bong-noi: 0 2px 4px rgb(20 22 30 / 0.05), 0 14px 28px -12px rgb(20 22 30 / 0.24);
+  --nen-tro: color-mix(in srgb, var(--primary) 5%, var(--surface));
+
+  /* Bộ biểu tượng (components/ui/Icon.tsx): hai sắc riêng và độ đậm lớp nền. --g-nhan,
+     --g-tren-nhan cùng giá trị với tro-choi.css, khai ở đây để biểu tượng ngoài khu trò chơi dùng. */
+  --tim: #6d3fc0;
+  --ngoc: #0f766e;
+  --g-nhan: #f4c20d;
+  --g-tren-nhan: #1a1407;
+  --ic-dam: 25%;
+
+  /* Băng chào trang chủ (.bang-chao): nền giấy ngả đỏ nhạt, quầng vàng kim. */
+  --chao-nen-1: #fffdf9;
+  --chao-nen-2: #faf3ea;
+  --chao-nen-3: #fbe9e4;
+  --chao-quang: rgb(244 194 13 / 0.16);
+  --chao-quang-2: rgb(218 37 29 / 0.07);
+}
+
+[data-theme="dark"] {
+  color-scheme: dark;
+  --canvas: #111317;
+  --surface: #181b21;
+  --surface-2: #20242c;
+  --ink: #edebe5;
+  --ink-2: #c4c2bb;
+  --ink-3: #9d9b94;
+  --line: #2b3039;
+  --line-strong: #3c424d;
+  --primary: #ff7a70;
+  --primary-hover: #ff958c;
+  --on-primary: #1a0b0a;
+  --primary-soft: #3a1a19;
+  --seal: #ff6b62;
+
+  --ok: #8ee0ae;
+  --ok-soft: #13291c;
+  --warn: #f7cc85;
+  --warn-soft: #2f2410;
+  --danger: #fbbcb5;
+  --danger-soft: #35171a;
+  --info: #a2c6ff;
+  --info-soft: #152439;
+  --muted: #c4c2bb;
+  --muted-soft: #252a32;
+
+  --bong-noi: 0 2px 4px rgb(0 0 0 / 0.3), 0 14px 28px -12px rgb(0 0 0 / 0.75);
+  --nen-tro: color-mix(in srgb, var(--primary) 7%, var(--surface));
+
+  --tim: #c4a8ff;
+  --ngoc: #5eead4;
+  --g-nhan: #f7cf3d;
+  --g-tren-nhan: #1a1407;
+  --ic-dam: 35%;
+
+  --chao-nen-1: #182033;
+  --chao-nen-2: #161b28;
+  --chao-nen-3: #1c1a29;
+  --chao-quang: rgb(255 255 255 / 0.08);
+  --chao-quang-2: rgb(218 37 29 / 0.1);
+}
+
+/*
+ * Băng chào trang chủ (components/trang-chu/AppHeader.tsx): màu theo token --chao-* của từng
+ * giao diện (sáng: giấy ngả đỏ nhạt; tối: xanh mực có quầng sáng nhẹ).
+ */
+.bang-chao {
+  background:
+    radial-gradient(ellipse 40% 90% at 62% 20%, var(--chao-quang), transparent 70%),
+    radial-gradient(ellipse 35% 80% at 95% 90%, var(--chao-quang-2), transparent 70%),
+    linear-gradient(120deg, var(--chao-nen-1), var(--chao-nen-2) 55%, var(--chao-nen-3));
+}
+
+/*
+ * Băng "Luyện câu sai" trang /luyen-tap: nền đỏ chính ngả dần sang vàng kim, quầng vàng góc phải.
+ * Chữ dùng --on-primary nên đạt 4.5:1 ở cả hai giao diện (sáng: chữ trắng trên đỏ; tối: chữ sẫm
+ * trên đỏ nhạt). .bang-cau-sai-o: ô biểu tượng và nhãn nằm trên băng, nền trong theo màu chữ.
+ */
+.bang-cau-sai {
+  color: var(--on-primary);
+  background:
+    radial-gradient(ellipse 45% 140% at 92% 0%, rgb(244 194 13 / 0.28), transparent 70%),
+    linear-gradient(120deg, var(--primary), color-mix(in srgb, var(--primary) 80%, var(--g-nhan)));
+}
+.bang-cau-sai-o {
+  background: color-mix(in srgb, var(--on-primary) 18%, transparent);
+}
+
+/*
+ * Khung nội dung chuẩn của mọi trang, dùng chung với đầu trang nên nội dung thẳng mép đầu trang:
+ * rộng tối đa 1200px (1280px từ 1024px), lề 16px (điện thoại) / 24px (máy tính bảng) / 32px (máy tính).
+ * Trang tự đặt max-w-* vẫn thắng (lớp một thuộc tính xếp sau); trang danh sách mở lại bằng lg:max-w-7xl.
+ */
+@utility wrap {
+  width: 100%;
+  max-width: 75rem;
+  margin-inline: auto;
+  padding-inline: 1rem;
+  @media (width >= 48rem) {
+    padding-inline: 1.5rem;
+  }
+  @media (width >= 64rem) {
+    max-width: 80rem;
+    padding-inline: 2rem;
+  }
+}
+
+/* Vùng cuộn ngang không hiện thanh cuộn (carousel trang chủ); vẫn cuộn bằng vuốt, bàn phím. */
+@utility khong-thanh-cuon {
+  scrollbar-width: none;
+  &::-webkit-scrollbar {
+    display: none;
+  }
+}
+
+/*
+ * Phản hồi khi trỏ chuột (máy tính) và khi chạm (điện thoại) cho phần tử bấm được.
+ * - Trỏ chuột chỉ áp dụng trên thiết bị có chuột (hover: hover), như tiền tố hover: của Tailwind 4,
+ *   nên điện thoại không bị "dính" trạng thái trỏ sau khi chạm.
+ * - Nhấn (chuột hay ngón tay): lún nhẹ, độ lún theo --lun (nút 0,97; dòng, thẻ 0,985; ô biểu tượng
+ *   tự đặt [--lun:0.95]). Bỏ ô sáng xám mặc định khi chạm (iOS, Android) vì đã có phản hồi riêng.
+ * - Giảm chuyển động: giữ đổi màu, viền, bóng; bỏ nhấc, lún và phóng biểu tượng.
+ * Viết bằng @utility nên :hover (độ đặc hiệu 0,2,0) thắng bg-surface, border-line, shadow-card trên
+ * cùng phần tử, và nhận tiền tố (lg:the-bam).
+ *
+ * - lun: nút, mục điều hướng — chỉ lún khi nhấn.
+ * - dong-bam: dòng, ô danh sách, lựa chọn — viền đỏ, nền ngả đỏ nhạt (trừ ô đang chọn).
+ * - the-bam: thẻ lớn bấm được — viền đỏ, nhấc 2px, bóng sâu hơn.
+ * - the-co-nut: thẻ không bấm được nhưng chứa nút — viền đậm, bóng sâu; không nhấc (để khỏi tưởng
+ *   cả thẻ bấm được).
+ * Biểu tượng trong dong-bam, the-bam, the-co-nut phóng nhẹ, nghiêng khi trỏ: .ic, hoặc khối có lớp
+ * hinh-noi (ảnh trò chơi, ô tròn biểu tượng; .ic bên trong khối đó không phóng thêm lần nữa).
+ */
+@utility lun {
+  -webkit-tap-highlight-color: transparent;
+  transition-property: color, background-color, border-color, box-shadow, transform;
+  transition-duration: 150ms;
+  transition-timing-function: cubic-bezier(0.2, 0, 0, 1);
+  @media (prefers-reduced-motion: no-preference) {
+    &:active:not(:disabled, [aria-disabled="true"]) {
+      transform: scale(var(--lun, 0.97));
+      transition-duration: 60ms;
+    }
+  }
+}
+
+@utility dong-bam {
+  -webkit-tap-highlight-color: transparent;
+  transition-property: color, background-color, border-color, box-shadow, transform;
+  transition-duration: 150ms;
+  transition-timing-function: cubic-bezier(0.2, 0, 0, 1);
+  & :is(.hinh-noi, .ic):not(.hinh-noi .ic) {
+    transition: transform 220ms cubic-bezier(0.34, 1.56, 0.64, 1);
+  }
+  @media (hover: hover) {
+    &:hover:not(:disabled) {
+      border-color: var(--primary);
+    }
+    &:hover:not(:disabled, [aria-pressed="true"], [aria-checked="true"], [aria-current]) {
+      background-color: var(--nen-tro);
+    }
+  }
+  &:active:not(:disabled, [aria-pressed="true"], [aria-checked="true"], [aria-current]) {
+    background-color: var(--nen-tro);
+  }
+  @media (prefers-reduced-motion: no-preference) {
+    @media (hover: hover) {
+      &:hover:not(:disabled) :is(.hinh-noi, .ic):not(.hinh-noi .ic) {
+        transform: scale(1.08) rotate(-4deg);
+      }
+    }
+    &:active:not(:disabled, [aria-disabled="true"]) {
+      transform: scale(var(--lun, 0.985));
+      transition-duration: 60ms;
+    }
+  }
+}
+
+@utility the-bam {
+  -webkit-tap-highlight-color: transparent;
+  transition-property: color, background-color, border-color, box-shadow, transform;
+  transition-duration: 180ms;
+  transition-timing-function: cubic-bezier(0.2, 0, 0, 1);
+  & :is(.hinh-noi, .ic):not(.hinh-noi .ic) {
+    transition: transform 220ms cubic-bezier(0.34, 1.56, 0.64, 1);
+  }
+  @media (hover: hover) {
+    &:hover:not(:disabled) {
+      border-color: var(--primary);
+      box-shadow: var(--bong-noi);
+    }
+  }
+  @media (prefers-reduced-motion: no-preference) {
+    @media (hover: hover) {
+      &:hover:not(:disabled) {
+        transform: translateY(-2px);
+      }
+      &:hover:not(:disabled) :is(.hinh-noi, .ic):not(.hinh-noi .ic) {
+        transform: scale(1.08) rotate(-4deg);
+      }
+    }
+    &:active:not(:disabled, [aria-disabled="true"]) {
+      transform: scale(var(--lun, 0.985));
+      transition-duration: 60ms;
+    }
+  }
+}
+
+@utility the-co-nut {
+  transition-property: border-color, box-shadow;
+  transition-duration: 180ms;
+  transition-timing-function: cubic-bezier(0.2, 0, 0, 1);
+  & :is(.hinh-noi, .ic):not(.hinh-noi .ic) {
+    transition: transform 220ms cubic-bezier(0.34, 1.56, 0.64, 1);
+  }
+  @media (hover: hover) {
+    &:hover {
+      border-color: var(--line-strong);
+      box-shadow: var(--bong-noi);
+    }
+  }
+  @media (prefers-reduced-motion: no-preference) and (hover: hover) {
+    &:hover :is(.hinh-noi, .ic):not(.hinh-noi .ic) {
+      transform: scale(1.08) rotate(-4deg);
+    }
+  }
+}
+
+@layer base {
+  html {
+    /* clip thay vì hidden: hidden tạo vùng cuộn và làm hỏng position: sticky. */
+    overflow-x: clip;
+    -webkit-text-size-adjust: 100%;
+  }
+
+  body {
+    min-height: 100vh;
+    overflow-x: clip;
+    background: var(--canvas);
+    color: var(--ink);
+    font-family: var(--font-sans);
+    font-feature-settings: "ss01";
+    line-height: 1.5;
+    -webkit-font-smoothing: antialiased;
+    accent-color: var(--primary);
+  }
+
+  /* Tiêu đề dùng cùng họ chữ sans với thân bài; serif chỉ còn ở logo và vùng văn bản pháp lý. */
+  h1,
+  h2,
+  h3 {
+    font-family: var(--font-sans);
+    line-height: 1.25;
+    letter-spacing: -0.01em;
+    text-wrap: balance;
+  }
+
+  /* Giảm chuyển động theo cài đặt hệ điều hành: tắt mọi hiệu ứng và chuyển tiếp. */
+  @media (prefers-reduced-motion: reduce) {
+    *,
+    *::before,
+    *::after {
+      animation-duration: 0.01ms !important;
+      animation-iteration-count: 1 !important;
+      transition-duration: 0.01ms !important;
+      scroll-behavior: auto !important;
+    }
+    /* Hộp thoại, ngăn bên, ngăn dưới vẫn hiện dần, mờ dần (không phóng to, không trượt): xem .hop-thoai, .ngan-ben, .ngan-duoi, .hop-vao bên dưới. */
+    .hop-thoai,
+    .ngan-ben,
+    .ngan-duoi {
+      transition-property: opacity, overlay, display !important;
+      transition-duration: 200ms !important;
+    }
+    .hop-vao,
+    .nen-hien-dan {
+      animation-name: hien-dan;
+      animation-duration: 200ms !important;
+    }
+  }
+
+  ::selection {
+    background: var(--primary-soft);
+  }
+
+  /* Viền focus rõ ràng — WCAG 2.4.7. */
+  :where(a, button, input, select, textarea, summary, [tabindex]):focus-visible {
+    outline: 2px solid var(--primary);
+    outline-offset: 2px;
+    border-radius: 6px;
+  }
+}
+
+/* Vùng đọc Markdown pháp lý (đầu ra của lib/markdown.ts). */
+@layer components {
+  .prose-legal {
+    font-size: 1.0625rem;
+    line-height: 1.75;
+    max-width: 70ch;
+  }
+  .prose-legal :is(h1, h2, h3) {
+    font-family: var(--font-serif);
+  }
+  .prose-legal p {
+    margin: 0 0 0.7em;
+    overflow-wrap: break-word;
+  }
+  .prose-legal a {
+    color: var(--primary);
+    text-decoration: underline;
+    text-underline-offset: 2px;
+  }
+  .prose-legal ul,
+  .prose-legal ol {
+    margin: 0 0 0.7em 1.4em;
+    list-style: revert;
+  }
+  .prose-legal blockquote {
+    border-left: 3px solid var(--line-strong);
+    padding-left: 0.9em;
+    color: var(--ink-2);
+  }
+  .prose-legal .table-scroll {
+    overflow-x: auto;
+    border: 1px solid var(--line);
+    border-radius: 8px;
+    margin: 0 0 0.9em;
+  }
+  .prose-legal table {
+    border-collapse: collapse;
+    min-width: 34rem;
+  }
+  .prose-legal th,
+  .prose-legal td {
+    border: 1px solid var(--line);
+    padding: 0.45em 0.65em;
+    vertical-align: top;
+  }
+}
+
+/*
+ * Khu quản trị, từ 64rem (1024px): cột điều hướng cố định sát mép trái (routes/quan-tri.tsx).
+ * --cot-trai: bề rộng cột; bằng 0 ở trang không có cột, ở màn hẹp hơn và khi in. Nội dung, chân
+ * trang, biểu ngữ mất mạng lùi vào bằng biến này để không bị cột che.
+ */
+:root {
+  --cot-trai: 0px;
+}
+@media screen and (width >= 64rem) {
+  .co-cot-trai {
+    --cot-trai: 15rem;
+  }
+
+  /*
+   * Màu của cột: nền trắng (tối: nền thẻ) tách khỏi nội dung bằng viền phải, chữ theo màu chung;
+   * mục đang chọn nền đỏ rất nhạt, chữ đỏ (routes/quan-tri.tsx). Dưới 64rem menu là hàng cuộn
+   * ngang trên nền trang nên giữ màu chung.
+   */
+  .cot-quan-tri {
+    --canvas: var(--surface);
+    border-right: 1px solid var(--line);
+  }
+}
+
+/*
+ * Giao diện điện thoại (dưới 48rem = 768px). Desktop không có quy tắc nào ở đây.
+ * --thanh-duoi: chiều cao thanh điều hướng dưới cùng (kể cả vùng thanh home của iPhone); bằng 0
+ * ở trang không có thanh. Đệm cuối trang dùng biến này.
+ * --thanh-duoi-noi: chỗ thanh đang chiếm thật; bằng 0 khi thanh ẩn do cuộn (data-an-thanh-duoi trên
+ * <html>, components/layout/BottomNav.tsx). Phần tử nổi và dính đáy dùng biến này để trượt theo thanh.
+ */
+:root {
+  --thanh-duoi: 0px;
+  --thanh-duoi-noi: 0px;
+}
+/* Ứng dụng cài trên máy (PWA) khi chưa đăng nhập: ẩn menu (thanh dưới cùng, menu ngang đầu trang). */
+@media (display-mode: standalone) {
+  .chua-dang-nhap .menu-chinh {
+    display: none;
+  }
+  /*
+   * PWA: chỉ phần nội dung cuộn. Đầu trang dính sẵn (sticky), thanh dưới cùng cố định và không ẩn khi
+   * cuộn (BottomNav.tsx); bỏ hiệu ứng nảy để kéo quá đầu/cuối trang không lôi theo đầu trang và menu.
+   */
+  html,
+  body {
+    overscroll-behavior: none;
+  }
+  /* Điện thoại: vuốt là cuộn được, ẩn mọi thanh cuộn cho gọn. */
+  @media (width < 48rem) {
+    html,
+    html * {
+      scrollbar-width: none;
+    }
+    html::-webkit-scrollbar,
+    html *::-webkit-scrollbar {
+      display: none;
+    }
+  }
+}
+@media (width < 48rem) {
+  .co-thanh-duoi {
+    --thanh-duoi: calc(4.25rem + 2px + 9px + env(safe-area-inset-bottom)); /* thanh 68px + viền + khoảng hở 9px */
+    --thanh-duoi-noi: var(--thanh-duoi);
+    padding-bottom: var(--thanh-duoi);
+  }
+  :root[data-an-thanh-duoi] .co-thanh-duoi {
+    --thanh-duoi-noi: 0px;
+  }
+  /* Ứng dụng cài trên máy (PWA), chưa đăng nhập: không có thanh dưới cùng nên bỏ luôn chỗ chừa cho nó. */
+  @media (display-mode: standalone) {
+    .chua-dang-nhap.co-thanh-duoi {
+      --thanh-duoi: 0px;
+      --thanh-duoi-noi: 0px;
+      padding-bottom: 0;
+    }
+  }
+
+  /* Chữ tối thiểu 14px: nâng text-xs (12px) của Tailwind. */
+  :root {
+    --text-xs: 0.875rem;
+    --text-xs--line-height: calc(1.25 / 0.875);
+  }
+
+  /*
+   * Ô nhập ≥ 16px để Safari trên iPhone không tự phóng to khi chạm vào. Viết ngoài @layer nên
+   * thắng các lớp tiện ích (text-sm, text-[15px]) mà không phải sửa từng trang.
+   */
+  input:not([type="checkbox"], [type="radio"], [type="range"], [type="button"], [type="submit"], [type="file"]),
+  select,
+  textarea {
+    font-size: 1rem;
+  }
+
+  /*
+   * Ứng dụng cài trên máy (PWA) ở điện thoại: thang chữ gọn hơn để màn hình chứa được nhiều nội dung.
+   * xs 13 / sm 13,5 / 15px → 14 / base 15 / 17px → 16 / lg 17 / xl 18 / 2xl 20 / 3xl 24 / 4xl 28 / 5xl 36.
+   * Tỉ lệ dòng của Tailwind tính theo cỡ chữ nên tự co theo. Ô nhập giữ 16px (quy tắc trên, độ ưu tiên cao hơn).
+   */
+  @media (display-mode: standalone) {
+    :root {
+      --text-xs: 0.8125rem;
+      --text-xs--line-height: calc(1.25 / 0.8125);
+      --text-sm: 0.84375rem;
+      --text-base: 0.9375rem;
+      --text-lg: 1.0625rem;
+      --text-xl: 1.125rem;
+      --text-2xl: 1.25rem;
+      --text-3xl: 1.5rem;
+      --text-4xl: 1.75rem;
+      --text-5xl: 2.25rem;
+    }
+    body {
+      font-size: var(--text-base);
+    }
+    .text-\[15px\] {
+      font-size: 0.875rem;
+    }
+    .text-\[17px\] {
+      font-size: 1rem;
+    }
+    .text-\[28px\] {
+      font-size: 1.5rem;
+    }
+    .prose-legal {
+      font-size: 1rem;
+      line-height: 1.7;
+    }
+  }
+}
+
+@layer components {
+  /*
+   * Hộp thoại giữa màn hình (components/ui/HopThoai.tsx) dựng trên thẻ <dialog> mở bằng showModal().
+   * Điện thoại: rộng 100% trừ lề 16px mỗi bên, tối đa 400px; từ 768px: tối đa 32rem như trước.
+   * Cao tối đa 85% màn hình; khung là cột flex, phần nội dung ở giữa tự cuộn.
+   * --vv-tren/--vv-duoi/--vv-cao: phần màn hình còn nhìn thấy khi bàn phím ảo bật (HopThoai đặt).
+   * Mở: phóng 0,9 → 1 kèm hiện dần 200ms; đóng: ngược lại (display, overlay chuyển rời rạc để kịp
+   * chạy hiệu ứng đóng). Giảm chuyển động: không phóng to, chỉ hiện dần.
+   */
+  .hop-thoai {
+    position: fixed;
+    inset: var(--vv-tren, 0px) 0 var(--vv-duoi, 0px);
+    margin: auto;
+    flex-direction: column;
+    width: min(calc(100% - 2rem), 25rem);
+    max-width: none;
+    height: fit-content;
+    /* Dòng đầu cho trình duyệt chưa hiểu dvh (Safari dưới 15.4): thiếu nó thì cả khai báo dưới bị bỏ. */
+    max-height: 85vh;
+    max-height: min(85dvh, calc(var(--vv-cao, 100dvh) - 2rem));
+    padding: 0;
+    overflow: hidden;
+    border: 1px solid var(--line);
+    border-radius: 1rem;
+    background: var(--surface);
+    color: var(--ink);
+    box-shadow: 0 24px 48px -12px rgb(0 0 0 / 0.35);
+    opacity: 0;
+    transition:
+      opacity 200ms ease-out,
+      transform 200ms ease-out,
+      overlay 200ms allow-discrete,
+      display 200ms allow-discrete;
+  }
+  .hop-thoai[open] {
+    display: flex;
+    opacity: 1;
+  }
+  .hop-thoai::backdrop {
+    background: rgb(0 0 0 / 0.5);
+    opacity: 0;
+    transition:
+      opacity 200ms ease-out,
+      overlay 200ms allow-discrete,
+      display 200ms allow-discrete;
+  }
+  .hop-thoai[open]::backdrop {
+    opacity: 1;
+  }
+  @starting-style {
+    .hop-thoai[open],
+    .hop-thoai[open]::backdrop {
+      opacity: 0;
+    }
+  }
+  @media (prefers-reduced-motion: no-preference) {
+    .hop-thoai {
+      transform: scale(0.9);
+    }
+    .hop-thoai[open] {
+      transform: none;
+    }
+    @starting-style {
+      .hop-thoai[open] {
+        transform: scale(0.9);
+      }
+    }
+  }
+  @media (width >= 48rem) {
+    .hop-thoai {
+      width: min(92vw, 32rem);
+      border-radius: 0.75rem;
+    }
+  }
+
+  /*
+   * Ngăn tiện ích bên phải ở trang chủ trên điện thoại (components/layout/NganTienIch.tsx), dựng trên
+   * thẻ <dialog> mở bằng showModal(): cao hết màn, rộng tối đa 20rem và chừa 3rem bên trái để còn
+   * thấy trang phía sau. Mở: trượt từ mép phải vào kèm hiện dần 250ms; đóng thì ngược lại. Giảm
+   * chuyển động: chỉ hiện dần.
+   */
+  .ngan-ben {
+    position: fixed;
+    inset: 0 0 0 auto;
+    margin: 0;
+    flex-direction: column;
+    width: min(20rem, calc(100% - 3rem));
+    max-width: none;
+    height: auto;
+    max-height: none;
+    padding: env(safe-area-inset-top) 0 env(safe-area-inset-bottom);
+    overflow-y: auto;
+    overscroll-behavior: contain;
+    border: 0;
+    border-left: 1px solid var(--line);
+    border-radius: 1rem 0 0 1rem;
+    background: var(--surface);
+    color: var(--ink);
+    box-shadow: -8px 0 32px rgb(0 0 0 / 0.18);
+    opacity: 0;
+    transition:
+      opacity 250ms ease-out,
+      transform 250ms ease-out,
+      overlay 250ms allow-discrete,
+      display 250ms allow-discrete;
+  }
+  .ngan-ben[open] {
+    display: flex;
+    opacity: 1;
+  }
+  .ngan-ben::backdrop {
+    background: rgb(0 0 0 / 0.45);
+    opacity: 0;
+    transition:
+      opacity 250ms ease-out,
+      overlay 250ms allow-discrete,
+      display 250ms allow-discrete;
+  }
+  .ngan-ben[open]::backdrop {
+    opacity: 1;
+  }
+  @starting-style {
+    .ngan-ben[open],
+    .ngan-ben[open]::backdrop {
+      opacity: 0;
+    }
+  }
+  @media (prefers-reduced-motion: no-preference) {
+    .ngan-ben {
+      transform: translateX(100%);
+    }
+    .ngan-ben[open] {
+      transform: none;
+    }
+    @starting-style {
+      .ngan-ben[open] {
+        transform: translateX(100%);
+      }
+    }
+  }
+
+  /*
+   * Bảng nhiều cột cuộn ngang trong khung riêng (.bang-cuon trên khung overflow-x-auto): bóng mờ ở
+   * mép còn nội dung để người xem biết cuộn được; cột nhận diện (họ tên, đơn vị) gắn .cot-dinh để
+   * đứng yên ở mép trái khi cuộn, khỏi lạc dòng.
+   */
+  .bang-cuon {
+    /* Màu nền của khung, để lớp che mép trùng nền; đổi bằng --nen-cuon khi khung nằm trên nền trang. */
+    --nen-cuon: var(--surface);
+    overflow-x: auto;
+    background:
+      linear-gradient(to right, var(--nen-cuon) 40%, transparent) left / 2.5rem 100% no-repeat local,
+      linear-gradient(to left, var(--nen-cuon) 40%, transparent) right / 2.5rem 100% no-repeat local,
+      radial-gradient(farthest-side at 0 50%, rgb(0 0 0 / 0.16), transparent) left / 0.75rem 100% no-repeat scroll,
+      radial-gradient(farthest-side at 100% 50%, rgb(0 0 0 / 0.16), transparent) right / 0.75rem 100% no-repeat
+      scroll,
+      var(--nen-cuon);
+  }
+  .bang-cuon .cot-dinh {
+    position: sticky;
+    left: 0;
+    z-index: 1;
+    background: var(--surface);
+    box-shadow: 1px 0 0 var(--line);
+  }
+  /*
+   * Màn hẹp: cố định bề rộng cột ghim để chữ xuống dòng. Không có width, bảng có min-width sẽ dồn phần
+   * rộng dư vào cột này (dòng đơn vị dài nhất) và cột ghim che gần hết các cột còn lại khi cuộn.
+   * Cột có width được giữ nguyên, phần dư chia cho các cột tự do.
+   */
+  @media (width < 40rem) {
+    .bang-cuon .cot-dinh {
+      width: 8rem;
+      min-width: 8rem;
+      max-width: 8rem;
+      overflow-wrap: anywhere;
+    }
+  }
+
+  /*
+   * Thanh nút dính đáy (components/ui/ThanhDinhDay.tsx): ngay trên thanh điều hướng dưới cùng; trang
+   * không có thanh đó hoặc thanh đang ẩn do cuộn (--thanh-duoi-noi = 0) thì chừa vùng thanh home của
+   * iPhone bằng đệm dưới.
+   */
+  .thanh-dinh-day {
+    position: sticky;
+    bottom: var(--thanh-duoi-noi);
+    z-index: 10;
+    padding-bottom: calc(0.75rem + max(0px, env(safe-area-inset-bottom) - var(--thanh-duoi-noi)));
+    @media (prefers-reduced-motion: no-preference) {
+      transition: bottom 200ms, padding-bottom 200ms;
+    }
+  }
+  @media (width >= 48rem) {
+    .thanh-dinh-day-dt {
+      position: static;
+      padding-bottom: 0;
+    }
+  }
+
+  /* Vạch chạy của thanh đang tải trang (components/layout/ThanhTaiTrang.tsx). */
+  .thanh-tai-chay {
+    animation: thanh-tai-chay 1.1s ease-in-out infinite;
+  }
+  @keyframes thanh-tai-chay {
+    from {
+      transform: translateX(-100%);
+    }
+    to {
+      transform: translateX(300%);
+    }
+  }
+
+  /*
+   * Cùng hiệu ứng mở cho hộp dựng bằng div (trò chơi: giấy tờ phóng to, lớp chúc mừng): .hop-vao cho
+   * khung hộp, .nen-hien-dan cho nền mờ. Giảm chuyển động: chỉ hiện dần (khai trong @layer base).
+   */
+  .hop-vao {
+    animation: hop-vao 200ms ease-out both;
+  }
+  .nen-hien-dan {
+    animation: hien-dan 200ms ease-out both;
+  }
+  @keyframes hop-vao {
+    from {
+      opacity: 0;
+      transform: scale(0.9);
+    }
+  }
+  @keyframes hien-dan {
+    from {
+      opacity: 0;
+    }
+  }
+
+  /* Chế độ slide (components/bai-giang/CheDoSlide.tsx): trang mới trượt vào từ phía vừa chuyển. */
+  .slide-vao-sau {
+    --slide-tu: 1.5rem;
+    animation: slide-vao 220ms ease-out both;
+  }
+  .slide-vao-truoc {
+    --slide-tu: -1.5rem;
+    animation: slide-vao 220ms ease-out both;
+  }
+  @keyframes slide-vao {
+    from {
+      opacity: 0;
+      transform: translateX(var(--slide-tu));
+    }
+  }
+
+  /*
+   * Ngăn kéo từ dưới lên (lịch sử tra cứu, components/tra-cuu/OTimTraCuu.tsx) dựng trên thẻ <dialog>
+   * mở bằng showModal(): bám đáy, rộng hết màn trên điện thoại, tối đa 36rem và nằm giữa trên màn
+   * rộng; cao tối đa 85% màn hình, khung là cột flex, danh sách ở giữa tự cuộn. Mở: trượt từ mép dưới
+   * lên kèm hiện dần 250ms; đóng thì ngược lại. Giảm chuyển động: chỉ hiện dần.
+   */
+  .ngan-duoi {
+    position: fixed;
+    inset: auto 0 0;
+    margin: 0 auto;
+    flex-direction: column;
+    width: 100%;
+    max-width: 36rem;
+    height: fit-content;
+    max-height: 85vh;
+    max-height: 85dvh;
+    padding: 0 0 env(safe-area-inset-bottom);
+    overflow: hidden;
+    border: 1px solid var(--line);
+    border-bottom: 0;
+    border-radius: 1rem 1rem 0 0;
+    background: var(--surface);
+    color: var(--ink);
+    box-shadow: 0 -8px 32px rgb(0 0 0 / 0.18);
+    opacity: 0;
+    transition:
+      opacity 250ms ease-out,
+      transform 250ms ease-out,
+      overlay 250ms allow-discrete,
+      display 250ms allow-discrete;
+  }
+  .ngan-duoi[open] {
+    display: flex;
+    opacity: 1;
+  }
+  .ngan-duoi::backdrop {
+    background: rgb(0 0 0 / 0.45);
+    opacity: 0;
+    transition:
+      opacity 250ms ease-out,
+      overlay 250ms allow-discrete,
+      display 250ms allow-discrete;
+  }
+  .ngan-duoi[open]::backdrop {
+    opacity: 1;
+  }
+  @starting-style {
+    .ngan-duoi[open],
+    .ngan-duoi[open]::backdrop {
+      opacity: 0;
+    }
+  }
+  @media (prefers-reduced-motion: no-preference) {
+    .ngan-duoi {
+      transform: translateY(100%);
+    }
+    .ngan-duoi[open] {
+      transform: none;
+    }
+    @starting-style {
+      .ngan-duoi[open] {
+        transform: translateY(100%);
+      }
+    }
+  }
+}
+
+/*
+ * Bộ biểu tượng "Nét đậm, hai lớp màu" (components/ui/Icon.tsx, docs/PROMPT_BO_ICON.md).
+ * Sắc khai trên chính thẻ <svg> nên theo token của vùng chứa (khu trò chơi đổi --primary thì biểu
+ * tượng đổi theo). --ic-nen: sắc pha trong suốt (25% sáng, 35% tối); --ic-nhan: sắc pha 10% màu
+ * chữ cho đậm hơn một chút; --ic-tren: màu nét trên ô tô đặc (kiểu "dac").
+ * Viết ngoài @layer để thắng lớp tiện ích text-* đặt trên chính <svg> ở kiểu "dac".
+ */
+.ic {
+  --ic-chinh: var(--primary);
+  --ic-vang: var(--g-nhan);
+  --ic-cam: var(--warn);
+  --ic-do: var(--seal);
+  --ic-luc: var(--ok);
+  --ic-tim: var(--tim);
+  --ic-ngoc: var(--ngoc);
+  --ic-trung: var(--ink-3);
+  --ic-s: var(--ic-chinh);
+  --ic-nen: color-mix(in srgb, var(--ic-s) var(--ic-dam), transparent);
+  --ic-tren: var(--on-primary);
+  flex-shrink: 0;
+}
+:is(.ic, .ic-nhan)[data-sac="vang"] {
+  --ic-s: var(--ic-vang);
+}
+/* Nền vàng sáng ở cả hai giao diện: nét trên ô tô đặc phải tối. */
+.ic[data-sac="vang"] {
+  --ic-tren: var(--g-tren-nhan);
+}
+:is(.ic, .ic-nhan)[data-sac="cam"] {
+  --ic-s: var(--ic-cam);
+}
+:is(.ic, .ic-nhan)[data-sac="do"] {
+  --ic-s: var(--ic-do);
+}
+:is(.ic, .ic-nhan)[data-sac="luc"] {
+  --ic-s: var(--ic-luc);
+}
+:is(.ic, .ic-nhan)[data-sac="tim"] {
+  --ic-s: var(--ic-tim);
+}
+:is(.ic, .ic-nhan)[data-sac="ngoc"] {
+  --ic-s: var(--ic-ngoc);
+}
+:is(.ic, .ic-nhan)[data-sac="trung"] {
+  --ic-s: var(--ic-trung);
+}
+.ic-nen {
+  fill: var(--ic-nen);
+}
+.ic-nhan {
+  --ic-nhan: color-mix(in srgb, var(--ic-s) 90%, var(--ink));
+  fill: var(--ic-nhan);
+  stroke: var(--ic-nhan);
+}
+.ic-o {
+  fill: var(--ic-s);
+}
+.ic-tren,
+.ic-tren .ic-nhan {
+  --ic-nhan: var(--ic-tren);
+  stroke: var(--ic-tren);
+}
+
+/*
+ * Hoạt ảnh biểu tượng, chỉ khi không bật giảm chuyển động: .ic-lay ngọn lửa lay nhẹ (chuỗi ngày
+ * đang giữ), .ic-lac chuông lắc một lần (thông báo mới). Ngôi sao lên cấp dùng animate-bounce.
+ */
+@media (prefers-reduced-motion: no-preference) {
+  .ic-lay {
+    transform-origin: 50% 90%;
+    animation: ic-lay 2.4s ease-in-out infinite;
+  }
+  .ic-lac {
+    transform-origin: 50% 12%;
+    animation: ic-lac 0.9s ease-in-out 1;
+  }
+}
+@keyframes ic-lay {
+  0%,
+  100% {
+    transform: rotate(-4deg);
+  }
+  50% {
+    transform: rotate(4deg) scaleY(1.04);
+  }
+}
+@keyframes ic-lac {
+  20% {
+    transform: rotate(14deg);
+  }
+  40% {
+    transform: rotate(-11deg);
+  }
+  60% {
+    transform: rotate(7deg);
+  }
+  80% {
+    transform: rotate(-3deg);
+  }
+}
+
+@media print {
+  .no-print {
+    display: none !important;
+  }
+}

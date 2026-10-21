@@ -1,0 +1,157 @@
+/*
+ * Thẻ giấy tờ và con dấu (mô-đun M1 và M2, docs/GAME_DESIGN.md §4; trò Kiểm tra giấy tờ GĐ-T1).
+ * Chỉ động transform và opacity (docs/VISUAL_STYLE.md §6.2). Lớp .g-a / .g-t của khu trò chơi lo phần
+ * giảm chuyển động: .g-a thành hiện dần 150ms, .g-t tắt hẳn.
+ *
+ * Thẻ giấy tờ giản lược, không quốc huy, không hoa văn phôi thật, có chữ chìm "MẪU TRÒ CHƠI"
+ * (docs/GAME_DESIGN.md §1.5). Màu dải đầu thẻ chỉ gợi loại giấy tờ; chữ nội dung luôn trên nền đặc.
+ */
+
+[data-khu="tro-choi"] {
+  --gt-gplx: #b3355c;
+  --gt-gplx-nen: #fdf1f4;
+  --gt-dang-ky: #2a6fb0;
+  --gt-dang-ky-nen: #eef5fc;
+  --gt-bao-hiem: #8a5e05;
+  --gt-bao-hiem-nen: #fdf7e6;
+  --gt-ban: #d9cfb6;
+}
+[data-theme="dark"] [data-khu="tro-choi"] {
+  --gt-gplx: #f08aa9;
+  --gt-gplx-nen: #2a1a20;
+  --gt-dang-ky: #7fb6ea;
+  --gt-dang-ky-nen: #16222e;
+  --gt-bao-hiem: #e6b85a;
+  --gt-bao-hiem-nen: #2a2414;
+  --gt-ban: #2c3a31;
+}
+
+.gt-the {
+  position: relative;
+  overflow: hidden;
+  border-radius: 14px;
+  border: 1px solid var(--line-strong);
+  box-shadow: var(--g-bong-the);
+  background: var(--gt-nen, var(--surface));
+}
+.gt-the[data-loai="gplx"] { --gt-mau: var(--gt-gplx); --gt-nen: var(--gt-gplx-nen); }
+.gt-the[data-loai="dang_ky"] { --gt-mau: var(--gt-dang-ky); --gt-nen: var(--gt-dang-ky-nen); }
+.gt-the[data-loai="bao_hiem"] { --gt-mau: var(--gt-bao-hiem); --gt-nen: var(--gt-bao-hiem-nen); }
+
+.gt-dai {
+  background: var(--gt-mau);
+  color: #fff;
+}
+[data-theme="dark"] [data-khu="tro-choi"] .gt-dai { color: #111; }
+
+/* Chữ chìm: đặt sau nội dung, không bắt sự kiện chạm, độ mờ thấp để không làm giảm tương phản chữ. */
+.gt-chim {
+  pointer-events: none;
+  position: absolute;
+  inset: 0;
+  display: grid;
+  place-items: center;
+  font-family: "Lexend", var(--font-sans);
+  font-weight: 700;
+  font-size: 1.35rem;
+  letter-spacing: 0.08em;
+  color: var(--gt-mau);
+  opacity: 0.1;
+  transform: rotate(-18deg);
+  white-space: nowrap;
+}
+
+/* Một dòng chi tiết chạm được để đánh dấu. */
+.gt-dong {
+  position: relative;
+  display: flex;
+  width: 100%;
+  min-height: 44px;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 12px;
+  border-radius: 10px;
+  padding: 6px 10px;
+  text-align: left;
+  transition: background-color var(--td-nhanh) var(--cong-chuan);
+}
+@media (hover: hover) {
+  button.gt-dong:hover { background: color-mix(in srgb, var(--gt-mau, var(--primary)) 8%, transparent); }
+}
+button.gt-dong:active:not([aria-pressed="true"], [data-ket-qua]) { background: color-mix(in srgb, var(--gt-mau, var(--primary)) 12%, transparent); }
+.gt-dong[aria-pressed="true"],
+.gt-dong[data-ket-qua="loi"] {
+  background: var(--danger-soft);
+  outline: 2px solid var(--danger);
+  outline-offset: -2px;
+}
+.gt-dong[data-ket-qua="nham"] {
+  background: var(--warn-soft);
+  outline: 2px dashed var(--warn);
+  outline-offset: -2px;
+}
+
+/* Bàn kiểm tra: giấy tờ trượt vào, trượt ra. */
+.gt-ban {
+  border-radius: 20px;
+  background: color-mix(in srgb, var(--gt-ban) 45%, var(--canvas));
+  padding: 12px;
+}
+@keyframes gt-vao {
+  from { opacity: 0; transform: translateX(48px) rotate(4deg); }
+  to { opacity: 1; transform: none; }
+}
+@keyframes gt-ra-phai {
+  to { opacity: 0; transform: translateX(115%) rotate(8deg); }
+}
+@keyframes gt-ra-duoi {
+  to { opacity: 0.35; transform: translateY(36px) scale(0.94); }
+}
+@keyframes gt-dap {
+  0% { opacity: 0; transform: scale(1.9) rotate(-16deg); }
+  55% { opacity: 1; transform: scale(0.9) rotate(-8deg); }
+  75% { transform: scale(1.04) rotate(-8deg); }
+  100% { opacity: 1; transform: scale(1) rotate(-8deg); }
+}
+@keyframes gt-giat {
+  0%, 100% { transform: none; }
+  40% { transform: translateY(3px); }
+}
+.gt-vao { animation: gt-vao var(--td-cham) var(--cong-chuan) both; animation-delay: var(--tre, 0ms); }
+.gt-ra-phai { animation: gt-ra-phai 420ms var(--cong-ra) both; }
+.gt-ra-duoi { animation: gt-ra-duoi 420ms var(--cong-ra) both; }
+.gt-giat { animation: gt-giat 180ms var(--cong-chuan) 140ms; }
+
+/* Dấu mộc đóng trên xấp giấy tờ. */
+.gt-dau {
+  pointer-events: none;
+  display: inline-grid;
+  place-items: center;
+  border: 4px double currentColor;
+  border-radius: 10px;
+  padding: 6px 14px;
+  font-family: "Lexend", var(--font-sans);
+  font-weight: 800;
+  font-size: 1.4rem;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  transform: rotate(-8deg);
+  background: color-mix(in srgb, var(--surface) 70%, transparent);
+}
+.gt-dau[data-quyet-dinh="cho_qua"] { color: var(--ok); }
+.gt-dau[data-quyet-dinh="giu_lai"] { color: var(--danger); }
+.gt-dap { animation: gt-dap 420ms var(--cong-chuan) both; }
+
+/* Giảm chuyển động: dấu hiện tĩnh đúng góc nghiêng (lớp .g-a của khu trò chơi chỉ còn hiện dần). */
+[data-khu="tro-choi"][data-giam-hieu-ung="1"] .gt-dau { transform: rotate(-8deg); }
+@media (prefers-reduced-motion: reduce) {
+  [data-khu="tro-choi"] .gt-dau { transform: rotate(-8deg); }
+  [data-khu="tro-choi"] .gt-dong { transition: none; }
+}
+
+/* Thẻ dùng chung ở kiểu "ghim" (GĐ-T12): dòng đang chọn là số đang ghim để so, không phải chỗ sai. */
+.gt-the[data-kieu-chon="ghim"] .gt-dong[aria-pressed="true"] {
+  background: var(--primary-soft);
+  outline: 2px solid var(--primary);
+  outline-offset: -2px;
+}

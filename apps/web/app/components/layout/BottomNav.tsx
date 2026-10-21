@@ -1,0 +1,177 @@
+import { useEffect, useState } from "react";
+import { Link, useLocation } from "react-router";
+
+import { cn } from "../../lib/cn";
+import { BOTTOM_NAV, dangOMuc } from "../../lib/site";
+import { Icon } from "../ui/Icon";
+import { LogoKhien } from "../ui/LogoKhien";
+
+const O_NHAP =
+  "input:not([type=checkbox],[type=radio],[type=button],[type=submit],[type=range]), textarea, select";
+
+/**
+ * Bàn phím ảo đang mở: ô nhập đang được chọn trên màn cảm ứng, hoặc visualViewport co lại rõ
+ * rệt. Khi đó thanh dưới cùng ẩn để không đè lên ô nhập.
+ */
+function useBanPhimMo(): boolean {
+  const [mo, setMo] = useState(false);
+  useEffect(() => {
+    const camUng = window.matchMedia("(pointer: coarse)");
+    const vv = window.visualViewport;
+    const capNhat = () => {
+      const dangNhap = camUng.matches && Boolean(document.activeElement?.matches(O_NHAP));
+      const coLai = vv ? window.innerHeight - vv.height > 150 : false;
+      setMo(dangNhap || coLai);
+    };
+    // focusout xảy ra trước khi phần tử mới nhận focus: đợi một nhịp mới đọc activeElement.
+    const sau = () => setTimeout(capNhat, 0);
+    document.addEventListener("focusin", capNhat);
+    document.addEventListener("focusout", sau);
+    vv?.addEventListener("resize", capNhat);
+    return () => {
+      document.removeEventListener("focusin", capNhat);
+      document.removeEventListener("focusout", sau);
+      vv?.removeEventListener("resize", capNhat);
+    };
+  }, []);
+  return mo;
+}
+
+/** Vuốt quá chừng này (px) theo một hướng mới ẩn hoặc hiện thanh, để tay rung nhẹ không làm thanh giật. */
+const NGUONG_VUOT = 10;
+/** Trong chừng này (px) ở đầu trang thanh luôn hiện. */
+const VUNG_DAU_TRANG = 64;
+
+/**
+ * Ẩn thanh khi cuộn xuống (vuốt lên), hiện lại khi cuộn lên (vuốt xuống), ở gần đầu trang và khi chạm
+ * cuối trang. Riêng PWA thì thanh luôn hiện. Lúc ẩn, thuộc tính data-an-thanh-duoi trên <html> hạ biến --thanh-duoi-noi về 0 để nút
+ * nổi, toast và thanh nút dính đáy trượt xuống theo (app.css).
+ */
+function useAnKhiCuon(): [boolean, () => void] {
+  const [an, setAn] = useState(false);
+  useEffect(() => {
+    // Ứng dụng cài trên máy (PWA): thanh luôn cố định ở đáy, không ẩn khi cuộn.
+    const pwa =
+      window.matchMedia("(display-mode: standalone)").matches ||
+      (navigator as Navigator & { standalone?: boolean }).standalone === true;
+    if (pwa) return;
+    let truoc = window.scrollY;
+    let donVuot = 0;
+    let cho = 0;
+    const capNhat = () => {
+      cho = 0;
+      const y = window.scrollY;
+      const lech = y - truoc;
+      truoc = y;
+      const cuoiTrang = y + window.innerHeight >= document.documentElement.scrollHeight - 2;
+      if (y < VUNG_DAU_TRANG || cuoiTrang) {
+        donVuot = 0;
+        setAn(false);
+        return;
+      }
+      // Đổi hướng cuộn thì đếm lại từ đầu.
+      donVuot = Math.sign(lech) === Math.sign(donVuot) ? donVuot + lech : lech;
+      if (donVuot > NGUONG_VUOT) setAn(true);
+      else if (donVuot < -NGUONG_VUOT) setAn(false);
+    };
+    const henCapNhat = () => {
+      if (!cho) cho = requestAnimationFrame(capNhat);
+    };
+    window.addEventListener("scroll", henCapNhat, { passive: true });
+    return () => {
+      window.removeEventListener("scroll", henCapNhat);
+      if (cho) cancelAnimationFrame(cho);
+    };
+  }, []);
+
+  useEffect(() => {
+    document.documentElement.toggleAttribute("data-an-thanh-duoi", an);
+  }, [an]);
+  useEffect(() => () => document.documentElement.removeAttribute("data-an-thanh-duoi"), []);
+
+  return [an, () => setAn(false)];
+}
+
+const lopMuc = (active: boolean) =>
+  cn(
+    "group lun [--lun:0.92] flex min-h-11 min-w-11 flex-1 flex-col items-center justify-center gap-0.5 rounded-lg text-sm font-medium leading-tight tracking-tight whitespace-nowrap",
+    active ? "text-primary" : "text-ink-2 hover:text-ink",
+  );
+
+/**
+ * Thanh điều hướng dưới cùng, chỉ hiện dưới 768px. Nơi gọi quyết định trang nào có thanh.
+ * Năm mục Tra cứu · Học · Trang chủ · Thi · Tôi; Trang chủ ở giữa là nút tròn có logo nổi lên trên
+ * mép thanh. Các trang phụ (ngăn "Thêm" cũ) nằm ở ngăn tiện ích của trang chủ.
+ */
+export function BottomNav() {
+  const { pathname } = useLocation();
+  const banPhim = useBanPhimMo();
+  const [anCuon, hienLai] = useAnKhiCuon();
+
+  return (
+    <>
+      {/*
+       * Lớp mờ sau thanh: từ đáy màn hình lên quá đỉnh thanh 1rem, nội dung cuộn bên dưới bị nhòe và nhạt
+       * dần về đáy. Mặt nạ cho phần trên mờ dần để không có mép cứng. z-[5]: dưới thanh nút dính đáy (z-10).
+       */}
+      <div
+        aria-hidden="true"
+        className={cn(
+          "menu-chinh no-print pointer-events-none fixed inset-x-0 bottom-0 z-[5] h-[calc(var(--thanh-duoi)+1rem)] bg-linear-to-t from-canvas via-canvas/70 to-transparent backdrop-blur-md transition-opacity duration-200 [mask-image:linear-gradient(to_top,black_55%,transparent)] motion-reduce:transition-none md:hidden",
+          (banPhim || anCuon) && "opacity-0",
+        )}
+      />
+      <nav
+        aria-label="Điều hướng chính"
+        className={cn(
+          // Thanh lơ lửng: cách mép trái/phải 12px, đáy 9px (cộng thêm vùng thanh home của iPhone), bo góc, đổ bóng.
+          "menu-chinh no-print fixed inset-x-3 bottom-[calc(9px+env(safe-area-inset-bottom))] z-30 mx-auto max-w-lg rounded-3xl border border-line bg-canvas/95 shadow-noi backdrop-blur-md transition-transform duration-200 motion-reduce:transition-none md:hidden",
+          // Lúc ẩn trượt thêm 3rem để cả nút tròn nổi ở giữa cũng khuất hẳn.
+          (banPhim || anCuon) && "translate-y-[calc(100%+3rem+env(safe-area-inset-bottom))]",
+        )}
+        aria-hidden={banPhim || undefined}
+        // Đang ẩn do cuộn mà người dùng Tab tới thì hiện lại.
+        onFocus={hienLai}
+      >
+        <ul className="flex h-[4.25rem] items-stretch px-1 py-1.5">
+          {BOTTOM_NAV.map((item) => {
+            const active = dangOMuc(item, pathname);
+            const giua = item.to === "/";
+            return (
+              <li key={item.to} className="flex flex-1">
+                <Link
+                  to={item.to}
+                  aria-current={active ? "page" : undefined}
+                  tabIndex={banPhim ? -1 : undefined}
+                  // Mục giữa dồn xuống đáy: chữ thẳng hàng với các mục khác, nút tròn tràn lên quá mép thanh.
+                  className={cn(lopMuc(active), giua && "justify-end")}
+                >
+                  {giua ? (
+                    <span
+                      className={cn(
+                        "mb-0.5 grid size-16 shrink-0 place-items-center rounded-full border-2 bg-canvas shadow-noi transition-colors",
+                        active ? "border-primary" : "border-line group-active:bg-surface-2",
+                      )}
+                    >
+                      <LogoKhien className="size-11" />
+                    </span>
+                  ) : (
+                    <span
+                      className={cn(
+                        "grid h-9 w-14 place-items-center rounded-full transition-colors",
+                        active ? "bg-primary-soft" : "group-active:bg-surface-2",
+                      )}
+                    >
+                      <Icon name={item.icon} sac="chinh" kieu={active ? "dac" : "net"} className="size-7" />
+                    </span>
+                  )}
+                  {item.label}
+                </Link>
+              </li>
+            );
+          })}
+        </ul>
+      </nav>
+    </>
+  );
+}

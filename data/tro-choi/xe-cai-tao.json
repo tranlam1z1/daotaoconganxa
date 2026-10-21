@@ -1,0 +1,599 @@
+{
+  "mo_ta": "16 xe mẫu cho trò Soi xe cải tạo (docs/PLAN.md GĐ-T14). Nạp bằng: bun run db:seed:tro-choi (vào chờ duyệt).",
+  "luu_y_bien_tap": [
+    "DỮ LIỆU DEMO, CHƯA DUYỆT. Xe, biển số, thông số giả định. Giấy chứng nhận ghi thông số của xe gốc (xe); hình vẽ là xe gốc cộng các biến thể (bien_the) theo danh mục data/tro-choi/bien-the-cai-tao.json.",
+    "Chỗ sai, vùng đáp án, dòng giấy đúng không soạn tay: tính từ tham số và danh mục (packages/dao-tao/src/tro-choi/soi-xe-cai-tao.ts)."
+  ],
+  "xe": [
+    {
+      "ma": "SX-01",
+      "tieu_de": "[Demo] SX-01 · Ô tô con sơn đỏ, giấy ghi trắng",
+      "muc": 1,
+      "y_do": "Đổi màu sơn rõ: giấy ghi Trắng.",
+      "xe": {
+        "bien_so": "30A-512.08",
+        "ngay_kiem_tra": "2026-09-15",
+        "xe": {
+          "loai": "o_to_con",
+          "dai_mm": 4400,
+          "rong_mm": 1730,
+          "cao_mm": 1480,
+          "thung": null,
+          "lop": {
+            "co": "185/60R15",
+            "duong_kinh_mm": 603
+          },
+          "so_cho": 5,
+          "mau": "trang"
+        },
+        "bien_the": [
+          {
+            "ma": "bt-doi-mau-son",
+            "tham_so": {
+              "mau": "do"
+            }
+          }
+        ],
+        "giay": {
+          "so": "KD-012609",
+          "co_gia_tri_den": "2027-03-15"
+        }
+      }
+    },
+    {
+      "ma": "SX-02",
+      "tieu_de": "[Demo] SX-02 · Ô tô con có dàn đèn nóc",
+      "muc": 1,
+      "y_do": "Dàn đèn trên nóc thấy ở cả hai hình.",
+      "xe": {
+        "bien_so": "29A-803.61",
+        "ngay_kiem_tra": "2026-09-15",
+        "xe": {
+          "loai": "o_to_con",
+          "dai_mm": 4630,
+          "rong_mm": 1820,
+          "cao_mm": 1460,
+          "thung": null,
+          "lop": {
+            "co": "205/55R16",
+            "duong_kinh_mm": 632
+          },
+          "so_cho": 5,
+          "mau": "bac"
+        },
+        "bien_the": [
+          {
+            "ma": "bt-den-noc",
+            "tham_so": {}
+          }
+        ],
+        "giay": {
+          "so": "KD-022609",
+          "co_gia_tri_den": "2027-03-15"
+        }
+      }
+    },
+    {
+      "ma": "SX-03",
+      "tieu_de": "[Demo] SX-03 · Xe khách sơn xanh, giấy ghi bạc",
+      "muc": 1,
+      "y_do": "Đổi màu sơn.",
+      "xe": {
+        "bien_so": "29B-117.45",
+        "ngay_kiem_tra": "2026-09-15",
+        "xe": {
+          "loai": "xe_khach_16",
+          "dai_mm": 5990,
+          "rong_mm": 1990,
+          "cao_mm": 2500,
+          "thung": null,
+          "lop": {
+            "co": "195/70R15C",
+            "duong_kinh_mm": 653
+          },
+          "so_cho": 16,
+          "mau": "bac"
+        },
+        "bien_the": [
+          {
+            "ma": "bt-doi-mau-son",
+            "tham_so": {
+              "mau": "xanh"
+            }
+          }
+        ],
+        "giay": {
+          "so": "KD-032609",
+          "co_gia_tri_den": "2027-03-15"
+        }
+      }
+    },
+    {
+      "ma": "SX-04",
+      "tieu_de": "[Demo] SX-04 · Xe tải lắp đèn nóc cabin",
+      "muc": 1,
+      "y_do": "Đèn trên nóc cabin.",
+      "xe": {
+        "bien_so": "29C-640.22",
+        "ngay_kiem_tra": "2026-09-15",
+        "xe": {
+          "loai": "xe_tai_thung",
+          "dai_mm": 6450,
+          "rong_mm": 2000,
+          "cao_mm": 2900,
+          "thung": {
+            "dai_mm": 4400,
+            "rong_mm": 1900,
+            "cao_mm": 1900
+          },
+          "lop": {
+            "co": "7.00R16",
+            "duong_kinh_mm": 775
+          },
+          "so_cho": 3,
+          "mau": "xanh"
+        },
+        "bien_the": [
+          {
+            "ma": "bt-den-noc",
+            "tham_so": {}
+          }
+        ],
+        "giay": {
+          "so": "KD-042609",
+          "co_gia_tri_den": "2027-03-15"
+        }
+      }
+    },
+    {
+      "ma": "SX-05",
+      "tieu_de": "[Demo] SX-05 · Ô tô con sơn vàng, giấy ghi đen",
+      "muc": 1,
+      "y_do": "Đổi màu sơn.",
+      "xe": {
+        "bien_so": "51A-277.90",
+        "ngay_kiem_tra": "2026-09-15",
+        "xe": {
+          "loai": "o_to_con",
+          "dai_mm": 4400,
+          "rong_mm": 1730,
+          "cao_mm": 1480,
+          "thung": null,
+          "lop": {
+            "co": "185/60R15",
+            "duong_kinh_mm": 603
+          },
+          "so_cho": 5,
+          "mau": "den"
+        },
+        "bien_the": [
+          {
+            "ma": "bt-doi-mau-son",
+            "tham_so": {
+              "mau": "vang"
+            }
+          }
+        ],
+        "giay": {
+          "so": "KD-052609",
+          "co_gia_tri_den": "2027-03-15"
+        }
+      }
+    },
+    {
+      "ma": "SX-06",
+      "tieu_de": "[Demo] SX-06 · Ô tô con đúng giấy",
+      "muc": 2,
+      "y_do": "Không sai chỗ nào: đóng dấu Đạt.",
+      "xe": {
+        "bien_so": "30G-061.37",
+        "ngay_kiem_tra": "2026-09-15",
+        "xe": {
+          "loai": "o_to_con",
+          "dai_mm": 4630,
+          "rong_mm": 1820,
+          "cao_mm": 1460,
+          "thung": null,
+          "lop": {
+            "co": "205/55R16",
+            "duong_kinh_mm": 632
+          },
+          "so_cho": 5,
+          "mau": "bac"
+        },
+        "bien_the": [],
+        "giay": {
+          "so": "KD-062609",
+          "co_gia_tri_den": "2027-03-15"
+        }
+      }
+    },
+    {
+      "ma": "SX-07",
+      "tieu_de": "[Demo] SX-07 · Xe khách đổi màu, thêm đèn nóc",
+      "muc": 2,
+      "y_do": "Hai chỗ sai.",
+      "xe": {
+        "bien_so": "15B-332.18",
+        "ngay_kiem_tra": "2026-09-15",
+        "xe": {
+          "loai": "xe_khach_16",
+          "dai_mm": 5990,
+          "rong_mm": 1990,
+          "cao_mm": 2500,
+          "thung": null,
+          "lop": {
+            "co": "195/70R15C",
+            "duong_kinh_mm": 653
+          },
+          "so_cho": 16,
+          "mau": "bac"
+        },
+        "bien_the": [
+          {
+            "ma": "bt-doi-mau-son",
+            "tham_so": {
+              "mau": "do"
+            }
+          },
+          {
+            "ma": "bt-den-noc",
+            "tham_so": {}
+          }
+        ],
+        "giay": {
+          "so": "KD-072609",
+          "co_gia_tri_den": "2027-03-15"
+        }
+      }
+    },
+    {
+      "ma": "SX-08",
+      "tieu_de": "[Demo] SX-08 · Xe tải đúng giấy",
+      "muc": 2,
+      "y_do": "Không sai chỗ nào.",
+      "xe": {
+        "bien_so": "34C-128.05",
+        "ngay_kiem_tra": "2026-09-15",
+        "xe": {
+          "loai": "xe_tai_thung",
+          "dai_mm": 6450,
+          "rong_mm": 2000,
+          "cao_mm": 2900,
+          "thung": {
+            "dai_mm": 4400,
+            "rong_mm": 1900,
+            "cao_mm": 1900
+          },
+          "lop": {
+            "co": "7.00R16",
+            "duong_kinh_mm": 775
+          },
+          "so_cho": 3,
+          "mau": "xanh"
+        },
+        "bien_the": [],
+        "giay": {
+          "so": "KD-082609",
+          "co_gia_tri_den": "2027-03-15"
+        }
+      }
+    },
+    {
+      "ma": "SX-09",
+      "tieu_de": "[Demo] SX-09 · Ô tô con lốp to",
+      "muc": 3,
+      "y_do": "Bánh xe to hơn cỡ 185/60R15 (khoảng 603 mm).",
+      "xe": {
+        "bien_so": "30K-455.21",
+        "ngay_kiem_tra": "2026-09-15",
+        "xe": {
+          "loai": "o_to_con",
+          "dai_mm": 4400,
+          "rong_mm": 1730,
+          "cao_mm": 1480,
+          "thung": null,
+          "lop": {
+            "co": "185/60R15",
+            "duong_kinh_mm": 603
+          },
+          "so_cho": 5,
+          "mau": "trang"
+        },
+        "bien_the": [
+          {
+            "ma": "bt-lop-lon",
+            "tham_so": {
+              "duong_kinh_mm": 720
+            }
+          }
+        ],
+        "giay": {
+          "so": "KD-092609",
+          "co_gia_tri_den": "2027-03-15"
+        }
+      }
+    },
+    {
+      "ma": "SX-10",
+      "tieu_de": "[Demo] SX-10 · Xe tải ống xả độ, sơn trắng",
+      "muc": 3,
+      "y_do": "Ống xả nhô ra sau; cabin sơn trắng, giấy ghi xanh.",
+      "xe": {
+        "bien_so": "29C-903.14",
+        "ngay_kiem_tra": "2026-09-15",
+        "xe": {
+          "loai": "xe_tai_thung",
+          "dai_mm": 6450,
+          "rong_mm": 2000,
+          "cao_mm": 2900,
+          "thung": {
+            "dai_mm": 4400,
+            "rong_mm": 1900,
+            "cao_mm": 1900
+          },
+          "lop": {
+            "co": "7.00R16",
+            "duong_kinh_mm": 775
+          },
+          "so_cho": 3,
+          "mau": "xanh"
+        },
+        "bien_the": [
+          {
+            "ma": "bt-ong-xa",
+            "tham_so": {}
+          },
+          {
+            "ma": "bt-doi-mau-son",
+            "tham_so": {
+              "mau": "trang"
+            }
+          }
+        ],
+        "giay": {
+          "so": "KD-102609",
+          "co_gia_tri_den": "2027-03-15"
+        }
+      }
+    },
+    {
+      "ma": "SX-11",
+      "tieu_de": "[Demo] SX-11 · Xe khách lốp to",
+      "muc": 3,
+      "y_do": "Lốp to.",
+      "xe": {
+        "bien_so": "43B-006.57",
+        "ngay_kiem_tra": "2026-09-15",
+        "xe": {
+          "loai": "xe_khach_16",
+          "dai_mm": 5990,
+          "rong_mm": 1990,
+          "cao_mm": 2500,
+          "thung": null,
+          "lop": {
+            "co": "195/70R15C",
+            "duong_kinh_mm": 653
+          },
+          "so_cho": 16,
+          "mau": "bac"
+        },
+        "bien_the": [
+          {
+            "ma": "bt-lop-lon",
+            "tham_so": {
+              "duong_kinh_mm": 760
+            }
+          }
+        ],
+        "giay": {
+          "so": "KD-112609",
+          "co_gia_tri_den": "2027-03-15"
+        }
+      }
+    },
+    {
+      "ma": "SX-12",
+      "tieu_de": "[Demo] SX-12 · Xe tải thùng cơi cao",
+      "muc": 4,
+      "y_do": "Thùng cao 2.500 mm, giấy ghi 1.900 mm: thấy bằng mắt.",
+      "xe": {
+        "bien_so": "36C-221.84",
+        "ngay_kiem_tra": "2026-09-15",
+        "xe": {
+          "loai": "xe_tai_thung",
+          "dai_mm": 6450,
+          "rong_mm": 2000,
+          "cao_mm": 2900,
+          "thung": {
+            "dai_mm": 4400,
+            "rong_mm": 1900,
+            "cao_mm": 1900
+          },
+          "lop": {
+            "co": "7.00R16",
+            "duong_kinh_mm": 775
+          },
+          "so_cho": 3,
+          "mau": "xanh"
+        },
+        "bien_the": [
+          {
+            "ma": "bt-thung-coi-cao",
+            "tham_so": {
+              "them_mm": 600
+            }
+          }
+        ],
+        "giay": {
+          "so": "KD-122609",
+          "co_gia_tri_den": "2027-03-15"
+        }
+      }
+    },
+    {
+      "ma": "SX-13",
+      "tieu_de": "[Demo] SX-13 · Xe khách thêm ghế khoang hành lý",
+      "muc": 4,
+      "y_do": "Cửa sổ cuối thấy thêm hàng ghế.",
+      "xe": {
+        "bien_so": "29B-640.93",
+        "ngay_kiem_tra": "2026-09-15",
+        "xe": {
+          "loai": "xe_khach_16",
+          "dai_mm": 5990,
+          "rong_mm": 1990,
+          "cao_mm": 2500,
+          "thung": null,
+          "lop": {
+            "co": "195/70R15C",
+            "duong_kinh_mm": 653
+          },
+          "so_cho": 16,
+          "mau": "bac"
+        },
+        "bien_the": [
+          {
+            "ma": "bt-them-ghe",
+            "tham_so": {}
+          }
+        ],
+        "giay": {
+          "so": "KD-132609",
+          "co_gia_tri_den": "2027-03-15"
+        }
+      }
+    },
+    {
+      "ma": "SX-14",
+      "tieu_de": "[Demo] SX-14 · Ô tô con ống xả độ, đèn nóc",
+      "muc": 4,
+      "y_do": "Hai chỗ sai.",
+      "xe": {
+        "bien_so": "30H-118.26",
+        "ngay_kiem_tra": "2026-09-15",
+        "xe": {
+          "loai": "o_to_con",
+          "dai_mm": 4630,
+          "rong_mm": 1820,
+          "cao_mm": 1460,
+          "thung": null,
+          "lop": {
+            "co": "205/55R16",
+            "duong_kinh_mm": 632
+          },
+          "so_cho": 5,
+          "mau": "bac"
+        },
+        "bien_the": [
+          {
+            "ma": "bt-ong-xa",
+            "tham_so": {}
+          },
+          {
+            "ma": "bt-den-noc",
+            "tham_so": {}
+          }
+        ],
+        "giay": {
+          "so": "KD-142609",
+          "co_gia_tri_den": "2027-03-15"
+        }
+      }
+    },
+    {
+      "ma": "SX-15",
+      "tieu_de": "[Demo] SX-15 · Xe tải thùng cơi ít, lốp to",
+      "muc": 5,
+      "y_do": "Thùng cao hơn giấy 150 mm: phải đo bằng thước. Lốp to.",
+      "xe": {
+        "bien_so": "29C-777.03",
+        "ngay_kiem_tra": "2026-09-15",
+        "xe": {
+          "loai": "xe_tai_thung",
+          "dai_mm": 7250,
+          "rong_mm": 2150,
+          "cao_mm": 3050,
+          "thung": {
+            "dai_mm": 5200,
+            "rong_mm": 2050,
+            "cao_mm": 2050
+          },
+          "lop": {
+            "co": "8.25R16",
+            "duong_kinh_mm": 855
+          },
+          "so_cho": 3,
+          "mau": "trang"
+        },
+        "bien_the": [
+          {
+            "ma": "bt-thung-coi-cao",
+            "tham_so": {
+              "them_mm": 150
+            }
+          },
+          {
+            "ma": "bt-lop-lon",
+            "tham_so": {
+              "duong_kinh_mm": 940
+            }
+          }
+        ],
+        "giay": {
+          "so": "KD-152609",
+          "co_gia_tri_den": "2027-03-15"
+        }
+      }
+    },
+    {
+      "ma": "SX-16",
+      "tieu_de": "[Demo] SX-16 · Xe tải thùng dài, đổi màu, đèn nóc",
+      "muc": 5,
+      "y_do": "Ba chỗ sai; thùng dài hơn giấy 400 mm, đo bằng thước.",
+      "xe": {
+        "bien_so": "51D-305.66",
+        "ngay_kiem_tra": "2026-09-15",
+        "xe": {
+          "loai": "xe_tai_thung",
+          "dai_mm": 7250,
+          "rong_mm": 2150,
+          "cao_mm": 3050,
+          "thung": {
+            "dai_mm": 5200,
+            "rong_mm": 2050,
+            "cao_mm": 2050
+          },
+          "lop": {
+            "co": "8.25R16",
+            "duong_kinh_mm": 855
+          },
+          "so_cho": 3,
+          "mau": "trang"
+        },
+        "bien_the": [
+          {
+            "ma": "bt-thung-dai",
+            "tham_so": {
+              "them_mm": 400
+            }
+          },
+          {
+            "ma": "bt-doi-mau-son",
+            "tham_so": {
+              "mau": "vang"
+            }
+          },
+          {
+            "ma": "bt-den-noc",
+            "tham_so": {}
+          }
+        ],
+        "giay": {
+          "so": "KD-162609",
+          "co_gia_tri_den": "2027-03-15"
+        }
+      }
+    }
+  ]
+}

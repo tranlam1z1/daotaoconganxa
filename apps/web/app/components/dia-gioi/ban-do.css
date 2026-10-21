@@ -1,0 +1,15 @@
+/* Bản đồ OpenStreetMap trong công cụ địa giới (BanDoViTri.tsx). */
+
+/* Chế độ tối: đảo màu ảnh nền cho dịu mắt; viền ranh, chấm vị trí (lớp vector) giữ màu thật. */
+[data-theme="dark"] .ban-do-osm .leaflet-tile-pane {
+  filter: invert(1) hue-rotate(180deg) brightness(0.9) contrast(0.9);
+}
+
+.ban-do-osm .leaflet-container {
+  background: var(--surface-2);
+  font: inherit;
+}
+
+.ban-do-osm .leaflet-control-attribution {
+  font-size: 0.75rem;
+}

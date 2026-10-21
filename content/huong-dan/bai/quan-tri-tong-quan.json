@@ -1,0 +1,31 @@
+{
+  "tieu_de": "Tổng quan quản trị đào tạo",
+  "tom_tat": "Khung các trang quản trị, sáu thẻ số liệu cần xử lý và kết quả so sánh hiệu quả của nhân vật đồng hành.",
+  "routes": ["routes/quan-tri._index.tsx"],
+  "anh": [
+    {
+      "ten": "quan-tri-khung",
+      "chu_thich": "Khung trang quản trị đào tạo",
+      "url": "/quan-tri",
+      "dang_nhap": true,
+      "vung": "main",
+      "danh_dau": [
+        { "o": "nav[aria-label='Điều hướng quản trị']", "ghi_chu": "Chuyển giữa các trang quản trị", "huong": "duoi" },
+        { "o": "h1:text-is('Quản trị đào tạo') + p", "ghi_chu": "Tài khoản và vai trò", "huong": "trai" }
+      ]
+    },
+    {
+      "ten": "quan-tri-the-so-lieu",
+      "chu_thich": "Thẻ số liệu trên trang Tổng quan",
+      "url": "/quan-tri",
+      "dang_nhap": true,
+      "vung": "nav[aria-label='Điều hướng quản trị'] + div",
+      "danh_dau": [
+        { "o": "a:has(p:text-is('Căn cứ hỏng'))", "ghi_chu": "Viền đỏ khi có căn cứ hỏng", "huong": "tren" },
+        { "o": "a:has(p:text-is('Chờ duyệt'))", "ghi_chu": "Viền vàng khi quá 10 bài", "huong": "tren" },
+        { "o": "a:has(p:text-is('Chi phí AI tháng này'))", "ghi_chu": "Chi phí soạn bài trong tháng", "huong": "duoi" },
+        { "o": "section:has(h2:text-is('Mascot có giúp người học không?')) p >> nth=-1", "ghi_chu": "Số người và tỷ lệ hoàn thành", "huong": "duoi" }
+      ]
+    }
+  ]
+}

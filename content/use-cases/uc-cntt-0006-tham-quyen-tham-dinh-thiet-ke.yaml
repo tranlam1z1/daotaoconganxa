@@ -1,0 +1,204 @@
+slug: uc-cntt-0006-tham-quyen-tham-dinh-thiet-ke
+title: Xác định cơ quan thẩm định thiết kế và xử lý xung đột lợi ích khi đơn vị thẩm định là chủ đầu tư
+
+taxonomy_codes: [PD.03.003, PD.34.007, NB.CNTT.DTUD.TD, NB.DP.PCDT]
+actor_kinds: [co_quan_nha_nuoc]
+work_kinds: [thu_tuc_hanh_chinh, lap_ke_hoach_du_an]
+
+as_of: 2026-06-01
+effectivity_note: >-
+  Gán nhãn tại 01/6/2026. Từ 01/7/2026, quy định tương ứng nằm tại khoản 3 Điều 50 Nghị định số
+  224/2026/NĐ-CP, trong đó bổ sung vai trò của Chủ tịch Ủy ban nhân dân các cấp phù hợp mô hình chính
+  quyền địa phương hai cấp.
+
+situation: |
+  Sở Khoa học và Công nghệ tỉnh T là chủ đầu tư một dự án đầu tư hệ thống thông tin, tổng mức đầu tư
+  14,5 tỷ đồng, thuộc nhóm C. Theo phân cấp của tỉnh, Sở đồng thời là cơ quan chuyên môn về công nghệ
+  thông tin của Ủy ban nhân dân tỉnh, tức là đơn vị thường được giao thẩm định thiết kế cho các dự án
+  công nghệ thông tin trên địa bàn. Sở hỏi trong trường hợp này ai thẩm định thiết kế của chính dự án
+  do Sở làm chủ đầu tư, và thời hạn thẩm định là bao lâu.
+
+questions:
+  - Ai có thẩm quyền thẩm định thiết kế đối với dự án của cơ quan ở địa phương?
+  - Xử lý thế nào khi đơn vị thẩm định thiết kế đồng thời là chủ đầu tư?
+  - Thời hạn thẩm định dự án và thẩm định thiết kế của dự án nhóm C là bao lâu?
+
+analysis:
+  - step: 1
+    claim: >-
+      Đối với dự án ở địa phương, Chủ tịch Ủy ban nhân dân cấp tỉnh lập hội đồng thẩm định thiết kế
+      hoặc giao đơn vị chuyên môn về công nghệ thông tin của Ủy ban nhân dân cấp tỉnh thẩm định.
+    citations:
+      - vn:vbqppl:nd:45/2026/NĐ-CP#dieu-17.khoan-3@2026-03-01
+    quote: >-
+      Đối với dự án thuộc thẩm quyền quyết định đầu tư tại địa phương, Chủ tịch Ủy ban nhân dân cấp
+      tỉnh thành lập Hội đồng thẩm định thiết kế hoặc giao đơn vị chuyên môn về công nghệ thông tin
+      của Ủy ban nhân dân cấp tỉnh thẩm định thiết kế.
+    reasoning: >-
+      Điểm b khoản 3 Điều 17 quy định hai phương án cho địa phương. Quyền lựa chọn giữa hai phương án
+      thuộc Chủ tịch Ủy ban nhân dân cấp tỉnh, không thuộc chủ đầu tư.
+
+  - step: 2
+    claim: >-
+      Khi đơn vị thẩm định thiết kế đồng thời là chủ đầu tư thì phải lập hội đồng thẩm định hoặc giao
+      đơn vị chuyên môn khác thẩm định.
+    citations:
+      - vn:vbqppl:nd:45/2026/NĐ-CP#dieu-17.khoan-3@2026-03-01
+    quote: >-
+      Trường hợp đơn vị thẩm định thiết kế đồng thời là chủ đầu tư thì thành lập Hội đồng thẩm định
+      hoặc giao đơn vị chuyên môn khác thẩm định.
+    reasoning: >-
+      Điểm c khoản 3 Điều 17 xử lý trực tiếp tình huống xung đột lợi ích của Sở. Đây là quy định bắt
+      buộc, không phải khuyến nghị. Sở không được tự thẩm định thiết kế của dự án do chính Sở làm chủ
+      đầu tư, kể cả khi Sở là cơ quan chuyên môn về công nghệ thông tin của tỉnh.
+
+  - step: 3
+    claim: >-
+      Thời hạn thẩm định dự án nhóm C không quá 20 ngày làm việc; thời hạn thẩm định thiết kế không
+      quá 10 ngày làm việc.
+    citations:
+      - vn:vbqppl:nd:45/2026/NĐ-CP#dieu-17.khoan-5@2026-03-01
+    quote: >-
+      Thời gian thẩm định dự án không quá 30 ngày làm việc đối với dự án nhóm A, không quá 20 ngày làm
+      việc đối với dự án nhóm B, nhóm C. Thời gian thẩm định thiết kế không quá 15 ngày làm việc đối
+      với dự án nhóm A, không quá 10 ngày làm việc đối với dự án nhóm B, nhóm C.
+    reasoning: >-
+      Dự án 14,5 tỷ đồng thuộc nhóm C vì dưới 90 tỷ đồng theo khoản 4 Điều 11 Luật Đầu tư công số
+      58/2024/QH15. Thời hạn thẩm định thiết kế nằm **trong** tổng thời gian thẩm định dự án, không
+      cộng thêm.
+
+  - step: 4
+    claim: >-
+      Đầu mối thẩm định phải gửi hồ sơ lấy ý kiến đơn vị thẩm định thiết kế trong 02 ngày làm việc, và
+      hồ sơ được gửi bằng hình thức điện tử.
+    citations:
+      - vn:vbqppl:nd:45/2026/NĐ-CP#dieu-17.khoan-2@2026-03-01
+    quote: >-
+      Hồ sơ được gửi bằng hình thức điện tử; trong 02 ngày làm việc phải gửi lấy ý kiến đơn vị thẩm
+      định thiết kế.
+    reasoning: >-
+      Khoản 2 Điều 17 đặt mốc 02 ngày làm việc cho khâu chuyển hồ sơ, nhằm bảo đảm thời gian thực chất
+      cho đơn vị thẩm định thiết kế trong tổng thời hạn 20 ngày làm việc.
+
+  - step: 5
+    claim: >-
+      Sau khi có báo cáo thẩm định, cấp có thẩm quyền quyết định đầu tư phải quyết định trong không
+      quá 03 ngày làm việc đối với dự án nhóm C.
+    citations:
+      - vn:vbqppl:nd:45/2026/NĐ-CP#dieu-17.khoan-7@2026-03-01
+    quote: >-
+      Thời gian quyết định đầu tư dự án không quá 05 ngày làm việc đối với dự án nhóm A, không quá 03
+      ngày làm việc đối với dự án nhóm B, nhóm C.
+    reasoning: >-
+      Điểm b khoản 7 Điều 17 quy định thời hạn cho bước quyết định đầu tư, tách riêng khỏi thời hạn
+      thẩm định. Tổng thời gian từ khi nộp đủ hồ sơ hợp lệ tới khi có quyết định đầu tư của dự án nhóm
+      C là không quá 23 ngày làm việc.
+
+conclusion: |
+  Sở Khoa học và Công nghệ tỉnh T **không được tự thẩm định thiết kế** của dự án do chính Sở làm chủ
+  đầu tư. Theo điểm c khoản 3 Điều 17 Nghị định 45/2026/NĐ-CP, phải thành lập hội đồng thẩm định hoặc
+  giao đơn vị chuyên môn khác thẩm định. Quyền quyết định thuộc Chủ tịch Ủy ban nhân dân tỉnh theo
+  điểm b khoản 3 Điều 17.
+
+  Về thời hạn với dự án nhóm C: thẩm định dự án không quá **20 ngày làm việc**, trong đó thẩm định
+  thiết kế không quá **10 ngày làm việc** (khoản 5 Điều 17); đầu mối thẩm định gửi lấy ý kiến đơn vị
+  thẩm định thiết kế trong **02 ngày làm việc** kể từ khi nhận đủ hồ sơ (khoản 2 Điều 17); quyết định
+  đầu tư không quá **03 ngày làm việc** sau khi có báo cáo thẩm định (điểm b khoản 7 Điều 17).
+
+  Việc dự án thuộc nhóm C được xác định theo khoản 4 Điều 11 Luật Đầu tư công số 58/2024/QH15: dự án
+  lĩnh vực công nghệ thông tin có tổng mức đầu tư dưới 90 tỷ đồng thuộc nhóm C.
+
+  Khuyến nghị: Sở có văn bản báo cáo Chủ tịch Ủy ban nhân dân tỉnh **ngay từ khi lập hồ sơ**, nêu rõ
+  tình huống trùng vai và đề xuất phương án, để không mất thời gian ở khâu tiếp nhận hồ sơ.
+
+procedure:
+  - order: 1
+    step: >-
+      Chủ đầu tư có văn bản báo cáo Chủ tịch Ủy ban nhân dân tỉnh về tình huống đơn vị thẩm định thiết
+      kế đồng thời là chủ đầu tư, đề xuất phương án lập hội đồng hoặc giao đơn vị chuyên môn khác
+    authority: Chủ đầu tư trình; Chủ tịch Ủy ban nhân dân tỉnh quyết định
+    timeline: Trước khi trình hồ sơ thẩm định
+    inputs: [Văn bản báo cáo, Nêu rõ tình huống trùng vai]
+    outputs: [Quyết định thành lập hội đồng thẩm định hoặc văn bản giao đơn vị chuyên môn khác]
+    citations: [vn:vbqppl:nd:45/2026/NĐ-CP#dieu-17.khoan-3@2026-03-01]
+    templates: []
+    needs_citation: false
+  - order: 2
+    step: Trình hồ sơ thẩm định dự án tới đầu mối thẩm định, gửi bằng hình thức điện tử
+    authority: Chủ đầu tư
+    timeline: Sau khi hoàn thiện báo cáo nghiên cứu khả thi
+    inputs: [Hồ sơ trình theo khoản 6 Điều 17]
+    outputs: [Biên nhận hồ sơ]
+    citations: [vn:vbqppl:nd:45/2026/NĐ-CP#dieu-17.khoan-2@2026-03-01]
+    templates: [asset://mau-so-01]
+    needs_citation: false
+  - order: 3
+    step: Đầu mối thẩm định gửi hồ sơ lấy ý kiến đơn vị thẩm định thiết kế
+    authority: Đầu mối thẩm định
+    timeline: Trong 02 ngày làm việc kể từ khi nhận đủ hồ sơ
+    inputs: [Hồ sơ trình]
+    outputs: [Văn bản lấy ý kiến]
+    citations: [vn:vbqppl:nd:45/2026/NĐ-CP#dieu-17.khoan-2@2026-03-01]
+    templates: []
+    needs_citation: false
+  - order: 4
+    step: Thẩm định thiết kế và gửi kết quả về đầu mối thẩm định
+    authority: Hội đồng thẩm định thiết kế hoặc đơn vị chuyên môn được giao
+    timeline: Không quá 10 ngày làm việc đối với dự án nhóm B, nhóm C
+    inputs: [Hồ sơ thiết kế]
+    outputs: [Báo cáo thẩm định thiết kế]
+    citations: [vn:vbqppl:nd:45/2026/NĐ-CP#dieu-17.khoan-5@2026-03-01]
+    templates: [asset://mau-so-02]
+    needs_citation: false
+  - order: 5
+    step: Lập báo cáo thẩm định dự án và trình cấp có thẩm quyền quyết định đầu tư
+    authority: Đầu mối thẩm định
+    timeline: Tổng thời gian thẩm định dự án không quá 20 ngày làm việc đối với dự án nhóm B, nhóm C
+    inputs: [Báo cáo thẩm định thiết kế, Ý kiến các cơ quan liên quan]
+    outputs: [Báo cáo thẩm định dự án]
+    citations: [vn:vbqppl:nd:45/2026/NĐ-CP#dieu-17.khoan-5@2026-03-01]
+    templates: [asset://mau-so-03]
+    needs_citation: false
+  - order: 6
+    step: Quyết định đầu tư dự án
+    authority: Cấp có thẩm quyền quyết định đầu tư
+    timeline: Không quá 03 ngày làm việc đối với dự án nhóm B, nhóm C
+    inputs: [Hồ sơ trình theo khoản 6 Điều 17]
+    outputs: [Quyết định đầu tư]
+    citations: [vn:vbqppl:nd:45/2026/NĐ-CP#dieu-17.khoan-7@2026-03-01]
+    templates: [asset://mau-so-04]
+    needs_citation: false
+
+risks:
+  - risk: Sở tự thẩm định thiết kế của dự án do chính Sở làm chủ đầu tư
+    consequence: Vi phạm điểm c khoản 3 Điều 17; báo cáo thẩm định không hợp lệ, có thể phải thẩm định lại toàn bộ
+    mitigation: Báo cáo Chủ tịch Ủy ban nhân dân tỉnh ngay từ đầu để có văn bản giao đơn vị khác hoặc lập hội đồng
+    citations: [vn:vbqppl:nd:45/2026/NĐ-CP#dieu-17.khoan-3@2026-03-01]
+  - risk: Hiểu nhầm thời hạn thẩm định thiết kế là cộng thêm ngoài thời hạn thẩm định dự án
+    consequence: Lập kế hoạch tiến độ sai, chậm các mốc tiếp theo
+    mitigation: Thời hạn thẩm định thiết kế nằm trong tổng thời hạn thẩm định dự án
+    citations: [vn:vbqppl:nd:45/2026/NĐ-CP#dieu-17.khoan-5@2026-03-01]
+  - risk: Nộp hồ sơ chưa đủ, làm mốc tính thời hạn chưa bắt đầu
+    consequence: Kéo dài thực tế dù thời hạn quy định ngắn
+    mitigation: Rà theo danh mục hồ sơ tại khoản 6 Điều 17 trước khi nộp; nộp bằng hình thức điện tử
+    citations: [vn:vbqppl:nd:45/2026/NĐ-CP#dieu-17.khoan-6@2026-03-01]
+  - risk: Xác định sai nhóm dự án, dẫn tới áp dụng sai mốc thời hạn
+    consequence: Sai kế hoạch tiến độ và sai thẩm quyền
+    mitigation: Đối chiếu tổng mức đầu tư với Điều 9, Điều 10, Điều 11 Luật Đầu tư công số 58/2024/QH15
+    citations: [vn:vbqppl:l:58/2024/QH15#dieu-11.khoan-4@2025-01-01]
+
+related_questions:
+  - Nội dung thẩm định dự án gồm những nhóm nào?
+  - Hồ sơ trình quyết định đầu tư gồm những tài liệu gì?
+  - Chủ đầu tư có được tự phê duyệt điều chỉnh thiết kế chi tiết không?
+
+gaps:
+  - what: Quy định phân cấp thẩm quyền quyết định đầu tư của tỉnh T
+    why: Cần để xác định chính xác ai là cấp có thẩm quyền quyết định đầu tư đối với dự án 14,5 tỷ đồng
+    suggested_source: Nghị quyết của Hội đồng nhân dân tỉnh về phân cấp thẩm quyền quyết định đầu tư
+
+status: draft
+citation_health: ok
+author: Tổ biên soạn nội dung quydinhphapluat.vn
+legal_reviewer: null
+reviewed_at: null

@@ -1,0 +1,229 @@
+{
+  "doc": "04-luat-co-phan-chuong-muc.md",
+  "urn": "vn:vbqppl:l:99/2026/QH16",
+  "title": "Luật mẫu — đủ 5 cấp: phần, chương, mục, tiểu mục, điều",
+  "note": "Bao phủ: Phần thứ nhất/thứ hai, tiểu mục, điều đánh số liên tục xuyên phần và chương, mục không có tiểu mục xen kẽ với mục có tiểu mục.",
+  "source": "Văn bản mẫu do tổ biên soạn tạo cho mục đích kiểm thử; không phải văn bản quy phạm pháp luật có thật.",
+  "counts": {
+    "phan": 2,
+    "chuong": 3,
+    "dieu": 6,
+    "khoan": 6,
+    "muc": 2,
+    "tieu_muc": 2,
+    "diem": 3
+  },
+  "expected_warnings": [],
+  "tree": [
+    {
+      "path": "mo-dau",
+      "fullPath": "mo-dau",
+      "kind": "loi_noi_dau",
+      "label": "Phần mở đầu",
+      "children": []
+    },
+    {
+      "path": "can-cu",
+      "fullPath": "can-cu",
+      "kind": "can_cu",
+      "label": "Căn cứ ban hành",
+      "children": []
+    },
+    {
+      "path": "",
+      "fullPath": "phan-1",
+      "kind": "phan",
+      "label": "Phần thứ nhất",
+      "children": [
+        {
+          "path": "",
+          "fullPath": "phan-1.chuong-1",
+          "kind": "chuong",
+          "label": "Chương I",
+          "children": [
+            {
+              "path": "dieu-1",
+              "fullPath": "phan-1.chuong-1.dieu-1",
+              "kind": "dieu",
+              "label": "Điều 1",
+              "children": [],
+              "heading": "Phạm vi điều chỉnh"
+            },
+            {
+              "path": "dieu-2",
+              "fullPath": "phan-1.chuong-1.dieu-2",
+              "kind": "dieu",
+              "label": "Điều 2",
+              "children": [
+                {
+                  "path": "dieu-2.khoan-1",
+                  "fullPath": "phan-1.chuong-1.dieu-2.khoan-1",
+                  "kind": "khoan",
+                  "label": "1.",
+                  "children": []
+                },
+                {
+                  "path": "dieu-2.khoan-2",
+                  "fullPath": "phan-1.chuong-1.dieu-2.khoan-2",
+                  "kind": "khoan",
+                  "label": "2.",
+                  "children": []
+                }
+              ],
+              "heading": "Nguyên tắc quản lý"
+            }
+          ],
+          "heading": "PHẠM VI VÀ NGUYÊN TẮC"
+        }
+      ],
+      "heading": "NHỮNG QUY ĐỊNH CHUNG"
+    },
+    {
+      "path": "",
+      "fullPath": "phan-2",
+      "kind": "phan",
+      "label": "Phần thứ hai",
+      "children": [
+        {
+          "path": "",
+          "fullPath": "phan-2.chuong-2",
+          "kind": "chuong",
+          "label": "Chương II",
+          "children": [
+            {
+              "path": "",
+              "fullPath": "phan-2.chuong-2.muc-1",
+              "kind": "muc",
+              "label": "Mục 1",
+              "children": [
+                {
+                  "path": "",
+                  "fullPath": "phan-2.chuong-2.muc-1.tieu-muc-1",
+                  "kind": "tieu_muc",
+                  "label": "Tiểu mục 1",
+                  "children": [
+                    {
+                      "path": "dieu-3",
+                      "fullPath": "phan-2.chuong-2.muc-1.tieu-muc-1.dieu-3",
+                      "kind": "dieu",
+                      "label": "Điều 3",
+                      "children": [
+                        {
+                          "path": "dieu-3.khoan-1",
+                          "fullPath": "phan-2.chuong-2.muc-1.tieu-muc-1.dieu-3.khoan-1",
+                          "kind": "khoan",
+                          "label": "1.",
+                          "children": []
+                        },
+                        {
+                          "path": "dieu-3.khoan-2",
+                          "fullPath": "phan-2.chuong-2.muc-1.tieu-muc-1.dieu-3.khoan-2",
+                          "kind": "khoan",
+                          "label": "2.",
+                          "children": [
+                            {
+                              "path": "dieu-3.khoan-2.diem-a",
+                              "fullPath": "phan-2.chuong-2.muc-1.tieu-muc-1.dieu-3.khoan-2.diem-a",
+                              "kind": "diem",
+                              "label": "a)",
+                              "children": []
+                            },
+                            {
+                              "path": "dieu-3.khoan-2.diem-b",
+                              "fullPath": "phan-2.chuong-2.muc-1.tieu-muc-1.dieu-3.khoan-2.diem-b",
+                              "kind": "diem",
+                              "label": "b)",
+                              "children": []
+                            },
+                            {
+                              "path": "dieu-3.khoan-2.diem-c",
+                              "fullPath": "phan-2.chuong-2.muc-1.tieu-muc-1.dieu-3.khoan-2.diem-c",
+                              "kind": "diem",
+                              "label": "c)",
+                              "children": []
+                            }
+                          ]
+                        }
+                      ],
+                      "heading": "Lập kế hoạch"
+                    }
+                  ],
+                  "heading": "LẬP KẾ HOẠCH"
+                },
+                {
+                  "path": "",
+                  "fullPath": "phan-2.chuong-2.muc-1.tieu-muc-2",
+                  "kind": "tieu_muc",
+                  "label": "Tiểu mục 2",
+                  "children": [
+                    {
+                      "path": "dieu-4",
+                      "fullPath": "phan-2.chuong-2.muc-1.tieu-muc-2.dieu-4",
+                      "kind": "dieu",
+                      "label": "Điều 4",
+                      "children": [],
+                      "heading": "Thẩm định kế hoạch"
+                    }
+                  ],
+                  "heading": "THẨM ĐỊNH KẾ HOẠCH"
+                }
+              ],
+              "heading": "CHUẨN BỊ"
+            },
+            {
+              "path": "",
+              "fullPath": "phan-2.chuong-2.muc-2",
+              "kind": "muc",
+              "label": "Mục 2",
+              "children": [
+                {
+                  "path": "dieu-5",
+                  "fullPath": "phan-2.chuong-2.muc-2.dieu-5",
+                  "kind": "dieu",
+                  "label": "Điều 5",
+                  "children": [
+                    {
+                      "path": "dieu-5.khoan-1",
+                      "fullPath": "phan-2.chuong-2.muc-2.dieu-5.khoan-1",
+                      "kind": "khoan",
+                      "label": "1.",
+                      "children": []
+                    },
+                    {
+                      "path": "dieu-5.khoan-2",
+                      "fullPath": "phan-2.chuong-2.muc-2.dieu-5.khoan-2",
+                      "kind": "khoan",
+                      "label": "2.",
+                      "children": []
+                    }
+                  ],
+                  "heading": "Triển khai"
+                }
+              ],
+              "heading": "THỰC HIỆN"
+            }
+          ],
+          "heading": "TỔ CHỨC THỰC HIỆN"
+        },
+        {
+          "path": "",
+          "fullPath": "phan-2.chuong-3",
+          "kind": "chuong",
+          "label": "Chương III",
+          "children": [
+            {
+              "path": "dieu-6",
+              "fullPath": "phan-2.chuong-3.dieu-6",
+              "kind": "dieu",
+              "label": "Điều 6",
+              "children": [],
+              "heading": "Hiệu lực thi hành"
+            }
+          ],
+          "heading": "ĐIỀU KHOẢN THI HÀNH"
+        }
+      ],
+      "heading": "QUẢN LÝ HOẠT ĐỘNG SỐ"
+    }
+  ]
+}

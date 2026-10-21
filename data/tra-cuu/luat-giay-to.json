@@ -1,0 +1,208 @@
+{
+  "mo_ta": "Luật giấy tờ cho trò Kiểm tra giấy tờ (docs/PLAN.md GĐ-T1). Mỗi dòng là một phép kiểm; bộ kiểm ở packages/dao-tao/src/tro-choi/chung/giay-to.ts. Nạp bằng: bun run tra-cuu:nap",
+  "luu_y_bien_tap": [
+    "BẢN NHÁP, DỮ LIỆU DEMO, CHƯA DUYỆT. Soạn khi kho văn bản chưa có Luật số 36/2024/QH15 và văn bản về bảo hiểm bắt buộc; căn cứ mới ghi ở mức văn bản.",
+    "Trước khi duyệt: xác định điều, khoản cụ thể; đối chiếu nguyên văn tại ngày áp dụng; bổ sung mã mức phạt (ma_muc_phat) khi bảng mức phạt có dòng tương ứng đã đối chiếu Nghị định số 168/2024/NĐ-CP.",
+    "Danh sách cần đơn vị chuyên môn kiểm tra ở docs/GAME_DESIGN.md §5.1."
+  ],
+  "dong": [
+    {
+      "ma": "gt-phai-co-gplx",
+      "kiem": "phai_co",
+      "giay_to": "gplx",
+      "phan_loai": [],
+      "tham_so": {},
+      "ten": "Người lái phải mang theo giấy phép lái xe",
+      "giai_thich": "Khi điều khiển xe cơ giới trên đường, người lái phải mang theo giấy phép lái xe phù hợp với loại xe đang điều khiển.",
+      "can_cu": "vn:vbqppl:l:36/2024/QH15",
+      "ma_muc_phat": null,
+      "hieu_luc_tu": "2025-01-01",
+      "trang_thai": "nhap",
+      "ghi_chu": "Dữ liệu demo, chưa duyệt. Soạn khi kho văn bản chưa có văn bản gốc, căn cứ mới ghi ở mức văn bản; cần đơn vị chuyên môn xác định điều, khoản và đối chiếu nguyên văn. Dự kiến: điều quy định giấy tờ người lái xe phải mang theo của Luật số 36/2024/QH15. Chưa có dòng mức phạt cho lỗi này (data/tra-cuu/muc-phat.json), nên biên bản ghi \"Chưa có mức phạt đã duyệt\"."
+    },
+    {
+      "ma": "gt-phai-co-dang-ky",
+      "kiem": "phai_co",
+      "giay_to": "dang_ky",
+      "phan_loai": [],
+      "tham_so": {},
+      "ten": "Người lái phải mang theo giấy chứng nhận đăng ký xe",
+      "giai_thich": "Khi điều khiển xe cơ giới trên đường, người lái phải mang theo giấy chứng nhận đăng ký xe (hoặc giấy tờ thay thế theo quy định).",
+      "can_cu": "vn:vbqppl:l:36/2024/QH15",
+      "ma_muc_phat": null,
+      "hieu_luc_tu": "2025-01-01",
+      "trang_thai": "nhap",
+      "ghi_chu": "Dữ liệu demo, chưa duyệt. Soạn khi kho văn bản chưa có văn bản gốc, căn cứ mới ghi ở mức văn bản; cần đơn vị chuyên môn xác định điều, khoản và đối chiếu nguyên văn. Dự kiến: như luật trên. Cần xác nhận các giấy tờ được dùng thay giấy đăng ký (bản sao có chứng thực kèm giấy xác nhận của tổ chức tín dụng, giấy tờ điện tử) để bổ sung sau (câu D4). Chưa có dòng mức phạt cho lỗi này (data/tra-cuu/muc-phat.json), nên biên bản ghi \"Chưa có mức phạt đã duyệt\"."
+    },
+    {
+      "ma": "gt-phai-co-bao-hiem",
+      "kiem": "phai_co",
+      "giay_to": "bao_hiem",
+      "phan_loai": [],
+      "tham_so": {},
+      "ten": "Người lái phải mang theo giấy chứng nhận bảo hiểm bắt buộc",
+      "giai_thich": "Khi điều khiển xe cơ giới trên đường, người lái phải mang theo giấy chứng nhận bảo hiểm bắt buộc trách nhiệm dân sự của chủ xe cơ giới.",
+      "can_cu": "vn:vbqppl:l:36/2024/QH15",
+      "ma_muc_phat": null,
+      "hieu_luc_tu": "2025-01-01",
+      "trang_thai": "nhap",
+      "ghi_chu": "Dữ liệu demo, chưa duyệt. Soạn khi kho văn bản chưa có văn bản gốc, căn cứ mới ghi ở mức văn bản; cần đơn vị chuyên môn xác định điều, khoản và đối chiếu nguyên văn. Dự kiến: như luật trên; nội dung bảo hiểm bắt buộc theo văn bản về bảo hiểm bắt buộc trách nhiệm dân sự của chủ xe cơ giới (dự kiến Nghị định số 67/2023/NĐ-CP), cần xác nhận còn hiệu lực. Cần xác nhận giấy chứng nhận bảo hiểm điện tử có được chấp nhận không. Chưa có dòng mức phạt cho lỗi này (data/tra-cuu/muc-phat.json), nên biên bản ghi \"Chưa có mức phạt đã duyệt\"."
+    },
+    {
+      "ma": "gt-gplx-con-han",
+      "kiem": "con_han",
+      "giay_to": "gplx",
+      "phan_loai": [],
+      "tham_so": {},
+      "ten": "Giấy phép lái xe phải còn giá trị sử dụng",
+      "giai_thich": "Giấy phép lái xe có thời hạn chỉ có giá trị đến hết ngày ghi trên giấy; quá ngày đó thì không còn giá trị sử dụng.",
+      "can_cu": "vn:vbqppl:l:36/2024/QH15",
+      "ma_muc_phat": null,
+      "hieu_luc_tu": "2025-01-01",
+      "trang_thai": "nhap",
+      "ghi_chu": "Dữ liệu demo, chưa duyệt. Soạn khi kho văn bản chưa có văn bản gốc, căn cứ mới ghi ở mức văn bản; cần đơn vị chuyên môn xác định điều, khoản và đối chiếu nguyên văn. Dự kiến: điều quy định giấy phép lái xe và thời hạn của giấy phép lái xe. Cần xác nhận: ngày ghi \"có giá trị đến\" vẫn còn giá trị trong chính ngày đó (trò đang tính như vậy); giấy phép hạng A1, A không thời hạn (hồ sơ mẫu đang dùng như vậy). Chưa có dòng mức phạt cho lỗi này (data/tra-cuu/muc-phat.json), nên biên bản ghi \"Chưa có mức phạt đã duyệt\"."
+    },
+    {
+      "ma": "gt-bao-hiem-con-han",
+      "kiem": "con_han",
+      "giay_to": "bao_hiem",
+      "phan_loai": [],
+      "tham_so": {},
+      "ten": "Bảo hiểm bắt buộc phải còn hiệu lực",
+      "giai_thich": "Giấy chứng nhận bảo hiểm chỉ có giá trị trong thời hạn bảo hiểm ghi trên giấy: chưa tới ngày bắt đầu hoặc đã qua ngày kết thúc đều không có hiệu lực.",
+      "can_cu": "vn:vbqppl:nd:67/2023/NĐ-CP",
+      "ma_muc_phat": null,
+      "hieu_luc_tu": "2025-01-01",
+      "trang_thai": "nhap",
+      "ghi_chu": "Dữ liệu demo, chưa duyệt. Soạn khi kho văn bản chưa có văn bản gốc, căn cứ mới ghi ở mức văn bản; cần đơn vị chuyên môn xác định điều, khoản và đối chiếu nguyên văn. Dự kiến: điều về thời hạn bảo hiểm của Nghị định số 67/2023/NĐ-CP. Cần xác nhận văn bản còn hiệu lực và cách tính ngày bắt đầu, ngày kết thúc. Chưa có dòng mức phạt cho lỗi này (data/tra-cuu/muc-phat.json), nên biên bản ghi \"Chưa có mức phạt đã duyệt\"."
+    },
+    {
+      "ma": "gt-dang-ky-khop-bien-so",
+      "kiem": "khop_xe",
+      "giay_to": "dang_ky",
+      "phan_loai": [],
+      "tham_so": {
+        "truong": "bien_so"
+      },
+      "ten": "Biển số trên giấy đăng ký phải khớp với biển số gắn trên xe",
+      "giai_thich": "Giấy đăng ký xe là của chiếc xe mang biển số ghi trên giấy. Biển số trên xe khác biển số trên giấy đăng ký thì giấy đó không phải của xe đang kiểm tra.",
+      "can_cu": "vn:vbqppl:l:36/2024/QH15",
+      "ma_muc_phat": null,
+      "hieu_luc_tu": "2025-01-01",
+      "trang_thai": "nhap",
+      "ghi_chu": "Dữ liệu demo, chưa duyệt. Soạn khi kho văn bản chưa có văn bản gốc, căn cứ mới ghi ở mức văn bản; cần đơn vị chuyên môn xác định điều, khoản và đối chiếu nguyên văn. Dự kiến: quy định về đăng ký xe và biển số của Luật số 36/2024/QH15 và thông tư của Bộ Công an về đăng ký xe; cần xác định văn bản, điều cụ thể. Chưa có dòng mức phạt cho lỗi này (data/tra-cuu/muc-phat.json), nên biên bản ghi \"Chưa có mức phạt đã duyệt\"."
+    },
+    {
+      "ma": "gt-dang-ky-khop-nhan-hieu",
+      "kiem": "khop_xe",
+      "giay_to": "dang_ky",
+      "phan_loai": [],
+      "tham_so": {
+        "truong": "nhan_hieu"
+      },
+      "ten": "Nhãn hiệu trên giấy đăng ký phải khớp với xe",
+      "giai_thich": "Thông tin nhãn hiệu, số loại trên giấy đăng ký phải đúng với chiếc xe thực tế.",
+      "can_cu": "vn:vbqppl:l:36/2024/QH15",
+      "ma_muc_phat": null,
+      "hieu_luc_tu": "2025-01-01",
+      "trang_thai": "nhap",
+      "ghi_chu": "Dữ liệu demo, chưa duyệt. Soạn khi kho văn bản chưa có văn bản gốc, căn cứ mới ghi ở mức văn bản; cần đơn vị chuyên môn xác định điều, khoản và đối chiếu nguyên văn. Dự kiến: như luật trên. Cần xác nhận hướng xử lý khi đặc điểm xe khác giấy đăng ký. Chưa có dòng mức phạt cho lỗi này (data/tra-cuu/muc-phat.json), nên biên bản ghi \"Chưa có mức phạt đã duyệt\"."
+    },
+    {
+      "ma": "gt-bao-hiem-khop-bien-so",
+      "kiem": "khop_xe",
+      "giay_to": "bao_hiem",
+      "phan_loai": [],
+      "tham_so": {
+        "truong": "bien_so"
+      },
+      "ten": "Biển số trên giấy bảo hiểm phải khớp với xe",
+      "giai_thich": "Giấy chứng nhận bảo hiểm cấp cho xe mang biển số ghi trên giấy. Biển số khác thì giấy đó không bảo hiểm cho xe đang kiểm tra.",
+      "can_cu": "vn:vbqppl:nd:67/2023/NĐ-CP",
+      "ma_muc_phat": null,
+      "hieu_luc_tu": "2025-01-01",
+      "trang_thai": "nhap",
+      "ghi_chu": "Dữ liệu demo, chưa duyệt. Soạn khi kho văn bản chưa có văn bản gốc, căn cứ mới ghi ở mức văn bản; cần đơn vị chuyên môn xác định điều, khoản và đối chiếu nguyên văn. Dự kiến: điều về giấy chứng nhận bảo hiểm của Nghị định số 67/2023/NĐ-CP. Chưa có dòng mức phạt cho lỗi này (data/tra-cuu/muc-phat.json), nên biên bản ghi \"Chưa có mức phạt đã duyệt\"."
+    },
+    {
+      "ma": "gt-gplx-dung-nguoi",
+      "kiem": "khop_nguoi",
+      "giay_to": "gplx",
+      "phan_loai": [],
+      "tham_so": {},
+      "ten": "Giấy phép lái xe phải là của chính người đang lái",
+      "giai_thich": "Giấy phép lái xe cấp cho một người. Họ tên hoặc ngày sinh trên giấy khác người đang lái thì người lái coi như không có giấy phép lái xe.",
+      "can_cu": "vn:vbqppl:l:36/2024/QH15",
+      "ma_muc_phat": null,
+      "hieu_luc_tu": "2025-01-01",
+      "trang_thai": "nhap",
+      "ghi_chu": "Dữ liệu demo, chưa duyệt. Soạn khi kho văn bản chưa có văn bản gốc, căn cứ mới ghi ở mức văn bản; cần đơn vị chuyên môn xác định điều, khoản và đối chiếu nguyên văn. Dự kiến: điều quy định điều kiện của người lái xe. Cần xác nhận cách đối chiếu nhân thân khi kiểm tra (căn cước, ứng dụng định danh). Chưa có dòng mức phạt cho lỗi này (data/tra-cuu/muc-phat.json), nên biên bản ghi \"Chưa có mức phạt đã duyệt\"."
+    },
+    {
+      "ma": "gt-hang-mo-to-nho",
+      "kiem": "hang_gplx",
+      "giay_to": "gplx",
+      "phan_loai": [
+        "mo_to_nho"
+      ],
+      "tham_so": {
+        "hang": [
+          "A1",
+          "A"
+        ]
+      },
+      "ten": "Xe mô tô đến 125 cm³: giấy phép hạng A1 hoặc A",
+      "giai_thich": "Xe mô tô hai bánh có dung tích xi-lanh đến 125 cm³ dùng giấy phép lái xe hạng A1; giấy phép hạng A cũng dùng được cho loại xe này.",
+      "can_cu": "vn:vbqppl:l:36/2024/QH15",
+      "ma_muc_phat": null,
+      "hieu_luc_tu": "2025-01-01",
+      "trang_thai": "nhap",
+      "ghi_chu": "Dữ liệu demo, chưa duyệt. Soạn khi kho văn bản chưa có văn bản gốc, căn cứ mới ghi ở mức văn bản; cần đơn vị chuyên môn xác định điều, khoản và đối chiếu nguyên văn. Dự kiến: điều quy định các hạng giấy phép lái xe. Cần đối chiếu ranh giới 125 cm³ (và công suất với xe điện). Chưa có dòng mức phạt cho lỗi này (data/tra-cuu/muc-phat.json), nên biên bản ghi \"Chưa có mức phạt đã duyệt\"."
+    },
+    {
+      "ma": "gt-hang-mo-to-lon",
+      "kiem": "hang_gplx",
+      "giay_to": "gplx",
+      "phan_loai": [
+        "mo_to_lon"
+      ],
+      "tham_so": {
+        "hang": [
+          "A"
+        ]
+      },
+      "ten": "Xe mô tô trên 125 cm³: giấy phép hạng A",
+      "giai_thich": "Xe mô tô hai bánh có dung tích xi-lanh trên 125 cm³ phải dùng giấy phép lái xe hạng A; giấy phép hạng A1 không dùng được.",
+      "can_cu": "vn:vbqppl:l:36/2024/QH15",
+      "ma_muc_phat": null,
+      "hieu_luc_tu": "2025-01-01",
+      "trang_thai": "nhap",
+      "ghi_chu": "Dữ liệu demo, chưa duyệt. Soạn khi kho văn bản chưa có văn bản gốc, căn cứ mới ghi ở mức văn bản; cần đơn vị chuyên môn xác định điều, khoản và đối chiếu nguyên văn. Dự kiến: như luật trên. Chưa có dòng mức phạt cho lỗi này (data/tra-cuu/muc-phat.json), nên biên bản ghi \"Chưa có mức phạt đã duyệt\"."
+    },
+    {
+      "ma": "gt-hang-o-to-con",
+      "kiem": "hang_gplx",
+      "giay_to": "gplx",
+      "phan_loai": [
+        "o_to_con"
+      ],
+      "tham_so": {
+        "hang": [
+          "B",
+          "C1",
+          "C",
+          "D1",
+          "D2",
+          "D"
+        ]
+      },
+      "ten": "Xe ô tô chở người đến 8 chỗ: giấy phép hạng B trở lên",
+      "giai_thich": "Xe ô tô chở người đến 8 chỗ (không kể chỗ người lái) dùng giấy phép lái xe hạng B; giấy phép hạng mô tô (A1, A) không dùng được.",
+      "can_cu": "vn:vbqppl:l:36/2024/QH15",
+      "ma_muc_phat": null,
+      "hieu_luc_tu": "2025-01-01",
+      "trang_thai": "nhap",
+      "ghi_chu": "Dữ liệu demo, chưa duyệt. Soạn khi kho văn bản chưa có văn bản gốc, căn cứ mới ghi ở mức văn bản; cần đơn vị chuyên môn xác định điều, khoản và đối chiếu nguyên văn. Dự kiến: như luật trên. Cần xác nhận danh sách hạng cao hơn được lái xe hạng B (C1, C, D1, D2, D); hồ sơ mẫu chỉ dùng hạng B cho trường hợp hợp lệ. Chưa có dòng mức phạt cho lỗi này (data/tra-cuu/muc-phat.json), nên biên bản ghi \"Chưa có mức phạt đã duyệt\"."
+    }
+  ]
+}

@@ -1,0 +1,38 @@
+{
+  "tieu_de": "Lược đồ văn bản",
+  "tom_tat": "Xem văn bản cha, văn bản con và các văn bản sửa đổi, bổ sung, dẫn chiếu tới từng điều, khoản của văn bản đang mở.",
+  "routes": ["routes/document.diagram.tsx"],
+  "anh": [
+    {
+      "ten": "luoc-do-cay-cha-con",
+      "chu_thich": "Cây văn bản cha và văn bản con",
+      "url": "/van-ban/l/09-2026-qh16/luoc-do",
+      "danh_dau": [
+        { "o": "section[aria-labelledby='cay-cha-con'] li:has-text('cha ·') >> nth=0", "ghi_chu": "Văn bản cha", "huong": "phai" },
+        { "o": "section[aria-labelledby='cay-cha-con'] li:has(p)", "ghi_chu": "Văn bản đang xem", "huong": "phai" },
+        { "o": "section[aria-labelledby='cay-cha-con'] li:has-text('con ·') >> nth=0", "ghi_chu": "Văn bản con", "huong": "phai" }
+      ]
+    },
+    {
+      "ten": "luoc-do-anh-huong",
+      "chu_thich": "Tác động tới từng điều, khoản",
+      "url": "/van-ban/nd/100-2026-nd-cp/luoc-do",
+      "danh_dau": [
+        { "o": "section[aria-labelledby='anh-huong-cap-nut'] tbody th >> nth=0", "ghi_chu": "Điều, khoản bị tác động", "huong": "duoi" },
+        { "o": "section[aria-labelledby='anh-huong-cap-nut'] tbody td >> nth=0", "ghi_chu": "Loại quan hệ", "huong": "duoi" },
+        { "o": "section[aria-labelledby='anh-huong-cap-nut'] tbody td a >> nth=0", "ghi_chu": "Mở văn bản tác động", "huong": "duoi" }
+      ]
+    },
+    {
+      "ten": "luoc-do-nhom-quan-he",
+      "chu_thich": "Các nhóm quan hệ của văn bản",
+      "url": "/van-ban/nd/100-2026-nd-cp/luoc-do",
+      "thao_tac": [{ "bam": "#cac-quan-he" }, { "doi_ms": 300 }],
+      "danh_dau": [
+        { "o": "section[aria-labelledby='cac-quan-he'] h3 >> nth=0", "ghi_chu": "Tên nhóm quan hệ", "huong": "phai" },
+        { "o": "section[aria-labelledby='cac-quan-he'] li >> nth=0 >> a >> nth=0", "ghi_chu": "Văn bản có quan hệ", "huong": "duoi" },
+        { "o": "section[aria-labelledby='cac-quan-he'] li p >> nth=0", "ghi_chu": "Điều, khoản chịu tác động", "huong": "duoi" }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,43 @@
+{
+  "tieu_de": "Bố cục chung của các trang",
+  "tom_tat": "Thanh đầu trang, menu trên điện thoại và chân trang xuất hiện ở mọi trang của hệ thống.",
+  "routes": [],
+  "nguon_them": ["root.tsx", "components/SiteHeader.tsx", "components/SiteFooter.tsx", "components/ThemeToggle.tsx"],
+  "anh": [
+    {
+      "ten": "giao-dien-dau-trang",
+      "chu_thich": "Thanh đầu trang trên máy tính",
+      "url": "/",
+      "vung": "header",
+      "danh_dau": [
+        { "o": "header >> role=link[name='Quy định Pháp luật']", "ghi_chu": "Về trang chủ", "huong": "duoi" },
+        { "o": "#o-tim-kiem", "ghi_chu": "Tìm văn bản, viện dẫn, câu hỏi", "huong": "duoi" },
+        { "o": "header button[aria-pressed]", "ghi_chu": "Nền sáng hoặc nền tối", "huong": "duoi" },
+        { "o": "header button[aria-haspopup='dialog']", "ghi_chu": "Hướng dẫn cho trang đang xem", "huong": "duoi" },
+        { "o": "nav[aria-label='Điều hướng chính']", "ghi_chu": "Chức năng chính và đăng nhập", "huong": "duoi" }
+      ]
+    },
+    {
+      "ten": "giao-dien-menu-dien-thoai",
+      "chu_thich": "Menu điều hướng đang mở trên điện thoại",
+      "url": "/",
+      "thiet_bi": "dien-thoai",
+      "thao_tac": [{ "bam": "role=button[name='Mở menu']" }, { "cho": "#menu-chinh" }],
+      "vung": "header",
+      "danh_dau": [
+        { "o": "header >> role=button[name='Đóng menu']", "ghi_chu": "Mở hoặc đóng menu", "huong": "trai" },
+        { "o": "#menu-chinh ul", "ghi_chu": "Chức năng chính và đăng nhập", "huong": "duoi" }
+      ]
+    },
+    {
+      "ten": "giao-dien-chan-trang",
+      "chu_thich": "Chân trang",
+      "url": "/",
+      "vung": "footer",
+      "danh_dau": [
+        { "o": "footer p:has(strong)", "ghi_chu": "Tuyên bố miễn trừ trách nhiệm", "huong": "phai" },
+        { "o": "nav[aria-label='Liên kết chân trang']", "ghi_chu": "Liên kết tới các chức năng chính", "huong": "duoi" }
+      ]
+    }
+  ]
+}

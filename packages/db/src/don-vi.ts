@@ -1,0 +1,194 @@
+/**
+ * Đơn vị dạng cây (docs/PLAN.md GĐ2). `path` là ltree dựng từ id, nên truy vấn cây con chỉ
+ * cần `path <@ :cha` và phạm vi của cán bộ quản lý so bằng tiền tố đường dẫn.
+ */
+import { sql, type Tx } from "./client.ts";
+
+/** Lỗi nghiệp vụ có sẵn thông báo tiếng Việt; API đổi `loai` thành mã HTTP. */
+export class LoiNghiepVu extends Error {
+  constructor(
+    message: string,
+    readonly loai: "khong_tim_thay" | "xung_dot" | "khong_hop_le",
+  ) {
+    super(message);
+  }
+}
+
+export interface DonVi {
+  id: string;
+  code: string;
+  name: string;
+  parent_id: string | null;
+  path: string;
+  level_label: string | null;
+  ordinal: number;
+  enabled: boolean;
+  /** Độ sâu tính từ gốc, gốc = 1. */
+  cap: number;
+  /** Số tài khoản gắn trực tiếp vào đơn vị (không tính đơn vị con). */
+  so_nguoi: number;
+}
+
+/** Nhãn ltree của một đơn vị: "u" + 32 ký tự hex của id. */
+export function nhanDonVi(id: string): string {
+  return `u${id.replace(/-/g, "").toLowerCase()}`;
+}
+
+const COT = sql`
+  u.id, u.code, u.name, u.parent_id, u.path::text AS path, u.level_label, u.ordinal, u.enabled,
+  nlevel(u.path) AS cap,
+  (SELECT count(*)::int FROM accounts a WHERE a.unit_id = u.id) AS so_nguoi`;
+
+/**
+ * Danh sách đơn vị theo thứ tự cây (cha đứng trước con). `phamVi` là đường dẫn ltree của đơn
+ * vị gốc được xem; null là toàn bộ.
+ */
+export async function danhSachDonVi(phamVi: string | null = null): Promise<DonVi[]> {
+  const rows = await sql`
+    SELECT ${COT} FROM units u
+    WHERE (${phamVi}::ltree IS NULL OR u.path <@ ${phamVi}::ltree)
+    ORDER BY u.path`;
+  // Sắp lại theo `ordinal` giữa các anh em: ORDER BY path chỉ đúng thứ tự cha–con.
+  return sapTheoCay(rows as unknown as DonVi[]);
+}
+
+function sapTheoCay(ds: DonVi[]): DonVi[] {
+  const con = new Map<string | null, DonVi[]>();
+  const coTrongDs = new Set(ds.map((d) => d.id));
+  for (const d of ds) {
+    // Gốc của phạm vi đang xem có thể có cha nằm ngoài danh sách.
+    const cha = d.parent_id && coTrongDs.has(d.parent_id) ? d.parent_id : null;
+    con.set(cha, [...(con.get(cha) ?? []), d]);
+  }
+  const ketQua: DonVi[] = [];
+  const duyet = (cha: string | null) => {
+    const ds2 = (con.get(cha) ?? []).sort(
+      (a, b) => a.ordinal - b.ordinal || a.name.localeCompare(b.name, "vi"),
+    );
+    for (const d of ds2) {
+      ketQua.push(d);
+      duyet(d.id);
+    }
+  };
+  duyet(null);
+  return ketQua;
+}
+
+export async function layDonVi(id: string): Promise<DonVi | null> {
+  const [row] = await sql`SELECT ${COT} FROM units u WHERE u.id = ${id}`;
+  return (row as unknown as DonVi) ?? null;
+}
+
+export async function layDonViTheoMa(code: string): Promise<DonVi | null> {
+  const [row] = await sql`SELECT ${COT} FROM units u WHERE lower(u.code) = lower(${code})`;
+  return (row as unknown as DonVi) ?? null;
+}
+
+async function ghiNhatKy(tx: Tx, actor: string, action: string, target: string, detail: unknown) {
+  await tx`INSERT INTO audit_log (actor, action, target, detail)
+           VALUES (${actor}, ${action}, ${target}, ${tx.json(detail as never)})`;
+}
+
+export interface DuLieuDonVi {
+  code: string;
+  name: string;
+  parentId?: string | null;
+  levelLabel?: string | null;
+  ordinal?: number;
+}
+
+function kiemMa(code: string) {
+  if (!/^[A-Za-z0-9._-]{1,40}$/.test(code)) {
+    throw new LoiNghiepVu(
+      "Mã đơn vị gồm 1 đến 40 ký tự: chữ không dấu, chữ số, dấu chấm, gạch.",
+      "khong_hop_le",
+    );
+  }
+}
+
+export async function taoDonVi(d: DuLieuDonVi, actor: string): Promise<DonVi> {
+  kiemMa(d.code);
+  if (!d.name.trim()) throw new LoiNghiepVu("Nhập tên đơn vị.", "khong_hop_le");
+  const id = crypto.randomUUID();
+  await sql.begin(async (tx) => {
+    let path = nhanDonVi(id);
+    if (d.parentId) {
+      const [cha] = (await tx`SELECT path::text AS path FROM units WHERE id = ${d.parentId}`) as any[];
+      if (!cha) throw new LoiNghiepVu("Không tìm thấy đơn vị cấp trên.", "khong_tim_thay");
+      path = `${cha.path}.${path}`;
+    }
+    const [trung] = (await tx`SELECT 1 FROM units WHERE lower(code) = lower(${d.code})`) as any[];
+    if (trung) throw new LoiNghiepVu(`Mã đơn vị "${d.code}" đã có.`, "xung_dot");
+    await tx`
+      INSERT INTO units (id, code, name, parent_id, path, level_label, ordinal)
+      VALUES (${id}, ${d.code}, ${d.name.trim()}, ${d.parentId ?? null}, ${path}::ltree,
+              ${d.levelLabel?.trim() || null}, ${d.ordinal ?? 0})`;
+    await ghiNhatKy(tx, actor, "don_vi:tao", d.code, { name: d.name, parentId: d.parentId ?? null });
+  });
+  return (await layDonVi(id)) as DonVi;
+}
+
+export interface SuaDonVi {
+  code?: string;
+  name?: string;
+  levelLabel?: string | null;
+  ordinal?: number;
+  enabled?: boolean;
+  /** undefined: giữ nguyên cha; null: chuyển thành đơn vị gốc. */
+  parentId?: string | null;
+}
+
+/**
+ * Sửa đơn vị. Chuyển sang cha mới thì cập nhật `path` của cả nhánh trong cùng giao dịch;
+ * không cho chuyển vào chính nó hoặc vào đơn vị con cháu của nó (tạo vòng).
+ */
+export async function suaDonVi(id: string, s: SuaDonVi, actor: string): Promise<DonVi> {
+  if (s.code !== undefined) kiemMa(s.code);
+  await sql.begin(async (tx) => {
+    const [cu] =
+      (await tx`SELECT code, parent_id, path::text AS path FROM units WHERE id = ${id} FOR UPDATE`) as any[];
+    if (!cu) throw new LoiNghiepVu("Không tìm thấy đơn vị.", "khong_tim_thay");
+
+    if (s.code !== undefined && s.code.toLowerCase() !== String(cu.code).toLowerCase()) {
+      const [trung] =
+        (await tx`SELECT 1 FROM units WHERE lower(code) = lower(${s.code}) AND id <> ${id}`) as any[];
+      if (trung) throw new LoiNghiepVu(`Mã đơn vị "${s.code}" đã có.`, "xung_dot");
+    }
+
+    if (s.parentId !== undefined && s.parentId !== cu.parent_id) {
+      let duongMoi = nhanDonVi(id);
+      if (s.parentId) {
+        const [cha] = (await tx`SELECT path::text AS path FROM units WHERE id = ${s.parentId}`) as any[];
+        if (!cha) throw new LoiNghiepVu("Không tìm thấy đơn vị cấp trên.", "khong_tim_thay");
+        if (cha.path === cu.path || String(cha.path).startsWith(`${cu.path}.`)) {
+          throw new LoiNghiepVu(
+            "Không chuyển được đơn vị vào chính nó hoặc vào đơn vị cấp dưới của nó.",
+            "khong_hop_le",
+          );
+        }
+        duongMoi = `${cha.path}.${duongMoi}`;
+      }
+      // subpath(path, nlevel(cũ)) báo lỗi với chính nút được chuyển (độ dời bằng độ dài), nên
+      // nút đó gán thẳng đường dẫn mới; các nút con cháu nối phần đuôi vào sau.
+      await tx`
+        UPDATE units SET path = CASE
+          WHEN path = ${cu.path}::ltree THEN ${duongMoi}::ltree
+          ELSE ${duongMoi}::ltree || subpath(path, nlevel(${cu.path}::ltree))
+        END
+        WHERE path <@ ${cu.path}::ltree`;
+      await tx`UPDATE units SET parent_id = ${s.parentId} WHERE id = ${id}`;
+    }
+
+    await tx`
+      UPDATE units SET
+        code = COALESCE(${s.code ?? null}, code),
+        name = COALESCE(${s.name?.trim() || null}, name),
+        level_label = CASE WHEN ${s.levelLabel !== undefined} THEN ${s.levelLabel?.trim() || null} ELSE level_label END,
+        ordinal = COALESCE(${s.ordinal ?? null}, ordinal),
+        enabled = COALESCE(${s.enabled ?? null}, enabled),
+        updated_at = now()
+      WHERE id = ${id}`;
+    await ghiNhatKy(tx, actor, "don_vi:sua", s.code ?? cu.code, s);
+  });
+  return (await layDonVi(id)) as DonVi;
+}

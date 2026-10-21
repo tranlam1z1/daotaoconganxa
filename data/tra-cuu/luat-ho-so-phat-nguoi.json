@@ -1,0 +1,101 @@
+{
+  "mo_ta": "Luật kiểm hồ sơ phạt nguội cho trò Duyệt hồ sơ phạt nguội (docs/PLAN.md GĐ-T11). Lưu ở document_rules, nhóm ho_so_phat_nguoi (câu D16). Mỗi dòng là một phép kiểm; bộ chạy luật ở packages/dao-tao/src/tro-choi/duyet-phat-nguoi.ts. Nạp bằng: bun run tra-cuu:nap",
+  "luu_y_bien_tap": [
+    "BẢN NHÁP, DỮ LIỆU DEMO, CHƯA DUYỆT. Ngày soạn 28/9/2026, kho văn bản đang nối chưa có văn bản nào về sử dụng dữ liệu thu từ phương tiện, thiết bị kỹ thuật nghiệp vụ, thủ tục gửi thông báo vi phạm, kiểm định thiết bị (tra bằng công cụ tìm kiếm quy định: 0 kết quả).",
+    "Căn cứ mới ghi ở mức văn bản, URN dự kiến, chưa kiểm được trong kho. Trước khi duyệt: đơn vị chuyên môn xác định văn bản, điều, khoản cụ thể và đối chiếu nguyên văn tại ngày áp dụng.",
+    "Luật về hồ sơ không có mức phạt riêng: ma_muc_phat để null. Mức phạt của hành vi đề xuất đi theo từng hồ sơ.",
+    "Danh sách cần đơn vị chuyên môn kiểm tra ở docs/GAME_DESIGN.md §5.11."
+  ],
+  "dong": [
+    {
+      "ma": "pn-phai-co-thoi-diem",
+      "nhom": "ho_so_phat_nguoi",
+      "kiem": "phai_co",
+      "phan": "thoi_diem",
+      "phan_loai": [],
+      "tham_so": {},
+      "ten": "Hồ sơ phải ghi được thời điểm vi phạm",
+      "giai_thich": "Dữ liệu ghi hình dùng làm căn cứ phát hiện vi phạm phải cho biết thời điểm xảy ra hành vi. Hồ sơ không có thời điểm thì chưa đủ căn cứ gửi thông báo.",
+      "can_cu": "vn:vbqppl:l:15/2012/QH13",
+      "ma_muc_phat": null,
+      "hieu_luc_tu": "2025-01-01",
+      "trang_thai": "nhap",
+      "ghi_chu": "Dữ liệu demo, chưa duyệt. Kho văn bản chưa có văn bản gốc; URN dự kiến ở mức văn bản, chưa kiểm. Cần đơn vị chuyên môn xác định điều khoản quy định yêu cầu về kết quả thu thập bằng phương tiện, thiết bị kỹ thuật nghiệp vụ."
+    },
+    {
+      "ma": "pn-doc-duoc-bien-so",
+      "nhom": "ho_so_phat_nguoi",
+      "kiem": "doc_duoc",
+      "phan": "bien_so",
+      "phan_loai": [],
+      "tham_so": {},
+      "ten": "Biển số trên ảnh phải đọc được và khớp với biển hệ thống nhận dạng",
+      "giai_thich": "Thông báo gửi tới chủ phương tiện theo biển số. Biển số trên ảnh có ký tự không đọc được, hoặc hệ thống đọc khác với ảnh, thì chưa xác định được phương tiện vi phạm.",
+      "can_cu": "vn:vbqppl:l:15/2012/QH13",
+      "ma_muc_phat": null,
+      "hieu_luc_tu": "2025-01-01",
+      "trang_thai": "nhap",
+      "ghi_chu": "Dữ liệu demo, chưa duyệt. Kho văn bản chưa có văn bản gốc; URN dự kiến ở mức văn bản, chưa kiểm. Tiêu chí \"biển số không đọc được\" là phán đoán nghiệp vụ, cần đơn vị chuyên môn xác nhận."
+    },
+    {
+      "ma": "pn-thay-hanh-vi",
+      "nhom": "ho_so_phat_nguoi",
+      "kiem": "thay_hanh_vi",
+      "phan": "anh",
+      "phan_loai": [],
+      "tham_so": { "do_mo_toi_da": 1 },
+      "ten": "Ảnh phải thể hiện rõ hành vi và phương tiện vi phạm",
+      "giai_thich": "Ảnh mờ, bị xe khác che, hoặc hai xe chồng lên nhau thì không xác định được phương tiện nào thực hiện hành vi, chưa đủ căn cứ gửi thông báo.",
+      "can_cu": "vn:vbqppl:l:15/2012/QH13",
+      "ma_muc_phat": null,
+      "hieu_luc_tu": "2025-01-01",
+      "trang_thai": "nhap",
+      "ghi_chu": "Dữ liệu demo, chưa duyệt. Kho văn bản chưa có văn bản gốc; URN dự kiến ở mức văn bản, chưa kiểm. Ngưỡng độ mờ (do_mo_toi_da = 1 trên thang 0–3 của trò) và cách xử lý hai xe chồng nhau là phán đoán nghiệp vụ, cần đơn vị chuyên môn xác nhận."
+    },
+    {
+      "ma": "pn-khop-hanh-vi",
+      "nhom": "ho_so_phat_nguoi",
+      "kiem": "khop_hanh_vi",
+      "phan": "hanh_vi",
+      "phan_loai": [],
+      "tham_so": {},
+      "ten": "Hành vi hệ thống đề xuất phải khớp với ảnh và số đo",
+      "giai_thich": "Hệ thống tự đề xuất hành vi; cán bộ xử lý phải đối chiếu với ảnh (màu đèn, vạch dừng, làn đường, mũ bảo hiểm) và số đo của thiết bị. Đề xuất không khớp thì trả lại để xác minh.",
+      "can_cu": "vn:vbqppl:l:15/2012/QH13",
+      "ma_muc_phat": null,
+      "hieu_luc_tu": "2025-01-01",
+      "trang_thai": "nhap",
+      "ghi_chu": "Dữ liệu demo, chưa duyệt. Kho văn bản chưa có văn bản gốc; URN dự kiến ở mức văn bản, chưa kiểm. Trường hợp đèn vàng (mô tả gốc của trò) chưa dùng vì cần căn cứ về hiệu lệnh đèn vàng đã đối chiếu."
+    },
+    {
+      "ma": "pn-con-han-kiem-dinh",
+      "nhom": "ho_so_phat_nguoi",
+      "kiem": "con_han",
+      "phan": "thiet_bi",
+      "phan_loai": [],
+      "tham_so": {},
+      "ten": "Thiết bị ghi hình, đo tốc độ phải còn hạn kiểm định tại thời điểm ghi",
+      "giai_thich": "Kết quả từ thiết bị đã hết hạn kiểm định, hiệu chuẩn tại ngày ghi hình thì không dùng làm căn cứ. Thiết bị hết hạn đúng ngày ghi hình vẫn được coi là còn hạn trong trò chơi.",
+      "can_cu": "vn:vbqppl:l:15/2012/QH13",
+      "ma_muc_phat": null,
+      "hieu_luc_tu": "2025-01-01",
+      "trang_thai": "nhap",
+      "ghi_chu": "Dữ liệu demo, chưa duyệt. Kho văn bản chưa có văn bản gốc (văn bản về đo lường, kiểm định phương tiện đo và về thiết bị kỹ thuật nghiệp vụ); URN dự kiến ở mức văn bản, chưa kiểm. Cách tính ngày hết hạn cần đơn vị chuyên môn xác nhận."
+    },
+    {
+      "ma": "pn-trong-khung-gio",
+      "nhom": "ho_so_phat_nguoi",
+      "kiem": "trong_khung_gio",
+      "phan": "thoi_diem",
+      "phan_loai": [],
+      "tham_so": {},
+      "ten": "Hành vi đi vào đường cấm theo giờ phải xảy ra trong khung giờ cấm",
+      "giai_thich": "Biển cấm có biển phụ ghi khung giờ chỉ có hiệu lực trong khung giờ đó. Xe đi vào ngoài khung giờ cấm thì không vi phạm biển.",
+      "can_cu": "vn:vbqppl:l:36/2024/QH15",
+      "ma_muc_phat": null,
+      "hieu_luc_tu": "2025-01-01",
+      "trang_thai": "nhap",
+      "ghi_chu": "Dữ liệu demo, chưa duyệt. Kho văn bản chưa có văn bản gốc; URN dự kiến ở mức văn bản, chưa kiểm. Biển phụ thời gian thuộc quy chuẩn báo hiệu đường bộ, chưa có trong kho và bảng biển báo chưa có biển phụ."
+    }
+  ]
+}

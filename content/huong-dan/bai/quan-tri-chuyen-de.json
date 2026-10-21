@@ -1,0 +1,33 @@
+{
+  "tieu_de": "Quản trị chuyên đề",
+  "tom_tat": "Danh sách chuyên đề theo lĩnh vực và nhóm đối tượng, bảng kiểm trước xuất bản và chuyển trạng thái từng bài.",
+  "routes": ["routes/quan-tri.chuyen-de.tsx"],
+  "anh": [
+    {
+      "ten": "quan-tri-chuyen-de-danh-sach",
+      "chu_thich": "Danh sách chuyên đề",
+      "url": "/quan-tri/chuyen-de",
+      "dang_nhap": true,
+      "vung": "section:has(> h2:has-text('Chuyên đề (')) > div >> nth=0",
+      "danh_dau": [
+        { "o": "section:has(> h2:has-text('Chuyên đề (')) h3 >> nth=0", "ghi_chu": "Lĩnh vực pháp luật", "huong": "trai" },
+        { "o": "section:has(> h2:has-text('Chuyên đề (')) > div >> nth=0 >> div > p >> nth=0", "ghi_chu": "Nhóm đối tượng", "huong": "trai" },
+        { "o": "section:has(> h2:has-text('Chuyên đề (')) li a >> nth=0", "ghi_chu": "Mở bảng kiểm", "huong": "trai" },
+        { "o": "section:has(> h2:has-text('Chuyên đề (')) li span:has-text('as_of') >> nth=0", "ghi_chu": "Số bài và mốc as_of", "huong": "phai" },
+        { "o": "section:has(> h2:has-text('Chuyên đề (')) li span:has-text('nối tiếp:') >> nth=0", "ghi_chu": "Quan hệ với chuyên đề khác", "huong": "phai" }
+      ]
+    },
+    {
+      "ten": "quan-tri-chuyen-de-bang-kiem",
+      "chu_thich": "Bảng kiểm trước xuất bản của một chuyên đề",
+      "url": "/quan-tri/chuyen-de?slug=dau-tu-cntt-ngan-sach-nha-nuoc",
+      "dang_nhap": true,
+      "danh_dau": [
+        { "o": "section:has(> h2:text-is('Bảng kiểm trước xuất bản')) > p", "ghi_chu": "Kết quả bảng kiểm", "huong": "trai" },
+        { "o": "section:has(> h2:text-is('Bảng kiểm trước xuất bản')) > ul:last-of-type > li >> nth=0 >> div >> nth=0", "ghi_chu": "Trạng thái, quy mô, kết quả bài", "huong": "trai" },
+        { "o": "section:has(> h2:text-is('Bảng kiểm trước xuất bản')) > ul:last-of-type > li >> nth=0 >> div >> nth=-1", "ghi_chu": "Chuyển trạng thái bài", "huong": "trai" },
+        { "o": "section:has(> h2:text-is('Bảng kiểm trước xuất bản')) > ul:last-of-type > li:has(ul) >> nth=0 >> ul", "ghi_chu": "Lỗi chặn xuất bản", "huong": "trai" }
+      ]
+    }
+  ]
+}

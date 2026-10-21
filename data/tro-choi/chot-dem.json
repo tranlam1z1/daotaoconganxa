@@ -1,0 +1,125 @@
+{
+  "_ghi_chu": "Đoạn đường ban đêm của trò Dựng chốt an toàn ban đêm (GĐ-T15, GAME_DESIGN §5.15). DỮ LIỆU DEMO: đoạn đường, dòng xe, túi đồ giả định do hệ thống soạn; chưa đối chiếu văn bản. Mỗi đoạn trỏ tới một bộ tiêu chí ở data/tro-choi/tieu-chi-chot.json (ma_tieu_chi). Nạp ở trạng thái chờ duyệt.",
+  "doan": [
+    {
+      "ma": "CD-01",
+      "tieu_de": "[Demo] Chốt đêm: đường thẳng ngoại thành",
+      "y_do": "Màn 1: đường thẳng, lề rộng, ít xe con. Làm quen: biển xa chốt, hàng cọc thu hẹp làn phải, đèn ở đầu hàng cọc, chiến sĩ đứng trong làn đã thu hẹp.",
+      "payload": {
+        "kieu": "doan_duong", "muc": 1, "hinh": "thang", "dai_m": 200, "rong_le_cm": 300, "chot_m": 160,
+        "lan_dong": "lan_2", "khuat": [], "giao_lo": null,
+        "tui": { "bien": 2, "coc": 6, "den": 1, "xe": 0, "cs": 2 },
+        "luong_xe": { "seed": "cd01", "so_xe": 10, "nhip_giua": 110, "ty_le": { "o_to": 100, "xe_may": 0, "xe_tai": 0, "xe_khach": 0 }, "qua_toc_do": 0, "tu_giao_lo": 0 },
+        "ma_tieu_chi": "TCC-DEMO-THANG"
+      }
+    },
+    {
+      "ma": "CD-02",
+      "tieu_de": "[Demo] Chốt đêm: đường thẳng qua cánh đồng",
+      "y_do": "Màn 1: như CD-01, chốt ở vị trí khác để không học thuộc tọa độ.",
+      "payload": {
+        "kieu": "doan_duong", "muc": 1, "hinh": "thang", "dai_m": 200, "rong_le_cm": 280, "chot_m": 170,
+        "lan_dong": "lan_2", "khuat": [], "giao_lo": null,
+        "tui": { "bien": 2, "coc": 6, "den": 1, "xe": 0, "cs": 2 },
+        "luong_xe": { "seed": "cd02", "so_xe": 12, "nhip_giua": 100, "ty_le": { "o_to": 100, "xe_may": 0, "xe_tai": 0, "xe_khach": 0 }, "qua_toc_do": 0, "tu_giao_lo": 0 },
+        "ma_tieu_chi": "TCC-DEMO-THANG"
+      }
+    },
+    {
+      "ma": "CD-03",
+      "tieu_de": "[Demo] Chốt đêm: đường thẳng lề hẹp",
+      "y_do": "Màn 2: lề phải chỉ 1,2 m: chiến sĩ đứng ở lề bị xe làn phải đi sát. Phải thu hẹp làn phải và đứng trong làn đã thu hẹp.",
+      "payload": {
+        "kieu": "doan_duong", "muc": 2, "hinh": "le_hep", "dai_m": 200, "rong_le_cm": 120, "chot_m": 160,
+        "lan_dong": "lan_2", "khuat": [], "giao_lo": null,
+        "tui": { "bien": 2, "coc": 8, "den": 2, "xe": 0, "cs": 2 },
+        "luong_xe": { "seed": "cd03", "so_xe": 16, "nhip_giua": 70, "ty_le": { "o_to": 70, "xe_may": 30, "xe_tai": 0, "xe_khach": 0 }, "qua_toc_do": 0, "tu_giao_lo": 0 },
+        "ma_tieu_chi": "TCC-DEMO-THANG"
+      }
+    },
+    {
+      "ma": "CD-04",
+      "tieu_de": "[Demo] Chốt đêm: đường thẳng lề hẹp, nhiều xe máy",
+      "y_do": "Màn 2: lề 1 m, dòng xe máy đông hơn; hàng chờ dễ dài nếu thu hẹp làn quá sớm.",
+      "payload": {
+        "kieu": "doan_duong", "muc": 2, "hinh": "le_hep", "dai_m": 200, "rong_le_cm": 100, "chot_m": 150,
+        "lan_dong": "lan_2", "khuat": [], "giao_lo": null,
+        "tui": { "bien": 2, "coc": 8, "den": 2, "xe": 0, "cs": 2 },
+        "luong_xe": { "seed": "cd04", "so_xe": 18, "nhip_giua": 60, "ty_le": { "o_to": 55, "xe_may": 45, "xe_tai": 0, "xe_khach": 0 }, "qua_toc_do": 0, "tu_giao_lo": 0 },
+        "ma_tieu_chi": "TCC-DEMO-THANG"
+      }
+    },
+    {
+      "ma": "CD-05",
+      "tieu_de": "[Demo] Chốt đêm: sau khúc cua gắt",
+      "y_do": "Màn 3: khúc cua gắt ngay trước chốt che tầm nhìn; biển, đèn đặt trong khúc cua hay sau khúc cua đều bị khuất. Phải báo trước khúc cua.",
+      "payload": {
+        "kieu": "doan_duong", "muc": 3, "hinh": "cong", "dai_m": 250, "rong_le_cm": 250, "chot_m": 200,
+        "lan_dong": "lan_2", "khuat": [{ "loai": "cong", "muc": 2, "m_tu": 150, "m_den": 190 }], "giao_lo": null,
+        "tui": { "bien": 3, "coc": 10, "den": 2, "xe": 0, "cs": 3 },
+        "luong_xe": { "seed": "cd05", "so_xe": 20, "nhip_giua": 60, "ty_le": { "o_to": 70, "xe_may": 20, "xe_tai": 10, "xe_khach": 0 }, "qua_toc_do": 0, "tu_giao_lo": 0 },
+        "ma_tieu_chi": "TCC-DEMO-KHUAT"
+      }
+    },
+    {
+      "ma": "CD-06",
+      "tieu_de": "[Demo] Chốt đêm: sau khúc cua thoải",
+      "y_do": "Màn 3: khúc cua thoải, tầm nhìn bị che ít hơn CD-05 nhưng vẫn phải đặt biển trước khúc cua.",
+      "payload": {
+        "kieu": "doan_duong", "muc": 3, "hinh": "cong", "dai_m": 250, "rong_le_cm": 250, "chot_m": 210,
+        "lan_dong": "lan_2", "khuat": [{ "loai": "cong", "muc": 1, "m_tu": 160, "m_den": 200 }], "giao_lo": null,
+        "tui": { "bien": 3, "coc": 10, "den": 2, "xe": 0, "cs": 3 },
+        "luong_xe": { "seed": "cd06", "so_xe": 20, "nhip_giua": 60, "ty_le": { "o_to": 70, "xe_may": 20, "xe_tai": 10, "xe_khach": 0 }, "qua_toc_do": 0, "tu_giao_lo": 0 },
+        "ma_tieu_chi": "TCC-DEMO-KHUAT"
+      }
+    },
+    {
+      "ma": "CD-07",
+      "tieu_de": "[Demo] Chốt đêm: sau đỉnh dốc",
+      "y_do": "Màn 4: đỉnh dốc che chốt; xe khách, xe tải cần quãng giảm tốc dài. Xe tuần tra đỗ đầu hàng cọc làm vật chắn cho chiến sĩ.",
+      "payload": {
+        "kieu": "doan_duong", "muc": 4, "hinh": "doc", "dai_m": 250, "rong_le_cm": 250, "chot_m": 200,
+        "lan_dong": "lan_2", "khuat": [{ "loai": "doc", "muc": 2, "m_tu": 160, "m_den": 185 }], "giao_lo": null,
+        "tui": { "bien": 3, "coc": 10, "den": 3, "xe": 1, "cs": 3 },
+        "luong_xe": { "seed": "cd07", "so_xe": 22, "nhip_giua": 55, "ty_le": { "o_to": 60, "xe_may": 15, "xe_tai": 10, "xe_khach": 15 }, "qua_toc_do": 0, "tu_giao_lo": 0 },
+        "ma_tieu_chi": "TCC-DEMO-KHUAT"
+      }
+    },
+    {
+      "ma": "CD-08",
+      "tieu_de": "[Demo] Chốt đêm: sau đỉnh dốc, thu hẹp làn trái",
+      "y_do": "Màn 4: chốt ở làn trái (sát dải phân cách); dòng xe dồn sang làn phải, chiến sĩ không đứng ở lề phải.",
+      "payload": {
+        "kieu": "doan_duong", "muc": 4, "hinh": "doc", "dai_m": 250, "rong_le_cm": 200, "chot_m": 205,
+        "lan_dong": "lan_1", "khuat": [{ "loai": "doc", "muc": 1, "m_tu": 165, "m_den": 190 }], "giao_lo": null,
+        "tui": { "bien": 3, "coc": 10, "den": 3, "xe": 1, "cs": 3 },
+        "luong_xe": { "seed": "cd08", "so_xe": 22, "nhip_giua": 55, "ty_le": { "o_to": 60, "xe_may": 15, "xe_tai": 10, "xe_khach": 15 }, "qua_toc_do": 0, "tu_giao_lo": 0 },
+        "ma_tieu_chi": "TCC-DEMO-KHUAT"
+      }
+    },
+    {
+      "ma": "CD-09",
+      "tieu_de": "[Demo] Chốt đêm: gần giao lộ",
+      "y_do": "Màn 5: xe từ đường ngang rẽ vào ngay trước chốt không thấy biển đặt trước giao lộ; phải có biển, đèn giữa giao lộ và chốt. Có xe tải, xe chạy quá tốc độ.",
+      "payload": {
+        "kieu": "doan_duong", "muc": 5, "hinh": "giao_lo", "dai_m": 250, "rong_le_cm": 250, "chot_m": 200,
+        "lan_dong": "lan_2", "khuat": [], "giao_lo": { "m": 150 },
+        "tui": { "bien": 4, "coc": 12, "den": 3, "xe": 1, "cs": 4 },
+        "luong_xe": { "seed": "cd09", "so_xe": 26, "nhip_giua": 45, "ty_le": { "o_to": 50, "xe_may": 25, "xe_tai": 15, "xe_khach": 10 }, "qua_toc_do": 3, "tu_giao_lo": 4 },
+        "ma_tieu_chi": "TCC-DEMO-GIAO-LO"
+      }
+    },
+    {
+      "ma": "CD-10",
+      "tieu_de": "[Demo] Chốt đêm: gần giao lộ, lề hẹp",
+      "y_do": "Màn 5: như CD-09 nhưng lề hẹp: xe tuần tra không đỗ được ở lề, phải đỗ trong làn đã thu hẹp.",
+      "payload": {
+        "kieu": "doan_duong", "muc": 5, "hinh": "giao_lo", "dai_m": 250, "rong_le_cm": 150, "chot_m": 195,
+        "lan_dong": "lan_2", "khuat": [], "giao_lo": { "m": 140 },
+        "tui": { "bien": 4, "coc": 12, "den": 3, "xe": 1, "cs": 4 },
+        "luong_xe": { "seed": "cd10", "so_xe": 26, "nhip_giua": 45, "ty_le": { "o_to": 50, "xe_may": 25, "xe_tai": 15, "xe_khach": 10 }, "qua_toc_do": 3, "tu_giao_lo": 4 },
+        "ma_tieu_chi": "TCC-DEMO-GIAO-LO"
+      }
+    }
+  ]
+}

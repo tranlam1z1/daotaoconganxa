@@ -1,0 +1,30 @@
+{
+  "name": "@qdpl/mcp",
+  "version": "0.1.0",
+  "type": "module",
+  "main": "src/index.ts",
+  "bin": {
+    "qdpl-mcp": "src/index.ts"
+  },
+  "scripts": {
+    "start": "bun src/index.ts",
+    "dev": "bun --hot src/index.ts",
+    "typecheck": "tsc --noEmit -p tsconfig.json",
+    "test": "bun test"
+  },
+  "dependencies": {
+    "@modelcontextprotocol/sdk": "^1.30.0",
+    "@qdpl/citation": "workspace:*",
+    "@qdpl/auth": "workspace:*",
+    "@qdpl/db": "workspace:*",
+    "@qdpl/legal-model": "workspace:*",
+    "@qdpl/search": "workspace:*",
+    "@qdpl/sohoa": "workspace:*",
+    "@qdpl/storage": "workspace:*",
+    "zod": "^4.1.0",
+    "@qdpl/config": "workspace:*"
+  },
+  "devDependencies": {
+    "pdf-lib": "^1.17.1"
+  }
+}

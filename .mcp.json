@@ -1,0 +1,13 @@
+{
+  "mcpServers": {
+    "quydinhphapluat": {
+      "type": "stdio",
+      "command": "bun",
+      "args": ["run", "apps/mcp/src/index.ts"],
+      "env": {
+        "MCP_LOCAL_ROLE": "bien_tap",
+        "QDPL_MCP_ALLOW_WRITE": "1"
+      }
+    }
+  }
+}

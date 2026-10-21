@@ -1,0 +1,212 @@
+{
+  "mo_ta": "Trò Tự lái qua phố (docs/PLAN.md GĐ-T9, docs/GAME_DESIGN.md §5.9). DỮ LIỆU DEMO, CHƯA DUYỆT. Nạp vào chờ duyệt bằng bun run packages/db/src/seed-tro-choi.ts; bản demo duyệt tự động bằng scripts/demo-tro-choi.ts. Lưới ô: '-' '|' đường hai chiều, '+' nơi giao nhau, '<' '>' '^' 'v' đường một chiều, '.' nhà, 'T' trường học, 'C' chợ, 'V' công viên. Mỗi ô 10 m; o = [hàng, cột] tính từ 0. Thời gian tính bằng giây, tốc độ km/h.",
+  "ban_do": [
+    {
+      "ma": "KP-01",
+      "tieu_de": "[Demo] Phố Hoa Sữa: làm quen",
+      "y_do": "Đường thẳng có biển tốc độ 40 km/h, đèn tín hiệu (hướng Đông–Tây đỏ 13 giây đầu nên người chơi thường tới lúc đèn đỏ), biển cấm rẽ trái. Tới đích phải rẽ phải ở nơi giao nhau có đèn: bật xi nhan phải.",
+      "payload": {
+        "kieu": "ban_do",
+        "man": 1,
+        "ten_pho": "Phố Hoa Sữa",
+        "o": [
+          ".....|....",
+          ".T...|....",
+          "-----+----",
+          ".....|....",
+          "..V..|..C.",
+          ".....|....",
+          "-----+----"
+        ],
+        "xuat_phat": { "o": [2, 0], "huong": "dong" },
+        "dich": { "o": [4, 5] },
+        "gio_giay": null,
+        "den": [{ "o": [2, 5], "xanh": 8, "vang": 3, "do_chung": 2, "truc_dau": "doc" }],
+        "bien": [
+          { "ma": "P.127", "o": [2, 1], "huong": "dong", "toc_do": 40 },
+          { "ma": "P.123a", "o": [2, 5], "huong": "dong" }
+        ],
+        "vach_di_bo": [],
+        "nguoi_di_bo": [],
+        "xe_khac": []
+      }
+    },
+    {
+      "ma": "KP-02",
+      "tieu_de": "[Demo] Phố Chợ: phố đông",
+      "y_do": "Bốn nơi giao nhau có đèn, xe khác cả bốn hướng, hai vạch người đi bộ có người sang đường theo giờ (ngay sau điểm xuất phát, và trước trường học). Đích ở đầu phố phía Đông của hàng 2: đi thẳng lên rồi rẽ phải, hoặc rẽ phải ở hàng 6 rồi rẽ trái.",
+      "payload": {
+        "kieu": "ban_do",
+        "man": 2,
+        "ten_pho": "Phố Chợ",
+        "o": [
+          "...|....|...",
+          "...|....|...",
+          "---+----+---",
+          "...|....|...",
+          "...|..C.|...",
+          "...|....|...",
+          "---+----+---",
+          "...|.T..|...",
+          "...|....|..."
+        ],
+        "xuat_phat": { "o": [8, 3], "huong": "bac" },
+        "dich": { "o": [2, 11] },
+        "gio_giay": 150,
+        "den": [
+          { "o": [6, 3], "xanh": 10, "vang": 3, "do_chung": 2, "truc_dau": "doc" },
+          { "o": [2, 3], "xanh": 10, "vang": 3, "do_chung": 2, "truc_dau": "doc", "lech": 6 },
+          { "o": [2, 8], "xanh": 10, "vang": 3, "do_chung": 2, "truc_dau": "ngang" },
+          { "o": [6, 8], "xanh": 10, "vang": 3, "do_chung": 2, "truc_dau": "ngang", "lech": 6 }
+        ],
+        "bien": [
+          { "ma": "P.127", "o": [7, 3], "huong": "bac", "toc_do": 40 },
+          { "ma": "W.224", "o": [7, 3], "huong": "bac" },
+          { "ma": "P.127", "o": [5, 3], "huong": "bac", "toc_do": 40 },
+          { "ma": "P.127", "o": [2, 4], "huong": "dong", "toc_do": 40 },
+          { "ma": "P.127", "o": [6, 4], "huong": "dong", "toc_do": 30 },
+          { "ma": "W.224", "o": [6, 4], "huong": "dong" }
+        ],
+        "vach_di_bo": [{ "o": [7, 3] }, { "o": [6, 6] }],
+        "nguoi_di_bo": [
+          { "id": "n1", "o": [7, 3], "di": "tay", "luc": 2 },
+          { "id": "n2", "o": [7, 3], "di": "dong", "luc": 25 },
+          { "id": "n3", "o": [6, 6], "di": "bac", "luc": 12 },
+          { "id": "n4", "o": [6, 6], "di": "nam", "luc": 30 },
+          { "id": "n5", "o": [6, 6], "di": "bac", "luc": 55 }
+        ],
+        "xe_khac": [
+          { "id": "a", "loai": "o_to", "tuyen": [[6, 0], [6, 11]], "bat_dau": 0, "cach": 11, "so_xe": 5, "toc_do": 35 },
+          { "id": "b", "loai": "o_to", "tuyen": [[2, 11], [2, 0]], "bat_dau": 3, "cach": 12, "so_xe": 5, "toc_do": 35 },
+          { "id": "c", "loai": "xe_may", "tuyen": [[0, 8], [8, 8]], "bat_dau": 2, "cach": 9, "so_xe": 6, "toc_do": 30 },
+          { "id": "d", "loai": "o_to", "tuyen": [[8, 8], [0, 8]], "bat_dau": 6, "cach": 14, "so_xe": 4, "toc_do": 35 },
+          { "id": "e", "loai": "xe_tai", "tuyen": [[0, 3], [8, 3]], "bat_dau": 1, "cach": 16, "so_xe": 3, "toc_do": 30 },
+          { "id": "f", "loai": "xe_may", "tuyen": [[6, 0], [6, 3], [0, 3]], "bat_dau": 5, "cach": 15, "so_xe": 3, "toc_do": 30 }
+        ]
+      }
+    },
+    {
+      "ma": "KP-03",
+      "tieu_de": "[Demo] Khu Bến Cảng: giờ cao điểm",
+      "y_do": "Bốn nơi giao nhau không đèn, nhiều xe. Hai đoạn một chiều: hàng 2 chỉ đi sang Đông, cột 9 (hàng 3–5) chỉ đi xuống Nam, có biển Cấm đi ngược chiều ở lối vào ngược. Đường tắt lên cột 9 là bẫy đi ngược chiều; đường đúng là lên cột 4, rẽ phải vào đoạn một chiều hàng 2, rồi rẽ trái lên đích. Người đi bộ bước ra khi xe còn cách vạch 20 m.",
+      "payload": {
+        "kieu": "ban_do",
+        "man": 3,
+        "ten_pho": "Khu Bến Cảng",
+        "o": [
+          "....|....|..",
+          "....|....|..",
+          "----+>>>>+--",
+          "....|....v..",
+          "..C.|.V..v..",
+          "....|....v..",
+          "----+----+--",
+          "....|....|..",
+          "....|....|..",
+          "....|....|.."
+        ],
+        "xuat_phat": { "o": [9, 4], "huong": "bac" },
+        "dich": { "o": [0, 9] },
+        "gio_giay": 150,
+        "den": [],
+        "bien": [
+          { "ma": "P.127", "o": [8, 4], "huong": "bac", "toc_do": 30 },
+          { "ma": "P.127", "o": [5, 4], "huong": "bac", "toc_do": 40 },
+          { "ma": "W.224", "o": [5, 4], "huong": "bac" },
+          { "ma": "P.127", "o": [2, 5], "huong": "dong", "toc_do": 40 },
+          { "ma": "P.102", "o": [2, 8], "huong": "tay" },
+          { "ma": "P.102", "o": [5, 9], "huong": "bac" }
+        ],
+        "vach_di_bo": [{ "o": [4, 4] }],
+        "nguoi_di_bo": [
+          { "id": "bat-ngo", "o": [4, 4], "di": "tay", "khi_xe_cach": 20 },
+          { "id": "n2", "o": [4, 4], "di": "dong", "luc": 70 }
+        ],
+        "xe_khac": [
+          { "id": "a", "loai": "o_to", "tuyen": [[6, 0], [6, 11]], "bat_dau": 0, "cach": 8, "so_xe": 7, "toc_do": 35 },
+          { "id": "b", "loai": "xe_may", "tuyen": [[6, 11], [6, 0]], "bat_dau": 2, "cach": 7, "so_xe": 7, "toc_do": 30 },
+          { "id": "c", "loai": "o_to", "tuyen": [[0, 4], [9, 4]], "bat_dau": 4, "cach": 10, "so_xe": 5, "toc_do": 30 },
+          { "id": "d", "loai": "o_to", "tuyen": [[0, 9], [9, 9]], "bat_dau": 1, "cach": 11, "so_xe": 5, "toc_do": 35 },
+          { "id": "e", "loai": "xe_may", "tuyen": [[2, 0], [2, 11]], "bat_dau": 3, "cach": 9, "so_xe": 6, "toc_do": 30 },
+          { "id": "f", "loai": "o_to", "tuyen": [[9, 9], [6, 9], [6, 11]], "bat_dau": 5, "cach": 13, "so_xe": 4, "toc_do": 30 }
+        ]
+      }
+    }
+  ],
+  "anh_xa_loi": {
+    "ma": "BL-01",
+    "tieu_de": "[Demo] Bảng lỗi và mức phạt của Tự lái qua phố",
+    "y_do": "Ánh xạ lỗi của trò sang dòng mức phạt theo loại xe (câu D9). Tra kho ngày 27/9/2026: kho chỉ có Nghị định số 100/2026/NĐ-CP và 150/2027/NĐ-CP (văn bản thử), không có Luật số 36/2024/QH15, Nghị định số 168/2024/NĐ-CP, QCVN 41:2024/BGTVT, nên mọi can_cu để null. Mã mức phạt trỏ tới các dòng nháp có sẵn ở data/tra-cuu/muc-phat.json; lỗi chưa có dòng mức phạt thì để null (biên bản ghi Chưa có mức phạt đã duyệt).",
+    "payload": {
+      "kieu": "anh_xa_loi",
+      "loi": {
+        "vuot_den_do": {
+          "ten": "Không chấp hành hiệu lệnh của đèn tín hiệu giao thông",
+          "giai_thich": "Trong trò chơi, đầu xe qua vạch dừng quá 0,5 m khi đèn đỏ là vượt đèn. Qua vạch lúc đèn vàng không tính lỗi.",
+          "can_cu": null,
+          "muc_phat": { "o_to": "oto-den-do", "xe_may": "mt-den-do" }
+        },
+        "qua_toc_do": {
+          "ten": "Chạy quá tốc độ quy định",
+          "giai_thich": "Trò chơi chỉ bắt khi quá từ 5 km/h so với biển tốc độ tối đa, liên tục hơn 1 giây. Biển có hiệu lực tới nơi giao nhau kế tiếp. Đoạn không có biển thì trò không bắt lỗi tốc độ.",
+          "can_cu": null,
+          "bac_toc_do": {
+            "o_to": [
+              { "tu": 5, "den": 9, "ma": "oto-toc-do-5-10" },
+              { "tu": 10, "den": 20, "ma": "oto-toc-do-10-20" },
+              { "tu": 21, "den": 35, "ma": "oto-toc-do-20-35" },
+              { "tu": 36, "den": null, "ma": "oto-toc-do-tren-35" }
+            ],
+            "xe_may": [
+              { "tu": 5, "den": 9, "ma": "mt-toc-do-5-10" },
+              { "tu": 10, "den": 20, "ma": "mt-toc-do-10-20" },
+              { "tu": 21, "den": null, "ma": "mt-toc-do-tren-20" }
+            ]
+          }
+        },
+        "sai_lan": {
+          "ten": "Đi không đúng phần đường quy định",
+          "giai_thich": "Trên đường hai chiều, lệch sang trái tim đường quá 0,5 m là đi sang phần đường của chiều ngược lại.",
+          "can_cu": null,
+          "muc_phat": { "o_to": null, "xe_may": null }
+        },
+        "khong_nhuong_nguoi_di_bo": {
+          "ten": "Không nhường đường cho người đi bộ ở nơi có vạch kẻ đường dành cho người đi bộ",
+          "giai_thich": "Người đi bộ đang ở trên mặt đường, trong vạch sang đường, thì xe phải dừng chờ.",
+          "can_cu": null,
+          "muc_phat": { "o_to": null, "xe_may": null }
+        },
+        "re_khong_xi_nhan": {
+          "ten": "Chuyển hướng không có tín hiệu báo trước",
+          "giai_thich": "Rẽ, chuyển làn, quay đầu đều phải bật xi nhan đúng bên trước khi bắt đầu.",
+          "can_cu": null,
+          "muc_phat": { "o_to": null, "xe_may": null }
+        },
+        "vao_duong_cam": {
+          "ten": "Đi vào đường cấm, đi ngược chiều của đường một chiều",
+          "giai_thich": "Biển Cấm đi ngược chiều đặt ở đầu đường một chiều, hướng về phía xe đi ngược.",
+          "can_cu": null,
+          "muc_phat": { "o_to": null, "xe_may": null }
+        },
+        "re_cam": {
+          "ten": "Không chấp hành hiệu lệnh, chỉ dẫn của biển báo hiệu",
+          "giai_thich": "Biển cấm rẽ đặt trước nơi giao nhau, có hiệu lực ở nơi giao nhau đó.",
+          "can_cu": null,
+          "muc_phat": { "o_to": null, "xe_may": null }
+        },
+        "khong_nhuong_duong": {
+          "ten": "Không nhường đường tại nơi đường giao nhau",
+          "giai_thich": "Quy ước trò chơi: ở nơi giao nhau không có đèn, xe đã vào nơi giao nhau trước được đi trước.",
+          "can_cu": null,
+          "muc_phat": { "o_to": null, "xe_may": null }
+        },
+        "va_cham": {
+          "ten": "Gây va chạm giao thông",
+          "giai_thich": "Va chạm là hậu quả của lái không an toàn; trò chơi trừ điểm nặng nhất.",
+          "can_cu": null,
+          "muc_phat": { "o_to": null, "xe_may": null }
+        }
+      }
+    }
+  }
+}

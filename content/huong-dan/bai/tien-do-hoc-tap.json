@@ -1,0 +1,17 @@
+{
+  "tieu_de": "Tiến độ học tập",
+  "tom_tat": "Số liệu học tập, bản đồ năng lực, lỗi thường mắc, lịch ôn và sản phẩm đã nộp của bạn trong một chuyên đề.",
+  "routes": ["routes/training.progress.tsx"],
+  "anh": [
+    {
+      "ten": "tien-do-chua-ghi-danh",
+      "chu_thich": "Trang tiến độ khi chưa ghi danh chuyên đề",
+      "url": "/dao-tao/dau-tu-cntt-ngan-sach-nha-nuoc/tien-do",
+      "vung": "div:has(> h1:text-is('Tiến độ'))",
+      "danh_dau": [
+        { "o": "h1:text-is('Tiến độ') + p", "ghi_chu": "Thông báo chưa có dữ liệu", "huong": "duoi" },
+        { "o": "role=link[name='Xem chuyên đề']", "ghi_chu": "Mở trang chuyên đề", "huong": "duoi" }
+      ]
+    }
+  ]
+}

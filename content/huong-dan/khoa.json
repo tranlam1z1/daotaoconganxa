@@ -1,0 +1,745 @@
+{
+  "phien_ban": 1,
+  "bai": {
+    "dang-nhap-tai-khoan": {
+      "giao_dien": "6f3780bafb6b3998b559f5a1348ac163392d6240dd69ec3b209dcfdef2e0c9f7",
+      "dac_diem": {
+        "routes/dang-nhap.tsx": [
+          "a to=/tai-khoan \"Xem tài khoản\"",
+          "action (trang nhận biểu mẫu)",
+          "button type=submit \"Vào bằng tài khoản demo\"",
+          "fieldset",
+          "form method=post",
+          "h1 \"Bạn đã đăng nhập\"",
+          "h1 \"Đăng nhập\"",
+          "input type=hidden name=intent",
+          "input type=hidden name=tiep",
+          "input type=password name=mat_khau",
+          "input type=radio name=vai_tro",
+          "legend \"Vào với vai trò\""
+        ],
+        "routes/tai-khoan.tsx": [
+          "a to=/ \"Về trang chủ\"",
+          "action (trang nhận biểu mẫu)",
+          "button type=submit \"Cấp token kết nối\"",
+          "button type=submit \"Đăng xuất\"",
+          "form action=/dang-xuat method=post",
+          "form method=post",
+          "h1 \"Tài khoản\"",
+          "h2 \"Kết nối công cụ AI (MCP)\""
+        ]
+      },
+      "kich_ban": "e6d3a117fc312c9f66491d6283e1671bc0e779c7907168d89857a2a886877883",
+      "noi_dung": "00e2b2d582554e72ea62132778dfc8f0cf8f2ada9edec5c1fa69e1ba6a430318",
+      "anh": {
+        "dang-nhap-trang": "36d80c6ef316140ddca422ad43ef70cad181ce57e4991a7c81c33a15240a3db6",
+        "tai-khoan-trang": "19c6b653919eaa8419602c980b4e9180ffa84c4a13de841fe37f6fafaff08d07"
+      },
+      "chup_luc": "2026-09-14T09:52:58.602Z",
+      "cho_ra_soat": null
+    },
+    "danh-muc-dao-tao": {
+      "giao_dien": "83eb8892a8293e749d59e2b7bafb7ba9e17de7bf9fca5f494e29094063a235f1",
+      "dac_diem": {
+        "routes/training.tsx": [
+          "<TheChuyenDe>",
+          "a to=*",
+          "a to=* \"Xem lộ trình\"",
+          "h1 \"Đào tạo theo lĩnh vực\"",
+          "h2",
+          "h3"
+        ]
+      },
+      "kich_ban": "9d8358f4acb557837dd05dd0e7bba7dc9b0da4941ec64dbe731d4df86ef0bd4f",
+      "noi_dung": "e8d94941047168b98afe7918d5b55688a61d8be6bd6009178047ca24d7cd4508",
+      "anh": {
+        "danh-muc-dao-tao-cay": "253abb00d53f9a1ae3313610254ed66df68ca40c00f0d7025e3e7955261691d8",
+        "danh-muc-dao-tao-the": "79ffa5fb772ef1c9a06af34c2af20aeca6b4912f0e2c0d58b5e419dfa54741d5"
+      },
+      "chup_luc": "2026-09-14T08:18:07.411Z",
+      "cho_ra_soat": null
+    },
+    "doc-van-ban": {
+      "giao_dien": "847db0b4c418027fecaeed6cbd23fc92ec20b4203b9eacd57ad41b6d566d47da",
+      "dac_diem": {
+        "components/AsOfPicker.tsx": [
+          "button type=button",
+          "button type=submit \"Áp dụng\"",
+          "button type=submit name=asOf \"Hôm nay\"",
+          "form action=* method=get",
+          "input type=date name=asOf",
+          "input type=hidden name=*"
+        ],
+        "components/CopyCitationButton.tsx": [
+          "button type=button role=menuitem",
+          "button type=button title=Sao chép viện dẫn theo chuẩn"
+        ],
+        "components/NodeView.tsx": [
+          "<CopyCitationButton>",
+          "<FootnoteBlock>",
+          "<NodeStatusBadge>",
+          "<NodeView>",
+          "a title=* to=*",
+          "details",
+          "h2",
+          "h2 \"Căn cứ ban hành\"",
+          "h3",
+          "summary"
+        ],
+        "components/ReadingSettingsPanel.tsx": [
+          "button type=button",
+          "fieldset",
+          "input type=range",
+          "legend \"Nền\""
+        ],
+        "components/StatusChip.tsx": [],
+        "components/TableOfContents.tsx": [
+          "<TocList>",
+          "a to=*",
+          "button type=button",
+          "button type=button aria-label=Đóng mục lục",
+          "h2 \"Mục lục\"",
+          "input type=search placeholder=Tìm trong mục lục…"
+        ],
+        "routes/document.read.tsx": [
+          "<FootnoteList>",
+          "<LegislationJsonLd>",
+          "<NodeView>",
+          "<ReadingSettingsPanel>",
+          "<TocDrawer>",
+          "<TocSidebar>",
+          "a to=*",
+          "a to=* \"Phần sau (\"",
+          "a to=* \"Xem thuộc tính đầy đủ\"",
+          "a to=* \"← Phần trước (\"",
+          "button type=button",
+          "h1",
+          "h2 \"Chú thích hợp nhất\""
+        ],
+        "routes/document.tsx": [
+          "<AsOfPicker>",
+          "<CopyCitationButton>",
+          "<Outlet>",
+          "<StatusChip>",
+          "a to=*",
+          "a to=* \"So sánh\""
+        ]
+      },
+      "kich_ban": "289a4e2ad119bb9797a6e87ce9808f1277959d7793e9ffee5ec4af75c5a8a34b",
+      "noi_dung": "7644b79b683b270035f8c9bb3a526e98f873318303a9b3e65d638bf9d06682ae",
+      "anh": {
+        "doc-van-ban-thanh-tieu-de": "ca409a861ad88683c0200a0ad7ca73e3a12bc5c443c17f8fe088fac5f43e15ba",
+        "doc-van-ban-thoi-diem": "dcc7f5c9b1ec135567c7b78c1c6216ee766a828a1250a559c8480114caa4bdcb",
+        "doc-van-ban-muc-luc": "06a02dfedfd68c01092e144bee2d5c090f97cf32edc515d65b38c9192802d0fc",
+        "doc-van-ban-dieu": "10f58cf1eccb00a70f45ea40b7777bfa82e49cf58b30dad9694ffc93cf6d7bb2"
+      },
+      "chup_luc": "2026-09-14T08:17:28.922Z",
+      "cho_ra_soat": null
+    },
+    "giao-dien-chung": {
+      "giao_dien": "b14bd68a31a6ed8ccb0fdb3e501160bf202dabd64ba321e3618a860269bacade",
+      "dac_diem": {
+        "components/HuongDanTrongTrang.tsx": [
+          "a href=* \"Tải bản PDF\"",
+          "a to=* \"Mở bài trong mục Hướng dẫn\"",
+          "a to=/huong-dan \"Mục lục hướng dẫn\"",
+          "button type=button",
+          "button type=button aria-label=Hướng dẫn sử dụng trang này title=Hướng dẫn sử dụng trang này",
+          "dialog",
+          "h2"
+        ],
+        "components/SiteFooter.tsx": [
+          "a to=/dao-tao \"Đào tạo chuyên đề\"",
+          "a to=/hoi-dap \"Hỏi đáp có trích dẫn\"",
+          "a to=/huong-dan \"Hướng dẫn sử dụng\"",
+          "a to=/tim-kiem \"Tra cứu văn bản\"",
+          "a to=/ung-dung \"Trường hợp ứng dụng\""
+        ],
+        "components/SiteHeader.tsx": [
+          "<HuongDanTrongTrang>",
+          "<ThemeToggle>",
+          "a title=* to=/tai-khoan",
+          "a to=*",
+          "a to=/",
+          "a to=/dang-nhap \"Đăng nhập\"",
+          "button type=button",
+          "button type=submit",
+          "form role=search action=/tim-kiem method=get",
+          "input type=search name=q placeholder=Số ký hiệu, viện dẫn, câu hỏi…"
+        ],
+        "components/ThemeToggle.tsx": [
+          "button type=button title=*"
+        ],
+        "root.tsx": [
+          "<Links>",
+          "<Meta>",
+          "<Outlet>",
+          "<Scripts>",
+          "<ScrollRestoration>",
+          "<SiteFooter>",
+          "<SiteHeader>",
+          "a href=#noi-dung-chinh \"Bỏ qua điều hướng, tới nội dung chính\"",
+          "a href=/ \"Về trang chủ\"",
+          "h1"
+        ]
+      },
+      "kich_ban": "98fdad9d44181f55eb51031769475adc446a6128e57a12a5f0b67aee4fd59714",
+      "noi_dung": "f7c756393afc052b038b8c51bf46cea08016109a2f5bcda93091705497ff3b8a",
+      "anh": {
+        "giao-dien-dau-trang": "d20368491379e32f4cf5469ccd92994b9f677731383880a7b9254577b2fa8943",
+        "giao-dien-menu-dien-thoai": "263610abf44bf9bcc1256bbcc58613afc13ae4cfedd9a748a1503ce78b2d0fed",
+        "giao-dien-chan-trang": "c0bdf5d2eda9af352f795265a6f6cf4aafd5da8e3e2f386b0a541f506a131e54"
+      },
+      "chup_luc": "2026-09-14T08:16:16.687Z",
+      "cho_ra_soat": null
+    },
+    "hoc-bai": {
+      "giao_dien": "fda7306c93f0c767db6b8147571425f46fdd394bff09ed5af70be784c6a5997d",
+      "dac_diem": {
+        "components/dao-tao/BaiTap.tsx": [
+          "button type=button",
+          "fieldset",
+          "h3",
+          "input type=* name=*",
+          "input type=text",
+          "input type=text placeholder=vn:vbqppl:nd:224/2026/NĐ-CP#dieu-91.khoan-2",
+          "legend \"Chọn phương án\"",
+          "select",
+          "textarea"
+        ],
+        "components/dao-tao/KhoiNoiDung.tsx": [
+          "<BangTra>",
+          "<CanhBao>",
+          "<CanhBaoCanCu>",
+          "<CayQuyetDinh>",
+          "<CongThuc>",
+          "<DoiChieu>",
+          "<DongThoiGian>",
+          "<Giang>",
+          "<HoSo>",
+          "<HoiNhanh>",
+          "<KichBan>",
+          "<MayTinh>",
+          "<SoDoTrinhTu>",
+          "<TheCanCu>",
+          "<TheLat>",
+          "<ThemCanCu>",
+          "<TomTat>",
+          "<Vo>",
+          "a to=*",
+          "a to=* \"Mở công cụ\"",
+          "button type=button",
+          "button type=button \"Có\"",
+          "button type=button \"Không\"",
+          "button type=button \"Làm lại từ đầu\"",
+          "h3",
+          "h3 \"Tóm tắt\"",
+          "input type=number",
+          "input type=search placeholder=Tìm trong bảng…"
+        ],
+        "components/mascot/MascotGiaSu.tsx": [
+          "<IconLoa>",
+          "<MascotHinh>",
+          "a to=*",
+          "button type=button",
+          "button type=button \"Bắt đầu\"",
+          "button type=button \"Chuyển sang chế độ yên lặng\"",
+          "button type=button \"Dẫn tôi đi lại từ đầu\"",
+          "button type=button \"Dừng dẫn dắt\"",
+          "button type=button \"Giải thích phần đang đọc\"",
+          "button type=button \"Kết thúc dẫn dắt\"",
+          "button type=button \"Quay lại\"",
+          "button type=button \"Tiếp theo\"",
+          "button type=button \"Tự đọc, không cần dẫn dắt\"",
+          "button type=button \"Đóng\"",
+          "button type=button title=*"
+        ],
+        "components/mascot/MascotHinh.tsx": [],
+        "components/mascot/useGiongDoc.ts": [],
+        "routes/training.lesson.tsx": [
+          "<BaiTap>",
+          "<KhoiNoiDungView>",
+          "<MascotGiaSu>",
+          "a href=*",
+          "a to=*",
+          "a to=* \"Ghi danh chuyên đề\"",
+          "a to=/dao-tao \"Đào tạo\"",
+          "details",
+          "h1",
+          "h2 \"Bài tập\"",
+          "summary \"Mục lục bài học\""
+        ]
+      },
+      "kich_ban": "44d6d22b5a392a4a18573a6f060f80d174c166083086d93de90085182ea42269",
+      "noi_dung": "e9ea019629ce8f855e3f698d0925a118bdbcfedf9f3e38cb069cac65d508ab42",
+      "anh": {
+        "hoc-bai-bo-cuc": "46b18b6fc95219da4cf0e56d5a7ff5f2b25174f571eefbf4e6bbda159af2cd37",
+        "hoc-bai-khoi-can-cu": "008d3a10bf94f5a9b1ebcdbc4ed39057bdeb2ec293fdd7e47ab69fe4d72c160b",
+        "hoc-bai-bai-tap": "83d98df8ce1a4c62042c0805032eabd775ec5ba7019aec088036889f2b3927e8",
+        "hoc-bai-nhan-vat-dong-hanh": "fd537861d076353add19363a79891a705fc43f3194ac127129e9468ea2acdb47",
+        "hoc-bai-dien-thoai": "74ca7673927377501992daa08a79792080c127a5a9db21b24d7ce762378dff40"
+      },
+      "chup_luc": "2026-09-14T08:18:37.719Z",
+      "cho_ra_soat": null
+    },
+    "hoi-dap": {
+      "giao_dien": "a5a06610966e7699a7a2248f486bd0ff78fda728d26257b15cc7249a28aee55b",
+      "dac_diem": {
+        "components/StatusChip.tsx": [],
+        "routes/ask.tsx": [
+          "<StatusChip>",
+          "a to=*",
+          "a to=* \"Mở đúng khoản trong văn bản\"",
+          "button type=button \"Báo nội dung sai\"",
+          "button type=submit",
+          "details",
+          "form method=get",
+          "h1 \"Hỏi đáp có trích dẫn\"",
+          "h2 \"Câu trả lời\"",
+          "h2 \"Gợi ý câu hỏi\"",
+          "h3 \"Căn cứ (\"",
+          "input type=date name=asOf",
+          "summary",
+          "textarea name=q placeholder=Ví dụ: Trước khi vận hành hệ thống, chủ đầu tư phải làm gì?"
+        ]
+      },
+      "kich_ban": "975d006dcad2e6645c3cd217eba3890175bc491c15bd773479f70ebfb904eb00",
+      "noi_dung": "b82bfb28fe257e18672c0523df3b7bd80c46387ed2638cb156c7624a978415f3",
+      "anh": {
+        "hoi-dap-dat-cau-hoi": "328ed684458d89ec3aeaac9d566cbd72c92ee710c735d3f59efe77b24fa6b0d1"
+      },
+      "chup_luc": "2026-09-14T08:17:58.729Z",
+      "cho_ra_soat": null
+    },
+    "lo-trinh-chuyen-de": {
+      "giao_dien": "033adbaa7c043143719cc205bb410643d85097c51378b4d46b0881143f0585e9",
+      "dac_diem": {
+        "components/mascot/MascotHinh.tsx": [],
+        "routes/training.course.tsx": [
+          "<LienKetChuyenDe>",
+          "<MascotHinh>",
+          "a to=*",
+          "a to=* \"Mở bài học\"",
+          "a to=/dao-tao \"Đào tạo\"",
+          "action (trang nhận biểu mẫu)",
+          "button type=submit \"Ghi danh\"",
+          "form method=post",
+          "h1",
+          "h2 \"Bản đồ năng lực\"",
+          "h2 \"Lộ trình\"",
+          "h2 \"Vị trí trong lĩnh vực\"",
+          "h3",
+          "select name=mode"
+        ]
+      },
+      "kich_ban": "0d10a45a37d7363b16ad3f060be06a61621753a6fde006d39f39709b4d3ab588",
+      "noi_dung": "a385284f9b011a190a5457c430b886ee06ae2ac32a2ec569a3f0135b8f0b23d6",
+      "anh": {
+        "lo-trinh-dau-trang": "dff59d21ef8e85f0ca4b523a6749fe856ec171c7076cf30992ed54793d4dd99e",
+        "lo-trinh-danh-sach-bai": "1c2c3f28edcba21ef7c644f33993b91d5f19096a52e963521f2e522fea154cbb"
+      },
+      "chup_luc": "2026-09-14T08:18:14.156Z",
+      "cho_ra_soat": null
+    },
+    "luoc-do-van-ban": {
+      "giao_dien": "60dd8ffec7b8a5eba63035b86a378e38a0fa66e0b4d041ae0bf95d52654bad85",
+      "dac_diem": {
+        "components/AsOfPicker.tsx": [
+          "button type=button",
+          "button type=submit \"Áp dụng\"",
+          "button type=submit name=asOf \"Hôm nay\"",
+          "form action=* method=get",
+          "input type=date name=asOf",
+          "input type=hidden name=*"
+        ],
+        "components/CopyCitationButton.tsx": [
+          "button type=button role=menuitem",
+          "button type=button title=Sao chép viện dẫn theo chuẩn"
+        ],
+        "components/StatusChip.tsx": [],
+        "routes/document.diagram.tsx": [
+          "<RelationRow>",
+          "<StatusChip>",
+          "a to=*",
+          "h1 \"Lược đồ văn bản\"",
+          "h2 \"Các nhóm quan hệ\"",
+          "h2 \"Cây văn bản cha / con\"",
+          "h2 \"Ảnh hưởng ở cấp điều, khoản\"",
+          "h3"
+        ],
+        "routes/document.tsx": [
+          "<AsOfPicker>",
+          "<CopyCitationButton>",
+          "<Outlet>",
+          "<StatusChip>",
+          "a to=*",
+          "a to=* \"So sánh\""
+        ]
+      },
+      "kich_ban": "1296b9591c321a12d0cb3c34ae48de7ff2a31eb6aca240d40449027c81c774d2",
+      "noi_dung": "749c82820eacc96a4531434c43f7f6c030330521e6c1f8d113f74f6544f344ec",
+      "anh": {
+        "luoc-do-cay-cha-con": "f33ec75b739849703cfca29b842aa53b6eaa1166564021b502d0e267ca5c9be1",
+        "luoc-do-anh-huong": "7af83c9f90f20f41d0e27a381c32145bf69a8598a894605bcbc2b5ceee75f754",
+        "luoc-do-nhom-quan-he": "4adbd2bfbd319577dac7bc54fb318d15fe51ad6766c67ea44befd0f01236a0b4"
+      },
+      "chup_luc": "2026-09-14T08:17:49.079Z",
+      "cho_ra_soat": null
+    },
+    "on-tap": {
+      "giao_dien": "41a9e7d8c0d1445cffcf63d794019e752079470ef11e6c8c9d64ad00dd20a220",
+      "dac_diem": {
+        "routes/training.review.tsx": [
+          "<MatThe>",
+          "a to=* \"Chuyên đề\"",
+          "a to=* \"Mở bài học chứa nội dung này\"",
+          "a to=* \"Về lộ trình chuyên đề\"",
+          "a to=* \"Xem chuyên đề\"",
+          "a to=* \"Xem tiến độ\"",
+          "button type=button",
+          "button type=button \"Tự đánh giá mức nhớ\"",
+          "h1 \"Phiên ôn hôm nay\"",
+          "h1 \"Ôn tập\""
+        ]
+      },
+      "kich_ban": "bea04f5496d26d188f69853f16ad8c0b655bc695c6e069ec79dc4037bbf498dd",
+      "noi_dung": "32a744172f6f9d8b190d301ded870fb625e4f131a49b4e4c3bacd1f49e0e43d7",
+      "anh": {
+        "on-tap-chua-ghi-danh": "b8cf3d73f7bf8bfd05fe64deabca5ac73f2e8cde4c1f46f70e1e84815e22228e"
+      },
+      "chup_luc": "2026-09-14T08:18:43.661Z",
+      "cho_ra_soat": null
+    },
+    "phien-ban-van-ban": {
+      "giao_dien": "f00bd4b5fce2a8206f24de1086fe48acbd80a7148f8000717cb1f7b985eb9355",
+      "dac_diem": {
+        "components/AsOfPicker.tsx": [
+          "button type=button",
+          "button type=submit \"Áp dụng\"",
+          "button type=submit name=asOf \"Hôm nay\"",
+          "form action=* method=get",
+          "input type=date name=asOf",
+          "input type=hidden name=*"
+        ],
+        "components/CopyCitationButton.tsx": [
+          "button type=button role=menuitem",
+          "button type=button title=Sao chép viện dẫn theo chuẩn"
+        ],
+        "components/StatusChip.tsx": [],
+        "routes/document.tsx": [
+          "<AsOfPicker>",
+          "<CopyCitationButton>",
+          "<Outlet>",
+          "<StatusChip>",
+          "a to=*",
+          "a to=* \"So sánh\""
+        ],
+        "routes/document.versions.tsx": [
+          "a to=* \"(xem văn bản)\"",
+          "a to=* \"Đọc bản này\"",
+          "button type=submit \"So sánh\"",
+          "form action=/so-sanh method=get",
+          "h1 \"Phiên bản văn bản\"",
+          "h2 \"So sánh nhanh\"",
+          "input type=hidden name=urn",
+          "select name=a",
+          "select name=b"
+        ]
+      },
+      "kich_ban": "ef3d6d56eb842c3f495d3492be79741feee63018988758da3004d2426a0d0004",
+      "noi_dung": "5489f5bdfa8d07114ac2f5207380e7951598eb73ea9c4bc22ee86a328139c5b1",
+      "anh": {
+        "phien-ban-danh-sach": "9b32f60ad0ab066d673b63f68ca2bd4f1f98462e8f031150cc05e92d40f6c3fb",
+        "phien-ban-so-sanh-nhanh": "17f7ba3d8f5dbede52c96c82c02571964423747a70470e4a89fac3353937b8ab"
+      },
+      "chup_luc": "2026-09-14T08:17:55.193Z",
+      "cho_ra_soat": null
+    },
+    "quan-tri-chuyen-de": {
+      "giao_dien": "ccdf7d6f7ac5b2b275098a7c7badc77e057c22541463915d8c792b8f03b2ef5a",
+      "dac_diem": {
+        "routes/quan-tri.chuyen-de.tsx": [
+          "a href=*",
+          "action (trang nhận biểu mẫu)",
+          "button type=submit",
+          "form method=post",
+          "h2 \"Bảng kiểm trước xuất bản\"",
+          "h2 \"Chuyên đề (\"",
+          "h3",
+          "input type=hidden name=id",
+          "input type=hidden name=trangThai"
+        ],
+        "routes/quan-tri.tsx": [
+          "<Outlet>",
+          "a to=*",
+          "a to=/ \"Về trang chủ\"",
+          "h1 \"Không hiển thị được trang quản trị\"",
+          "h1 \"Không đủ quyền\"",
+          "h1 \"Quản trị đào tạo\""
+        ]
+      },
+      "kich_ban": "1a801f96b103fad7ad1e46c09d271397075af6331c0a8cdcf235cbc7e5a89b6c",
+      "noi_dung": "d02b4b78942c10ca968231e862d2528508e5a4a4db5a40216900f2cb8a6c2c08",
+      "anh": {
+        "quan-tri-chuyen-de-danh-sach": "4dea70e9e21763994a3a9fceef4d67b27e3827972e066776123d0f6242f4953b",
+        "quan-tri-chuyen-de-bang-kiem": "6558b6efe5cb90f1011b3ddf39e7f50af1d5d06b089473b14e1588b045165750"
+      },
+      "chup_luc": "2026-09-14T08:19:08.563Z",
+      "cho_ra_soat": null
+    },
+    "quan-tri-tong-quan": {
+      "giao_dien": "573bbf01d96ee3879e2211df205f6cf40823cd8c7499cca5127b88486ec8e1a3",
+      "dac_diem": {
+        "routes/quan-tri._index.tsx": [
+          "a to=*",
+          "h2 \"Mascot có giúp người học không?\""
+        ],
+        "routes/quan-tri.tsx": [
+          "<Outlet>",
+          "a to=*",
+          "a to=/ \"Về trang chủ\"",
+          "h1 \"Không hiển thị được trang quản trị\"",
+          "h1 \"Không đủ quyền\"",
+          "h1 \"Quản trị đào tạo\""
+        ]
+      },
+      "kich_ban": "4c27c9fd7e8d1cf986d29e25595b6b6e3a35e0063c1390c2f2045225c960d3b4",
+      "noi_dung": "88c669a6c94323e52751a0528f0b0501a2b48bf0c7236dcd4c402275f7b94b9c",
+      "anh": {
+        "quan-tri-khung": "a739ccd6b4b46bd8ccc74f7945e2ef4d32b70832f4b383e951f3b1cd90d51f9f",
+        "quan-tri-the-so-lieu": "3744e402199d6536f913e3ca2a3ab24701da800bea8d3289c067a07d526ceb88"
+      },
+      "chup_luc": "2026-09-14T08:18:57.139Z",
+      "cho_ra_soat": null
+    },
+    "su-dung-huong-dan": {
+      "giao_dien": "367cb161fa74cb243e51fc7438e3397875835ea27a57357a315e3b5ba84d9aff",
+      "dac_diem": {
+        "components/HuongDanTrongTrang.tsx": [
+          "a href=* \"Tải bản PDF\"",
+          "a to=* \"Mở bài trong mục Hướng dẫn\"",
+          "a to=/huong-dan \"Mục lục hướng dẫn\"",
+          "button type=button",
+          "button type=button aria-label=Hướng dẫn sử dụng trang này title=Hướng dẫn sử dụng trang này",
+          "dialog",
+          "h2"
+        ],
+        "routes/huong-dan._index.tsx": [
+          "a href=* \"Tải bản PDF\"",
+          "a to=*",
+          "h1 \"Hướng dẫn sử dụng\"",
+          "h2 \"Chương\""
+        ],
+        "routes/huong-dan.bai.tsx": [
+          "a href=* \"Tải bản PDF\"",
+          "a to=*",
+          "a to=/huong-dan \"Hướng dẫn sử dụng\"",
+          "a to=/huong-dan \"Tất cả bài hướng dẫn\"",
+          "details",
+          "h1",
+          "summary \"Mục lục hướng dẫn\""
+        ]
+      },
+      "kich_ban": "3c366f85010913943ff0e6f7555f62cde5a9b1a3ec2295d8fd287b562e9453cf",
+      "noi_dung": "51b56c4715590fdbd4217b1316eb1846513942d480a2c3852ce0153ed5d09fff",
+      "anh": {
+        "huong-dan-khung-trong-trang": "62e6c7b4d8b782df7485c6680dedf6e1693bf7baf9ea8cb45a469fdc61f1f9a6",
+        "huong-dan-muc-luc": "5baf70e83e9ebea37d49bb5f2de9c7b98d183d0612e699ef6b3cf4c1050ca96f",
+        "huong-dan-trang-bai": "58936098cbd3adcb80b3319f3a7bf38f31252a7646ad9dbb162545e3294c3ce0",
+        "huong-dan-chuyen-bai": "44519ca2dac957ba2f4b5580e0bd6ef44eb38e65064a01dceb32512cd9400c98"
+      },
+      "chup_luc": "2026-09-14T09:53:09.325Z",
+      "cho_ra_soat": null
+    },
+    "thuoc-tinh-van-ban": {
+      "giao_dien": "ae4016da8c647d8495b295966d5d345632b4e69001d6f26a3122307c1e7d4798",
+      "dac_diem": {
+        "components/AsOfPicker.tsx": [
+          "button type=button",
+          "button type=submit \"Áp dụng\"",
+          "button type=submit name=asOf \"Hôm nay\"",
+          "form action=* method=get",
+          "input type=date name=asOf",
+          "input type=hidden name=*"
+        ],
+        "components/CopyCitationButton.tsx": [
+          "button type=button role=menuitem",
+          "button type=button title=Sao chép viện dẫn theo chuẩn"
+        ],
+        "components/StatusChip.tsx": [],
+        "routes/document.properties.tsx": [
+          "<Row>",
+          "<StatusChip>",
+          "a to=*",
+          "a to=* \"Xem danh sách phiên bản và so sánh\"",
+          "a to=* \"lược đồ văn bản\"",
+          "h1 \"Thuộc tính văn bản\"",
+          "h2 \"Hiệu lực\"",
+          "h2 \"Nguồn gốc\"",
+          "h2 \"Phiên bản\"",
+          "h2 \"Quan hệ\"",
+          "h2 \"Định danh\"",
+          "h3 \"Lịch sử trạng thái\""
+        ],
+        "routes/document.tsx": [
+          "<AsOfPicker>",
+          "<CopyCitationButton>",
+          "<Outlet>",
+          "<StatusChip>",
+          "a to=*",
+          "a to=* \"So sánh\""
+        ]
+      },
+      "kich_ban": "81669af96ebe9f6143dd0c553bd186f6f33c36c143b4b060a7d50c06e0cac20e",
+      "noi_dung": "a4277402756d45db5fbc8c057db35d7ac48ecb4b82602dd020fb84bb9c3726d3",
+      "anh": {
+        "thuoc-tinh-dinh-danh": "5bdadb4fd8131b331f930dd9db79fc82c20a4f756bc2a4eb1f7401cb48793058",
+        "thuoc-tinh-hieu-luc": "ba008ce237c89801c51e67e3b7b1a6794bbbb469bcb1d7f6fd89dbccff3129f9"
+      },
+      "chup_luc": "2026-09-14T08:17:38.465Z",
+      "cho_ra_soat": null
+    },
+    "tien-do-hoc-tap": {
+      "giao_dien": "584b2eb71b67676bc284f810efefe4ad08e8b83cfba525c943406f19f6077357",
+      "dac_diem": {
+        "routes/training.progress.tsx": [
+          "a to=*",
+          "a to=* \"Bắt đầu phiên ôn\"",
+          "a to=* \"Làm bài vá lỗi này\"",
+          "a to=* \"Xem chuyên đề\"",
+          "a to=/dao-tao \"Đào tạo\"",
+          "h1 \"Tiến độ của bạn\"",
+          "h1 \"Tiến độ\"",
+          "h2 \"Bản đồ năng lực\"",
+          "h2 \"Hồ sơ sản phẩm\"",
+          "h2 \"Lỗi thường mắc\"",
+          "h2 \"Thời gian học tám tuần gần nhất\"",
+          "h2 \"Ôn tập\""
+        ]
+      },
+      "kich_ban": "1ec868321ef0e9f9b81e807ffdb1bbf553edf13208758330bb18926d0fffa138",
+      "noi_dung": "990fb32b60d91a3fe5850ccad1bb3a88c14c12ed9ca3544168bdf0818f00404d",
+      "anh": {
+        "tien-do-chua-ghi-danh": "ddf9a5ffb74f60d538547fc7e41a5490deeb950e66c06ff58776375309bf6e58"
+      },
+      "chup_luc": "2026-09-14T08:18:40.635Z",
+      "cho_ra_soat": null
+    },
+    "trang-chu": {
+      "giao_dien": "46d3b48bfe646953bf974b313ce7e4dfdf21ca14dfa839462e43a4a5ef971d06",
+      "dac_diem": {
+        "components/StatusChip.tsx": [],
+        "routes/home.tsx": [
+          "<StatusChip>",
+          "a to=*",
+          "a to=/tim-kiem \"Xem tất cả\"",
+          "button type=submit \"Tra cứu\"",
+          "form role=search action=/tim-kiem method=get",
+          "h1 \"Tra cứu quy định pháp luật theo\"",
+          "h2 \"Chuyên đề nổi bật\"",
+          "h2 \"Lối vào nhanh\"",
+          "h2 \"Văn bản mới cập nhật\"",
+          "h3",
+          "input type=search name=q placeholder=Ví dụ: khoản 2 điều 15 nđ 45/2026"
+        ]
+      },
+      "kich_ban": "0b892e4d7aa27607a7dd993df9151c9f3761bf4da7ca4a9a2a126fc5cc13ca78",
+      "noi_dung": "1615db40c2f04eb333af0cd87dc4c0672d33a7d58d59a636f0aa2cc9f02578a0",
+      "anh": {
+        "trang-chu-tra-cuu": "9dc92e532614cb291f0fa68133c70e91bb7e99c67cc656b279aa0ffa32d72137",
+        "trang-chu-van-ban-moi": "7a1f7af6947edd7dda2efd802515dfbf9e0ef956b05277c4d5e06dbd7ee6f72e",
+        "trang-chu-loi-vao": "57138464f558274df6c083e26e48948106a0620ba235cdfc3c3be559b635173b"
+      },
+      "chup_luc": "2026-09-14T08:16:25.451Z",
+      "cho_ra_soat": null
+    },
+    "truong-hop-ung-dung": {
+      "giao_dien": "40c64d7a5a366879612538d2f8778a729d6c43cef83bd756edcd68b7d756126b",
+      "dac_diem": {
+        "routes/usecases.tsx": [
+          "a to=* \"Tra cứu căn cứ liên quan\"",
+          "h1 \"Trường hợp ứng dụng\"",
+          "h2"
+        ]
+      },
+      "kich_ban": "fe213ef4b6aef6cd55bb6a4aeb12f7aee4c26cda876c4e6a01651db3ecd774f4",
+      "noi_dung": "1248d540cf69aa50def5435d9929efbc8663cc18566520fa303f6269ef8a7f1c",
+      "anh": {
+        "ung-dung-danh-sach": "eec0c7d5cac00d0c66461dac6b42308f86afa3477e79905836179e45ce716ed3"
+      },
+      "chup_luc": "2026-09-14T08:18:01.288Z",
+      "cho_ra_soat": null
+    },
+    "va-loi": {
+      "giao_dien": "b14bd417b7197894b7269571059bd2af3a46d8488adde5db38bd7563da4fe4cc",
+      "dac_diem": {
+        "components/dao-tao/BaiTap.tsx": [
+          "button type=button",
+          "fieldset",
+          "h3",
+          "input type=* name=*",
+          "input type=text",
+          "input type=text placeholder=vn:vbqppl:nd:224/2026/NĐ-CP#dieu-91.khoan-2",
+          "legend \"Chọn phương án\"",
+          "select",
+          "textarea"
+        ],
+        "components/dao-tao/KhoiNoiDung.tsx": [
+          "<BangTra>",
+          "<CanhBao>",
+          "<CanhBaoCanCu>",
+          "<CayQuyetDinh>",
+          "<CongThuc>",
+          "<DoiChieu>",
+          "<DongThoiGian>",
+          "<Giang>",
+          "<HoSo>",
+          "<HoiNhanh>",
+          "<KichBan>",
+          "<MayTinh>",
+          "<SoDoTrinhTu>",
+          "<TheCanCu>",
+          "<TheLat>",
+          "<ThemCanCu>",
+          "<TomTat>",
+          "<Vo>",
+          "a to=*",
+          "a to=* \"Mở công cụ\"",
+          "button type=button",
+          "button type=button \"Có\"",
+          "button type=button \"Không\"",
+          "button type=button \"Làm lại từ đầu\"",
+          "h3",
+          "h3 \"Tóm tắt\"",
+          "input type=number",
+          "input type=search placeholder=Tìm trong bảng…"
+        ],
+        "routes/training.patch.tsx": [
+          "<BaiTap>",
+          "<KhoiNoiDungView>",
+          "a to=*",
+          "a to=* \"Chuyên đề\"",
+          "a to=* \"Về lộ trình chuyên đề\"",
+          "a to=* \"Xem tiến độ\"",
+          "h1",
+          "h2 \"Bài tập\"",
+          "h2 \"Căn cứ liên quan\""
+        ]
+      },
+      "kich_ban": "945a79baef81f92856dba22aee5e20c4afeba9f97be7095a3df84a299da93156",
+      "noi_dung": "b8d378add3a21defd14a9f681a6993f8ca0e250f98ba3417b4d17a10f92bd14d",
+      "anh": {
+        "va-loi-mo-ta": "0a1ca8214dadee93ddfd8115f50ed425a5931b10324fbbe5a4d81c72c8236863",
+        "va-loi-bai-tap": "76689243f4dd00be18bface1bbe78a583f6e3919fdc297246bdcd84f8c5e595d"
+      },
+      "chup_luc": "2026-09-14T08:18:50.339Z",
+      "cho_ra_soat": null
+    }
+  },
+  "pdf": {
+    "chu_ky": "c001c318b9c0a259c703f9f7f48c367a9834fc519811c929c373bc134ba6a966",
+    "tao_luc": "2026-09-14T11:02:13.979Z",
+    "so_trang": 77,
+    "sha": "4f1d0468d6bf3f9a920278b98bc53d6f0998c4578602c6519ccbec5a5a5fcda4"
+  }
+}

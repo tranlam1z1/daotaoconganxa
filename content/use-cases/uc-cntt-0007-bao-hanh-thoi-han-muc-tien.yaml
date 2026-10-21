@@ -1,0 +1,183 @@
+slug: uc-cntt-0007-bao-hanh-thoi-han-muc-tien
+title: Xác định thời hạn và mức tiền bảo hành sản phẩm của dự án đầu tư ứng dụng công nghệ thông tin
+
+taxonomy_codes: [PD.03.003, PD.34.007, NB.CNTT.DTUD.BH, NB.CNTT.DTUD.NT]
+actor_kinds: [co_quan_nha_nuoc, nha_thau]
+work_kinds: [hop_dong, nghia_vu_tuan_thu]
+
+as_of: 2026-06-01
+effectivity_note: >-
+  Gán nhãn tại 01/6/2026. Từ 01/7/2026, quy định tương ứng nằm tại Điều 59 Nghị định số
+  224/2026/NĐ-CP, giữ nguyên cả thời hạn và mức tiền bảo hành.
+
+situation: |
+  Ban quản lý dự án của một sở chuyên môn đang soạn hồ sơ mời thầu cho gói thầu thiết kế chi tiết và
+  triển khai phần mềm nội bộ của một dự án nhóm C, giá gói thầu 8,2 tỷ đồng. Dự thảo hồ sơ mời thầu
+  ghi thời hạn bảo hành 24 tháng và mức tiền bảo hành 03% giá trị sản phẩm. Một thành viên tổ chuyên
+  gia cho rằng ghi như vậy là nhầm cặp giá trị. Ngoài ra, ban quản lý dự án còn hỏi hai việc: có phải
+  áp dụng bảo hành cho gói thuê dịch vụ công nghệ thông tin của dự án khác không, và tiền bảo hành
+  được nộp dưới hình thức nào.
+
+questions:
+  - Thời hạn và mức tiền bảo hành tối thiểu đối với dự án nhóm C là bao nhiêu?
+  - Ghi thời hạn 24 tháng kèm mức tiền 03% cho dự án nhóm C có đúng không?
+  - Quy định bảo hành có áp dụng cho dự án thuê dịch vụ công nghệ thông tin không?
+  - Tiền bảo hành được bảo đảm bằng hình thức nào?
+
+analysis:
+  - step: 1
+    claim: >-
+      Thời hạn bảo hành tối thiểu là 24 tháng đối với dự án quan trọng quốc gia và dự án nhóm A; 12
+      tháng đối với dự án nhóm B và nhóm C.
+    citations:
+      - vn:vbqppl:nd:45/2026/NĐ-CP#dieu-26.khoan-1@2026-03-01
+    quote: >-
+      Thời hạn bảo hành tối thiểu: a) 24 tháng đối với dự án quan trọng quốc gia, dự án nhóm A; b) 12
+      tháng đối với dự án nhóm B, nhóm C.
+    reasoning: >-
+      Khoản 1 Điều 26 phân theo nhóm dự án. Dự án nhóm C thuộc điểm b, thời hạn tối thiểu là 12 tháng.
+      Đây là mức **tối thiểu**, chủ đầu tư được yêu cầu thời hạn dài hơn trong hồ sơ mời thầu.
+
+  - step: 2
+    claim: >-
+      Mức tiền bảo hành tối thiểu là 03% giá trị sản phẩm nếu bảo hành 24 tháng, và 05% nếu bảo hành
+      12 tháng.
+    citations:
+      - vn:vbqppl:nd:45/2026/NĐ-CP#dieu-26.khoan-2@2026-03-01
+    quote: >-
+      Mức tiền bảo hành tối thiểu: a) 03% giá trị sản phẩm đối với trường hợp thời hạn bảo hành 24
+      tháng; b) 05% giá trị sản phẩm đối với trường hợp thời hạn bảo hành 12 tháng.
+    reasoning: >-
+      Hai cặp giá trị đi liền nhau và **ngược chiều**: thời hạn dài hơn thì mức tiền thấp hơn. Logic ở
+      đây là tổng mức bảo đảm được cân bằng giữa thời gian và giá trị. Đây là chỗ bị ghi nhầm nhiều
+      nhất trong hồ sơ mời thầu.
+
+  - step: 3
+    claim: >-
+      Dự thảo hồ sơ mời thầu ghi 24 tháng kèm 03% cho dự án nhóm C là ghép sai cặp giá trị.
+    citations:
+      - vn:vbqppl:nd:45/2026/NĐ-CP#dieu-26.khoan-1@2026-03-01
+      - vn:vbqppl:nd:45/2026/NĐ-CP#dieu-26.khoan-2@2026-03-01
+    quote: ""
+    reasoning: >-
+      Có hai cách sửa hợp lệ. Cách thứ nhất: ghi 12 tháng và 05%, đúng mức tối thiểu của dự án nhóm C.
+      Cách thứ hai: giữ 24 tháng nhưng phải ghi mức tiền 03% — cách này vẫn hợp lệ vì thời hạn 24
+      tháng cao hơn mức tối thiểu 12 tháng, và 03% là mức tương ứng với thời hạn 24 tháng theo điểm a
+      khoản 2. Điều không hợp lệ là ghi 12 tháng kèm 03%, vì thấp hơn cả hai mức tối thiểu tương ứng.
+
+  - step: 4
+    claim: >-
+      Quy định về bảo hành không áp dụng đối với dự án thuê dịch vụ công nghệ thông tin.
+    citations:
+      - vn:vbqppl:nd:45/2026/NĐ-CP#dieu-26.khoan-4@2026-03-01
+    quote: Quy định tại Điều này không áp dụng đối với dự án thuê dịch vụ công nghệ thông tin.
+    reasoning: >-
+      Khoản 4 Điều 26 loại trừ rõ ràng. Lý do nghiệp vụ: trong hợp đồng thuê dịch vụ, chất lượng được
+      bảo đảm bằng cơ chế **yêu cầu chất lượng dịch vụ** và **giám sát chất lượng dịch vụ** trong suốt
+      thời gian thuê theo khoản 3 Điều 23, chứ không qua cơ chế bảo hành sau bàn giao.
+
+  - step: 5
+    claim: >-
+      Tiền bảo hành được bảo đảm bằng thư bảo lãnh ngân hàng hoặc hình thức bảo lãnh khác được chấp nhận.
+    citations:
+      - vn:vbqppl:nd:45/2026/NĐ-CP#dieu-26.khoan-2@2026-03-01
+    quote: Nhà thầu nộp thư bảo lãnh ngân hàng hoặc hình thức bảo lãnh khác được chấp nhận.
+    reasoning: >-
+      Quy định cho phép cả hình thức khác ngoài thư bảo lãnh ngân hàng, nhưng phải "được chấp nhận",
+      tức chủ đầu tư phải nêu rõ trong hồ sơ mời thầu hình thức nào được chấp nhận, tránh tranh chấp ở
+      khâu nghiệm thu.
+
+conclusion: |
+  Thành viên tổ chuyên gia nêu vấn đề đúng về nguy cơ ghép nhầm cặp giá trị, nhưng cặp "24 tháng và
+  03%" tự nó **không sai**: đó chính là cặp quy định tại điểm a khoản 1 và điểm a khoản 2 Điều 26.
+
+  Với dự án nhóm C, mức **tối thiểu** theo quy định là **12 tháng và 05%** (điểm b khoản 1 và điểm b
+  khoản 2 Điều 26). Ban quản lý dự án có hai lựa chọn hợp lệ:
+
+  1. Ghi **12 tháng và 05%** — đúng mức tối thiểu của nhóm C, tiền bảo hành là 410.000.000 đồng trên
+     giá trị 8,2 tỷ đồng.
+  2. Ghi **24 tháng và 03%** — yêu cầu cao hơn mức tối thiểu về thời hạn, tiền bảo hành là
+     246.000.000 đồng.
+
+  Cách ghi **không hợp lệ** là 12 tháng kèm 03%, vì thấp hơn mức tối thiểu tương ứng.
+
+  Quy định bảo hành **không áp dụng** cho dự án thuê dịch vụ công nghệ thông tin (khoản 4 Điều 26);
+  với loại dự án đó, chất lượng được kiểm soát qua yêu cầu chất lượng dịch vụ và giám sát chất lượng
+  dịch vụ theo khoản 3 Điều 23.
+
+  Tiền bảo hành được nộp bằng thư bảo lãnh ngân hàng hoặc hình thức bảo lãnh khác được chấp nhận;
+  hồ sơ mời thầu phải nêu rõ hình thức nào được chấp nhận (khoản 2 Điều 26).
+
+procedure:
+  - order: 1
+    step: Xác định nhóm dự án theo tổng mức đầu tư
+    authority: Chủ đầu tư
+    timeline: Trước khi soạn hồ sơ mời thầu
+    inputs: [Quyết định đầu tư]
+    outputs: [Kết luận về nhóm dự án]
+    citations: [vn:vbqppl:l:58/2024/QH15#dieu-11.khoan-4@2025-01-01]
+    templates: []
+    needs_citation: false
+  - order: 2
+    step: Chọn cặp thời hạn và mức tiền bảo hành, không thấp hơn mức tối thiểu tương ứng
+    authority: Chủ đầu tư
+    timeline: Khi soạn hồ sơ mời thầu
+    inputs: [Nhóm dự án, Giá trị sản phẩm]
+    outputs: [Điều khoản bảo hành trong hồ sơ mời thầu và trong hợp đồng]
+    citations:
+      - vn:vbqppl:nd:45/2026/NĐ-CP#dieu-26.khoan-1@2026-03-01
+      - vn:vbqppl:nd:45/2026/NĐ-CP#dieu-26.khoan-2@2026-03-01
+    templates: [asset://ke-hoach-lcnt]
+    needs_citation: false
+  - order: 3
+    step: Nêu rõ hình thức bảo đảm được chấp nhận và thời điểm nộp thư bảo lãnh
+    authority: Chủ đầu tư
+    timeline: Khi soạn hồ sơ mời thầu
+    inputs: [Điều khoản bảo hành]
+    outputs: [Quy định về hình thức bảo đảm trong hồ sơ mời thầu]
+    citations: [vn:vbqppl:nd:45/2026/NĐ-CP#dieu-26.khoan-2@2026-03-01]
+    templates: []
+    needs_citation: false
+  - order: 4
+    step: Tiếp nhận thư bảo lãnh khi ký biên bản nghiệm thu bàn giao; ghi mốc bắt đầu và kết thúc bảo hành vào biên bản
+    authority: Chủ đầu tư
+    timeline: Tại thời điểm nghiệm thu bàn giao
+    inputs: [Thư bảo lãnh, Biên bản nghiệm thu]
+    outputs: [Biên bản nghiệm thu có mục bảo hành đầy đủ]
+    citations:
+      - vn:vbqppl:nd:45/2026/NĐ-CP#dieu-24@2026-03-01
+      - vn:vbqppl:nd:45/2026/NĐ-CP#dieu-26@2026-03-01
+    templates: [asset://bien-ban-nghiem-thu]
+    needs_citation: false
+
+risks:
+  - risk: Ghép nhầm cặp thời hạn và mức tiền bảo hành, ghi 12 tháng kèm 03%
+    consequence: Mức bảo đảm thấp hơn quy định; khi có lỗi phát sinh thì tiền bảo hành không đủ để khắc phục
+    mitigation: "Ghi nhớ quan hệ ngược chiều: thời hạn dài thì mức tiền thấp; kiểm tra chéo trước khi phát hành hồ sơ mời thầu"
+    citations: [vn:vbqppl:nd:45/2026/NĐ-CP#dieu-26.khoan-2@2026-03-01]
+  - risk: Áp dụng quy định bảo hành cho gói thuê dịch vụ công nghệ thông tin
+    consequence: Điều khoản không có căn cứ, nhà thầu có cơ sở từ chối; tranh chấp hợp đồng
+    mitigation: Với dự án thuê dịch vụ, dùng cơ chế yêu cầu chất lượng dịch vụ và giám sát chất lượng dịch vụ
+    citations:
+      - vn:vbqppl:nd:45/2026/NĐ-CP#dieu-26.khoan-4@2026-03-01
+      - vn:vbqppl:nd:45/2026/NĐ-CP#dieu-23.khoan-3@2026-03-01
+  - risk: Không nêu rõ hình thức bảo đảm được chấp nhận trong hồ sơ mời thầu
+    consequence: Nhà thầu nộp hình thức chủ đầu tư không chấp nhận; chậm nghiệm thu bàn giao
+    mitigation: Liệt kê cụ thể hình thức được chấp nhận ngay trong hồ sơ mời thầu
+    citations: [vn:vbqppl:nd:45/2026/NĐ-CP#dieu-26.khoan-2@2026-03-01]
+  - risk: Không ghi mốc bắt đầu và kết thúc bảo hành vào biên bản nghiệm thu
+    consequence: Tranh chấp về thời điểm hết bảo hành và thời điểm hoàn trả tiền bảo hành
+    mitigation: Đưa mục bảo hành thành mục bắt buộc của biên bản nghiệm thu
+    citations: [vn:vbqppl:nd:45/2026/NĐ-CP#dieu-24@2026-03-01]
+
+related_questions:
+  - Nhà thầu phải bàn giao những gì khi nghiệm thu phần mềm nội bộ?
+  - Chi phí bảo trì sau bảo hành lấy từ nguồn nào?
+  - Dự án thuê dịch vụ kiểm soát chất lượng bằng cơ chế nào?
+
+gaps: []
+status: draft
+citation_health: ok
+author: Tổ biên soạn nội dung quydinhphapluat.vn
+legal_reviewer: null
+reviewed_at: null

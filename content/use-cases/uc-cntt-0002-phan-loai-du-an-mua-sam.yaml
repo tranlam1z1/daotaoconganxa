@@ -1,0 +1,166 @@
+slug: uc-cntt-0002-phan-loai-du-an-mua-sam
+title: Phân biệt dự án đầu tư hệ thống với dự án mua sắm khi nâng cấp hệ thống đang vận hành
+
+taxonomy_codes: [PD.03.003, PD.34.007, NB.CNTT.DTUD.PL, NB.CNTT.PM.NCMR]
+actor_kinds: [co_quan_nha_nuoc, don_vi_su_nghiep]
+work_kinds: [lap_ke_hoach_du_an]
+
+as_of: 2026-06-01
+effectivity_note: >-
+  Gán nhãn tại 01/6/2026 khi Nghị định số 45/2026/NĐ-CP đang có hiệu lực. Từ 01/7/2026, quy định
+  tương ứng nằm tại khoản 1 Điều 40 Nghị định số 224/2026/NĐ-CP, vẫn giữ ba loại dự án; khái niệm
+  "đầu tư hệ thống" chuyển từ khoản 5 Điều 3 sang khoản 3 Điều 3 và được mở rộng thêm nội dung tích
+  hợp, kết nối hệ thống và chuyển đổi từ hệ thống cũ sang hệ thống mới.
+
+situation: |
+  Đơn vị sự nghiệp Y trực thuộc một sở của tỉnh T đang vận hành một phần mềm quản lý hồ sơ được đầu
+  tư từ năm 2021. Do quy trình nghiệp vụ thay đổi, đơn vị dự kiến bổ sung 12 chức năng mới, xây dựng
+  thêm một cơ sở dữ liệu chuyên đề, mua bổ sung 02 máy chủ và tích hợp với một hệ thống của bộ chủ
+  quản. Tổng giá trị dự kiến 9 tỷ đồng từ vốn đầu tư công ngân sách tỉnh. Đơn vị hỏi đây là dự án
+  mua sắm hay dự án đầu tư hệ thống, vì hai loại có trình tự khác nhau.
+
+questions:
+  - Hoạt động này thuộc loại dự án nào theo khoản 1 Điều 7?
+  - Việc bổ sung chức năng cho phần mềm đang chạy được coi là gì?
+  - Kết quả phân loại kéo theo những khác biệt gì về hồ sơ và trình tự?
+
+analysis:
+  - step: 1
+    claim: >-
+      Việc bổ sung chức năng mới cho phần mềm đang vận hành là hoạt động nâng cấp hoặc mở rộng phần
+      mềm nội bộ, và theo quy định đây là hoạt động mua sắm trang thiết bị công nghệ thông tin.
+    citations:
+      - vn:vbqppl:nd:45/2026/NĐ-CP#dieu-3@2026-03-01
+    quote: >-
+      Việc xây dựng, phát triển, nâng cấp, mở rộng phần mềm nội bộ là hoạt động mua sắm trang thiết
+      bị công nghệ thông tin.
+    reasoning: >-
+      Khoản 13 Điều 3 định nghĩa phần mềm nội bộ kèm quy tắc xếp loại này. Khoản 11 và khoản 12 Điều 3
+      định nghĩa riêng mở rộng phần mềm và nâng cấp phần mềm. Quy tắc này quyết định cách xếp khoản
+      mục chi phí và mẫu hồ sơ mời thầu, nhưng KHÔNG tự nó biến hoạt động thành "dự án mua sắm" theo
+      điểm b khoản 1 Điều 7.
+
+  - step: 2
+    claim: >-
+      Hoạt động của đơn vị Y là dự án đầu tư hệ thống, không phải dự án mua sắm, vì đầu tư đồng thời
+      phần mềm, cơ sở dữ liệu và phần cứng có phụ thuộc kỹ thuật lẫn nhau.
+    citations:
+      - vn:vbqppl:nd:45/2026/NĐ-CP#dieu-7.khoan-1@2026-03-01
+      - vn:vbqppl:nd:45/2026/NĐ-CP#dieu-3@2026-03-01
+    quote: >-
+      Dự án mua sắm gồm: mua dự phòng, thay thế thiết bị phần cứng, phần mềm thương mại thuộc hệ
+      thống thông tin đã có; mua phần mềm thương mại; mua thiết bị phần cứng riêng lẻ; mua thiết bị
+      phần cứng, phần mềm, cơ sở dữ liệu không thuộc trường hợp quy định tại khoản 5 Điều 3.
+    reasoning: >-
+      Bốn nhóm của dự án mua sắm tại điểm b khoản 1 Điều 7 đều là mua sắm đơn lẻ hoặc thay thế, không
+      bao gồm việc xây dựng phần mềm nội bộ theo yêu cầu riêng kèm cơ sở dữ liệu mới và tích hợp. Việc
+      đơn vị mua thêm 02 máy chủ nếu đứng riêng thì là mua thiết bị phần cứng riêng lẻ, nhưng ở đây
+      chúng phục vụ trực tiếp phần mềm và cơ sở dữ liệu mới nên là một cấu phần của hệ thống.
+
+  - step: 3
+    claim: >-
+      Là dự án đầu tư hệ thống nên dự án phải thực hiện bước thiết kế, và với tổng mức đầu tư 9 tỷ
+      đồng thì áp dụng thiết kế một bước.
+    citations:
+      - vn:vbqppl:nd:45/2026/NĐ-CP#dieu-9.khoan-1@2026-03-01
+      - vn:vbqppl:nd:45/2026/NĐ-CP#dieu-9.khoan-2.diem-a@2026-03-01
+    quote: Thiết kế dự án được áp dụng đối với các dự án đầu tư hệ thống.
+    reasoning: >-
+      Khoản 1 Điều 9 giới hạn bước thiết kế cho dự án đầu tư hệ thống; dự án mua sắm không có bước
+      này. 9 tỷ đồng không quá 20 tỷ đồng nên áp dụng thiết kế một bước theo điểm a khoản 2 Điều 9.
+
+  - step: 4
+    claim: >-
+      Vì dự án có hạng mục phần mềm nội bộ, thiết kế chi tiết được lập theo luồng của Điều 20, do nhà
+      thầu triển khai lập, và gói thầu áp dụng loại gói thầu thiết kế và cung cấp hàng hóa.
+    citations:
+      - vn:vbqppl:nd:45/2026/NĐ-CP#dieu-18.khoan-2@2026-03-01
+      - vn:vbqppl:nd:45/2026/NĐ-CP#dieu-7.khoan-6@2026-03-01
+    quote: >-
+      Gói thầu lập thiết kế chi tiết và triển khai phần mềm nội bộ áp dụng loại gói thầu thiết kế và
+      cung cấp hàng hóa; mẫu hồ sơ mời thầu đối với phần mềm nội bộ áp dụng mẫu hồ sơ mời thầu mua
+      sắm hàng hóa.
+    reasoning: >-
+      Khoản 2 Điều 18 điều hướng sang Điều 20 khi dự án có hạng mục phần mềm nội bộ. Khoản 6 Điều 7
+      quy định loại gói thầu và mẫu hồ sơ mời thầu tương ứng. Đây là hệ quả trực tiếp của quy tắc tại
+      khoản 13 Điều 3 đã nêu ở bước 1.
+
+conclusion: |
+  Hoạt động của đơn vị Y là **dự án đầu tư hệ thống** theo điểm a khoản 1 Điều 7 Nghị định
+  45/2026/NĐ-CP, không phải dự án mua sắm.
+
+  Hệ quả: dự án phải có bước thiết kế (khoản 1 Điều 9); với 9 tỷ đồng thì áp dụng thiết kế một bước
+  (điểm a khoản 2 Điều 9); báo cáo nghiên cứu khả thi được gọi là báo cáo kinh tế - kỹ thuật và phải
+  thuyết minh rõ thiết kế chi tiết theo Điều 14 (khoản 1 Điều 12); thiết kế chi tiết đi theo luồng
+  Điều 20 do có hạng mục phần mềm nội bộ (khoản 2 Điều 18); gói thầu phần mềm nội bộ áp dụng loại
+  gói thầu thiết kế và cung cấp hàng hóa với mẫu hồ sơ mời thầu mua sắm hàng hóa (khoản 6 Điều 7).
+
+  Lưu ý phân biệt: việc "xây dựng, phát triển, nâng cấp, mở rộng phần mềm nội bộ là hoạt động mua sắm
+  trang thiết bị công nghệ thông tin" (khoản 13 Điều 3) là quy tắc về **xếp loại chi phí và mẫu hồ sơ
+  mời thầu**, không phải quy tắc biến dự án thành "dự án mua sắm" theo điểm b khoản 1 Điều 7. Đây là
+  chỗ nhầm lẫn phổ biến nhất.
+
+procedure:
+  - order: 1
+    step: Đối chiếu nội dung hoạt động với khoản 5 Điều 3 và bốn nhóm tại điểm b khoản 1 Điều 7
+    authority: Chủ đầu tư
+    timeline: Trước khi lập báo cáo nghiên cứu khả thi
+    inputs: [Mô tả phạm vi đầu tư, Danh mục cấu phần]
+    outputs: [Phiếu xác định loại dự án]
+    citations:
+      - vn:vbqppl:nd:45/2026/NĐ-CP#dieu-3@2026-03-01
+      - vn:vbqppl:nd:45/2026/NĐ-CP#dieu-7.khoan-1@2026-03-01
+    templates: []
+    needs_citation: false
+  - order: 2
+    step: Tra danh mục phần mềm phổ biến để xác định có phần mềm phổ biến đáp ứng chức năng cần bổ sung hay không
+    authority: Chủ đầu tư
+    timeline: Danh mục được công bố định kỳ hằng năm trước ngày 30 tháng 01
+    inputs: [Danh sách 12 chức năng cần bổ sung]
+    outputs: [Kết quả tra cứu và kết luận]
+    citations:
+      - vn:vbqppl:nd:45/2026/NĐ-CP#dieu-5.khoan-3@2026-03-01
+      - vn:vbqppl:nd:45/2026/NĐ-CP#dieu-5.khoan-4@2026-03-01
+    templates: []
+    needs_citation: false
+  - order: 3
+    step: Xác định số bước thiết kế và luồng lập thiết kế chi tiết
+    authority: Chủ đầu tư
+    timeline: Trước khi lập báo cáo kinh tế - kỹ thuật
+    inputs: [Tổng mức đầu tư dự kiến]
+    outputs: [Phiếu xác định số bước thiết kế và luồng áp dụng]
+    citations:
+      - vn:vbqppl:nd:45/2026/NĐ-CP#dieu-9.khoan-2@2026-03-01
+      - vn:vbqppl:nd:45/2026/NĐ-CP#dieu-18@2026-03-01
+    templates: []
+    needs_citation: false
+
+risks:
+  - risk: Xếp nhầm thành dự án mua sắm để bỏ qua bước thiết kế
+    consequence: Hồ sơ bị trả lại; nếu đã triển khai thì thiếu căn cứ nghiệm thu vì không có thiết kế chi tiết được phê duyệt
+    mitigation: Đối chiếu từng cấu phần với khoản 5 Điều 3 trước khi kết luận; ghi rõ lập luận trong hồ sơ
+    citations:
+      - vn:vbqppl:nd:45/2026/NĐ-CP#dieu-7.khoan-1@2026-03-01
+  - risk: Nhầm quy tắc tại khoản 13 Điều 3 thành quy tắc phân loại dự án
+    consequence: Kết luận sai loại dự án, kéo theo sai toàn bộ trình tự
+    mitigation: "Phân biệt rõ hai tầng: xếp loại chi phí và mẫu hồ sơ mời thầu là một chuyện, phân loại dự án là chuyện khác"
+    citations:
+      - vn:vbqppl:nd:45/2026/NĐ-CP#dieu-3@2026-03-01
+      - vn:vbqppl:nd:45/2026/NĐ-CP#dieu-7.khoan-1@2026-03-01
+  - risk: Không tra danh mục phần mềm phổ biến trước khi quyết định xây dựng phần mềm nội bộ
+    consequence: Bỏ lỡ con đường ngắn hơn theo trình tự phần mềm thương mại; tốn thời gian và chi phí không cần thiết
+    mitigation: Tra danh mục quốc gia và danh mục ngành ngay ở bước hình thành ý tưởng, lưu kết quả vào hồ sơ
+    citations:
+      - vn:vbqppl:nd:45/2026/NĐ-CP#dieu-5.khoan-4@2026-03-01
+
+related_questions:
+  - Nâng cấp phần mềm và mở rộng phần mềm khác nhau thế nào?
+  - Khi nào một hoạt động phải làm theo hình thức dự án, khi nào không?
+  - Chi phí phần mềm nội bộ nằm ở khoản mục nào của tổng mức đầu tư?
+
+gaps: []
+status: draft
+citation_health: ok
+author: Tổ biên soạn nội dung quydinhphapluat.vn
+legal_reviewer: null
+reviewed_at: null

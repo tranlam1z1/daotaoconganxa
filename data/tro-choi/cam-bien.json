@@ -1,0 +1,249 @@
+{
+  "mo_ta": "Đoạn đường mẫu của trò Cắm biển cho tuyến đường (docs/PLAN.md GĐ-T3, docs/GAME_DESIGN.md §5.3). Nạp vào chờ duyệt: bun run packages/db/src/seed-tro-choi.ts",
+  "luu_y_bien_tap": [
+    "DỮ LIỆU DEMO, CHƯA DUYỆT. Chọn biển nào cho đặc điểm nào, biển nào 'chấp nhận được', vị trí nào nên để trống đều do hệ thống soạn để thử trò chơi, chưa đối chiếu QCVN 41:2024/BGTVT.",
+    "Ô 0 ở dưới cùng, xe chạy từ dưới lên. Mỗi ô 10 m. Trò chỉ chấm 'biển nào ở chỗ nào', không chấm khoảng cách đặt biển tính bằng mét.",
+    "Mã, tên, ảnh biển lấy từ data/bien-bao/bien-bao.json (bản demo theo QCVN 41:2019, chưa cập nhật bản 2024). Biển trong khay phải được duyệt kèm phản ứng thì đoạn đường mới vào trò."
+  ],
+  "doan": [
+    {
+      "ma": "CB-01",
+      "tieu_de": "[Demo] CB-01 · Màn 1 · Trường học đầu làng",
+      "y_do": "Làm quen: một đặc điểm, một vị trí; biển đúng làm xe giảm tốc, hai biển nhiễu không làm xe giảm tốc.",
+      "payload": {
+        "muc": 1,
+        "so_o": 8,
+        "dac_diem": [{ "o": 5, "loai": "truong_hoc" }],
+        "vi_tri": [{ "id": "v1", "o": 3, "ben": "phai", "toi_da": 1 }],
+        "khay": ["W.225", "I.408", "P.131a"]
+      },
+      "answer": {
+        "vi_tri": {
+          "v1": {
+            "dung": ["W.225"],
+            "chap_nhan": [],
+            "ly_do": "Phía trước có trường học. Biển \"Trẻ em\" báo trước để người lái giảm tốc, chú ý trẻ em qua đường."
+          }
+        }
+      }
+    },
+    {
+      "ma": "CB-02",
+      "tieu_de": "[Demo] CB-02 · Màn 1 · Chỗ ngoặt sang trái",
+      "y_do": "Làm quen: biển \"Đi chậm\" là biển chấp nhận được, được nửa điểm.",
+      "payload": {
+        "muc": 1,
+        "so_o": 8,
+        "dac_diem": [{ "o": 5, "loai": "duong_cong_trai" }],
+        "vi_tri": [{ "id": "v1", "o": 3, "ben": "phai", "toi_da": 1 }],
+        "khay": ["W.201a", "W.245a", "I.434a"]
+      },
+      "answer": {
+        "vi_tri": {
+          "v1": {
+            "dung": ["W.201a"],
+            "chap_nhan": ["W.245a"],
+            "ly_do": "Phía trước là chỗ ngoặt sang trái. Biển \"Chỗ ngoặt nguy hiểm vòng bên trái\" báo đúng loại nguy hiểm; biển \"Đi chậm\" chỉ nhắc giảm tốc, không nói rõ nguy hiểm gì."
+          }
+        }
+      }
+    },
+    {
+      "ma": "CB-03",
+      "tieu_de": "[Demo] CB-03 · Màn 2 · Phố có trường học và chỗ sang đường",
+      "y_do": "Ba vị trí: trường học, chỗ người đi bộ sang đường, bến xe buýt. Biển \"Tốc độ tối đa\" là biển chấp nhận được ở vị trí trường học.",
+      "payload": {
+        "muc": 2,
+        "so_o": 12,
+        "dac_diem": [
+          { "o": 4, "loai": "truong_hoc" },
+          { "o": 8, "loai": "nguoi_di_bo" },
+          { "o": 10, "loai": "ben_xe_buyt" }
+        ],
+        "vi_tri": [
+          { "id": "v1", "o": 2, "ben": "phai", "toi_da": 1 },
+          { "id": "v2", "o": 6, "ben": "phai", "toi_da": 1 },
+          { "id": "v3", "o": 10, "ben": "phai", "toi_da": 1 }
+        ],
+        "khay": ["W.225", "W.224", "I.434a", "I.423b", "P.127", "P.131a"]
+      },
+      "answer": {
+        "vi_tri": {
+          "v1": {
+            "dung": ["W.225"],
+            "chap_nhan": ["P.127"],
+            "ly_do": "Phía trước có trường học: biển \"Trẻ em\". Biển \"Tốc độ tối đa cho phép\" cũng làm xe chậm lại nhưng không báo có trẻ em."
+          },
+          "v2": {
+            "dung": ["W.224"],
+            "chap_nhan": [],
+            "ly_do": "Phía trước có chỗ người đi bộ sang đường: biển nguy hiểm \"Đường người đi bộ cắt ngang\" đặt TRƯỚC chỗ đó để báo sớm. Biển chỉ dẫn \"Đường người đi bộ sang ngang\" đặt ngay tại chỗ sang đường, không đặt ở đây."
+          },
+          "v3": {
+            "dung": ["I.434a"],
+            "chap_nhan": [],
+            "ly_do": "Ngay tại bến xe buýt: biển chỉ dẫn \"Bến xe buýt\"."
+          }
+        }
+      }
+    },
+    {
+      "ma": "CB-04",
+      "tieu_de": "[Demo] CB-04 · Màn 3 · Ngoặt, hẹp, công trường, đường sắt",
+      "y_do": "Bốn biển nguy hiểm khác nhau; biển nhiễu gần giống (đường sắt có rào và không có rào).",
+      "payload": {
+        "muc": 3,
+        "so_o": 14,
+        "dac_diem": [
+          { "o": 3, "loai": "duong_cong_trai" },
+          { "o": 6, "loai": "duong_hep_trai" },
+          { "o": 9, "loai": "cong_truong" },
+          { "o": 12, "loai": "duong_sat_co_rao" }
+        ],
+        "vi_tri": [
+          { "id": "v1", "o": 1, "ben": "phai", "toi_da": 1 },
+          { "id": "v2", "o": 4, "ben": "phai", "toi_da": 1 },
+          { "id": "v3", "o": 7, "ben": "phai", "toi_da": 1 },
+          { "id": "v4", "o": 10, "ben": "phai", "toi_da": 1 }
+        ],
+        "khay": ["W.201a", "W.203b", "W.227", "W.210", "W.211a", "W.245a", "P.127", "I.409"]
+      },
+      "answer": {
+        "vi_tri": {
+          "v1": {
+            "dung": ["W.201a"],
+            "chap_nhan": [],
+            "ly_do": "Phía trước là chỗ ngoặt sang trái: biển \"Chỗ ngoặt nguy hiểm vòng bên trái\"."
+          },
+          "v2": {
+            "dung": ["W.203b"],
+            "chap_nhan": [],
+            "ly_do": "Phía trước đường hẹp lại ở bên trái: biển \"Đường bị hẹp về phía trái\"."
+          },
+          "v3": {
+            "dung": ["W.227"],
+            "chap_nhan": ["W.245a"],
+            "ly_do": "Phía trước có công trường: biển \"Công trường\". Biển \"Đi chậm\" chấp nhận được nhưng không nói rõ nguy hiểm."
+          },
+          "v4": {
+            "dung": ["W.210"],
+            "chap_nhan": [],
+            "ly_do": "Phía trước là chỗ giao với đường sắt CÓ rào chắn: biển \"Giao nhau với đường sắt có rào chắn\", không dùng biển của loại không có rào chắn."
+          }
+        }
+      }
+    },
+    {
+      "ma": "CB-05",
+      "tieu_de": "[Demo] CB-05 · Màn 4 · Nơi giao nhau và vòng xuyến",
+      "y_do": "Có nơi giao nhau với đường ưu tiên, vòng xuyến; khay có biển cấm và biển hiệu lệnh làm nhiễu (cắm biển \"Cấm đi ngược chiều\" thì xe không đi tiếp được).",
+      "payload": {
+        "muc": 4,
+        "so_o": 14,
+        "dac_diem": [
+          { "o": 3, "loai": "truong_hoc" },
+          { "o": 6, "loai": "giao_lo" },
+          { "o": 10, "loai": "vong_xuyen" },
+          { "o": 12, "loai": "nguoi_di_bo" },
+          { "o": 13, "loai": "ben_xe_buyt" }
+        ],
+        "vi_tri": [
+          { "id": "v1", "o": 1, "ben": "phai", "toi_da": 1 },
+          { "id": "v2", "o": 5, "ben": "phai", "toi_da": 1 },
+          { "id": "v3", "o": 8, "ben": "phai", "toi_da": 1 },
+          { "id": "v4", "o": 11, "ben": "phai", "toi_da": 1 },
+          { "id": "v5", "o": 13, "ben": "phai", "toi_da": 1 }
+        ],
+        "khay": ["W.225", "W.208", "W.207a", "R.303", "R.302a", "W.224", "I.434a", "P.102", "P.123a", "P.130"]
+      },
+      "answer": {
+        "vi_tri": {
+          "v1": {
+            "dung": ["W.225"],
+            "chap_nhan": [],
+            "ly_do": "Phía trước có trường học: biển \"Trẻ em\"."
+          },
+          "v2": {
+            "dung": ["W.208"],
+            "chap_nhan": [],
+            "ly_do": "Đường đang đi gặp đường ưu tiên ở phía trước: biển \"Giao nhau với đường ưu tiên\" để người lái giảm tốc, nhường đường. Biển \"Giao nhau với đường không ưu tiên\" là trường hợp ngược lại."
+          },
+          "v3": {
+            "dung": ["R.303"],
+            "chap_nhan": [],
+            "ly_do": "Phía trước là vòng xuyến: biển hiệu lệnh \"Nơi giao nhau chạy theo vòng xuyến\"."
+          },
+          "v4": {
+            "dung": ["W.224"],
+            "chap_nhan": [],
+            "ly_do": "Phía trước có chỗ người đi bộ sang đường: biển \"Đường người đi bộ cắt ngang\"."
+          },
+          "v5": {
+            "dung": ["I.434a"],
+            "chap_nhan": [],
+            "ly_do": "Ngay tại bến xe buýt: biển \"Bến xe buýt\"."
+          }
+        }
+      }
+    },
+    {
+      "ma": "CB-06",
+      "tieu_de": "[Demo] CB-06 · Màn 5 · Hai biển một cột, chỗ nên để trống",
+      "y_do": "Cột đầu cắm hai biển (trường học có chỗ sang đường); hai vị trí nên để trống vì nguy hiểm đã được báo ở cột trước.",
+      "payload": {
+        "muc": 5,
+        "so_o": 16,
+        "dac_diem": [
+          { "o": 3, "loai": "truong_hoc" },
+          { "o": 4, "loai": "nguoi_di_bo" },
+          { "o": 8, "loai": "duong_cong_trai" },
+          { "o": 12, "loai": "duong_sat_khong_rao" },
+          { "o": 14, "loai": "ben_xe_buyt" }
+        ],
+        "vi_tri": [
+          { "id": "v1", "o": 1, "ben": "phai", "toi_da": 2 },
+          { "id": "v2", "o": 6, "ben": "phai", "toi_da": 1 },
+          { "id": "v3", "o": 7, "ben": "phai", "toi_da": 1 },
+          { "id": "v4", "o": 10, "ben": "phai", "toi_da": 1 },
+          { "id": "v5", "o": 11, "ben": "phai", "toi_da": 1 },
+          { "id": "v6", "o": 14, "ben": "phai", "toi_da": 1 }
+        ],
+        "khay": ["W.225", "W.224", "W.201a", "W.211a", "W.210", "I.434a", "I.423b", "W.245a", "P.127", "P.131a", "R.301a", "P.136"]
+      },
+      "answer": {
+        "vi_tri": {
+          "v1": {
+            "dung": ["W.225", "W.224"],
+            "chap_nhan": [],
+            "ly_do": "Trường học liền chỗ người đi bộ sang đường: cắm cả biển \"Trẻ em\" và \"Đường người đi bộ cắt ngang\" trên cùng một cột."
+          },
+          "v2": {
+            "dung": [],
+            "chap_nhan": [],
+            "ly_do": "Đoạn này thẳng, không có nguy hiểm mới. Cắm thêm biển ở đây là thừa."
+          },
+          "v3": {
+            "dung": ["W.201a"],
+            "chap_nhan": ["W.245a"],
+            "ly_do": "Phía trước là chỗ ngoặt sang trái: biển \"Chỗ ngoặt nguy hiểm vòng bên trái\"."
+          },
+          "v4": {
+            "dung": ["W.211a"],
+            "chap_nhan": [],
+            "ly_do": "Phía trước là chỗ giao với đường sắt KHÔNG có rào chắn: biển \"Giao nhau với đường sắt không có rào chắn\"."
+          },
+          "v5": {
+            "dung": [],
+            "chap_nhan": [],
+            "ly_do": "Biển báo đường sắt đã cắm ở cột trước; cắm lặp sát ngay sau là thừa."
+          },
+          "v6": {
+            "dung": ["I.434a"],
+            "chap_nhan": [],
+            "ly_do": "Ngay tại bến xe buýt: biển \"Bến xe buýt\"."
+          }
+        }
+      }
+    }
+  ]
+}

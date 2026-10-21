@@ -1,0 +1,30 @@
+{
+  "tieu_de": "Bài vá lỗi",
+  "tom_tat": "Bài ngắn sửa một loại lỗi khi áp dụng quy định: mô tả lỗi, căn cứ liên quan và câu hỏi cùng loại lỗi.",
+  "routes": ["routes/training.patch.tsx"],
+  "anh": [
+    {
+      "ten": "va-loi-mo-ta",
+      "chu_thich": "Mô tả lỗi và căn cứ liên quan",
+      "url": "/dao-tao/dau-tu-cntt-ngan-sach-nha-nuoc/va-loi/sai_phuong_phap_du_toan",
+      "vung": "main h1",
+      "danh_dau": [
+        { "o": "main h1", "ghi_chu": "Tên lỗi", "huong": "trai" },
+        { "o": "section:has-text('Cách khắc phục:')", "ghi_chu": "Mô tả và cách khắc phục", "huong": "trai" },
+        { "o": "[data-khoi-kind='can_cu']", "ghi_chu": "Nguyên văn căn cứ", "huong": "trai" },
+        { "o": "section:has(> h2:text-is('Căn cứ liên quan')) >> text=Trích từ bài", "ghi_chu": "Mở bài học chứa căn cứ", "huong": "phai" }
+      ]
+    },
+    {
+      "ten": "va-loi-bai-tap",
+      "chu_thich": "Bài tập của bài vá lỗi",
+      "url": "/dao-tao/dau-tu-cntt-ngan-sach-nha-nuoc/va-loi/sai_phuong_phap_du_toan",
+      "vung": "section:has(> h2:text-is('Bài tập'))",
+      "danh_dau": [
+        { "o": "text=Ghi danh chuyên đề để làm bài và lưu kết quả.", "ghi_chu": "Cần ghi danh để làm bài", "huong": "trai" },
+        { "o": "section:has(> h2:text-is('Bài tập')) fieldset", "ghi_chu": "Chọn phương án", "huong": "trai" },
+        { "o": "role=button[name='Nộp bài']", "ghi_chu": "Nộp bài để chấm", "huong": "phai" }
+      ]
+    }
+  ]
+}

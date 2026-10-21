@@ -1,0 +1,204 @@
+{
+  "doc": "05-qd-ubnd-co-nut-bo-sung.md",
+  "urn": "vn:vbqppl:qd-ubnd-t:12/2026/QĐ-UBND:thanh-hoa",
+  "title": "Quyết định của Ủy ban nhân dân cấp tỉnh — có nút bổ sung",
+  "note": "Bao phủ: văn bản địa phương, dãy điểm a b c d đ e (không có f), điểm bổ sung đ1, khoản bổ sung 2a, điều bổ sung 3a.",
+  "source": "Văn bản mẫu do tổ biên soạn tạo cho mục đích kiểm thử; không phải văn bản quy phạm pháp luật có thật.",
+  "counts": {
+    "chuong": 2,
+    "dieu": 5,
+    "khoan": 8,
+    "diem": 7
+  },
+  "expected_warnings": [],
+  "tree": [
+    {
+      "path": "mo-dau",
+      "fullPath": "mo-dau",
+      "kind": "loi_noi_dau",
+      "label": "Phần mở đầu",
+      "children": []
+    },
+    {
+      "path": "can-cu",
+      "fullPath": "can-cu",
+      "kind": "can_cu",
+      "label": "Căn cứ ban hành",
+      "children": []
+    },
+    {
+      "path": "",
+      "fullPath": "chuong-1",
+      "kind": "chuong",
+      "label": "Chương I",
+      "children": [
+        {
+          "path": "dieu-1",
+          "fullPath": "chuong-1.dieu-1",
+          "kind": "dieu",
+          "label": "Điều 1",
+          "children": [],
+          "heading": "Phạm vi điều chỉnh"
+        },
+        {
+          "path": "dieu-2",
+          "fullPath": "chuong-1.dieu-2",
+          "kind": "dieu",
+          "label": "Điều 2",
+          "children": [
+            {
+              "path": "dieu-2.khoan-1",
+              "fullPath": "chuong-1.dieu-2.khoan-1",
+              "kind": "khoan",
+              "label": "1.",
+              "children": []
+            },
+            {
+              "path": "dieu-2.khoan-2",
+              "fullPath": "chuong-1.dieu-2.khoan-2",
+              "kind": "khoan",
+              "label": "2.",
+              "children": []
+            }
+          ],
+          "heading": "Giải thích từ ngữ"
+        }
+      ],
+      "heading": "QUY ĐỊNH CHUNG"
+    },
+    {
+      "path": "",
+      "fullPath": "chuong-2",
+      "kind": "chuong",
+      "label": "Chương II",
+      "children": [
+        {
+          "path": "dieu-3",
+          "fullPath": "chuong-2.dieu-3",
+          "kind": "dieu",
+          "label": "Điều 3",
+          "children": [
+            {
+              "path": "dieu-3.khoan-1",
+              "fullPath": "chuong-2.dieu-3.khoan-1",
+              "kind": "khoan",
+              "label": "1.",
+              "children": []
+            },
+            {
+              "path": "dieu-3.khoan-2",
+              "fullPath": "chuong-2.dieu-3.khoan-2",
+              "kind": "khoan",
+              "label": "2.",
+              "children": [
+                {
+                  "path": "dieu-3.khoan-2.diem-a",
+                  "fullPath": "chuong-2.dieu-3.khoan-2.diem-a",
+                  "kind": "diem",
+                  "label": "a)",
+                  "children": []
+                },
+                {
+                  "path": "dieu-3.khoan-2.diem-b",
+                  "fullPath": "chuong-2.dieu-3.khoan-2.diem-b",
+                  "kind": "diem",
+                  "label": "b)",
+                  "children": []
+                },
+                {
+                  "path": "dieu-3.khoan-2.diem-c",
+                  "fullPath": "chuong-2.dieu-3.khoan-2.diem-c",
+                  "kind": "diem",
+                  "label": "c)",
+                  "children": []
+                },
+                {
+                  "path": "dieu-3.khoan-2.diem-d",
+                  "fullPath": "chuong-2.dieu-3.khoan-2.diem-d",
+                  "kind": "diem",
+                  "label": "d)",
+                  "children": []
+                },
+                {
+                  "path": "dieu-3.khoan-2.diem-đ",
+                  "fullPath": "chuong-2.dieu-3.khoan-2.diem-đ",
+                  "kind": "diem",
+                  "label": "đ)",
+                  "children": []
+                },
+                {
+                  "path": "dieu-3.khoan-2.diem-đ1",
+                  "fullPath": "chuong-2.dieu-3.khoan-2.diem-đ1",
+                  "kind": "diem",
+                  "label": "đ1)",
+                  "children": []
+                },
+                {
+                  "path": "dieu-3.khoan-2.diem-e",
+                  "fullPath": "chuong-2.dieu-3.khoan-2.diem-e",
+                  "kind": "diem",
+                  "label": "e)",
+                  "children": []
+                }
+              ]
+            },
+            {
+              "path": "dieu-3.khoan-2a",
+              "fullPath": "chuong-2.dieu-3.khoan-2a",
+              "kind": "khoan",
+              "label": "2a.",
+              "children": []
+            },
+            {
+              "path": "dieu-3.khoan-3",
+              "fullPath": "chuong-2.dieu-3.khoan-3",
+              "kind": "khoan",
+              "label": "3.",
+              "children": []
+            }
+          ],
+          "heading": "Thẩm quyền quyết định"
+        },
+        {
+          "path": "dieu-3a",
+          "fullPath": "chuong-2.dieu-3a",
+          "kind": "dieu",
+          "label": "Điều 3a",
+          "children": [
+            {
+              "path": "dieu-3a.khoan-1",
+              "fullPath": "chuong-2.dieu-3a.khoan-1",
+              "kind": "khoan",
+              "label": "1.",
+              "children": []
+            },
+            {
+              "path": "dieu-3a.khoan-2",
+              "fullPath": "chuong-2.dieu-3a.khoan-2",
+              "kind": "khoan",
+              "label": "2.",
+              "children": []
+            }
+          ],
+          "heading": "Ủy quyền thực hiện"
+        },
+        {
+          "path": "dieu-4",
+          "fullPath": "chuong-2.dieu-4",
+          "kind": "dieu",
+          "label": "Điều 4",
+          "children": [],
+          "heading": "Hiệu lực thi hành"
+        }
+      ],
+      "heading": "PHÂN CẤP THẨM QUYỀN"
+    },
+    {
+      "path": "chu-ky",
+      "fullPath": "chu-ky",
+      "kind": "chu_ky",
+      "label": "Nơi nhận / Chữ ký",
+      "children": []
+    }
+  ]
+}

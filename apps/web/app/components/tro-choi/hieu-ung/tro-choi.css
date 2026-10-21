@@ -1,0 +1,292 @@
+/*
+ * Phong cách khu trò chơi, hướng A "Cảnh phục" (docs/VISUAL_STYLE.md §2.1, §3, §6).
+ *
+ * Chỉ áp dụng trong vùng [data-khu="tro-choi"] (KhungGame đặt thuộc tính này). Vùng này ĐỊNH NGHĨA LẠI
+ * các token gốc của app.css (--primary, --ok, --danger, --surface…), nên mọi component có sẵn bên
+ * trong (nút, câu hỏi, thông báo) tự đổi sang màu trò chơi mà không phải sửa. Phần còn lại của ứng
+ * dụng (tra cứu, thi, quản trị) giữ hệ "Công báo".
+ *
+ * Tệp này được import từ KhungGame, nên chỉ tải cùng trang trò chơi.
+ * Hoạt ảnh chỉ động transform và opacity (§6.2). Giảm chuyển động ở cuối tệp.
+ */
+
+/* ------------------------------------------------------------------ */
+/* Token                                                               */
+/* ------------------------------------------------------------------ */
+
+[data-khu="tro-choi"] {
+  /* Token gốc định nghĩa lại (tương phản chữ/nền ≥ 4,5:1, đã tính). */
+  --canvas: #f7f3ea;
+  --surface: #ffffff;
+  --surface-2: #efe9dc;
+  --ink: #1d1a17;
+  --ink-2: #4f4a44;
+  --ink-3: #64605a;
+  --line: #e2dbcc;
+  --line-strong: #c8bfab;
+  --primary: #c8201a;
+  --primary-hover: #a91a14;
+  --on-primary: #ffffff;
+  --primary-soft: #fcebe8;
+  --ok: #14733a;
+  --ok-soft: #e3f3e8;
+  --danger: #8e1b16;
+  --danger-soft: #f9e6df;
+  --warn: #8a4a0b;
+  --warn-soft: #fbefd9;
+
+  /* Token riêng của trò chơi. */
+  --g-nhan: #f4c20d;
+  --g-tren-nhan: #1a1407;
+  --g-chinh-day: #7f130f;
+  --g-bong-the: 0 1px 2px rgb(40 16 12 / 0.06), 0 10px 24px -12px rgb(40 16 12 / 0.22);
+  --g-bo-nut: 14px;
+  --g-bo-chon: 12px;
+  --g-bo-the: 20px;
+
+  --td-nhanh: 120ms;
+  --td-vua: 220ms;
+  --td-cham: 360ms;
+  --td-an-mung: 900ms;
+  --cong-chuan: cubic-bezier(0.2, 0, 0, 1);
+  --cong-bat: cubic-bezier(0.34, 1.56, 0.64, 1);
+  --cong-ra: cubic-bezier(0.4, 0, 1, 1);
+
+  background: var(--canvas);
+  color: var(--ink);
+}
+
+[data-theme="dark"] [data-khu="tro-choi"] {
+  --canvas: #15110f;
+  --surface: #1e1916;
+  --surface-2: #28211d;
+  --ink: #efe9e4;
+  --ink-2: #c3bab2;
+  --ink-3: #a39a92;
+  --line: #352c27;
+  --line-strong: #4a3e37;
+  --primary: #ff7a70;
+  --primary-hover: #ff958c;
+  --on-primary: #1a0b0a;
+  --primary-soft: #3d1916;
+  --ok: #4ade80;
+  --ok-soft: #10281a;
+  --danger: #fbbcb5;
+  --danger-soft: #3a1614;
+  --warn: #f7cc85;
+  --warn-soft: #2f2410;
+  --g-nhan: #f7cf3d;
+  --g-tren-nhan: #1a1407;
+  --g-chinh-day: #b3271f;
+  --g-bong-the: 0 1px 2px rgb(0 0 0 / 0.3), 0 10px 24px -12px rgb(0 0 0 / 0.6);
+}
+
+/* ------------------------------------------------------------------ */
+/* Chữ, nút, thẻ                                                       */
+/* ------------------------------------------------------------------ */
+
+[data-khu="tro-choi"] .g-tieu-de,
+[data-khu="tro-choi"] h1 {
+  font-family: "Lexend", var(--font-sans);
+  letter-spacing: -0.01em;
+}
+
+.g-so {
+  font-family: "Lexend", var(--font-sans);
+  font-variant-numeric: tabular-nums;
+}
+
+/* Họa tiết vạch kẻ đường chéo mảnh ở đầu khu trò chơi (§2.1), độ mờ 6%. */
+.g-dau-trang {
+  position: relative;
+  isolation: isolate;
+}
+.g-dau-trang::before {
+  content: "";
+  position: absolute;
+  /* Không lấn ra hai bên: khung .wrap rộng hết màn điện thoại nên lấn ra là tràn ngang. */
+  inset: -1rem 0 auto;
+  height: 7rem;
+  z-index: -1;
+  opacity: 0.06;
+  background: repeating-linear-gradient(-45deg, var(--primary) 0 10px, transparent 10px 26px);
+  mask-image: linear-gradient(to bottom, #000, transparent);
+  pointer-events: none;
+}
+
+/* Nút chính có "độ dày": bóng đáy đặc, bấm thì lún 2px. Bóng không động (§6.2), chỉ đổi khi bấm. */
+[data-khu="tro-choi"] .g-nut {
+  min-height: 52px;
+  border-radius: var(--g-bo-nut);
+  font-size: 17px;
+  font-weight: 700;
+  box-shadow: 0 4px 0 var(--g-chinh-day);
+  transition: transform var(--td-nhanh) var(--cong-chuan);
+}
+[data-khu="tro-choi"] .g-nut:active:not(:disabled) {
+  transform: translateY(2px);
+  box-shadow: 0 2px 0 var(--g-chinh-day);
+}
+[data-khu="tro-choi"] .g-nut:disabled {
+  box-shadow: none;
+}
+
+[data-khu="tro-choi"] .g-the {
+  background: var(--surface);
+  border: 1px solid var(--line);
+  border-radius: var(--g-bo-the);
+  box-shadow: var(--g-bong-the);
+}
+/* Thẻ tổng kết có dải màu nhấn ở đỉnh. */
+[data-khu="tro-choi"] .g-the-nhan {
+  border-top: 4px solid var(--g-nhan);
+}
+
+/* Nút lựa chọn trong khu trò chơi bo góc lớn hơn và chữ đậm khi chọn. */
+[data-khu="tro-choi"] button[aria-pressed="true"],
+[data-khu="tro-choi"] [role="radio"][aria-checked="true"] {
+  font-weight: 600;
+}
+
+/* ------------------------------------------------------------------ */
+/* Keyframe                                                            */
+/* ------------------------------------------------------------------ */
+
+@keyframes g-hien {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+@keyframes g-vao-len {
+  from { opacity: 0; transform: translateY(16px); }
+  to { opacity: 1; transform: none; }
+}
+@keyframes g-vao-xuong {
+  from { opacity: 0; transform: translateY(-12px); }
+  to { opacity: 1; transform: none; }
+}
+@keyframes g-truot-vao {
+  from { opacity: 0; transform: translateX(28px); }
+  to { opacity: 1; transform: none; }
+}
+@keyframes g-nay {
+  0% { transform: scale(1); }
+  45% { transform: scale(1.04); }
+  100% { transform: scale(1); }
+}
+@keyframes g-rung-ngang {
+  0%, 100% { transform: translateX(0); }
+  20% { transform: translateX(-6px); }
+  40% { transform: translateX(6px); }
+  60% { transform: translateX(-5px); }
+  80% { transform: translateX(4px); }
+}
+@keyframes g-bay-len {
+  0% { opacity: 0; transform: translateY(6px) scale(0.9); }
+  20% { opacity: 1; transform: translateY(0) scale(1); }
+  100% { opacity: 0; transform: translateY(-36px) scale(1); }
+}
+@keyframes g-ve-net {
+  from { stroke-dashoffset: var(--g-dai-net, 40); }
+  to { stroke-dashoffset: 0; }
+}
+@keyframes g-bat {
+  0% { opacity: 0; transform: scale(0.4); }
+  60% { opacity: 1; transform: scale(1.12); }
+  100% { opacity: 1; transform: scale(1); }
+}
+@keyframes g-loe {
+  0% { opacity: 0; }
+  30% { opacity: 1; }
+  100% { opacity: 0; }
+}
+@keyframes g-dap {
+  0% { transform: scale(1); }
+  30% { transform: scale(1.08); }
+  100% { transform: scale(1); }
+}
+@keyframes g-xoay {
+  from { transform: rotate(0turn); }
+  to { transform: rotate(1turn); }
+}
+@keyframes g-lat {
+  0% { transform: perspective(600px) rotateY(180deg); }
+  100% { transform: perspective(600px) rotateY(0deg); }
+}
+@keyframes g-quet {
+  from { transform: translateX(-120%) skewX(-20deg); }
+  to { transform: translateX(220%) skewX(-20deg); }
+}
+@keyframes g-phu-do {
+  0% { opacity: 0; }
+  25% { opacity: 1; }
+  100% { opacity: 0; }
+}
+/* Súng bắn tốc độ: xe lao từ trái vào giữa; vệt chuyển động kéo dài rồi mờ (VISUAL_STYLE §3.4). */
+@keyframes g-xe-lao {
+  0% { opacity: 0; transform: translateX(-140%); }
+  15% { opacity: 1; }
+  100% { opacity: 1; transform: translateX(0); }
+}
+@keyframes g-vet {
+  0% { opacity: 0; transform: scaleX(0.2); }
+  30% { opacity: 0.9; transform: scaleX(1); }
+  100% { opacity: 0; transform: scaleX(0.3); }
+}
+
+/* ------------------------------------------------------------------ */
+/* Lớp hoạt ảnh                                                        */
+/* Lớp .g-a (vào, hiện) thay bằng hiện dần khi giảm chuyển động;        */
+/* lớp .g-t (trang trí) bị tắt hẳn.                                     */
+/* ------------------------------------------------------------------ */
+
+.g-a,
+.g-t {
+  animation-fill-mode: both;
+  animation-delay: var(--tre, 0ms);
+}
+.g-vao-len { animation: g-vao-len var(--td-cham) var(--cong-chuan) both; animation-delay: var(--tre, 0ms); }
+.g-vao-xuong { animation: g-vao-xuong var(--td-cham) var(--cong-chuan) both; animation-delay: var(--tre, 0ms); }
+.g-truot-vao { animation: g-truot-vao var(--td-vua) var(--cong-chuan) both; }
+.g-hien { animation: g-hien var(--td-vua) var(--cong-chuan) both; animation-delay: var(--tre, 0ms); }
+.g-bat { animation: g-bat 500ms var(--cong-bat) both; animation-delay: var(--tre, 0ms); }
+.g-bay-len { animation: g-bay-len 900ms var(--cong-chuan) both; }
+.g-ve-net { stroke-dasharray: var(--g-dai-net, 40); animation: g-ve-net 320ms var(--cong-chuan) 60ms both; }
+.g-nay { animation: g-nay 400ms var(--cong-bat); }
+.g-rung-ngang { animation: g-rung-ngang 320ms var(--cong-chuan); }
+.g-dap { animation: g-dap 1s var(--cong-chuan) infinite; }
+.g-xoay { animation: g-xoay 900ms linear 1; }
+.g-lat { animation: g-lat 800ms var(--cong-bat) both; backface-visibility: hidden; }
+.g-quet { animation: g-quet 900ms var(--cong-chuan) 300ms both; }
+.g-loe { animation: g-loe 600ms var(--cong-chuan) both; }
+.g-phu-do { animation: g-phu-do 400ms var(--cong-chuan) both; }
+.g-xe-lao { animation: g-xe-lao 450ms var(--cong-chuan) both; }
+.g-vet { animation: g-vet 450ms var(--cong-chuan) both; transform-origin: right center; }
+
+/* ------------------------------------------------------------------ */
+/* Giảm chuyển động (§6.3): theo hệ điều hành, hoặc công tắc trong trò  */
+/* chơi (data-giam-hieu-ung="1" trên vùng trò chơi).                    */
+/* ------------------------------------------------------------------ */
+
+[data-khu="tro-choi"][data-giam-hieu-ung="1"] .g-a {
+  animation: g-hien 150ms linear both !important;
+}
+[data-khu="tro-choi"][data-giam-hieu-ung="1"] .g-t {
+  animation: none !important;
+}
+[data-khu="tro-choi"][data-giam-hieu-ung="1"] .g-an-khi-giam {
+  display: none !important;
+}
+@media (prefers-reduced-motion: reduce) {
+  [data-khu="tro-choi"] .g-a {
+    animation: g-hien 150ms linear both !important;
+  }
+  [data-khu="tro-choi"] .g-t {
+    animation: none !important;
+  }
+  [data-khu="tro-choi"] .g-an-khi-giam {
+    display: none !important;
+  }
+  [data-khu="tro-choi"] .g-nut {
+    transition: none;
+  }
+}

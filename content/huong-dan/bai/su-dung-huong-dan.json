@@ -1,0 +1,53 @@
+{
+  "tieu_de": "Sử dụng hướng dẫn",
+  "tom_tat": "Mở hướng dẫn của trang đang xem, tra mục lục hướng dẫn, đọc từng bài và tải bản PDF.",
+  "routes": ["routes/huong-dan._index.tsx", "routes/huong-dan.bai.tsx"],
+  "nguon_them": ["components/HuongDanTrongTrang.tsx"],
+  "anh": [
+    {
+      "ten": "huong-dan-khung-trong-trang",
+      "chu_thich": "Khung hướng dẫn mở trên trang chủ",
+      "url": "/",
+      "thao_tac": [
+        { "bam": "header button[aria-haspopup='dialog']" },
+        { "cho": "text=Mở bài trong mục Hướng dẫn" }
+      ],
+      "danh_dau": [
+        { "o": "dialog article", "ghi_chu": "Bài của trang đang xem", "huong": "trai" },
+        { "o": "dialog >> role=button[name='Đóng hướng dẫn']", "ghi_chu": "Đóng khung", "huong": "trai" },
+        { "o": "dialog >> role=link[name='Mở bài trong mục Hướng dẫn']", "ghi_chu": "Đọc bài ở trang riêng", "huong": "tren" },
+        { "o": "dialog >> role=link[name='Tải bản PDF']", "ghi_chu": "Tải toàn bộ hướng dẫn", "huong": "tren" }
+      ]
+    },
+    {
+      "ten": "huong-dan-muc-luc",
+      "chu_thich": "Trang mục lục hướng dẫn",
+      "url": "/huong-dan",
+      "vung": "section[aria-labelledby='chuong-lam-quen']",
+      "danh_dau": [
+        { "o": "#chuong-lam-quen", "ghi_chu": "Chương và nội dung của chương", "huong": "duoi" },
+        { "o": "section[aria-labelledby='chuong-lam-quen'] li >> nth=1", "ghi_chu": "Bấm để mở bài", "huong": "phai" }
+      ]
+    },
+    {
+      "ten": "huong-dan-trang-bai",
+      "chu_thich": "Trang một bài hướng dẫn",
+      "url": "/huong-dan/trang-chu",
+      "danh_dau": [
+        { "o": "nav[aria-label='Mục lục hướng dẫn'] ul >> nth=0", "ghi_chu": "Mục lục, bài đang xem được tô màu", "huong": "phai" },
+        { "o": "main h1", "ghi_chu": "Số thứ tự và tên bài", "huong": "duoi" },
+        { "o": "main figure >> nth=0", "ghi_chu": "Hình có vùng đánh số", "huong": "trai" }
+      ]
+    },
+    {
+      "ten": "huong-dan-chuyen-bai",
+      "chu_thich": "Chuyển sang bài trước hoặc bài tiếp theo",
+      "url": "/huong-dan/trang-chu",
+      "vung": "nav[aria-label='Chuyển bài']",
+      "danh_dau": [
+        { "o": "nav[aria-label='Chuyển bài'] a >> nth=0", "ghi_chu": "Bài trước", "huong": "tren" },
+        { "o": "nav[aria-label='Chuyển bài'] a >> nth=1", "ghi_chu": "Bài tiếp theo", "huong": "tren" }
+      ]
+    }
+  ]
+}

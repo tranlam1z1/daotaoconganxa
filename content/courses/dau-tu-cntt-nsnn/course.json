@@ -1,0 +1,210 @@
+{
+  "$schema_note": "Khớp bảng `courses` trong packages/db/migrations/0001_init.sql: (slug, title, audience[], objectives, taxonomy_codes[], as_of, summary, status). Các trường ngoài lược đồ bảng (legal_map, running_example, lessons, templates, tools, review) do seed script đọc riêng để dựng `lessons` và tài liệu đính kèm.",
+  "slug": "dau-tu-cntt-ngan-sach-nha-nuoc",
+  "$slug_note": "Tên thư mục `dau-tu-cntt-nsnn` là dạng rút gọn; slug chạy thật đã là địa chỉ công khai nên giữ nguyên.",
+  "title": "Dự án đầu tư công nghệ thông tin sử dụng ngân sách Nhà nước",
+  "linh_vuc": "dau-tu-cong-nsnn",
+  "nhom_doi_tuong": "khach_hang",
+  "cha": "thuc-hien-du-an-dau-tu-nsnn",
+  "$cay_note": "Chuyên đề này cụ thể hoá hai chuyên đề chung của lĩnh vực (lập dự án và thực hiện dự án) cho loại hình dự án ứng dụng công nghệ thông tin. Cấu trúc lĩnh vực khai báo ở content/linh-vuc.json.",
+  "audience": [
+    "Công chức, viên chức làm công tác chuẩn bị và quản lý dự án ứng dụng công nghệ thông tin tại sở, ban, ngành và Ủy ban nhân dân cấp tỉnh, cấp xã",
+    "Cán bộ ban quản lý dự án và cán bộ đầu mối công nghệ thông tin của chủ đầu tư",
+    "Chuyên viên tổ chức tư vấn lập dự án, lập thiết kế, lập dự toán, tư vấn đấu thầu, tư vấn quản lý dự án công nghệ thông tin",
+    "Thành viên hội đồng thẩm định dự án và hội đồng thẩm định thiết kế",
+    "Cán bộ thẩm tra, quyết toán, kiểm tra, kiểm toán nội bộ đối với dự án công nghệ thông tin"
+  ],
+  "objectives": [
+    "Đọc và vận dụng đúng hệ thống văn bản điều chỉnh hoạt động đầu tư ứng dụng công nghệ thông tin sử dụng ngân sách nhà nước, xác định được văn bản áp dụng tại một thời điểm cụ thể và xử lý được xung đột thứ bậc",
+    "Phân loại đúng một hoạt động ứng dụng công nghệ thông tin thành dự án đầu tư hệ thống, dự án mua sắm, dự án thuê dịch vụ công nghệ thông tin hoặc nhiệm vụ sử dụng kinh phí chi thường xuyên, từ đó chọn đúng trình tự pháp lý",
+    "Lập được báo cáo đề xuất chủ trương đầu tư và báo cáo nghiên cứu khả thi (hoặc báo cáo kinh tế - kỹ thuật) đầy đủ nội dung theo quy định cho một dự án phần mềm nội bộ",
+    "Xác định được tổng mức đầu tư theo đúng các khoản mục chi phí và đúng phương pháp xác định chi phí quy định tại Nghị định 45/2026/NĐ-CP",
+    "Xác định đúng dự án áp dụng thiết kế 01 bước hay 02 bước, phân biệt được thiết kế cơ sở với thiết kế chi tiết và mô tả yêu cầu kỹ thuật của phần mềm nội bộ",
+    "Xác định đúng thẩm quyền, hồ sơ và thời hạn của từng bước thẩm định, quyết định đầu tư, thẩm định và phê duyệt thiết kế chi tiết, dự toán",
+    "Lập được kế hoạch lựa chọn nhà thầu phù hợp với đặc thù gói thầu phần mềm nội bộ",
+    "Tổ chức được công tác triển khai, giám sát triển khai, kiểm thử, vận hành thử, nghiệm thu, bàn giao, bảo hành và chuẩn bị hồ sơ quyết toán",
+    "Nhận diện được các sai sót thường gặp bị kiểm tra, thanh tra, kiểm toán phát hiện và xây dựng được danh mục tự kiểm tra tuân thủ"
+  ],
+  "taxonomy_codes": [
+    "PD.03.003",
+    "PD.34.007",
+    "PD.34.005",
+    "PD.26.003",
+    "NB.CNTT.DTUD",
+    "NB.DTC",
+    "NB.DT",
+    "NB.NSNN"
+  ],
+  "as_of": "2026-09-06",
+  "tach_chuyen_de": {
+    "quyet_dinh": "Phạm vi của gói nội dung này được tách thành bốn chuyên đề trong lĩnh vực `dau-tu-cong-nsnn` (ke-hoach/09 §2). Gói 12 bài trong thư mục này vẫn là bản thảo hoàn chỉnh cho loại hình dự án công nghệ thông tin và ở lại chuyên đề `dau-tu-cntt-ngan-sach-nha-nuoc`.",
+    "phan_chung_tach_ra": "Phần trình tự dùng chung cho mọi loại dự án đầu tư công (bài 01 đến 04, 06 đến 10 và 12) là nguồn để viết chuyên đề `lap-du-an-dau-tu-nsnn` và `thuc-hien-du-an-dau-tu-nsnn`. Khi viết lại, căn cứ phải chuyển từ nghị định về đầu tư ứng dụng công nghệ thông tin sang Luật Đầu tư công, Luật Đấu thầu và Luật Ngân sách nhà nước; không sao chép nguyên viện dẫn.",
+    "phan_tu_van_tach_ra": "Bài 11 (vai trò tư vấn đầu tư) là nguồn cho chuyên đề `tu-van-dau-tu-va-su-pham` của nhóm đối tượng `tu_van`.",
+    "lo_trinh_dang_chay": "Lộ trình đang chạy của chuyên đề công nghệ thông tin gồm 08 bài, khai báo ở content/linh-vuc.json và gieo bởi packages/db/src/seed-dao-tao.ts. Danh sách `lessons` dưới đây là 12 bản thảo gốc, chưa được ánh xạ một-một sang lộ trình đó."
+  },
+  "summary": "Bản thảo 12 bài bám theo trình tự pháp lý thực tế của một dự án đầu tư ứng dụng công nghệ thông tin sử dụng ngân sách nhà nước, từ xác định văn bản áp dụng, phân loại hoạt động, chủ trương đầu tư, lập dự án, xác định tổng mức đầu tư, thẩm định, thiết kế, lựa chọn nhà thầu, triển khai, nghiệm thu, quyết toán đến kiểm tra tuân thủ. Toàn bộ nội dung được minh họa bằng một ví dụ xuyên suốt: dự án \"Hệ thống quản lý nhiệm vụ khoa học và công nghệ cấp tỉnh\", tổng mức đầu tư 14,5 tỷ đồng. Căn cứ pháp lý được trình bày chi tiết là Nghị định số 45/2026/NĐ-CP ngày 26/01/2026 của Chính phủ — văn bản áp dụng cho nhóm dự án chuyển tiếp; văn bản đang có hiệu lực tại thời điểm biên soạn là Nghị định số 224/2026/NĐ-CP ngày 24/6/2026, có hiệu lực từ ngày 01/7/2026.",
+  "status": "draft",
+  "effectivity_alert": {
+    "level": "quan_trong",
+    "discovered_at": "2026-09-06",
+    "summary": "Nghị định số 45/2026/NĐ-CP ĐÃ HẾT HIỆU LỰC kể từ ngày 01/7/2026. Chuyên đề phải được đọc cùng với cảnh báo này.",
+    "chain": [
+      { "van_ban": "73/2019/NĐ-CP và 82/2024/NĐ-CP", "hieu_luc_den": "2026-02-28", "bi_thay_the_boi": "45/2026/NĐ-CP" },
+      { "van_ban": "45/2026/NĐ-CP", "hieu_luc_tu": "2026-03-01", "hieu_luc_den": "2026-06-30", "bi_thay_the_boi": "224/2026/NĐ-CP", "can_cu": "điểm a khoản 2 Điều 90 Nghị định số 224/2026/NĐ-CP" },
+      { "van_ban": "224/2026/NĐ-CP", "hieu_luc_tu": "2026-07-01", "hieu_luc_den": null, "ghi_chu": "Quy định chi tiết một số điều và biện pháp thi hành Luật Chuyển đổi số số 148/2025/QH15" }
+    ],
+    "chuyen_tiep": "Theo khoản 2 Điều 91 Nghị định số 224/2026/NĐ-CP, dự án đã được quyết định đầu tư hoặc đã có báo cáo thẩm định trước ngày 01/7/2026 thì tiếp tục thực hiện theo Nghị định số 45/2026/NĐ-CP, trừ trường hợp cấp có thẩm quyền quyết định áp dụng Nghị định số 224/2026/NĐ-CP. [CẦN ĐỐI CHIẾU: nguyên văn đầy đủ Điều 91 Nghị định số 224/2026/NĐ-CP]",
+    "gia_tri_su_dung": "Chuyên đề vẫn dùng được cho ba mục đích: (1) đào tạo và tác nghiệp cho nhóm dự án chuyển tiếp còn áp dụng Nghị định số 45/2026/NĐ-CP; (2) làm khung phương pháp luận vì trình tự nghiệp vụ của một dự án công nghệ thông tin về cơ bản giữ nguyên; (3) làm nền để đối chiếu sang Nghị định số 224/2026/NĐ-CP.",
+    "viec_phai_lam": "Trước khi xuất bản cho học viên, phải bổ sung bảng đối chiếu từng điều của Nghị định số 45/2026/NĐ-CP sang điều tương ứng của Nghị định số 224/2026/NĐ-CP, và bổ sung nội dung của Thông tư số 39/2026/TT-BKHCN và Thông tư số 41/2026/TT-BKHCN.",
+    "nguon_xac_minh": "Công báo số 387 ngày 12/7/2026, đăng Nghị định số 224/2026/NĐ-CP; nguyên văn khoản 2 Điều 90 đã được đối chiếu."
+  },
+  "review": {
+    "state": "cho_phap_che_duyet",
+    "author": "Tổ biên soạn nội dung Quy định Pháp luật",
+    "legal_reviewer": null,
+    "reviewed_at": null,
+    "warning": "Toàn bộ nội dung chuyên đề là bản nháp, chưa được pháp chế duyệt. Mọi viện dẫn phải đối chiếu với toàn văn văn bản còn hiệu lực trước khi sử dụng để giảng dạy hoặc lập hồ sơ dự án. Đặc biệt lưu ý cảnh báo hiệu lực ở trường effectivity_alert.",
+    "verification_note": "Danh mục điều và nội dung điều khoản của Nghị định 45/2026/NĐ-CP trong chuyên đề này được đối chiếu với bản PDF chính thức có chữ ký số đăng tại Cổng Thông tin điện tử Chính phủ (datafiles.chinhphu.vn/cpp/files/vbpq/2026/01/45-ndcp.signed.pdf, 73 trang, đã đọc từng trang). Việc Nghị định 45/2026/NĐ-CP bị thay thế được đối chiếu với bản Công báo của Nghị định 224/2026/NĐ-CP. Nội dung chi tiết của Nghị định 224/2026/NĐ-CP, Thông tư 39/2026/TT-BKHCN và Thông tư 41/2026/TT-BKHCN CHƯA được đối chiếu toàn văn; mọi viện dẫn tới ba văn bản này đều mang dấu [CẦN ĐỐI CHIẾU: ...]."
+  },
+  "legal_map": {
+    "hien_hanh": [
+      {
+        "so_ky_hieu": "224/2026/NĐ-CP",
+        "urn": "vn:vbqppl:nd:224/2026/NĐ-CP",
+        "loai": "Nghị định",
+        "co_quan": "Chính phủ",
+        "ngay_ban_hanh": "2026-06-24",
+        "hieu_luc_tu": "2026-07-01",
+        "trich_yeu": "Quy định chi tiết một số điều và biện pháp thi hành Luật Chuyển đổi số",
+        "quan_he": "Thay thế Nghị định số 45/2026/NĐ-CP, Nghị định số 42/2022/NĐ-CP và Nghị định số 64/2007/NĐ-CP (khoản 2 Điều 90)",
+        "trang_thai": "con_hieu_luc",
+        "xac_minh": "da_doi_chieu_dieu_90_va_metadata_cong_bao; NOI_DUNG_CHI_TIET_CHUA_DOI_CHIEU"
+      },
+      {
+        "so_ky_hieu": "39/2026/TT-BKHCN",
+        "urn": "vn:vbqppl:tt:39/2026/TT-BKHCN",
+        "loai": "Thông tư",
+        "co_quan": "Bộ Khoa học và Công nghệ",
+        "hieu_luc_tu": "2026-07-01",
+        "trich_yeu": "Quy định lập và quản lý chi phí trong hoạt động đầu tư, mua sắm, thuê dịch vụ cho chuyển đổi số sử dụng ngân sách nhà nước",
+        "quan_he": "Thay thế Thông tư số 18/2024/TT-BTTTT",
+        "xac_minh": "so_hieu_va_trich_yeu_da_doi_chieu; NOI_DUNG_CHI_TIET_CHUA_DOI_CHIEU"
+      },
+      {
+        "so_ky_hieu": "41/2026/TT-BKHCN",
+        "urn": "vn:vbqppl:tt:41/2026/TT-BKHCN",
+        "loai": "Thông tư",
+        "co_quan": "Bộ Khoa học và Công nghệ",
+        "hieu_luc_tu": "2026-07-01",
+        "trich_yeu": "Quy định chi tiết về phát triển thử nghiệm trong chuyển đổi số và quản lý chất lượng các hoạt động đầu tư, mua sắm, thuê dịch vụ cho chuyển đổi số sử dụng ngân sách nhà nước",
+        "quan_he": "Thay thế Thông tư số 16/2024/TT-BTTTT",
+        "xac_minh": "so_hieu_va_trich_yeu_da_doi_chieu; NOI_DUNG_CHI_TIET_CHUA_DOI_CHIEU"
+      },
+      {
+        "so_ky_hieu": "148/2025/QH15",
+        "urn": "vn:vbqppl:l:148/2025/QH15",
+        "loai": "Luật",
+        "co_quan": "Quốc hội",
+        "hieu_luc_tu": "2026-07-01",
+        "trich_yeu": "Luật Chuyển đổi số",
+        "quan_he": "Là văn bản được Nghị định số 224/2026/NĐ-CP quy định chi tiết",
+        "xac_minh": "so_hieu_da_doi_chieu; [CẦN ĐỐI CHIẾU: quan hệ với Luật Công nghệ thông tin số 67/2006/QH11]"
+      }
+    ],
+    "trung_tam_chuyen_tiep": [
+      {
+        "so_ky_hieu": "45/2026/NĐ-CP",
+        "urn": "vn:vbqppl:nd:45/2026/NĐ-CP",
+        "loai": "Nghị định",
+        "co_quan": "Chính phủ",
+        "ngay_ban_hanh": "2026-01-26",
+        "hieu_luc_tu": "2026-03-01",
+        "hieu_luc_den": "2026-06-30",
+        "trich_yeu": "Quy định quản lý đầu tư ứng dụng công nghệ thông tin sử dụng nguồn vốn ngân sách nhà nước",
+        "nguoi_ky": "Nguyễn Chí Dũng, TM. Chính phủ, KT. Thủ tướng Chính phủ, Phó Thủ tướng Chính phủ",
+        "cau_truc": "6 chương, 43 điều, 01 phụ lục gồm 07 mẫu biểu",
+        "thay_the": ["73/2019/NĐ-CP", "82/2024/NĐ-CP"],
+        "bi_thay_the_boi": "224/2026/NĐ-CP kể từ ngày 01/7/2026",
+        "trang_thai": "het_hieu_luc",
+        "pham_vi_con_ap_dung": "Dự án đã được quyết định đầu tư hoặc đã có báo cáo thẩm định trước ngày 01/7/2026, theo quy định chuyển tiếp tại Điều 91 Nghị định số 224/2026/NĐ-CP",
+        "xac_minh": "da_doi_chieu_toan_van_43_dieu"
+      }
+    ],
+    "luat_goc": [
+      { "so_ky_hieu": "58/2024/QH15", "ten": "Luật Đầu tư công", "vai_tro": "Thẩm quyền, trình tự chủ trương đầu tư và quyết định đầu tư; nội dung báo cáo nghiên cứu khả thi; phân loại dự án", "xac_minh": "la_can_cu_ban_hanh_cua_nd_45_2026" },
+      { "so_ky_hieu": "89/2025/QH15", "ten": "Luật Ngân sách nhà nước", "vai_tro": "Nguồn vốn, phân cấp nhiệm vụ chi, chi đầu tư và chi thường xuyên", "xac_minh": "la_can_cu_ban_hanh_cua_nd_45_2026" },
+      { "so_ky_hieu": "22/2023/QH15", "ten": "Luật Đấu thầu", "vai_tro": "Lựa chọn nhà thầu cho các gói thầu của dự án", "xac_minh": "la_can_cu_ban_hanh_cua_nd_45_2026" },
+      { "so_ky_hieu": "90/2025/QH15", "ten": "Luật sửa đổi, bổ sung một số điều của Luật Đấu thầu, Luật Đầu tư theo phương thức đối tác công tư, Luật Hải quan, Luật Thuế giá trị gia tăng, Luật Thuế xuất khẩu, thuế nhập khẩu, Luật Đầu tư, Luật Đầu tư công, Luật Quản lý, sử dụng tài sản công", "vai_tro": "Sửa đổi Luật Đấu thầu và Luật Đầu tư công", "xac_minh": "la_can_cu_ban_hanh_cua_nd_45_2026" },
+      { "so_ky_hieu": "67/2006/QH11", "ten": "Luật Công nghệ thông tin", "vai_tro": "Khung pháp lý chung về ứng dụng và phát triển công nghệ thông tin", "xac_minh": "la_can_cu_ban_hanh_cua_nd_45_2026" },
+      { "so_ky_hieu": "64/2025/QH15", "ten": "Luật Ban hành văn bản quy phạm pháp luật", "vai_tro": "Thứ bậc hiệu lực, nguyên tắc áp dụng, hiệu lực văn bản", "xac_minh": "la_can_cu_ban_hanh_cua_nd_45_2026" },
+      { "so_ky_hieu": "87/2025/QH15", "ten": "Luật sửa đổi, bổ sung một số điều của Luật Ban hành văn bản quy phạm pháp luật", "vai_tro": "Điều chỉnh hệ thống văn bản theo mô hình chính quyền địa phương hai cấp", "xac_minh": "la_can_cu_ban_hanh_cua_nd_45_2026" },
+      { "so_ky_hieu": "63/2025/QH15", "ten": "Luật Tổ chức Chính phủ", "vai_tro": "Căn cứ thẩm quyền ban hành nghị định", "xac_minh": "la_can_cu_ban_hanh_cua_nd_45_2026" }
+    ],
+    "nghi_dinh_lien_quan": [
+      { "so_ky_hieu": "24/2024/NĐ-CP", "ten": "Nghị định quy định chi tiết một số điều và biện pháp thi hành Luật Đấu thầu về lựa chọn nhà thầu", "trang_thai": "[CẦN ĐỐI CHIẾU: tình trạng hiệu lực và các văn bản sửa đổi sau Luật 90/2025/QH15]" },
+      { "so_ky_hieu": "132/2025/NĐ-CP", "ten": "[CẦN ĐỐI CHIẾU: trích yếu đầy đủ]", "quan_he": "Điều 6 bị bãi bỏ bởi khoản 4 Điều 41 Nghị định 45/2026/NĐ-CP", "xac_minh": "quan_he_da_doi_chieu" },
+      { "so_ky_hieu": "133/2025/NĐ-CP", "ten": "[CẦN ĐỐI CHIẾU: trích yếu đầy đủ]", "quan_he": "Điều 34 và Điều 35 bị bãi bỏ bởi khoản 4 Điều 41 Nghị định 45/2026/NĐ-CP", "xac_minh": "quan_he_da_doi_chieu" },
+      { "so_ky_hieu": "04/2025/NQ-CP", "ten": "Nghị quyết của Chính phủ ngày 20/8/2025 về tháo gỡ khó khăn, vướng mắc trong triển khai các dự án, nhiệm vụ ứng dụng công nghệ thông tin sử dụng nguồn vốn ngân sách nhà nước", "quan_he": "Hết hiệu lực thi hành kể từ ngày Nghị định 45/2026/NĐ-CP có hiệu lực (khoản 3 Điều 41)", "xac_minh": "quan_he_da_doi_chieu" },
+      { "so_ky_hieu": "[CẦN ĐỐI CHIẾU]", "ten": "Nghị định quy định về bảo đảm an toàn hệ thống thông tin theo cấp độ", "ghi_chu": "Nghị định 85/2016/NĐ-CP và văn bản thay thế; cần xác minh văn bản còn hiệu lực tại thời điểm biên soạn" },
+      { "so_ky_hieu": "[CẦN ĐỐI CHIẾU]", "ten": "Nghị định quy định chi tiết một số điều của Luật Đầu tư công", "ghi_chu": "Cần xác minh nghị định hướng dẫn Luật 58/2024/QH15 đang có hiệu lực" }
+    ],
+    "thong_tu_va_huong_dan": [
+      {
+        "so_ky_hieu": "[CẦN ĐỐI CHIẾU]",
+        "ten": "Thông tư của Bộ trưởng Bộ Khoa học và Công nghệ quy định chi tiết khoản 3 Điều 37 Nghị định 45/2026/NĐ-CP",
+        "pham_vi": "Xác định sơ bộ tổng mức đầu tư; xác định tổng mức đầu tư, dự toán; xác định dự toán thuê dịch vụ công nghệ thông tin không sẵn có trên thị trường; nội dung, phương pháp xác định chi phí quản trị, vận hành, bảo trì; khảo sát, triển khai, giám sát triển khai, kiểm thử, vận hành thử, nghiệm thu, bàn giao, hồ sơ hoàn thành; yêu cầu và giám sát chất lượng dịch vụ công nghệ thông tin; cung cấp thông tin phục vụ quản lý đầu tư",
+        "ghi_chu": "Khoản 3 Điều 37 Nghị định 45/2026/NĐ-CP giao Bộ trưởng Bộ Khoa học và Công nghệ quy định, hướng dẫn chi tiết. Tính đến ngày 06/9/2026 chưa xác minh được thông tư đã ban hành hay chưa. Trước khi có thông tư mới, việc xác định chi phí phải bám các phương pháp quy định tại khoản 4, khoản 5, khoản 6 và khoản 7 Điều 16 Nghị định 45/2026/NĐ-CP."
+      },
+      {
+        "so_ky_hieu": "[CẦN ĐỐI CHIẾU]",
+        "ten": "Văn bản hướng dẫn phương pháp xác định chi phí phát triển, nâng cấp phần mềm nội bộ theo phương pháp điểm trường hợp sử dụng (use case point)",
+        "ghi_chu": "Chưa xác minh được số hiệu, tình trạng hiệu lực và công thức chính thức tại thời điểm biên soạn. Không sử dụng công thức từ trí nhớ. Xem bài 05."
+      },
+      { "so_ky_hieu": "[CẦN ĐỐI CHIẾU]", "ten": "Thông tư của Bộ Tài chính về quyết toán vốn đầu tư công dự án hoàn thành", "ghi_chu": "Cần xác minh văn bản còn hiệu lực" }
+    ],
+    "tieu_chuan": [
+      { "ma": "TCVN ISO/IEC 25010", "ten": "Yêu cầu và đánh giá chất lượng hệ thống và phần mềm — mô hình chất lượng", "ghi_chu": "Không phải văn bản quy phạm pháp luật; dùng làm căn cứ kỹ thuật khi xây dựng tiêu chí kiểm thử, nghiệm thu" },
+      { "ma": "TCVN ISO/IEC 12207", "ten": "Các quá trình vòng đời phần mềm", "ghi_chu": "Không phải văn bản quy phạm pháp luật" }
+    ],
+    "dia_phuong": [
+      { "ma": "[CẦN ĐỐI CHIẾU]", "ten": "Nghị quyết của Hội đồng nhân dân tỉnh về phân cấp thẩm quyền quyết định đầu tư", "ghi_chu": "Mỗi tỉnh có văn bản riêng; học viên phải tra văn bản của địa phương mình" },
+      { "ma": "[CẦN ĐỐI CHIẾU]", "ten": "Quyết định của Ủy ban nhân dân tỉnh về định mức chi và đơn giá áp dụng trên địa bàn", "ghi_chu": "Mỗi tỉnh có văn bản riêng" }
+    ]
+  },
+  "running_example": {
+    "file": "vi-du-du-an.md",
+    "ten_du_an": "Hệ thống quản lý nhiệm vụ khoa học và công nghệ cấp tỉnh",
+    "chu_dau_tu": "Sở Khoa học và Công nghệ tỉnh T",
+    "nguon_von": "Vốn đầu tư công, ngân sách tỉnh",
+    "tong_muc_dau_tu": "14.500.000.000 đồng",
+    "so_nhom_chuc_nang": 8,
+    "bien_the_bai_07": "Tổng mức đầu tư giả định 26.000.000.000 đồng để chuyển từ thiết kế 01 bước sang thiết kế 02 bước"
+  },
+  "lessons": [
+    { "ordinal": 1, "slug": "01-tong-quan-va-thu-bac-van-ban", "file": "01-tong-quan-va-thu-bac-van-ban.md", "title": "Tổng quan và thứ bậc văn bản áp dụng", "product": "Bản đồ pháp lý của dự án ví dụ" },
+    { "ordinal": 2, "slug": "02-phan-loai-hoat-dong", "file": "02-phan-loai-hoat-dong.md", "title": "Phân loại hoạt động: dự án đầu tư hệ thống, dự án mua sắm, dự án thuê dịch vụ, nhiệm vụ chi thường xuyên", "product": "Phiếu xác định lối đi pháp lý" },
+    { "ordinal": 3, "slug": "03-chu-truong-dau-tu", "file": "03-chu-truong-dau-tu.md", "title": "Chủ trương đầu tư", "product": "Báo cáo đề xuất chủ trương đầu tư" },
+    { "ordinal": 4, "slug": "04-lap-du-an-bcnckt", "file": "04-lap-du-an-bcnckt.md", "title": "Lập dự án: báo cáo nghiên cứu khả thi và báo cáo kinh tế - kỹ thuật", "product": "Mục lục và phần thuyết minh báo cáo nghiên cứu khả thi" },
+    { "ordinal": 5, "slug": "05-tong-muc-dau-tu-va-chi-phi-phan-mem", "file": "05-tong-muc-dau-tu-va-chi-phi-phan-mem.md", "title": "Xác định tổng mức đầu tư và chi phí phần mềm nội bộ", "product": "Bảng tính tổng mức đầu tư và bảng kê chức năng phần mềm" },
+    { "ordinal": 6, "slug": "06-tham-dinh-phe-duyet-du-an", "file": "06-tham-dinh-phe-duyet-du-an.md", "title": "Thẩm định và quyết định đầu tư dự án", "product": "Tờ trình thẩm định và danh mục hồ sơ trình" },
+    { "ordinal": 7, "slug": "07-thiet-ke-va-du-toan", "file": "07-thiet-ke-va-du-toan.md", "title": "Thiết kế một bước, hai bước: thiết kế cơ sở, thiết kế chi tiết và dự toán", "product": "Đề cương thiết kế chi tiết" },
+    { "ordinal": 8, "slug": "08-lua-chon-nha-thau", "file": "08-lua-chon-nha-thau.md", "title": "Lựa chọn nhà thầu", "product": "Kế hoạch lựa chọn nhà thầu" },
+    { "ordinal": 9, "slug": "09-trien-khai-kiem-thu-van-hanh-thu", "file": "09-trien-khai-kiem-thu-van-hanh-thu.md", "title": "Triển khai, giám sát triển khai, kiểm thử, vận hành thử và đào tạo", "product": "Kịch bản kiểm thử và kế hoạch vận hành thử" },
+    { "ordinal": 10, "slug": "10-nghiem-thu-ban-giao-bao-hanh-quyet-toan", "file": "10-nghiem-thu-ban-giao-bao-hanh-quyet-toan.md", "title": "Nghiệm thu, bàn giao, hồ sơ hoàn thành, bảo hành và quyết toán", "product": "Biên bản nghiệm thu và danh mục hồ sơ hoàn thành" },
+    { "ordinal": 11, "slug": "11-vai-tro-tu-van-dau-tu", "file": "11-vai-tro-tu-van-dau-tu.md", "title": "Vai trò của tư vấn đầu tư: phạm vi, trách nhiệm và chi phí tư vấn", "product": "Đề cương nhiệm vụ tư vấn và dự toán chi phí tư vấn" },
+    { "ordinal": 12, "slug": "12-sai-sot-thuong-gap-va-kiem-tra", "file": "12-sai-sot-thuong-gap-va-kiem-tra.md", "title": "Sai sót thường gặp và công tác kiểm tra, thanh tra, kiểm toán", "product": "Danh mục tự kiểm tra tuân thủ" }
+  ],
+  "templates": [
+    { "slug": "bcnckt", "file": "bieu-mau/01-muc-luc-bao-cao-nghien-cuu-kha-thi.md", "title": "Mục lục chuẩn của Báo cáo nghiên cứu khả thi" },
+    { "slug": "thiet-ke-chi-tiet", "file": "bieu-mau/02-de-cuong-thiet-ke-chi-tiet.md", "title": "Đề cương thiết kế chi tiết" },
+    { "slug": "bang-tinh-chi-phi-phan-mem", "file": "bieu-mau/03-bang-tinh-chi-phi-phan-mem-theo-use-case.md", "title": "Bảng tính chi phí phần mềm nội bộ theo trường hợp sử dụng" },
+    { "slug": "ke-hoach-lcnt", "file": "bieu-mau/04-ke-hoach-lua-chon-nha-thau.md", "title": "Kế hoạch lựa chọn nhà thầu" },
+    { "slug": "kich-ban-kiem-thu", "file": "bieu-mau/05-kich-ban-kiem-thu.md", "title": "Kịch bản kiểm thử" },
+    { "slug": "bien-ban-nghiem-thu", "file": "bieu-mau/06-bien-ban-nghiem-thu.md", "title": "Biên bản nghiệm thu" }
+  ],
+  "tools": [
+    { "slug": "may-tinh-chi-phi-phan-mem", "title": "Máy tính chi phí phần mềm nội bộ", "mo_ta": "Nhập danh sách trường hợp sử dụng, tác nhân và độ phức tạp, hệ thống tính chi phí theo công thức lấy trực tiếp từ nút `cong_thuc` đã số hóa của văn bản hướng dẫn còn hiệu lực; hiển thị rõ phiên bản văn bản làm căn cứ", "trang_thai": "cho_van_ban_huong_dan" },
+    { "slug": "bo-dinh-tuyen-thu-tuc", "title": "Bộ định tuyến thủ tục", "mo_ta": "Trả lời 6 đến 8 câu hỏi về loại nguồn vốn, tổng mức đầu tư, loại hoạt động và cấp thẩm quyền để sinh sơ đồ trình tự kèm căn cứ từng bước", "trang_thai": "san_sang_xay_dung" },
+    { "slug": "checklist-ho-so", "title": "Danh mục hồ sơ theo giai đoạn", "mo_ta": "Danh mục hồ sơ theo từng giai đoạn của dự án, xuất được tệp DOCX", "trang_thai": "san_sang_xay_dung" }
+  ]
+}

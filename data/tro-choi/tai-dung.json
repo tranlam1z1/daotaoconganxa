@@ -1,0 +1,228 @@
+{
+  "mo_ta": "Vụ va chạm demo của trò Tái dựng hiện trường (docs/PLAN.md GĐ-T10, GAME_DESIGN §5.10). Nạp bằng napTaiDung (packages/db/src/tai-dung.ts), vào chờ duyệt. Dấu vết không soạn tay: máy chủ chạy M5 từ dung_canh.",
+  "luu_y_bien_tap": [
+    "DỮ LIỆU DEMO, CHƯA DUYỆT. Mọi vụ là kịch bản giả định do hệ thống soạn. Căn cứ về xử lý tai nạn chờ khách hàng cung cấp (câu D10); kho văn bản chưa có Luật số 36/2024/QH15, Nghị định số 168/2024/NĐ-CP.",
+    "Mô phỏng minh họa để học cách đọc dấu vết, không phải phương pháp giám định. Hệ số phanh theo mặt đường, cách xe xoay và trượt sau va chạm là thông số mô phỏng chưa được đơn vị chuyên môn kiểm tra.",
+    "Lỗi đúng của từng vụ và mã mức phạt tương ứng do hệ thống soạn, chưa đối chiếu văn bản."
+  ],
+  "vu": [
+    {
+      "ma": "TD-01",
+      "tieu_de": "[Demo] Ô tô phanh gấp trên đường ướt, đâm rào chắn công trình",
+      "payload": {
+        "muc": 1,
+        "tin_bao": "22 giờ 10, mưa nhỏ. Một ô tô con đâm vào rào chắn công trình trên làn đường đi về phía bắc. Không có xe khác liên quan.",
+        "so_do": {
+          "kieu": "doan_thang",
+          "rong_m": 20,
+          "cao_m": 70,
+          "so_lan": 1,
+          "mat_duong": "uot",
+          "toc_do_toi_da_kmh": 50,
+          "vat": [{ "id": "R1", "loai": "rao", "x": 12, "y": 22, "rong": 3, "dai": 0.6 }],
+          "den": []
+        },
+        "xe": [{ "id": "A", "loai": "o_to", "nhan": "Xe A (ô tô con)" }],
+        "loi_ke": [
+          {
+            "nguoi": "Người lái xe A",
+            "ke": "Tôi đi khoảng 50 km/h, thấy rào chắn thì phanh ngay nhưng đường trơn quá nên không dừng kịp."
+          }
+        ]
+      },
+      "answer": {
+        "dung_canh": [{ "xe": "A", "x": 12, "y": 64, "huong": 0, "muc": 3, "hanh_dong": "phanh" }],
+        "loi": [
+          {
+            "xe": "A",
+            "loi": "qua_toc_do",
+            "ma_muc_phat": "oto-toc-do-20-35",
+            "mo_ta": "Vết phanh dài gần 40 m trên mặt đường ướt: xe chạy khoảng 80 km/h trên đoạn có biển tốc độ tối đa 50 km/h."
+          }
+        ],
+        "giai_thich": "Xe A phanh gấp ngay khi thấy rào chắn, cách rào gần 40 m. Nếu chạy 50–60 km/h thì xe đã dừng trước rào; vết phanh dài tới tận rào cho thấy xe chạy khoảng 80 km/h, không phải 50 km/h như lời kể."
+      }
+    },
+    {
+      "ma": "TD-02",
+      "tieu_de": "[Demo] Hai ô tô cùng chiều, xe sau đâm đuôi xe trước",
+      "payload": {
+        "muc": 2,
+        "tin_bao": "7 giờ 40, trời khô. Hai ô tô con đi cùng chiều về phía bắc va chạm, xe B bị đâm vào đuôi.",
+        "so_do": {
+          "kieu": "doan_thang",
+          "rong_m": 20,
+          "cao_m": 80,
+          "so_lan": 1,
+          "mat_duong": "kho",
+          "toc_do_toi_da_kmh": 60,
+          "vat": [],
+          "den": []
+        },
+        "xe": [
+          { "id": "A", "loai": "o_to", "nhan": "Xe A (ô tô con, xe sau)" },
+          { "id": "B", "loai": "o_to", "nhan": "Xe B (ô tô con, xe trước)" }
+        ],
+        "loi_ke": [
+          { "nguoi": "Người lái xe A", "ke": "Xe B phanh đột ngột, tôi không kịp phản ứng." },
+          { "nguoi": "Người lái xe B", "ke": "Có con chó chạy ra, tôi phanh lại thì bị xe A đâm từ phía sau." }
+        ]
+      },
+      "answer": {
+        "dung_canh": [
+          { "xe": "A", "x": 12, "y": 60, "huong": 0, "muc": 2, "hanh_dong": "di_thang" },
+          { "xe": "B", "x": 12, "y": 44, "huong": 0, "muc": 1, "hanh_dong": "phanh" }
+        ],
+        "loi": [
+          {
+            "xe": "A",
+            "loi": "khong_giu_khoang_cach",
+            "ma_muc_phat": "oto-khoang-cach",
+            "mo_ta": "Xe A đi sau xe B chỉ khoảng 16 m ở tốc độ khoảng 60 km/h, không có vết phanh trước điểm va chạm."
+          }
+        ],
+        "giai_thich": "Xe B phanh gấp (vết phanh ngắn của xe B), xe A không phanh (không có vết phanh của xe A) và đâm vào đuôi xe B. Hai xe dính nhau, trượt thêm một đoạn rồi dừng. Xe A đi quá sát xe trước so với tốc độ của mình."
+      }
+    },
+    {
+      "ma": "TD-03",
+      "tieu_de": "[Demo] Hai ô tô va chạm tại ngã tư có đèn tín hiệu",
+      "payload": {
+        "muc": 3,
+        "tin_bao": "14 giờ 05, trời khô. Hai ô tô con va chạm giữa ngã tư có đèn tín hiệu. Dữ liệu camera tại nút giao ghi lại màu đèn lúc xảy ra va chạm.",
+        "so_do": {
+          "kieu": "nga_tu",
+          "rong_m": 60,
+          "cao_m": 60,
+          "so_lan": 1,
+          "mat_duong": "kho",
+          "toc_do_toi_da_kmh": 50,
+          "vat": [],
+          "den": [
+            { "huong": 0, "mau": "do" },
+            { "huong": 4, "mau": "do" },
+            { "huong": 2, "mau": "xanh" },
+            { "huong": 6, "mau": "xanh" }
+          ]
+        },
+        "xe": [
+          { "id": "A", "loai": "o_to", "nhan": "Xe A (ô tô con)" },
+          { "id": "B", "loai": "o_to", "nhan": "Xe B (ô tô con)" }
+        ],
+        "loi_ke": [
+          { "nguoi": "Người lái xe A", "ke": "Tôi đi trên đường ngang, đèn xanh thì đi, xe B lao ra." },
+          { "nguoi": "Người lái xe B", "ke": "Tôi đi đúng làn, đèn vừa chuyển vàng thì tôi qua." }
+        ]
+      },
+      "answer": {
+        "dung_canh": [
+          { "xe": "A", "x": 18, "y": 32, "huong": 2, "muc": 1, "hanh_dong": "di_thang" },
+          { "xe": "B", "x": 32, "y": 52, "huong": 0, "muc": 2, "hanh_dong": "di_thang" }
+        ],
+        "loi": [
+          {
+            "xe": "B",
+            "loi": "vuot_den_do",
+            "ma_muc_phat": "oto-den-do",
+            "mo_ta": "Xe B đi từ phía nam lên, hướng đèn đỏ theo dữ liệu camera, và đi vào ngã tư đâm ngang xe A."
+          }
+        ],
+        "giai_thich": "Xe B đi lên phía bắc khi hướng Bắc – Nam đang đèn đỏ, đâm vào sườn phải xe A đang đi theo đèn xanh về phía đông. Sau va chạm hai xe dính nhau, xoay và trượt chéo về phía đông bắc."
+      }
+    },
+    {
+      "ma": "TD-04",
+      "tieu_de": "[Demo] Ô tô chuyển làn, quẹt vào xe đang phanh ở làn bên",
+      "payload": {
+        "muc": 4,
+        "tin_bao": "17 giờ 30, trời khô, đường hai làn mỗi chiều. Hai ô tô con va chạm trên chiều đi về phía bắc. Hiện trường có vết phanh và mảnh vỡ.",
+        "so_do": {
+          "kieu": "doan_thang",
+          "rong_m": 24,
+          "cao_m": 80,
+          "so_lan": 2,
+          "mat_duong": "kho",
+          "toc_do_toi_da_kmh": 60,
+          "vat": [],
+          "den": []
+        },
+        "xe": [
+          { "id": "A", "loai": "o_to", "nhan": "Xe A (ô tô con)" },
+          { "id": "B", "loai": "o_to", "nhan": "Xe B (ô tô con)" }
+        ],
+        "loi_ke": [
+          { "nguoi": "Người lái xe A", "ke": "Tôi đi thẳng làn trong, xe B chạy ẩu nên quẹt vào xe tôi." },
+          { "nguoi": "Người lái xe B", "ke": "Xe A tạt sang làn tôi, tôi phanh hết cỡ mà vẫn va." }
+        ]
+      },
+      "answer": {
+        "dung_canh": [
+          { "xe": "A", "x": 14, "y": 62, "huong": 0, "muc": 2, "hanh_dong": "chuyen_lan_phai" },
+          { "xe": "B", "x": 17, "y": 58, "huong": 0, "muc": 2, "hanh_dong": "phanh" }
+        ],
+        "loi": [
+          {
+            "xe": "A",
+            "loi": "chuyen_lan_sai",
+            "ma_muc_phat": "oto-chuyen-lan",
+            "mo_ta": "Xe A chuyển từ làn trong sang làn ngoài khi xe B đang đi ngay bên phải, phía trước; xe B phải phanh gấp."
+          }
+        ],
+        "giai_thich": "Xe B ở làn ngoài phanh gấp (vết phanh của xe B). Xe A từ làn trong chuyển sang phải, quẹt vào xe B; không có vết phanh của xe A. Sau va chạm, hai xe xoay lệch 45° nên nhìn vị trí cuối khó đoán hướng ban đầu."
+      }
+    },
+    {
+      "ma": "TD-05",
+      "tieu_de": "[Demo] Xe rẽ trái tại ngã tư không đèn, xe đi thẳng ngược chiều chạy nhanh",
+      "payload": {
+        "muc": 5,
+        "tin_bao": "20 giờ 15, trời khô. Ngã tư không có đèn tín hiệu. Xe A rẽ trái và xe B đi thẳng ngược chiều va chạm giữa ngã tư. Hai bên kể khác nhau.",
+        "so_do": {
+          "kieu": "nga_tu",
+          "rong_m": 60,
+          "cao_m": 80,
+          "so_lan": 1,
+          "mat_duong": "kho",
+          "toc_do_toi_da_kmh": 50,
+          "vat": [],
+          "den": []
+        },
+        "xe": [
+          { "id": "A", "loai": "o_to", "nhan": "Xe A (ô tô con, rẽ trái)" },
+          { "id": "B", "loai": "o_to", "nhan": "Xe B (ô tô con, đi thẳng)" }
+        ],
+        "loi_ke": [
+          {
+            "nguoi": "Người lái xe A",
+            "ke": "Tôi xi nhan, chạy rất chậm; lúc tôi rẽ xe B còn ở rất xa, nó lao tới quá nhanh."
+          },
+          {
+            "nguoi": "Người lái xe B",
+            "ke": "Tôi đi khoảng 50 km/h, xe A rẽ bất ngờ ngay trước mũi xe tôi, tôi phanh không kịp."
+          }
+        ]
+      },
+      "answer": {
+        "dung_canh": [
+          { "xe": "A", "x": 32, "y": 50, "huong": 0, "muc": 0, "hanh_dong": "re_trai" },
+          { "xe": "B", "x": 28, "y": 8, "huong": 4, "muc": 3, "hanh_dong": "phanh" }
+        ],
+        "loi": [
+          {
+            "xe": "B",
+            "loi": "qua_toc_do",
+            "ma_muc_phat": "oto-toc-do-20-35",
+            "mo_ta": "Vết phanh của xe B dài hơn 20 m trên mặt đường khô: xe B chạy khoảng 80 km/h, không phải 50 km/h như lời kể."
+          },
+          {
+            "xe": "A",
+            "loi": "khong_nhuong_duong",
+            "ma_muc_phat": "oto-nhuong-duong",
+            "mo_ta": "Xe A rẽ trái cắt ngang hướng đi của xe B đang đi thẳng ngược chiều."
+          }
+        ],
+        "giai_thich": "Vết phanh dài của xe B cho thấy xe B chạy rất nhanh, lời kể 50 km/h không khớp dấu vết. Xe A rẽ trái chậm, cắt ngang hướng đi của xe B khi xe B đã ở gần. Cả hai cùng có lỗi."
+      }
+    }
+  ]
+}

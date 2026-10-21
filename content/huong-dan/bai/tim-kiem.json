@@ -1,0 +1,30 @@
+{
+  "tieu_de": "Tra cứu văn bản",
+  "tom_tat": "Tìm văn bản, điều, khoản theo từ khoá, số ký hiệu hoặc viện dẫn tại một ngày hiệu lực, rồi thu hẹp kết quả bằng bộ lọc.",
+  "routes": ["routes/search.tsx"],
+  "anh": [
+    {
+      "ten": "tim-kiem-o-tra-cuu",
+      "chu_thich": "Ô tra cứu và ngày hiệu lực",
+      "url": "/tim-kiem?q=thuế thu nhập cá nhân",
+      "vung": "form:has(#tk-q)",
+      "danh_dau": [
+        { "o": "#tk-q", "ghi_chu": "Từ khoá, số ký hiệu hoặc viện dẫn", "huong": "duoi" },
+        { "o": "#tk-asof", "ghi_chu": "Ngày hiệu lực cần tra", "huong": "duoi" },
+        { "o": "form:has(#tk-q) >> role=button[name='Tra cứu']", "ghi_chu": "Tra cứu lại", "huong": "tren" },
+        { "o": "role=link[name=/văn bản hết hiệu lực/]", "ghi_chu": "Gồm cả văn bản hết hiệu lực", "huong": "phai" }
+      ]
+    },
+    {
+      "ten": "tim-kiem-ket-qua",
+      "chu_thich": "Kết quả tra cứu và bộ lọc",
+      "url": "/tim-kiem?q=thuế thu nhập cá nhân",
+      "danh_dau": [
+        { "o": "aside[aria-label='Bộ lọc kết quả'] div:has(> h3) >> nth=0", "ghi_chu": "Lọc theo loại văn bản", "huong": "phai" },
+        { "o": "aside[aria-label='Bộ lọc kết quả'] >> role=link[name='Xoá tất cả bộ lọc']", "ghi_chu": "Bỏ mọi bộ lọc", "huong": "phai" },
+        { "o": "section:has(> h2) h2 >> nth=0", "ghi_chu": "Nhóm kết quả", "huong": "phai" },
+        { "o": "section:has(> h2) li >> nth=0", "ghi_chu": "Kết quả: vị trí, trích đoạn, trạng thái", "huong": "duoi" }
+      ]
+    }
+  ]
+}

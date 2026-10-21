@@ -1,0 +1,27 @@
+{
+  "tieu_de": "Phiên bản văn bản",
+  "tom_tat": "Xem các phiên bản của văn bản theo khoảng thời gian hiệu lực, mở từng bản và chọn hai bản để so sánh.",
+  "routes": ["routes/document.versions.tsx"],
+  "anh": [
+    {
+      "ten": "phien-ban-danh-sach",
+      "chu_thich": "Danh sách phiên bản của văn bản",
+      "url": "/van-ban/nd/100-2026-nd-cp/phien-ban",
+      "danh_dau": [
+        { "o": "table:has(caption) thead", "ghi_chu": "Loại và khoảng thời gian hiệu lực", "huong": "tren" },
+        { "o": "table:has(caption) tbody tr >> nth=1", "ghi_chu": "Phiên bản hợp nhất", "huong": "duoi" },
+        { "o": "table:has(caption) >> role=link[name='Đọc bản này'] >> nth=1", "ghi_chu": "Đọc nội dung phiên bản", "huong": "duoi" }
+      ]
+    },
+    {
+      "ten": "phien-ban-so-sanh-nhanh",
+      "chu_thich": "Chọn hai phiên bản để so sánh",
+      "url": "/van-ban/nd/100-2026-nd-cp/phien-ban",
+      "danh_dau": [
+        { "o": "#ss-a", "ghi_chu": "Phiên bản gốc", "huong": "duoi" },
+        { "o": "#ss-b", "ghi_chu": "Phiên bản so sánh", "huong": "duoi" },
+        { "o": "section[aria-labelledby='so-sanh-nhanh'] >> role=button[name='So sánh']", "ghi_chu": "Mở trang so sánh", "huong": "tren" }
+      ]
+    }
+  ]
+}

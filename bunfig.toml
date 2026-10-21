@@ -1,0 +1,4 @@
+# Test luôn chạy trên CSDL riêng (quydinhphapluat_test), được tạo và nạp dữ liệu mẫu
+# tự động bởi preload dưới đây. Xem packages/db/src/test-setup.ts.
+[test]
+preload = ["./packages/db/src/test-setup.ts"]

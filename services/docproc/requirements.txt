@@ -1,0 +1,12 @@
+# Gói bắt buộc — tổng dung lượng ~170 MB, chạy được trên CPU, không cần GPU.
+pymupdf>=1.24
+pypdf>=4.0
+python-docx>=1.1
+pillow>=10.0
+beautifulsoup4>=4.12
+lxml>=5.0
+psycopg[binary]>=3.1
+httpx>=0.27
+anthropic>=1.0
+pyyaml>=6.0
+pytest>=8.0

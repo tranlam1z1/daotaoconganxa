@@ -1,0 +1,5 @@
+# Chỉ cài trên máy có GPU + nhiều đĩa trống (mỗi gói vài GB). Xem README §Engine nặng.
+docling            # layout + TableFormer (kéo theo torch, ~3 GB)
+marker-pdf         # trích LaTeX cho trang có công thức (cần GPU)
+paddlepaddle       # nền cho PaddleOCR
+paddleocr          # OCR tiếng Việt (mô hình `vi`)

@@ -1,0 +1,49 @@
+/**
+ * Phạm vi đơn vị (docs/PLAN.md GĐ2): quản lý phòng thấy các đội con, quản lý đội không thấy
+ * đội bên cạnh. Cây 3 cấp: Phòng P > Đội A > Tổ A1, và Phòng P > Đội B.
+ */
+import { describe, expect, test } from "bun:test";
+import { type Principal, trongPhamVi } from "../src/rbac.ts";
+
+const P = "uphong";
+const A = `${P}.udoia`;
+const A1 = `${A}.utoa1`;
+const B = `${P}.udoib`;
+// Nhãn có tiền tố trùng với Đội A: so theo tiền tố chuỗi thuần sẽ nhầm "udoia" với "udoiab".
+const AB = `${P}.udoiab`;
+
+const nguoi = (role: Principal["role"], unitPath?: string) => ({ role, unitPath });
+
+describe("trongPhamVi", () => {
+  test("quản lý phòng thấy phòng và mọi đội, tổ bên dưới", () => {
+    const qlPhong = nguoi("quan_ly", P);
+    for (const path of [P, A, A1, B, AB]) expect(trongPhamVi(qlPhong, path)).toBe(true);
+  });
+
+  test("quản lý đội A thấy đội A và tổ A1, không thấy đội B, không thấy phòng", () => {
+    const qlA = nguoi("quan_ly", A);
+    expect(trongPhamVi(qlA, A)).toBe(true);
+    expect(trongPhamVi(qlA, A1)).toBe(true);
+    expect(trongPhamVi(qlA, B)).toBe(false);
+    expect(trongPhamVi(qlA, P)).toBe(false);
+  });
+
+  test("không nhầm đơn vị có nhãn bắt đầu giống nhau", () => {
+    expect(trongPhamVi(nguoi("quan_ly", A), AB)).toBe(false);
+  });
+
+  test("quản trị thấy mọi đơn vị, kể cả khi không gắn đơn vị", () => {
+    expect(trongPhamVi(nguoi("quan_tri"), B)).toBe(true);
+  });
+
+  test("chưa gắn đơn vị thì không thấy đơn vị nào; đơn vị đích rỗng thì không khớp", () => {
+    expect(trongPhamVi(nguoi("quan_ly"), A)).toBe(false);
+    expect(trongPhamVi(nguoi("quan_ly", A), null)).toBe(false);
+  });
+
+  test("phạm vi không phụ thuộc thứ bậc vai trò: biên tập viên gắn đội A cũng chỉ thấy đội A", () => {
+    const bienTap = nguoi("bien_tap", A);
+    expect(trongPhamVi(bienTap, A1)).toBe(true);
+    expect(trongPhamVi(bienTap, B)).toBe(false);
+  });
+});

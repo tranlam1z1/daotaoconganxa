@@ -1,0 +1,78 @@
+{
+  "ghi_chu": "KHUNG CẤU TRÚC KHO VĂN BẢN. Trả lời câu hỏi 'kho ĐÁNG LẼ phải có những gì', để việc nạp kiểm chứng được là đầy đủ hay còn thiếu. Mỗi ô là một lát cắt của kho (loại văn bản × cơ quan × khoảng năm × trạng thái). Nạp theo thứ tự uu_tien tăng dần. so_luong_ky_vong để trống nghĩa là chưa đếm được từ nguồn; bộ đối soát sẽ tự điền sau lần cào danh mục đầu tiên.",
+  "cap_nhat": "2026-09-06",
+  "can_cu_thu_bac": "Điều 4 Luật Ban hành văn bản quy phạm pháp luật 2025 (64/2025/QH15), sửa đổi bởi Luật 87/2025/QH15",
+  "o": [
+    {
+      "ma": "ha-tang-phap-ly",
+      "nhom": "ha_tang_phap_ly",
+      "uu_tien": 1,
+      "nguon": "congbao",
+      "chi_con_hieu_luc": false,
+      "so_luong_ky_vong": 7,
+      "ghi_chu": "Văn bản điều chỉnh chính việc ban hành, hiệu lực, hợp nhất, pháp điển. Hệ thống phải mô hình hóa đúng các quy tắc này trước khi nạp phần còn lại. Danh sách cụ thể ở data/backfill/priority.json nhóm ưu tiên 1."
+    },
+    {
+      "ma": "hien-phap",
+      "nhom": "hien_phap",
+      "uu_tien": 2,
+      "doc_type": "hp",
+      "co_quan": "Quốc hội",
+      "chi_con_hieu_luc": false,
+      "nguon": "congbao",
+      "so_luong_ky_vong": 1,
+      "ghi_chu": "Hiến pháp 2013 và các nghị quyết sửa đổi."
+    },
+
+    { "ma": "luat-2020-2026", "nhom": "luat", "uu_tien": 10, "doc_type": "l", "co_quan": "Quốc hội", "nam_tu": 2020, "nam_den": 2026, "nguon": "congbao" },
+    { "ma": "bo-luat-con-hieu-luc", "nhom": "luat", "uu_tien": 11, "doc_type": "bl", "co_quan": "Quốc hội", "nguon": "congbao" },
+    { "ma": "luat-2015-2019", "nhom": "luat", "uu_tien": 12, "doc_type": "l", "co_quan": "Quốc hội", "nam_tu": 2015, "nam_den": 2019, "nguon": "congbao" },
+    { "ma": "luat-truoc-2015", "nhom": "luat", "uu_tien": 13, "doc_type": "l", "co_quan": "Quốc hội", "nam_den": 2014, "nguon": "congbao" },
+    { "ma": "nghi-quyet-qh", "nhom": "luat", "uu_tien": 14, "doc_type": "nq-qh", "co_quan": "Quốc hội", "nguon": "congbao" },
+
+    { "ma": "phap-lenh", "nhom": "ubtvqh", "uu_tien": 20, "doc_type": "pl", "co_quan": "Ủy ban Thường vụ Quốc hội", "chi_con_hieu_luc": false, "nguon": "congbao" },
+    { "ma": "nghi-quyet-ubtvqh", "nhom": "ubtvqh", "uu_tien": 21, "doc_type": "nq-ubtvqh", "co_quan": "Ủy ban Thường vụ Quốc hội", "nguon": "congbao" },
+
+    { "ma": "lenh-qd-ctn", "nhom": "chu_tich_nuoc", "uu_tien": 30, "doc_type": "lenh", "co_quan": "Chủ tịch nước", "nguon": "congbao" },
+
+    { "ma": "nghi-dinh-2024-2026", "nhom": "nghi_dinh", "uu_tien": 40, "doc_type": "nd", "co_quan": "Chính phủ", "nam_tu": 2024, "nam_den": 2026, "nguon": "congbao" },
+    { "ma": "nghi-dinh-2019-2023", "nhom": "nghi_dinh", "uu_tien": 41, "doc_type": "nd", "co_quan": "Chính phủ", "nam_tu": 2019, "nam_den": 2023, "nguon": "congbao" },
+    { "ma": "nghi-dinh-truoc-2019", "nhom": "nghi_dinh", "uu_tien": 42, "doc_type": "nd", "co_quan": "Chính phủ", "nam_den": 2018, "nguon": "congbao" },
+    { "ma": "nghi-quyet-cp", "nhom": "nghi_dinh", "uu_tien": 43, "doc_type": "nq-cp", "co_quan": "Chính phủ", "nguon": "congbao" },
+
+    { "ma": "qd-ttg-2020-2026", "nhom": "thu_tuong", "uu_tien": 50, "doc_type": "qd-ttg", "co_quan": "Thủ tướng Chính phủ", "nam_tu": 2020, "nam_den": 2026, "nguon": "congbao" },
+    { "ma": "qd-ttg-truoc-2020", "nhom": "thu_tuong", "uu_tien": 51, "doc_type": "qd-ttg", "co_quan": "Thủ tướng Chính phủ", "nam_den": 2019, "nguon": "congbao" },
+
+    { "ma": "nq-hdtp-tandtc", "nhom": "tu_phap", "uu_tien": 60, "doc_type": "nq-hdtp", "co_quan": "Hội đồng Thẩm phán Tòa án nhân dân tối cao", "nguon": "congbao" },
+
+    { "ma": "tt-bkhcn", "nhom": "thong_tu", "uu_tien": 70, "doc_type": "tt", "co_quan": "Bộ Khoa học và Công nghệ", "nguon": "congbao", "ghi_chu": "Gồm cả thông tư do Bộ Thông tin và Truyền thông ban hành trước sáp nhập 2025." },
+    { "ma": "tt-btc", "nhom": "thong_tu", "uu_tien": 71, "doc_type": "tt", "co_quan": "Bộ Tài chính", "nguon": "congbao", "ghi_chu": "Gồm cả thông tư của Bộ Kế hoạch và Đầu tư trước sáp nhập 2025." },
+    { "ma": "tt-btp", "nhom": "thong_tu", "uu_tien": 72, "doc_type": "tt", "co_quan": "Bộ Tư pháp", "nguon": "congbao" },
+    { "ma": "tt-bxd", "nhom": "thong_tu", "uu_tien": 73, "doc_type": "tt", "co_quan": "Bộ Xây dựng", "nguon": "congbao" },
+    { "ma": "tt-bca", "nhom": "thong_tu", "uu_tien": 74, "doc_type": "tt", "co_quan": "Bộ Công an", "nguon": "congbao" },
+    { "ma": "tt-bnv", "nhom": "thong_tu", "uu_tien": 75, "doc_type": "tt", "co_quan": "Bộ Nội vụ", "nguon": "congbao" },
+    { "ma": "tt-byt", "nhom": "thong_tu", "uu_tien": 76, "doc_type": "tt", "co_quan": "Bộ Y tế", "nguon": "congbao" },
+    { "ma": "tt-bct", "nhom": "thong_tu", "uu_tien": 77, "doc_type": "tt", "co_quan": "Bộ Công Thương", "nguon": "congbao" },
+    { "ma": "tt-bnnmt", "nhom": "thong_tu", "uu_tien": 78, "doc_type": "tt", "co_quan": "Bộ Nông nghiệp và Môi trường", "nguon": "congbao" },
+    { "ma": "tt-bgddt", "nhom": "thong_tu", "uu_tien": 79, "doc_type": "tt", "co_quan": "Bộ Giáo dục và Đào tạo", "nguon": "congbao" },
+    { "ma": "tt-con-lai", "nhom": "thong_tu", "uu_tien": 85, "doc_type": "tt", "nguon": "congbao", "ghi_chu": "Các bộ, cơ quan ngang bộ còn lại." },
+    { "ma": "ttlt", "nhom": "thong_tu", "uu_tien": 86, "doc_type": "ttlt", "nguon": "congbao" },
+
+    { "ma": "vbhn-chinh-thuc", "nhom": "hop_nhat", "uu_tien": 90, "doc_type": "vbhn", "chi_con_hieu_luc": false, "nguon": "congbao", "ghi_chu": "Văn bản hợp nhất do cơ quan nhà nước ban hành. Dùng để đối chiếu với bản hợp nhất tự động của hệ thống." },
+
+    { "ma": "gtdb-ghi-chu", "nhom": "gtdb", "uu_tien": 81, "nguon": "congbao", "so_luong_ky_vong": 0, "ghi_chu": "LĨNH VỰC GIAO THÔNG ĐƯỜNG BỘ — các ô gtdb-* là ô theo lĩnh vực: bước phát hiện quét trọn danh mục từng loại rồi chỉ giữ mục có tiêu đề khớp tu_khoa (định nghĩa gốc ở apps/workers-ts/src/crawler/tu-khoa.ts). Ô này chỉ là ghi chú, doc_type trống nên không sinh job." },
+    { "ma": "gtdb-luat", "nhom": "gtdb", "uu_tien": 82, "doc_type": "l", "chi_con_hieu_luc": false, "nguon": "congbao", "tu_khoa": ["giao thông đường bộ", "đường bộ", "trật tự, an toàn giao thông", "an toàn giao thông", "cảnh sát giao thông", "tuần tra, kiểm soát", "tai nạn giao thông", "giấy phép lái xe", "sát hạch lái xe", "đào tạo lái xe", "đăng ký xe", "biển số xe", "xe cơ giới", "xe ô tô", "xe mô tô", "xe gắn máy", "xe máy chuyên dùng", "phương tiện giao thông", "đường cao tốc", "báo hiệu đường bộ", "thiết bị giám sát hành trình", "nồng độ cồn", "tải trọng xe", "xử lý vi phạm hành chính"], "loai_tru": ["thuế tiêu thụ đặc biệt", "hải quan", "nhập khẩu", "xuất khẩu", "đường thủy nội địa", "hàng không dân dụng", "hàng hải", "lệ phí trước bạ", "định mức sử dụng xe ô tô"], "ghi_chu": "Luật Đường bộ, Luật Trật tự, an toàn giao thông đường bộ, Luật GTĐB 2008, Luật XLVPHC" },
+    { "ma": "gtdb-phap-lenh", "nhom": "gtdb", "uu_tien": 83, "doc_type": "pl", "chi_con_hieu_luc": false, "nguon": "congbao", "tu_khoa": ["giao thông đường bộ", "đường bộ", "trật tự, an toàn giao thông", "an toàn giao thông", "cảnh sát giao thông", "tuần tra, kiểm soát", "tai nạn giao thông", "giấy phép lái xe", "sát hạch lái xe", "đào tạo lái xe", "đăng ký xe", "biển số xe", "xe cơ giới", "xe ô tô", "xe mô tô", "xe gắn máy", "xe máy chuyên dùng", "phương tiện giao thông", "đường cao tốc", "báo hiệu đường bộ", "thiết bị giám sát hành trình", "nồng độ cồn", "tải trọng xe", "xử lý vi phạm hành chính"], "loai_tru": ["thuế tiêu thụ đặc biệt", "hải quan", "nhập khẩu", "xuất khẩu", "đường thủy nội địa", "hàng không dân dụng", "hàng hải", "lệ phí trước bạ", "định mức sử dụng xe ô tô"], "ghi_chu": "Pháp lệnh liên quan (nếu có)" },
+    { "ma": "gtdb-nghi-dinh", "nhom": "gtdb", "uu_tien": 84, "doc_type": "nd", "chi_con_hieu_luc": false, "nguon": "congbao", "tu_khoa": ["giao thông đường bộ", "đường bộ", "trật tự, an toàn giao thông", "an toàn giao thông", "cảnh sát giao thông", "tuần tra, kiểm soát", "tai nạn giao thông", "giấy phép lái xe", "sát hạch lái xe", "đào tạo lái xe", "đăng ký xe", "biển số xe", "xe cơ giới", "xe ô tô", "xe mô tô", "xe gắn máy", "xe máy chuyên dùng", "phương tiện giao thông", "đường cao tốc", "báo hiệu đường bộ", "thiết bị giám sát hành trình", "nồng độ cồn", "tải trọng xe", "xử lý vi phạm hành chính"], "loai_tru": ["thuế tiêu thụ đặc biệt", "hải quan", "nhập khẩu", "xuất khẩu", "đường thủy nội địa", "hàng không dân dụng", "hàng hải", "lệ phí trước bạ", "định mức sử dụng xe ô tô"], "ghi_chu": "Nghị định quy định chi tiết, xử phạt, vận tải, đăng ký xe, hạ tầng" },
+    { "ma": "gtdb-nghi-quyet", "nhom": "gtdb", "uu_tien": 85, "doc_type": "nq-cp", "chi_con_hieu_luc": false, "nguon": "congbao", "tu_khoa": ["giao thông đường bộ", "đường bộ", "trật tự, an toàn giao thông", "an toàn giao thông", "cảnh sát giao thông", "tuần tra, kiểm soát", "tai nạn giao thông", "giấy phép lái xe", "sát hạch lái xe", "đào tạo lái xe", "đăng ký xe", "biển số xe", "xe cơ giới", "xe ô tô", "xe mô tô", "xe gắn máy", "xe máy chuyên dùng", "phương tiện giao thông", "đường cao tốc", "báo hiệu đường bộ", "thiết bị giám sát hành trình", "nồng độ cồn", "tải trọng xe", "xử lý vi phạm hành chính"], "loai_tru": ["thuế tiêu thụ đặc biệt", "hải quan", "nhập khẩu", "xuất khẩu", "đường thủy nội địa", "hàng không dân dụng", "hàng hải", "lệ phí trước bạ", "định mức sử dụng xe ô tô"], "ghi_chu": "Nghị quyết của Chính phủ/Quốc hội về an toàn giao thông" },
+    { "ma": "gtdb-quyet-dinh", "nhom": "gtdb", "uu_tien": 86, "doc_type": "qd-ttg", "chi_con_hieu_luc": false, "nguon": "congbao", "tu_khoa": ["giao thông đường bộ", "đường bộ", "trật tự, an toàn giao thông", "an toàn giao thông", "cảnh sát giao thông", "tuần tra, kiểm soát", "tai nạn giao thông", "giấy phép lái xe", "sát hạch lái xe", "đào tạo lái xe", "đăng ký xe", "biển số xe", "xe cơ giới", "xe ô tô", "xe mô tô", "xe gắn máy", "xe máy chuyên dùng", "phương tiện giao thông", "đường cao tốc", "báo hiệu đường bộ", "thiết bị giám sát hành trình", "nồng độ cồn", "tải trọng xe", "xử lý vi phạm hành chính"], "loai_tru": ["thuế tiêu thụ đặc biệt", "hải quan", "nhập khẩu", "xuất khẩu", "đường thủy nội địa", "hàng không dân dụng", "hàng hải", "lệ phí trước bạ", "định mức sử dụng xe ô tô"], "ghi_chu": "Quyết định của Thủ tướng và bộ trưởng về giao thông đường bộ" },
+    { "ma": "gtdb-thong-tu", "nhom": "gtdb", "uu_tien": 87, "doc_type": "tt", "chi_con_hieu_luc": false, "nguon": "congbao", "tu_khoa": ["giao thông đường bộ", "đường bộ", "trật tự, an toàn giao thông", "an toàn giao thông", "cảnh sát giao thông", "tuần tra, kiểm soát", "tai nạn giao thông", "giấy phép lái xe", "sát hạch lái xe", "đào tạo lái xe", "đăng ký xe", "biển số xe", "xe cơ giới", "xe ô tô", "xe mô tô", "xe gắn máy", "xe máy chuyên dùng", "phương tiện giao thông", "đường cao tốc", "báo hiệu đường bộ", "thiết bị giám sát hành trình", "nồng độ cồn", "tải trọng xe", "xử lý vi phạm hành chính"], "loai_tru": ["thuế tiêu thụ đặc biệt", "hải quan", "nhập khẩu", "xuất khẩu", "đường thủy nội địa", "hàng không dân dụng", "hàng hải", "lệ phí trước bạ", "định mức sử dụng xe ô tô"], "ghi_chu": "Thông tư Bộ Công an, Bộ Xây dựng (GTVT cũ), Bộ Tài chính, Bộ Y tế" },
+    { "ma": "gtdb-thong-tu-lien-tich", "nhom": "gtdb", "uu_tien": 88, "doc_type": "ttlt", "chi_con_hieu_luc": false, "nguon": "congbao", "tu_khoa": ["giao thông đường bộ", "đường bộ", "trật tự, an toàn giao thông", "an toàn giao thông", "cảnh sát giao thông", "tuần tra, kiểm soát", "tai nạn giao thông", "giấy phép lái xe", "sát hạch lái xe", "đào tạo lái xe", "đăng ký xe", "biển số xe", "xe cơ giới", "xe ô tô", "xe mô tô", "xe gắn máy", "xe máy chuyên dùng", "phương tiện giao thông", "đường cao tốc", "báo hiệu đường bộ", "thiết bị giám sát hành trình", "nồng độ cồn", "tải trọng xe", "xử lý vi phạm hành chính"], "loai_tru": ["thuế tiêu thụ đặc biệt", "hải quan", "nhập khẩu", "xuất khẩu", "đường thủy nội địa", "hàng không dân dụng", "hàng hải", "lệ phí trước bạ", "định mức sử dụng xe ô tô"], "ghi_chu": "Thông tư liên tịch còn giá trị tra cứu" },
+    { "ma": "gtdb-van-ban-hop-nhat", "nhom": "gtdb", "uu_tien": 89, "doc_type": "vbhn", "chi_con_hieu_luc": false, "nguon": "congbao", "tu_khoa": ["giao thông đường bộ", "đường bộ", "trật tự, an toàn giao thông", "an toàn giao thông", "cảnh sát giao thông", "tuần tra, kiểm soát", "tai nạn giao thông", "giấy phép lái xe", "sát hạch lái xe", "đào tạo lái xe", "đăng ký xe", "biển số xe", "xe cơ giới", "xe ô tô", "xe mô tô", "xe gắn máy", "xe máy chuyên dùng", "phương tiện giao thông", "đường cao tốc", "báo hiệu đường bộ", "thiết bị giám sát hành trình", "nồng độ cồn", "tải trọng xe", "xử lý vi phạm hành chính"], "loai_tru": ["thuế tiêu thụ đặc biệt", "hải quan", "nhập khẩu", "xuất khẩu", "đường thủy nội địa", "hàng không dân dụng", "hàng hải", "lệ phí trước bạ", "định mức sử dụng xe ô tô"], "ghi_chu": "Văn bản hợp nhất chính thức của lĩnh vực" },
+
+    { "ma": "dp-thanh-hoa-nq", "nhom": "dia_phuong", "uu_tien": 100, "doc_type": "nq-hdnd-t", "co_quan": "Hội đồng nhân dân tỉnh Thanh Hóa", "nguon": "vbpl" },
+    { "ma": "dp-thanh-hoa-qd", "nhom": "dia_phuong", "uu_tien": 101, "doc_type": "qd-ubnd-t", "co_quan": "Ủy ban nhân dân tỉnh Thanh Hóa", "nguon": "vbpl" },
+
+    { "ma": "chuyen-de-cds", "nhom": "chuyen_de", "uu_tien": 5, "chi_con_hieu_luc": false, "nguon": "congbao", "so_luong_ky_vong": 16, "ghi_chu": "Nhóm văn bản của chuyên đề đào tạo mẫu: Luật Chuyển đổi số 148/2025/QH15, NĐ 224/2026, NĐ 225/2026, TT 39/2026 và 41/2026 của Bộ KH&CN, NĐ 45/2026 và các văn bản đã hết hiệu lực cần cho dự án chuyển tiếp, Luật Đầu tư công, Luật Đấu thầu và văn bản hướng dẫn. Danh sách cụ thể ở data/backfill/priority.json nhóm ưu tiên 3." }
+  ]
+}

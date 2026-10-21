@@ -1,0 +1,32 @@
+{
+  "name": "@qdpl/workers",
+  "version": "0.1.0",
+  "type": "module",
+  "main": "src/index.ts",
+  "scripts": {
+    "dev": "bun src/worker.ts",
+    "pipeline": "bun src/cli.ts",
+    "typecheck": "tsc --noEmit -p tsconfig.json",
+    "test": "bun test"
+  },
+  "dependencies": {
+    "@qdpl/citation": "workspace:*",
+    "@qdpl/config": "workspace:*",
+    "@qdpl/db": "workspace:*",
+    "@qdpl/legal-model": "workspace:*",
+    "@qdpl/llm": "workspace:*",
+    "@qdpl/queue": "workspace:*",
+    "@qdpl/search": "workspace:*",
+    "@qdpl/sohoa": "workspace:*",
+    "@qdpl/storage": "workspace:*",
+    "bullmq": "^5.63.0",
+    "ioredis": "^5.9.0",
+    "node-html-parser": "^7.0.1",
+    "playwright-core": "^1.63.0",
+    "puppeteer-core": "^25.10.0",
+    "web-push": "^3.6.7"
+  },
+  "devDependencies": {
+    "@types/web-push": "^3.6.4"
+  }
+}

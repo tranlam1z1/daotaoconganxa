@@ -1,0 +1,31 @@
+{
+  "rules": [
+    {
+      "id": "qdpl-doc-doi-tuong",
+      "allowed": {
+        "origins": [
+          "http://localhost:3030",
+          "http://127.0.0.1:3030",
+          "https://qdpl.dmst.vn",
+          "https://quydinhphapluat.vn",
+          "https://www.quydinhphapluat.vn"
+        ],
+        "methods": [
+          "GET",
+          "HEAD"
+        ],
+        "headers": [
+          "Range",
+          "Content-Type"
+        ]
+      },
+      "exposeHeaders": [
+        "Content-Length",
+        "Content-Range",
+        "Accept-Ranges",
+        "ETag"
+      ],
+      "maxAgeSeconds": 3600
+    }
+  ]
+}

@@ -1,0 +1,358 @@
+{
+  "tieu_de": "Hướng dẫn sử dụng Quy định Pháp luật",
+  "chuong": [
+    {
+      "id": "lam-quen",
+      "tieu_de": "Làm quen với hệ thống",
+      "tom_tat": "Bố cục chung của các trang, trang chủ, đăng nhập và cách mở hướng dẫn.",
+      "bai": [
+        "giao-dien-chung",
+        "trang-chu",
+        "dang-nhap-tai-khoan",
+        "su-dung-huong-dan"
+      ]
+    },
+    {
+      "id": "tra-cuu",
+      "tieu_de": "Tra cứu và đọc văn bản",
+      "tom_tat": "Tìm văn bản, đọc toàn văn theo thời điểm, xem thuộc tính, lược đồ, phiên bản và so sánh.",
+      "bai": [
+        "tim-kiem",
+        "doc-van-ban",
+        "thuoc-tinh-van-ban",
+        "luoc-do-van-ban",
+        "phien-ban-van-ban",
+        "so-sanh-van-ban"
+      ]
+    },
+    {
+      "id": "van-dung",
+      "tieu_de": "Hỏi đáp và trường hợp ứng dụng",
+      "tom_tat": "Đặt câu hỏi có trích dẫn và tra cứu tình huống áp dụng.",
+      "bai": [
+        "hoi-dap",
+        "truong-hop-ung-dung"
+      ]
+    },
+    {
+      "id": "dao-tao",
+      "tieu_de": "Đào tạo chuyên đề",
+      "tom_tat": "Chọn chuyên đề, học bài, làm bài tập, theo dõi tiến độ và ôn tập.",
+      "bai": [
+        "danh-muc-dao-tao",
+        "lo-trinh-chuyen-de",
+        "hoc-bai",
+        "tien-do-hoc-tap",
+        "on-tap",
+        "va-loi"
+      ]
+    },
+    {
+      "id": "quan-tri",
+      "tieu_de": "Quản trị đào tạo",
+      "tom_tat": "Dành cho biên tập viên và quản trị viên: tổng quan và chuyên đề.",
+      "bai": [
+        "quan-tri-tong-quan",
+        "quan-tri-chuyen-de"
+      ]
+    }
+  ],
+  "khong_can_huong_dan": [
+    {
+      "route": "routes/not-found.tsx",
+      "ly_do": "Trang báo đường dẫn không tồn tại."
+    },
+    {
+      "route": "routes/doi-mat-khau.tsx",
+      "ly_do": "Tạm miễn: một biểu mẫu ba ô, có sẵn chú thích quy tắc mật khẩu; viết bài cùng đợt cập nhật hướng dẫn sau GĐ2 (docs/PLAN.md)."
+    },
+    {
+      "route": "routes/tra-cuu-nhanh.bien-bao.tsx",
+      "ly_do": "Tạm miễn: tra cứu biển báo mới dựng ở GĐ12, dữ liệu còn là bản nháp chờ đối chiếu QCVN 41:2024/BGTVT; viết bài kèm ảnh khi có dữ liệu đã duyệt (docs/PLAN.md)."
+    },
+    {
+      "route": "routes/tro-choi.doan-bien-bao.tsx",
+      "ly_do": "Chỉ chuyển hướng về Cung đường biển báo (GĐ-G8): đoán biển báo đã thành phần khởi động của trò này."
+    },
+    {
+      "route": "routes/tro-choi.hoi-nhanh-giong-noi.tsx",
+      "ly_do": "Tạm miễn: game hỏi nhanh bằng giọng nói mới dựng ở GĐ14, cách chơi ghi ngay trên màn hình bắt đầu; viết bài kèm ảnh sau đợt soát tay trên Chrome Android và Safari iOS (docs/PLAN.md)."
+    },
+    {
+      "route": "routes/tro-choi._index.tsx",
+      "ly_do": "Tạm miễn: trang chọn trò chơi dạng lưới biểu tượng, chạm một biểu tượng mở ngăn chi tiết có mô tả và nút chơi; viết bài kèm ảnh khi khách hàng chốt danh sách game (GAP 4.4-19, docs/PLAN.md)."
+    },
+    {
+      "route": "routes/tro-choi.vuot-man.tsx",
+      "ly_do": "Tạm miễn: bản đồ màn của trò chơi vượt màn mới dựng ở GĐ10; viết bài kèm ảnh khi khách hàng chốt danh sách game (docs/PLAN.md)."
+    },
+    {
+      "route": "routes/tro-choi.dua-thoi-gian.tsx",
+      "ly_do": "Tạm miễn: trò chơi đua thời gian mới dựng ở GĐ10, cách chơi ghi ngay trên màn hình bắt đầu (docs/PLAN.md)."
+    },
+    {
+      "route": "routes/tro-choi.ghep-cap.tsx",
+      "ly_do": "Tạm miễn: trò chơi ghép lỗi với mức phạt mới dựng ở GĐ10, cách chơi ghi ngay trên bảng ghép (docs/PLAN.md)."
+    },
+    {
+      "route": "routes/nhom.tsx",
+      "ly_do": "Tạm miễn: danh sách nhóm học cùng mới dựng ở GĐ16b, hai nút Tạo nhóm và Nhập mã mời có chú thích ngay trong hộp thoại; viết bài kèm ảnh cùng trang quản lý nhóm ở GĐ16c (docs/PLAN.md)."
+    },
+    {
+      "route": "routes/nhom.chi-tiet.tsx",
+      "ly_do": "Tạm miễn: trang một nhóm học cùng mới dựng ở GĐ16b; hậu quả của mỗi thao tác ghi trong hộp xác nhận. Viết bài kèm ảnh cùng trang quản lý nhóm ở GĐ16c (docs/PLAN.md)."
+    },
+    {
+      "route": "routes/nhom.tham-gia.tsx",
+      "ly_do": "Tạm miễn: trang đích của liên kết mời, một nút Tham gia nhóm kèm câu nêu quyền riêng tư; viết bài cùng các trang nhóm học cùng ở GĐ16c (docs/PLAN.md)."
+    },
+    {
+      "route": "routes/luyen-tap._index.tsx",
+      "ly_do": "Tạm miễn: trang chọn chủ đề luyện tập mới dựng ở GĐ4, mỗi thẻ là một nút; viết bài kèm ảnh khi giao diện người học ổn định sau mốc M1 (docs/PLAN.md)."
+    },
+    {
+      "route": "routes/luyen-tap.phien.tsx",
+      "ly_do": "Tạm miễn: màn hình làm từng câu luyện tập mới dựng ở GĐ4; viết bài kèm ảnh sau mốc M1 (docs/PLAN.md)."
+    },
+    {
+      "route": "routes/luyen-tap.ket-qua.tsx",
+      "ly_do": "Tạm miễn: trang kết quả luyện tập mới dựng ở GĐ4; viết bài kèm ảnh sau mốc M1 (docs/PLAN.md)."
+    },
+    {
+      "route": "routes/luyen-tap.offline.tsx",
+      "ly_do": "Tạm miễn: luyện tập không cần mạng mới dựng ở GĐ13; trang có hướng dẫn tại chỗ, viết bài kèm ảnh sau khi soát trên iPhone và Android (docs/PLAN.md)."
+    },
+    {
+      "route": "routes/toi.tsx",
+      "ly_do": "Tạm miễn: trang Tôi (lịch sử luyện tập, câu sai) mới dựng ở GĐ4; viết bài kèm ảnh sau mốc M1 (docs/PLAN.md)."
+    },
+    {
+      "route": "routes/quan-tri.cau-hoi.tsx",
+      "ly_do": "Tạm miễn: màn hình ngân hàng câu hỏi mới dựng ở GĐ3; viết bài kèm ảnh khi giao diện quản trị ổn định (docs/PLAN.md). Cách điền tệp nhập có sẵn ở trang Hướng dẫn của tệp mẫu."
+    },
+    {
+      "route": "routes/quan-tri.cau-hoi.sua.tsx",
+      "ly_do": "Tạm miễn: màn hình soạn và duyệt một câu hỏi mới dựng ở GĐ3; viết bài kèm ảnh khi giao diện quản trị ổn định (docs/PLAN.md)."
+    },
+    {
+      "route": "routes/quan-tri.don-vi.tsx",
+      "ly_do": "Tạm miễn: màn hình quản trị đơn vị mới dựng ở GĐ2; viết bài kèm ảnh khi giao diện quản trị ổn định (docs/PLAN.md)."
+    },
+    {
+      "route": "routes/quan-tri.nguoi-dung.tsx",
+      "ly_do": "Tạm miễn: màn hình quản trị người dùng và nhập Excel mới dựng ở GĐ2; viết bài kèm ảnh khi giao diện quản trị ổn định (docs/PLAN.md)."
+    },
+    {
+      "route": "routes/quan-tri.de-thi.tsx",
+      "ly_do": "Tạm miễn: danh sách đề thi mới dựng ở GĐ6; viết bài kèm ảnh khi giao diện quản trị ổn định (docs/PLAN.md)."
+    },
+    {
+      "route": "routes/quan-tri.de-thi.sua.tsx",
+      "ly_do": "Tạm miễn: màn hình soạn đề và ma trận mới dựng ở GĐ6; viết bài kèm ảnh khi giao diện quản trị ổn định (docs/PLAN.md)."
+    },
+    {
+      "route": "routes/quan-tri.giao-bai.tsx",
+      "ly_do": "Tạm miễn: màn hình giao bài thi mới dựng ở GĐ6; viết bài kèm ảnh khi giao diện quản trị ổn định (docs/PLAN.md)."
+    },
+    {
+      "route": "routes/quan-tri.bao-cao.tsx",
+      "ly_do": "Tạm miễn: màn hình báo cáo và xuất Excel/PDF mới dựng ở GĐ7; viết bài kèm ảnh sau buổi demo M2 (docs/PLAN.md)."
+    },
+    {
+      "route": "routes/quan-tri.bao-cao.can-bo.tsx",
+      "ly_do": "Tạm miễn: hồ sơ học tập của một cán bộ mới dựng cùng đợt sắp xếp lại trang Báo cáo; viết bài kèm ảnh cùng bài hướng dẫn Báo cáo."
+    },
+    {
+      "route": "routes/thi._index.tsx",
+      "ly_do": "Tạm miễn: mục Thi của cán bộ mới dựng ở GĐ6; viết bài kèm ảnh cùng trang làm bài và kết quả khi có dữ liệu thi thật (docs/PLAN.md)."
+    },
+    {
+      "route": "routes/thi.luot.tsx",
+      "ly_do": "Tạm miễn: trang làm bài có hướng dẫn tại chỗ (đồng hồ, lưới câu, xác nhận nộp); viết bài kèm ảnh cùng mục Thi (docs/PLAN.md GĐ6)."
+    },
+    {
+      "route": "routes/thi.ket-qua.tsx",
+      "ly_do": "Tạm miễn: trang kết quả thi; viết bài kèm ảnh cùng mục Thi (docs/PLAN.md GĐ6)."
+    },
+    {
+      "route": "routes/bang-xep-hang.tsx",
+      "ly_do": "Tạm miễn: bảng xếp hạng mới dựng ở GĐ9, luật tính điểm còn chờ khách hàng chốt (GAP 4.4-19); viết bài kèm ảnh khi chốt (docs/PLAN.md)."
+    },
+    {
+      "route": "routes/tra-cuu.tsx",
+      "ly_do": "Trang chọn giữa tra văn bản và tra cứu nhanh, chỉ gồm liên kết. Viết bài khi cập nhật bộ hướng dẫn sau đợt dựng lại giao diện (docs/PLAN.md GĐ1, GĐ5)."
+    },
+    {
+      "route": "routes/tra-cuu-nhanh._index.tsx",
+      "ly_do": "Trang ba ô dẫn tới Mức phạt, Tốc độ, Quy trình, chỉ gồm liên kết (docs/PLAN.md GĐ5)."
+    },
+    {
+      "route": "routes/tra-cuu-nhanh.muc-phat.tsx",
+      "ly_do": "Tạm miễn: dữ liệu tra cứu nhanh còn là bản nháp chờ đối chiếu; viết bài kèm ảnh khi dữ liệu được duyệt (docs/PLAN.md GĐ5)."
+    },
+    {
+      "route": "routes/tra-cuu-nhanh.toc-do.tsx",
+      "ly_do": "Tạm miễn: dữ liệu tra cứu nhanh còn là bản nháp chờ đối chiếu; viết bài kèm ảnh khi dữ liệu được duyệt (docs/PLAN.md GĐ5)."
+    },
+    {
+      "route": "routes/tra-cuu-nhanh.quy-trinh.tsx",
+      "ly_do": "Tạm miễn: quy trình còn là bản nháp chờ khách hàng xác nhận (GAP 4.5-25); viết bài kèm ảnh khi được duyệt (docs/PLAN.md GĐ5)."
+    },
+    {
+      "route": "routes/tra-cuu-nhanh.bieu-mau.tsx",
+      "ly_do": "Tạm miễn: trang mở một biểu mẫu chỉ có tên, phân loại và nút mở, tải tệp; viết bài kèm ảnh cùng trang Quy trình, Biểu mẫu khi có biểu mẫu được duyệt."
+    },
+    {
+      "route": "routes/tro-choi.luot.tsx",
+      "ly_do": "Tạm miễn: màn chơi một lượt trên khung trò chơi chung mới dựng ở GĐ-G0, cách chơi ghi ngay trên màn hình; viết bài kèm ảnh khi có trò chơi thật ở GĐ-G1 (docs/PLAN.md)."
+    },
+    {
+      "route": "routes/tro-choi.offline.tsx",
+      "ly_do": "Tạm miễn: chơi trò chơi khi không có mạng mới dựng ở GĐ-G0; trang có hướng dẫn tại chỗ, viết bài kèm ảnh sau khi soát trên iPhone và Android (docs/PLAN.md)."
+    },
+    {
+      "route": "routes/quan-tri.noi-dung-tro-choi.tsx",
+      "ly_do": "Tạm miễn: danh sách nội dung trò chơi mới dựng ở GĐ-G0; viết bài kèm ảnh khi có trò chơi dùng nội dung soạn tay (docs/PLAN.md)."
+    },
+    {
+      "route": "routes/quan-tri.noi-dung-tro-choi.sua.tsx",
+      "ly_do": "Tạm miễn: màn hình soạn và duyệt nội dung trò chơi mới dựng ở GĐ-G0, còn soạn dạng JSON; viết bài khi có trình soạn riêng của từng trò (docs/PLAN.md)."
+    },
+    {
+      "route": "routes/quan-tri.du-lieu-tra-cuu.tsx",
+      "ly_do": "Tạm miễn: màn hình duyệt mức phạt, biển báo, quy trình mới dựng ở GĐ-G0; viết bài kèm ảnh khi giao diện quản trị ổn định (docs/PLAN.md)."
+    },
+    {
+      "route": "routes/game-style-demo.tsx",
+      "ly_do": "Trang nội bộ để duyệt phong cách và hiệu ứng trò chơi (docs/VISUAL_STYLE.md), không có trong menu, không dành cho người học."
+    },
+    {
+      "route": "routes/xem-bieu-tuong.tsx",
+      "ly_do": "Trang xem trước bộ biểu tượng cho người phát triển (docs/PROMPT_BO_ICON.md), chỉ bật ở môi trường dev, không có trong menu."
+    },
+    {
+      "route": "routes/tro-choi.cung-duong-bien-bao.tsx",
+      "ly_do": "Tạm miễn: trò Cung đường biển báo mới dựng ở GĐ-G8, luật chơi ghi ngay trên trang giới thiệu; dữ liệu biển còn là bản nháp chờ đối chiếu QCVN 41:2024/BGTVT. Viết bài kèm ảnh khi có dữ liệu đã duyệt (docs/PLAN.md)."
+    },
+    {
+      "route": "routes/tro-choi.lap-bien-ban.tsx",
+      "ly_do": "Tạm miễn: trò Lập biên bản mới dựng ở GĐ-G3, luật chơi ghi ngay trên trang giới thiệu; bảng mức phạt còn là bản nháp chờ đối chiếu Nghị định số 168/2024/NĐ-CP. Viết bài kèm ảnh khi có dữ liệu đã duyệt (docs/luu-tru/PLAN_TRO_CHOI_CU.md)."
+    },
+    {
+      "route": "routes/quan-tri.mua-giai.tsx",
+      "ly_do": "Tạm miễn: màn hình quản trị mùa giải đơn vị mới dựng ở GĐ-G6, chỉ quản trị viên dùng; cấu hình mùa còn chờ chốt (GAME_DESIGN câu Q11, D2). Viết bài kèm ảnh khi chốt (docs/luu-tru/PLAN_TRO_CHOI_CU.md)."
+    },
+    {
+      "route": "routes/quan-tri.nhom.tsx",
+      "ly_do": "Tạm miễn: danh sách nhóm học cùng cho cán bộ quản lý mới dựng ở GĐ16c, trang có câu giải thích phạm vi tại chỗ; viết bài kèm ảnh cùng các trang nhóm của người học ở GĐ16b (docs/PLAN.md)."
+    },
+    {
+      "route": "routes/quan-tri.nhom.chi-tiet.tsx",
+      "ly_do": "Tạm miễn: trang tiến độ một nhóm học cùng cho cán bộ quản lý mới dựng ở GĐ16c, cách tính phần trăm ghi dưới bảng; viết bài kèm ảnh cùng các trang nhóm của người học ở GĐ16b (docs/PLAN.md)."
+    },
+    {
+      "route": "routes/dang-ky.tsx",
+      "ly_do": "Tạm miễn: biểu mẫu đăng ký tài khoản mới dựng, có chú thích ngay dưới từng ô; viết bài kèm ảnh cùng đợt cập nhật bài Đăng nhập và tài khoản (docs/PLAN.md)."
+    },
+    {
+      "route": "routes/quan-tri.du-lieu-tra-cuu.moi.tsx",
+      "ly_do": "Tạm miễn: màn hình thêm mục dữ liệu tra cứu nhanh mới dựng; viết bài kèm ảnh cùng màn hình duyệt dữ liệu tra cứu khi giao diện quản trị ổn định (docs/PLAN.md)."
+    },
+    {
+      "route": "routes/quan-tri.van-ban.tsx",
+      "ly_do": "Tạm miễn: danh sách văn bản trong kho cho quản trị viên mới dựng; viết bài kèm ảnh khi giao diện quản trị ổn định (docs/PLAN.md)."
+    },
+    {
+      "route": "routes/quan-tri.van-ban.sua.tsx",
+      "ly_do": "Tạm miễn: màn hình thêm và sửa văn bản mới dựng; viết bài kèm ảnh khi giao diện quản trị ổn định (docs/PLAN.md)."
+    },
+    {
+      "route": "routes/quan-tri.chuyen-de.sua.tsx",
+      "ly_do": "Tạm miễn: màn hình thêm và sửa một chuyên đề mới dựng; viết bài kèm ảnh bổ sung vào bài Quản trị chuyên đề khi giao diện quản trị ổn định (docs/PLAN.md)."
+    },
+    {
+      "route": "routes/quan-tri.chuyen-de.bai.tsx",
+      "ly_do": "Tạm miễn: màn hình thêm và sửa một bài trong chuyên đề mới dựng; viết bài kèm ảnh bổ sung vào bài Quản trị chuyên đề khi giao diện quản trị ổn định (docs/PLAN.md)."
+    },
+    {
+      "route": "routes/cong-cu._index.tsx",
+      "ly_do": "Tạm miễn: công cụ nghiệp vụ mới dựng, trên trang đã có chú thích cách nhập và căn cứ; viết bài kèm ảnh cùng đợt cập nhật hướng dẫn cho bộ công cụ (docs/PLAN.md)."
+    },
+    {
+      "route": "routes/cong-cu.dia-gioi._index.tsx",
+      "ly_do": "Tạm miễn: công cụ nghiệp vụ mới dựng, trên trang đã có chú thích cách nhập và căn cứ; viết bài kèm ảnh cùng đợt cập nhật hướng dẫn cho bộ công cụ (docs/PLAN.md)."
+    },
+    {
+      "route": "routes/cong-cu.dia-gioi.thu-cong.tsx",
+      "ly_do": "Tạm miễn: công cụ nghiệp vụ mới dựng, trên trang đã có chú thích cách nhập và căn cứ; viết bài kèm ảnh cùng đợt cập nhật hướng dẫn cho bộ công cụ (docs/PLAN.md)."
+    },
+    {
+      "route": "routes/cong-cu.dia-gioi.vi-tri.tsx",
+      "ly_do": "Tạm miễn: công cụ nghiệp vụ mới dựng, trên trang đã có chú thích cách nhập và căn cứ; viết bài kèm ảnh cùng đợt cập nhật hướng dẫn cho bộ công cụ (docs/PLAN.md)."
+    },
+    {
+      "route": "routes/cong-cu.dia-gioi.dia-chi.tsx",
+      "ly_do": "Tạm miễn: công cụ nghiệp vụ mới dựng, trên trang đã có chú thích cách nhập và căn cứ; viết bài kèm ảnh cùng đợt cập nhật hướng dẫn cho bộ công cụ (docs/PLAN.md)."
+    },
+    {
+      "route": "routes/cong-cu.dia-gioi.tra-nguoc.tsx",
+      "ly_do": "Tạm miễn: công cụ nghiệp vụ mới dựng, trên trang đã có chú thích cách nhập và căn cứ; viết bài kèm ảnh cùng đợt cập nhật hướng dẫn cho bộ công cụ (docs/PLAN.md)."
+    },
+    {
+      "route": "routes/cong-cu.tinh-ngay-xu-ly.tsx",
+      "ly_do": "Tạm miễn: công cụ nghiệp vụ mới dựng, trên trang đã có chú thích cách nhập và căn cứ; viết bài kèm ảnh cùng đợt cập nhật hướng dẫn cho bộ công cụ (docs/PLAN.md)."
+    },
+    {
+      "route": "routes/cong-cu.xac-dinh-tuoi.tsx",
+      "ly_do": "Tạm miễn: công cụ nghiệp vụ mới dựng, trên trang đã có chú thích cách nhập và căn cứ; viết bài kèm ảnh cùng đợt cập nhật hướng dẫn cho bộ công cụ (docs/PLAN.md)."
+    },
+    {
+      "route": "routes/cong-cu.tinh-qua-tai.tsx",
+      "ly_do": "Tạm miễn: công cụ nghiệp vụ mới dựng, trên trang đã có chú thích cách nhập và căn cứ; viết bài kèm ảnh cùng đợt cập nhật hướng dẫn cho bộ công cụ (docs/PLAN.md)."
+    },
+    {
+      "route": "routes/cong-cu.coi-noi-thanh-thung.tsx",
+      "ly_do": "Tạm miễn: công cụ nghiệp vụ mới dựng, trên trang đã có chú thích cách nhập và căn cứ; viết bài kèm ảnh cùng đợt cập nhật hướng dẫn cho bộ công cụ (docs/PLAN.md)."
+    },
+    {
+      "route": "routes/cong-cu.qua-kho-hang-hoa.tsx",
+      "ly_do": "Tạm miễn: công cụ nghiệp vụ mới dựng, trên trang đã có chú thích cách nhập và căn cứ; viết bài kèm ảnh cùng đợt cập nhật hướng dẫn cho bộ công cụ (docs/PLAN.md)."
+    },
+    {
+      "route": "routes/cong-cu.do-dac-dien-tu.tsx",
+      "ly_do": "Tạm miễn: công cụ nghiệp vụ mới dựng, trên trang đã có chú thích cách nhập và căn cứ; viết bài kèm ảnh cùng đợt cập nhật hướng dẫn cho bộ công cụ (docs/PLAN.md)."
+    },
+    {
+      "route": "routes/cong-cu.loai-gplx.tsx",
+      "ly_do": "Tạm miễn: công cụ nghiệp vụ mới dựng, trên trang đã có chú thích cách nhập và căn cứ; viết bài kèm ảnh cùng đợt cập nhật hướng dẫn cho bộ công cụ (docs/PLAN.md)."
+    },
+    {
+      "route": "routes/cong-cu.nong-do-con.tsx",
+      "ly_do": "Tạm miễn: công cụ nghiệp vụ mới dựng, trên trang đã có chú thích cách nhập và căn cứ; viết bài kèm ảnh cùng đợt cập nhật hướng dẫn cho bộ công cụ (docs/PLAN.md)."
+    },
+    {
+      "route": "routes/cong-cu.tsx",
+      "ly_do": "Tạm miễn: công cụ nghiệp vụ mới dựng, trên trang đã có chú thích cách nhập và căn cứ; viết bài kèm ảnh cùng đợt cập nhật hướng dẫn cho bộ công cụ (docs/PLAN.md)."
+    },
+    {
+      "route": "routes/quan-tri.cham-tu-luan.tsx",
+      "ly_do": "Tạm miễn: hàng chấm tự luận của bài giảng mới dựng; viết bài kèm ảnh khi giao diện quản trị ổn định (docs/PLAN.md)."
+    },
+    {
+      "route": "routes/quan-tri.cham-tu-luan.de-thi.tsx",
+      "ly_do": "Tạm miễn: hàng chấm tự luận của đề thi mới dựng; viết bài kèm ảnh khi giao diện quản trị ổn định (docs/PLAN.md)."
+    },
+    {
+      "route": "routes/quan-tri.de-thi.tu-pdf.tsx",
+      "ly_do": "Tạm miễn: màn hình tạo đề thi từ tệp PDF mới dựng; viết bài kèm ảnh khi giao diện quản trị ổn định (docs/PLAN.md)."
+    },
+    {
+      "route": "routes/quan-tri.de-thi.ma-tran.tsx",
+      "ly_do": "Tạm miễn: màn hình ma trận đề thi mới dựng; viết bài kèm ảnh khi giao diện quản trị ổn định (docs/PLAN.md)."
+    },
+    {
+      "route": "routes/quan-tri.chuyen-de.tu-pdf.tsx",
+      "ly_do": "Tạm miễn: màn hình tạo chuyên đề từ tệp PDF mới dựng; viết bài kèm ảnh khi giao diện quản trị ổn định (docs/PLAN.md)."
+    }
+  ]
+}

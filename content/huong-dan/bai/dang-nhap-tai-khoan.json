@@ -1,0 +1,31 @@
+{
+  "tieu_de": "Đăng nhập và tài khoản",
+  "tom_tat": "Đăng nhập bằng tài khoản Google, xem vai trò được cấp, cấp token kết nối công cụ AI và đăng xuất.",
+  "routes": ["routes/dang-nhap.tsx", "routes/tai-khoan.tsx"],
+  "anh": [
+    {
+      "ten": "dang-nhap-trang",
+      "chu_thich": "Trang Đăng nhập",
+      "url": "/dang-nhap",
+      "vung": "main",
+      "danh_dau": [
+        { "o": "main h1 + p", "ghi_chu": "Việc cần đăng nhập", "huong": "phai" },
+        { "o": "main h1 + p + div", "ghi_chu": "Đăng nhập bằng tài khoản Google", "huong": "phai" },
+        { "o": "main >> text=Hệ thống chỉ lưu email", "ghi_chu": "Thông tin tài khoản được lưu", "huong": "phai" }
+      ]
+    },
+    {
+      "ten": "tai-khoan-trang",
+      "chu_thich": "Trang Tài khoản",
+      "url": "/tai-khoan",
+      "dang_nhap": true,
+      "vung": "main",
+      "lam_mo": ["main dl div:has(> dt:text-is('Tên')) dd"],
+      "danh_dau": [
+        { "o": "main dl", "ghi_chu": "Email, tên và vai trò", "huong": "phai" },
+        { "o": "main >> role=button[name='Cấp token kết nối']", "ghi_chu": "Cấp token cho công cụ AI", "huong": "phai" },
+        { "o": "main >> role=button[name='Đăng xuất']", "ghi_chu": "Kết thúc phiên đăng nhập", "huong": "duoi" }
+      ]
+    }
+  ]
+}

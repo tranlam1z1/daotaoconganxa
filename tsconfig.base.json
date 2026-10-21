@@ -1,0 +1,40 @@
+{
+  "compilerOptions": {
+    "target": "ES2023",
+    "lib": ["ES2023", "DOM", "DOM.Iterable"],
+    "module": "ESNext",
+    "moduleResolution": "bundler",
+    "strict": true,
+    "noUncheckedIndexedAccess": true,
+    "exactOptionalPropertyTypes": false,
+    "skipLibCheck": true,
+    "resolveJsonModule": true,
+    "esModuleInterop": true,
+    "allowImportingTsExtensions": true,
+    "noEmit": true,
+    "types": ["bun"],
+    "jsx": "react-jsx",
+    "baseUrl": ".",
+    "paths": {
+      "@qdpl/auth": ["packages/auth/src/index.ts"],
+      "@qdpl/config": ["packages/config/src/index.ts"],
+      "@qdpl/dao-tao": ["packages/dao-tao/src/index.ts"],
+      "@qdpl/dao-tao/*": ["packages/dao-tao/src/*"],
+      "@qdpl/db": ["packages/db/src/index.ts"],
+      "@qdpl/mascot": ["packages/mascot/src/index.ts"],
+      "@qdpl/mascot/*": ["packages/mascot/src/*"],
+      "@qdpl/queue": ["packages/queue/src/index.ts"],
+      "@qdpl/db/*": ["packages/db/src/*"],
+      "@qdpl/legal-model": ["packages/legal-model/src/index.ts"],
+      "@qdpl/legal-model/*": ["packages/legal-model/src/*"],
+      "@qdpl/citation": ["packages/citation/src/index.ts"],
+      "@qdpl/search": ["packages/search/src/index.ts"],
+      "@qdpl/llm": ["packages/llm/src/index.ts"],
+      "@qdpl/sohoa": ["packages/sohoa/src/index.ts"],
+      "@qdpl/sohoa/*": ["packages/sohoa/src/*"],
+      "@qdpl/storage": ["packages/storage/src/index.ts"],
+      "@qdpl/storage/*": ["packages/storage/src/*"],
+      "@qdpl/ui": ["packages/ui/src/index.ts"]
+    }
+  }
+}

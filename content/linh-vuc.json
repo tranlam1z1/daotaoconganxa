@@ -1,0 +1,135 @@
+{
+  "$schema_note": "Khớp bảng `fields` và các cột cây của bảng `courses` trong packages/db/migrations/0008_linh_vuc_dao_tao.sql: fields(slug, name, summary, audience_note, ordinal, status) và courses(field_id, parent_id, follows_id, audience_group, ordinal). Tệp này là bản khai báo cấu trúc; dữ liệu chạy được gieo bởi packages/db/src/seed-dao-tao.ts.",
+  "version": "1.0.0",
+  "as_of": "2026-09-08",
+  "nhom_doi_tuong": {
+    "khach_hang": "Người trực tiếp áp dụng quy định vào hồ sơ của mình",
+    "tu_van": "Người tư vấn và đào tạo lại cho nhóm trên"
+  },
+  "quan_he": {
+    "noi_tiep_tu": "Chuyên đề liền trước trong một chuỗi nối tiếp trên cùng một hồ sơ",
+    "cha": "Chuyên đề bị chuyên đề này thu hẹp phạm vi (quan hệ cụ thể hoá, dựng nên cấu trúc hình cây)"
+  },
+  "linh_vuc": [
+    {
+      "slug": "dau-tu-cong-nsnn",
+      "name": "Đầu tư và tư vấn đầu tư dự án sử dụng ngân sách Nhà nước",
+      "summary": "Bốn chuyên đề bám trình tự pháp lý của một dự án đầu tư sử dụng ngân sách nhà nước: lập dự án, thực hiện dự án, phần cụ thể hoá cho dự án công nghệ thông tin, và phần tư vấn, sư phạm dành cho người hướng dẫn lại ba chuyên đề trên.",
+      "audience_note": "Cán bộ chuẩn bị và quản lý dự án của cơ quan nhà nước; chuyên viên tổ chức tư vấn đầu tư",
+      "ordinal": 0,
+      "status": "xuat_ban",
+      "chuyen_de": [
+        {
+          "slug": "lap-du-an-dau-tu-nsnn",
+          "title": "Lập dự án đầu tư sử dụng ngân sách Nhà nước",
+          "nhom_doi_tuong": "khach_hang",
+          "ordinal": 0,
+          "status": "bien_tap",
+          "thu_muc_noi_dung": null,
+          "pham_vi": "Chuẩn bị đầu tư: xác định văn bản áp dụng theo thời điểm, phân loại hoạt động và nguồn vốn, chủ trương đầu tư, báo cáo nghiên cứu khả thi, tổng mức đầu tư, thẩm định và quyết định đầu tư.",
+          "lo_trinh": [
+            "Khung văn bản áp dụng và thứ bậc hiệu lực",
+            "Phân loại hoạt động và xác định nguồn vốn",
+            "Chủ trương đầu tư",
+            "Báo cáo nghiên cứu khả thi và báo cáo kinh tế - kỹ thuật",
+            "Tổng mức đầu tư và các khoản mục chi phí",
+            "Thẩm định và quyết định đầu tư"
+          ]
+        },
+        {
+          "slug": "thuc-hien-du-an-dau-tu-nsnn",
+          "title": "Thực hiện dự án đầu tư sử dụng ngân sách Nhà nước",
+          "nhom_doi_tuong": "khach_hang",
+          "noi_tiep_tu": "lap-du-an-dau-tu-nsnn",
+          "ordinal": 1,
+          "status": "bien_tap",
+          "thu_muc_noi_dung": null,
+          "pham_vi": "Thực hiện và kết thúc đầu tư: thiết kế và dự toán, lựa chọn nhà thầu, hợp đồng và thanh toán, giám sát triển khai, nghiệm thu, bàn giao, bảo hành, quyết toán và công tác kiểm tra.",
+          "lo_trinh": [
+            "Thiết kế một bước, hai bước và dự toán",
+            "Kế hoạch lựa chọn nhà thầu",
+            "Hợp đồng, tạm ứng và thanh toán",
+            "Triển khai và giám sát thực hiện",
+            "Nghiệm thu, bàn giao, hồ sơ hoàn thành và bảo hành",
+            "Quyết toán và công tác kiểm tra, thanh tra, kiểm toán"
+          ]
+        },
+        {
+          "slug": "dau-tu-cntt-ngan-sach-nha-nuoc",
+          "title": "Dự án đầu tư công nghệ thông tin sử dụng ngân sách Nhà nước",
+          "nhom_doi_tuong": "khach_hang",
+          "cha": "thuc-hien-du-an-dau-tu-nsnn",
+          "ordinal": 2,
+          "status": "xuat_ban",
+          "thu_muc_noi_dung": "courses/dau-tu-cntt-nsnn",
+          "pham_vi": "Phần riêng của loại hình công nghệ thông tin: khung pháp lý riêng và chuyển tiếp giữa các nghị định, phân loại đầu tư với mua sắm và thuê dịch vụ, nội dung hồ sơ, an toàn thông tin theo cấp độ, chi phí phần mềm nội bộ, thiết kế, gói thầu và nghiệm thu phần mềm.",
+          "lo_trinh": [
+            "Khung pháp lý của dự án công nghệ thông tin và cách xác định văn bản áp dụng",
+            "Phân loại: đầu tư hệ thống, mua sắm, thuê dịch vụ công nghệ thông tin",
+            "Nội dung đặc thù của hồ sơ dự án công nghệ thông tin",
+            "Yêu cầu an toàn thông tin theo cấp độ trong hồ sơ dự án",
+            "Tổng mức đầu tư và chi phí phần mềm nội bộ",
+            "Thiết kế cơ sở, thiết kế chi tiết phần mềm và dự toán",
+            "Gói thầu phần mềm: kế hoạch lựa chọn nhà thầu và hợp đồng",
+            "Kiểm thử, vận hành thử, nghiệm thu và sai sót đặc thù"
+          ]
+        },
+        {
+          "slug": "tu-van-dau-tu-va-su-pham",
+          "title": "Tư vấn đầu tư và phương pháp sư phạm cho người đi tư vấn",
+          "nhom_doi_tuong": "tu_van",
+          "noi_tiep_tu": "dau-tu-cntt-ngan-sach-nha-nuoc",
+          "ordinal": 3,
+          "status": "bien_tap",
+          "thu_muc_noi_dung": null,
+          "pham_vi": "Phạm vi, trách nhiệm và giới hạn của ý kiến tư vấn; điều kiện năng lực và chi phí tư vấn; khảo sát nhu cầu và chẩn đoán hồ sơ của đơn vị được tư vấn; viết ý kiến tư vấn có viện dẫn; phương pháp dạy người lớn đang làm nghề; thiết kế và điều hành một buổi đào tạo.",
+          "lo_trinh": [
+            "Phạm vi, trách nhiệm và giới hạn của ý kiến tư vấn",
+            "Điều kiện năng lực, đề cương nhiệm vụ và chi phí tư vấn",
+            "Khảo sát nhu cầu và chẩn đoán hồ sơ của đơn vị được tư vấn",
+            "Viết ý kiến tư vấn có viện dẫn",
+            "Phương pháp dạy nội dung pháp lý cho người lớn đang làm nghề",
+            "Thiết kế và điều hành một buổi đào tạo tại đơn vị"
+          ]
+        }
+      ]
+    },
+    {
+      "slug": "giao-thong-duong-bo",
+      "name": "Pháp luật giao thông đường bộ",
+      "summary": "Lĩnh vực dành cho lực lượng thi hành pháp luật về giao thông đường bộ. Lộ trình đang được biên soạn; danh mục nêu phạm vi dự kiến của từng chuyên đề.",
+      "audience_note": "Cảnh sát giao thông đường bộ",
+      "ordinal": 1,
+      "status": "bien_tap",
+      "$cay_note": "Cây chuyên đề đầy đủ của lĩnh vực này do packages/db/src/seed-dao-tao-gtdb.ts khai báo và gieo (08 chuyên đề theo trình tự công tác). Hai mục dưới đây là khung tạm của seed-dao-tao.ts, bị bỏ qua khi lĩnh vực đã có chuyên đề trong kho.",
+      "khung_tam_thoi": true,
+      "chuyen_de": [
+        {
+          "slug": "quy-tac-giao-thong-duong-bo",
+          "title": "Quy tắc giao thông đường bộ",
+          "nhom_doi_tuong": "khach_hang",
+          "ordinal": 0,
+          "status": "bien_tap",
+          "thu_muc_noi_dung": null,
+          "pham_vi": "Hệ thống văn bản về trật tự, an toàn giao thông đường bộ; quy tắc giao thông; điều kiện của người lái xe và phương tiện tham gia giao thông.",
+          "lo_trinh": []
+        },
+        {
+          "slug": "xu-ly-vi-pham-giao-thong-duong-bo",
+          "title": "Xử lý vi phạm hành chính về giao thông đường bộ",
+          "nhom_doi_tuong": "khach_hang",
+          "noi_tiep_tu": "quy-tac-giao-thong-duong-bo",
+          "ordinal": 1,
+          "status": "bien_tap",
+          "thu_muc_noi_dung": null,
+          "pham_vi": "Thẩm quyền, trình tự lập biên bản, ra quyết định xử phạt, áp dụng biện pháp ngăn chặn và giải quyết khiếu nại.",
+          "lo_trinh": []
+        }
+      ]
+    }
+  ],
+  "ghi_chu": [
+    "Chuyên đề chưa có thư mục nội dung (`thu_muc_noi_dung: null`) mới có lộ trình và bản đồ kỹ năng, chưa có bài nào được soạn. Danh mục công khai hiện tên chuyên đề kèm nhãn đang biên soạn, không mở được bài.",
+    "Thư mục nội dung của chuyên đề công nghệ thông tin giữ tên rút gọn `dau-tu-cntt-nsnn`; slug chạy thật là `dau-tu-cntt-ngan-sach-nha-nuoc` và không được đổi vì đã là địa chỉ công khai."
+  ]
+}

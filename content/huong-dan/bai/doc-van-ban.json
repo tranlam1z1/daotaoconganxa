@@ -1,0 +1,57 @@
+{
+  "tieu_de": "Đọc toàn văn văn bản",
+  "tom_tat": "Đọc nội dung văn bản theo thời điểm hiệu lực, chuyển nhanh giữa các điều bằng mục lục và sao chép viện dẫn tới từng điều, khoản.",
+  "routes": ["routes/document.read.tsx"],
+  "anh": [
+    {
+      "ten": "doc-van-ban-thanh-tieu-de",
+      "chu_thich": "Thanh tiêu đề của trang văn bản",
+      "url": "/van-ban/l/09-2026-qh16",
+      "vung": "div:has(> nav[aria-label='Các mục của văn bản'])",
+      "danh_dau": [
+        { "o": "div:has(> nav[aria-label='Các mục của văn bản']) >> text=Còn hiệu lực", "ghi_chu": "Trạng thái hiệu lực", "huong": "trai" },
+        { "o": "role=button[name=/Hiệu lực tại/]", "ghi_chu": "Chọn thời điểm xem văn bản", "huong": "duoi" },
+        { "o": "div:has(> nav[aria-label='Các mục của văn bản']) >> role=button[name='Sao chép viện dẫn']", "ghi_chu": "Sao chép viện dẫn cả văn bản", "huong": "duoi" },
+        { "o": "nav[aria-label='Các mục của văn bản'] >> role=link[name='Thuộc tính']", "ghi_chu": "Chuyển giữa các mục của văn bản", "huong": "phai" }
+      ]
+    },
+    {
+      "ten": "doc-van-ban-thoi-diem",
+      "chu_thich": "Chọn ngày hiệu lực để xem văn bản",
+      "url": "/van-ban/l/09-2026-qh16",
+      "thao_tac": [{ "bam": "role=button[name=/Hiệu lực tại/]" }, { "cho": "#chon-ngay-hieu-luc" }],
+      "vung": "form:has(#chon-ngay-hieu-luc)",
+      "danh_dau": [
+        { "o": "#chon-ngay-hieu-luc", "ghi_chu": "Chọn ngày cần xem", "huong": "trai" },
+        { "o": "form:has(#chon-ngay-hieu-luc) >> role=button[name='Áp dụng']", "ghi_chu": "Xem nội dung tại ngày đã chọn", "huong": "trai" },
+        { "o": "form:has(#chon-ngay-hieu-luc) >> role=button[name='Hôm nay']", "ghi_chu": "Trở về ngày hôm nay", "huong": "duoi" }
+      ]
+    },
+    {
+      "ten": "doc-van-ban-muc-luc",
+      "chu_thich": "Công cụ đọc và mục lục văn bản",
+      "url": "/van-ban/nd/100-2026-nd-cp?asOf=2027-07-01",
+      "danh_dau": [
+        { "o": "role=button[name='Cài đặt đọc']", "ghi_chu": "Cỡ chữ, giãn dòng, nền", "huong": "tren" },
+        { "o": "role=link[name='Xem thuộc tính đầy đủ']", "ghi_chu": "Mở thuộc tính văn bản", "huong": "phai" },
+        { "o": "p:has(> strong:text('Bản hợp nhất tự động'))", "ghi_chu": "Cảnh báo bản hợp nhất tham khảo", "huong": "duoi" },
+        { "o": "#loc-muc-luc", "ghi_chu": "Lọc mục lục theo từ", "huong": "phai" },
+        { "o": "nav[aria-label='Mục lục văn bản'] li >> nth=3", "ghi_chu": "Nhảy tới điều", "huong": "phai" }
+      ]
+    },
+    {
+      "ten": "doc-van-ban-dieu",
+      "chu_thich": "Sao chép viện dẫn tới một điều",
+      "url": "/van-ban/l/09-2026-qh16",
+      "thao_tac": [
+        { "bam": "[data-node-kind='dieu'] >> nth=0 >> role=button[name='Sao chép viện dẫn'] >> nth=0" },
+        { "cho": "role=menu" }
+      ],
+      "danh_dau": [
+        { "o": "[data-node-kind='dieu'] >> nth=0 >> h3 >> span >> nth=0", "ghi_chu": "Số và tên điều", "huong": "tren" },
+        { "o": "role=menu", "ghi_chu": "Chọn dạng viện dẫn để sao chép", "huong": "trai" },
+        { "o": "[data-node-kind='dieu'] >> nth=0 >> role=link[name='Lịch sử điều này']", "ghi_chu": "Lịch sử và quan hệ của điều", "huong": "tren" }
+      ]
+    }
+  ]
+}

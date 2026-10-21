@@ -1,0 +1,154 @@
+slug: uc-cntt-0003-von-hon-hop
+title: Xác định dự án sử dụng hỗn hợp nhiều nguồn vốn có thuộc phạm vi điều chỉnh hay không
+
+taxonomy_codes: [PD.03.003, PD.34.007, PD.26.003, NB.CNTT.DTUD.PL]
+actor_kinds: [co_quan_nha_nuoc, don_vi_su_nghiep, to_chuc_tu_van]
+work_kinds: [lap_ke_hoach_du_an, nghia_vu_tuan_thu]
+
+as_of: 2026-06-01
+effectivity_note: >-
+  Gán nhãn tại 01/6/2026. Từ 01/7/2026, quy định tương ứng nằm tại khoản 1 Điều 36 Nghị định số
+  224/2026/NĐ-CP, giữ nguyên ngưỡng từ 30% trở lên hoặc lớn nhất.
+
+situation: |
+  Một đơn vị sự nghiệp công lập tự chủ một phần chi thường xuyên dự kiến đầu tư hệ thống thông tin
+  phục vụ hoạt động chuyên môn với tổng mức đầu tư 12 tỷ đồng. Cơ cấu nguồn vốn dự kiến: ngân sách
+  nhà nước 3,3 tỷ đồng, quỹ phát triển hoạt động sự nghiệp của đơn vị 3,2 tỷ đồng, tài trợ của một
+  tổ chức quốc tế 3,1 tỷ đồng, nguồn thu hợp pháp khác 2,4 tỷ đồng. Đơn vị hỏi dự án có phải thực
+  hiện theo quy định về quản lý đầu tư ứng dụng công nghệ thông tin sử dụng ngân sách nhà nước hay
+  không, và nếu cơ cấu vốn thay đổi thì kết luận có đổi không.
+
+questions:
+  - Dự án có thuộc phạm vi điều chỉnh của Nghị định số 45/2026/NĐ-CP hay không?
+  - Hai điều kiện về tỷ lệ vốn ngân sách nhà nước là điều kiện "và" hay điều kiện "hoặc"?
+  - Nếu tỷ lệ vốn ngân sách nhà nước giảm còn 2,0 tỷ đồng thì kết luận thay đổi thế nào?
+
+analysis:
+  - step: 1
+    claim: >-
+      Quy định đặt hai điều kiện thay thế nhau, chỉ cần thỏa mãn một trong hai thì dự án thuộc phạm vi
+      điều chỉnh.
+    citations:
+      - vn:vbqppl:nd:45/2026/NĐ-CP#dieu-1.khoan-2@2026-03-01
+    quote: >-
+      Đối với dự án đầu tư ứng dụng công nghệ thông tin sử dụng hỗn hợp nhiều nguồn vốn khác nhau
+      trong đó nguồn vốn ngân sách nhà nước chiếm tỷ lệ từ 30% trở lên hoặc lớn nhất trong tổng mức
+      đầu tư của dự án, thực hiện theo các quy định tại Nghị định này.
+    reasoning: >-
+      Liên từ "hoặc" trong câu quy phạm nối hai điều kiện độc lập: "từ 30% trở lên" và "lớn nhất
+      trong tổng mức đầu tư". Đây là điều kiện thay thế, không phải điều kiện đồng thời. Hiểu thành
+      "và" sẽ loại nhầm nhiều dự án ra khỏi phạm vi điều chỉnh.
+
+  - step: 2
+    claim: >-
+      Với cơ cấu vốn đã nêu, tỷ lệ vốn ngân sách nhà nước là 27,5% nên không đạt điều kiện thứ nhất,
+      nhưng là tỷ lệ lớn nhất trong bốn nguồn nên đạt điều kiện thứ hai; dự án thuộc phạm vi điều chỉnh.
+    citations:
+      - vn:vbqppl:nd:45/2026/NĐ-CP#dieu-1.khoan-2@2026-03-01
+    quote: >-
+      … nguồn vốn ngân sách nhà nước chiếm tỷ lệ từ 30% trở lên hoặc lớn nhất trong tổng mức đầu tư
+      của dự án …
+    reasoning: >-
+      Phép tính: ngân sách nhà nước 3,3 trên 12 bằng 27,5%; quỹ phát triển hoạt động sự nghiệp 26,7%;
+      tài trợ 25,8%; nguồn thu hợp pháp khác 20,0%. Ngân sách nhà nước tuy dưới 30% nhưng là tỷ lệ lớn
+      nhất, nên thỏa mãn vế thứ hai. Kết luận: dự án thuộc phạm vi điều chỉnh.
+
+  - step: 3
+    claim: >-
+      Nếu vốn ngân sách nhà nước giảm còn 2,0 tỷ đồng trên tổng mức đầu tư 12 tỷ đồng, dự án không còn
+      thuộc phạm vi điều chỉnh theo khoản 2 Điều 1, nhưng vẫn được khuyến khích áp dụng.
+    citations:
+      - vn:vbqppl:nd:45/2026/NĐ-CP#dieu-1.khoan-2@2026-03-01
+      - vn:vbqppl:nd:45/2026/NĐ-CP#dieu-2.khoan-2@2026-03-01
+    quote: Khuyến khích áp dụng đối với hoạt động sử dụng nguồn vốn khác.
+    reasoning: >-
+      Với 2,0 tỷ đồng, tỷ lệ ngân sách nhà nước là 16,7%, không đạt 30% và cũng không phải lớn nhất
+      nếu các nguồn khác được giữ nguyên hoặc tăng. Khi đó khoản 2 Điều 2 vẫn khuyến khích áp dụng.
+      "Khuyến khích" nghĩa là không bắt buộc; nhưng nếu đơn vị chọn áp dụng thì phải áp dụng nhất
+      quán, không chọn lọc từng phần có lợi.
+
+  - step: 4
+    claim: >-
+      Kể cả khi không thuộc phạm vi điều chỉnh của nghị định này, phần vốn ngân sách nhà nước vẫn phải
+      tuân thủ pháp luật về ngân sách nhà nước, đầu tư công và đấu thầu.
+    citations: []
+    quote: ""
+    reasoning: >-
+      Đây là kết luận nghiệp vụ, không suy ra từ nút văn bản trong ngữ cảnh. Việc một dự án không
+      thuộc phạm vi của nghị định chuyên ngành không miễn trừ nghĩa vụ theo các luật gốc.
+      `[CẦN ĐỐI CHIẾU: quy định của Luật Ngân sách nhà nước số 89/2025/QH15 và Luật Đầu tư công số
+      58/2024/QH15 về quản lý phần vốn ngân sách trong dự án có nhiều nguồn vốn]`
+
+conclusion: |
+  Với cơ cấu vốn đã nêu, dự án **thuộc phạm vi điều chỉnh** của Nghị định số 45/2026/NĐ-CP, vì vốn
+  ngân sách nhà nước tuy chỉ chiếm 27,5% nhưng là tỷ lệ lớn nhất trong bốn nguồn (khoản 2 Điều 1).
+
+  Hai điều kiện tại khoản 2 Điều 1 là điều kiện **thay thế nhau**, chỉ cần thỏa mãn một trong hai.
+
+  Nếu vốn ngân sách nhà nước giảm còn 2,0 tỷ đồng và không còn là tỷ lệ lớn nhất, dự án không thuộc
+  phạm vi bắt buộc, nhưng được khuyến khích áp dụng (khoản 2 Điều 2). Trong mọi trường hợp, phần vốn
+  ngân sách nhà nước vẫn phải tuân thủ pháp luật về ngân sách nhà nước, đầu tư công và đấu thầu.
+
+  Khuyến nghị: đơn vị lập bảng cơ cấu nguồn vốn kèm phép tính tỷ lệ và đưa vào báo cáo nghiên cứu khả
+  thi, vì đây là nội dung mà cơ quan thẩm định kiểm tra đầu tiên.
+
+procedure:
+  - order: 1
+    step: Lập bảng cơ cấu nguồn vốn, tính tỷ lệ từng nguồn trên tổng mức đầu tư
+    authority: Chủ đầu tư
+    timeline: Ngay ở bước hình thành ý tưởng, trước khi lập hồ sơ
+    inputs: [Dự kiến tổng mức đầu tư, Cam kết của từng nguồn vốn]
+    outputs: [Bảng cơ cấu nguồn vốn có tỷ lệ]
+    citations: [vn:vbqppl:nd:45/2026/NĐ-CP#dieu-1.khoan-2@2026-03-01]
+    templates: []
+    needs_citation: false
+  - order: 2
+    step: Kiểm tra lần lượt hai điều kiện, ghi rõ điều kiện nào được thỏa mãn
+    authority: Chủ đầu tư
+    timeline: Cùng bước 1
+    inputs: [Bảng cơ cấu nguồn vốn]
+    outputs: [Kết luận về phạm vi áp dụng, có lập luận]
+    citations: [vn:vbqppl:nd:45/2026/NĐ-CP#dieu-1.khoan-2@2026-03-01]
+    templates: []
+    needs_citation: false
+  - order: 3
+    step: >-
+      Nếu cơ cấu vốn thay đổi trong quá trình chuẩn bị đầu tư, tính lại tỷ lệ và xác định lại phạm vi
+      áp dụng trước khi trình thẩm định
+    authority: Chủ đầu tư
+    timeline: Bất cứ khi nào cơ cấu vốn thay đổi
+    inputs: [Cơ cấu vốn mới]
+    outputs: [Kết luận cập nhật]
+    citations: [vn:vbqppl:nd:45/2026/NĐ-CP#dieu-1.khoan-2@2026-03-01]
+    templates: []
+    needs_citation: false
+
+risks:
+  - risk: Hiểu hai điều kiện là điều kiện đồng thời
+    consequence: Kết luận sai rằng dự án không thuộc phạm vi; toàn bộ hồ sơ lập sai trình tự và bị trả lại
+    mitigation: Đọc kỹ liên từ "hoặc" trong khoản 2 Điều 1; ghi rõ phép tính vào hồ sơ
+    citations: [vn:vbqppl:nd:45/2026/NĐ-CP#dieu-1.khoan-2@2026-03-01]
+  - risk: Cơ cấu vốn thay đổi giữa chừng mà không tính lại tỷ lệ
+    consequence: Dự án đang ngoài phạm vi bỗng rơi vào phạm vi hoặc ngược lại, phát hiện muộn ở bước thẩm định
+    mitigation: Đặt điểm kiểm tra bắt buộc mỗi khi điều chỉnh cơ cấu vốn
+    citations: [vn:vbqppl:nd:45/2026/NĐ-CP#dieu-1.khoan-2@2026-03-01]
+  - risk: Chọn lọc áp dụng một phần nghị định khi thuộc diện khuyến khích
+    consequence: Hồ sơ không nhất quán, khó giải trình khi kiểm tra
+    mitigation: Nếu đã chọn áp dụng thì áp dụng toàn bộ và ghi rõ quyết định này bằng văn bản
+    citations: [vn:vbqppl:nd:45/2026/NĐ-CP#dieu-2.khoan-2@2026-03-01]
+
+related_questions:
+  - Dự án thuộc danh mục bảo vệ bí mật nhà nước áp dụng quy định nào?
+  - Đơn vị sự nghiệp công lập có thuộc đối tượng áp dụng không?
+  - Hoạt động dùng kinh phí chi thường xuyên theo trình tự nào?
+
+gaps:
+  - what: Quy định về quản lý phần vốn ngân sách nhà nước trong dự án sử dụng nhiều nguồn vốn khi dự án không thuộc phạm vi nghị định chuyên ngành
+    why: Cần thiết để trả lời trọn vẹn nghĩa vụ của đơn vị trong trường hợp tỷ lệ vốn ngân sách thấp
+    suggested_source: Luật Ngân sách nhà nước số 89/2025/QH15; Luật Đầu tư công số 58/2024/QH15
+
+status: draft
+citation_health: ok
+author: Tổ biên soạn nội dung quydinhphapluat.vn
+legal_reviewer: null
+reviewed_at: null

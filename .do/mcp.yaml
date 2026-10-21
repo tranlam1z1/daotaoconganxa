@@ -1,0 +1,85 @@
+# Đặc tả ứng dụng MCP server, tách riêng khỏi ứng dụng chính.
+#
+# Vì sao tách: MCP server phải chiếm gốc một tên miền. Client MCP tìm metadata ở
+# /.well-known/oauth-protected-resource, người vận hành đăng nhập ở /, còn giao thức đi qua /mcp.
+# App Platform chỉ định tuyến theo đường dẫn, không theo tên miền, nên nhét chung một ứng dụng
+# với web sẽ đụng đường dẫn gốc. Một ứng dụng riêng, một tên miền riêng là cách sạch.
+#
+# Bảng điều khiển -> Apps -> Create App -> ... hoặc Settings -> App Spec -> dán tệp này.
+name: qdpl-mcp
+region: sgp
+
+envs:
+  - key: NODE_ENV
+    scope: RUN_AND_BUILD_TIME
+    value: production
+  - key: DATABASE_URL
+    scope: RUN_AND_BUILD_TIME
+    type: SECRET
+    value: DIEN_O_BANG_DIEU_KHIEN
+  - key: PG_POOL_MAX
+    scope: RUN_AND_BUILD_TIME
+    value: "3"
+  - key: REDIS_URL
+    scope: RUN_AND_BUILD_TIME
+    type: SECRET
+    value: DIEN_O_BANG_DIEU_KHIEN
+  - key: ANTHROPIC_API_KEY
+    scope: RUN_AND_BUILD_TIME
+    type: SECRET
+    value: DIEN_O_BANG_DIEU_KHIEN
+  # Bắt buộc: thiếu thì máy chủ vẫn chạy nhưng không ai đăng nhập được.
+  - key: GOOGLE_CLIENT_ID
+    scope: RUN_AND_BUILD_TIME
+    value: DIEN_O_BANG_DIEU_KHIEN
+  - key: AUTH_ALLOWED_DOMAINS
+    scope: RUN_AND_BUILD_TIME
+    value: ""
+  - key: AUTH_DEFAULT_ROLE
+    scope: RUN_AND_BUILD_TIME
+    value: khach
+  - key: AUTH_BOOTSTRAP_ADMIN
+    scope: RUN_AND_BUILD_TIME
+    value: "1"
+  # Bật công cụ ghi (số hóa, biên tập) cho phiên HTTP. Để trống hoặc =0 thì máy chủ chỉ đọc.
+  - key: QDPL_MCP_ALLOW_WRITE
+    scope: RUN_AND_BUILD_TIME
+    value: "1"
+  - key: STORAGE_BACKEND
+    scope: RUN_AND_BUILD_TIME
+    value: r2
+  - key: R2_ACCOUNT_ID
+    scope: RUN_AND_BUILD_TIME
+    type: SECRET
+    value: DIEN_O_BANG_DIEU_KHIEN
+  - key: R2_BUCKET
+    scope: RUN_AND_BUILD_TIME
+    value: DIEN_O_BANG_DIEU_KHIEN
+  - key: R2_ACCESS_KEY_ID
+    scope: RUN_AND_BUILD_TIME
+    type: SECRET
+    value: DIEN_O_BANG_DIEU_KHIEN
+  - key: R2_SECRET_ACCESS_KEY
+    scope: RUN_AND_BUILD_TIME
+    type: SECRET
+    value: DIEN_O_BANG_DIEU_KHIEN
+
+services:
+  - name: mcp
+    github:
+      repo: KHCN-Thanh-Hoa/qdpl
+      branch: main
+      deploy_on_push: true
+    source_dir: /
+    build_command: bun run build:server
+    run_command: bun run start:mcp
+    http_port: 8080
+    instance_size_slug: apps-s-1vcpu-1gb
+    instance_count: 1
+    routes:
+      - path: /
+    health_check:
+      http_path: /health
+      initial_delay_seconds: 20
+      period_seconds: 15
+      failure_threshold: 5

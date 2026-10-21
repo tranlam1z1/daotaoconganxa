@@ -2,9 +2,15 @@
 
 import type { IconName } from "../components/ui/Icon";
 
-export const SITE_NAME = "Quy định Pháp luật";
+/**
+ * Dòng chữ chữ nhận diện (docs/brand): "HỌC TẬP PHÁP LUẬT & BỒI DƯỠNG NGHIỆP VỤ".
+ * Dùng ở logo đầu trang, trang đăng nhập/đăng ký và chân trang.
+ */
+export const SITE_NAME = "Học tập pháp luật & Bồi dưỡng nghiệp vụ";
 /** Dòng chữ nhỏ dưới tên trang ở logo đầu trang. */
-export const SITE_TAGLINE = "Hệ thống Đào tạo & Bồi dưỡng Cán bộ";
+export const SITE_TAGLINE = "Cấp xã tỉnh Thanh Hóa";
+/** Tên rút gọn dùng cho tiêu đề thẻ (tránh tiêu đề quá dài). */
+export const SITE_NAME_SHORT = "Học tập pháp luật";
 
 export interface NavItem {
   to: string;
@@ -104,7 +110,7 @@ export function dangOMuc(item: NavItem, pathname: string): boolean {
 /** Thẻ meta chuẩn của một trang. `index: false` cho trang không cần lập chỉ mục. */
 export function pageMeta(title: string, opts: { description?: string; index?: boolean } = {}) {
   return [
-    { title: `${title} | ${SITE_NAME}` },
+    { title: `${title} | ${SITE_NAME_SHORT}` },
     ...(opts.description ? [{ name: "description", content: opts.description }] : []),
     ...(opts.index === false ? [{ name: "robots", content: "noindex,nofollow" }] : []),
   ];

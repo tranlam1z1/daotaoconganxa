@@ -283,7 +283,11 @@ export default function QuanTriDonVi({ loaderData }: Route.ComponentProps) {
               : "Đơn vị của bạn và các đơn vị cấp dưới. Bấm tên đơn vị để xem chi tiết."}
           </p>
         </div>
-        {laQuanTri ? <Button onClick={() => hop.mo("them")}>Thêm đơn vị</Button> : null}
+        {laQuanTri ? (
+          <Button icon="plus" onClick={() => hop.mo("them")}>
+            Thêm đơn vị
+          </Button>
+        ) : null}
       </div>
 
       {thongBao ? <Notice className="mt-4">{thongBao}</Notice> : null}

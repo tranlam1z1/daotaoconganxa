@@ -1,0 +1,104 @@
+import { useId } from "react";
+
+/**
+ * Logo "Học tập pháp luật & Bồi dưỡng nghiệp vụ" theo bộ nhận diện (docs/brand):
+ * ngôi sao vàng (động lực, thành công) trên đầu người, thân hình V màu xanh dương
+ * (hai tay giơ / cuốn sách mở), hai lá xanh lá (phát triển, học tập) và hai cánh
+ * sách xanh dương ở dưới.
+ *
+ * Bản gốc (cùng hình) nằm ở public/logo.svg — dùng cho favicon, trang offline và
+ * scripts/pwa-icons.ts; sửa hình thì sửa cả hai nơi.
+ *
+ * Biến thể:
+ * - "mau"  : bản màu đầy đủ (mặc định)
+ * - "trang": bản âm, trắng đơn sắc (đặt trên nền xanh dương #0052CC)
+ * - "den"  : bản đơn sắc đen (in 1 màu)
+ */
+export type LogoHocTapVariant = "mau" | "trang" | "den";
+
+export function LogoHocTap({
+  className,
+  variant = "mau",
+  title,
+}: {
+  className?: string;
+  variant?: LogoHocTapVariant;
+  /** Nhãn trợ năng; mặc định ẩn (dùng khi logo đã có chữ đi kèm). */
+  title?: string;
+}) {
+  const uid = useId().replace(/[^a-zA-Z0-9_-]/g, "");
+  const gXanh = `hx-xanh-${uid}`;
+  const gLuc = `hx-luc-${uid}`;
+  const gVang = `hx-vang-${uid}`;
+
+  const mau = variant === "mau";
+
+  return (
+    <svg
+      viewBox="0 0 429 323"
+      xmlns="http://www.w3.org/2000/svg"
+      className={className}
+      role={title ? "img" : undefined}
+      aria-hidden={title ? undefined : true}
+      aria-label={title}
+    >
+      {mau ? (
+        <defs>
+          <linearGradient id={gXanh} gradientUnits="userSpaceOnUse" x1="0" y1="149" x2="0" y2="375">
+            <stop offset="0" stopColor="#3A8DE8" />
+            <stop offset=".5" stopColor="#0E60C4" />
+            <stop offset="1" stopColor="#01407F" />
+          </linearGradient>
+          <linearGradient id={gLuc} gradientUnits="userSpaceOnUse" x1="0" y1="186" x2="0" y2="348">
+            <stop offset="0" stopColor="#54BC4B" />
+            <stop offset="1" stopColor="#0B9244" />
+          </linearGradient>
+          <linearGradient id={gVang} gradientUnits="userSpaceOnUse" x1="0" y1="64" x2="0" y2="154">
+            <stop offset="0" stopColor="#FFD049" />
+            <stop offset="1" stopColor="#F5A800" />
+          </linearGradient>
+        </defs>
+      ) : null}
+
+      {/* Lá xanh (2 bên) */}
+      <path
+        d="M45 128L54 129L76 140L95 154L112 171L127 190L147 221L160 246L162 248L182 290L146 261L118 243L93 231L79 226L72 225L66 222L65 214L62 204L62 200L61 199L54 168L52 164L49 150L43 133L43 130Z"
+        fill={mau ? `url(#${gLuc})` : variant === "trang" ? "#FFFFFF" : "#000000"}
+      />
+      <path
+        d="M379 128L384 128L386 129L386 135L381 148L381 151L379 155L379 158L371 183L370 191L369 192L367 204L365 209L365 213L362 223L336 231L304 247L277 265L257 281L250 288L246 290L250 283L254 272L276 230L281 223L286 213L310 179L333 155L343 147L355 139L379 128Z"
+        fill={mau ? `url(#${gLuc})` : variant === "trang" ? "#FFFFFF" : "#000000"}
+      />
+
+      {/* Cánh sách trái / phải */}
+      <path
+        d="M9 181L27 182L28 183L37 184L40 186L43 203L44 204L44 208L45 209L45 213L46 214L48 227L49 228L49 232L50 233L50 237L52 240L65 242L69 244L72 244L76 246L79 246L88 249L124 265L126 267L133 270L143 277L146 278L168 294L182 306L190 314L191 317L184 316L174 312L165 310L166 309L165 308L161 309L147 304L140 303L136 301L133 301L108 294L99 293L98 292L80 289L79 288L62 286L61 285L39 283L38 282L29 282L28 281L21 281L19 280L16 276L14 251L13 250L13 242L12 241L10 217L9 216L9 209L8 208L8 200L7 199L7 191L6 190L6 183Z"
+        fill={mau ? `url(#${gXanh})` : variant === "trang" ? "#FFFFFF" : "#000000"}
+      />
+      <path
+        d="M410 181L420 181L423 184L422 187L422 195L421 196L421 204L420 205L420 213L419 214L419 221L418 222L417 238L416 239L416 246L415 247L415 255L414 256L414 263L413 264L413 272L412 273L412 277L409 279L410 280L408 281L399 281L398 282L390 282L389 283L368 285L367 286L362 286L356 288L351 288L350 289L345 289L344 290L325 293L320 295L316 295L307 298L299 299L295 301L288 302L267 309L264 309L257 312L254 312L244 316L237 317L240 312L255 298L276 282L297 269L323 256L325 256L338 250L350 246L353 246L360 243L364 243L365 242L376 240L379 235L380 225L382 220L384 206L385 205L389 186L392 184L396 184L402 182L409 182Z"
+        fill={mau ? `url(#${gXanh})` : variant === "trang" ? "#FFFFFF" : "#000000"}
+      />
+
+      {/* Thân V (hai tay giơ / sách mở) */}
+      <path
+        d="M97 91L104 92L114 97L136 113L176 152L202 182L213 192L218 191L257 148L281 124L296 111L314 98L329 91L333 91L334 92L334 98L332 103L284 178L274 196L270 201L268 206L260 218L258 223L236 260L217 296L215 298L213 298L210 294L184 246L182 244L178 235L173 228L152 190L102 110L99 103L97 101L95 95Z"
+        fill={mau ? `url(#${gXanh})` : variant === "trang" ? "#FFFFFF" : "#000000"}
+      />
+
+      {/* Đầu người */}
+      <path
+        d="M210 104L220 104L229 107L240 117L244 126L245 135L244 136L244 141L242 147L239 152L233 158L223 163L214 164L200 160L192 153L186 141L186 127L189 119L198 109L203 106Z"
+        fill={mau ? `url(#${gXanh})` : variant === "trang" ? "#FFFFFF" : "#000000"}
+      />
+
+      {/* Ngôi sao (động lực, thành công) */}
+      <path
+        d="M215 6L217 7L221 18L224 23L224 25L227 30L227 32L230 36L254 38L255 39L261 39L262 40L257 46L238 62L240 75L243 85L243 89L245 94L244 96L226 86L216 79L211 81L191 94L187 96L186 95L193 62L175 47L169 41L169 39L202 36L206 28L212 11Z"
+        fill={mau ? `url(#${gVang})` : variant === "trang" ? "#FFFFFF" : "#000000"}
+      />
+    </svg>
+  );
+}
+
+export default LogoHocTap;

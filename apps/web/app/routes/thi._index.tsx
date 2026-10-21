@@ -44,7 +44,7 @@ function TheBaiThi({ b, busy }: { b: BaiThi; busy: boolean }) {
   return (
     <li className="rounded-xl border border-line bg-surface p-4 shadow-card">
       <div className="flex flex-wrap items-start justify-between gap-2">
-        <h3 className="font-serif text-lg font-semibold leading-snug">{b.exam_title}</h3>
+        <h3 className="font-display text-lg font-semibold leading-snug">{b.exam_title}</h3>
         <Badge tone={TONE_TRANG_THAI_BAI[b.trang_thai]}>
           {/* Đề cho làm nhiều lần: đã nộp một lượt mà còn lượt thì không ghi "Chưa làm". */}
           {b.trang_thai === "chua_lam" && b.so_luot_nop > 0

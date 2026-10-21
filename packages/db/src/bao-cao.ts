@@ -14,16 +14,8 @@
  *
  * Không hàm nào đọc `exam_attempts.items`: cột đó là ảnh chụp đề kèm đáp án.
  */
-import {
-  chiSoCauHoi,
-  NHAN_KET_LUAN_CAU_HOI,
-  ngayVietNam,
-  TEN_MUC_DO,
-  thuHaiCuaTuan,
-  trungBinhXuong,
-} from "@qdpl/dao-tao";
+import { chiSoCauHoi, NHAN_KET_LUAN_CAU_HOI, TEN_MUC_DO, trungBinhXuong } from "@qdpl/dao-tao";
 import { sql } from "./client.ts";
-import { bangXepHangCaNhan, diemVaHuyHieu } from "./diem-thuong.ts";
 import { hoSoChuDe } from "./ho-so-chu-de.ts";
 import { demChoXacMinh } from "./nguoi-dung.ts";
 import { lanHocGanNhat, phanTramCacNhomCuaNguoi } from "./nhom-hoc.ts";
@@ -662,16 +654,6 @@ export interface ChuDeManhYeu {
   diem: number;
 }
 
-export interface TroChoiCuaCanBo {
-  ma: string;
-  ten: string;
-  so_luot: number;
-  /** Sao và điểm cao nhất; null với trò không chấm sao, điểm. */
-  sao: number | null;
-  diem: number | null;
-  lan_choi: Date | null;
-}
-
 export interface HoSoCanBo {
   tong_quan: Pick<
     DongTienDoHoc,
@@ -696,21 +678,6 @@ export interface HoSoCanBo {
     chu_de: ChuDeCuaCanBo[];
     manh: ChuDeManhYeu[];
     yeu: ChuDeManhYeu[];
-  };
-  tro_choi: {
-    xp_tong: number;
-    xp_tuan: number;
-    cap: number;
-    chuoi_hien_tai: number;
-    chuoi_tot_nhat: number;
-    /**
-     * Hạng theo XP tuần này trong đơn vị trực tiếp của người đó, trên `so_nguoi_don_vi` người;
-     * null khi tuần này chưa có XP.
-     */
-    hang_don_vi: number | null;
-    so_nguoi_don_vi: number;
-    huy_hieu: Array<{ ten: string; mo_ta: string; dat_luc: Date }>;
-    luot: TroChoiCuaCanBo[];
   };
 }
 
@@ -737,7 +704,7 @@ export async function hoSoCanBo(
   const khoang: LocBaoCao = { phamVi: null, tu: l.tu, den: l.den };
   const id = nguoi.id;
 
-  const [thi, hoc, chuDe, [tongLt], luot, diem, hoSo, hang, ganNhat] = await Promise.all([
+  const [thi, hoc, chuDe, [tongLt], hoSo, ganNhat] = await Promise.all([
     sql`
       WITH giao AS (
         SELECT a.exam_id, max(a.due_at) AS han
@@ -830,30 +797,7 @@ export async function hoSoCanBo(
       JOIN practice_answers pa ON pa.session_id = s.id
       WHERE s.account_id = ${id} AND s.source IN ${sql(NGUON_LUYEN_TAP)}
         ${trongKhoangNgay(sql`pa.created_at`, khoang)}` as unknown as Promise<any[]>,
-    // Trò trên khung lượt chơi chung (game_runs) và trò cũ chạy trên practice_sessions ('game:<mã>').
-    sql`
-      SELECT x.ma, COALESCE(g.name, x.ma) AS ten, sum(x.so_luot)::int AS so_luot, max(x.sao)::int AS sao,
-             max(x.diem)::float8 AS diem, max(x.lan_choi) AS lan_choi
-      FROM (
-        SELECT r.game_code AS ma, count(*) AS so_luot, max(r.stars) AS sao, max(r.score) AS diem,
-               max(r.played_at) AS lan_choi
-        FROM game_runs r
-        WHERE r.account_id = ${id} AND r.status IN ('xong', 'het_gio')
-          ${trongKhoangNgay(sql`r.played_at`, khoang)}
-        GROUP BY r.game_code
-        UNION ALL
-        SELECT substring(s.source FROM 6), count(*), NULL::smallint, NULL::numeric, max(s.finished_at)
-        FROM practice_sessions s
-        WHERE s.account_id = ${id} AND s.source LIKE 'game:%' AND s.finished_at IS NOT NULL
-          ${trongKhoangNgay(sql`s.finished_at`, khoang)}
-        GROUP BY s.source
-      ) x
-      LEFT JOIN games g ON g.code = x.ma
-      GROUP BY x.ma, g.name, g.ordinal
-      ORDER BY g.ordinal NULLS LAST, 2` as unknown as Promise<any[]>,
-    diemVaHuyHieu(id, now),
     hoSoChuDe(id),
-    bangXepHangCaNhan(nguoi.don_vi_id, thuHaiCuaTuan(ngayVietNam(now))),
     lanHocGanNhat([id]),
   ]);
 
@@ -940,27 +884,6 @@ export async function hoSoCanBo(
       chu_de: chuDeLt,
       manh: manhYeu(hoSo.manh),
       yeu: manhYeu(hoSo.yeu),
-    },
-    tro_choi: {
-      xp_tong: diem.xp_tong,
-      xp_tuan: diem.xp_tuan,
-      cap: diem.cap.cap,
-      chuoi_hien_tai: diem.chuoi.hien_tai,
-      chuoi_tot_nhat: diem.chuoi.tot_nhat,
-      // Chưa có XP trong tuần thì không ghi hạng: cả đơn vị 0 điểm đều đứng "hạng 1" là vô nghĩa.
-      hang_don_vi: hang.find((h) => h.account_id === id && h.xp > 0)?.hang ?? null,
-      so_nguoi_don_vi: hang.length,
-      huy_hieu: diem.huy_hieu.flatMap((h) =>
-        h.dat_luc ? [{ ten: h.name, mo_ta: h.description, dat_luc: h.dat_luc }] : [],
-      ),
-      luot: luot.map((r) => ({
-        ma: r.ma,
-        ten: r.ten,
-        so_luot: r.so_luot,
-        sao: r.sao ?? null,
-        diem: r.diem === null ? null : lamTron(Number(r.diem)),
-        lan_choi: r.lan_choi ?? null,
-      })),
     },
   };
 }

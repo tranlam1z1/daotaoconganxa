@@ -378,7 +378,6 @@ interface PhanHoSo {
 
 function phanHoSo(nguoi: CanBoBaoCao, h: HoSoCanBo): PhanHoSo[] {
   const tq = h.tong_quan;
-  const tc = h.tro_choi;
   const ngayHoacTrong = (d: Date | null) => (d ? ngayGio(d) : null);
   const chuDe = (ds: HoSoCanBo["luyen_tap"]["manh"]) =>
     ds.map((x) => `${x.ten} (${x.so_dung}/${x.so_luot} đúng)`).join("; ") || "chưa đủ dữ liệu";
@@ -465,25 +464,6 @@ function phanHoSo(nguoi: CanBoBaoCao, h: HoSoCanBo): PhanHoSo[] {
       dong: h.luyen_tap.chu_de.map((d) => ({ ...d })),
       ghiChu: [`Chủ đề mạnh: ${chuDe(h.luyen_tap.manh)}`, `Chủ đề yếu: ${chuDe(h.luyen_tap.yeu)}`],
       trong: "Chưa luyện tập.",
-    },
-    {
-      ten: "Trò chơi",
-      cot: [
-        { khoa: "ten", tieuDe: "Trò chơi", rong: 34 },
-        { khoa: "so_luot", tieuDe: "Số lượt", rong: 10, canPhai: true },
-        { khoa: "sao", tieuDe: "Sao cao nhất", rong: 12, canPhai: true },
-        { khoa: "diem", tieuDe: "Điểm cao nhất", rong: 13, canPhai: true },
-        { khoa: "lan_choi", tieuDe: "Chơi gần nhất", rong: 16 },
-      ],
-      dong: tc.luot.map(({ ma: _, ...d }) => ({ ...d, lan_choi: ngayHoacTrong(d.lan_choi) })),
-      ghiChu: [
-        `XP: ${tc.xp_tong} (tuần này ${tc.xp_tuan}), cấp ${tc.cap}. Chuỗi ngày học: ${tc.chuoi_hien_tai}, dài nhất ${tc.chuoi_tot_nhat}.`,
-        tc.hang_don_vi
-          ? `Hạng tuần này trong đơn vị: ${tc.hang_don_vi}/${tc.so_nguoi_don_vi}.`
-          : "Chưa có hạng trong đơn vị.",
-        `Huy hiệu: ${tc.huy_hieu.map((x) => x.ten).join("; ") || "chưa có"}`,
-      ],
-      trong: "Chưa chơi trò nào.",
     },
   ];
 }

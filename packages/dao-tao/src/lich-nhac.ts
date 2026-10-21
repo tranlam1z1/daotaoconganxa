@@ -7,12 +7,8 @@
  * do khóa UNIQUE (account_id, kind, ref) ở CSDL, `ref` là ngày hoặc id bài giao.
  */
 
-export type LoaiThongBao = "nhac_hoc" | "chuoi_ngay" | "thu_thach" | "de_thi_moi" | "nhom_hoc";
+export type LoaiThongBao = "nhac_hoc" | "de_thi_moi" | "nhom_hoc";
 
-/** Giờ bắt đầu cảnh báo chuỗi ngày sắp đứt (20h), theo phút trong ngày. */
-export const GIO_CANH_BAO_CHUOI = 20 * 60;
-/** Giờ gửi thông báo thử thách mới (7h). */
-export const GIO_THU_THACH = 7 * 60;
 /** Độ rộng cửa sổ gửi của các thông báo theo giờ. */
 export const CUA_SO_PHUT = 120;
 
@@ -51,9 +47,7 @@ function trongCuaSo(phut: number, batDau: number): boolean {
 export interface CaiDatNhac {
   /** "HH:MM"; null là không nhắc giờ học. */
   remind_at: string | null;
-  streak_warning: boolean;
   new_exam: boolean;
-  new_challenge: boolean;
   /** Thông báo nhóm học cùng: lượt cổ vũ mới, bài mới trong nhóm (docs/PLAN.md GĐ16a, câu N15). */
   group_activity: boolean;
   quiet_from: string;
@@ -62,9 +56,7 @@ export interface CaiDatNhac {
 
 export const CAI_DAT_MAC_DINH: CaiDatNhac = {
   remind_at: null,
-  streak_warning: true,
   new_exam: true,
-  new_challenge: true,
   group_activity: true,
   quiet_from: "22:00",
   quiet_to: "06:00",
@@ -75,10 +67,6 @@ export interface TinhTrangNguoiHoc {
   cai_dat: CaiDatNhac;
   /** Hôm nay (giờ Việt Nam) đã có hoạt động học chưa. */
   da_hoc_hom_nay: boolean;
-  /** Chuỗi ngày hiện tại. */
-  chuoi_ngay: number;
-  /** Có thử thách hôm nay không (ngân hàng có câu đã duyệt). */
-  co_thu_thach: boolean;
   /** Bài thi mới được giao, đang mở, chưa làm. */
   bai_giao_moi: Array<{ id: string; ten: string }>;
   /** Hoạt động hôm nay trong các nhóm học cùng đang tham gia; thiếu là không có. */
@@ -115,24 +103,6 @@ export function thongBaoCanGui(t: TinhTrangNguoiHoc, now: Date): ThongBaoCanGui[
       tieu_de: "Đến giờ học",
       noi_dung: "Dành 5 phút luyện 10 câu hỏi hôm nay.",
       url: "/luyen-tap",
-    });
-  }
-  if (c.streak_warning && t.chuoi_ngay > 0 && !t.da_hoc_hom_nay && trongCuaSo(phut, GIO_CANH_BAO_CHUOI)) {
-    ra.push({
-      kind: "chuoi_ngay",
-      ref: ngay,
-      tieu_de: "Chuỗi ngày học sắp đứt",
-      noi_dung: `Bạn đang có chuỗi ${t.chuoi_ngay} ngày. Học một phiên trước nửa đêm để giữ chuỗi.`,
-      url: "/luyen-tap",
-    });
-  }
-  if (c.new_challenge && t.co_thu_thach && trongCuaSo(phut, GIO_THU_THACH)) {
-    ra.push({
-      kind: "thu_thach",
-      ref: ngay,
-      tieu_de: "Thử thách hôm nay đã có",
-      noi_dung: "5 câu hỏi của ngày hôm nay đang chờ bạn.",
-      url: "/",
     });
   }
   if (c.new_exam) {

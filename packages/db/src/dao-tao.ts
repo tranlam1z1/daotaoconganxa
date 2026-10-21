@@ -15,14 +15,13 @@ import {
   NGUONG_DAT_KIEM_TRA_CUOI_BAI,
   NHAN_TRANG_THAI_NOI_DUNG,
   phutCuaBai,
-  QUY_TAC_XP,
   SO_CAU_KIEM_TRA_CUOI_BAI,
   type TrangThaiNoiDung,
   tinhDiemRubric,
 } from "@qdpl/dao-tao";
 import { sql } from "./client.ts";
-import { congXp } from "./diem-thuong.ts";
 import { LoiNghiepVu } from "./don-vi.ts";
+import { ghiHoatDongHomNay } from "./hoat-dong.ts";
 import { type ChuDeCauHoiRow, luuChuDeCauHoi } from "./ngan-hang.ts";
 
 export type TrangThaiNoiDungDb =
@@ -793,12 +792,10 @@ export async function ghiTienDo(p: {
 }
 
 /**
- * Đánh dấu một bài học đã xong và cộng XP hoàn thành bài (docs/PLAN.md GĐ11), trong CÙNG một
- * giao dịch. Chưa ghi danh chuyên đề thì ghi danh luôn: người học mở bài từ danh mục `/hoc`
- * không phải qua bước ghi danh riêng.
+ * Đánh dấu một bài học đã xong, trong CÙNG một giao dịch. Chưa ghi danh chuyên đề thì ghi danh
+ * luôn: người học mở bài từ danh mục `/hoc` không phải qua bước ghi danh riêng.
  *
- * XP chỉ cộng một lần cho mỗi người mỗi bài (khóa `bai_hoc` + ghi danh + bài trên xp_ledger),
- * kể cả khi bấm "Hoàn thành" nhiều lần hoặc học lại bài.
+ * Ghi thêm dòng ngày học hôm nay (để nhắc "đã học hôm nay"), không cộng điểm thưởng nào.
  */
 export async function hoanThanhBaiHoc(p: {
   accountId: string;
@@ -806,7 +803,7 @@ export async function hoanThanhBaiHoc(p: {
   lessonId: string;
   themGiay?: number;
   now?: Date;
-}): Promise<{ ghiDanhId: string; daXongTruoc: boolean; xpCong: number }> {
+}): Promise<{ ghiDanhId: string; daXongTruoc: boolean }> {
   return (await sql.begin(async (tx) => {
     const [e] = (await tx`
       INSERT INTO enrollments (account_id, course_id)
@@ -828,16 +825,9 @@ export async function hoanThanhBaiHoc(p: {
     await tx`
       INSERT INTO learning_events (enrollment_id, kind, lesson_id)
       VALUES (${e.id}, 'xong_bai', ${p.lessonId}::uuid)`;
-    const xp = QUY_TAC_XP.hoan_thanh_bai_hoc;
-    const daCong = await congXp(tx, {
-      accountId: p.accountId,
-      nguon: "bai_hoc",
-      nguonId: `${e.id}|${p.lessonId}`,
-      xp,
-      ...(p.now ? { luc: p.now } : {}),
-    });
-    return { ghiDanhId: e.id as string, daXongTruoc, xpCong: daCong ? xp : 0 };
-  })) as unknown as { ghiDanhId: string; daXongTruoc: boolean; xpCong: number };
+    await ghiHoatDongHomNay(tx, p.accountId, p.now);
+    return { ghiDanhId: e.id as string, daXongTruoc };
+  })) as unknown as { ghiDanhId: string; daXongTruoc: boolean };
 }
 
 export interface ChuDeCuaBai {

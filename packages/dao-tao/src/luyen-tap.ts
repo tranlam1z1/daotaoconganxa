@@ -130,6 +130,39 @@ export function rutCauLuyenTap(opts: {
   });
 }
 
+/**
+ * Dựng các câu của một phiên theo đúng danh sách id đã chốt, cùng dạng `CauTrongDe` với phiên
+ * luyện tập. Phương án đảo theo từng người (`seed`), id giữ nguyên nên chấm không đổi. Câu không
+ * còn trong `nguon` (đã bị gỡ duyệt) thì bỏ qua.
+ */
+export function dungCauTheoId(ids: string[], nguon: CauHoiNguon[], seed: string): CauTrongPhien[] {
+  const rng = taoRng(seed);
+  const theoId = new Map(nguon.map((c) => [c.id, c]));
+  return ids
+    .map((id) => theoId.get(id))
+    .filter((c): c is CauHoiNguon => Boolean(c))
+    .map((c) => {
+      const noiDung: NoiDungCauHoi = {
+        kind: c.kind,
+        level: c.level,
+        stem: c.stem,
+        options: c.options,
+        answer: c.answer,
+        explanation: c.explanation,
+        citations: c.citations,
+        image_uris: c.image_uris,
+      };
+      return {
+        question_id: c.id,
+        version: c.version,
+        topic_id: c.topic_id,
+        level: c.level,
+        de: daoPhuongAn(deChoNguoiHoc(noiDung), rng),
+        noi_dung: noiDung,
+      };
+    });
+}
+
 /* ------------------------------------------------------------------ */
 /* Câu sai của tôi                                                     */
 /* ------------------------------------------------------------------ */

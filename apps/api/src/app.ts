@@ -12,9 +12,8 @@ import { danhTinh, diaChiIp, gioiHanChoXacMinh, loiXacThuc } from "./auth.ts";
 import { handleError, notFound, today } from "./http.ts";
 import { ask } from "./routes/ask.ts";
 import { auth } from "./routes/auth.ts";
-import { bangXepHang } from "./routes/bang-xep-hang.ts";
 import { baoCao } from "./routes/bao-cao.ts";
-import { bienBao, doanBienBao } from "./routes/bien-bao.ts";
+import { bienBao } from "./routes/bien-bao.ts";
 import { citations } from "./routes/citations.ts";
 import { daoTao } from "./routes/dao-tao.ts";
 import { deThiRoute, giaoBaiRoute } from "./routes/de-thi.ts";
@@ -23,15 +22,12 @@ import { documents } from "./routes/documents.ts";
 import { duLieuTraCuuRoute } from "./routes/du-lieu-tra-cuu.ts";
 import { editorial } from "./routes/editorial.ts";
 import { giongDoc } from "./routes/giong-doc.ts";
-import { luotChoiRoute } from "./routes/luot-choi.ts";
 import { luyenTap } from "./routes/luyen-tap.ts";
 import { mascot } from "./routes/mascot.ts";
-import { muaGiaiRoute, quanTriMuaGiaiRoute } from "./routes/mua-giai.ts";
 import { nganHang } from "./routes/ngan-hang.ts";
 import { donViRoute, nguoiDungRoute } from "./routes/nguoi-dung.ts";
 import { nhomRoute, quanTriNhomRoute } from "./routes/nhom.ts";
 import { nodes } from "./routes/nodes.ts";
-import { noiDungTroChoiRoute } from "./routes/noi-dung-tro-choi.ts";
 import { quanTri } from "./routes/quan-tri.ts";
 import { quanTriVanBanRoute } from "./routes/quan-tri-van-ban.ts";
 import { searchRoute } from "./routes/search.ts";
@@ -39,8 +35,6 @@ import { thiRoute } from "./routes/thi.ts";
 import { thongBao } from "./routes/thong-bao.ts";
 import { toi } from "./routes/toi.ts";
 import { traCuuNhanh } from "./routes/tra-cuu-nhanh.ts";
-import { troChoi } from "./routes/tro-choi.ts";
-import { truyVetRoute } from "./routes/truy-vet.ts";
 
 export function createApp() {
   const app = new Hono();
@@ -140,14 +134,10 @@ export function createApp() {
   app.route("/v1/quan-tri/don-vi", donViRoute);
   app.route("/v1/quan-tri/nguoi-dung", nguoiDungRoute);
   app.route("/v1/quan-tri/ngan-hang", nganHang);
-  // Khung trò chơi chung (docs/PLAN.md GĐ-G0).
-  app.route("/v1/quan-tri/noi-dung-tro-choi", noiDungTroChoiRoute);
   app.route("/v1/quan-tri/du-lieu-tra-cuu", duLieuTraCuuRoute);
   // Thêm, sửa, xóa văn bản trong kho (Markdown phiên bản gốc).
   app.route("/v1/quan-tri/van-ban", quanTriVanBanRoute);
   app.route("/v1/quan-tri/de-thi", deThiRoute);
-  // Mùa giải đơn vị (docs/PLAN.md GĐ-G6).
-  app.route("/v1/quan-tri/mua-giai", quanTriMuaGiaiRoute);
   // Quản lý xem nhóm học cùng (docs/PLAN.md GĐ16c).
   app.route("/v1/quan-tri/nhom", quanTriNhomRoute);
   app.route("/v1/giao-bai", giaoBaiRoute);
@@ -157,12 +147,6 @@ export function createApp() {
   app.route("/v1/nhom", nhomRoute);
   app.route("/v1/toi", toi);
   app.route("/v1/thong-bao", thongBao);
-  app.route("/v1/tro-choi/doan-bien-bao", doanBienBao);
-  app.route("/v1/tro-choi", troChoi);
-  app.route("/v1/luot-choi", luotChoiRoute);
-  app.route("/v1/truy-vet", truyVetRoute);
-  app.route("/v1/bang-xep-hang", bangXepHang);
-  app.route("/v1/mua-giai", muaGiaiRoute);
   app.route("/v1/bao-cao", baoCao);
   app.route("/v1/quan-tri", quanTri);
   app.route("/v1", editorial);

@@ -3,7 +3,7 @@
  * Chỉ trả dữ liệu của người gọi, nên không có tham số tài khoản nào.
  */
 
-import { cauSaiCuaToi, hoSoChuDe, lichSuPhienCuaToi, sql, tongQuanDiem } from "@qdpl/db";
+import { cauSaiCuaToi, hoSoChuDe, lichSuPhienCuaToi, sql } from "@qdpl/db";
 import { deleteObject, getObject, putObject } from "@qdpl/storage";
 import { Hono } from "hono";
 import { batBuocDangNhap } from "../auth.ts";
@@ -29,16 +29,8 @@ toi.get("/cau-sai", async (c) => {
 });
 
 /**
- * GET /v1/toi/tong-quan: XP (tổng và tuần này), cấp độ, chuỗi ngày học, huy hiệu, thử thách hôm
- * nay (docs/PLAN.md GĐ9).
- */
-toi.get("/tong-quan", async (c) => {
-  return c.json(await tongQuanDiem(await taiKhoan(c)));
-});
-
-/**
  * GET /v1/toi/ho-so-chu-de: chủ đề mạnh nhất và yếu nhất của tôi, tính từ mọi câu trả lời trong
- * luyện tập, thi và trò chơi (docs/PLAN.md GĐ-G0).
+ * luyện tập và thi (docs/PLAN.md GĐ-G0).
  */
 toi.get("/ho-so-chu-de", async (c) => {
   return c.json(await hoSoChuDe(await taiKhoan(c)));

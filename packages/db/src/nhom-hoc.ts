@@ -19,7 +19,7 @@ import {
   type DauVaoGoiYThuTu,
   type DauVaoTomTat,
   type DuLieuMucCuaNguoi,
-  dungCauThuThach,
+  dungCauTheoId,
   dungDauVaoGoiYThuTu,
   dungDauVaoTomTat,
   GIOI_HAN_NHOM,
@@ -36,8 +36,12 @@ import {
   trangThaiMuc,
 } from "@qdpl/dao-tao";
 import { sql, type Tx } from "./client.ts";
-import { cauHoiDaDuyetTheoId } from "./diem-thuong.ts";
-import { chuDeLuyenTap, nguonTheoChuDe, taoPhienLuyenTap } from "./luyen-tap.ts";
+import {
+  cauHoiDaDuyetTheoId,
+  chuDeLuyenTap,
+  nguonTheoChuDe,
+  taoPhienLuyenTap,
+} from "./luyen-tap.ts";
 
 export type LoaiLoiNhom =
   | "khong_tim_thay"
@@ -835,7 +839,7 @@ export async function batDauMuc(groupId: string, accountId: string, itemId: stri
   const ids = i.question_ids as string[];
   const nguon = await cauHoiDaDuyetTheoId(ids);
   if (nguon.length < GIOI_HAN_NHOM.cauDeOnTap.toiThieu) throw loi("Nội dung không còn đủ câu.", "xung_dot");
-  const ds = dungCauThuThach(ids, nguon, `${itemId}|${accountId}|${Date.now()}`);
+  const ds = dungCauTheoId(ids, nguon, `${itemId}|${accountId}|${Date.now()}`);
   try {
     const { id } = await taoPhienLuyenTap({
       accountId,

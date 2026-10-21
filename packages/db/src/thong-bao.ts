@@ -15,7 +15,6 @@ import {
   thongBaoCanGui,
 } from "@qdpl/dao-tao";
 import { sql } from "./client.ts";
-import { cauThuThachNgay } from "./diem-thuong.ts";
 
 /* ------------------------------------------------------------------ */
 /* Đăng ký thiết bị                                                    */
@@ -66,14 +65,12 @@ const hhmm = (t: string | null) => (t ? t.slice(0, 5) : null);
 
 export async function caiDatNhac(accountId: string): Promise<CaiDatNhac> {
   const [r] = await sql<Array<Record<string, any>>>`
-    SELECT remind_at::text, streak_warning, new_exam, new_challenge, group_activity, quiet_from::text, quiet_to::text
+    SELECT remind_at::text, new_exam, group_activity, quiet_from::text, quiet_to::text
     FROM notification_prefs WHERE account_id = ${accountId}`;
   if (!r) return { ...CAI_DAT_MAC_DINH };
   return {
     remind_at: hhmm(r.remind_at),
-    streak_warning: r.streak_warning,
     new_exam: r.new_exam,
-    new_challenge: r.new_challenge,
     group_activity: r.group_activity,
     quiet_from: hhmm(r.quiet_from) ?? CAI_DAT_MAC_DINH.quiet_from,
     quiet_to: hhmm(r.quiet_to) ?? CAI_DAT_MAC_DINH.quiet_to,
@@ -87,13 +84,11 @@ export async function luuCaiDatNhac(
 ): Promise<CaiDatNhac> {
   const nhom = c.group_activity ?? null;
   await sql`
-    INSERT INTO notification_prefs (account_id, remind_at, streak_warning, new_exam, new_challenge, group_activity,
-                                    quiet_from, quiet_to)
-    VALUES (${accountId}, ${c.remind_at}::time, ${c.streak_warning}, ${c.new_exam}, ${c.new_challenge},
+    INSERT INTO notification_prefs (account_id, remind_at, new_exam, group_activity, quiet_from, quiet_to)
+    VALUES (${accountId}, ${c.remind_at}::time, ${c.new_exam},
             COALESCE(${nhom}::boolean, true), ${c.quiet_from}::time, ${c.quiet_to}::time)
     ON CONFLICT (account_id) DO UPDATE SET
-      remind_at = EXCLUDED.remind_at, streak_warning = EXCLUDED.streak_warning, new_exam = EXCLUDED.new_exam,
-      new_challenge = EXCLUDED.new_challenge,
+      remind_at = EXCLUDED.remind_at, new_exam = EXCLUDED.new_exam,
       group_activity = COALESCE(${nhom}::boolean, notification_prefs.group_activity),
       quiet_from = EXCLUDED.quiet_from, quiet_to = EXCLUDED.quiet_to,
       updated_at = now()`;
@@ -167,11 +162,10 @@ export async function phatThongBao(accountId: string, tb: ThongBaoCanGui, gui: G
 async function tinhTrangNguoiNhan(
   ngay: string,
   now: Date,
-  coThuThach: boolean,
 ): Promise<Array<{ account_id: string } & TinhTrangNguoiHoc>> {
   const rows = await sql<Array<Record<string, any>>>`
     SELECT a.id AS account_id,
-           p.remind_at::text AS remind_at, p.streak_warning, p.new_exam, p.new_challenge, p.group_activity,
+           p.remind_at::text AS remind_at, p.new_exam, p.group_activity,
            p.quiet_from::text AS quiet_from, p.quiet_to::text AS quiet_to,
            (SELECT count(*)::int FROM study_group_cheers c
               JOIN study_groups g ON g.id = c.group_id AND g.status = 'hoat_dong'
@@ -183,8 +177,6 @@ async function tinhTrangNguoiNhan(
              WHERE i.removed_at IS NULL AND i.shared_by IS DISTINCT FROM a.id AND i.created_at > m.joined_at
                AND i.created_at >= (${ngay}::date::timestamp AT TIME ZONE 'Asia/Ho_Chi_Minh')) AS muc_moi,
            EXISTS (SELECT 1 FROM daily_activity d WHERE d.account_id = a.id AND d.day = ${ngay}::date) AS da_hoc,
-           -- Chuỗi chỉ còn sống khi ngày học gần nhất là hôm nay hoặc hôm qua.
-           CASE WHEN s.last_day >= ${ngay}::date - 1 THEN s.current ELSE 0 END AS chuoi,
            COALESCE((
              SELECT json_agg(json_build_object('id', g.id, 'ten', e.title))
              FROM exam_assignments g
@@ -202,26 +194,21 @@ async function tinhTrangNguoiNhan(
            ), '[]'::json) AS bai_giao
     FROM accounts a
     LEFT JOIN notification_prefs p ON p.account_id = a.id
-    LEFT JOIN streaks s ON s.account_id = a.id
     LEFT JOIN units u ON u.id = a.unit_id
     WHERE a.enabled AND EXISTS (SELECT 1 FROM push_subscriptions ps WHERE ps.account_id = a.id)`;
   return rows.map((r) => ({
     account_id: r.account_id,
     cai_dat:
-      r.streak_warning === null
+      r.new_exam === null
         ? { ...CAI_DAT_MAC_DINH }
         : {
             remind_at: hhmm(r.remind_at),
-            streak_warning: r.streak_warning,
             new_exam: r.new_exam,
-            new_challenge: r.new_challenge,
             group_activity: r.group_activity,
             quiet_from: hhmm(r.quiet_from) ?? CAI_DAT_MAC_DINH.quiet_from,
             quiet_to: hhmm(r.quiet_to) ?? CAI_DAT_MAC_DINH.quiet_to,
           },
     da_hoc_hom_nay: Boolean(r.da_hoc),
-    chuoi_ngay: Number(r.chuoi ?? 0),
-    co_thu_thach: coThuThach,
     bai_giao_moi: r.bai_giao ?? [],
     nhom_hoc: { co_vu_moi: Number(r.co_vu_moi ?? 0), muc_moi: Number(r.muc_moi ?? 0) },
   }));
@@ -240,9 +227,7 @@ export interface KetQuaNhipNhac {
  */
 export async function chayNhacHoc(now: Date, gui: GuiDay): Promise<KetQuaNhipNhac> {
   const { ngay } = gioVietNam(now);
-  // Hỏi thử thách hôm nay cũng là chốt thử thách (GĐ9); ngân hàng rỗng thì không có gì để báo.
-  const coThuThach = (await cauThuThachNgay(ngay)).length > 0;
-  const ds = await tinhTrangNguoiNhan(ngay, now, coThuThach);
+  const ds = await tinhTrangNguoiNhan(ngay, now);
   const kq: KetQuaNhipNhac = { so_nguoi: ds.length, da_gui: 0, thiet_bi_nhan: 0, dang_ky_da_xoa: 0 };
   for (const n of ds) {
     for (const tb of thongBaoCanGui(n, now)) {

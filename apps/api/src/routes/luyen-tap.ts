@@ -8,8 +8,6 @@
  *  - Đề gửi đi KHÔNG có đáp án. Đáp án, giải thích và căn cứ chỉ trả về sau khi câu đã được chấm.
  *  - Người học lưu tạm câu trả lời (`/luu-tam`), đi tới đi lui và sửa được tới khi kết thúc phiên;
  *    lúc kết thúc mới chấm cả phiên. Trong lúc làm, máy chủ không báo đúng/sai.
- *  - Đua thời gian vẫn chấm ngay từng câu (`/tra-loi`). Mỗi câu chỉ chấm một lần trong một phiên;
- *    gửi lại nhận 409.
  */
 
 import type { Principal } from "@qdpl/auth";
@@ -19,17 +17,13 @@ import {
   capNhatCauSai,
   chamCauHoi,
   deChoNguoiHoc,
-  dungCauThuThach,
   type KetQuaCauHoi,
   type NoiDungCauHoi,
-  ngayVietNam,
   rutCauLuyenTap,
   type TraLoiCauHoi,
 } from "@qdpl/dao-tao";
 import {
-  cauHoiDaDuyetTheoId,
   cauHoiTheoIds,
-  cauThuThachNgay,
   cauTraLoiCuaPhien,
   chuDeLuyenTap,
   chuDeTheoMaHoacId,
@@ -45,14 +39,12 @@ import {
   nguonTheoChuDe,
   type PhienLuyenTapRow,
   phienLuyenTap,
-  phienThuThachHomNay,
   taoPhienLuyenTap,
 } from "@qdpl/db";
 import { Hono } from "hono";
 import { z } from "zod";
 import { batBuocDangNhap, KhongDuQuyen } from "../auth.ts";
 import { badRequest, conflict, notFound, parseBody } from "../http.ts";
-import { kiemTraGioGame, laPhienCauHoi, sauKetThucGame } from "./tro-choi.ts";
 
 export const luyenTap = new Hono();
 
@@ -74,8 +66,7 @@ function taiKhoan(p: Principal): string {
 async function layPhienCuaToi(id: string, accountId: string): Promise<PhienLuyenTapRow> {
   if (!uuid.safeParse(id).success) throw notFound("Không có phiên luyện tập này.");
   const phien = await phienLuyenTap(id);
-  // Ván ghép cặp (GĐ10) không phải phiên câu hỏi: đi qua /v1/tro-choi/ghep-cap.
-  if (!phien || !laPhienCauHoi(phien)) throw notFound("Không có phiên luyện tập này.");
+  if (!phien) throw notFound("Không có phiên luyện tập này.");
   if (phien.account_id !== accountId) throw new KhongPhaiPhienCuaBan();
   return phien;
 }
@@ -158,25 +149,12 @@ luyenTap.post("/phien", async (c) => {
   const b = await parseBody(
     c,
     z.object({
-      nguon: z.enum(["chu_de", "cau_sai", "thu_thach"]).default("chu_de"),
+      nguon: z.enum(["chu_de", "cau_sai"]).default("chu_de"),
       chu_de: z.string().trim().max(80).optional(),
       // Phiên ngắn hơn 10 câu, ví dụ kiểm tra nhanh cuối bài giảng (GĐ11). Bỏ trống là 10 câu.
       so_cau: z.number().int().min(3).max(10).optional(),
     }),
   );
-
-  // Thử thách hằng ngày (docs/PLAN.md GĐ9): 5 câu chốt cho cả ngày, mỗi người một phiên mỗi
-  // ngày. Đã bắt đầu thì trả lại phiên cũ (200) để làm tiếp hoặc xem kết quả.
-  if (b.nguon === "thu_thach") {
-    const daCo = await phienThuThachHomNay(acc);
-    if (daCo) return c.json({ id: daCo.id, tong: daCo.total, da_co: true }, 200);
-    const ngay = ngayVietNam();
-    const ids = await cauThuThachNgay(ngay);
-    const ds = dungCauThuThach(ids, await cauHoiDaDuyetTheoId(ids), `${ngay}|${acc}`);
-    if (!ds.length) throw badRequest("Ngân hàng chưa có câu hỏi đã duyệt cho thử thách hôm nay.");
-    const { id } = await taoPhienLuyenTap({ accountId: acc, topicId: null, source: "thu_thach", items: ds });
-    return c.json({ id, tong: ds.length }, 201);
-  }
 
   let topicId: string | null = null;
   let nguon: CauHoiNguon[];
@@ -230,7 +208,6 @@ luyenTap.post("/phien/:id/luu-tam", async (c) => {
   const acc = taiKhoan(await batBuocDangNhap(c));
   const p = await layPhienCuaToi(c.req.param("id"), acc);
   if (p.finished_at) throw conflict("Phiên đã kết thúc, không sửa câu trả lời được.");
-  if (p.source === "game:dua_thoi_gian") throw badRequest("Đua thời gian chấm ngay từng câu.");
   const b = await parseBody(
     c,
     z.object({ stt: z.number().int().min(1), tra_loi: traLoiCau, giay: giayLam.optional() }),
@@ -273,12 +250,11 @@ async function chamBanNhap(p: PhienLuyenTapRow, acc: string): Promise<void> {
   }
 }
 
-/** POST /v1/luyen-tap/phien/:id/tra-loi: chấm ngay một câu (Đua thời gian), trả đúng/sai, đáp án, giải thích, căn cứ. */
+/** POST /v1/luyen-tap/phien/:id/tra-loi: chấm ngay một câu, trả đúng/sai, đáp án, giải thích, căn cứ. */
 luyenTap.post("/phien/:id/tra-loi", async (c) => {
   const acc = taiKhoan(await batBuocDangNhap(c));
   const p = await layPhienCuaToi(c.req.param("id"), acc);
   if (p.finished_at) throw conflict("Phiên đã kết thúc, không trả lời thêm được.");
-  kiemTraGioGame(p);
   const b = await parseBody(
     c,
     z.object({
@@ -319,7 +295,6 @@ luyenTap.post("/phien/:id/ket-thuc", async (c) => {
     dung: xong.correct,
     tong: xong.total,
     giay: xong.seconds_spent,
-    ...(await sauKetThucGame(xong)),
   });
 });
 
@@ -392,7 +367,6 @@ const phienOffline = z.object({
  *   theo `client_id` của câu (UNIQUE trong CSDL).
  * - Máy chủ CHẤM LẠI từng câu bằng nội dung câu hỏi hiện tại, không tin kết quả chấm của máy.
  * - `client_id` đã thuộc tài khoản khác thì phiên đó bị bỏ qua, báo lỗi riêng cho phiên đó.
- * - XP cộng theo thời điểm làm bài thật, trong giới hạn 7 ngày (ketThucPhienOffline).
  */
 luyenTap.post("/dong-bo", async (c) => {
   const acc = taiKhoan(await batBuocDangNhap(c));
@@ -461,14 +435,13 @@ luyenTap.post("/dong-bo", async (c) => {
       else trung++;
     }
 
-    const xong = p.ket_thuc ? await ketThucPhienOffline(phien.id, new Date(p.ket_thuc), now) : null;
+    if (p.ket_thuc) await ketThucPhienOffline(phien.id, new Date(p.ket_thuc), now);
     ketQua.push({
       client_id: p.client_id,
       id: phien.id,
       so_cau_moi: moi,
       so_cau_trung: trung,
       da_ket_thuc: Boolean(p.ket_thuc) || phien.daKetThuc,
-      xp: xong?.xp ?? 0,
     });
   }
   return c.json({ ket_qua: ketQua });

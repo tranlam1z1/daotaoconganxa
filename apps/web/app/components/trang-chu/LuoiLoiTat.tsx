@@ -44,15 +44,15 @@ export function LuoiLoiTat({
           </Link>
         ) : null}
       </div>
-      <ul className="mt-3 grid grid-cols-2 gap-2">
+      <ul className="mt-3 grid gap-2 min-[400px]:grid-cols-2">
         {items.map((o) => (
           <li key={o.to}>
             <Link
               to={o.to}
-              className="flex h-full min-h-16 items-center gap-2.5 rounded-2xl border border-line bg-surface px-2.5 py-2 the-bam"
+              className="group flex h-full min-h-20 items-center gap-3 rounded-xl bg-surface-2/60 px-3 py-3 the-bam"
             >
-              <span className="hinh-noi grid size-11 shrink-0 place-items-center rounded-full bg-primary-soft">
-                <Icon name={o.icon} className="size-6" />
+              <span className="hinh-noi grid size-11 shrink-0 place-items-center rounded-xl bg-surface">
+                <Icon name={o.icon} className="size-7" />
               </span>
               <span className="min-w-0 text-sm leading-snug font-semibold">{o.ten}</span>
             </Link>

@@ -24,11 +24,13 @@ export function BrandMark() {
   // Điện thoại: tên được co lại (cắt bằng "…") khi chip điểm, chuông, ảnh đại diện hết chỗ.
   return (
     <Link to="/" className="flex min-h-11 min-w-0 items-center gap-2.5 md:shrink-0">
-      <LogoHocTap className="h-9 w-auto shrink-0 min-[400px]:h-10" />
+      <LogoHocTap className="h-10 w-auto shrink-0 min-[400px]:h-11" />
       {/* 768–1023px: menu ngang, chip điểm và các nút hết chỗ, chỉ giữ logo (tên vẫn đọc được). */}
       <span className="flex min-w-0 flex-col py-1 md:max-lg:sr-only">
-        <span className="truncate font-display text-[13px] font-bold uppercase leading-tight tracking-wide text-primary min-[400px]:text-[15px]">
-          {SITE_NAME}
+        <span className="font-sans text-[11px] font-bold uppercase leading-snug tracking-wide text-primary min-[400px]:text-[13px]">
+          Học tập pháp luật &amp;
+          <br />
+          Bồi dưỡng nghiệp vụ
         </span>
         <span className="truncate text-[10px] uppercase leading-tight tracking-[0.14em] text-ink-2 min-[400px]:text-[11px]">
           {SITE_TAGLINE}

@@ -109,7 +109,7 @@ const uuid = z.string().uuid();
 
 /** GET /v1/quan-tri/dao-tao/tong-quan — sáu thẻ số liệu ở 09-c §3. */
 quanTri.get("/dao-tao/tong-quan", async (c) => {
-  await batBuocVaiTro(c, "bien_tap");
+  await batBuocVaiTro(c, "quan_ly");
   const [tq, anhChoDuyet, hieuQua] = await Promise.all([
     tongQuanDaoTao(),
     danhSachAnh({ status: "cho_duyet", limit: 500 }),
@@ -128,7 +128,7 @@ quanTri.get("/dao-tao/tong-quan", async (c) => {
 /* ------------------------------------------------------------------ */
 
 quanTri.get("/dao-tao/chuyen-de", async (c) => {
-  await batBuocVaiTro(c, "bien_tap");
+  await batBuocVaiTro(c, "quan_ly");
   const rows = await danhSachChuyenDe({ chiXuatBan: false, limit: 200 });
   return c.json({
     items: rows.map((r) => ({
@@ -155,14 +155,14 @@ quanTri.get("/dao-tao/chuyen-de", async (c) => {
 
 /** GET /v1/quan-tri/dao-tao/linh-vuc — lĩnh vực đào tạo để gắn chuyên đề (kể cả lĩnh vực đang biên soạn). */
 quanTri.get("/dao-tao/linh-vuc", async (c) => {
-  await batBuocVaiTro(c, "bien_tap");
+  await batBuocVaiTro(c, "quan_ly");
   const rows = await danhSachLinhVuc();
   return c.json({ items: rows.map((r) => ({ id: r.id, slug: r.slug, name: r.name, status: r.status })) });
 });
 
 /** GET /v1/quan-tri/dao-tao/chuyen-de/:slug — một chuyên đề kèm mọi bài (mọi trạng thái), cho trang soạn. */
 quanTri.get("/dao-tao/chuyen-de/:slug", async (c) => {
-  await batBuocVaiTro(c, "bien_tap");
+  await batBuocVaiTro(c, "quan_ly");
   const r = await chuyenDeTheoSlug(c.req.param("slug"));
   if (!r) throw notFound("Không tìm thấy chuyên đề");
   const [bai, soKhoi] = await Promise.all([baiHocCuaChuyenDe(r.id), soKhoiTheoBai(r.id)]);
@@ -219,7 +219,7 @@ const chuyenDeSchema = z.object({
 });
 
 quanTri.post("/dao-tao/chuyen-de", async (c) => {
-  const p = await batBuocVaiTro(c, "bien_tap");
+  const p = await batBuocVaiTro(c, "quan_ly");
   const body = await parseBody(c, chuyenDeSchema);
   // Sửa chuyên đề đã có: trường không gửi lên thì giữ giá trị cũ, không để mặc định của schema
   // xóa mục tiêu, thẻ, mascot… mà seed đã nạp. Bản đồ pháp lý không sửa qua API này nên luôn giữ.
@@ -250,9 +250,9 @@ quanTri.post("/dao-tao/chuyen-de", async (c) => {
   return c.json({ chuyenDe: row });
 });
 
-/** POST /v1/quan-tri/dao-tao/chuyen-de/:id/trang-thai — xuất bản chỉ dành cho pháp chế. */
+/** POST /v1/quan-tri/dao-tao/chuyen-de/:id/trang-thai — xuất bản chỉ dành cho Admin quản lý. */
 quanTri.post("/dao-tao/chuyen-de/:id/trang-thai", async (c) => {
-  const p = await batBuocVaiTro(c, "bien_tap");
+  const p = await batBuocVaiTro(c, "quan_ly");
   const body = await parseBody(c, z.object({ trangThai: z.string().trim() }));
   const moi = body.trangThai as TrangThaiNoiDung;
   const cu = await chuyenDeTheoId(c.req.param("id"));
@@ -273,7 +273,7 @@ quanTri.post("/dao-tao/chuyen-de/:id/trang-thai", async (c) => {
  * Trả về đúng thứ chặn xuất bản, không phải một điểm số chung chung.
  */
 quanTri.get("/dao-tao/chuyen-de/:slug/kiem-tra", async (c) => {
-  await batBuocVaiTro(c, "bien_tap");
+  await batBuocVaiTro(c, "quan_ly");
   const course = await chuyenDeTheoSlug(c.req.param("slug"));
   if (!course) throw notFound("Không tìm thấy chuyên đề");
 
@@ -341,7 +341,7 @@ quanTri.get("/dao-tao/chuyen-de/:slug/kiem-tra", async (c) => {
 /* ------------------------------------------------------------------ */
 
 quanTri.put("/dao-tao/chuyen-de/:id/ky-nang", async (c) => {
-  const p = await batBuocVaiTro(c, "bien_tap");
+  const p = await batBuocVaiTro(c, "quan_ly");
   const body = await parseBody(
     c,
     z.object({
@@ -367,7 +367,7 @@ quanTri.put("/dao-tao/chuyen-de/:id/ky-nang", async (c) => {
 /* ------------------------------------------------------------------ */
 
 quanTri.get("/dao-tao/bai/:id", async (c) => {
-  await batBuocVaiTro(c, "bien_tap");
+  await batBuocVaiTro(c, "quan_ly");
   const bai = await baiHocTheoId(c.req.param("id"));
   if (!bai) throw notFound("Không tìm thấy bài học");
   const [khoi, hoatDong] = await Promise.all([khoiCuaBai(bai.id), hoatDongCuaBai(bai.id)]);
@@ -377,7 +377,7 @@ quanTri.get("/dao-tao/bai/:id", async (c) => {
 });
 
 quanTri.post("/dao-tao/bai", async (c) => {
-  const p = await batBuocVaiTro(c, "bien_tap");
+  const p = await batBuocVaiTro(c, "quan_ly");
   const body = await parseBody(
     c,
     z.object({
@@ -421,7 +421,7 @@ quanTri.post("/dao-tao/bai", async (c) => {
 });
 
 quanTri.post("/dao-tao/bai/:id/trang-thai", async (c) => {
-  const p = await batBuocVaiTro(c, "bien_tap");
+  const p = await batBuocVaiTro(c, "quan_ly");
   const body = await parseBody(c, z.object({ trangThai: z.string().trim() }));
   const moi = body.trangThai as TrangThaiNoiDung;
   const cu = await baiHocTheoId(c.req.param("id"));
@@ -490,17 +490,17 @@ const CHANG_TOI: Record<
 };
 
 /**
- * POST /v1/quan-tri/dao-tao/chuyen-de/:id/bai/trang-thai — gửi pháp chế hoặc xuất bản nhiều bài
+ * POST /v1/quan-tri/dao-tao/chuyen-de/:id/bai/trang-thai — gửi duyệt hoặc xuất bản nhiều bài
  * của một chuyên đề trong một lần, thay cho việc mở từng bài và bấm từng bước chuyển.
  *
- * Không nới quy tắc nào: xuất bản vẫn cần vai trò pháp chế, bài chưa đạt bảng kiểm bị bỏ qua kèm
- * lý do (cả khi chỉ gửi pháp chế, vì gửi một bài chắc chắn bị trả lại là vô ích). `bai` giới hạn
+ * Không nới quy tắc nào: xuất bản vẫn cần vai trò Admin quản lý, bài chưa đạt bảng kiểm bị bỏ qua kèm
+ * lý do (cả khi chỉ gửi duyệt, vì gửi một bài chắc chắn bị trả lại là vô ích). `bai` giới hạn
  * vào một số bài, ví dụ các bài của một lần soạn tự động; bỏ trống là mọi bài của chuyên đề.
  * Xuất bản được ít nhất một bài thì chuyên đề cũng được xuất bản, vì học viên chỉ thấy bài của
  * chuyên đề đã xuất bản.
  */
 quanTri.post("/dao-tao/chuyen-de/:id/bai/trang-thai", async (c) => {
-  const p = await batBuocVaiTro(c, "bien_tap");
+  const p = await batBuocVaiTro(c, "quan_ly");
   const body = await parseBody(
     c,
     z.object({ den: z.enum(["cho_phap_che", "xuat_ban"]), bai: z.array(uuid).min(1).max(200).optional() }),
@@ -566,14 +566,14 @@ async function xepDungSachNoi(lessonId: string): Promise<void> {
 }
 
 quanTri.delete("/dao-tao/bai/:id", async (c) => {
-  const p = await batBuocVaiTro(c, "phap_che");
+  const p = await batBuocVaiTro(c, "quan_ly");
   await xoaBaiHoc(c.req.param("id"));
   await ghiNhatKy(p.email, "dao_tao.bai.xoa", c.req.param("id"));
   return c.json({ ok: true });
 });
 
 quanTri.post("/dao-tao/khoi", async (c) => {
-  const p = await batBuocVaiTro(c, "bien_tap");
+  const p = await batBuocVaiTro(c, "quan_ly");
   const body = await parseBody(
     c,
     z.object({
@@ -594,14 +594,14 @@ quanTri.post("/dao-tao/khoi", async (c) => {
 });
 
 quanTri.delete("/dao-tao/khoi/:id", async (c) => {
-  const p = await batBuocVaiTro(c, "bien_tap");
+  const p = await batBuocVaiTro(c, "quan_ly");
   await xoaKhoi(c.req.param("id"));
   await ghiNhatKy(p.email, "dao_tao.khoi.xoa", c.req.param("id"));
   return c.json({ ok: true });
 });
 
 quanTri.post("/dao-tao/bai/:id/sap-xep-khoi", async (c) => {
-  const p = await batBuocVaiTro(c, "bien_tap");
+  const p = await batBuocVaiTro(c, "quan_ly");
   const body = await parseBody(c, z.object({ thuTu: z.array(uuid).min(1) }));
   await sapXepKhoi(c.req.param("id"), body.thuTu);
   await ghiNhatKy(p.email, "dao_tao.khoi.sap_xep", c.req.param("id"), { so: body.thuTu.length });
@@ -613,7 +613,7 @@ quanTri.post("/dao-tao/bai/:id/sap-xep-khoi", async (c) => {
 /* ------------------------------------------------------------------ */
 
 quanTri.post("/dao-tao/hoat-dong", async (c) => {
-  const p = await batBuocVaiTro(c, "bien_tap");
+  const p = await batBuocVaiTro(c, "quan_ly");
   const body = await parseBody(
     c,
     z.object({
@@ -647,7 +647,7 @@ quanTri.post("/dao-tao/hoat-dong", async (c) => {
 });
 
 quanTri.post("/dao-tao/hoat-dong/:id/go", async (c) => {
-  const p = await batBuocVaiTro(c, "bien_tap");
+  const p = await batBuocVaiTro(c, "quan_ly");
   const body = await parseBody(c, z.object({ go: z.boolean().default(true) }));
   await goHoatDong(c.req.param("id"), body.go);
   await ghiNhatKy(
@@ -660,7 +660,7 @@ quanTri.post("/dao-tao/hoat-dong/:id/go", async (c) => {
 
 /** GET /v1/quan-tri/dao-tao/chuyen-de/:id/ngan-hang — chỉ số từng câu hỏi (09-c §4.4). */
 quanTri.get("/dao-tao/chuyen-de/:id/ngan-hang", async (c) => {
-  await batBuocVaiTro(c, "bien_tap");
+  await batBuocVaiTro(c, "quan_ly");
   const luot = await luotLamCuaChuyenDe(c.req.param("id"));
   const chiSo = chiSoCauHoi(
     luot.map((l) => ({
@@ -692,7 +692,7 @@ const BUOC_SOAN = [
 ] as const;
 
 quanTri.get("/dao-tao/soan-bai", async (c) => {
-  await batBuocVaiTro(c, "bien_tap");
+  await batBuocVaiTro(c, "quan_ly");
   const p = parseQuery(c, z.object({ chuyenDe: uuid.optional(), state: z.string().trim().optional() }));
   const rows = await danhSachViecSoanBai({
     ...(p.chuyenDe ? { courseId: p.chuyenDe } : {}),
@@ -703,11 +703,11 @@ quanTri.get("/dao-tao/soan-bai", async (c) => {
 
 /**
  * POST /v1/quan-tri/dao-tao/soan-bai — tạo việc soạn bài.
- * Chỉ TẠO việc; worker `qdpl-soan-bai` chạy. Tạo lô lớn tốn tiền nên cần vai trò pháp chế
+ * Chỉ TẠO việc; worker `qdpl-soan-bai` chạy. Tạo lô lớn tốn tiền nên cần vai trò Admin quản trị hệ thống
  * khi vượt trần chi phí mặc định.
  */
 quanTri.post("/dao-tao/soan-bai", async (c) => {
-  const p = await batBuocVaiTro(c, "bien_tap");
+  const p = await batBuocVaiTro(c, "quan_ly");
   const body = await parseBody(
     c,
     z.object({
@@ -719,8 +719,8 @@ quanTri.post("/dao-tao/soan-bai", async (c) => {
       batch: z.boolean().default(true),
     }),
   );
-  if ((body.budgetUsd ?? 0) > 20 && !atLeast(p.role, "phap_che")) {
-    throw new KhongDuQuyen("phap_che");
+  if ((body.budgetUsd ?? 0) > 20 && !atLeast(p.role, "quan_tri")) {
+    throw new KhongDuQuyen("quan_tri");
   }
   const row = await taoViecSoanBai({ ...body, requestedBy: p.email });
   await ghiNhatKy(p.email, "dao_tao.soan_bai.tao", row.id, { step: row.step });
@@ -735,10 +735,10 @@ quanTri.post("/dao-tao/soan-bai", async (c) => {
  *
  * Bước `soan_bai` ghi khối nội dung, `sinh_bai_tap`/`sinh_rubric` ghi bài tập vào bài của việc;
  * `cheDo=thay` bỏ phần AI soạn trước đó của bài. Chỉ phần đã qua hậu kiểm được ghi. Nhận vào
- * nháp không phải duyệt: bài vẫn phải qua pháp chế mới tới người học.
+ * nháp không phải duyệt: bài vẫn phải qua duyệt mới tới người học.
  */
 quanTri.post("/dao-tao/soan-bai/:id/nhan", async (c) => {
-  const p = await batBuocVaiTro(c, "bien_tap");
+  const p = await batBuocVaiTro(c, "quan_ly");
   const id = uuid.safeParse(c.req.param("id"));
   if (!id.success) throw notFound("Không tìm thấy việc soạn bài");
   const q = parseQuery(c, z.object({ cheDo: z.enum(["noi", "thay"]).default("noi") }));
@@ -769,7 +769,7 @@ const SO_URN_TOI_DA_CUA_BAI = 20;
  * thì không ở đâu cả. Không nêu `urns` thì dùng các điều khoản mà khối nội dung của bài viện dẫn.
  */
 quanTri.post("/dao-tao/bai/:id/sinh-cau-hoi", async (c) => {
-  const p = await batBuocVaiTro(c, "bien_tap");
+  const p = await batBuocVaiTro(c, "quan_ly");
   const id = uuid.safeParse(c.req.param("id"));
   if (!id.success) throw notFound("Không tìm thấy bài học");
   const b = await parseBody(
@@ -844,7 +844,7 @@ const urnCanCu = z
   .regex(/^vn:\S+$/, "Căn cứ phải là URN dạng vn:...");
 
 quanTri.get("/dao-tao/soan-tu-dong", async (c) => {
-  await batBuocVaiTro(c, "bien_tap");
+  await batBuocVaiTro(c, "quan_ly");
   return c.json({ items: await tienDoSoanTuDong(10), tran_chi_phi_usd: tranChiPhiSoanTuDong() });
 });
 
@@ -857,7 +857,7 @@ quanTri.get("/dao-tao/soan-tu-dong", async (c) => {
  * `chay_thu` chỉ trả điều khoản và ước tính, không tạo chuyên đề hay việc nào.
  */
 quanTri.post("/dao-tao/soan-tu-dong", async (c) => {
-  const p = await batBuocVaiTro(c, "bien_tap");
+  const p = await batBuocVaiTro(c, "quan_ly");
   const b = await parseBody(
     c,
     z
@@ -909,7 +909,7 @@ quanTri.post("/dao-tao/soan-tu-dong", async (c) => {
  * thì dùng lại), tạo chuyên đề mang tên văn bản và cho AI soạn bài. Chi tiết ở chuyen-de-tu-pdf.ts.
  */
 quanTri.post("/dao-tao/chuyen-de-tu-pdf", async (c) => {
-  const p = await batBuocVaiTro(c, "bien_tap");
+  const p = await batBuocVaiTro(c, "quan_ly");
   const form = await c.req.raw.formData().catch(() => null);
   const tep = form?.get("tep");
   const bytes = await docTepPdf(tep);
@@ -951,7 +951,7 @@ quanTri.post("/dao-tao/chuyen-de-tu-pdf", async (c) => {
 
 /** GET /v1/quan-tri/dao-tao/chuyen-de/:id/soan — tiến độ soạn tự động của một chuyên đề. */
 quanTri.get("/dao-tao/chuyen-de/:id/soan", async (c) => {
-  await batBuocVaiTro(c, "bien_tap");
+  await batBuocVaiTro(c, "quan_ly");
   const id = uuid.safeParse(c.req.param("id"));
   if (!id.success || !(await chuyenDeTheoId(id.data))) throw notFound("Không tìm thấy chuyên đề");
   return c.json({ tien_do: await tienDoSoanCuaChuyenDe(id.data) });
@@ -962,7 +962,7 @@ quanTri.get("/dao-tao/chuyen-de/:id/soan", async (c) => {
  * Việc đọc bản quét lỗi vì thiếu số ký hiệu thì gửi kèm `so_ky_hieu` (và `loai`) nhập tay.
  */
 quanTri.post("/dao-tao/chuyen-de/:id/soan-tiep", async (c) => {
-  const p = await batBuocVaiTro(c, "bien_tap");
+  const p = await batBuocVaiTro(c, "quan_ly");
   const id = uuid.safeParse(c.req.param("id"));
   if (!id.success) throw notFound("Không tìm thấy chuyên đề");
   const b = await parseBody(
@@ -982,7 +982,7 @@ quanTri.post("/dao-tao/chuyen-de/:id/soan-tiep", async (c) => {
 /* ------------------------------------------------------------------ */
 
 quanTri.get("/dao-tao/cham-lai", async (c) => {
-  await batBuocVaiTro(c, "bien_tap");
+  await batBuocVaiTro(c, "quan_ly");
   return c.json({ items: await hangDoiChamLai() });
 });
 
@@ -991,7 +991,7 @@ quanTri.get("/dao-tao/cham-lai", async (c) => {
  * rubric: điểm thô từng tiêu chí kèm nhận xét. Điểm của giảng viên là điểm cuối cùng.
  */
 quanTri.post("/dao-tao/cham-lai/:id", async (c) => {
-  const p = await batBuocVaiTro(c, "bien_tap");
+  const p = await batBuocVaiTro(c, "quan_ly");
   const id = z.string().uuid().safeParse(c.req.param("id"));
   if (!id.success) throw notFound("Không tìm thấy lượt làm bài");
   const body = await parseBody(
@@ -1018,7 +1018,7 @@ quanTri.post("/dao-tao/cham-lai/:id", async (c) => {
 /* ------------------------------------------------------------------ */
 
 quanTri.get("/dao-tao/chuyen-de/:id/thong-ke", async (c) => {
-  await batBuocVaiTro(c, "bien_tap");
+  await batBuocVaiTro(c, "quan_ly");
   const id = c.req.param("id");
   const [pheu, luot, chamLaiRows] = await Promise.all([
     pheuCuaChuyenDe(id),
@@ -1051,7 +1051,7 @@ quanTri.get("/dao-tao/chuyen-de/:id/thong-ke", async (c) => {
 /* ------------------------------------------------------------------ */
 
 quanTri.post("/dao-tao/ghi-danh/:id/chung-nhan", async (c) => {
-  const p = await batBuocVaiTro(c, "phap_che");
+  const p = await batBuocVaiTro(c, "quan_ly");
   const body = await parseBody(
     c,
     z.object({
@@ -1075,7 +1075,7 @@ quanTri.post("/dao-tao/chung-nhan/:id/thu-hoi", async (c) => {
 });
 
 quanTri.get("/dao-tao/ghi-danh/:id/chung-nhan", async (c) => {
-  await batBuocVaiTro(c, "phap_che");
+  await batBuocVaiTro(c, "quan_ly");
   return c.json({ items: await chungNhanCuaGhiDanh(c.req.param("id")) });
 });
 
@@ -1084,7 +1084,7 @@ quanTri.get("/dao-tao/ghi-danh/:id/chung-nhan", async (c) => {
 /* ------------------------------------------------------------------ */
 
 quanTri.get("/mascot/nhan-vat", async (c) => {
-  await batBuocVaiTro(c, "bien_tap");
+  await batBuocVaiTro(c, "quan_ly");
   const [rows, chuyenDe, banGiao, caiDat] = await Promise.all([
     danhSachNhanVat(false),
     danhSachChuyenDe({ chiXuatBan: false, limit: 200 }),
@@ -1139,7 +1139,7 @@ const nhanVatSchema = z.object({
 });
 
 quanTri.post("/mascot/nhan-vat", async (c) => {
-  const p = await batBuocVaiTro(c, "bien_tap");
+  const p = await batBuocVaiTro(c, "quan_ly");
   const body = await parseBody(c, nhanVatSchema);
   const row = await luuNhanVat(body);
   await ghiNhatKy(p.email, "mascot.nhan_vat.luu", row.id, { code: row.code });
@@ -1147,7 +1147,7 @@ quanTri.post("/mascot/nhan-vat", async (c) => {
 });
 
 quanTri.post("/mascot/nhan-vat/:id/bat-tat", async (c) => {
-  const p = await batBuocVaiTro(c, "bien_tap");
+  const p = await batBuocVaiTro(c, "quan_ly");
   const body = await parseBody(c, z.object({ bat: z.boolean() }));
   const row = await batTatNhanVat(c.req.param("id"), body.bat);
   if (!row) throw notFound("Không tìm thấy nhân vật");
@@ -1157,7 +1157,7 @@ quanTri.post("/mascot/nhan-vat/:id/bat-tat", async (c) => {
 
 /** GET /v1/quan-tri/mascot/nhan-vat/:id/bang-bieu-cam — lưới 12 trạng thái × trang phục. */
 quanTri.get("/mascot/nhan-vat/:id/bang-bieu-cam", async (c) => {
-  await batBuocVaiTro(c, "bien_tap");
+  await batBuocVaiTro(c, "quan_ly");
   const row = await nhanVatTheoId(c.req.param("id"));
   if (!row) throw notFound("Không tìm thấy nhân vật");
   const p = parseQuery(c, z.object({ trangPhuc: z.enum(TRANG_PHUC).optional() }));
@@ -1175,7 +1175,7 @@ quanTri.get("/mascot/nhan-vat/:id/bang-bieu-cam", async (c) => {
 });
 
 quanTri.post("/mascot/ban-giao", async (c) => {
-  const p = await batBuocVaiTro(c, "bien_tap");
+  const p = await batBuocVaiTro(c, "quan_ly");
   const body = await parseBody(
     c,
     z.object({
@@ -1195,7 +1195,7 @@ quanTri.post("/mascot/ban-giao", async (c) => {
 /* ------------------------------------------------------------------ */
 
 quanTri.get("/mascot/hanh-dong", async (c) => {
-  await batBuocVaiTro(c, "bien_tap");
+  await batBuocVaiTro(c, "quan_ly");
   const [rows, soLieu] = await Promise.all([danhSachHanhDong(), soLieuHanhDong()]);
   const theoId = new Map(soLieu.map((s) => [s.action_id, s]));
   return c.json({
@@ -1216,7 +1216,7 @@ quanTri.get("/mascot/hanh-dong", async (c) => {
 });
 
 quanTri.post("/mascot/hanh-dong", async (c) => {
-  const p = await batBuocVaiTro(c, "bien_tap");
+  const p = await batBuocVaiTro(c, "quan_ly");
   const body = await parseBody(
     c,
     z.object({
@@ -1270,7 +1270,7 @@ quanTri.post("/mascot/hanh-dong", async (c) => {
 });
 
 quanTri.post("/mascot/hanh-dong/:id/bat-tat", async (c) => {
-  const p = await batBuocVaiTro(c, "bien_tap");
+  const p = await batBuocVaiTro(c, "quan_ly");
   const body = await parseBody(
     c,
     z.object({ bat: z.boolean(), lyDo: z.string().trim().max(500).optional() }),
@@ -1284,7 +1284,7 @@ quanTri.post("/mascot/hanh-dong/:id/bat-tat", async (c) => {
 });
 
 quanTri.delete("/mascot/hanh-dong/:id", async (c) => {
-  const p = await batBuocVaiTro(c, "phap_che");
+  const p = await batBuocVaiTro(c, "quan_ly");
   await xoaHanhDong(c.req.param("id"));
   await ghiNhatKy(p.email, "mascot.hanh_dong.xoa", c.req.param("id"));
   return c.json({ ok: true });
@@ -1295,7 +1295,7 @@ quanTri.delete("/mascot/hanh-dong/:id", async (c) => {
 /* ------------------------------------------------------------------ */
 
 quanTri.get("/mascot/anh", async (c) => {
-  await batBuocVaiTro(c, "bien_tap");
+  await batBuocVaiTro(c, "quan_ly");
   const p = parseQuery(
     c,
     z.object({
@@ -1328,10 +1328,10 @@ const LOAI_ANH = [
 
 /**
  * POST /v1/quan-tri/mascot/anh/lo — tạo lô sinh ảnh theo tổ hợp.
- * Tốn tiền thật nên cần vai trò pháp chế (09-c §7).
+ * Tốn tiền thật nên cần vai trò Admin quản lý (09-c §7).
  */
 quanTri.post("/mascot/anh/lo", async (c) => {
-  const p = await batBuocVaiTro(c, "phap_che");
+  const p = await batBuocVaiTro(c, "quan_ly");
   const body = await parseBody(
     c,
     z.object({
@@ -1382,7 +1382,7 @@ quanTri.post("/mascot/anh/lo", async (c) => {
 });
 
 quanTri.post("/mascot/anh/:id/tinh-trang", async (c) => {
-  const p = await batBuocVaiTro(c, "bien_tap");
+  const p = await batBuocVaiTro(c, "quan_ly");
   const body = await parseBody(
     c,
     z.object({
@@ -1398,7 +1398,7 @@ quanTri.post("/mascot/anh/:id/tinh-trang", async (c) => {
 });
 
 quanTri.post("/mascot/anh/lo/:id/huy", async (c) => {
-  const p = await batBuocVaiTro(c, "phap_che");
+  const p = await batBuocVaiTro(c, "quan_ly");
   const row = await capNhatLoSinhAnh(c.req.param("id"), { state: "huy" });
   await ghiNhatKy(p.email, "mascot.anh.huy_lo", c.req.param("id"));
   return c.json({ lo: row });
@@ -1409,7 +1409,7 @@ quanTri.post("/mascot/anh/lo/:id/huy", async (c) => {
 /* ------------------------------------------------------------------ */
 
 quanTri.get("/mascot/tuong-tac", async (c) => {
-  await batBuocVaiTro(c, "bien_tap");
+  await batBuocVaiTro(c, "quan_ly");
   const p = parseQuery(c, z.object({ chuyenDe: uuid.optional() }));
   const [soLieu, hieuQua, caiDat, hanhDong] = await Promise.all([
     soLieuHanhDong(),

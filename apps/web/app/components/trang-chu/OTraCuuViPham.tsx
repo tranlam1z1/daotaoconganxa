@@ -38,7 +38,7 @@ export function OTraCuuViPham() {
         <input type="hidden" name="tab" value="hanh-vi" />
         <fieldset>
           <legend className="sr-only">Loại xe</legend>
-          <div className="flex gap-2">
+          <div className="flex flex-wrap gap-2">
             {CHIP_XE.map((c) => (
               <label key={c.value} className="shrink-0">
                 <input type="radio" name="xe" value={c.value} className="peer sr-only" />

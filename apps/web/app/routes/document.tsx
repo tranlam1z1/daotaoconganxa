@@ -42,7 +42,7 @@ export function meta({ data }: Route.MetaArgs) {
 }
 
 /** Vai trò được sửa văn bản trong quản trị (API kiểm lại quyền); chỉ để hiện lối tắt "Sửa văn bản". */
-const VAI_TRO_SUA = new Set(["bien_tap", "phap_che", "quan_tri"]);
+const VAI_TRO_SUA = new Set(["quan_ly", "quan_tri"]);
 
 const THONG_TIN_THEM = [
   { to: "thuoc-tinh", label: "Thuộc tính văn bản" },

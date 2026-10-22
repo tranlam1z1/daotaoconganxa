@@ -52,7 +52,7 @@ async function donDep() {
   await sql`DELETE FROM accounts WHERE email LIKE ${`${PREFIX}%`}`;
 }
 
-const tk = { khach: "", canBo: "", bienTap: "", phapChe: "" };
+const tk = { khach: "", canBo: "", quanLy: "", lanhDao: "" };
 
 /** Dòng Excel hợp lệ thứ i, xoay vòng qua ba loại câu. */
 function dongHopLe(i: number): Record<string, string> {
@@ -89,8 +89,8 @@ beforeAll(async () => {
   await donDep();
   tk.khach = await taoTaiKhoan("khach", "khach");
   tk.canBo = await taoTaiKhoan("can-bo", "can_bo");
-  tk.bienTap = await taoTaiKhoan("bien-tap", "bien_tap");
-  tk.phapChe = await taoTaiKhoan("phap-che", "phap_che");
+  tk.quanLy = await taoTaiKhoan("quan-ly", "quan_ly");
+  tk.lanhDao = await taoTaiKhoan("lanh-dao", "lanh_dao");
 });
 
 afterAll(async () => {
@@ -112,9 +112,9 @@ describe("phân quyền", () => {
 });
 
 describe("chủ đề và tạo câu", () => {
-  test("biên tập viên tạo chủ đề", async () => {
+  test("Admin quản lý tạo chủ đề", async () => {
     const r = await goi("POST", `${BASE}/chu-de`, {
-      token: tk.bienTap,
+      token: tk.quanLy,
       body: { code: CHU_DE, name: "Tốc độ (test)" },
     });
     expect(r.status).toBe(201);
@@ -123,7 +123,7 @@ describe("chủ đề và tạo câu", () => {
 
   test("câu không hợp lệ bị từ chối kèm danh sách lỗi", async () => {
     const r = await goi("POST", `${BASE}/cau-hoi`, {
-      token: tk.bienTap,
+      token: tk.quanLy,
       body: {
         topic_code: CHU_DE,
         level: "de",
@@ -151,7 +151,7 @@ describe("nhập Excel", () => {
   });
 
   test("chạy thử báo 47 câu hợp lệ, 3 lỗi có số dòng, và không ghi gì", async () => {
-    const r = await goi("POST", `${BASE}/nhap?chay_thu=1`, { token: tk.bienTap, raw: tep });
+    const r = await goi("POST", `${BASE}/nhap?chay_thu=1`, { token: tk.quanLy, raw: tep });
     expect(r.status).toBe(200);
     expect(r.body.tong_dong).toBe(50);
     expect(r.body.hop_le).toBe(47);
@@ -165,30 +165,30 @@ describe("nhập Excel", () => {
   });
 
   test("nhập thật tạo 47 câu ở trạng thái chờ duyệt, nguồn nhập Excel", async () => {
-    const r = await goi("POST", `${BASE}/nhap`, { token: tk.bienTap, raw: tep });
+    const r = await goi("POST", `${BASE}/nhap`, { token: tk.quanLy, raw: tep });
     expect(r.status).toBe(200);
     expect(r.body.da_tao).toBe(47);
     const ds = await goi("GET", `${BASE}/cau-hoi?chu_de=${CHU_DE}&trang_thai=cho_duyet&co=200`, {
-      token: tk.bienTap,
+      token: tk.quanLy,
     });
     expect(ds.body.tong).toBe(47);
     expect(ds.body.items.every((q: { source: string }) => q.source === "nhap_excel")).toBe(true);
   });
 
   test("tệp không phải Excel bị từ chối rõ ràng", async () => {
-    const r = await goi("POST", `${BASE}/nhap`, { token: tk.bienTap, raw: new TextEncoder().encode("abc") });
+    const r = await goi("POST", `${BASE}/nhap`, { token: tk.quanLy, raw: new TextEncoder().encode("abc") });
     expect(r.status).toBe(400);
     expect(r.body.error.message).toContain("Không đọc được tệp");
   });
 
   test("tải tệp mẫu và xuất Excel được", async () => {
-    const mau = await goi("GET", `${BASE}/mau`, { token: tk.bienTap });
+    const mau = await goi("GET", `${BASE}/mau`, { token: tk.quanLy });
     expect(mau.status).toBe(200);
     expect(mau.headers.get("content-disposition")).toContain("mau-nhap-cau-hoi.xlsx");
-    const xuat = await goi("GET", `${BASE}/xuat?chu_de=${CHU_DE}`, { token: tk.bienTap });
+    const xuat = await goi("GET", `${BASE}/xuat?chu_de=${CHU_DE}`, { token: tk.quanLy });
     expect(xuat.status).toBe(200);
     // Nhập lại tệp vừa xuất: mọi dòng đều báo trùng mã, chứng tỏ đọc lại được đủ 47 câu.
-    const lai = await goi("POST", `${BASE}/nhap?chay_thu=1`, { token: tk.bienTap, raw: xuat.body });
+    const lai = await goi("POST", `${BASE}/nhap?chay_thu=1`, { token: tk.quanLy, raw: xuat.body });
     expect(lai.body.tong_dong).toBe(47);
     expect(
       lai.body.loi.every((l: { loi: string[] }) => l.loi.some((x) => x.includes("đã có trong ngân hàng"))),
@@ -196,7 +196,7 @@ describe("nhập Excel", () => {
   });
 
   test("tao_chu_de: chạy thử tính dòng chủ đề mới là hợp lệ nhưng chưa tạo chủ đề", async () => {
-    const r = await goi("POST", `${BASE}/nhap?chay_thu=1&tao_chu_de=1`, { token: tk.bienTap, raw: tep });
+    const r = await goi("POST", `${BASE}/nhap?chay_thu=1&tao_chu_de=1`, { token: tk.quanLy, raw: tep });
     expect(r.body.hop_le).toBe(48);
     expect(r.body.loi.map((l: { dong: number }) => l.dong)).toEqual([7, 43]);
     expect(r.body.chu_de_moi.map((t: { ma: string }) => t.ma)).toEqual([`${PREFIX}-khong-co`]);
@@ -212,7 +212,7 @@ describe("nhập Excel", () => {
       // Dòng lỗi mức độ: không được kéo theo việc tạo chủ đề riêng của nó.
       { ...dongHopLe(103), chu_de: `${PREFIX}-chi-dong-loi`, muc_do: "Rất khó" },
     ]);
-    const r = await goi("POST", `${BASE}/nhap?tao_chu_de=1`, { token: tk.bienTap, raw: tepMoi });
+    const r = await goi("POST", `${BASE}/nhap?tao_chu_de=1`, { token: tk.quanLy, raw: tepMoi });
     expect(r.status).toBe(200);
     expect(r.body.da_tao).toBe(2);
     expect(r.body.chu_de_moi).toEqual([{ ma, ten: "Chủ đề mới (test)", so_cau: 2 }]);
@@ -220,7 +220,7 @@ describe("nhập Excel", () => {
     const chuDe = await sql<Array<{ code: string; name: string }>>`
       SELECT code, name FROM question_topics WHERE code LIKE ${`${PREFIX}-%`} AND code <> ${CHU_DE}`;
     expect(chuDe.map((t) => ({ ...t }))).toEqual([{ code: ma, name: "Chủ đề mới (test)" }]);
-    const ds = await goi("GET", `${BASE}/cau-hoi?chu_de=${ma}&trang_thai=cho_duyet`, { token: tk.bienTap });
+    const ds = await goi("GET", `${BASE}/cau-hoi?chu_de=${ma}&trang_thai=cho_duyet`, { token: tk.quanLy });
     expect(ds.body.tong).toBe(2);
   });
 });
@@ -230,31 +230,34 @@ describe("duyệt", () => {
 
   beforeAll(async () => {
     const ds = await goi("GET", `${BASE}/cau-hoi?chu_de=${CHU_DE}&trang_thai=cho_duyet&co=200`, {
-      token: tk.bienTap,
+      token: tk.quanLy,
     });
     choDuyet = ds.body.items.map((q: { id: string }) => q.id);
   });
 
-  test("biên tập viên không duyệt được (403)", async () => {
-    expect((await goi("POST", `${BASE}/cau-hoi/${choDuyet[0]}/duyet`, { token: tk.bienTap })).status).toBe(
+  test("cán bộ và lãnh đạo UBND xã đều không duyệt được (403)", async () => {
+    expect((await goi("POST", `${BASE}/cau-hoi/${choDuyet[0]}/duyet`, { token: tk.canBo })).status).toBe(
       403,
     );
     const hl = await goi("POST", `${BASE}/duyet-hang-loat`, {
-      token: tk.bienTap,
+      token: tk.canBo,
       body: { ids: choDuyet.slice(0, 2) },
     });
     expect(hl.status).toBe(403);
+    expect((await goi("POST", `${BASE}/cau-hoi/${choDuyet[0]}/duyet`, { token: tk.lanhDao })).status).toBe(
+      403,
+    );
   });
 
   test("duyệt hàng loạt 10 câu thì bộ đếm đã duyệt tăng 10", async () => {
-    const truoc = await goi("GET", `${BASE}/cau-hoi`, { token: tk.phapChe });
+    const truoc = await goi("GET", `${BASE}/cau-hoi`, { token: tk.quanLy });
     const r = await goi("POST", `${BASE}/duyet-hang-loat`, {
-      token: tk.phapChe,
+      token: tk.quanLy,
       body: { ids: choDuyet.slice(0, 10) },
     });
     expect(r.status).toBe(200);
     expect(r.body.da_duyet).toBe(10);
-    const sau = await goi("GET", `${BASE}/cau-hoi`, { token: tk.phapChe });
+    const sau = await goi("GET", `${BASE}/cau-hoi`, { token: tk.quanLy });
     expect(sau.body.dem.da_duyet - truoc.body.dem.da_duyet).toBe(10);
     expect(sau.body.muc_tieu).toBe(1000);
     expect(await demDaDuyetCuaChuDe()).toBe(10);
@@ -262,12 +265,12 @@ describe("duyệt", () => {
 
   test("duyệt lại câu đã duyệt bị bỏ qua, không đếm hai lần", async () => {
     const r = await goi("POST", `${BASE}/duyet-hang-loat`, {
-      token: tk.phapChe,
+      token: tk.quanLy,
       body: { ids: choDuyet.slice(0, 11) },
     });
     expect(r.body.da_duyet).toBe(1);
     expect(r.body.bo_qua).toHaveLength(10);
-    expect((await goi("POST", `${BASE}/cau-hoi/${choDuyet[0]}/duyet`, { token: tk.phapChe })).status).toBe(
+    expect((await goi("POST", `${BASE}/cau-hoi/${choDuyet[0]}/duyet`, { token: tk.quanLy })).status).toBe(
       409,
     );
   });
@@ -275,11 +278,11 @@ describe("duyệt", () => {
   test("câu có cảnh báo trùng: duyệt hàng loạt bỏ qua, duyệt từng câu phải xác nhận rồi gỡ cảnh báo", async () => {
     const [id, goc] = [choDuyet[30]!, choDuyet[31]!];
     await sql`UPDATE questions SET duplicate_of = ${goc} WHERE id = ${id}`;
-    const hl = await goi("POST", `${BASE}/duyet-hang-loat`, { token: tk.phapChe, body: { ids: [id] } });
+    const hl = await goi("POST", `${BASE}/duyet-hang-loat`, { token: tk.quanLy, body: { ids: [id] } });
     expect(hl.body).toEqual({ da_duyet: 0, bo_qua: [], canh_bao_trung: [id] });
-    expect((await goi("POST", `${BASE}/cau-hoi/${id}/duyet`, { token: tk.phapChe })).status).toBe(409);
+    expect((await goi("POST", `${BASE}/cau-hoi/${id}/duyet`, { token: tk.quanLy })).status).toBe(409);
     const r = await goi("POST", `${BASE}/cau-hoi/${id}/duyet`, {
-      token: tk.phapChe,
+      token: tk.quanLy,
       body: { xac_nhan_trung: true },
     });
     expect(r.status).toBe(200);
@@ -289,29 +292,29 @@ describe("duyệt", () => {
 
   test("từ chối phải có lý do; câu bị từ chối gửi duyệt lại được", async () => {
     const id = choDuyet[20]!;
-    expect((await goi("POST", `${BASE}/cau-hoi/${id}/tu-choi`, { token: tk.phapChe, body: {} })).status).toBe(
+    expect((await goi("POST", `${BASE}/cau-hoi/${id}/tu-choi`, { token: tk.quanLy, body: {} })).status).toBe(
       400,
     );
     const r = await goi("POST", `${BASE}/cau-hoi/${id}/tu-choi`, {
-      token: tk.phapChe,
+      token: tk.quanLy,
       body: { ly_do: "Đáp án chưa khớp căn cứ" },
     });
     expect(r.body.status).toBe("tu_choi");
     expect(r.body.reject_reason).toBe("Đáp án chưa khớp căn cứ");
-    const lai = await goi("POST", `${BASE}/cau-hoi/${id}/gui-duyet`, { token: tk.bienTap });
+    const lai = await goi("POST", `${BASE}/cau-hoi/${id}/gui-duyet`, { token: tk.quanLy });
     expect(lai.body.status).toBe("cho_duyet");
     expect(lai.body.reject_reason).toBeNull();
   });
 
   test("sửa một câu đã duyệt thì câu về chờ duyệt và version = 2", async () => {
     const id = choDuyet[0]!;
-    const cu = await goi("GET", `${BASE}/cau-hoi/${id}`, { token: tk.bienTap });
+    const cu = await goi("GET", `${BASE}/cau-hoi/${id}`, { token: tk.quanLy });
     expect(cu.body.status).toBe("da_duyet");
     expect(cu.body.de.kind).toBe(cu.body.kind);
     expect(JSON.stringify(cu.body.de)).not.toContain("answer");
 
     const r = await goi("PUT", `${BASE}/cau-hoi/${id}`, {
-      token: tk.bienTap,
+      token: tk.quanLy,
       body: {
         version: cu.body.version,
         topic_code: CHU_DE,
@@ -331,35 +334,35 @@ describe("duyệt", () => {
 
     // Gửi lại version cũ: đã có người sửa trước, trả 409 chứ không ghi đè.
     const cuQua = await goi("PUT", `${BASE}/cau-hoi/${id}`, {
-      token: tk.bienTap,
+      token: tk.quanLy,
       body: { ...cu.body, version: 1, topic_code: CHU_DE },
     });
     expect(cuQua.status).toBe(409);
 
-    const ls = await goi("GET", `${BASE}/cau-hoi/${id}`, { token: tk.bienTap });
+    const ls = await goi("GET", `${BASE}/cau-hoi/${id}`, { token: tk.quanLy });
     expect(ls.body.lich_su.map((x: { action: string }) => x.action)).toEqual(["sua", "duyet", "nhap_excel"]);
   });
 
   test("chấm thử trả đúng/sai kèm đáp án cho màn hình xem trước", async () => {
     const id = choDuyet[3]!; // dòng 3 là câu một đáp án, đáp án A
     const dung = await goi("POST", `${BASE}/cau-hoi/${id}/cham`, {
-      token: tk.bienTap,
+      token: tk.quanLy,
       body: { chon: ["a"] },
     });
     expect(dung.body.dung).toBe(true);
-    const sai = await goi("POST", `${BASE}/cau-hoi/${id}/cham`, { token: tk.bienTap, body: { chon: ["b"] } });
+    const sai = await goi("POST", `${BASE}/cau-hoi/${id}/cham`, { token: tk.quanLy, body: { chon: ["b"] } });
     expect(sai.body.dung).toBe(false);
     expect(sai.body.dap_an.dung).toEqual(["a"]);
   });
 
   test("lưu trữ câu đã duyệt; câu lưu trữ không sửa được", async () => {
     const id = choDuyet[5]!;
-    await goi("POST", `${BASE}/cau-hoi/${id}/duyet`, { token: tk.phapChe });
-    const r = await goi("POST", `${BASE}/cau-hoi/${id}/luu-tru`, { token: tk.bienTap });
+    await goi("POST", `${BASE}/cau-hoi/${id}/duyet`, { token: tk.quanLy });
+    const r = await goi("POST", `${BASE}/cau-hoi/${id}/luu-tru`, { token: tk.quanLy });
     expect(r.body.status).toBe("luu_tru");
-    const cu = await goi("GET", `${BASE}/cau-hoi/${id}`, { token: tk.bienTap });
+    const cu = await goi("GET", `${BASE}/cau-hoi/${id}`, { token: tk.quanLy });
     const sua = await goi("PUT", `${BASE}/cau-hoi/${id}`, {
-      token: tk.bienTap,
+      token: tk.quanLy,
       body: { ...cu.body, topic_code: CHU_DE },
     });
     expect(sua.status).toBe(409);
@@ -383,16 +386,16 @@ describe("ảnh minh họa", () => {
     form.set("tep", new File([PNG as BlobPart], "bien.png"));
     const res = await app.request(`http://test${BASE}/cau-hoi/anh`, {
       method: "POST",
-      headers: { authorization: `Bearer ${tk.bienTap}` },
+      headers: { authorization: `Bearer ${tk.quanLy}` },
       body: form,
     });
     expect(res.status).toBe(201);
     const { image_uri } = (await res.json()) as { image_uri: string };
     expect(image_uri).toMatch(/^assets\/bien-bao\/cau-hoi-[0-9a-f]{16}\.png$/);
     try {
-      const tao = await goi("POST", `${BASE}/cau-hoi`, { token: tk.bienTap, body: cau(image_uri) });
+      const tao = await goi("POST", `${BASE}/cau-hoi`, { token: tk.quanLy, body: cau(image_uri) });
       expect(tao.status).toBe(201);
-      const ct = await goi("GET", `${BASE}/cau-hoi/${tao.body.id}`, { token: tk.bienTap });
+      const ct = await goi("GET", `${BASE}/cau-hoi/${tao.body.id}`, { token: tk.quanLy });
       expect(ct.body.image_uris).toEqual([image_uri]);
       expect(ct.body.de.image_uris).toEqual([image_uri]);
     } finally {
@@ -402,7 +405,7 @@ describe("ảnh minh họa", () => {
 
   test("ảnh không nằm trong kho ảnh bị từ chối", async () => {
     const r = await goi("POST", `${BASE}/cau-hoi`, {
-      token: tk.bienTap,
+      token: tk.quanLy,
       body: cau("https://vidu.vn/bien.png"),
     });
     expect(r.status).toBe(400);
@@ -423,11 +426,11 @@ describe("phương án là hình", () => {
 
   test("câu một đáp án nhận phương án chỉ có hình; đề gửi người học giữ hình", async () => {
     const tao = await goi("POST", `${BASE}/cau-hoi`, {
-      token: tk.bienTap,
+      token: tk.quanLy,
       body: cau("mot_dap_an", [hinh("a", "P.102"), hinh("b", "W.201a")], { dung: ["a"] }),
     });
     expect(tao.status).toBe(201);
-    const ct = await goi("GET", `${BASE}/cau-hoi/${tao.body.id}`, { token: tk.bienTap });
+    const ct = await goi("GET", `${BASE}/cau-hoi/${tao.body.id}`, { token: tk.quanLy });
     expect(ct.body.de.options.phuong_an).toEqual([
       { id: "a", text: "", image_uri: "assets/bien-bao/P.102.svg" },
       { id: "b", text: "", image_uri: "assets/bien-bao/W.201a.svg" },
@@ -436,13 +439,13 @@ describe("phương án là hình", () => {
 
   test("phương án không chữ không hình, và bước sắp xếp chỉ có hình, bị từ chối", async () => {
     const trong = await goi("POST", `${BASE}/cau-hoi`, {
-      token: tk.bienTap,
+      token: tk.quanLy,
       body: cau("mot_dap_an", [hinh("a", "P.102"), { id: "b", text: "" }], { dung: ["a"] }),
     });
     expect(trong.status).toBe(400);
     expect(trong.body.error.details).toContain("phương án thứ 2 chưa có nội dung");
     const sapXep = await goi("POST", `${BASE}/cau-hoi`, {
-      token: tk.bienTap,
+      token: tk.quanLy,
       body: cau("sap_xep", [hinh("a", "P.102"), hinh("b", "W.201a")], { thu_tu: ["a", "b"] }),
     });
     expect(sapXep.status).toBe(400);

@@ -1,5 +1,5 @@
 /**
- * Hậu kiểm bài học và bài tập do AI soạn (ke-hoach/09-a §5), trước khi biên tập viên nhận vào
+ * Hậu kiểm bài học và bài tập do AI soạn (ke-hoach/09-a §5), trước khi quản trị viên nội dung nhận vào
  * bản nháp.
  *
  * Cùng tinh thần với hau-kiem-cau-hoi.ts: mọi bước là TẤT ĐỊNH, không nhờ mô hình tự kiểm.
@@ -9,7 +9,7 @@
  *  4. khối `can_cu` phải trích ĐÚNG NGUYÊN VĂN điều khoản: đối chiếu chuỗi, không đối chiếu ý;
  *  5. bài tập không được để lộ đáp án trong phần đề gửi cho người học.
  *
- * Khối và bài tập qua hậu kiểm vẫn chỉ vào bản nháp; bài chỉ tới người học khi pháp chế xuất bản.
+ * Khối và bài tập qua hậu kiểm vẫn chỉ vào bản nháp; bài chỉ tới người học khi duyệt xuất bản.
  */
 
 import { KHOI_BAI_GIANG, kiemTraKhoi } from "./blocks.ts";
@@ -254,7 +254,7 @@ export function docBaiTapAi(json: unknown): { baiTap: BaiTapAi[]; loi: string[] 
     const points = Number(x.points);
     baiTap.push({
       kind,
-      // Cách chấm lấy theo thư viện dạng bài, không theo mô hình; biên tập viên đổi sau nếu cần.
+      // Cách chấm lấy theo thư viện dạng bài, không theo mô hình; quản trị viên nội dung đổi sau nếu cần.
       mode: mo?.cham ?? "may",
       title: chuoi(x.title) || null,
       prompt,

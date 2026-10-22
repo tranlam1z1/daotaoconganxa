@@ -2,11 +2,11 @@
  * API quản trị ngân hàng câu hỏi (docs/PLAN.md GĐ3), gắn ở /v1/quan-tri/ngan-hang.
  *
  * Quyền:
- *  - Xem, tạo, sửa, gửi duyệt, lưu trữ, nhập và xuất Excel: `bien_tap` trở lên.
- *  - Duyệt và từ chối: `phap_che` trở lên. Đổi được bằng NGAN_HANG_VAI_TRO_DUYET khi khách
+ *  - Xem, tạo, sửa, gửi duyệt, lưu trữ, nhập và xuất Excel: `quan_ly` trở lên.
+ *  - Duyệt và từ chối: `quan_ly` trở lên. Đổi được bằng NGAN_HANG_VAI_TRO_DUYET khi khách
  *    hàng chốt ai được duyệt câu hỏi (câu hỏi GAP 4.3-12).
- *  - AI sinh câu hỏi (GĐ8): `bien_tap`; ước tính chi phí vượt NGAN_HANG_AI_TRAN_USD thì cần
- *    `phap_che`. Câu AI sinh luôn vào `cho_duyet`, không đi tắt qua bước duyệt.
+ *  - AI sinh câu hỏi (GĐ8): `quan_ly`; ước tính chi phí vượt NGAN_HANG_AI_TRAN_USD thì cần
+ *    `quan_tri`. Câu AI sinh luôn vào `cho_duyet`, không đi tắt qua bước duyệt.
  *
  * Luật nghiệp vụ lấy từ @qdpl/dao-tao; tệp này chỉ kiểm quyền, kiểm tham số và gọi CSDL.
  * Mọi phản hồi ở đây có `answer`, nên KHÔNG route người học nào được dùng lại các hàm này.
@@ -74,7 +74,7 @@ function mucTieu(): number {
 /** Vai trò tối thiểu được duyệt câu hỏi. */
 export function vaiTroDuyet(): Role {
   const v = process.env.NGAN_HANG_VAI_TRO_DUYET as Role | undefined;
-  return v && (ROLES as readonly string[]).includes(v) ? v : "phap_che";
+  return v && (ROLES as readonly string[]).includes(v) ? v : "quan_ly";
 }
 
 const uuid = z.string().uuid();
@@ -215,14 +215,14 @@ async function layCauHoi(id: string): Promise<CauHoiRow> {
 /* ------------------------------------------------------------------ */
 
 nganHang.get("/chu-de", async (c) => {
-  await batBuocVaiTro(c, "bien_tap");
+  await batBuocVaiTro(c, "quan_ly");
   return c.json({ items: await danhSachChuDeCauHoi() });
 });
 
 const MA_CHU_DE_RE = /^[a-z0-9-]{2,80}$/;
 
 nganHang.post("/chu-de", async (c) => {
-  await batBuocVaiTro(c, "bien_tap");
+  await batBuocVaiTro(c, "quan_ly");
   const b = await parseBody(
     c,
     z.object({
@@ -264,7 +264,7 @@ const locSchema = z.object({
 });
 
 nganHang.get("/cau-hoi", async (c) => {
-  await batBuocVaiTro(c, "bien_tap");
+  await batBuocVaiTro(c, "quan_ly");
   const l = parseQuery(
     c,
     locSchema.extend({
@@ -311,7 +311,7 @@ function tepXlsx(duLieu: Uint8Array, ten: string): Response {
 }
 
 nganHang.get("/mau", async (c) => {
-  await batBuocVaiTro(c, "bien_tap");
+  await batBuocVaiTro(c, "quan_ly");
   return tepXlsx(
     await taoTepCauHoi(COT_EXCEL_CAU_HOI, DONG_MAU_CAU_HOI, HUONG_DAN_TEP_CAU_HOI),
     "mau-nhap-cau-hoi.xlsx",
@@ -319,7 +319,7 @@ nganHang.get("/mau", async (c) => {
 });
 
 nganHang.get("/xuat", async (c) => {
-  await batBuocVaiTro(c, "bien_tap");
+  await batBuocVaiTro(c, "quan_ly");
   const l = parseQuery(c, locSchema);
   const { items } = await danhSachCauHoi({
     chuDe: l.chu_de,
@@ -356,7 +356,7 @@ async function docTepGuiLen(req: Request): Promise<Uint8Array> {
 const TEP_TOI_DA = 5 * 1024 * 1024;
 
 nganHang.post("/nhap", async (c) => {
-  const p = await batBuocVaiTro(c, "bien_tap");
+  const p = await batBuocVaiTro(c, "quan_ly");
   const coKhong = z.enum(["0", "1", "true", "false"]).optional();
   const { chay_thu, tao_chu_de } = parseQuery(c, z.object({ chay_thu: coKhong, tao_chu_de: coKhong }));
   const chayThu = chay_thu === "1" || chay_thu === "true";
@@ -463,13 +463,13 @@ nganHang.post("/nhap", async (c) => {
  * tới ảnh cũ nên không xóa ngay được); cần dọn thì viết việc quét ảnh không còn câu, biển, lượt nào dùng.
  */
 nganHang.post("/cau-hoi/anh", async (c) => {
-  await batBuocVaiTro(c, "bien_tap");
+  await batBuocVaiTro(c, "quan_ly");
   const form = await c.req.raw.formData().catch(() => null);
   return c.json({ image_uri: await luuAnhBienBao("cau-hoi", form?.get("tep")) }, 201);
 });
 
 nganHang.post("/cau-hoi", async (c) => {
-  const p = await batBuocVaiTro(c, "bien_tap");
+  const p = await batBuocVaiTro(c, "quan_ly");
   const b = await parseBody(c, noiDungSchema.extend({ gui_duyet: z.boolean().default(false) }));
   const nd = await chuanBi(b);
   const row = await taoCauHoi(
@@ -480,7 +480,7 @@ nganHang.post("/cau-hoi", async (c) => {
 });
 
 nganHang.get("/cau-hoi/:id", async (c) => {
-  await batBuocVaiTro(c, "bien_tap");
+  await batBuocVaiTro(c, "quan_ly");
   const row = await layCauHoi(c.req.param("id"));
   return c.json({
     ...row,
@@ -491,7 +491,7 @@ nganHang.get("/cau-hoi/:id", async (c) => {
 });
 
 nganHang.put("/cau-hoi/:id", async (c) => {
-  const p = await batBuocVaiTro(c, "bien_tap");
+  const p = await batBuocVaiTro(c, "quan_ly");
   const cu = await layCauHoi(c.req.param("id"));
   const b = await parseBody(c, noiDungSchema.extend({ version: z.number().int().min(1) }));
   if (b.version !== cu.version) {
@@ -507,7 +507,7 @@ nganHang.put("/cau-hoi/:id", async (c) => {
 
 /** Chấm thử một câu trả lời, cho màn hình xem trước của quản trị. */
 nganHang.post("/cau-hoi/:id/cham", async (c) => {
-  await batBuocVaiTro(c, "bien_tap");
+  await batBuocVaiTro(c, "quan_ly");
   const row = await layCauHoi(c.req.param("id"));
   const b = await parseBody(
     c,
@@ -527,7 +527,7 @@ nganHang.post("/cau-hoi/:id/cham", async (c) => {
 
 /** Vai trò cần cho từng hành động. */
 function vaiTroCho(hd: HanhDongDuyet): Role {
-  return hd === "duyet" || hd === "tu_choi" ? vaiTroDuyet() : "bien_tap";
+  return hd === "duyet" || hd === "tu_choi" ? vaiTroDuyet() : "quan_ly";
 }
 
 /** Các trạng thái mà hành động áp dụng được, suy từ luật chuyển trạng thái. */
@@ -608,7 +608,7 @@ const sinhAiSchema = z.object({
 });
 
 nganHang.get("/sinh-ai", async (c) => {
-  await batBuocVaiTro(c, "bien_tap");
+  await batBuocVaiTro(c, "quan_ly");
   return c.json({ items: await danhSachViecSinhCauHoi(10), tran_chi_phi_usd: tranChiPhiAi() });
 });
 
@@ -618,7 +618,7 @@ nganHang.get("/sinh-ai", async (c) => {
  * câu sinh ra vào ngân hàng ở `cho_duyet`, `source = ai`.
  */
 nganHang.post("/sinh-ai", async (c) => {
-  const p = await batBuocVaiTro(c, "bien_tap");
+  const p = await batBuocVaiTro(c, "quan_ly");
   const b = await parseBody(c, sinhAiSchema);
   const asOf = b.as_of ?? new Date().toISOString().slice(0, 10);
 
@@ -633,7 +633,7 @@ nganHang.post("/sinh-ai", async (c) => {
     soCau: b.so_cau,
     asOf,
     chayThu: b.chay_thu,
-    // Biên tập viên xin thêm câu cho ngân hàng: câu trùng câu đã có thì bỏ, thiếu thì sinh tiếp.
+    // Admin quản lý xin thêm câu cho ngân hàng: câu trùng câu đã có thì bỏ, thiếu thì sinh tiếp.
     loaiTrung: true,
   });
   if (!kq.taoViec)
@@ -656,7 +656,7 @@ nganHang.post("/sinh-ai", async (c) => {
  * còn gì để chạy.
  */
 nganHang.post("/sinh-ai/:id/chay-tiep", async (c) => {
-  await batBuocVaiTro(c, "bien_tap");
+  await batBuocVaiTro(c, "quan_ly");
   const id = c.req.param("id");
   if (!uuid.safeParse(id).success) throw notFound("Không có việc sinh câu hỏi này");
   // Việc đang chạy dưới 10 phút thì bỏ qua: có thể một lượt khác vẫn đang làm.

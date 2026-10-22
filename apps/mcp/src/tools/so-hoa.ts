@@ -449,7 +449,7 @@ export function registerSoHoaTools(reg: ToolRegistrar): void {
         bo_qua_canh_bao: z
           .boolean()
           .optional()
-          .describe("Vẫn chốt dù kiểm chứng không đạt (dùng khi biên tập viên đã xem và chấp nhận)."),
+          .describe("Vẫn chốt dù kiểm chứng không đạt (dùng khi người quản trị nội dung đã xem và chấp nhận)."),
       },
       annotations: { readOnlyHint: false, idempotentHint: true, openWorldHint: false },
     },
@@ -501,7 +501,7 @@ export function registerSoHoaTools(reg: ToolRegistrar): void {
       title: "Bỏ qua một việc số hóa",
       description:
         "Đánh dấu việc số hóa là không làm được (tệp hỏng, không phải văn bản QPPL, thiếu trang) kèm lý do, " +
-        "để nó không chiếm chỗ trong hàng đợi và biên tập viên biết mà xử lý.",
+        "để nó không chiếm chỗ trong hàng đợi và người quản trị nội dung biết mà xử lý.",
       inputSchema: {
         viec_id: z.string().uuid(),
         ly_do: z.string().min(5).describe("Vì sao không số hóa được. Ghi cụ thể để người sau xử lý được."),

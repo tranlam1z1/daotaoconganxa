@@ -6,7 +6,7 @@
  * chuyên đề đã có kèm lộ trình bài và kết quả bảng kiểm của từng bài.
  *
  * Chuyên đề do AI soạn (tạo từ tệp PDF) có thêm khung tiến độ, tự tải lại mỗi 4 giây khi còn việc
- * đang chạy, và một nút đưa mọi bài đạt bảng kiểm tới pháp chế hoặc xuất bản trong một lần bấm.
+ * đang chạy, và một nút đưa mọi bài đạt bảng kiểm tới duyệt hoặc xuất bản trong một lần bấm.
  */
 import { useEffect, useState } from "react";
 import { Form, Link, redirect, useNavigation, useRevalidator } from "react-router";
@@ -43,7 +43,7 @@ export function meta({ data }: Route.MetaArgs) {
 }
 
 export async function loader({ request, params }: Route.LoaderArgs) {
-  const { token, nguoiDung } = await yeuCauVaiTro(request, "bien_tap");
+  const { token, nguoiDung } = await yeuCauVaiTro(request, "quan_ly");
   const { items: linhVuc } = await goiApiQuanTri<{ items: LinhVucQuanTri[] }>(
     token,
     "/v1/quan-tri/dao-tao/linh-vuc",
@@ -85,7 +85,7 @@ export async function loader({ request, params }: Route.LoaderArgs) {
     bangKiem,
     datDuoc,
     tienDo,
-    coTheXuatBan: duVaiTro(nguoiDung, "phap_che"),
+    coTheXuatBan: duVaiTro(nguoiDung, "quan_ly"),
     deThiKem: /^[0-9a-f-]{36}$/.test(deThi) ? deThi : null,
   };
 }
@@ -93,7 +93,7 @@ export async function loader({ request, params }: Route.LoaderArgs) {
 type KetQua = { loi: string } | { ok: string };
 
 export async function action({ request, params }: Route.ActionArgs): Promise<KetQua> {
-  const { token } = await yeuCauVaiTro(request, "bien_tap");
+  const { token } = await yeuCauVaiTro(request, "quan_ly");
   const f = await request.formData();
   const intent = String(f.get("intent") ?? "luu");
   try {
@@ -104,7 +104,7 @@ export async function action({ request, params }: Route.ActionArgs): Promise<Ket
         `/v1/quan-tri/dao-tao/chuyen-de/${String(f.get("id") ?? "")}/bai/trang-thai`,
         { body: { den } },
       );
-      const viec = den === "xuat_ban" ? "xuất bản" : "gửi pháp chế";
+      const viec = den === "xuat_ban" ? "xuất bản" : "gửi duyệt";
       const boQua = kq.bo_qua.length
         ? `${kq.bo_qua.length} bài chưa đạt bảng kiểm nên giữ nguyên: ${kq.bo_qua.map((b) => b.title).join("; ")}.`
         : "";
@@ -311,8 +311,8 @@ export default function SuaChuyenDe({ loaderData, actionData }: Route.ComponentP
       {cd ? (
         <div className="mt-4 space-y-2">
           <p className="text-sm text-ink-2">
-            Thứ tự duyệt: Bản nháp → Đang biên tập → Chờ pháp chế duyệt → Đã xuất bản. Xuất bản cần vai trò
-            pháp chế trở lên.
+            Thứ tự duyệt: Bản nháp → Đang biên tập → Chờ duyệt → Đã xuất bản. Xuất bản cần vai trò
+            Admin quản lý trở lên.
           </p>
           <NutTrangThai datDuoc={datDuoc} ban={busy} an={{ id: cd.id }} />
         </div>
@@ -339,7 +339,7 @@ export default function SuaChuyenDe({ loaderData, actionData }: Route.ComponentP
                     value={coTheXuatBan ? "xuat_ban_tat_ca" : "gui_phap_che_tat_ca"}
                     disabled={busy}
                   >
-                    {coTheXuatBan ? "Xuất bản cả chuyên đề" : "Gửi pháp chế duyệt tất cả"}
+                    {coTheXuatBan ? "Xuất bản cả chuyên đề" : "Gửi duyệt tất cả"}
                   </Button>
                 </Form>
               ) : null}

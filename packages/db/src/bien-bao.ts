@@ -1,7 +1,7 @@
 /**
  * Truy vấn CSDL cho biển báo (docs/PLAN.md GĐ12).
  *
- * Mặc định chỉ trả biển `da_duyet`. `gomBanNhap` chỉ bật khi biên tập viên xem trước dữ liệu
+ * Mặc định chỉ trả biển `da_duyet`. `gomBanNhap` chỉ bật khi quản trị viên nội dung xem trước dữ liệu
  * đang soạn (biến TRA_CUU_NHANH_BAN_NHAP=1, như mức phạt ở GĐ5).
  */
 import { sql } from "./client.ts";

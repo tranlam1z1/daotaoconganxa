@@ -9,7 +9,7 @@ import { yeuCauVaiTro } from "../lib/session.server";
 import type { Route } from "./+types/quan-tri.bao-cao.tai";
 
 export async function loader({ request, params }: Route.LoaderArgs) {
-  const { token } = await yeuCauVaiTro(request, "quan_ly");
+  const { token } = await yeuCauVaiTro(request, "lanh_dao");
   if (!(LOAI_BAO_CAO as readonly string[]).includes(params.loai)) {
     throw new Response("Không có báo cáo này.", { status: 404 });
   }

@@ -1,5 +1,5 @@
 /**
- * Danh sách chuyên đề bài giảng, mọi trạng thái (ke-hoach/09-c). Biên tập viên tạo chuyên đề từ
+ * Danh sách chuyên đề bài giảng, mọi trạng thái (ke-hoach/09-c). Admin quản lý tạo chuyên đề từ
  * một tệp PDF văn bản (AI soạn sẵn bài), hoặc tạo thủ công rồi vào từng chuyên đề để thêm bài và
  * soạn khối nội dung.
  */
@@ -19,7 +19,7 @@ export function meta(_: Route.MetaArgs) {
 }
 
 export async function loader({ request }: Route.LoaderArgs) {
-  const { token } = await yeuCauVaiTro(request, "bien_tap");
+  const { token } = await yeuCauVaiTro(request, "quan_ly");
   const { items } = await goiApiQuanTri<{ items: ChuyenDeQuanTri[] }>(
     token,
     "/v1/quan-tri/dao-tao/chuyen-de",

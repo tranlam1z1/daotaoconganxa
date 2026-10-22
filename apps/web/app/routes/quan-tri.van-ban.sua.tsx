@@ -49,7 +49,7 @@ export function meta({ data }: Route.MetaArgs) {
 const E = encodeURIComponent;
 
 export async function loader({ request }: Route.LoaderArgs) {
-  const { token, nguoiDung } = await yeuCauVaiTro(request, "bien_tap");
+  const { token, nguoiDung } = await yeuCauVaiTro(request, "quan_ly");
   const url = urlTrang(request);
   const danhMuc = await goiApiQuanTri<DanhMucVanBan>(token, `${API_VAN_BAN}/loai`);
   const coTheXoa = duVaiTro(nguoiDung, "quan_tri");
@@ -96,7 +96,7 @@ const chu = (v: FormDataEntryValue | null) => String(v ?? "").trim();
 const chuHoacNull = (v: FormDataEntryValue | null) => chu(v) || null;
 
 export async function action({ request }: Route.ActionArgs): Promise<KetQua> {
-  const { token } = await yeuCauVaiTro(request, "bien_tap");
+  const { token } = await yeuCauVaiTro(request, "quan_ly");
   const urn = new URL(request.url).searchParams.get("urn");
   const f = await request.formData();
   const intent = chu(f.get("intent")) || "luu";

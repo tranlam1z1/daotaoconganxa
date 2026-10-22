@@ -277,7 +277,7 @@ export const HANH_DONG_GOC: readonly HanhDongGoc[] = [
     // Trạng thái `bo_tay` tồn tại để việc "không biết" có hình ảnh riêng, thay vì bị giấu đi.
     speech: [
       {
-        text: "Kho dữ liệu chưa có đủ căn cứ cho nội dung này. Tôi đã chuyển yêu cầu tới biên tập viên.",
+        text: "Kho dữ liệu chưa có đủ căn cứ cho nội dung này. Tôi đã chuyển yêu cầu tới quản trị viên nội dung.",
         loai: "loi_dan",
       },
       {

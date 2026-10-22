@@ -2,7 +2,7 @@
  * Hàng đợi biên tập và duyệt lệnh sửa đổi.
  * Duyệt xong thì đẩy job `consolidate` vào bảng jobs để worker sinh lại bản hợp nhất.
  *
- * Quyền: xem và xử lý hàng đợi cần `bien_tap`; duyệt/từ chối lệnh sửa đổi cần `phap_che`
+ * Quyền: xem và xử lý hàng đợi cần `quan_ly`; duyệt/từ chối lệnh sửa đổi cần `quan_ly`
  * (cùng mức với công cụ MCP `duyet_lenh_sua_doi`). Người duyệt lấy từ phiên đăng nhập,
  * không nhận từ body.
  */
@@ -40,7 +40,7 @@ export const editorial = new Hono();
 
 /** GET /v1/review-queue — hàng đợi biên tập. */
 editorial.get("/review-queue", async (c) => {
-  await batBuocVaiTro(c, "bien_tap");
+  await batBuocVaiTro(c, "quan_ly");
   const p = parseQuery(c, listSchema);
   const state = p.state === "all" ? null : p.state;
   const kind = p.kind || null;
@@ -75,7 +75,7 @@ editorial.get("/review-queue", async (c) => {
 
 /** POST /v1/review-queue/:id/resolve — đóng một mục trong hàng đợi. */
 editorial.post("/review-queue/:id/resolve", async (c) => {
-  const nguoi = await batBuocVaiTro(c, "bien_tap");
+  const nguoi = await batBuocVaiTro(c, "quan_ly");
   const id = parseUuid(c.req.param("id"));
   const body = await parseBody(c, resolveSchema);
   const rows = await sql`
@@ -103,7 +103,7 @@ editorial.post("/amend-ops/:id/reject", async (c) => {
 });
 
 async function reviewAmendOp(c: Context, status: "approved" | "rejected") {
-  const nguoi = await batBuocVaiTro(c, "phap_che");
+  const nguoi = await batBuocVaiTro(c, "quan_ly");
   const id = parseUuid(c.req.param("id"));
   const body = await parseBody(c, reviewSchema);
 

@@ -35,7 +35,7 @@ export interface KichBanAnh {
   chu_thich: string;
   url: string;
   thiet_bi?: ThietBi;
-  /** Cần phiên biên tập viên trở lên. */
+  /** Cần phiên Admin quản lý trở lên. */
   dang_nhap?: boolean;
   thao_tac?: ThaoTac[];
   /** Bộ chọn vùng cần cắt. Bỏ trống thì lấy cả khung nhìn. */

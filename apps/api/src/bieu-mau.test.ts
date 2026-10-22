@@ -73,18 +73,18 @@ async function taoDaDuyet(duoi: string, truong: Record<string, string>) {
   const code = `${PREFIX}-${duoi}`;
   const r = await guiForm(
     `${QT}/bieu-mau`,
-    bienTap,
+    quanLy,
     { code, kind: "huong_dan", gui_duyet: "1", ...truong },
     { ten: `${duoi}.pdf`, du: PDF },
   );
   expect(r.status).toBe(201);
-  expect((await goi("POST", `${QT}/bieu-mau/${code}/duyet`, phapChe, {})).status).toBe(200);
+  expect((await goi("POST", `${QT}/bieu-mau/${code}/duyet`, quanLy, {})).status).toBe(200);
   return code;
 }
 
 let canBo: string;
-let bienTap: string;
-let phapChe: string;
+let quanLy: string;
+let lanhDao: string;
 const MA = `${PREFIX}-bien-ban`;
 const MA_QT = `${PREFIX}-quy-trinh`;
 
@@ -92,8 +92,8 @@ beforeAll(async () => {
   delete process.env.TRA_CUU_NHANH_BAN_NHAP;
   await donDep();
   canBo = await taoTaiKhoan("can-bo", "can_bo");
-  bienTap = await taoTaiKhoan("bien-tap", "bien_tap");
-  phapChe = await taoTaiKhoan("phap-che", "phap_che");
+  quanLy = await taoTaiKhoan("quan-ly", "quan_ly");
+  lanhDao = await taoTaiKhoan("lanh-dao", "lanh_dao");
 });
 
 afterAll(donDep);
@@ -108,20 +108,20 @@ describe("tải biểu mẫu lên", () => {
   });
 
   test("thiếu tệp, đuôi lạ, hoặc nội dung không khớp đuôi thì 400", async () => {
-    expect((await guiForm(`${QT}/bieu-mau`, bienTap, truong)).status).toBe(400);
-    const exe = await guiForm(`${QT}/bieu-mau`, bienTap, truong, { ten: "ma-doc.exe", du: PDF });
+    expect((await guiForm(`${QT}/bieu-mau`, quanLy, truong)).status).toBe(400);
+    const exe = await guiForm(`${QT}/bieu-mau`, quanLy, truong, { ten: "ma-doc.exe", du: PDF });
     expect(exe.status).toBe(400);
-    const gia = await guiForm(`${QT}/bieu-mau`, bienTap, truong, { ten: "anh.pdf", du: PNG });
+    const gia = await guiForm(`${QT}/bieu-mau`, quanLy, truong, { ten: "anh.pdf", du: PNG });
     expect(gia.status).toBe(400);
     expect(gia.body.error.message).toContain("không phải định dạng .pdf");
     const [{ n }] = (await sql`SELECT count(*)::int n FROM form_templates WHERE code = ${MA}`) as any;
     expect(n).toBe(0);
   });
 
-  test("biên tập viên tải PDF lên và gửi duyệt: dòng vào chờ duyệt, tệp nằm trong kho", async () => {
+  test("Admin quản lý tải PDF lên và gửi duyệt: dòng vào chờ duyệt, tệp nằm trong kho", async () => {
     const r = await guiForm(
       `${QT}/bieu-mau`,
-      bienTap,
+      quanLy,
       { ...truong, summary: "Lập khi phát hiện vi phạm", gui_duyet: "1" },
       { ten: "C:\\tai-lieu\\Mẫu biên bản VPHC.pdf", du: PDF },
     );
@@ -134,7 +134,7 @@ describe("tải biểu mẫu lên", () => {
   });
 
   test("mã đã có thì 409", async () => {
-    const r = await guiForm(`${QT}/bieu-mau`, bienTap, truong, { ten: "khac.pdf", du: PDF });
+    const r = await guiForm(`${QT}/bieu-mau`, quanLy, truong, { ten: "khac.pdf", du: PDF });
     expect(r.status).toBe(409);
   });
 
@@ -145,7 +145,7 @@ describe("tải biểu mẫu lên", () => {
 
     expect((await goi("GET", `${QT}/bieu-mau/${MA}/tep`, canBo)).status).toBe(403);
     const res = await app.request(`http://test${QT}/bieu-mau/${MA}/tep`, {
-      headers: { authorization: `Bearer ${bienTap}` },
+      headers: { authorization: `Bearer ${quanLy}` },
     });
     expect(res.status).toBe(200);
     expect(res.headers.get("content-type")).toBe("application/pdf");
@@ -153,9 +153,9 @@ describe("tải biểu mẫu lên", () => {
 });
 
 describe("tra cứu sau khi duyệt", () => {
-  test("pháp chế duyệt thì biểu mẫu hiện ra, không lộ đường dẫn kho", async () => {
-    expect((await goi("POST", `${QT}/bieu-mau/${MA}/duyet`, bienTap, {})).status).toBe(403);
-    expect((await goi("POST", `${QT}/bieu-mau/${MA}/duyet`, phapChe, {})).status).toBe(200);
+  test("Admin quản lý duyệt thì biểu mẫu hiện ra, không lộ đường dẫn kho", async () => {
+    expect((await goi("POST", `${QT}/bieu-mau/${MA}/duyet`, lanhDao, {})).status).toBe(403);
+    expect((await goi("POST", `${QT}/bieu-mau/${MA}/duyet`, quanLy, {})).status).toBe(200);
 
     const [m] = await traCuu(`q=${E(PREFIX)}`);
     expect(m.ma).toBe(MA);
@@ -185,7 +185,7 @@ describe("tra cứu sau khi duyệt", () => {
   });
 
   test("lọc theo loại tài liệu, phương tiện, loại vi phạm", async () => {
-    const tao = await goi("POST", `${QT}/quy-trinh`, bienTap, {
+    const tao = await goi("POST", `${QT}/quy-trinh`, quanLy, {
       code: MA_QT,
       kind: "vi_pham",
       title: `${PREFIX} Xử lý xe mô tô quá tốc độ`,
@@ -195,7 +195,7 @@ describe("tra cứu sau khi duyệt", () => {
       gui_duyet: true,
     });
     expect(tao.status).toBe(201);
-    expect((await goi("POST", `${QT}/quy-trinh/${MA_QT}/duyet`, phapChe, {})).status).toBe(200);
+    expect((await goi("POST", `${QT}/quy-trinh/${MA_QT}/duyet`, quanLy, {})).status).toBe(200);
 
     const ma = async (qs: string) => (await traCuu(`q=${E(PREFIX)}&${qs}`)).map((i: any) => i.ma).sort();
     expect(await ma("")).toEqual([MA, MA_QT]);
@@ -235,7 +235,7 @@ describe("phổ biến: ghim trước, rồi theo lượt mở", () => {
     expect(await thuTu()).toEqual([b, a]);
 
     expect((await goi("PUT", `${QT}/bieu-mau/${a}/phan-loai`, canBo, { pinned: true })).status).toBe(403);
-    const ghim = await goi("PUT", `${QT}/bieu-mau/${a}/phan-loai`, bienTap, {
+    const ghim = await goi("PUT", `${QT}/bieu-mau/${a}/phan-loai`, quanLy, {
       vehicle: "o_to",
       group_name: "Giấy tờ",
       pinned: true,
@@ -248,7 +248,7 @@ describe("phổ biến: ghim trước, rồi theo lượt mở", () => {
     expect((await traCuu(`loai=huong_dan&nhom=${E("Giấy tờ")}`)).map((i: any) => i.ma)).toEqual([a]);
 
     // Loại không có phân loại thì từ chối.
-    expect((await goi("PUT", `${QT}/muc-phat/khong-co/phan-loai`, bienTap, {})).status).toBe(400);
+    expect((await goi("PUT", `${QT}/muc-phat/khong-co/phan-loai`, quanLy, {})).status).toBe(400);
   });
 
   test("mở quy trình cũng tăng lượt xem", async () => {
@@ -265,10 +265,10 @@ describe("phổ biến: ghim trước, rồi theo lượt mở", () => {
 
 describe("sửa và thay tệp", () => {
   test("thay tệp của biểu mẫu đã duyệt: về chờ duyệt, tăng phiên bản, gỡ tệp cũ khỏi kho", async () => {
-    const cu = (await goi("GET", `${QT}/bieu-mau/${MA}`, bienTap)).body;
+    const cu = (await goi("GET", `${QT}/bieu-mau/${MA}`, quanLy)).body;
     const lech = await guiForm(
       `${QT}/bieu-mau/${MA}/tep`,
-      bienTap,
+      quanLy,
       { version: String(cu.version + 1) },
       { ten: "moi.docx", du: DOCX },
     );
@@ -276,7 +276,7 @@ describe("sửa và thay tệp", () => {
 
     const r = await guiForm(
       `${QT}/bieu-mau/${MA}/tep`,
-      bienTap,
+      quanLy,
       { version: String(cu.version) },
       { ten: "Mẫu biên bản (sửa).docx", du: DOCX },
     );
@@ -289,14 +289,14 @@ describe("sửa và thay tệp", () => {
     expect((await goi("GET", `/v1/tra-cuu/bieu-mau/${MA}/tep`)).status).toBe(404);
 
     // Duyệt lại: tệp Word luôn tải về, không mở trong trình duyệt.
-    expect((await goi("POST", `${QT}/bieu-mau/${MA}/duyet`, phapChe, {})).status).toBe(200);
+    expect((await goi("POST", `${QT}/bieu-mau/${MA}/duyet`, quanLy, {})).status).toBe(200);
     const tep = await app.request(`http://test/v1/tra-cuu/bieu-mau/${MA}/tep`);
     expect(tep.headers.get("content-disposition")).toStartWith("attachment;");
   });
 
   test("sửa tên, loại của biểu mẫu đã duyệt cũng đưa về chờ duyệt", async () => {
-    const cu = (await goi("GET", `${QT}/bieu-mau/${MA}`, bienTap)).body;
-    const r = await goi("PUT", `${QT}/bieu-mau/${MA}`, bienTap, {
+    const cu = (await goi("GET", `${QT}/bieu-mau/${MA}`, quanLy)).body;
+    const r = await goi("PUT", `${QT}/bieu-mau/${MA}`, quanLy, {
       version: cu.version,
       title: `${PREFIX} Mẫu biên bản đã đổi tên`,
       kind: "huong_dan",
@@ -305,7 +305,7 @@ describe("sửa và thay tệp", () => {
     expect(r.body.trang_thai).toBe("cho_duyet");
     expect(r.body.kind).toBe("huong_dan");
     expect(r.body.lich_su ?? null).toBeNull();
-    const ct = (await goi("GET", `${QT}/bieu-mau/${MA}`, bienTap)).body;
+    const ct = (await goi("GET", `${QT}/bieu-mau/${MA}`, quanLy)).body;
     expect(ct.lich_su.map((h: any) => h.action)).toEqual(
       expect.arrayContaining(["tao", "gui_duyet", "duyet", "thay_tep", "sua"]),
     );

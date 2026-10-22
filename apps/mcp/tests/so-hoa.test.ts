@@ -29,7 +29,7 @@ interface KetQuaCongCu {
 const handlers = new Map<string, (args: any) => Promise<KetQuaCongCu>>();
 const cauHinh = new Map<string, ToolConfig>();
 
-const principal: Principal = { email: "bt@vd.vn", role: "bien_tap", source: "local" };
+const principal: Principal = { email: "bt@vd.vn", role: "quan_ly", source: "local" };
 const reg: ToolRegistrar = {
   principal,
   registered: [],

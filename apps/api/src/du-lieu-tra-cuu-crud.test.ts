@@ -43,14 +43,14 @@ async function donDep() {
 }
 
 let canBo: string;
-let bienTap: string;
-let phapChe: string;
+let quanLy: string;
+let lanhDao: string;
 
 beforeAll(async () => {
   await donDep();
   canBo = await taoTaiKhoan("can-bo", "can_bo");
-  bienTap = await taoTaiKhoan("bien-tap", "bien_tap");
-  phapChe = await taoTaiKhoan("phap-che", "phap_che");
+  quanLy = await taoTaiKhoan("quan-ly", "quan_ly");
+  lanhDao = await taoTaiKhoan("lanh-dao", "lanh_dao");
 });
 
 afterAll(donDep);
@@ -70,9 +70,9 @@ const tocDo = (duoi: string, them: Record<string, unknown> = {}) => ({
 describe("tốc độ tối đa", () => {
   const MA = `${PREFIX}-sl`;
 
-  test("biên tập viên soạn được, cán bộ thì không; dòng vào bản nháp", async () => {
+  test("Admin quản lý soạn được, cán bộ thì không; dòng vào bản nháp", async () => {
     expect((await goi("POST", `${QT}/toc-do-toi-da`, canBo, tocDo("sl"))).status).toBe(403);
-    const r = await goi("POST", `${QT}/toc-do-toi-da`, bienTap, tocDo("sl"));
+    const r = await goi("POST", `${QT}/toc-do-toi-da`, quanLy, tocDo("sl"));
     expect(r.status).toBe(201);
     expect(r.body).toMatchObject({
       code: MA,
@@ -84,8 +84,8 @@ describe("tốc độ tối đa", () => {
   });
 
   test("trùng mã, trùng loại xe và loại đường, hoặc hiệu lực ngược thì từ chối", async () => {
-    expect((await goi("POST", `${QT}/toc-do-toi-da`, bienTap, tocDo("sl"))).status).toBe(409);
-    const trung = await goi("POST", `${QT}/toc-do-toi-da`, bienTap, {
+    expect((await goi("POST", `${QT}/toc-do-toi-da`, quanLy, tocDo("sl"))).status).toBe(409);
+    const trung = await goi("POST", `${QT}/toc-do-toi-da`, quanLy, {
       ...tocDo("sl"),
       code: `${PREFIX}-sl-khac`,
     });
@@ -94,14 +94,14 @@ describe("tốc độ tối đa", () => {
     const nguoc = await goi(
       "POST",
       `${QT}/toc-do-toi-da`,
-      bienTap,
+      quanLy,
       tocDo("sl2", { effective_to: "2024-01-01" }),
     );
     expect(nguoc.status).toBe(400);
   });
 
   test("sửa được mọi trường; yêu cầu chỉ gửi con số thì các trường khác giữ nguyên", async () => {
-    const s = await goi("PUT", `${QT}/toc-do-toi-da/${MA}`, bienTap, {
+    const s = await goi("PUT", `${QT}/toc-do-toi-da/${MA}`, quanLy, {
       vehicle_class: `${PREFIX} xe mô tô`,
       violation_vehicle: "mo_to",
       road_type_name: "Đường thử sửa",
@@ -117,7 +117,7 @@ describe("tốc độ tối đa", () => {
       max_speed: 50,
       road_type: `${PREFIX}-sl`,
     });
-    const s2 = await goi("PUT", `${QT}/toc-do-toi-da/${MA}`, bienTap, {
+    const s2 = await goi("PUT", `${QT}/toc-do-toi-da/${MA}`, quanLy, {
       max_speed: 40,
       citation_urn: URN,
       version: 1,
@@ -129,22 +129,24 @@ describe("tốc độ tối đa", () => {
 
   test("lệnh nạp tệp không chuyển dòng soạn trong ứng dụng sang ngừng", async () => {
     await napTocDoToiDa([], { tienTo: PREFIX, cheDo: "cho_duyet" });
-    expect((await goi("GET", `${QT}/toc-do-toi-da/${MA}`, bienTap)).body.trang_thai).toBe("nhap");
+    expect((await goi("GET", `${QT}/toc-do-toi-da/${MA}`, quanLy)).body.trang_thai).toBe("nhap");
   });
 
   test("xóa hẳn dòng nháp; dòng đã từng duyệt chỉ ngừng dùng và khôi phục được", async () => {
     expect((await goi("DELETE", `${QT}/toc-do-toi-da/${MA}`, canBo)).status).toBe(403);
-    expect((await goi("DELETE", `${QT}/toc-do-toi-da/${MA}`, bienTap)).status).toBe(200);
-    expect((await goi("GET", `${QT}/toc-do-toi-da/${MA}`, bienTap)).status).toBe(404);
+    expect((await goi("DELETE", `${QT}/toc-do-toi-da/${MA}`, quanLy)).status).toBe(200);
+    expect((await goi("GET", `${QT}/toc-do-toi-da/${MA}`, quanLy)).status).toBe(404);
 
     const ma = `${PREFIX}-duyet`;
-    await goi("POST", `${QT}/toc-do-toi-da`, bienTap, tocDo("duyet", { gui_duyet: true }));
-    expect((await goi("POST", `${QT}/toc-do-toi-da/${ma}/duyet`, phapChe, {})).status).toBe(200);
-    expect((await goi("POST", `${QT}/toc-do-toi-da/${ma}/khoi-phuc`, bienTap, {})).status).toBe(409);
-    expect((await goi("POST", `${QT}/toc-do-toi-da/${ma}/luu-tru`, bienTap, {})).status).toBe(200);
-    const kp = await goi("POST", `${QT}/toc-do-toi-da/${ma}/khoi-phuc`, bienTap, {});
+    await goi("POST", `${QT}/toc-do-toi-da`, quanLy, tocDo("duyet", { gui_duyet: true }));
+    // Lãnh đạo UBND xã không duyệt được nội dung: việc duyệt thuộc Admin quản lý.
+    expect((await goi("POST", `${QT}/toc-do-toi-da/${ma}/duyet`, lanhDao, {})).status).toBe(403);
+    expect((await goi("POST", `${QT}/toc-do-toi-da/${ma}/duyet`, quanLy, {})).status).toBe(200);
+    expect((await goi("POST", `${QT}/toc-do-toi-da/${ma}/khoi-phuc`, quanLy, {})).status).toBe(409);
+    expect((await goi("POST", `${QT}/toc-do-toi-da/${ma}/luu-tru`, quanLy, {})).status).toBe(200);
+    const kp = await goi("POST", `${QT}/toc-do-toi-da/${ma}/khoi-phuc`, quanLy, {});
     expect(kp.body.trang_thai).toBe("nhap");
-    expect((await goi("DELETE", `${QT}/toc-do-toi-da/${ma}`, bienTap)).status).toBe(409);
+    expect((await goi("DELETE", `${QT}/toc-do-toi-da/${ma}`, quanLy)).status).toBe(409);
   });
 });
 
@@ -159,14 +161,14 @@ describe("tải trọng", () => {
   });
 
   test("tổng trọng lượng cần loại xe, cụm trục cần số trục và khoảng cách", async () => {
-    expect((await goi("POST", `${QT}/tai-trong`, bienTap, dong("tong", { kind: "tong" }))).status).toBe(400);
-    expect((await goi("POST", `${QT}/tai-trong`, bienTap, dong("cum", { kind: "cum_truc" }))).status).toBe(
+    expect((await goi("POST", `${QT}/tai-trong`, quanLy, dong("tong", { kind: "tong" }))).status).toBe(400);
+    expect((await goi("POST", `${QT}/tai-trong`, quanLy, dong("cum", { kind: "cum_truc" }))).status).toBe(
       400,
     );
     const cum = await goi(
       "POST",
       `${QT}/tai-trong`,
-      bienTap,
+      quanLy,
       dong("cum", { kind: "cum_truc", group_axles: 2, spacing_from_cm: 100, spacing_to_cm: 130 }),
     );
     expect(cum.status).toBe(201);
@@ -174,7 +176,7 @@ describe("tải trọng", () => {
   });
 
   test("đổi cụm trục thành trục đơn thì bỏ số trục và khoảng cách", async () => {
-    const s = await goi("PUT", `${QT}/tai-trong/${PREFIX}-cum`, bienTap, {
+    const s = await goi("PUT", `${QT}/tai-trong/${PREFIX}-cum`, quanLy, {
       kind: "truc_don",
       limit_kg: 10_000,
       citation_urn: URN,
@@ -196,14 +198,14 @@ describe("mức phạt và quy trình: sửa đủ trường", () => {
   };
 
   test("sửa loại xe, từ khóa, khung quá tải, hiệu lực; yêu cầu cũ giữ các trường đó", async () => {
-    const tao = await goi("POST", `${QT}/muc-phat`, bienTap, {
+    const tao = await goi("POST", `${QT}/muc-phat`, quanLy, {
       ...coBan,
       code: MA,
       vehicle: "mo_to",
       effective_from: "2025-01-01",
     });
     expect(tao.status).toBe(201);
-    const s = await goi("PUT", `${QT}/muc-phat/${MA}`, bienTap, {
+    const s = await goi("PUT", `${QT}/muc-phat/${MA}`, quanLy, {
       ...coBan,
       vehicle: "o_to",
       keywords: ["quá tải"],
@@ -218,7 +220,7 @@ describe("mức phạt và quy trình: sửa đủ trường", () => {
     expect(Number(s.body.qua_tai_den)).toBe(30);
     expect(s.body.search_text).toContain("qua tai");
 
-    const cu = await goi("PUT", `${QT}/muc-phat/${MA}`, bienTap, {
+    const cu = await goi("PUT", `${QT}/muc-phat/${MA}`, quanLy, {
       ...coBan,
       fine_max: 1_200_000,
       version: 1,
@@ -231,7 +233,7 @@ describe("mức phạt và quy trình: sửa đủ trường", () => {
 
   test("khung quá tải ngược, khoảng tốc độ thiếu cận dưới thì 400", async () => {
     const sai = (them: Record<string, unknown>) =>
-      goi("PUT", `${QT}/muc-phat/${MA}`, bienTap, { ...coBan, ...them, version: 1 });
+      goi("PUT", `${QT}/muc-phat/${MA}`, quanLy, { ...coBan, ...them, version: 1 });
     expect((await sai({ qua_tai_tu: 50, qua_tai_den: 20 })).status).toBe(400);
     expect((await sai({ speed_over_max: 20 })).status).toBe(400);
   });
@@ -239,20 +241,20 @@ describe("mức phạt và quy trình: sửa đủ trường", () => {
   test("đổi loại quy trình", async () => {
     const ma = `${PREFIX}-qt`;
     const buoc = [{ tieu_de: "Bước một", mo_ta: "Dừng phương tiện" }];
-    const tao = await goi("POST", `${QT}/quy-trinh`, bienTap, {
+    const tao = await goi("POST", `${QT}/quy-trinh`, quanLy, {
       code: ma,
       kind: "vi_pham",
       title: `${PREFIX} quy trình thử`,
       steps: buoc,
     });
     expect(tao.status).toBe(201);
-    const giu = await goi("PUT", `${QT}/quy-trinh/${ma}`, bienTap, {
+    const giu = await goi("PUT", `${QT}/quy-trinh/${ma}`, quanLy, {
       title: `${PREFIX} quy trình thử`,
       steps: buoc,
       version: 1,
     });
     expect(giu.body.kind).toBe("vi_pham");
-    const doi = await goi("PUT", `${QT}/quy-trinh/${ma}`, bienTap, {
+    const doi = await goi("PUT", `${QT}/quy-trinh/${ma}`, quanLy, {
       kind: "tai_nan",
       title: `${PREFIX} quy trình thử`,
       steps: buoc,
@@ -278,7 +280,7 @@ describe("biển báo", () => {
     if (tep) form.set("tep", new File([tep.du as BlobPart], tep.ten));
     const res = await app.request(`http://test${path}`, {
       method: "POST",
-      headers: { authorization: `Bearer ${bienTap}` },
+      headers: { authorization: `Bearer ${quanLy}` },
       body: form,
     });
     return { status: res.status, body: (await res.json().catch(() => null)) as any };
@@ -323,10 +325,10 @@ describe("biển báo", () => {
     expect((await goi("GET", `/v1/tra-cuu/bien-bao/anh/${encodeURIComponent(tep)}`)).status).toBe(200);
 
     const sua = { name: truong.name, meaning: truong.meaning, citation_urn: URN, version: 1 };
-    expect((await goi("PUT", `${QT}/bien-bao/${MA}`, bienTap, { ...sua, group_name: "phu" })).status).toBe(
+    expect((await goi("PUT", `${QT}/bien-bao/${MA}`, quanLy, { ...sua, group_name: "phu" })).status).toBe(
       400,
     );
-    expect((await goi("PUT", `${QT}/bien-bao/${MA}`, bienTap, sua)).body.group_name).toBe("cam");
+    expect((await goi("PUT", `${QT}/bien-bao/${MA}`, quanLy, sua)).body.group_name).toBe("cam");
 
     const thay = await guiForm(`${QT}/bien-bao/${MA}/anh`, { version: "1" }, { ten: "moi.png", du: PNG });
     expect(thay.status).toBe(200);
@@ -334,7 +336,7 @@ describe("biển báo", () => {
     expect(anhMoi).toEndWith(".png");
     expect(await objectExists(anhDau)).toBe(false);
 
-    expect((await goi("DELETE", `${QT}/bien-bao/${MA}`, bienTap)).status).toBe(200);
+    expect((await goi("DELETE", `${QT}/bien-bao/${MA}`, quanLy)).status).toBe(200);
     expect(await objectExists(anhMoi)).toBe(false);
   });
 });
@@ -356,12 +358,12 @@ describe("luật giấy tờ", () => {
   });
 
   test("kiểu kiểm không hợp nhóm, hoặc thiếu tham số bắt buộc thì 400", async () => {
-    const saiNhom = await goi("POST", `${QT}/luat-giay-to`, bienTap, luat({ check_kind: "so_nguoi" }));
+    const saiNhom = await goi("POST", `${QT}/luat-giay-to`, quanLy, luat({ check_kind: "so_nguoi" }));
     expect(saiNhom.status).toBe(400);
     const thieu = await goi(
       "POST",
       `${QT}/luat-giay-to`,
-      bienTap,
+      quanLy,
       luat({ nhom: "van_tai_khach", check_kind: "lai_lien_tuc", doc_kind: "giam_sat_hanh_trinh" }),
     );
     expect(thieu.status).toBe(400);
@@ -369,11 +371,11 @@ describe("luật giấy tờ", () => {
   });
 
   test("soạn luật, đổi sang nhóm vận tải kèm tham số, yêu cầu cũ giữ kiểu kiểm và tham số", async () => {
-    const tao = await goi("POST", `${QT}/luat-giay-to`, bienTap, luat());
+    const tao = await goi("POST", `${QT}/luat-giay-to`, quanLy, luat());
     expect(tao.status).toBe(201);
     expect(tao.body).toMatchObject({ nhom: "giay_to_nguoi_lai", check_kind: "phai_co", doc_kind: "gplx" });
 
-    const doi = await goi("PUT", `${QT}/luat-giay-to/${MA}`, bienTap, {
+    const doi = await goi("PUT", `${QT}/luat-giay-to/${MA}`, quanLy, {
       ...luat({
         nhom: "van_tai_khach",
         check_kind: "lai_lien_tuc",
@@ -385,7 +387,7 @@ describe("luật giấy tờ", () => {
     expect(doi.status).toBe(200);
     expect(doi.body.params).toEqual({ toi_da_phut: 240, nghi_toi_thieu_phut: 15 });
 
-    const cu = await goi("PUT", `${QT}/luat-giay-to/${MA}`, bienTap, {
+    const cu = await goi("PUT", `${QT}/luat-giay-to/${MA}`, quanLy, {
       name: `${PREFIX} lái liên tục quá bốn giờ`,
       explanation: "Không lái xe liên tục quá bốn giờ.",
       citation_urn: URN,

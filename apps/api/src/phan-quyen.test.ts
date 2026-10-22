@@ -64,20 +64,26 @@ async function donDep() {
   await sql`DELETE FROM accounts WHERE email LIKE ${`${PREFIX}%`}`;
 }
 
-const tk: Record<"khach" | "bienTap" | "phapChe", string> = { khach: "", bienTap: "", phapChe: "" };
+const tk: Record<"khach" | "canBo" | "quanLy" | "lanhDao", string> = {
+  khach: "",
+  canBo: "",
+  quanLy: "",
+  lanhDao: "",
+};
 
 beforeAll(async () => {
   await donDep();
   tk.khach = await taoTaiKhoan("khach", "khach");
-  tk.bienTap = await taoTaiKhoan("bien-tap", "bien_tap");
-  tk.phapChe = await taoTaiKhoan("phap-che", "phap_che");
+  tk.canBo = await taoTaiKhoan("can-bo", "can_bo");
+  tk.quanLy = await taoTaiKhoan("quan-ly", "quan_ly");
+  tk.lanhDao = await taoTaiKhoan("lanh-dao", "lanh_dao");
 });
 
 afterAll(async () => {
   await donDep();
 });
 
-describe("S1 — API biên tập phải kiểm quyền", () => {
+describe("S1 — API quản trị phải kiểm quyền", () => {
   let lenhDuyet = "";
   let lenhTuChoi = "";
   let mucHangDoi = "";
@@ -98,60 +104,65 @@ describe("S1 — API biên tập phải kiểm quyền", () => {
     expect(body.error.code).toBe("chua_dang_nhap");
   });
 
-  test("duyệt lệnh sửa đổi với vai trò bien_tap trả 403", async () => {
+  test("duyệt lệnh sửa đổi với vai trò cán bộ hoặc lãnh đạo đều trả 403", async () => {
     const { status, body } = await goi("POST", `/v1/amend-ops/${lenhDuyet}/approve`, {
-      token: tk.bienTap,
+      token: tk.canBo,
       body: {},
     });
     expect(status).toBe(403);
     expect(body.error.code).toBe("khong_du_quyen");
+    expect((await goi("POST", `/v1/amend-ops/${lenhDuyet}/approve`, { token: tk.lanhDao, body: {} })).status).toBe(
+      403,
+    );
   });
 
-  test("từ chối lệnh sửa đổi cũng cần phap_che", async () => {
+  test("từ chối lệnh sửa đổi cũng cần vai trò Admin quản lý trở lên", async () => {
     const khongToken = await goi("POST", `/v1/amend-ops/${lenhTuChoi}/reject`, { body: {} });
     expect(khongToken.status).toBe(401);
-    const bienTap = await goi("POST", `/v1/amend-ops/${lenhTuChoi}/reject`, { token: tk.bienTap, body: {} });
-    expect(bienTap.status).toBe(403);
+    const canBo = await goi("POST", `/v1/amend-ops/${lenhTuChoi}/reject`, { token: tk.canBo, body: {} });
+    expect(canBo.status).toBe(403);
+    const lanhDao = await goi("POST", `/v1/amend-ops/${lenhTuChoi}/reject`, { token: tk.lanhDao, body: {} });
+    expect(lanhDao.status).toBe(403);
   });
 
-  test("phap_che duyệt được; reviewer_id là email người duyệt, bỏ qua reviewerId trong body", async () => {
+  test("Admin quản lý duyệt được; reviewer_id là email người duyệt, bỏ qua reviewerId trong body", async () => {
     const { status, body } = await goi("POST", `/v1/amend-ops/${lenhDuyet}/approve`, {
-      token: tk.phapChe,
+      token: tk.quanLy,
       body: { reviewerId: "gia-mao", notes: `${PREFIX}: đã kiểm tra` },
     });
     expect(status).toBe(200);
     expect(body.op.reviewStatus).toBe("approved");
-    expect(body.op.reviewerId).toBe(emailCua("phap-che"));
+    expect(body.op.reviewerId).toBe(emailCua("quan-ly"));
 
     const [row] = await sql<Array<{ reviewer_id: string }>>`
       SELECT reviewer_id FROM amendment_ops WHERE id = ${lenhDuyet}::uuid`;
-    expect(row!.reviewer_id).toBe(emailCua("phap-che"));
+    expect(row!.reviewer_id).toBe(emailCua("quan-ly"));
 
     const [log] = await sql<Array<{ actor: string }>>`
       SELECT actor FROM audit_log WHERE action = 'amendment_ops.approved' AND target = ${lenhDuyet}`;
-    expect(log!.actor).toBe(emailCua("phap-che"));
+    expect(log!.actor).toBe(emailCua("quan-ly"));
   });
 
-  test("xem hàng đợi: không token 401, khach 403, bien_tap 200", async () => {
+  test("xem hàng đợi: không token 401, khach 403, quan_ly 200", async () => {
     const path = `/v1/review-queue?documentUrn=${encodeURIComponent(TARGET_URN)}`;
     expect((await goi("GET", path)).status).toBe(401);
     expect((await goi("GET", path, { token: tk.khach })).status).toBe(403);
-    const ok = await goi("GET", path, { token: tk.bienTap });
+    const ok = await goi("GET", path, { token: tk.quanLy });
     expect(ok.status).toBe(200);
     expect(ok.body.items.some((i: any) => i.id === mucHangDoi)).toBe(true);
   });
 
-  test("xử lý mục hàng đợi: khach 403, bien_tap 200 và ghi nhật ký theo email", async () => {
+  test("xử lý mục hàng đợi: khach 403, quan_ly 200 và ghi nhật ký theo email", async () => {
     const path = `/v1/review-queue/${mucHangDoi}/resolve`;
     expect((await goi("POST", path, { body: {} })).status).toBe(401);
     expect((await goi("POST", path, { token: tk.khach, body: {} })).status).toBe(403);
-    const ok = await goi("POST", path, { token: tk.bienTap, body: { resolution: "đã xem" } });
+    const ok = await goi("POST", path, { token: tk.quanLy, body: { resolution: "đã xem" } });
     expect(ok.status).toBe(200);
     expect(ok.body.item.state).toBe("resolved");
 
     const [log] = await sql<Array<{ actor: string }>>`
       SELECT actor FROM audit_log WHERE action = 'review_queue.resolved' AND target = ${mucHangDoi}`;
-    expect(log!.actor).toBe(emailCua("bien-tap"));
+    expect(log!.actor).toBe(emailCua("quan-ly"));
   });
 });
 

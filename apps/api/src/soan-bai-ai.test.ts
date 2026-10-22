@@ -1,6 +1,6 @@
 /**
  * Kiểm thử AI soạn bài (ke-hoach/09-a §5, 09-c §4.3) trên Postgres test thật, LLM_PROVIDER=mock:
- * tạo việc → worker soạn và hậu kiểm → biên tập viên nhận vào bản nháp → sinh câu hỏi cho bài
+ * tạo việc → worker soạn và hậu kiểm → Admin quản lý nhận vào bản nháp → sinh câu hỏi cho bài
  * vào ngân hàng chung → duyệt → câu hiện ở kiểm tra cuối bài.
  *
  * Điều phải giữ: không có đường nào từ mô hình tới người học khi chưa qua duyệt.
@@ -105,15 +105,15 @@ async function donDep() {
   await sql`DELETE FROM accounts WHERE email LIKE ${`${PREFIX}%`}`;
 }
 
-const tk = { canBo: "", bienTap: "", phapChe: "" };
+const tk = { canBo: "", quanLy: "", lanhDao: "" };
 const ids = { course: "", bai: "", baiTrong: "" };
 const SLUG = `${PREFIX}-chuyen-de`;
 
 beforeAll(async () => {
   await donDep();
   tk.canBo = await taoTaiKhoan("can-bo", "can_bo");
-  tk.bienTap = await taoTaiKhoan("bien-tap", "bien_tap");
-  tk.phapChe = await taoTaiKhoan("phap-che", "phap_che");
+  tk.quanLy = await taoTaiKhoan("quan-ly", "quan_ly");
+  tk.lanhDao = await taoTaiKhoan("lanh-dao", "lanh_dao");
   const course = await luuChuyenDe({ slug: SLUG, title: "Chuyên đề thử AI soạn bài", asOf: NGAY });
   ids.course = course.id;
   // Chuyên đề đã xuất bản: bài của nó chỉ tới người học khi chính bài được xuất bản.
@@ -149,7 +149,7 @@ describe("soạn khối nội dung và nhận vào bản nháp", () => {
   let soKhoi = 0;
 
   test("worker soạn khối, hậu kiểm, và lưu phần qua hậu kiểm vào kết quả của việc", async () => {
-    const { jobId, output } = await taoVaChay(tk.bienTap, {
+    const { jobId, output } = await taoVaChay(tk.quanLy, {
       courseId: ids.course,
       lessonId: ids.bai,
       step: "soan_bai",
@@ -168,13 +168,13 @@ describe("soạn khối nội dung và nhận vào bản nháp", () => {
   test("cán bộ không nhận được (403); việc không có trả 404", async () => {
     expect((await goi("POST", `${BASE}/soan-bai/${jobDau}/nhan`, { token: tk.canBo })).status).toBe(403);
     const r = await goi("POST", `${BASE}/soan-bai/00000000-0000-0000-0000-000000000000/nhan`, {
-      token: tk.bienTap,
+      token: tk.quanLy,
     });
     expect(r.status).toBe(404);
   });
 
   test("nhận vào nháp ghi khối nguồn AI, bài chuyển sang 'AI vừa soạn'; nhận lần hai bị từ chối", async () => {
-    const r = await goi("POST", `${BASE}/soan-bai/${jobDau}/nhan`, { token: tk.bienTap });
+    const r = await goi("POST", `${BASE}/soan-bai/${jobDau}/nhan`, { token: tk.quanLy });
     expect(r.status).toBe(200);
     expect(r.body.soKhoi).toBe(soKhoi);
 
@@ -184,7 +184,7 @@ describe("soạn khối nội dung và nhận vào bản nháp", () => {
     const bai = await baiHocTheoId(ids.bai);
     expect(bai!.status).toBe("ai_soan");
 
-    expect((await goi("POST", `${BASE}/soan-bai/${jobDau}/nhan`, { token: tk.bienTap })).status).toBe(409);
+    expect((await goi("POST", `${BASE}/soan-bai/${jobDau}/nhan`, { token: tk.quanLy })).status).toBe(409);
   });
 
   test("nội dung AI đã nhận chưa tới người học khi bài chưa xuất bản", async () => {
@@ -193,7 +193,7 @@ describe("soạn khối nội dung và nhận vào bản nháp", () => {
   });
 
   test("bài đã xuất bản không nhận nội dung AI; chuyển 'cần cập nhật' rồi thay thì chỉ phần AI bị thay", async () => {
-    const { jobId } = await taoVaChay(tk.bienTap, {
+    const { jobId } = await taoVaChay(tk.quanLy, {
       courseId: ids.course,
       lessonId: ids.bai,
       step: "soan_bai",
@@ -203,17 +203,17 @@ describe("soạn khối nội dung và nhận vào bản nháp", () => {
     await luuKhoi({ lessonId: ids.bai, ordinal: 99, kind: "giang", data: { md: "Người viết." } });
     await datTrangThaiBaiHoc(ids.bai, "xuat_ban");
 
-    const bi = await goi("POST", `${BASE}/soan-bai/${jobId}/nhan?cheDo=thay`, { token: tk.bienTap });
+    const bi = await goi("POST", `${BASE}/soan-bai/${jobId}/nhan?cheDo=thay`, { token: tk.quanLy });
     expect(bi.status).toBe(409);
     expect(JSON.stringify(bi.body)).toContain("Cần cập nhật");
 
     await datTrangThaiBaiHoc(ids.bai, "can_cap_nhat");
-    const r = await goi("POST", `${BASE}/soan-bai/${jobId}/nhan?cheDo=thay`, { token: tk.bienTap });
+    const r = await goi("POST", `${BASE}/soan-bai/${jobId}/nhan?cheDo=thay`, { token: tk.quanLy });
     expect(r.status).toBe(200);
     const khoi = await khoiCua(ids.bai);
     expect(khoi.filter((k) => k.source === "nguoi").length).toBe(1);
     expect(khoi.filter((k) => k.source === "ai").length).toBe(r.body.soKhoi);
-    // Bài không đổi trạng thái: vẫn phải qua biên tập và pháp chế.
+    // Bài không đổi trạng thái: vẫn phải qua quản trị nội dung và phê duyệt.
     expect((await baiHocTheoId(ids.bai))!.status).toBe("can_cap_nhat");
   });
 
@@ -246,7 +246,7 @@ describe("soạn khối nội dung và nhận vào bản nháp", () => {
     };
     setProvider(giaMo);
     try {
-      const { output } = await taoVaChay(tk.bienTap, {
+      const { output } = await taoVaChay(tk.quanLy, {
         courseId: ids.course,
         lessonId: ids.baiTrong,
         step: "soan_bai",
@@ -266,7 +266,7 @@ describe("soạn khối nội dung và nhận vào bản nháp", () => {
 
 describe("sinh bài tập tự luận cho bài", () => {
   test("không nêu URN thì dùng viện dẫn của bài; nhận vào nháp ghi bài tập nguồn AI kèm rubric", async () => {
-    const { jobId, output } = await taoVaChay(tk.bienTap, {
+    const { jobId, output } = await taoVaChay(tk.quanLy, {
       courseId: ids.course,
       lessonId: ids.bai,
       step: "sinh_bai_tap",
@@ -277,7 +277,7 @@ describe("sinh bài tập tự luận cho bài", () => {
     const kinds = output.baiTap.map((b: { kind: string }) => b.kind).sort();
     expect(kinds).toEqual(["trac_nghiem", "viet_co_can_cu"]);
 
-    const r = await goi("POST", `${BASE}/soan-bai/${jobId}/nhan`, { token: tk.bienTap });
+    const r = await goi("POST", `${BASE}/soan-bai/${jobId}/nhan`, { token: tk.quanLy });
     expect(r.status).toBe(200);
     expect(r.body.soBaiTap).toBe(2);
 
@@ -301,13 +301,13 @@ describe("sinh câu hỏi cho bài vào ngân hàng chung", () => {
   test("cán bộ nhận 403; bài chưa có viện dẫn và không nêu URN nhận 400", async () => {
     const p = `${BASE}/bai/${ids.bai}/sinh-cau-hoi`;
     expect((await goi("POST", p, { token: tk.canBo, body: {} })).status).toBe(403);
-    const r = await goi("POST", `${BASE}/bai/${ids.baiTrong}/sinh-cau-hoi`, { token: tk.bienTap, body: {} });
+    const r = await goi("POST", `${BASE}/bai/${ids.baiTrong}/sinh-cau-hoi`, { token: tk.quanLy, body: {} });
     expect(r.status).toBe(400);
   });
 
   test("chạy thử trả ước tính, không tạo việc và không tạo chủ đề", async () => {
     const r = await goi("POST", `${BASE}/bai/${ids.bai}/sinh-cau-hoi`, {
-      token: tk.bienTap,
+      token: tk.quanLy,
       body: { chay_thu: true },
     });
     expect(r.status).toBe(200);
@@ -317,7 +317,7 @@ describe("sinh câu hỏi cho bài vào ngân hàng chung", () => {
 
   test("tạo chủ đề cho bài, sinh câu chờ duyệt; duyệt xong thì bài có kiểm tra cuối bài", async () => {
     const r = await goi("POST", `${BASE}/bai/${ids.bai}/sinh-cau-hoi`, {
-      token: tk.bienTap,
+      token: tk.quanLy,
       body: { so_cau: 5 },
     });
     expect(r.status).toBe(202);
@@ -342,14 +342,14 @@ describe("sinh câu hỏi cho bài vào ngân hàng chung", () => {
       SELECT id, status FROM questions WHERE authoring_job_id = ${viec!.id}::uuid`;
     expect(cau.every((c) => c.status === "cho_duyet")).toBe(true);
     const duyet = await goi("POST", "/v1/quan-tri/ngan-hang/duyet-hang-loat", {
-      token: tk.phapChe,
+      token: tk.quanLy,
       body: { ids: cau.map((c) => c.id) },
     });
     expect(duyet.status).toBe(200);
     // Câu bị đánh dấu gần giống câu khác không đi theo duyệt hàng loạt: xác nhận rồi duyệt từng câu.
     for (const id of duyet.body.canh_bao_trung) {
       const tung = await goi("POST", `/v1/quan-tri/ngan-hang/cau-hoi/${id}/duyet`, {
-        token: tk.phapChe,
+        token: tk.quanLy,
         body: { xac_nhan_trung: true },
       });
       expect(tung.status).toBe(200);
@@ -365,7 +365,7 @@ describe("sinh câu hỏi cho bài vào ngân hàng chung", () => {
       data: { urn: DIEU[1], nguyen_van: "x" },
       citations: [DIEU[1]!],
     });
-    const r = await goi("POST", `${BASE}/bai/${ids.baiTrong}/sinh-cau-hoi`, { token: tk.bienTap, body: {} });
+    const r = await goi("POST", `${BASE}/bai/${ids.baiTrong}/sinh-cau-hoi`, { token: tk.quanLy, body: {} });
     expect(r.status).toBe(202);
     const [dem] = await sql<Array<{ n: number }>>`
       SELECT count(*)::int AS n FROM question_topics WHERE code LIKE ${`cd-${PREFIX}%`}`;
@@ -379,9 +379,9 @@ describe("soạn tự động cả chuyên đề từ văn bản", () => {
 
   test("cần đúng một trong hai: chuyên đề có sẵn hoặc tên chuyên đề mới (400)", async () => {
     const p = `${BASE}/soan-tu-dong`;
-    expect((await goi("POST", p, { token: tk.bienTap, body: { urns: [VB] } })).status).toBe(400);
+    expect((await goi("POST", p, { token: tk.quanLy, body: { urns: [VB] } })).status).toBe(400);
     const caHai = { urns: [VB], course_id: ids.course, ten_chuyen_de: TEN };
-    expect((await goi("POST", p, { token: tk.bienTap, body: caHai })).status).toBe(400);
+    expect((await goi("POST", p, { token: tk.quanLy, body: caHai })).status).toBe(400);
     expect((await goi("POST", p, { token: tk.canBo, body: { urns: [VB], ten_chuyen_de: TEN } })).status).toBe(
       403,
     );
@@ -389,7 +389,7 @@ describe("soạn tự động cả chuyên đề từ văn bản", () => {
 
   test("chạy thử trả điều khoản và ước tính, không tạo chuyên đề", async () => {
     const r = await goi("POST", `${BASE}/soan-tu-dong`, {
-      token: tk.bienTap,
+      token: tk.quanLy,
       body: { urns: [VB], ten_chuyen_de: TEN, so_bai: 3, as_of: NGAY, chay_thu: true },
     });
     expect(r.status).toBe(200);
@@ -403,7 +403,7 @@ describe("soạn tự động cả chuyên đề từ văn bản", () => {
 
   test("tạo chuyên đề mới, lập dàn ý, tạo bài nháp và giao việc con cho từng bài", async () => {
     const r = await goi("POST", `${BASE}/soan-tu-dong`, {
-      token: tk.bienTap,
+      token: tk.quanLy,
       body: { urns: [VB], ten_chuyen_de: TEN, so_bai: 3, so_cau_hoi: 4, as_of: NGAY },
     });
     expect(r.status).toBe(202);
@@ -449,7 +449,7 @@ describe("soạn tự động cả chuyên đề từ văn bản", () => {
   });
 
   test("màn hình tiến độ gom việc con theo bài, kèm số câu chờ duyệt", async () => {
-    const r = await goi("GET", `${BASE}/soan-tu-dong`, { token: tk.bienTap });
+    const r = await goi("GET", `${BASE}/soan-tu-dong`, { token: tk.quanLy });
     expect(r.status).toBe(200);
     const lan = r.body.items.find((x: { id: string }) => x.id === parentId);
     expect(lan.course.title).toBe(TEN);
@@ -465,13 +465,13 @@ describe("soạn tự động cả chuyên đề từ văn bản", () => {
 
   test("lọc ngân hàng theo lần soạn lấy câu của mọi việc con", async () => {
     const r = await goi("GET", `/v1/quan-tri/ngan-hang/cau-hoi?viec=${parentId}&trang_thai=cho_duyet`, {
-      token: tk.bienTap,
+      token: tk.quanLy,
     });
     expect(r.status).toBe(200);
     expect(r.body.tong).toBe(3 * 4);
   });
 
-  describe("gửi pháp chế và xuất bản cả lô bài", () => {
+  describe("gửi phê duyệt và xuất bản cả lô bài", () => {
     let courseId = "";
     let slug = "";
     let bai: Array<{ id: string; slug: string }> = [];
@@ -499,16 +499,17 @@ describe("soạn tự động cả chuyên đề từ văn bản", () => {
       ).id;
     });
 
-    test("cán bộ nhận 403; biên tập viên không xuất bản được (403); chuyên đề không có trả 404", async () => {
+    test("cán bộ nhận 403; lãnh đạo UBND xã không xuất bản được (403); chuyên đề không có trả 404", async () => {
       expect((await dua(tk.canBo, { den: "cho_phap_che" })).status).toBe(403);
-      expect((await dua(tk.bienTap, { den: "xuat_ban" })).status).toBe(403);
-      const r = await dua(tk.phapChe, { den: "xuat_ban" }, "00000000-0000-0000-0000-000000000000");
+      expect((await dua(tk.canBo, { den: "xuat_ban" })).status).toBe(403);
+      expect((await dua(tk.lanhDao, { den: "xuat_ban" })).status).toBe(403);
+      const r = await dua(tk.quanLy, { den: "xuat_ban" }, "00000000-0000-0000-0000-000000000000");
       expect(r.status).toBe(404);
       expect(await trangThai()).toEqual(["ai_soan", "ai_soan", "ai_soan"]);
     });
 
-    test("biên tập viên gửi pháp chế cả lô; bài chưa đạt bảng kiểm bị bỏ qua kèm lý do", async () => {
-      const r = await dua(tk.bienTap, { den: "cho_phap_che" });
+    test("Admin quản lý gửi phê duyệt cả lô; bài chưa đạt bảng kiểm bị bỏ qua kèm lý do", async () => {
+      const r = await dua(tk.quanLy, { den: "cho_phap_che" });
       expect(r.status).toBe(200);
       expect(r.body.da_chuyen.length).toBe(3);
       expect(r.body.bo_qua.map((b: { id: string }) => b.id)).toEqual([baiRong]);
@@ -520,8 +521,8 @@ describe("soạn tự động cả chuyên đề từ văn bản", () => {
       expect((await docBai(bai[0]!.slug)).status).toBe(404);
     });
 
-    test("pháp chế xuất bản các bài đã chọn; chuyên đề xuất bản theo, bài tới người học", async () => {
-      const r = await dua(tk.phapChe, { den: "xuat_ban", bai: bai.slice(0, 2).map((b) => b.id) });
+    test("Admin quản lý xuất bản các bài đã chọn; chuyên đề xuất bản theo, bài tới người học", async () => {
+      const r = await dua(tk.quanLy, { den: "xuat_ban", bai: bai.slice(0, 2).map((b) => b.id) });
       expect(r.status).toBe(200);
       expect(r.body.da_chuyen.length).toBe(2);
       expect(r.body.chuyen_de).toBe("xuat_ban");
@@ -537,7 +538,7 @@ describe("soạn tự động cả chuyên đề từ văn bản", () => {
     });
 
     test("làm lại chỉ đụng tới bài còn dang dở", async () => {
-      const r = await dua(tk.phapChe, { den: "xuat_ban" });
+      const r = await dua(tk.quanLy, { den: "xuat_ban" });
       expect(r.status).toBe(200);
       expect(r.body.da_chuyen.map((b: { id: string }) => b.id)).toEqual([bai[2]!.id]);
       expect(r.body.bo_qua.length).toBe(1);

@@ -10,7 +10,7 @@
  * Định danh (loại, số ký hiệu, địa phương) quyết định URN mà câu hỏi, bài giảng, dữ liệu tra cứu
  * trỏ tới, nên chỉ đặt khi tạo. Sai định danh thì xóa rồi tạo lại.
  *
- * Quyền: biên tập viên xem, thêm, sửa; xóa cần quản trị viên. Mọi thay đổi ghi audit_log.
+ * Quyền: Admin quản lý xem, thêm, sửa; xóa cần Admin quản trị hệ thống. Mọi thay đổi ghi audit_log.
  */
 
 import {
@@ -363,7 +363,7 @@ async function thamChieu(urn: string): Promise<Array<{ loai: string; nhan: strin
 
 /** Danh mục loại văn bản cho biểu mẫu tạo mới. */
 quanTriVanBanRoute.get("/loai", async (c) => {
-  await batBuocVaiTro(c, "bien_tap");
+  await batBuocVaiTro(c, "quan_ly");
   return c.json({
     items: DOC_TYPES.map((t) => ({ code: t.code, name: t.name, isNormative: t.isNormative })),
     trangThai: TRANG_THAI.map((s) => ({ value: s, label: DOC_STATUS_LABELS[s] ?? s })),
@@ -372,7 +372,7 @@ quanTriVanBanRoute.get("/loai", async (c) => {
 
 /** Danh sách văn bản trong kho, mới sửa trước. */
 quanTriVanBanRoute.get("/", async (c) => {
-  await batBuocVaiTro(c, "bien_tap");
+  await batBuocVaiTro(c, "quan_ly");
   const p = parseQuery(c, danhSachSchema);
   const q = p.q || null;
   const docType = p.docType || null;
@@ -418,7 +418,7 @@ quanTriVanBanRoute.get("/", async (c) => {
 
 /** Xem trước cấu trúc mà Markdown sẽ được tách thành, chưa ghi gì. */
 quanTriVanBanRoute.post("/xem-truoc", async (c) => {
-  await batBuocVaiTro(c, "bien_tap");
+  await batBuocVaiTro(c, "quan_ly");
   const body = await parseBody(c, xemTruocSchema);
   return c.json(phanTich(body.markdown).tomTat);
 });
@@ -432,11 +432,11 @@ const PDF_TOI_DA = 30 * 1024 * 1024;
  * quét không đoán được gì. Chưa ghi văn bản nào: người soạn soát thuộc tính rồi lưu qua POST / hoặc
  * PUT /:urn kèm `tepGoc`.
  *
- * Nội dung chữ không trích ở đây: văn bản nạp từ PDF hiện bằng tệp gốc cho tới khi biên tập viên
+ * Nội dung chữ không trích ở đây: văn bản nạp từ PDF hiện bằng tệp gốc cho tới khi Admin quản lý
  * bấm "Đọc bằng AI" ở trang đọc (POST /:urn/doc-tep-goc).
  */
 quanTriVanBanRoute.post("/tu-pdf", async (c) => {
-  await batBuocVaiTro(c, "bien_tap");
+  await batBuocVaiTro(c, "quan_ly");
   const form = await c.req.raw.formData().catch(() => null);
   const bytes = await docTepPdf(form?.get("tep"));
   const kq = await nhapTuPdf(bytes);
@@ -511,7 +511,7 @@ export interface ThuocTinhTuPdf {
 
 /** Thuộc tính, Markdown phiên bản gốc và các nơi đang trỏ tới văn bản. */
 quanTriVanBanRoute.get("/:urn", async (c) => {
-  await batBuocVaiTro(c, "bien_tap");
+  await batBuocVaiTro(c, "quan_ly");
   const urn = decodeUrnParam(c.req.param("urn"));
   const doc = await getDocumentByUrn(urn);
   if (!doc) throw notFound(`Không tìm thấy văn bản có URN ${urn}`);
@@ -543,7 +543,7 @@ quanTriVanBanRoute.get("/:urn", async (c) => {
 
 /** Thêm văn bản mới cùng nội dung Markdown. */
 quanTriVanBanRoute.post("/", async (c) => {
-  const nguoi = await batBuocVaiTro(c, "bien_tap");
+  const nguoi = await batBuocVaiTro(c, "quan_ly");
   const b = await parseBody(c, taoMoiSchema);
   return c.json(await taoVanBanMoi(b, nguoi.email), 201);
 });
@@ -602,7 +602,7 @@ export const luocDoVanBanMoi = taoMoiSchema;
 
 /** Sửa thuộc tính và nội dung. Nội dung không đổi thì không phân tích lại. */
 quanTriVanBanRoute.put("/:urn", async (c) => {
-  const nguoi = await batBuocVaiTro(c, "bien_tap");
+  const nguoi = await batBuocVaiTro(c, "quan_ly");
   const urn = decodeUrnParam(c.req.param("urn"));
   const cu = await getDocumentByUrn(urn);
   if (!cu) throw notFound(`Không tìm thấy văn bản có URN ${urn}`);
@@ -737,7 +737,7 @@ async function chayDocTepGoc(viecId: string): Promise<void> {
  * `dangDoc: true`); trang đọc hỏi tiến độ qua GET cùng đường dẫn. Việc lỗi thì gọi lại để chạy tiếp.
  */
 quanTriVanBanRoute.post("/:urn/doc-tep-goc", async (c) => {
-  const nguoi = await batBuocVaiTro(c, "bien_tap");
+  const nguoi = await batBuocVaiTro(c, "quan_ly");
   const urn = decodeUrnParam(c.req.param("urn"));
   const doc = await getDocumentByUrn(urn);
   if (!doc) throw notFound(`Không tìm thấy văn bản có URN ${urn}`);
@@ -783,7 +783,7 @@ quanTriVanBanRoute.post("/:urn/doc-tep-goc", async (c) => {
 
 /** Tiến độ việc đọc bản quét, để trang đọc tự cập nhật. `state: null` khi chưa từng đọc. */
 quanTriVanBanRoute.get("/:urn/doc-tep-goc", async (c) => {
-  await batBuocVaiTro(c, "bien_tap");
+  await batBuocVaiTro(c, "quan_ly");
   const v = await viecDocTepGoc(decodeUrnParam(c.req.param("urn")));
   if (!v) return c.json({ state: null });
   const out = v.output as { cum_xong?: number; so_cum?: number };
@@ -798,7 +798,7 @@ quanTriVanBanRoute.get("/:urn/doc-tep-goc", async (c) => {
 
 /** Đối chiếu nhanh sau khi lưu: nội dung hôm nay có dựng được không (dùng cho kiểm thử, giao diện). */
 quanTriVanBanRoute.get("/:urn/kiem-tra", async (c) => {
-  await batBuocVaiTro(c, "bien_tap");
+  await batBuocVaiTro(c, "quan_ly");
   const urn = decodeUrnParam(c.req.param("urn"));
   const pit = await contentAsOf(urn, today());
   if (!pit.root.children.length) throw badRequest("Văn bản chưa có nội dung nào dựng được.");

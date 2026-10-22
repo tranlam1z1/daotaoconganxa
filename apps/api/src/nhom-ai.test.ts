@@ -138,7 +138,7 @@ beforeAll(async () => {
   dv.A = (await taoDonVi({ code: `${PREFIX}-A`, name: TEN_DOI.A, parentId: dv.P, ordinal: 0 }, a)).id;
   dv.B = (await taoDonVi({ code: `${PREFIX}-B`, name: TEN_DOI.B, parentId: dv.P, ordinal: 1 }, a)).id;
   for (const n of CAN_BO) acc[n] = await taoTaiKhoan(n, "can_bo", dv[n[0]!]!);
-  acc.quanLyA = await taoTaiKhoan("QLA", "quan_ly", dv.A!);
+  acc.quanLyA = await taoTaiKhoan("QLA", "lanh_dao", dv.A!);
   acc.quanTri = await taoTaiKhoan("QT", "quan_tri", null);
   for (const k of Object.keys(acc)) tk[k] = (await createSession(acc[k]!, "test")).token;
 

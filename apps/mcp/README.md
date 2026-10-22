@@ -37,11 +37,12 @@ Chuẩn bị phía Google Cloud Console:
 ### Chế độ stdio (một người dùng, trên chính máy đó)
 
 ```bash
-DATABASE_URL=... MCP_LOCAL_ROLE=tra_cuu bun run apps/mcp/src/index.ts
+DATABASE_URL=... MCP_LOCAL_ROLE=can_bo bun run apps/mcp/src/index.ts
 ```
 
 Chế độ này không xác thực vì client và server chạy dưới cùng một tài khoản hệ điều hành.
-Vai trò lấy từ `MCP_LOCAL_ROLE` (mặc định `tra_cuu`).
+Vai trò lấy từ `MCP_LOCAL_ROLE` (mặc định `can_bo`; thang vai trò mới: `khach` < `can_bo` <
+`lanh_dao` < `quan_ly` < `quan_tri`).
 
 ## 3. Đăng nhập và lấy token
 

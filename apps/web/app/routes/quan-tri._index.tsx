@@ -13,11 +13,11 @@ import { yeuCauVaiTro } from "../lib/session.server";
 import type { Route } from "./+types/quan-tri._index";
 
 export async function loader({ request }: Route.LoaderArgs) {
-  const { token } = await yeuCauVaiTro(request, "quan_ly");
+  const { token } = await yeuCauVaiTro(request, "lanh_dao");
   try {
     return { tongQuan: await goiApiQuanTri<TongQuanCanBo>(token, "/v1/bao-cao/tong-quan"), loi: null };
   } catch (err) {
-    // Tài khoản chưa gắn đơn vị (ví dụ biên tập viên) không có phạm vi báo cáo: API trả 403. Vẫn
+    // Tài khoản chưa gắn đơn vị (ví dụ Admin quản lý) không có phạm vi báo cáo: API trả 403. Vẫn
     // hiện trang với lời báo, để menu quản trị dùng được.
     if (err instanceof Response && err.status === 403) return { tongQuan: null, loi: await err.text() };
     if (err instanceof LoiApi) return { tongQuan: null, loi: err.message };

@@ -92,22 +92,23 @@ export async function batBuocVaiTro(c: Context, canVaiTro: Role): Promise<Princi
 }
 
 /**
- * Phạm vi đơn vị người gọi được xem: null là toàn bộ (quản trị), chuỗi là đường dẫn ltree của
- * đơn vị mình. Người chưa gắn đơn vị (và không phải quản trị) không có phạm vi nào.
+ * Phạm vi đơn vị người gọi được xem: null là toàn bộ (hai vai trò quản trị toàn hệ thống),
+ * chuỗi là đường dẫn ltree của đơn vị mình. Người chưa gắn đơn vị (và không phải quản trị)
+ * không có phạm vi nào.
  */
 export function phamViCua(p: Principal): string | null | "khong_co" {
-  if (p.role === "quan_tri") return null;
+  if (p.role === "quan_tri" || p.role === "quan_ly") return null;
   return p.unitPath ?? "khong_co";
 }
 
 /**
- * Bắt buộc vai trò tối thiểu (mặc định `quan_ly`) VÀ đơn vị `unitId` nằm trong cây đơn vị của
+ * Bắt buộc vai trò tối thiểu (mặc định `lanh_dao`) VÀ đơn vị `unitId` nằm trong cây đơn vị của
  * người gọi. Trả danh tính và đường dẫn của đơn vị đích.
  */
 export async function batBuocPhamViDonVi(
   c: Context,
   unitId: string,
-  canVaiTro: Role = "quan_ly",
+  canVaiTro: Role = "lanh_dao",
 ): Promise<{ nguoiDung: Principal; unitPath: string }> {
   const p = await batBuocVaiTro(c, canVaiTro);
   const [u] = (await sql`SELECT path::text AS path FROM units WHERE id = ${unitId}`) as any[];

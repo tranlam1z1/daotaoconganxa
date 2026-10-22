@@ -89,7 +89,7 @@ beforeAll(async () => {
   await donDep();
   donVi = (await taoDonVi({ code: `${PREFIX}-dv`, name: "Đơn vị thử tự luận" }, `${PREFIX}-seed`)).id;
   tk.quanTri = await taoTaiKhoan("quan-tri", "quan_tri", null);
-  tk.bienTap = await taoTaiKhoan("bien-tap", "bien_tap", null);
+  tk.bienTap = await taoTaiKhoan("bien-tap", "quan_ly", null);
   tk.canBo = await taoTaiKhoan("can-bo", "can_bo", donVi);
 
   const [t] = (await sql`

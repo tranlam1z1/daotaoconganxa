@@ -73,7 +73,7 @@ interface ChiTietCauHoi extends CauHoi {
 }
 
 export async function loader({ request, params }: Route.LoaderArgs) {
-  const { token, nguoiDung } = await yeuCauVaiTro(request, "bien_tap");
+  const { token, nguoiDung } = await yeuCauVaiTro(request, "quan_ly");
   const id = params.id;
   const [chuDe, cauHoi, ds, bien] = await Promise.all([
     goiApiQuanTri<{ items: ChuDeCauHoi[] }>(token, `${API}/chu-de`),
@@ -111,7 +111,7 @@ type KetQuaThaoTac =
   | undefined;
 
 export async function action({ request, params }: Route.ActionArgs): Promise<KetQuaThaoTac | Response> {
-  const { token } = await yeuCauVaiTro(request, "bien_tap");
+  const { token } = await yeuCauVaiTro(request, "quan_ly");
   const f = await request.formData();
   const intent = String(f.get("intent") ?? "");
   const id = params.id;

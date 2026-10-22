@@ -20,7 +20,7 @@ export default async function chuyenDeTuPdf(n: NguCanhE2E) {
     () => n.sql`DELETE FROM authoring_jobs WHERE course_id IN (SELECT id FROM courses WHERE slug = ${slug})`,
   );
 
-  const tk = await n.taoTaiKhoan({ role: "phap_che", ten: "Pháp chế E2E" });
+  const tk = await n.taoTaiKhoan({ role: "quan_ly", ten: "Admin quản lý E2E" });
   const page = await n.moTrang();
   const loiTrang: string[] = [];
   page.on("pageerror", (e) => loiTrang.push(e.message));

@@ -538,7 +538,7 @@ nhomRoute.post("/:id/luu-tru", (c) =>
 export const quanTriNhomRoute = new Hono();
 
 async function quanLy(c: Context): Promise<{ p: Principal; phamVi: string | null }> {
-  const p = await batBuocVaiTro(c, "quan_ly");
+  const p = await batBuocVaiTro(c, "lanh_dao");
   const phamVi = phamViCua(p);
   if (phamVi === "khong_co") {
     throw new NgoaiPhamVi("Tài khoản chưa gắn đơn vị nên không xem được nhóm học cùng.");

@@ -311,10 +311,11 @@ function inHuongDan(duongHam: string | null) {
   console.log(`  Trang quản trị    http://localhost:${WEB_PORT}/quan-tri`);
   console.log(`  API               http://localhost:${API_PORT}/health`);
   console.log("\n  Tài khoản (mật khẩu chung Matkhau2026, đổi bằng SEED_MAT_KHAU):");
-  console.log("    quantri        Quản trị viên");
-  console.log("    quanly.phong   Cán bộ quản lý (Phòng PC08)");
-  console.log("    quanly.doi1    Cán bộ quản lý (Đội 1)");
-  console.log("    canbo.d1.01    Cán bộ, chiến sĩ (Đội 1); còn canbo.d1.02 … canbo.d3.02");
+  console.log("    quantri        Admin quản trị hệ thống");
+  console.log("    quanly         Admin quản lý nội dung (toàn hệ thống)");
+  console.log("    lanhdao.phong  Lãnh đạo UBND xã (Phòng PC08)");
+  console.log("    lanhdao.doi1   Lãnh đạo UBND xã (Đội 1)");
+  console.log("    canbo.d1.01    Cán bộ, công chức (Đội 1); còn canbo.d1.02 … canbo.d3.02");
   console.log(
     `\n  Hỏi đáp AI: ${env.LLM_PROVIDER === "none" ? "chưa cấu hình (đặt key ở .env.demo.local)" : "bật"}`,
   );

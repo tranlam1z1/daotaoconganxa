@@ -104,7 +104,7 @@ beforeAll(async () => {
   }
   for (const n of NGUOI) acc[n] = await taoTaiKhoan(n, "can_bo", dv[n[0]!]!);
   const quanTri = await taoTaiKhoan("quan-tri", "quan_tri", null);
-  const quanLyA = await taoTaiKhoan("quan-ly-a", "quan_ly", dv.A!);
+  const quanLyA = await taoTaiKhoan("quan-ly-a", "lanh_dao", dv.A!);
   tk.quanTri = (await createSession(quanTri, "test")).token;
   tk.quanLyA = (await createSession(quanLyA, "test")).token;
   tk.canBo = (await createSession(acc.A1!, "test")).token;

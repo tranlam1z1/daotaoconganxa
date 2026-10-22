@@ -7,7 +7,7 @@ import { yeuCauVaiTro } from "../lib/session.server";
 import type { Route } from "./+types/quan-tri.bao-cao.can-bo.tai";
 
 export async function loader({ request, params }: Route.LoaderArgs) {
-  const { token } = await yeuCauVaiTro(request, "quan_ly");
+  const { token } = await yeuCauVaiTro(request, "lanh_dao");
   const vao = new URL(request.url).searchParams;
   const dinhDang = vao.get("dinh_dang");
   if (dinhDang !== "xlsx" && dinhDang !== "pdf") throw new Response("Chọn Excel hoặc PDF.", { status: 400 });

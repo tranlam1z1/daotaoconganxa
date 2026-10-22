@@ -3,7 +3,7 @@
  * data/bien-bao/bien-bao.json. Không chạm CSDL, không đọc tệp: script nạp đọc tệp rồi gọi vào đây.
  *
  * Tên và ý nghĩa từng biển là nội dung pháp lý theo QCVN 41:2024/BGTVT. Dòng bản nháp (`nhap`)
- * không hiện cho người học; biên tập viên đối chiếu với văn bản rồi mới chuyển `da_duyet`.
+ * không hiện cho người học; quản trị viên nội dung đối chiếu với văn bản rồi mới chuyển `da_duyet`.
  */
 
 export const NHOM_BIEN_BAO = ["cam", "nguy_hiem", "hieu_lenh", "chi_dan", "phu"] as const;

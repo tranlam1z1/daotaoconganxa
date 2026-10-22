@@ -1,6 +1,6 @@
 /**
  * Giai đoạn 6 — TRÍCH LỆNH SỬA ĐỔI (chỉ chạy với văn bản sửa đổi).
- * Lệnh trích ra vào `amendment_ops` ở trạng thái chờ duyệt; sau khi biên tập viên
+ * Lệnh trích ra vào `amendment_ops` ở trạng thái chờ duyệt; sau khi quản trị viên nội dung
  * duyệt thì mới hợp nhất. Ở đây vẫn đẩy job `consolidate` cho từng văn bản bị sửa
  * đổi: bước hợp nhất tự bỏ qua lệnh chưa duyệt.
  */

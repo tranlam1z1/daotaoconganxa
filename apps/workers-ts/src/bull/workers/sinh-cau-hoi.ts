@@ -5,7 +5,7 @@
  * Luồng: nạp nguyên văn điều khoản tại ngày soạn và đề bài các câu đã có trên các điều khoản đó
  * (để mô hình không hỏi lại) → gọi mô hình → hậu kiểm tất định (hợp lệ theo loại, căn cứ còn hiệu
  * lực, so trùng) → ghi câu qua hậu kiểm vào ngân hàng ở `cho_duyet`, `source = ai`. Câu bị loại
- * chỉ nằm trong `authoring_jobs.output` kèm lý do, để biên tập viên xem vì sao.
+ * chỉ nằm trong `authoring_jobs.output` kèm lý do, để quản trị viên nội dung xem vì sao.
  *
  * Tệp này không phụ thuộc BullMQ, để test API gọi thẳng được (apps/api/src/sinh-cau-hoi.test.ts).
  */

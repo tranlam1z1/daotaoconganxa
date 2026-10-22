@@ -133,12 +133,12 @@ describe("bảo vệ điểm cuối MCP", () => {
 
   test("/me trả đúng vai trò và danh sách công cụ", async () => {
     const acc = await upsertAccount({ email: EMAIL, sub: "s1" });
-    await setRole(EMAIL, "bien_tap", "quan-tri@vidu.vn");
+    await setRole(EMAIL, "quan_ly", "quan-tri@vidu.vn");
     const s = await createSession(acc.id, "test");
     const res = await get("/me", { authorization: `Bearer ${s.token}` });
     const body = (await res.json()) as any;
     expect(body.email).toBe(EMAIL);
-    expect(body.vai_tro).toBe("bien_tap");
+    expect(body.vai_tro).toBe("quan_ly");
     expect(body.cong_cu_kha_dung).toContain("hang_doi_bien_tap");
     expect(body.cong_cu_kha_dung).not.toContain("duyet_lenh_sua_doi");
   });

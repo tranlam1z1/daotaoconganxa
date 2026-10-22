@@ -132,7 +132,7 @@ function chuanHoa(body: z.infer<typeof deThiSchema>) {
 
 /** GET /v1/quan-tri/de-thi — quản trị thấy mọi đề; cán bộ quản lý chỉ thấy đề đang mở để giao. */
 deThiRoute.get("/", async (c) => {
-  const p = await batBuocVaiTro(c, "quan_ly");
+  const p = await batBuocVaiTro(c, "lanh_dao");
   const items = await danhSachDeThi(p.role === "quan_tri" ? undefined : ["xuat_ban"]);
   return c.json({ items });
 });
@@ -166,10 +166,10 @@ deThiRoute.get("/kha-dung", async (c) => {
  * GET /v1/quan-tri/de-thi/cham-tu-luan?che_do=cho_nguoi|da_cham_ai — hàng chấm tự luận: câu mô
  * hình không chấm được (lượt đang chờ điểm), hoặc câu mô hình đã chấm để lấy mẫu đối chiếu và
  * phúc khảo. Cùng vai trò và cùng phạm vi với hàng chấm lại bài tập trong bài học
- * (`/v1/quan-tri/dao-tao/cham-lai`): biên tập viên trở lên, mọi đơn vị.
+ * (`/v1/quan-tri/dao-tao/cham-lai`): Admin quản lý trở lên, mọi đơn vị.
  */
 deThiRoute.get("/cham-tu-luan", async (c) => {
-  await batBuocVaiTro(c, "bien_tap");
+  await batBuocVaiTro(c, "quan_ly");
   const q = parseQuery(c, z.object({ che_do: z.enum(["cho_nguoi", "da_cham_ai"]).default("cho_nguoi") }));
   return c.json({ items: await hangChamTuLuanThi({ cheDo: q.che_do, phamVi: null }) });
 });
@@ -185,7 +185,7 @@ const chamTaySchema = z.object({
  * tính lại điểm.
  */
 deThiRoute.post("/cham-tu-luan/:luot/:cau", async (c) => {
-  const p = await batBuocVaiTro(c, "bien_tap");
+  const p = await batBuocVaiTro(c, "quan_ly");
   const attemptId = idHopLe(c.req.param("luot"));
   const ordinal = Number(c.req.param("cau"));
   if (!Number.isInteger(ordinal) || ordinal < 1) throw badRequest("Số thứ tự câu không hợp lệ.");
@@ -210,7 +210,7 @@ deThiRoute.post("/cham-tu-luan/:luot/:cau", async (c) => {
 });
 
 deThiRoute.get("/:id", async (c) => {
-  const p = await batBuocVaiTro(c, "quan_ly");
+  const p = await batBuocVaiTro(c, "lanh_dao");
   const de = await layDeThi(idHopLe(c.req.param("id")));
   if (!de || (p.role !== "quan_tri" && de.status !== "xuat_ban")) throw notFound("Không tìm thấy đề thi.");
   const laQuanTri = p.role === "quan_tri";
@@ -436,7 +436,7 @@ deThiRoute.post("/:id/trang-thai", async (c) => {
 export const giaoBaiRoute = new Hono();
 
 giaoBaiRoute.get("/", async (c) => {
-  const p = await batBuocVaiTro(c, "quan_ly");
+  const p = await batBuocVaiTro(c, "lanh_dao");
   const q = parseQuery(c, z.object({ exam_id: uuid.optional() }));
   const phamVi = phamViCua(p);
   if (phamVi === "khong_co") return c.json({ items: [] });
@@ -462,7 +462,7 @@ const giaoBaiSchema = z
  * ngoài cây đơn vị của mình nhận 403 ngoai_pham_vi.
  */
 giaoBaiRoute.post("/", async (c) => {
-  const p = await batBuocVaiTro(c, "quan_ly");
+  const p = await batBuocVaiTro(c, "lanh_dao");
   const body = await parseBody(c, giaoBaiSchema);
   const de = await layDeThi(body.exam_id);
   if (!de) throw notFound("Không tìm thấy đề thi.");
@@ -498,7 +498,7 @@ giaoBaiRoute.post("/", async (c) => {
 
 /** POST /v1/giao-bai/:id/huy — hủy bài giao trong phạm vi. Lượt đã nộp vẫn giữ để báo cáo. */
 giaoBaiRoute.post("/:id/huy", async (c) => {
-  const p = await batBuocVaiTro(c, "quan_ly");
+  const p = await batBuocVaiTro(c, "lanh_dao");
   const bai = await layGiaoBai(idHopLe(c.req.param("id")));
   if (!bai || !trongPhamVi(p, bai.unit_path ?? bai.account_unit_path)) {
     throw new NgoaiPhamVi("Bài giao này nằm ngoài phạm vi quản lý của tài khoản đang đăng nhập.");

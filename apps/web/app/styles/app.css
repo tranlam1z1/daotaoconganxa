@@ -903,10 +903,10 @@
  */
 .ic {
   --ic-chinh: var(--primary);
-  --ic-vang: #e0a800;
+  --ic-vang: var(--g-nhan);
   --ic-cam: #c2410c;
   --ic-do: var(--seal);
-  --ic-luc: #1e9e4a;
+  --ic-luc: #28a745;
   --ic-tim: #6d3fc0;
   --ic-ngoc: #0d9488;
   --ic-trung: var(--ink-3);
@@ -946,7 +946,7 @@
   --ic-o-fill: var(--primary);
 }
 .ic[data-kieu="dac"][data-sac="vang"] {
-  --ic-o-fill: #c98500;
+  --ic-o-fill: var(--g-nhan);
 }
 .ic[data-kieu="dac"][data-sac="cam"] {
   --ic-o-fill: #b23c0a;

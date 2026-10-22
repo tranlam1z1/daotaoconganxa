@@ -18,9 +18,9 @@ export function meta(_: Route.MetaArgs) {
 }
 
 export async function loader({ request }: Route.LoaderArgs) {
-  const { token, nguoiDung } = await yeuCauVaiTro(request, "quan_ly");
+  const { token, nguoiDung } = await yeuCauVaiTro(request, "lanh_dao");
   const { items } = await goiApiQuanTri<{ items: DeThi[] }>(token, "/v1/quan-tri/de-thi");
-  return { items, laQuanTri: nguoiDung.la_quan_tri, coTheCham: duVaiTro(nguoiDung, "bien_tap") };
+  return { items, laQuanTri: nguoiDung.la_quan_tri, coTheCham: duVaiTro(nguoiDung, "quan_ly") };
 }
 
 export default function QuanTriDeThi({ loaderData }: Route.ComponentProps) {

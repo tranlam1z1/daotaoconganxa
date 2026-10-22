@@ -2,7 +2,7 @@
  * Kịch bản E2E lưu văn bản kèm tệp PDF gốc, khung máy tính 1280×900:
  *  1. chọn PDF có lớp chữ ở /quan-tri/van-ban/moi: thuộc tính được điền sẵn, ô Nội dung để trống;
  *  2. lưu: trang sửa báo trang đọc đang hiện tệp PDF gốc, văn bản chưa có phiên bản nội dung;
- *  3. trang đọc hiện khung PDF, tệp gốc trả về đúng tệp đã nạp; biên tập viên có nút "Đọc bằng AI",
+ *  3. trang đọc hiện khung PDF, tệp gốc trả về đúng tệp đã nạp; quản trị viên nội dung có nút "Đọc bằng AI",
  *     cán bộ thì không; trên điện thoại 360×740 khung PDF ẩn, thay bằng ảnh từng trang;
  *  4. bản quét (không có lớp chữ) cũng lưu được, điền thuộc tính bằng tay.
  *
@@ -51,7 +51,7 @@ export default async function vanBanTepGoc(n: NguCanhE2E) {
     }
   });
 
-  const tk = await n.taoTaiKhoan({ role: "bien_tap", ten: "Biên tập E2E" });
+  const tk = await n.taoTaiKhoan({ role: "quan_ly", ten: "Admin quản lý E2E" });
   const page = await n.moTrang({ width: 1280, height: 900 });
   const loiTrang: string[] = [];
   page.on("pageerror", (e) => loiTrang.push(e.message));
@@ -101,7 +101,7 @@ export default async function vanBanTepGoc(n: NguCanhE2E) {
   await o("Số ký hiệu").fill(coChu.soKyHieu);
   await luu(coChu.urn);
 
-  // 3. Trang đọc: khung PDF; biên tập viên có nút "Đọc bằng AI", cán bộ thì không.
+  // 3. Trang đọc: khung PDF; quản trị viên nội dung có nút "Đọc bằng AI", cán bộ thì không.
   await kiemTrangDoc(page, coChu.trangDoc, PDF_MAU);
   await page.getByRole("button", { name: "Đọc bằng AI", exact: true }).waitFor();
   await n.chupAnh(page, "trang-doc");

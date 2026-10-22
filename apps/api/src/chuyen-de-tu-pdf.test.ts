@@ -4,7 +4,7 @@
  * và việc sinh câu hỏi chạy ngay trong API.
  *
  * Điều phải giữ: một lần gửi tệp là đủ để có văn bản trong kho, chuyên đề với bài nháp, đề nháp
- * với câu chờ duyệt; bài vẫn là bản nháp tới khi pháp chế xuất bản, câu hỏi vẫn chờ duyệt tới khi
+ * với câu chờ duyệt; bài vẫn là bản nháp tới khi được duyệt để xuất bản, câu hỏi vẫn chờ duyệt tới khi
  * người có quyền duyệt bấm duyệt.
  */
 process.env.LLM_PROVIDER = "mock";
@@ -193,15 +193,15 @@ async function donDep() {
   await sql`DELETE FROM accounts WHERE email LIKE ${nguoi}`;
 }
 
-const tk = { canBo: "", bienTap: "", phapChe: "", quanTri: "" };
+const tk = { canBo: "", quanLy: "", lanhDao: "", quanTri: "" };
 
 beforeAll(async () => {
   process.env.STORAGE_BACKEND = "local";
   process.env.STORAGE_DIR = khoDir;
   await donDep();
   tk.canBo = await taoTaiKhoan("can-bo", "can_bo");
-  tk.bienTap = await taoTaiKhoan("bien-tap", "bien_tap");
-  tk.phapChe = await taoTaiKhoan("phap-che", "phap_che");
+  tk.quanLy = await taoTaiKhoan("quan-ly", "quan_ly");
+  tk.lanhDao = await taoTaiKhoan("lanh-dao", "lanh_dao");
   tk.quanTri = await taoTaiKhoan("quan-tri", "quan_tri");
 });
 
@@ -223,14 +223,14 @@ describe("PDF có lớp chữ", () => {
     expect((await guiPdf(tk.canBo, PDF_CO_CHU, "nd-45.pdf")).status).toBe(403);
     const res = await app.request(`http://test${BASE}/chuyen-de-tu-pdf`, {
       method: "POST",
-      headers: { authorization: `Bearer ${tk.bienTap}` },
+      headers: { authorization: `Bearer ${tk.quanLy}` },
       body: new FormData(),
     });
     expect(res.status).toBe(400);
   });
 
   test("một lần gửi tệp: lưu văn bản, tạo chuyên đề mang tên văn bản, AI soạn bài nháp", async () => {
-    const r = await guiPdf(tk.bienTap, PDF_CO_CHU, "nd-45.pdf", { tu_luan: "1", trac_nghiem: "1" });
+    const r = await guiPdf(tk.quanLy, PDF_CO_CHU, "nd-45.pdf", { tu_luan: "1", trac_nghiem: "1" });
     expect(r.status).toBe(202);
     expect(r.body.ban_quet).toBe(false);
     expect(r.body.van_ban).toMatchObject({ urn: URN_ND, moi: true });
@@ -242,7 +242,7 @@ describe("PDF có lớp chữ", () => {
       JOIN documents d ON d.id = v.document_id WHERE d.urn = ${URN_ND} AND n.kind = 'dieu'`;
     expect(vb!.n).toBe(4);
 
-    const td = await choXong(tk.bienTap, courseId);
+    const td = await choXong(tk.quanLy, courseId);
     expect(td.doc_pdf).toBeNull();
     expect(td.soan.state).toBe("xong");
     expect(td.con_loi).toBe(false);
@@ -260,11 +260,11 @@ describe("PDF có lớp chữ", () => {
   });
 
   test("gửi lại cùng văn bản, tắt tự luận và trắc nghiệm: dùng lại văn bản, chỉ soạn khối nội dung", async () => {
-    const r = await guiPdf(tk.bienTap, PDF_CO_CHU, "nd-45.pdf");
+    const r = await guiPdf(tk.quanLy, PDF_CO_CHU, "nd-45.pdf");
     expect(r.status).toBe(202);
     expect(r.body.van_ban).toMatchObject({ urn: URN_ND, moi: false });
     expect(r.body.chuyen_de.id).not.toBe(courseId);
-    const td = await choXong(tk.bienTap, r.body.chuyen_de.id);
+    const td = await choXong(tk.quanLy, r.body.chuyen_de.id);
     expect(td.soan.so_viec).toBe(1);
     const bai = await baiCua(r.body.chuyen_de.id);
     const [hd] = await sql<Array<{ n: number }>>`
@@ -272,18 +272,19 @@ describe("PDF có lớp chữ", () => {
     expect(hd!.n).toBe(0);
   });
 
-  test("xuất bản cả chuyên đề bằng một lần gọi vẫn cần vai trò pháp chế", async () => {
+  test("xuất bản cả chuyên đề bằng một lần gọi vẫn cần vai trò Admin quản lý trở lên", async () => {
     const p = `${BASE}/chuyen-de/${courseId}/bai/trang-thai`;
-    expect((await goi("POST", p, tk.bienTap, { den: "xuat_ban" })).status).toBe(403);
-    const r = await goi("POST", p, tk.phapChe, { den: "xuat_ban" });
+    expect((await goi("POST", p, tk.canBo, { den: "xuat_ban" })).status).toBe(403);
+    expect((await goi("POST", p, tk.lanhDao, { den: "xuat_ban" })).status).toBe(403);
+    const r = await goi("POST", p, tk.quanLy, { den: "xuat_ban" });
     expect(r.status).toBe(200);
     expect(r.body.da_chuyen.length + r.body.bo_qua.length).toBe(1);
   });
 
   test("không còn gì dang dở thì chạy tiếp không làm gì thêm", async () => {
-    const r = await goi("POST", `${BASE}/chuyen-de/${courseId}/soan-tiep`, tk.bienTap, {});
+    const r = await goi("POST", `${BASE}/chuyen-de/${courseId}/soan-tiep`, tk.quanLy, {});
     expect(r.status).toBe(200);
-    const td = await choXong(tk.bienTap, courseId);
+    const td = await choXong(tk.quanLy, courseId);
     expect(td.soan.so_viec).toBe(3);
     expect((await baiCua(courseId)).length).toBe(1);
   });
@@ -301,7 +302,7 @@ describe("PDF bản quét", () => {
 
   test("chưa cấu hình mô hình thì báo rõ, không tạo chuyên đề", async () => {
     const [truoc] = await sql<Array<{ n: number }>>`SELECT count(*)::int AS n FROM courses`;
-    const r = await guiPdf(tk.bienTap, pdfQuet, "thong-tu-quet.pdf");
+    const r = await guiPdf(tk.quanLy, pdfQuet, "thong-tu-quet.pdf");
     expect(r.status).toBe(400);
     expect(r.body.error.message).toContain("bản quét");
     const [sau] = await sql<Array<{ n: number }>>`SELECT count(*)::int AS n FROM courses`;
@@ -311,12 +312,12 @@ describe("PDF bản quét", () => {
   test("mô hình đọc từng cụm trang, lưu văn bản, đổi tên chuyên đề rồi soạn bài", async () => {
     const gia = new GiaDocQuet();
     setProvider(gia);
-    const r = await guiPdf(tk.bienTap, pdfQuet, "thong-tu-quet.pdf", { tu_luan: "1" });
+    const r = await guiPdf(tk.quanLy, pdfQuet, "thong-tu-quet.pdf", { tu_luan: "1" });
     expect(r.status).toBe(202);
     expect(r.body.ban_quet).toBe(true);
     expect(r.body.chuyen_de.title).toContain("thong-tu-quet");
 
-    const td = await choXong(tk.bienTap, r.body.chuyen_de.id);
+    const td = await choXong(tk.quanLy, r.body.chuyen_de.id);
     expect(td.doc_pdf).toMatchObject({ state: "xong", so_trang: 2, so_cum: 1 });
     expect(td.soan.state).toBe("xong");
     expect(td.con_loi).toBe(false);
@@ -340,7 +341,7 @@ describe("đề thi từ PDF", () => {
   let deId = "";
 
   test("chỉ quản trị viên tạo được đề (403), mẫu cấu trúc lạ trả 400", async () => {
-    expect((await guiPdfToi(`${DE}/tu-pdf`, tk.phapChe, PDF_CO_CHU, { mau: "15" })).status).toBe(403);
+    expect((await guiPdfToi(`${DE}/tu-pdf`, tk.lanhDao, PDF_CO_CHU, { mau: "15" })).status).toBe(403);
     expect((await guiPdfToi(`${DE}/tu-pdf`, tk.quanTri, PDF_CO_CHU, { mau: "7" })).status).toBe(400);
   });
 
@@ -407,7 +408,7 @@ describe("đề thi từ PDF", () => {
 
   test("ô tích ở trang chuyên đề: một tệp tạo cả chuyên đề lẫn đề thi, chỉ quản trị viên", async () => {
     const p = "/v1/quan-tri/dao-tao/chuyen-de-tu-pdf";
-    expect((await guiPdfToi(p, tk.bienTap, PDF_CO_CHU, { tao_de_thi: "1", mau_de: "15" })).status).toBe(403);
+    expect((await guiPdfToi(p, tk.quanLy, PDF_CO_CHU, { tao_de_thi: "1", mau_de: "15" })).status).toBe(403);
     const r = await guiPdfToi(p, tk.quanTri, PDF_CO_CHU, { tao_de_thi: "1", mau_de: "15" });
     expect(r.status).toBe(202);
     expect(r.body.chuyen_de.title).toContain("45/2026/NĐ-CP");

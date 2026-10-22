@@ -20,7 +20,7 @@ export const TEN_TRANG_THAI: Record<TrangThaiNoiDung, string> = {
   nhap: "Bản nháp",
   ai_soan: "AI vừa soạn",
   bien_tap: "Đang biên tập",
-  cho_phap_che: "Chờ pháp chế duyệt",
+  cho_phap_che: "Chờ duyệt",
   xuat_ban: "Đã xuất bản",
   can_cap_nhat: "Cần cập nhật",
   luu_tru: "Lưu trữ",
@@ -48,14 +48,14 @@ export const CHUYEN_TRANG_THAI: Record<TrangThaiNoiDung, TrangThaiNoiDung[]> = {
 };
 
 /** Vai trò tối thiểu để đặt một trạng thái, chép VAI_TRO_DAT_TRANG_THAI. */
-export const VAI_TRO_DAT_TRANG_THAI: Record<TrangThaiNoiDung, "bien_tap" | "phap_che"> = {
-  nhap: "bien_tap",
-  ai_soan: "bien_tap",
-  bien_tap: "bien_tap",
-  cho_phap_che: "bien_tap",
-  xuat_ban: "phap_che",
-  can_cap_nhat: "bien_tap",
-  luu_tru: "phap_che",
+export const VAI_TRO_DAT_TRANG_THAI: Record<TrangThaiNoiDung, "quan_ly"> = {
+  nhap: "quan_ly",
+  ai_soan: "quan_ly",
+  bien_tap: "quan_ly",
+  cho_phap_che: "quan_ly",
+  xuat_ban: "quan_ly",
+  can_cap_nhat: "quan_ly",
+  luu_tru: "quan_ly",
 };
 
 /**
@@ -64,7 +64,7 @@ export const VAI_TRO_DAT_TRANG_THAI: Record<TrangThaiNoiDung, "bien_tap" | "phap
  */
 export function trangThaiDatDuoc(
   hienTai: TrangThaiNoiDung,
-  du: (vaiTro: "bien_tap" | "phap_che") => boolean,
+  du: (vaiTro: "quan_ly") => boolean,
 ): TrangThaiNoiDung[] {
   return (CHUYEN_TRANG_THAI[hienTai] ?? []).filter((t) => t !== "ai_soan" && du(VAI_TRO_DAT_TRANG_THAI[t]));
 }
@@ -74,7 +74,7 @@ export const NUT_CHUYEN: Record<TrangThaiNoiDung, string> = {
   nhap: "Đưa về bản nháp",
   ai_soan: "Đánh dấu AI soạn",
   bien_tap: "Chuyển sang biên tập",
-  cho_phap_che: "Gửi pháp chế duyệt",
+  cho_phap_che: "Gửi duyệt",
   xuat_ban: "Xuất bản",
   can_cap_nhat: "Đánh dấu cần cập nhật",
   luu_tru: "Lưu trữ",
@@ -359,7 +359,7 @@ export interface TienDoSoan {
   } | null;
 }
 
-/** Kết quả gửi pháp chế hoặc xuất bản nhiều bài một lần (POST .../chuyen-de/:id/bai/trang-thai). */
+/** Kết quả gửi duyệt hoặc xuất bản nhiều bài một lần (POST .../chuyen-de/:id/bai/trang-thai). */
 export interface KetQuaChuyenNhieuBai {
   den: "cho_phap_che" | "xuat_ban";
   da_chuyen: Array<{ id: string; title: string }>;

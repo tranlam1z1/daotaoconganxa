@@ -24,7 +24,7 @@ import { ghiNhatKy, KhongDuQuyen } from "./auth.ts";
 import { type CheDoChay, khoiChayViecSoanBai } from "./chay-soan-bai.ts";
 import { badRequest, notFound } from "./http.ts";
 
-/** Ước tính vượt mức này (USD) thì cần pháp chế, như việc soạn bài lô lớn. */
+/** Ước tính vượt mức này (USD) thì cần Admin quản trị hệ thống, như việc soạn bài lô lớn. */
 export function tranChiPhiSoanTuDong(): number {
   const n = Number(process.env.SOAN_TU_DONG_TRAN_USD ?? 20);
   return Number.isFinite(n) && n >= 0 ? n : 20;
@@ -161,8 +161,8 @@ export async function taoLanSoanTuDong(
   };
   if (b.chay_thu) return { chayThu: true, chuanBi };
 
-  if (uocTinh.chi_phi_usd > tranChiPhiSoanTuDong() && !atLeast(nguoi.role, "phap_che")) {
-    throw new KhongDuQuyen("phap_che");
+  if (uocTinh.chi_phi_usd > tranChiPhiSoanTuDong() && !atLeast(nguoi.role, "quan_tri")) {
+    throw new KhongDuQuyen("quan_tri");
   }
 
   const course =

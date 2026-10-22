@@ -237,7 +237,7 @@ export async function ghiTepMauNhapCauHoi(): Promise<string> {
 
 /**
  * Gắn bài học của các chuyên đề giao thông với chủ đề tương ứng (docs/PLAN.md GĐ11), để cuối
- * bài rút được câu kiểm tra nhanh. Chỉ gắn bài chưa có chủ đề: biên tập viên đã chọn chủ đề
+ * bài rút được câu kiểm tra nhanh. Chỉ gắn bài chưa có chủ đề: quản trị viên nội dung đã chọn chủ đề
  * khác cho bài nào thì giữ nguyên.
  */
 async function ganChuDeChoBaiHoc(chuDe: Map<string, string>): Promise<number> {

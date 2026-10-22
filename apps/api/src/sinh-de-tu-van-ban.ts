@@ -236,8 +236,8 @@ export async function sinhDeTuVanBan(
     dieu_khoan: thu[0]?.dieuKhoan ?? [],
   };
   if (b.chay_thu) return { chayThu: true as const, ...chuanBi };
-  if (uocTinh.chi_phi_usd > tranChiPhiAi() && !atLeast(p.role, "phap_che"))
-    throw new KhongDuQuyen("phap_che");
+  if (uocTinh.chi_phi_usd > tranChiPhiAi() && !atLeast(p.role, "quan_tri"))
+    throw new KhongDuQuyen("quan_tri");
 
   const viec: ViecSinhDe[] = [];
   for (const k of keHoach) {

@@ -76,18 +76,16 @@ interface KetQuaNhap {
 
 const TEN_VAI_TRO: Record<string, string> = {
   khach: "Khách",
-  can_bo: "Cán bộ",
-  tra_cuu: "Người tra cứu",
-  quan_ly: "Cán bộ quản lý",
-  bien_tap: "Biên tập viên",
-  phap_che: "Pháp chế",
-  quan_tri: "Quản trị viên",
+  can_bo: "Cán bộ, công chức",
+  lanh_dao: "Lãnh đạo UBND xã",
+  quan_ly: "Admin quản lý",
+  quan_tri: "Admin quản trị hệ thống",
 };
 
 const MOI_TRANG = 50;
 
 export async function loader({ request }: Route.LoaderArgs) {
-  const { token, nguoiDung } = await yeuCauVaiTro(request, "quan_ly");
+  const { token, nguoiDung } = await yeuCauVaiTro(request, "lanh_dao");
   const p = new URL(request.url).searchParams;
   const qs = new URLSearchParams({ gioi_han: String(MOI_TRANG), trang: p.get("trang") ?? "1" });
   if (p.get("don_vi")) qs.set("don_vi", p.get("don_vi") as string);
@@ -109,7 +107,7 @@ type KetQuaThaoTac =
   | { nhap: KetQuaNhap };
 
 export async function action({ request }: Route.ActionArgs): Promise<KetQuaThaoTac> {
-  const { token, nguoiDung } = await yeuCauVaiTro(request, "quan_ly");
+  const { token, nguoiDung } = await yeuCauVaiTro(request, "lanh_dao");
   const f = await request.formData();
   const chuoi = (k: string) => String(f.get(k) ?? "").trim();
   const intent = chuoi("intent");
@@ -746,7 +744,7 @@ export default function QuanTriNguoiDung({ loaderData, actionData }: Route.Compo
                     <span className="flex flex-wrap items-center gap-x-3 gap-y-1">
                       <span className="font-semibold text-ink">{u.name ?? ten}</span>
                       <span className="min-w-0 break-all font-mono text-sm text-ink">{ten}</span>
-                      <Badge tone={u.role === "quan_ly" || u.role === "quan_tri" ? "info" : "muted"}>
+                      <Badge tone={u.role === "lanh_dao" || u.role === "quan_ly" || u.role === "quan_tri" ? "info" : "muted"}>
                         {TEN_VAI_TRO[u.role] ?? u.role}
                       </Badge>
                       {!u.enabled ? <Badge tone="danger">Đã khóa</Badge> : null}

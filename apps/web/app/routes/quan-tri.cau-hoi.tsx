@@ -1,7 +1,7 @@
 /**
  * Ngân hàng câu hỏi (docs/PLAN.md GĐ3): lọc, duyệt từng câu hoặc hàng loạt, nhập và xuất Excel.
  *
- * Biên tập viên xem và nhập; nút Duyệt, Từ chối chỉ hiện với vai trò được duyệt (API trả về
+ * Admin quản lý xem và nhập; nút Duyệt, Từ chối chỉ hiện với vai trò được duyệt (API trả về
  * `vai_tro_duyet`). Ẩn nút chỉ để cho gọn: API kiểm quyền lại ở mọi thao tác.
  *
  * "Sinh bằng AI" (GĐ8): chọn điều khoản, chủ đề, số câu rồi bấm sinh; tiến độ tự cập nhật như
@@ -57,7 +57,7 @@ interface DanhSach {
 }
 
 export async function loader({ request }: Route.LoaderArgs) {
-  const { token, nguoiDung } = await yeuCauVaiTro(request, "bien_tap");
+  const { token, nguoiDung } = await yeuCauVaiTro(request, "quan_ly");
   const p = new URL(request.url).searchParams;
   const choDuyet = p.get("tab") === "cho-duyet";
   const qs = new URLSearchParams({ co: String(MOI_TRANG), trang: p.get("trang") || "1" });
@@ -103,7 +103,7 @@ type KetQuaThaoTac =
   | { nhap: KetQuaNhap };
 
 export async function action({ request }: Route.ActionArgs): Promise<KetQuaThaoTac> {
-  const { token } = await yeuCauVaiTro(request, "bien_tap");
+  const { token } = await yeuCauVaiTro(request, "quan_ly");
   const f = await request.formData();
   const intent = String(f.get("intent") ?? "");
   try {

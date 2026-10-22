@@ -11,7 +11,7 @@ Hệ thống có **một ứng dụng web** dùng cho mọi vai trò. Không có
 | Phần | Địa chỉ trên máy | Ghi chú |
 |---|---|---|
 | Web người dùng | http://localhost:3080 | Tra cứu, học, luyện tập, thi |
-| Trang quản trị (Admin) | http://localhost:3080/quan-tri | Cùng ứng dụng web; chỉ hiện với quản trị viên và cán bộ quản lý |
+| Trang quản trị (Admin) | http://localhost:3080/quan-tri | Cùng ứng dụng web; chỉ hiện với Lãnh đạo UBND xã trở lên |
 | PWA (cài lên điện thoại) | Địa chỉ HTTPS của đường hầm, xem mục 6 | Cũng là ứng dụng web trên, cài ra màn hình chính |
 | API | http://localhost:3081/health | Web gọi API; người dùng không cần mở |
 
@@ -81,12 +81,13 @@ Mật khẩu chung là `Matkhau2026`. Tài khoản mẫu không bị bắt đổ
 
 | Vai trò | Tên đăng nhập | Đơn vị | Xem được |
 |---|---|---|---|
-| Quản trị viên | `quantri` | Toàn hệ thống | Mọi trang, gồm ngân hàng câu hỏi, soạn đề |
-| Cán bộ quản lý | `quanly.phong` | Phòng CSGT (PC08) | Giao bài, báo cáo của phòng và các đội |
-| Cán bộ quản lý | `quanly.doi1` | Đội 1 | Như trên, trong phạm vi Đội 1 |
-| Cán bộ, chiến sĩ | `canbo.d1.01`, `canbo.d1.02`, `canbo.d1.03` | Đội 1 | Học, luyện tập, thi |
-| Cán bộ, chiến sĩ | `canbo.d2.01`, `canbo.d2.02` | Đội 2 | Như trên |
-| Cán bộ, chiến sĩ | `canbo.d3.01`, `canbo.d3.02` | Đội 3 | Như trên |
+| Admin quản trị hệ thống | `quantri` | Toàn hệ thống | Mọi trang, gồm ngân hàng câu hỏi, soạn đề, quản lý tài khoản |
+| Admin quản lý | `quanly` | Toàn hệ thống | Soạn, duyệt và xuất bản nội dung; không quản lý được tài khoản |
+| Lãnh đạo UBND xã | `lanhdao.phong` | Phòng CSGT (PC08) | Giao bài, báo cáo của phòng và các đội |
+| Lãnh đạo UBND xã | `lanhdao.doi1` | Đội 1 | Như trên, trong phạm vi Đội 1 |
+| Cán bộ, công chức | `canbo.d1.01`, `canbo.d1.02`, `canbo.d1.03` | Đội 1 | Học, luyện tập, thi |
+| Cán bộ, công chức | `canbo.d2.01`, `canbo.d2.02` | Đội 2 | Như trên |
+| Cán bộ, công chức | `canbo.d3.01`, `canbo.d3.02` | Đội 3 | Như trên |
 
 Dữ liệu mẫu có sẵn:
 - 4 đơn vị: Phòng PC08 và 3 đội.
@@ -166,20 +167,20 @@ Bảng dưới đây lập từ lượt rà tự động ngày 25/9/2026:
 | Tài khoản, đổi mật khẩu | `/tai-khoan`, `/doi-mat-khau` | Xem được |
 | Hướng dẫn sử dụng | `/huong-dan` | Còn là PageStub |
 
-### Quản trị (cán bộ quản lý, quản trị viên)
+### Quản trị (Lãnh đạo UBND xã, Admin quản lý, Admin quản trị hệ thống)
 
 | Màn hình | Đường dẫn | Ai dùng | Tình trạng |
 |---|---|---|---|
-| Trang đầu quản trị | `/quan-tri` | Cả hai | Còn là PageStub. Các mục con ở thanh trên vẫn dùng được |
-| Đơn vị | `/quan-tri/don-vi` | Quản lý xem, quản trị sửa | Xem được |
-| Người dùng, nhập Excel | `/quan-tri/nguoi-dung` | Quản lý xem, quản trị sửa | Xem được |
-| Ngân hàng câu hỏi: danh sách, soạn, duyệt | `/quan-tri/cau-hoi` | Quản trị | Xem được. Nút "Sinh bằng AI" **cần key AI và Redis** |
-| Duyệt dữ liệu tra cứu: mức phạt, biển báo, quy trình, tốc độ tối đa, luật giấy tờ, tải trọng | `/quan-tri/du-lieu-tra-cuu` | Biên tập sửa, pháp chế duyệt | Xem được. Dữ liệu mẫu của `bun run demo` nằm ở trạng thái chờ duyệt; duyệt xong thì người học mới thấy ở Tra cứu nhanh. Tab Tốc độ tối đa trống: tệp dữ liệu chưa có số liệu, chờ đơn vị chuyên môn điền |
-| Đề thi: danh sách, soạn ma trận | `/quan-tri/de-thi` | Quản trị | Xem được |
-| Giao bài | `/quan-tri/giao-bai` | Cả hai | Xem được |
-| Báo cáo, xuất Excel và PDF | `/quan-tri/bao-cao` | Cả hai | Xem được. Chưa có số liệu cho tới khi cán bộ học và làm bài. Tab "Tiến độ học" có mỗi cán bộ một dòng, lọc được theo nhóm học cùng (mục 7b) |
-| Nhóm học cùng: danh sách nhóm, tiến độ một nhóm, lưu trữ nhóm | `/quan-tri/nhom`, `/quan-tri/nhom/...` | Cả hai | Xem được. Quản lý chỉ thấy tên và tiến độ của thành viên thuộc đơn vị mình (mục 7b) |
-| Chuyên đề | `/quan-tri/chuyen-de` | Quản trị | Còn là PageStub |
+| Trang đầu quản trị | `/quan-tri` | Cả ba | Còn là PageStub. Các mục con ở thanh trên vẫn dùng được |
+| Đơn vị | `/quan-tri/don-vi` | Lãnh đạo xem, Admin quản trị hệ thống sửa | Xem được |
+| Người dùng, nhập Excel | `/quan-tri/nguoi-dung` | Lãnh đạo xem, Admin quản trị hệ thống sửa | Xem được |
+| Ngân hàng câu hỏi: danh sách, soạn, duyệt | `/quan-tri/cau-hoi` | Admin quản lý | Xem được. Nút "Sinh bằng AI" **cần key AI và Redis** |
+| Duyệt dữ liệu tra cứu: mức phạt, biển báo, quy trình, tốc độ tối đa, luật giấy tờ, tải trọng | `/quan-tri/du-lieu-tra-cuu` | Admin quản lý sửa và duyệt | Xem được. Dữ liệu mẫu của `bun run demo` nằm ở trạng thái chờ duyệt; duyệt xong thì người học mới thấy ở Tra cứu nhanh. Tab Tốc độ tối đa trống: tệp dữ liệu chưa có số liệu, chờ đơn vị chuyên môn điền |
+| Đề thi: danh sách, soạn ma trận | `/quan-tri/de-thi` | Lãnh đạo xem, Admin quản lý soạn | Xem được |
+| Giao bài | `/quan-tri/giao-bai` | Cả ba | Xem được |
+| Báo cáo, xuất Excel và PDF | `/quan-tri/bao-cao` | Cả ba | Xem được. Chưa có số liệu cho tới khi cán bộ học và làm bài. Tab "Tiến độ học" có mỗi cán bộ một dòng, lọc được theo nhóm học cùng (mục 7b) |
+| Nhóm học cùng: danh sách nhóm, tiến độ một nhóm, lưu trữ nhóm | `/quan-tri/nhom`, `/quan-tri/nhom/...` | Cả ba | Xem được. Lãnh đạo chỉ thấy tên và tiến độ của thành viên thuộc đơn vị mình (mục 7b) |
+| Chuyên đề | `/quan-tri/chuyen-de` | Admin quản lý | Còn là PageStub |
 
 ### 7a. Xem thử Nhóm học cùng
 
@@ -197,15 +198,15 @@ Lưu ý khi giới thiệu:
 - Thành viên chỉ thấy họ tên, phần trăm, số lượt cổ vũ của nhau; không thấy điểm số. Cổ vũ không làm thay đổi phần trăm. Làm lại cùng một đề ôn tập không cộng thêm phần trăm.
 - Trang bài học chưa gửi vị trí khối đang đọc, nên phần trăm một bài học là 0 hoặc 100 (câu N14).
 - Thông báo khi được cổ vũ hoặc có bài mới **cần khóa VAPID và worker**; bản demo không chạy worker nên không có thông báo. Công tắc nằm trong khối "Nhắc học" ở trang Tôi.
-- Trang quản lý nhóm và báo cáo tiến độ học cho cán bộ quản lý: mục 7b.
+- Trang quản lý nhóm và báo cáo tiến độ học cho Lãnh đạo UBND xã: mục 7b.
 
 ### 7b. Xem thử trang quản lý nhóm
 
 `bun run demo` không gieo nhóm mẫu. Tạo nhóm theo mục 7a trước, rồi:
 
-1. Đăng nhập `quanly.doi1`, mở **Quản trị → Nhóm học cùng**: quản lý chỉ thấy tên và tiến độ của thành viên thuộc đơn vị mình; thành viên đội khác tính vào "ngoài phạm vi".
+1. Đăng nhập `lanhdao.doi1`, mở **Quản trị → Nhóm học cùng**: quản lý chỉ thấy tên và tiến độ của thành viên thuộc đơn vị mình; thành viên đội khác tính vào "ngoài phạm vi".
 2. Mở **Báo cáo → Tiến độ học**: mỗi cán bộ một dòng, lọc được theo nhóm học cùng; bấm "Tải Excel", "Tải PDF".
-3. Đăng nhập `quanly.phong`: thấy mọi nhóm có người của phòng PC08.
+3. Đăng nhập `lanhdao.phong`: thấy mọi nhóm có người của phòng PC08.
 
 Lưu ý khi giới thiệu:
 - Lưu trữ là thật và không mở lại được.

@@ -378,7 +378,7 @@ Chủ đề **Nồng độ cồn và hành vi bị cấm**, số câu `5`, bấm
 
 Lưu → "Xem trước một đề sinh thử" → "Xuất bản đề thi". Tổng ma trận phải từ 30 đến 40, ngoài khoảng này không lưu được.
 
-### D4. Giao bài (`/quan-tri/giao-bai`, có thể dùng tài khoản `quanly.phong`)
+### D4. Giao bài (`/quan-tri/giao-bai`, có thể dùng tài khoản `lanhdao.phong`)
 
 - Đề thi: chọn **Đề kiểm tra nhận thức pháp luật giao thông quý IV/2026** (vừa xuất bản ở D3)
 - Giao cho: **Một đơn vị** → **Đội Tuần tra kiểm soát số 2**, để đánh dấu "Kèm các đơn vị cấp dưới"

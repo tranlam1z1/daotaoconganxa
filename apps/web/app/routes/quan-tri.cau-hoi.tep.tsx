@@ -10,7 +10,7 @@ import type { Route } from "./+types/quan-tri.cau-hoi.tep";
 const LOC = ["q", "chu_de", "muc_do", "loai", "trang_thai", "nguon"];
 
 export async function loader({ request, params }: Route.LoaderArgs) {
-  const { token } = await yeuCauVaiTro(request, "bien_tap");
+  const { token } = await yeuCauVaiTro(request, "quan_ly");
   if (params.loai === "mau") return await taiTepQuanTri(token, "/v1/quan-tri/ngan-hang/mau");
   if (params.loai !== "xuat") throw new Response("Không có tệp này.", { status: 404 });
   const vao = new URL(request.url).searchParams;

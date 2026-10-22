@@ -304,12 +304,13 @@ khoảng trang được chép sang việc mới, việc cũ chuyển `bo_qua`).
 và số cụm trang. Ví dụ thật: Nghị định 315/2026/NĐ-CP — 26 trang, 26/26 trang có lớp văn bản,
 chia 6 cụm, bản nháp ghi vào `derived/{documentId}/so-hoa/nhap.md` trên R2.
 
-**Để trợ lý làm phần đọc trang**, MCP server phải chạy với vai trò **biên tập** và bật ghi dữ liệu
+**Để trợ lý làm phần đọc trang**, MCP server phải chạy với vai trò **Admin quản lý** (bậc quản
+trị nội dung trong thang vai trò mới) và bật ghi dữ liệu
 (`.mcp.json` trong repo đã đặt sẵn):
 
 ```json
 "env": {
-  "MCP_LOCAL_ROLE": "bien_tap",
+  "MCP_LOCAL_ROLE": "quan_ly",
   "QDPL_MCP_ALLOW_WRITE": "1"
 }
 ```

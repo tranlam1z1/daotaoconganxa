@@ -57,12 +57,12 @@ async function docChuyenDe(token: string, slug: string) {
 }
 
 export async function loader({ request, params }: Route.LoaderArgs) {
-  const { token, nguoiDung } = await yeuCauVaiTro(request, "bien_tap");
+  const { token, nguoiDung } = await yeuCauVaiTro(request, "quan_ly");
   const [chiTiet, { items: chuDe }] = await Promise.all([
     docChuyenDe(token, params.slug),
     goiApiQuanTri<{ items: ChuDeNganHang[] }>(token, "/v1/quan-tri/ngan-hang/chu-de"),
   ]);
-  const coTheXoa = duVaiTro(nguoiDung, "phap_che");
+  const coTheXoa = duVaiTro(nguoiDung, "quan_ly");
   if (!params.id) {
     const thuTu = Number(new URL(request.url).searchParams.get("thuTu")) || chiTiet.bai.length + 1;
     return {
@@ -119,7 +119,7 @@ function docJson<T>(v: FormDataEntryValue | null, macDinh: T): T {
 }
 
 export async function action({ request, params }: Route.ActionArgs): Promise<KetQua> {
-  const { token } = await yeuCauVaiTro(request, "bien_tap");
+  const { token } = await yeuCauVaiTro(request, "quan_ly");
   const f = await request.formData();
   const intent = String(f.get("intent") ?? "luu_bai");
   const baiId = params.id ?? "";

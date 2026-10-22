@@ -12,7 +12,7 @@ import type { Route } from "./+types/home";
 const SO_O_TRANG_CHU = 4;
 
 export function meta(_: Route.MetaArgs) {
-  return pageMeta("Tra cứu quy định", {
+  return pageMeta("Học tập pháp luật & Bồi dưỡng nghiệp vụ", {
     description:
       "Tìm quy định đến từng điều, khoản; đọc nguyên văn điều khoản đang áp dụng; hỏi trợ lý AI và nhận câu trả lời kèm căn cứ.",
   });

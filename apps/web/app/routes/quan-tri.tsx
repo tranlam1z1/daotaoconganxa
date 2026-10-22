@@ -29,7 +29,7 @@ const GROUPS: Array<{
   {
     // Trang đầu và báo cáo lấy cán bộ làm trung tâm: tổng quan, danh sách cán bộ, hồ sơ từng người.
     label: "Thống kê",
-    vaiTro: "quan_ly",
+    vaiTro: "lanh_dao",
     items: [
       { to: "/quan-tri", label: "Tổng quan", end: true },
       { to: "/quan-tri/bao-cao", label: "Báo cáo" },
@@ -37,17 +37,17 @@ const GROUPS: Array<{
   },
   {
     label: "Tổ chức",
-    vaiTro: "quan_ly",
+    vaiTro: "lanh_dao",
     items: [
       { to: "/quan-tri/don-vi", label: "Đơn vị" },
       { to: "/quan-tri/nguoi-dung", label: "Người dùng" },
     ],
   },
   {
-    // Cán bộ quản lý xem đề đang mở và giao bài; tạo, sửa đề chỉ quản trị viên (API kiểm quyền).
+    // Lãnh đạo UBND xã xem đề đang mở và giao bài; tạo, sửa đề chỉ Admin quản trị (API kiểm quyền).
     // Nhóm học cùng (docs/PLAN.md GĐ16c): quản lý xem tiến độ nhóm trong phạm vi.
     label: "Thi",
-    vaiTro: "quan_ly",
+    vaiTro: "lanh_dao",
     items: [
       { to: "/quan-tri/de-thi", label: "Đề thi" },
       { to: "/quan-tri/giao-bai", label: "Giao bài" },
@@ -55,14 +55,14 @@ const GROUPS: Array<{
     ],
   },
   {
-    // Thêm, sửa, xóa văn bản trong kho; xóa cần quản trị viên (API kiểm quyền).
+    // Thêm, sửa, xóa văn bản trong kho; xóa cần Admin quản trị (API kiểm quyền).
     label: "Kho văn bản",
-    vaiTro: "bien_tap",
+    vaiTro: "quan_ly",
     items: [{ to: "/quan-tri/van-ban", label: "Văn bản" }],
   },
   {
     label: "Đào tạo",
-    vaiTro: "bien_tap",
+    vaiTro: "quan_ly",
     items: [
       { to: "/quan-tri/cau-hoi", label: "Ngân hàng câu hỏi" },
       { to: "/quan-tri/du-lieu-tra-cuu", label: "Duyệt dữ liệu tra cứu" },
@@ -73,7 +73,7 @@ const GROUPS: Array<{
 ];
 
 export async function loader({ request }: Route.LoaderArgs) {
-  const { nguoiDung } = await yeuCauVaiTro(request, "quan_ly");
+  const { nguoiDung } = await yeuCauVaiTro(request, "lanh_dao");
   const nhom = GROUPS.filter((g) => duVaiTro(nguoiDung, g.vaiTro)).map(({ label, items }) => ({
     label,
     items,

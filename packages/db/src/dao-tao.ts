@@ -1527,7 +1527,7 @@ export async function danhDauDaNhanKetQua(id: string, boi: string) {
 /** `noi`: thêm sau phần đang có; `thay`: bỏ phần AI soạn trước đó của bài rồi ghi phần mới. */
 export type CheDoNhanKetQua = "noi" | "thay";
 
-/** Trạng thái bài còn nhận nội dung AI: bài đang soạn. Bài chờ pháp chế hay đã xuất bản thì không. */
+/** Trạng thái bài còn nhận nội dung AI: bài đang soạn. Bài chờ duyệt hay đã xuất bản thì không. */
 const TRANG_THAI_NHAN_DUOC_AI: readonly string[] = ["nhap", "ai_soan", "bien_tap", "can_cap_nhat"];
 
 export type KetQuaNhanViec =
@@ -1546,8 +1546,8 @@ export type KetQuaNhanViec =
  * - Bước khác: chỉ đánh dấu đã nhận, như trước.
  *
  * Chỉ ghi phần đã qua hậu kiểm của worker; phần bị loại nằm lại trong `output.biLoai`. Mọi thứ
- * ghi vào đều mang `source = 'ai'`, và bài chỉ tới người học khi pháp chế xuất bản: nhận vào
- * nháp không phải duyệt. Vì thế không nhận vào bài đang chờ pháp chế hay đã xuất bản — trang
+ * ghi vào đều mang `source = 'ai'`, và bài chỉ tới người học khi duyệt xuất bản: nhận vào
+ * nháp không phải duyệt. Vì thế không nhận vào bài đang chờ duyệt hay đã xuất bản — trang
  * học đọc thẳng `lesson_blocks`, ghi vào đó là đổi nội dung người học đang thấy.
  */
 export async function nhanKetQuaSoanBai(

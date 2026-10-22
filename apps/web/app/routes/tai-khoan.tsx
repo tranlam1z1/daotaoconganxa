@@ -25,10 +25,10 @@ export function meta(_: Route.MetaArgs) {
 
 export async function loader({ request }: Route.LoaderArgs) {
   const { nguoiDung } = await yeuCauDangNhap(request, { choPhepChoXacMinh: true });
-  // Cán bộ quản lý vào thẳng danh sách người dùng; biên tập trở lên vào trang tổng quan quản trị.
-  const trangQuanTri = duVaiTro(nguoiDung, "bien_tap")
+  // Lãnh đạo UBND xã vào thẳng danh sách người dùng; Admin quản lý trở lên vào trang tổng quan quản trị.
+  const trangQuanTri = duVaiTro(nguoiDung, "quan_ly")
     ? "/quan-tri"
-    : duVaiTro(nguoiDung, "quan_ly")
+    : duVaiTro(nguoiDung, "lanh_dao")
       ? "/quan-tri/nguoi-dung"
       : null;
   // Chưa được xác minh thì cần danh sách đơn vị để khai hoặc sửa thông tin.

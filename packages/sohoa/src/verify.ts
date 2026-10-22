@@ -2,7 +2,7 @@
  * Kiểm chứng tự động sau chuyển đổi (ke-hoach/05 §5).
  *
  * Đây là phần KHÔNG giao cho mô hình: mọi kết luận về chất lượng phải tính được
- * bằng luật, lặp lại được, và giải thích được cho biên tập viên.
+ * bằng luật, lặp lại được, và giải thích được cho quản trị viên nội dung.
  */
 import { demKyTuNoiDung } from "./postprocess.ts";
 import type { BangKhaiBao, CanhBao, TrangText } from "./types.ts";

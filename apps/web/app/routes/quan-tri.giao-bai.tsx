@@ -36,7 +36,7 @@ interface NguoiDung {
 }
 
 export async function loader({ request }: Route.LoaderArgs) {
-  const { token } = await yeuCauVaiTro(request, "quan_ly");
+  const { token } = await yeuCauVaiTro(request, "lanh_dao");
   const de = new URL(request.url).searchParams.get("de");
   const [deThi, donVi, nguoi, giaoBai] = await Promise.all([
     goiApiQuanTri<{ items: DeThi[] }>(token, "/v1/quan-tri/de-thi"),
@@ -58,7 +58,7 @@ export async function loader({ request }: Route.LoaderArgs) {
 }
 
 export async function action({ request }: Route.ActionArgs) {
-  const { token } = await yeuCauVaiTro(request, "quan_ly");
+  const { token } = await yeuCauVaiTro(request, "lanh_dao");
   const f = await request.formData();
   const s = (k: string) => String(f.get(k) ?? "").trim();
   try {

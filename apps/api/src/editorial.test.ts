@@ -13,7 +13,7 @@ const app = createApp();
 const PREFIX = "test-qdpl-editorial";
 const TARGET_URN = `vn:doc:${PREFIX}:001`;
 const AMENDING_URN = `vn:doc:${PREFIX}:002`;
-/** Tài khoản pháp chế của test: đủ quyền xem hàng đợi (bien_tap) và duyệt lệnh (phap_che). */
+/** Tài khoản Admin quản lý của test: đủ quyền xem hàng đợi và duyệt lệnh sửa đổi. */
 const EMAIL = `${PREFIX}@vidu.vn`;
 let token = "";
 
@@ -47,7 +47,7 @@ beforeAll(async () => {
   await cleanup();
 
   const [acc] = await sql<Array<{ id: string }>>`
-    INSERT INTO accounts (email, role) VALUES (${EMAIL}, 'phap_che') RETURNING id`;
+    INSERT INTO accounts (email, role) VALUES (${EMAIL}, 'quan_ly') RETURNING id`;
   token = (await createSession(acc!.id, "test")).token;
 
   const [pending] = await sql<Array<{ id: string }>>`

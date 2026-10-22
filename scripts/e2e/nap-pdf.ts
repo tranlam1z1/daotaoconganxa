@@ -19,7 +19,7 @@ const PDF_TRANG = Buffer.from(
 );
 
 export default async function napPdf(n: NguCanhE2E) {
-  const tk = await n.taoTaiKhoan({ role: "bien_tap", ten: "Biên tập E2E" });
+  const tk = await n.taoTaiKhoan({ role: "quan_ly", ten: "Admin quản lý E2E" });
   const page = await n.moTrang();
   const loiTrang: string[] = [];
   page.on("pageerror", (e) => loiTrang.push(e.message));

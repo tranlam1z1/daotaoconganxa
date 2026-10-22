@@ -1,5 +1,5 @@
 /**
- * Danh sách văn bản trong kho (quản trị). Biên tập viên tìm văn bản để sửa nội dung, hoặc thêm văn
+ * Danh sách văn bản trong kho (quản trị). Admin quản lý tìm văn bản để sửa nội dung, hoặc thêm văn
  * bản mới bằng tệp PDF hoặc Markdown; nạp hàng loạt từ nguồn vẫn đi qua pipeline (LENH.md mục 3).
  */
 import { Form, Link } from "react-router";
@@ -22,7 +22,7 @@ export function meta(_: Route.MetaArgs) {
 }
 
 export async function loader({ request }: Route.LoaderArgs) {
-  const { token } = await yeuCauVaiTro(request, "bien_tap");
+  const { token } = await yeuCauVaiTro(request, "quan_ly");
   const p = new URL(request.url).searchParams;
   const loc = { q: p.get("q") ?? "", loai: p.get("loai") ?? "" };
   const trang = Math.max(1, Number(p.get("trang")) || 1);

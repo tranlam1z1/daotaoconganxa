@@ -40,7 +40,7 @@ describe("câu đúng theo tài liệu thì không bị báo", () => {
     "Tôi đi cùng bạn trong chuyên đề này. Ba câu hỏi ngắn giúp hệ thống chọn nhịp học phù hợp.",
     "Đúng. Nội dung quyết định nằm ở khoản được mở bên cạnh.",
     "Chưa đúng. Đây là lỗi nhầm quy định chuyển tiếp. Mở căn cứ để đối chiếu.",
-    "Kho dữ liệu chưa có đủ căn cứ cho nội dung này. Tôi đã chuyển yêu cầu tới biên tập viên.",
+    "Kho dữ liệu chưa có đủ căn cứ cho nội dung này. Tôi đã chuyển yêu cầu tới Admin quản lý.",
     "Không sử dụng lại danh mục căn cứ của hồ sơ cũ mà chưa tra lại hiệu lực.",
     "Cảnh báo hiệu lực: căn cứ ở khối này đã hết hiệu lực từ 01/7/2026.",
     "Nghị định số 224/2026/NĐ-CP ngày 24/6/2026 của Chính phủ, hiệu lực từ 01/7/2026.",

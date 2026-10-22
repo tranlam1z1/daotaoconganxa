@@ -49,10 +49,10 @@ export async function loader({ params, request }: Route.LoaderArgs) {
     content = await getDocumentContent(urn, asOf);
   } catch (e) {
     if (!(e instanceof ApiKhongTimThay)) throw e;
-    // Chưa có nội dung chữ (văn bản nạp từ PDF): trang hiện tệp gốc. Biên tập viên có thêm nút
+    // Chưa có nội dung chữ (văn bản nạp từ PDF): trang hiện tệp gốc. Admin quản lý có thêm nút
     // "Đọc bằng AI" và tiến độ đọc bản quét.
     const token = layToken(request);
-    const duocDoc = Boolean(token) && duVaiTro(await nguoiDungHienTai(request), "bien_tap");
+    const duocDoc = Boolean(token) && duVaiTro(await nguoiDungHienTai(request), "quan_ly");
     const tienDo =
       token && duocDoc
         ? await goiApiQuanTri<TienDoDocTepGoc>(token, duongDocTepGoc(urn)).catch(() => null)
@@ -103,11 +103,11 @@ export async function loader({ params, request }: Route.LoaderArgs) {
 }
 
 /**
- * Nút "Đọc bằng AI": biên tập viên cho đọc tệp PDF gốc thành nội dung chữ, lưu chung cho mọi người
+ * Nút "Đọc bằng AI": Admin quản lý cho đọc tệp PDF gốc thành nội dung chữ, lưu chung cho mọi người
  * đọc. PDF có lớp chữ xong ngay; bản quét chạy nền, trang tự hỏi lại tiến độ.
  */
 export async function action({ params, request }: Route.ActionArgs) {
-  const { token } = await yeuCauVaiTro(request, "bien_tap");
+  const { token } = await yeuCauVaiTro(request, "quan_ly");
   const urn = await getDocumentUrnBySlug(params.docType, params.slug);
   try {
     await goiApiQuanTri(token, duongDocTepGoc(urn), { method: "POST", timeoutMs: 120_000 });
@@ -132,7 +132,7 @@ function TepGoc({
   tieuDe: string;
   coTep: boolean;
   soTrang: number;
-  /** Biên tập viên trở lên: có nút "Đọc bằng AI". */
+  /** Admin quản lý trở lên: có nút "Đọc bằng AI". */
   duocDoc: boolean;
   tienDo: TienDoDocTepGoc | null;
   loi: string | null;

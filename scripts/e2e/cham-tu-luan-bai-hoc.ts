@@ -62,7 +62,7 @@ export default async function chamTuLuanBaiHoc(n: NguCanhE2E) {
   });
 
   const hocVien = await n.taoTaiKhoan({ ten: "Học viên chấm tự luận E2E" });
-  const giangVien = await n.taoTaiKhoan({ role: "bien_tap", ten: "Giảng viên E2E" });
+  const giangVien = await n.taoTaiKhoan({ role: "quan_ly", ten: "Giảng viên E2E" });
   const [gd] = await n.sql<Array<{ id: string }>>`
     INSERT INTO enrollments (account_id, course_id) VALUES (${hocVien.id}::uuid, ${course.id}::uuid) RETURNING id`;
   // Lượt AI không chấm được: điểm 0, chờ giảng viên (như POST /v1/dao-tao/hoat-dong/:id/nop ghi).

@@ -82,7 +82,7 @@ const MUC_KHONG_TINH: Record<Exclude<TrangThaiMuc, "tinh">, string> = {
 };
 
 export async function loader({ request, params }: Route.LoaderArgs) {
-  const { token } = await yeuCauVaiTro(request, "quan_ly");
+  const { token } = await yeuCauVaiTro(request, "lanh_dao");
   try {
     return { nhom: await goiApiQuanTri<ChiTietNhom>(token, `/v1/quan-tri/nhom/${params.id}`) };
   } catch (e) {
@@ -92,7 +92,7 @@ export async function loader({ request, params }: Route.LoaderArgs) {
 }
 
 export async function action({ request, params }: Route.ActionArgs): Promise<KetQuaAction> {
-  const { token } = await yeuCauVaiTro(request, "quan_ly");
+  const { token } = await yeuCauVaiTro(request, "lanh_dao");
   const f = await request.formData();
   if (f.get("intent") === "tom_tat") {
     try {

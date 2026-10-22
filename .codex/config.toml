@@ -1,0 +1,10 @@
+[mcp_servers.quydinhphapluat]
+command = "bun"
+args = [
+    "run",
+    "apps/mcp/src/index.ts",
+]
+
+[mcp_servers.quydinhphapluat.env]
+MCP_LOCAL_ROLE = "quan_ly"
+QDPL_MCP_ALLOW_WRITE = "1"

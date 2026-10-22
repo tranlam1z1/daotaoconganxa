@@ -45,7 +45,7 @@ export function meta(_: Route.MetaArgs) {
 const API = "/v1/quan-tri/du-lieu-tra-cuu";
 
 export async function loader({ request }: Route.LoaderArgs) {
-  const { token } = await yeuCauVaiTro(request, "bien_tap");
+  const { token } = await yeuCauVaiTro(request, "quan_ly");
   const p = new URL(request.url).searchParams;
   const raw = p.get("loai");
   const loai = laLoaiSoan(raw) ? raw : "muc-phat";
@@ -63,7 +63,7 @@ const TRUONG_FORM = {
 } as const;
 
 export async function action({ request }: Route.ActionArgs) {
-  const { token } = await yeuCauVaiTro(request, "bien_tap");
+  const { token } = await yeuCauVaiTro(request, "quan_ly");
   const f = await request.formData();
   const loai = String(f.get("loai"));
   if (!laLoaiSoan(loai)) return { loi: "Loại dữ liệu không soạn được." };

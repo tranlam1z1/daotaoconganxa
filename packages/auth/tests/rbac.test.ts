@@ -44,13 +44,16 @@ const who = (role: Role): Principal => ({ email: "x@vidu.vn", role, source: "goo
 
 describe("thứ bậc vai trò", () => {
   test("xếp theo mức tăng dần", () => {
-    // Thang A5 (docs/PLAN.md GĐ2): chèn can_bo và quan_ly, giữ nguyên thứ tự các vai trò cũ.
-    expect(ROLES).toEqual(["khach", "can_bo", "tra_cuu", "quan_ly", "bien_tap", "phap_che", "quan_tri"]);
-    expect(atLeast("quan_tri", "phap_che")).toBe(true);
-    // tra_cuu giữ quyền MCP cũ: vẫn trên khach và dưới bien_tap.
-    expect(atLeast("tra_cuu", "khach")).toBe(true);
-    expect(atLeast("tra_cuu", "bien_tap")).toBe(false);
-    expect(atLeast("bien_tap", "phap_che")).toBe(false);
+    // Thang tổ chức 5 bậc (migration 0073): khách, cán bộ, lãnh đạo UBND xã, Admin quản lý,
+    // Admin quản trị hệ thống.
+    expect(ROLES).toEqual(["khach", "can_bo", "lanh_dao", "quan_ly", "quan_tri"]);
+    expect(atLeast("quan_tri", "lanh_dao")).toBe(true);
+    // Cán bộ trên khách, dưới lãnh đạo UBND xã.
+    expect(atLeast("can_bo", "khach")).toBe(true);
+    expect(atLeast("can_bo", "lanh_dao")).toBe(false);
+    // Lãnh đạo UBND xã dưới Admin quản lý: Admin quản lý kế thừa quyền phê duyệt.
+    expect(atLeast("lanh_dao", "quan_ly")).toBe(false);
+    expect(atLeast("quan_ly", "lanh_dao")).toBe(true);
     expect(atLeast("khach", "khach")).toBe(true);
   });
 
@@ -72,15 +75,19 @@ describe("kiểm soát truy cập công cụ", () => {
     expect(tools).not.toContain("quan_ly_tai_khoan");
   });
 
-  test("biên tập viên KHÔNG duyệt được lệnh sửa đổi", () => {
-    const d = canUseTool(who("bien_tap"), "duyet_lenh_sua_doi", true);
+  test("cán bộ KHÔNG duyệt được lệnh sửa đổi", () => {
+    const d = canUseTool(who("can_bo"), "duyet_lenh_sua_doi", true);
     expect(d.allowed).toBe(false);
-    expect(d.reason).toContain("phap_che");
+    expect(d.reason).toContain("quan_ly");
   });
 
-  test("pháp chế duyệt được nhưng không quản lý tài khoản", () => {
-    expect(canUseTool(who("phap_che"), "duyet_lenh_sua_doi", true).allowed).toBe(true);
-    expect(canUseTool(who("phap_che"), "quan_ly_tai_khoan", true).allowed).toBe(false);
+  test("lãnh đạo UBND xã KHÔNG duyệt được lệnh sửa đổi", () => {
+    expect(canUseTool(who("lanh_dao"), "duyet_lenh_sua_doi", true).allowed).toBe(false);
+  });
+
+  test("Admin quản lý duyệt được nhưng không quản lý tài khoản", () => {
+    expect(canUseTool(who("quan_ly"), "duyet_lenh_sua_doi", true).allowed).toBe(true);
+    expect(canUseTool(who("quan_ly"), "quan_ly_tai_khoan", true).allowed).toBe(false);
   });
 
   test("quản trị dùng được tất cả", () => {
@@ -115,9 +122,9 @@ describe("tài khoản và phiên", () => {
   });
 
   test("đăng nhập lại không đổi vai trò đã cấp", async () => {
-    await setRole(EMAIL, "phap_che", "quan-tri@vidu.vn");
+    await setRole(EMAIL, "lanh_dao", "quan-tri@vidu.vn");
     const again = await upsertAccount({ email: EMAIL, sub: "sub-1", name: "Người thử" });
-    expect(again.role).toBe("phap_che");
+    expect(again.role).toBe("lanh_dao");
   });
 
   test("token phiên chỉ lưu dạng băm, không lưu nguyên văn", async () => {
@@ -135,7 +142,7 @@ describe("tài khoản và phiên", () => {
     const s = await createSession(acc.id, "test");
     const p = await principalFromToken(s.token);
     expect(p?.email).toBe(EMAIL);
-    expect(p?.role).toBe("phap_che");
+    expect(p?.role).toBe("lanh_dao");
   });
 
   test("token sai hoặc đã thu hồi thì không tra ra danh tính", async () => {
@@ -172,6 +179,6 @@ describe("tài khoản và phiên", () => {
   test("liệt kê tài khoản trả về vai trò hiện tại", async () => {
     const rows = await listAccounts();
     const mine = rows.find((r) => r.email === EMAIL);
-    expect(mine?.role).toBe("phap_che");
+    expect(mine?.role).toBe("lanh_dao");
   });
 });

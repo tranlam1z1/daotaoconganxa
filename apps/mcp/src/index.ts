@@ -16,7 +16,7 @@ import { buildServer } from "./server.ts";
 import { writeEnabled } from "./tools/van-hanh.ts";
 
 async function runStdio(): Promise<void> {
-  const role = (process.env.MCP_LOCAL_ROLE ?? "tra_cuu") as Role;
+  const role = (process.env.MCP_LOCAL_ROLE ?? "can_bo") as Role;
   if (!ROLES.includes(role)) {
     console.error(`MCP_LOCAL_ROLE không hợp lệ: ${role}. Chọn một trong: ${ROLES.join(", ")}`);
     process.exit(1);
@@ -55,7 +55,7 @@ async function main(): Promise<void> {
         "  AUTH_DEFAULT_ROLE       vai trò cho tài khoản mới, mặc định khach",
         "  AUTH_BOOTSTRAP_ADMIN    =0 để tắt việc người đăng nhập đầu tiên thành quản trị",
         "  AUTH_SESSION_TTL_HOURS  hạn token phiên, mặc định 336 giờ",
-        "  MCP_LOCAL_ROLE          vai trò cho chế độ stdio, mặc định tra_cuu",
+        "  MCP_LOCAL_ROLE          vai trò cho chế độ stdio, mặc định can_bo",
       ].join("\n"),
     );
     return;

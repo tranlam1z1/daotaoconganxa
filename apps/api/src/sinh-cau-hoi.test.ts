@@ -75,14 +75,14 @@ async function sinhVaChay(token: string, body: Record<string, unknown>) {
   return { jobId: tao.body.viec.id as string, kq };
 }
 
-const tk = { canBo: "", bienTap: "", phapChe: "" };
+const tk = { canBo: "", quanLy: "", quanTri: "" };
 let topicId = "";
 
 beforeAll(async () => {
   await donDep();
   tk.canBo = await taoTaiKhoan("can-bo", "can_bo");
-  tk.bienTap = await taoTaiKhoan("bien-tap", "bien_tap");
-  tk.phapChe = await taoTaiKhoan("phap-che", "phap_che");
+  tk.quanLy = await taoTaiKhoan("quan-ly", "quan_ly");
+  tk.quanTri = await taoTaiKhoan("quan-tri", "quan_tri");
   topicId = (await luuChuDeCauHoi({ code: CHU_DE, name: "Chủ đề thử sinh câu hỏi" })).id;
 });
 
@@ -101,7 +101,7 @@ describe("phân quyền và đầu vào", () => {
 
   test("chạy thử trả điều khoản và ước tính chi phí, không tạo việc", async () => {
     const r = await goi("POST", `${BASE}/sinh-ai`, {
-      token: tk.bienTap,
+      token: tk.quanLy,
       body: { urns: [DIEU[1], DIEU[4]], chu_de: CHU_DE, so_cau: 5, as_of: NGAY, chay_thu: true },
     });
     expect(r.status).toBe(200);
@@ -115,7 +115,7 @@ describe("phân quyền và đầu vào", () => {
 
   test("URN văn bản được mở thành các điều của văn bản", async () => {
     const r = await goi("POST", `${BASE}/sinh-ai`, {
-      token: tk.bienTap,
+      token: tk.quanLy,
       body: { urns: [VB], chu_de: CHU_DE, as_of: NGAY, chay_thu: true },
     });
     expect(r.status).toBe(200);
@@ -124,7 +124,7 @@ describe("phân quyền và đầu vào", () => {
 
   test("điều khoản chưa có hiệu lực tại ngày soạn bị từ chối (400)", async () => {
     const r = await goi("POST", `${BASE}/sinh-ai`, {
-      token: tk.bienTap,
+      token: tk.quanLy,
       body: { urns: [`${VB}#dieu-3a`], chu_de: CHU_DE, as_of: NGAY, chay_thu: true },
     });
     expect(r.status).toBe(400);
@@ -132,7 +132,7 @@ describe("phân quyền và đầu vào", () => {
 
   test("điều khoản đã bãi bỏ bị từ chối (400)", async () => {
     const r = await goi("POST", `${BASE}/sinh-ai`, {
-      token: tk.bienTap,
+      token: tk.quanLy,
       body: { urns: [`${VB}#dieu-1.khoan-2.diem-c`], chu_de: CHU_DE, as_of: "2027-08-01", chay_thu: true },
     });
     expect(r.status).toBe(400);
@@ -141,7 +141,7 @@ describe("phân quyền và đầu vào", () => {
 
   test("chủ đề không có bị từ chối (400)", async () => {
     const r = await goi("POST", `${BASE}/sinh-ai`, {
-      token: tk.bienTap,
+      token: tk.quanLy,
       body: { urns: [DIEU[1]], chu_de: `${PREFIX}-khong-co`, chay_thu: true },
     });
     expect(r.status).toBe(400);
@@ -153,7 +153,7 @@ describe("sinh câu hỏi với LLM_PROVIDER=mock", () => {
 
   // 3 câu trên 3 điều có nội dung: mô hình giả lập cho mỗi điều một câu, không câu nào gần giống nhau.
   test("job sinh 3 câu vào cho_duyet với source = ai; chi phí được ghi vào authoring_jobs", async () => {
-    const { jobId, kq } = await sinhVaChay(tk.bienTap, {
+    const { jobId, kq } = await sinhVaChay(tk.quanLy, {
       urns: DIEU,
       chu_de: CHU_DE,
       so_cau: 3,
@@ -194,12 +194,12 @@ describe("sinh câu hỏi với LLM_PROVIDER=mock", () => {
 
   test("tab Chờ duyệt lọc được câu AI, và danh sách việc có số câu", async () => {
     const ds = await goi("GET", `${BASE}/cau-hoi?chu_de=${CHU_DE}&trang_thai=cho_duyet&nguon=ai`, {
-      token: tk.bienTap,
+      token: tk.quanLy,
     });
     expect(ds.status).toBe(200);
     expect(ds.body.tong).toBe(3);
 
-    const viec = await goi("GET", `${BASE}/sinh-ai`, { token: tk.bienTap });
+    const viec = await goi("GET", `${BASE}/sinh-ai`, { token: tk.quanLy });
     const dong = viec.body.items.find((v: { id: string }) => v.id === jobDau);
     expect(dong.so_cau).toBe(3);
     expect(dong.so_cho_duyet).toBe(3);
@@ -220,7 +220,7 @@ describe("sinh câu hỏi với LLM_PROVIDER=mock", () => {
     expect(await nguonCauHoiChoMaTran(maTran)).toEqual([]);
 
     const [dau] = await cauCuaViec(jobDau);
-    const duyet = await goi("POST", `${BASE}/cau-hoi/${dau!.id}/duyet`, { token: tk.phapChe });
+    const duyet = await goi("POST", `${BASE}/cau-hoi/${dau!.id}/duyet`, { token: tk.quanLy });
     expect(duyet.status).toBe(200);
     expect((await nguonCauHoiChoMaTran(maTran)).map((c) => c.id)).toEqual([dau!.id]);
   });
@@ -234,7 +234,7 @@ describe("sinh câu hỏi với LLM_PROVIDER=mock", () => {
     expect(await deBaiDaCoTheoCanCu([`${VB}#dieu-99`])).not.toContain(dau!.stem);
 
     // Mô hình giả lập không đọc mục đó nên trả lại đúng các câu cũ: hậu kiểm loại hết.
-    const { jobId, kq } = await sinhVaChay(tk.bienTap, {
+    const { jobId, kq } = await sinhVaChay(tk.quanLy, {
       urns: DIEU,
       chu_de: CHU_DE,
       so_cau: 3,
@@ -252,13 +252,14 @@ describe("sinh câu hỏi với LLM_PROVIDER=mock", () => {
     expect(viec!.output.bi_loai[0].ly_do[0]).toMatch(/^Gần giống câu CH-\d+ trong ngân hàng$/);
   });
 
-  test("ước tính vượt trần chi phí thì biên tập viên nhận 403, pháp chế tạo được", async () => {
+  test("vượt trần chi phí thì Admin quản lý nhận 403, chỉ Admin quản trị hệ thống tạo được", async () => {
     const cu = process.env.NGAN_HANG_AI_TRAN_USD;
     process.env.NGAN_HANG_AI_TRAN_USD = "0";
     try {
       const body = { urns: [DIEU[1]], chu_de: CHU_DE, so_cau: 1, as_of: NGAY };
-      expect((await goi("POST", `${BASE}/sinh-ai`, { token: tk.bienTap, body })).status).toBe(403);
-      expect((await goi("POST", `${BASE}/sinh-ai`, { token: tk.phapChe, body })).status).toBe(202);
+      expect((await goi("POST", `${BASE}/sinh-ai`, { token: tk.canBo, body })).status).toBe(403);
+      expect((await goi("POST", `${BASE}/sinh-ai`, { token: tk.quanLy, body })).status).toBe(403);
+      expect((await goi("POST", `${BASE}/sinh-ai`, { token: tk.quanTri, body })).status).toBe(202);
     } finally {
       if (cu === undefined) delete process.env.NGAN_HANG_AI_TRAN_USD;
       else process.env.NGAN_HANG_AI_TRAN_USD = cu;
@@ -269,24 +270,24 @@ describe("sinh câu hỏi với LLM_PROVIDER=mock", () => {
 describe("chạy tiếp một lượt sinh", () => {
   test("việc còn chờ được chạy trong API tới khi xong; việc đã xong thì không chạy lại", async () => {
     const tao = await goi("POST", `${BASE}/sinh-ai`, {
-      token: tk.bienTap,
+      token: tk.quanLy,
       body: { urns: [DIEU[1]], chu_de: CHU_DE, so_cau: 2, as_of: NGAY },
     });
     expect(tao.body.che_do).toBe("cho");
     const duong = `${BASE}/sinh-ai/${tao.body.viec.id}/chay-tiep`;
     expect((await goi("POST", duong, { token: tk.canBo })).status).toBe(403);
     expect(
-      (await goi("POST", `${BASE}/sinh-ai/khong-phai-uuid/chay-tiep`, { token: tk.bienTap })).status,
+      (await goi("POST", `${BASE}/sinh-ai/khong-phai-uuid/chay-tiep`, { token: tk.quanLy })).status,
     ).toBe(404);
 
-    expect((await goi("POST", duong, { token: tk.bienTap })).body.da_chay).toBe(true);
+    expect((await goi("POST", duong, { token: tk.quanLy })).body.da_chay).toBe(true);
     let state: string | undefined;
     for (let i = 0; i < 100 && state !== "xong" && state !== "loi"; i++) {
       await new Promise((r) => setTimeout(r, 100));
       state = (await vieCSoanBaiTheoId(tao.body.viec.id))?.state;
     }
     expect(state).toBe("xong");
-    expect((await goi("POST", duong, { token: tk.bienTap })).body.da_chay).toBe(false);
+    expect((await goi("POST", duong, { token: tk.quanLy })).body.da_chay).toBe(false);
   });
 });
 
@@ -296,7 +297,7 @@ describe("máy chủ không có dịch vụ AI", () => {
     process.env.LLM_PROVIDER = "none";
     try {
       const r = await goi("POST", `${BASE}/sinh-ai`, {
-        token: tk.bienTap,
+        token: tk.quanLy,
         body: { urns: [DIEU[1]], chu_de: CHU_DE, so_cau: 2, as_of: NGAY },
       });
       expect(r.status).toBe(409);

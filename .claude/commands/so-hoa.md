@@ -10,7 +10,7 @@ Số hóa văn bản $ARGUMENTS thành Markdown chuẩn nội bộ, dùng nhóm 
 Vòng làm việc:
 
 1. `nhan_viec_so_hoa` (kèm `van_ban` nếu có tham số) — nhận việc và xem kế hoạch chia cụm trang.
-   Nếu công cụ báo server đang chỉ đọc: dừng lại, báo người dùng đặt `MCP_LOCAL_ROLE=bien_tap`
+   Nếu công cụ báo server đang chỉ đọc: dừng lại, báo người dùng đặt `MCP_LOCAL_ROLE=quan_ly`
    và `QDPL_MCP_ALLOW_WRITE=1` trong `.mcp.json` rồi khởi động lại phiên.
 2. Với **từng cụm theo đúng thứ tự**:
    - `lay_cua_so_trang` với `viec_id` và `cua_so`;

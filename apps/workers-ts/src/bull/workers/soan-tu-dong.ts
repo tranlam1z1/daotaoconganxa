@@ -8,7 +8,7 @@
  *  - `sinh_bai_tap`: một bài tự luận có rubric, tự nhận vào bản nháp khi xong (bỏ khi tắt `tu_luan`);
  *  - `sinh_cau_hoi_ngan_hang`: câu trắc nghiệm vào ngân hàng chung, trạng thái chờ duyệt.
  *
- * Không có gì tới người học ở bước này: bài nằm ở bản nháp tới khi pháp chế xuất bản, câu hỏi
+ * Không có gì tới người học ở bước này: bài nằm ở bản nháp tới khi duyệt xuất bản, câu hỏi
  * nằm ở chờ duyệt tới khi được duyệt.
  *
  * Tệp này không phụ thuộc BullMQ, để test API gọi thẳng được.

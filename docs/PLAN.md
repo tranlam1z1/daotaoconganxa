@@ -48,7 +48,7 @@ Các câu hỏi ở GAP_ANALYSIS §4 chưa có trả lời. Kế hoạch tạm d
 | A1 | **Giữ Hono + Bun** cho backend (câu hỏi 4.1-1) | Nếu NestJS là bắt buộc: chèn giai đoạn **"GĐ-N: Chuyển lớp API sang NestJS"** ngay sau GĐ0. Logic nghiệp vụ mới đều viết trong `packages/*` (TypeScript thuần, không phụ thuộc Hono), nên chỉ phải viết lại lớp route mỏng. Cần thay `Bun.serve`, `Bun.S3Client`, `Bun.password` nếu chuyển sang Node |
 | A2 | Quản trị vẫn là khu `/quan-tri` trong `apps/web`, nhưng dùng **layout riêng** và **chỉ gọi API** (không import thẳng mã phía máy chủ của web) | Nếu phải tách FE Admin riêng: chuyển nguyên thư mục route sang một app Vite SPA mới; API không đổi |
 | A3 | PWA là **chính `apps/web`** thêm manifest và service worker (GĐ13), không làm app riêng | Nếu phải làm app riêng: các màn hình luyện tập đã viết thành component độc lập, chuyển được |
-| A4 | Cán bộ đăng nhập bằng **tên đăng nhập + mật khẩu** do quản trị cấp, nhập danh sách từ Excel. Vẫn giữ Google cho biên tập viên | Nếu dùng SSO hoặc VNeID: thêm một provider trong `packages/auth`, bảng `accounts` không đổi |
+| A4 | Cán bộ đăng nhập bằng **tên đăng nhập + mật khẩu** do quản trị cấp, nhập danh sách từ Excel. Vẫn giữ Google cho Admin quản lý | Nếu dùng SSO hoặc VNeID: thêm một provider trong `packages/auth`, bảng `accounts` không đổi |
 | A5 | Vai trò: thêm `can_bo` và `quan_ly` vào thang hiện có (chi tiết ở GĐ2). Quyền của `quan_ly` **giới hạn theo cây đơn vị** | Đổi được bằng một migration ánh xạ lại vai trò |
 | A6 | Mức độ câu hỏi dùng 3 bậc `de / trung_binh / kho`. Thang điểm 100, ngưỡng đạt mặc định 70 | Chỉ là giá trị CHECK và cấu hình, sửa bằng migration nhỏ |
 | A7 | **Thi sát hạch chỉ làm online**; luyện tập được làm offline | Thi offline cần thiết kế chống gian lận riêng, ngoài kế hoạch này |
@@ -108,8 +108,8 @@ Migration mới đánh số tiếp từ **`0010_`**. Thư mục hiện có hai t
 **Việc làm**
 1. **Chốt trạng thái giao diện đang dựng lại.** Commit đợt dựng lại hiện tại (bộ `components/ui`, `components/layout`, các trang `PageStub`) thành một mốc riêng. Từ đây các trang được dựng lại **theo từng giai đoạn** bên dưới, không khôi phục bản cũ ở `HEAD`; bản cũ chỉ dùng để tham khảo qua `git show`.
 2. **S1 — API biên tập:**
-   - Xem hàng đợi và xử lý việc cần `bien_tap`.
-   - Duyệt hoặc từ chối lệnh sửa đổi cần `phap_che`.
+   - Xem hàng đợi và xử lý việc cần `quan_ly`.
+   - Duyệt hoặc từ chối lệnh sửa đổi cần `quan_ly`.
    - `reviewer_id` lấy từ người đăng nhập, không lấy từ body.
 3. **S2 — Hỏi đáp AI:**
    - Bắt buộc đăng nhập.
@@ -139,7 +139,7 @@ Migration mới đánh số tiếp từ **`0010_`**. Thư mục hiện có hai t
   ```
 
 **Kiểm tra đã xong**
-- [x] `POST /v1/amend-ops/:id/approve` trả **401** khi không có token và **403** với vai trò `bien_tap`; thành công với `phap_che`, và `reviewer_id` là email người duyệt.
+- [x] `POST /v1/amend-ops/:id/approve` trả **401** khi không có token và **403** với vai trò `can_bo`; thành công với `quan_ly`, và `reviewer_id` là email người duyệt.
 - [x] `POST /v1/ask` trả 401 khi chưa đăng nhập; câu hỏi thứ `ASK_QUOTA_PER_DAY + 1` trong ngày trả **429**.
 - [x] Người B gọi `GET /v1/dao-tao/ghi-danh/<id của A>/tien-do` nhận **403**.
 - [x] Với `NODE_ENV=production`, `POST /v1/auth/demo` vai trò `quan_tri` bị từ chối.
@@ -248,16 +248,20 @@ Migration mới đánh số tiếp từ **`0010_`**. Thư mục hiện có hai t
 ## GĐ2 — Tài khoản, đơn vị, vai trò, nhật ký truy cập
 
 **Mục tiêu**
-- Có **đơn vị** dạng cây, tài khoản cán bộ đăng nhập bằng tên/mật khẩu, vai trò **Cán bộ** và **Cán bộ quản lý** giới hạn theo đơn vị.
-- Quản trị viên có màn hình quản lý người dùng và đơn vị, nhập danh sách từ Excel.
+- Có **đơn vị** dạng cây, tài khoản cán bộ đăng nhập bằng tên/mật khẩu, vai trò **Cán bộ, công chức** và **Lãnh đạo UBND xã** giới hạn theo đơn vị.
+- Admin quản trị hệ thống có màn hình quản lý người dùng và đơn vị, nhập danh sách từ Excel.
 - Có nhật ký truy cập.
 
 **Thiết kế vai trò (A5)**
-- Thang mới: `khach < can_bo < tra_cuu < quan_ly < bien_tap < phap_che < quan_tri`.
+- Thang tổ chức 5 bậc: `khach < can_bo < lanh_dao < quan_ly < quan_tri`
+  (Khách < Cán bộ, công chức < Lãnh đạo UBND xã < Admin quản lý < Admin quản trị hệ thống).
 - `can_bo` là người học: học, luyện tập, thi, tra cứu.
-- `quan_ly` = quyền của `can_bo` + giao bài + xem kết quả, **chỉ trong cây đơn vị của mình**. `quan_tri` xem được mọi đơn vị.
+- `lanh_dao` = quản lý **trong cây đơn vị của mình**: giao bài, xem báo cáo, quản lý người dùng trong đơn vị.
+- `quan_ly` = quản trị nội dung toàn hệ thống: soạn, duyệt và xuất bản. Thấy mọi đơn vị.
+- `quan_tri` = toàn quyền, gồm quản lý tài khoản và cây đơn vị.
 - Phạm vi đơn vị kiểm bằng một hàm `trongPhamVi(principal, unitId)` dùng chung. **Không** dựa vào thứ bậc vai trò.
-- `bien_tap` và `phap_che` giữ nguyên nghĩa (soạn và duyệt nội dung). Họ chỉ thấy báo cáo đơn vị khi được gắn đơn vị.
+- Hệ quả đã chấp nhận: vai trò soạn nội dung và vai trò phê duyệt gộp làm một (`quan_ly`) — người soạn cũng là người duyệt.
+  Muốn tách trở lại thì phải tách thứ bậc, không chỉ đổi nhãn.
 
 **Việc làm**
 1. **Bảng `units`** dạng cây (`parent_id` + `path ltree` để truy vấn cây con). Có mã, tên, loại cấp (tùy ý), thứ tự.
@@ -322,8 +326,8 @@ Migration mới đánh số tiếp từ **`0010_`**. Thư mục hiện có hai t
   - API trả 403 `ngoai_pham_vi`; trang web báo "Không đủ quyền" kèm lý do.
 - [x] Mỗi request API sinh một dòng `access_log`; đăng nhập sai sinh một dòng `audit_log`.
   - Hai loại request không ghi: preflight `OPTIONS` và `/health` (máy giám sát gọi liên tục).
-- [x] Các test cũ về RBAC và MCP vẫn qua. `tra_cuu` giữ quyền MCP cũ.
-  - Câu kiểm danh sách `ROLES` trong `rbac.test.ts` đã sửa theo thang mới, có thêm kiểm `tra_cuu` vẫn trên `khach` và dưới `bien_tap`.
+- [x] Các test cũ về RBAC và MCP vẫn qua. `can_bo` giữ quyền MCP cũ.
+  - Câu kiểm danh sách `ROLES` trong `rbac.test.ts` đã sửa theo thang mới, có thêm kiểm `can_bo` vẫn trên `khach` và dưới `lanh_dao`.
 
 **Trạng thái (24/9/2026):** đã làm xong, đạt 6/6 mục kiểm tra.
 - `bun test`: 743 đạt, 6 hỏng. Không lỗi nào do GĐ2:
@@ -333,7 +337,7 @@ Migration mới đánh số tiếp từ **`0010_`**. Thư mục hiện có hai t
 - Khác với dự kiến:
   - Họ tên dùng lại cột `accounts.name` sẵn có, không thêm cột `full_name`.
   - Hàm phạm vi nhận đường dẫn ltree của đơn vị (`trongPhamVi(principal, unitPath)`); API có `batBuocPhamViDonVi(c, unitId)` tra đường dẫn rồi gọi hàm này.
-  - Nhập Excel chỉ nhận vai trò Cán bộ và Cán bộ quản lý. Vai trò biên tập, pháp chế, quản trị cấp từng người trên màn hình.
+  - Nhập Excel chỉ nhận vai trò Cán bộ và Lãnh đạo UBND xã. Vai trò Admin quản lý và quản trị cấp từng người trên màn hình.
   - Mật khẩu tạm sinh ngẫu nhiên cho từng người và chỉ hiện một lần.
 - Thêm ngoài danh sách:
   - `apps/web/app/lib/quan-tri.server.ts`
@@ -343,10 +347,10 @@ Migration mới đánh số tiếp từ **`0010_`**. Thư mục hiện có hai t
   - `lib/types.ts`
   - `content/huong-dan/muc-luc.json`: miễn hướng dẫn tạm cho 3 trang mới
   - script `db:seed:don-vi`
-- Tài khoản mẫu (`bun run db:seed:don-vi`): `quantri`, `quanly.phong`, `quanly.doi1`, 7 tài khoản `canbo.*`. Mật khẩu `Matkhau2026`, hoặc đặt qua `SEED_MAT_KHAU`.
+- Tài khoản mẫu (`bun run db:seed:don-vi`): `quantri`, `quanly`, `lanhdao.phong`, `lanhdao.doi1`, 7 tài khoản `canbo.*`. Mật khẩu `Matkhau2026`, hoặc đặt qua `SEED_MAT_KHAU`.
 - Việc chuyển sang giai đoạn sau:
   - Tạo xong một người dùng trên điện thoại, thông báo mật khẩu tạm nằm ở đầu trang, cần cuộn lên mới thấy.
-  - Trang `/quan-tri` (tổng quan đào tạo) vẫn là trang tạm; cán bộ quản lý vào thẳng `/quan-tri/nguoi-dung` từ trang Tài khoản.
+  - Trang `/quan-tri` (tổng quan đào tạo) vẫn là trang tạm; Lãnh đạo UBND xã vào thẳng `/quan-tri/nguoi-dung` từ trang Tài khoản.
 
 ---
 
@@ -367,7 +371,7 @@ Migration mới đánh số tiếp từ **`0010_`**. Thư mục hiện có hai t
 - **Chấm điểm** dùng lại `packages/dao-tao/src/grading.ts` qua một lớp ánh xạ, không viết thuật toán chấm mới.
 - **Trạng thái:** `nhap → cho_duyet → da_duyet | tu_choi`, và `da_duyet → luu_tru`. Chỉ câu `da_duyet` mới được rút vào luyện tập và thi.
 - **Sửa câu đã duyệt** thì câu quay về `cho_duyet`, tăng `version`. Các lượt làm cũ giữ ảnh chụp đề (lưu ở GĐ4/GĐ6).
-- **Quyền:** `bien_tap` tạo và sửa; `phap_che` duyệt (có thể chỉnh qua cấu hình khi KH trả lời câu hỏi GAP 4.3-12).
+- **Quyền:** `quan_ly` tạo và sửa; `quan_ly` duyệt (có thể chỉnh qua cấu hình khi KH trả lời câu hỏi GAP 4.3-12).
 
 **Việc làm**
 1. Logic thuần: kiểm tra hợp lệ theo loại (đủ phương án, đúng một đáp án với `mot_dap_an`…), chấm, ánh xạ sang `grading.ts`.
@@ -423,7 +427,7 @@ Migration mới đánh số tiếp từ **`0010_`**. Thư mục hiện có hai t
   - nhập tệp mẫu 50 câu, trong đó 3 câu lỗi, ra 47 câu ở `cho_duyet`; lỗi báo đúng số dòng 7, 22, 43; chạy thử không ghi gì;
   - duyệt hàng loạt 10 câu thì bộ đếm `da_duyet` tăng 10;
   - sửa một câu đã duyệt thì câu về `cho_duyet` và `version = 2`; gửi version cũ nhận 409.
-- [x] `can_bo` gọi API quản trị ngân hàng nhận 403; `bien_tap` không duyệt được (403).
+- [x] `can_bo` gọi API quản trị ngân hàng nhận 403; `lanh_dao` không duyệt được (403).
 - [x] **Không có API người học nào trả về trường `answer`.** Test quét mọi phản hồi JSON của các route người học ở GĐ4 và GĐ6 để tìm khóa `answer`.
   - GĐ3 chưa có route người học; ranh giới là `deChoNguoiHoc`.
   - GĐ4: `apps/api/src/luyen-tap.test.ts` quét đệ quy mọi phản hồi của `/v1/luyen-tap/*` và `/v1/toi/*`, không có khóa `answer`.
@@ -448,7 +452,7 @@ Migration mới đánh số tiếp từ **`0010_`**. Thư mục hiện có hai t
   - Giải thích là bắt buộc.
   - Ghép cặp cho phép nhiều vế trái cùng một vế phải (câu phân loại).
   - Đề cho người học xếp vế phải và các bước theo chữ cái, để thứ tự không lộ đáp án.
-  - Vai trò được duyệt đặt bằng `NGAN_HANG_VAI_TRO_DUYET` (mặc định `phap_che`); mục tiêu đặt bằng `NGAN_HANG_MUC_TIEU` (mặc định 1.000).
+  - Vai trò được duyệt đặt bằng `NGAN_HANG_VAI_TRO_DUYET` (mặc định `quan_ly`); mục tiêu đặt bằng `NGAN_HANG_MUC_TIEU` (mặc định 1.000).
 - Seed `bun run db:seed:ngan-hang`:
   - 13 chủ đề giao thông;
   - 13/13 bài tập của các chuyên đề giao thông chuyển thành câu đã duyệt (cần chạy `db:seed:dao-tao:gtdb` trước);
@@ -630,14 +634,14 @@ Migration mới đánh số tiếp từ **`0010_`**. Thư mục hiện có hai t
 - [x] p95 của `/v1/tra-cuu/*` **< 300 ms** trên máy dev (đo trong `smoke`).
   - Smoke đạt 11/11: mức phạt 6 ms, tốc độ 6 ms, quy trình 4 ms.
 - [ ] Soát tay 20 dòng ngẫu nhiên đối chiếu với văn bản gốc (biên bản soát lưu trong PR).
-  - **Chưa làm:** cần biên tập viên, xem mục "Dữ liệu" bên dưới.
+  - "**Chưa làm:** cần Admin quản lý, xem mục "Dữ liệu" bên dưới.
 
 **Trạng thái (24/9/2026):** đã làm xong phần mã; dữ liệu mới là **bản nháp chờ đối chiếu**, nên người học chưa thấy mục nào.
 - **Dữ liệu:**
   - `data/tra-cuu/muc-phat.json` có 21 dòng (tốc độ, nồng độ cồn, đèn tín hiệu, điện thoại, mũ bảo hiểm, dây an toàn) cho ô tô và xe máy.
   - `data/tra-cuu/quy-trinh.json` có 2 quy trình xử phạt (không lập và có lập biên bản).
   - Các dòng được soạn khi kho **chưa có** văn bản gốc để đối chiếu, nên đều để `trang_thai: "nhap"` và căn cứ mới trỏ ở mức Điều.
-  - Trước khi duyệt, biên tập viên phải: đối chiếu mức tiền và điểm trừ; thay căn cứ bằng URN tới đúng điểm, khoản; tách dòng theo hiệu lực nếu NĐ 238/2026 đã đổi mức phạt.
+  - Trước khi duyệt, Admin quản lý phải: đối chiếu mức tiền và điểm trừ; thay căn cứ bằng URN tới đúng điểm, khoản; tách dòng theo hiệu lực nếu NĐ 238/2026 đã đổi mức phạt.
   - Quy trình xử lý tai nạn chưa soạn, chờ khách hàng cung cấp văn bản (GAP 4.5-25).
 - **Xem trước bản nháp:** API chỉ trả dòng `da_duyet`. Đặt `TRA_CUU_NHANH_BAN_NHAP=1` (chỉ dùng ở môi trường phát triển) thì API trả cả bản nháp, và mỗi thẻ ghi "Bản nháp, chưa đối chiếu văn bản".
 - **Khác với thiết kế ban đầu:**
@@ -666,7 +670,7 @@ Migration mới đánh số tiếp từ **`0010_`**. Thư mục hiện có hai t
 
 **Mục tiêu**
 - **Quản trị viên** tạo đề: cấu hình 30–40 câu theo **ma trận** chủ đề × mức độ, thời gian, ngưỡng đạt, số lần làm, trộn câu và đảo đáp án.
-- **Cán bộ quản lý** giao đề cho đơn vị hoặc cá nhân, kèm hạn làm.
+- **Lãnh đạo UBND xã** giao đề cho đơn vị hoặc cá nhân, kèm hạn làm.
 - **Cán bộ** làm bài có **đồng hồ đếm ngược**, nộp bài và xem kết quả.
 
 **Thiết kế**
@@ -781,7 +785,7 @@ Migration mới đánh số tiếp từ **`0010_`**. Thư mục hiện có hai t
 ## GĐ7 — Báo cáo, xếp hạng, xuất Excel/PDF (MỐC M2)
 
 **Mục tiêu**
-- Lãnh đạo và cán bộ quản lý xem kết quả **theo cá nhân và đơn vị**: điểm, thời gian làm bài, số lần làm, xếp hạng.
+- Lãnh đạo UBND xã xem kết quả **theo cá nhân và đơn vị**: điểm, thời gian làm bài, số lần làm, xếp hạng.
 - Xuất ra **Excel** và **PDF**.
 
 **Việc làm**
@@ -920,13 +924,13 @@ Migration mới đánh số tiếp từ **`0010_`**. Thư mục hiện có hai t
 **Kiểm tra đã xong**
 - [x] Với `LLM_PROVIDER=mock`, job sinh 5 câu vào `cho_duyet` với `source = ai`; chi phí được ghi vào `authoring_jobs`.
   - `apps/api/src/sinh-cau-hoi.test.ts`, 12 ca: tạo việc qua API → chạy worker → 5 câu `cho_duyet`, `source = ai`, lịch sử `ai_sinh`; `authoring_jobs` có `model`, `tokens_in`, `tokens_out`, `cost_usd` (mock tính chi phí bằng 0).
-  - Cùng tệp: 401/403, chạy thử không tạo việc, điều khoản chưa hiệu lực hoặc đã bãi bỏ trả 400, chạy lại một việc không sinh thêm câu, sinh lại trên cùng điều khoản thì mọi câu bị loại vì trùng câu đã có, vượt trần chi phí thì `bien_tap` nhận 403.
+  - Cùng tệp: 401/403, chạy thử không tạo việc, điều khoản chưa hiệu lực hoặc đã bãi bỏ trả 400, chạy lại một việc không sinh thêm câu, sinh lại trên cùng điều khoản thì mọi câu bị loại vì trùng câu đã có, vượt trần chi phí thì Admin quản lý nhận 403.
 - [x] Unit test: câu có căn cứ trỏ tới điều đã bãi bỏ bị loại kèm lý do; câu trùng bị đánh dấu `duplicate_of`.
   - `packages/dao-tao/tests/hau-kiem-cau-hoi.test.ts`, 15 ca: bãi bỏ, chưa hoặc hết hiệu lực, không có trong kho, ngoài ngữ cảnh, không có căn cứ, sai loại, trùng với câu đã có, trùng trong cùng lô, đọc JSON của mô hình.
 - [ ] Không route luyện tập hay thi nào rút được câu `source = ai` chưa duyệt (dùng lại test của GĐ4 và GĐ6).
   - **Thi (GĐ6):** đã kiểm trong `sinh-cau-hoi.test.ts`. `nguonCauHoiChoMaTran` không rút câu AI chưa duyệt; duyệt một câu thì rút được đúng câu đó.
   - **Luyện tập (GĐ4):** GĐ4 đang làm ở nhánh song song. Các truy vấn rút câu trong `packages/db/src/luyen-tap.ts` đều lọc `status = 'da_duyet'`. Còn chờ test API của GĐ4 chạy qua.
-- [ ] Chạy thật với khóa API trên 3 điều của NĐ 168/2024: biên tập viên soát, và ghi tỷ lệ câu dùng được vào PR để làm mốc chất lượng.
+- [ ] Chạy thật với khóa API trên 3 điều của NĐ 168/2024: Admin quản lý soát, và ghi tỷ lệ câu dùng được vào PR để làm mốc chất lượng.
   - **Chưa làm:** máy này chưa có `ANTHROPIC_API_KEY`, và CSDL chưa nạp NĐ 168/2024. Cách chạy: mở `/quan-tri/cau-hoi` → "Sinh bằng AI" → dán URN 3 điều → "Ước tính chi phí" → "Sinh câu hỏi" (cần worker `bun run start:worker` và Redis).
 
 **Trạng thái (24/9/2026):** đã làm xong phần mã; còn 2 mục kiểm tra chưa đạt (xem trên).
@@ -958,7 +962,7 @@ Migration mới đánh số tiếp từ **`0010_`**. Thư mục hiện có hai t
   - Ngăn trùng từ gốc (mọi lối): prompt có mục CÂU ĐÃ CÓ gồm đề bài tối đa 50 câu mới nhất có căn cứ thuộc các điều khoản đang sinh (`deBaiDaCoTheoCanCu`), mô hình được dặn không hỏi lại ý đó.
   - Không sinh từ điều khoản đã bãi bỏ hoặc đang ngưng hiệu lực: API trả 400 ngay từ đầu vào.
   - Mỗi lần sinh tối đa 20 câu và 40 điều khoản; mặc định 5 câu, loại Một đáp án và Đúng/sai, mức độ trộn 4 dễ, 4 trung bình, 2 khó.
-  - Việc sinh không đi Batch API, vì biên tập viên đang chờ kết quả. Ngân sách của việc bằng gấp đôi ước tính. Ước tính trên `NGAN_HANG_AI_TRAN_USD` (mặc định 2 USD) thì cần vai trò `phap_che`.
+  - Việc sinh không đi Batch API, vì người soạn đang chờ kết quả. Ngân sách của việc bằng gấp đôi ước tính. Ước tính trên `NGAN_HANG_AI_TRAN_USD` (mặc định 2 USD) thì cần vai trò `quan_tri`.
   - Không nối được Redis trong 3 giây thì API vẫn tạo việc ở trạng thái `cho`, không treo yêu cầu.
 
 ---
@@ -1631,7 +1635,7 @@ Kiểm lại tên tệp route thật trước khi sửa. Tên khác danh sách t
 ## GĐ16c — Nhóm học cùng: quản lý xem tiến độ học
 
 **Mục tiêu**
-- Cán bộ quản lý xem các nhóm học cùng có thành viên trong đơn vị mình, và tiến độ của từng thành viên trong phạm vi.
+- Lãnh đạo UBND xã xem các nhóm học cùng có thành viên trong đơn vị mình, và tiến độ của từng thành viên trong phạm vi.
 - Có báo cáo "Tiến độ học" của từng cán bộ trong cây đơn vị theo N13, xuất Excel và PDF như các báo cáo GĐ7.
 
 **Thiết kế** (PROMPT_NHOM_HOC_CUNG.md mục 2.1, 2.5 phần Quản lý và Báo cáo, 2.6 Trang quản lý; câu N11, N13 trả lời theo đề xuất, đề xuất Đ11, Đ12 được đồng ý, Đ18 trả lời "Không" ngày 29/9/2026)
@@ -1731,7 +1735,7 @@ Kiểm lại tên tệp route thật trước khi sửa. Tên khác danh sách t
 
 **Mục tiêu**
 - Trưởng nhóm nhận gợi ý thứ tự học cho các mục trong nhóm (AI-1) và tự quyết định có áp dụng không.
-- Cán bộ quản lý đọc bản tóm tắt tiến độ nhóm do AI soạn từ số liệu trong phạm vi (AI-2), đặt cạnh bảng số liệu để đối chiếu.
+- Lãnh đạo UBND xã đọc bản tóm tắt tiến độ nhóm do AI soạn từ số liệu trong phạm vi (AI-2), đặt cạnh bảng số liệu để đối chiếu.
 - Giai đoạn bỏ được nếu N12 chọn không làm AI.
 
 **Thiết kế** (PROMPT_NHOM_HOC_CUNG.md mục 2.7; N12 trả lời "AI-1 và AI-2", đồng ý đề xuất Đ7, Đ15, Đ16, Đ17 ngày 30/9/2026; mẫu GĐ8)

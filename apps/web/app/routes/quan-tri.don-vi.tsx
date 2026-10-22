@@ -36,7 +36,7 @@ interface DonVi {
 }
 
 export async function loader({ request }: Route.LoaderArgs) {
-  const { token, nguoiDung } = await yeuCauVaiTro(request, "quan_ly");
+  const { token, nguoiDung } = await yeuCauVaiTro(request, "lanh_dao");
   const { items } = await goiApiQuanTri<{ items: DonVi[] }>(token, "/v1/quan-tri/don-vi");
   return { items, laQuanTri: nguoiDung.la_quan_tri };
 }

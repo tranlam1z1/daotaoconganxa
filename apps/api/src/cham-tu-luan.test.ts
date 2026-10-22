@@ -269,7 +269,7 @@ describe("giảng viên chấm tự luận trong bài học", () => {
   let cuaToi: Array<Record<string, any>> = [];
 
   beforeAll(async () => {
-    gv = await taoTaiKhoan("giang-vien", "bien_tap");
+    gv = await taoTaiKhoan("giang-vien", "quan_ly");
   });
 
   test("học viên không vào được hàng chấm (403)", async () => {

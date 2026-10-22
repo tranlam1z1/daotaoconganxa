@@ -28,7 +28,7 @@ export function meta(_: Route.MetaArgs) {
 type CheDo = "cho_nguoi" | "da_cham_ai";
 
 export async function loader({ request }: Route.LoaderArgs) {
-  const { token } = await yeuCauVaiTro(request, "bien_tap");
+  const { token } = await yeuCauVaiTro(request, "quan_ly");
   const cheDo: CheDo =
     new URL(request.url).searchParams.get("che_do") === "da_cham_ai" ? "da_cham_ai" : "cho_nguoi";
   const { items } = await goiApiQuanTri<{ items: CauTuLuanCanCham[] }>(
@@ -41,7 +41,7 @@ export async function loader({ request }: Route.LoaderArgs) {
 type KetQua = { loi: string; khoa: string } | { ok: string; khoa: string };
 
 export async function action({ request }: Route.ActionArgs): Promise<KetQua> {
-  const { token } = await yeuCauVaiTro(request, "bien_tap");
+  const { token } = await yeuCauVaiTro(request, "quan_ly");
   const f = await request.formData();
   const luot = String(f.get("luot") ?? "");
   const cau = String(f.get("cau") ?? "");

@@ -5,7 +5,7 @@ Kịch bản trình bày hệ thống học tập và tra cứu nghiệp vụ ch
 | | |
 |---|---|
 | Thời lượng | 45 phút trình bày, 15 phút hỏi đáp. Bản rút gọn 20 phút ở mục 6 |
-| Người xem | Lãnh đạo phòng, cán bộ quản lý đội, cán bộ phụ trách đào tạo |
+| Người xem | Lãnh đạo phòng, lãnh đạo đội, cán bộ phụ trách đào tạo |
 | Địa chỉ | http://localhost:3080 (máy trình chiếu), HTTPS đường hầm cho điện thoại |
 | Mật khẩu chung | `Matkhau2026` |
 | Dữ liệu nhập trong buổi demo | [demo/demo-nhap-nguoi-dung.xlsx](demo/demo-nhap-nguoi-dung.xlsx) |
@@ -53,8 +53,8 @@ Dùng bốn hồ sơ Chrome (Profile) để không phải đăng xuất, đăng 
 |---|---|---|---|---|
 | A | `canbo.d1.01` | Đại úy Lê Quang Huy, Đội 1 | Người học chính | `/`, `/hoc` |
 | B | `canbo.d2.01` | Đại úy Vũ Đức Thắng, Đội 2 | Người học thứ hai: **chưa làm bài thi**, tham gia nhóm | `/thi` |
-| C | `quanly.doi1` | Thiếu tá Trần Minh Đức, Đội trưởng Đội 1 | Cán bộ quản lý đội | `/quan-tri/bao-cao` |
-| D | `quantri` | Quản trị hệ thống | Quản trị viên | `/quan-tri/nguoi-dung` |
+| C | `lanhdao.doi1` | Thiếu tá Trần Minh Đức, Đội trưởng Đội 1 | Lãnh đạo UBND xã | `/quan-tri/bao-cao` |
+| D | `quantri` | Admin quản trị hệ thống | Admin quản trị hệ thống | `/quan-tri/nguoi-dung` |
 
 Thiếu thời gian tạo hồ sơ thì dùng một cửa sổ thường (A) và một cửa sổ ẩn danh (lần lượt B, C, D).
 
@@ -72,8 +72,8 @@ Các trang sau còn là trang khung ("Trang đang được dựng lại trên gi
 
 | Mã | Đơn vị | Tài khoản |
 |---|---|---|
-| `PC08` | Phòng Cảnh sát giao thông | `quanly.phong` (Trung tá Nguyễn Văn Hùng, Trưởng phòng) |
-| `PC08-D1` | Đội Tuần tra kiểm soát số 1 | `quanly.doi1` (Thiếu tá Trần Minh Đức); `canbo.d1.01` Lê Quang Huy, `canbo.d1.02` Phạm Thị Lan, `canbo.d1.03` Hoàng Văn Nam |
+| `PC08` | Phòng Cảnh sát giao thông | `lanhdao.phong` (Trung tá Nguyễn Văn Hùng, Trưởng phòng) |
+| `PC08-D1` | Đội Tuần tra kiểm soát số 1 | `lanhdao.doi1` (Thiếu tá Trần Minh Đức); `canbo.d1.01` Lê Quang Huy, `canbo.d1.02` Phạm Thị Lan, `canbo.d1.03` Hoàng Văn Nam |
 | `PC08-D2` | Đội Tuần tra kiểm soát số 2 | `canbo.d2.01` Vũ Đức Thắng, `canbo.d2.02` Đỗ Thị Hạnh |
 | `PC08-D3` | Đội Điều tra giải quyết tai nạn | `canbo.d3.01` Bùi Văn Tuấn, `canbo.d3.02` Ngô Thanh Tâm |
 
@@ -97,10 +97,10 @@ Tài khoản `quantri` không thuộc đơn vị nào.
 | 2 | `canbo.d1.04` Đặng Văn Khoa | PC08-D1 | Cán bộ | Tạo được |
 | 3 | `canbo.d2.03` Lý Thị Mai | PC08-D2 | Cán bộ | Tạo được |
 | 4 | `canbo.d3.03` Phan Minh Tú | PC08-D3 | Cán bộ | Tạo được |
-| 5 | `quanly.doi2` Trịnh Quốc Bảo | PC08-D2 | Cán bộ quản lý | Tạo được |
+| 5 | `lanhdao.doi2` Trịnh Quốc Bảo | PC08-D2 | Lãnh đạo UBND xã | Tạo được |
 | 6 | `canbo.d1.01` Hồ Văn Lực | PC08-D1 | Cán bộ | Lỗi cố ý: tên đăng nhập đã có |
 | 7 | `canbo.d4.01` Mai Thanh Sơn | PC08-D4 | Cán bộ | Lỗi cố ý: không có đơn vị mã PC08-D4 |
-| 8 | `bientap.ngoc` Cao Thị Ngọc | PC08 | Biên tập viên | Lỗi cố ý: tệp chỉ nhận "Cán bộ" hoặc "Cán bộ quản lý" |
+| 8 | `quanly.ngoc` Cao Thị Ngọc | PC08 | Admin quản lý | Lỗi cố ý: tệp chỉ nhận "Cán bộ" hoặc "Lãnh đạo UBND xã" |
 
 Tệp đã được đọc thử bằng đúng bộ đọc của API. Tệp chỉ nhập thật **một lần**: lần sau các dòng báo "đã có". Muốn nhập lại thì dựng lại bằng `bun run demo --lam-lai`.
 
@@ -127,7 +127,7 @@ Mỗi bước ghi: hồ sơ Chrome, thao tác, lời dẫn (gợi ý, nói theo 
 **Thao tác:** mở `/` của `canbo.d1.01`.
 
 **Lời dẫn:**
-> Hệ thống gồm ba phần trên một ứng dụng web: tra cứu văn bản và quy định nghiệp vụ, học bài giảng, luyện tập và thi. Cán bộ dùng trên máy tính hoặc cài lên điện thoại. Cán bộ quản lý giao bài và xem báo cáo trên cùng ứng dụng.
+> Hệ thống gồm ba phần trên một ứng dụng web: tra cứu văn bản và quy định nghiệp vụ, học bài giảng, luyện tập và thi. Cán bộ dùng trên máy tính hoặc cài lên điện thoại. Lãnh đạo UBND xã giao bài và xem báo cáo trên cùng ứng dụng.
 >
 > Dữ liệu hôm nay là dữ liệu mẫu chạy trên máy này. Tên người, đơn vị là giả định. Một phần câu hỏi và dữ liệu tra cứu được duyệt tự động để chạy thử, chưa qua đơn vị chuyên môn đối chiếu. Hệ thống thật chỉ hiện cho cán bộ những nội dung đã duyệt.
 
@@ -146,7 +146,7 @@ Mỗi bước ghi: hồ sơ Chrome, thao tác, lời dẫn (gợi ý, nói theo 
 
 Không có key AI thì bỏ 1.6. Nếu người xem hỏi, mở `/hoi-dap`: trang báo "Hỏi đáp AI chưa được cấu hình trên máy chủ này", không đưa câu trả lời giả.
 
-**Lưu ý khi nói:** mức phạt, biển báo trong bản demo là bản nháp duyệt tự động; trên hệ thống thật, pháp chế duyệt từng dòng (xem bước 6d).
+**Lưu ý khi nói:** mức phạt, biển báo trong bản demo là bản nháp duyệt tự động; trên hệ thống thật, Admin quản lý duyệt từng dòng (xem bước 6d).
 
 ### Bước 2. Học bài giảng (7 phút) · Hồ sơ A
 
@@ -190,7 +190,7 @@ Không có key AI thì bỏ 1.6. Nếu người xem hỏi, mở `/hoi-dap`: tran
 | 4.4 | A | Trong nhóm, "Chia sẻ vào nhóm" → "Đề ôn tập", chủ đề "Giấy phép lái xe", 5 câu, tên `Đề ôn giấy phép lái xe` | Trưởng nhóm chia sẻ bài học, đề ôn; đặt hạn gợi ý | Mục mới trong nhóm |
 | 4.5 | A | Trong nhóm vừa tạo, bấm "Cổ vũ" ở dòng của B | Thành viên cổ vũ nhau; cổ vũ chỉ để động viên, không tính vào kết quả học | Số lượt cổ vũ |
 
-### Bước 5. Cán bộ quản lý (4 phút) · Hồ sơ C (`quanly.doi1`)
+### Bước 5. Lãnh đạo UBND xã (4 phút) · Hồ sơ C (`lanhdao.doi1`)
 
 | # | Thao tác | Lời dẫn | Người xem thấy |
 |---|---|---|---|
@@ -207,7 +207,7 @@ Không có key AI thì bỏ 1.6. Nếu người xem hỏi, mở `/hoi-dap`: tran
 |---|---|---|
 | 1 | `/quan-tri/nguoi-dung`, mục "Nhập danh sách từ Excel", chọn `docs/demo/demo-nhap-nguoi-dung.xlsx`, **để nguyên ô "Chạy thử"**, nhập | 4 dòng hợp lệ; dòng 6, 7, 8 báo lỗi kèm lý do (mục 2.3) |
 | 2 | Bỏ chọn "Chạy thử", nhập lại | 4 tài khoản được tạo, mỗi người một mật khẩu tạm |
-| 3 | (Nói) | Dòng lỗi không chặn dòng đúng. Người mới phải đổi mật khẩu tạm ở lần đăng nhập đầu. Vai trò biên tập, pháp chế, quản trị cấp riêng từng người, không cấp qua tệp |
+| 3 | (Nói) | Dòng lỗi không chặn dòng đúng. Người mới phải đổi mật khẩu tạm ở lần đăng nhập đầu. Vai trò Admin quản lý và quản trị cấp riêng từng người, không cấp qua tệp |
 
 **6b. Ngân hàng câu hỏi: nhập và duyệt**
 
@@ -248,8 +248,8 @@ Chiếu màn hình điện thoại (cáp hoặc ứng dụng chiếu), đã chu�
 
 | Câu hỏi | Trả lời |
 |---|---|
-| Mức phạt, biển báo lấy từ đâu, có đúng không? | Từ văn bản trong kho. Bản demo dùng bản nháp duyệt tự động để chạy thử. Hệ thống thật chỉ hiện dòng đã được pháp chế duyệt, kèm căn cứ tới điều, khoản. |
-| Văn bản sửa đổi thì sao? | Văn bản lưu theo phiên bản và thời điểm áp dụng; dòng tra cứu, câu hỏi gắn căn cứ. Sửa một dòng dữ liệu thì dòng đó về chờ duyệt; ví dụ sửa một mức phạt thì dòng tra cứu đó về chờ duyệt cho tới khi pháp chế duyệt lại. |
+| Mức phạt, biển báo lấy từ đâu, có đúng không? | Từ văn bản trong kho. Bản demo dùng bản nháp duyệt tự động để chạy thử. Hệ thống thật chỉ hiện dòng đã được Admin quản lý duyệt, kèm căn cứ tới điều, khoản. |
+| Văn bản sửa đổi thì sao? | Văn bản lưu theo phiên bản và thời điểm áp dụng; dòng tra cứu, câu hỏi gắn căn cứ. Sửa một dòng dữ liệu thì dòng đó về chờ duyệt; ví dụ sửa một mức phạt thì dòng tra cứu đó về chờ duyệt cho tới khi Admin quản lý duyệt lại. |
 | AI có trả lời sai, bịa căn cứ không? | Trợ lý chỉ trả lời từ văn bản trong kho và kèm căn cứ. Kho không có căn cứ thì trả lời là chưa có căn cứ. Câu hỏi do AI sinh vẫn phải qua duyệt. |
 | Không có mạng có dùng được không? | Cài ứng dụng lên điện thoại, tải chủ đề luyện tập về máy. Kết quả gửi lên và chấm lại khi có mạng. |
 | Cán bộ có gian lận điểm được không? | Điểm bài thi chấm trên máy chủ; mỗi lượt thi có hạn và số lượt tối đa do quản trị đặt. |

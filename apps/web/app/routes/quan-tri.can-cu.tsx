@@ -13,7 +13,7 @@ import type { Route } from "./+types/quan-tri.can-cu";
 export type DuLieuCanCu = { items: VanBanTimThay[] } | { urn: string; dieu: DieuCanCu[] } | { loi: string };
 
 export async function loader({ request }: Route.LoaderArgs) {
-  const { token } = await yeuCauVaiTro(request, "bien_tap");
+  const { token } = await yeuCauVaiTro(request, "quan_ly");
   const p = new URL(request.url).searchParams;
   const urn = p.get("urn");
   try {

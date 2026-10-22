@@ -117,7 +117,7 @@ export default function BienBaoPage({ loaderData }: Route.ComponentProps) {
         <div className="mt-6">
           <EmptyState icon="search" title={q ? `Không có biển nào khớp "${q}"` : "Chưa có biển báo nào"}>
             {!q ? (
-              <p>Biển báo hiện ra sau khi biên tập viên đối chiếu với QCVN 41:2024/BGTVT và duyệt.</p>
+              <p>Biển báo hiện ra sau khi quản trị viên nội dung đối chiếu với QCVN 41:2024/BGTVT và duyệt.</p>
             ) : null}
           </EmptyState>
         </div>

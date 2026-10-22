@@ -42,20 +42,31 @@ describe("danh sách công cụ lọc theo vai trò", () => {
     await c.close();
   });
 
-  test("biên tập viên thấy thêm công cụ vận hành nhưng không thấy duyệt lệnh", async () => {
-    const c = await connect("bien_tap", true);
+  test("cán bộ thấy công cụ chẩn đoán kho nhưng không thấy công cụ vận hành", async () => {
+    const c = await connect("can_bo", true);
     const names = (await c.listTools()).tools.map((t) => t.name);
-    expect(names).toContain("hang_doi_bien_tap");
-    expect(names).toContain("thu_hop_nhat");
+    expect(names).toContain("thong_ke_kho");
+    expect(names).not.toContain("hang_doi_bien_tap");
     expect(names).not.toContain("duyet_lenh_sua_doi");
     expect(names).not.toContain("quan_ly_tai_khoan");
     await c.close();
   });
 
-  test("pháp chế thấy công cụ duyệt lệnh", async () => {
-    const c = await connect("phap_che", true);
+  test("Admin quản lý thấy công cụ vận hành nhưng không quản lý tài khoản", async () => {
+    const c = await connect("quan_ly", true);
     const names = (await c.listTools()).tools.map((t) => t.name);
+    expect(names).toContain("hang_doi_bien_tap");
+    expect(names).toContain("thu_hop_nhat");
     expect(names).toContain("duyet_lenh_sua_doi");
+    expect(names).not.toContain("quan_ly_tai_khoan");
+    await c.close();
+  });
+
+  test("lãnh đạo UBND xã không thấy công cụ quản trị nội dung", async () => {
+    const c = await connect("lanh_dao", true);
+    const names = (await c.listTools()).tools.map((t) => t.name);
+    expect(names).not.toContain("hang_doi_bien_tap");
+    expect(names).not.toContain("duyet_lenh_sua_doi");
     expect(names).not.toContain("quan_ly_tai_khoan");
     await c.close();
   });
@@ -92,7 +103,7 @@ describe("danh sách công cụ lọc theo vai trò", () => {
 
 describe("công cụ tra cứu hoạt động trên dữ liệu thật", () => {
   test("tìm kiếm trả về kết quả kèm URN", async () => {
-    const c = await connect("tra_cuu");
+    const c = await connect("can_bo");
     const r: any = await c.callTool({
       name: "tim_kiem_quy_dinh",
       arguments: { cau_hoi: "kế hoạch thử nghiệm", as_of: "2026-06-01" },
@@ -103,7 +114,7 @@ describe("công cụ tra cứu hoạt động trên dữ liệu thật", () => {
   });
 
   test("đọc văn bản theo hai thời điểm cho nội dung khác nhau", async () => {
-    const c = await connect("tra_cuu");
+    const c = await connect("can_bo");
     const a: any = await c.callTool({
       name: "doc_van_ban",
       arguments: { van_ban: "100/2026/NĐ-CP", as_of: "2026-06-01" },
@@ -119,7 +130,7 @@ describe("công cụ tra cứu hoạt động trên dữ liệu thật", () => {
   });
 
   test("kiểm tra căn cứ phát hiện nút đã bị bãi bỏ", async () => {
-    const c = await connect("tra_cuu");
+    const c = await connect("can_bo");
     const r: any = await c.callTool({
       name: "kiem_tra_can_cu",
       arguments: {
@@ -133,7 +144,7 @@ describe("công cụ tra cứu hoạt động trên dữ liệu thật", () => {
   });
 
   test("kiểm tra căn cứ chấp nhận nút còn hiệu lực", async () => {
-    const c = await connect("tra_cuu");
+    const c = await connect("can_bo");
     const r: any = await c.callTool({
       name: "kiem_tra_can_cu",
       arguments: { can_cu: ["khoản 1 Điều 3 Nghị định 100/2026/NĐ-CP"], as_of: "2026-06-01" },
@@ -143,7 +154,7 @@ describe("công cụ tra cứu hoạt động trên dữ liệu thật", () => {
   });
 
   test("phát hiện căn cứ trỏ tới văn bản chưa có trong kho", async () => {
-    const c = await connect("tra_cuu");
+    const c = await connect("can_bo");
     const r: any = await c.callTool({
       name: "kiem_tra_can_cu",
       arguments: { can_cu: ["Điều 9 Nghị định số 999/2099/NĐ-CP"] },
@@ -153,7 +164,7 @@ describe("công cụ tra cứu hoạt động trên dữ liệu thật", () => {
   });
 
   test("so sánh hai thời điểm chỉ ra đúng thay đổi", async () => {
-    const c = await connect("tra_cuu");
+    const c = await connect("can_bo");
     const r: any = await c.callTool({
       name: "so_sanh_thoi_diem",
       arguments: { van_ban: "100/2026/NĐ-CP", tu_ngay: "2026-06-01", den_ngay: "2027-08-01" },
@@ -164,7 +175,7 @@ describe("công cụ tra cứu hoạt động trên dữ liệu thật", () => {
   });
 
   test("đối chiếu thứ bậc theo Điều 4 Luật Ban hành VBQPPL", async () => {
-    const c = await connect("tra_cuu");
+    const c = await connect("can_bo");
     const r: any = await c.callTool({
       name: "doi_chieu_thu_bac",
       arguments: { van_ban_a: "100/2026/NĐ-CP", van_ban_b: "150/2027/NĐ-CP" },
@@ -175,7 +186,7 @@ describe("công cụ tra cứu hoạt động trên dữ liệu thật", () => {
   });
 
   test("văn bản không tồn tại thì báo lỗi rõ ràng, không đoán bừa", async () => {
-    const c = await connect("tra_cuu");
+    const c = await connect("can_bo");
     const r: any = await c.callTool({ name: "doc_van_ban", arguments: { van_ban: "999/1999/XYZ" } });
     expect(r.isError).toBe(true);
     expect(r.content[0].text).toContain("Không tìm thấy");
@@ -186,7 +197,7 @@ describe("công cụ tra cứu hoạt động trên dữ liệu thật", () => {
 describe("nhật ký gọi công cụ", () => {
   test("mọi lần gọi đều được ghi kèm danh tính", async () => {
     await sql`DELETE FROM mcp_call_log WHERE email = ${EMAIL}`;
-    const c = await connect("tra_cuu");
+    const c = await connect("can_bo");
     await c.callTool({ name: "thong_ke_kho", arguments: {} });
     await c.close();
     await new Promise((r) => setTimeout(r, 150));
@@ -194,14 +205,14 @@ describe("nhật ký gọi công cụ", () => {
       (await sql`SELECT tool, email, role, allowed FROM mcp_call_log WHERE email = ${EMAIL}`) as any[];
     expect(rows.length).toBeGreaterThan(0);
     expect(rows[0].tool).toBe("thong_ke_kho");
-    expect(rows[0].role).toBe("tra_cuu");
+    expect(rows[0].role).toBe("can_bo");
     expect(rows[0].allowed).toBe(true);
   });
 });
 
 describe("tài nguyên và mẫu nhắc việc", () => {
   test("liệt kê tài nguyên và đọc được văn bản theo URN", async () => {
-    const c = await connect("tra_cuu");
+    const c = await connect("can_bo");
     const res = await c.listResources();
     expect(res.resources.some((r) => r.uri.startsWith("vbqppl://"))).toBe(true);
     const doc = await c.readResource({
@@ -212,7 +223,7 @@ describe("tài nguyên và mẫu nhắc việc", () => {
   });
 
   test("mẫu nhắc việc trả về quy trình bắt buộc", async () => {
-    const c = await connect("tra_cuu");
+    const c = await connect("can_bo");
     const list = await c.listPrompts();
     expect(list.prompts.map((p) => p.name)).toContain("tra-loi-co-can-cu");
     const p = await c.getPrompt({

@@ -69,7 +69,7 @@ beforeAll(async () => {
     await taoDonVi({ code: `${PREFIX}-DOI-B`, name: "Đội B thử", parentId: donVi.phong }, actor)
   ).id;
   tk.quanTri = await taoTaiKhoan("quan-tri", "quan_tri", null);
-  tk.quanLyA = await taoTaiKhoan("quan-ly-a", "quan_ly", donVi.doiA);
+  tk.quanLyA = await taoTaiKhoan("quan-ly-a", "lanh_dao", donVi.doiA);
   await taoTaiKhoan("can-bo-b", "can_bo", donVi.doiB);
 });
 
@@ -81,7 +81,7 @@ async function tepMuoiDong(): Promise<File> {
     hoTen: `Cán bộ số ${i + 1}`,
     tenDangNhap: `${PREFIX}-nhap-${i + 1}`,
     maDonVi: i % 2 === 0 ? `${PREFIX}-DOI-A` : `${PREFIX}-DOI-B`,
-    vaiTro: i === 0 ? "Cán bộ quản lý" : "Cán bộ",
+    vaiTro: i === 0 ? "Lãnh đạo UBND xã" : "Cán bộ",
     capBac: "Thiếu úy",
     email: "",
   }));
@@ -160,7 +160,7 @@ describe("nhập người dùng từ Excel", () => {
       WHERE username LIKE ${`${PREFIX}-nhap-%`}`) as any[];
     expect(rows.every((x) => x.must_change_password)).toBe(true);
     expect(rows.every((x) => String(x.password_hash).startsWith("$argon2id$"))).toBe(true);
-    expect(rows.find((x) => x.username === `${PREFIX}-nhap-1`).role).toBe("quan_ly");
+    expect(rows.find((x) => x.username === `${PREFIX}-nhap-1`).role).toBe("lanh_dao");
     // Lưu mật khẩu tạm của người đầu tiên cho luồng đăng nhập bên dưới.
     matKhauNhap = r.body.taoMoi.find((t: any) => t.username === `${PREFIX}-nhap-3`).matKhauTam;
   });
@@ -314,7 +314,7 @@ describe("xác minh cán bộ tự đăng ký", () => {
     dv.goc = (await taoDonVi({ code: `${PREFIX}-XM-GOC`, name: "Phòng xác minh thử" }, actor)).id;
     dv.doiC = (await taoDonVi({ code: `${PREFIX}-XM-C`, name: "Đội C thử", parentId: dv.goc }, actor)).id;
     dv.doiD = (await taoDonVi({ code: `${PREFIX}-XM-D`, name: "Đội D thử", parentId: dv.goc }, actor)).id;
-    quanLyC = await taoTaiKhoan("quan-ly-c", "quan_ly", dv.doiC);
+    quanLyC = await taoTaiKhoan("quan-ly-c", "lanh_dao", dv.doiC);
   });
 
   test("cán bộ quản lý thấy và duyệt người khai đơn vị mình; duyệt xong thành cán bộ", async () => {

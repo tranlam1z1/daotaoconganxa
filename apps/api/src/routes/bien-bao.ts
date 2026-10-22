@@ -2,7 +2,7 @@
  * Biển báo (docs/PLAN.md GĐ12).
  *
  *  - `bienBao`, gắn ở /v1/tra-cuu/bien-bao: tra cứu công khai như phần tra cứu nhanh. Chỉ biển
- *    đã duyệt; bật TRA_CUU_NHANH_BAN_NHAP=1 để biên tập viên xem cả bản nháp.
+ *    đã duyệt; bật TRA_CUU_NHANH_BAN_NHAP=1 để Admin quản lý xem cả bản nháp.
  */
 
 import { NHOM_BIEN_BAO } from "@qdpl/dao-tao";

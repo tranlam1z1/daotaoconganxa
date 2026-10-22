@@ -24,7 +24,7 @@ export function meta(_: Route.MetaArgs) {
 }
 
 export async function loader({ request }: Route.LoaderArgs) {
-  const { token, nguoiDung } = await yeuCauVaiTro(request, "bien_tap");
+  const { token, nguoiDung } = await yeuCauVaiTro(request, "quan_ly");
   const [{ items: linhVuc }, danhMuc] = await Promise.all([
     goiApiQuanTri<{ items: LinhVucQuanTri[] }>(token, "/v1/quan-tri/dao-tao/linh-vuc"),
     goiApiQuanTri<DanhMucVanBan>(token, `${API_VAN_BAN}/loai`),
@@ -33,7 +33,7 @@ export async function loader({ request }: Route.LoaderArgs) {
 }
 
 export async function action({ request }: Route.ActionArgs): Promise<{ loi: string }> {
-  const { token } = await yeuCauVaiTro(request, "bien_tap");
+  const { token } = await yeuCauVaiTro(request, "quan_ly");
   const f = await request.formData();
   const tep = f.get("tep");
   if (!(tep instanceof File) || !tep.size) return { loi: "Chưa chọn tệp PDF." };

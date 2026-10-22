@@ -5,7 +5,7 @@
       "command": "bun",
       "args": ["run", "apps/mcp/src/index.ts"],
       "env": {
-        "MCP_LOCAL_ROLE": "bien_tap",
+        "MCP_LOCAL_ROLE": "quan_ly",
         "QDPL_MCP_ALLOW_WRITE": "1"
       }
     }

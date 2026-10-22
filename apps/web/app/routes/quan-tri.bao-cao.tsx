@@ -52,7 +52,7 @@ type DuLieu =
   | { loai: "tien-do-hoc"; data: BaoCaoTienDoHoc };
 
 export async function loader({ request }: Route.LoaderArgs) {
-  const { token } = await yeuCauVaiTro(request, "quan_ly");
+  const { token } = await yeuCauVaiTro(request, "lanh_dao");
   const p = new URL(request.url).searchParams;
   const tabRaw = p.get("tab") ?? BAO_CAO_CAN_BO;
   const tab: LoaiBaoCao = (LOAI_BAO_CAO as readonly string[]).includes(tabRaw)

@@ -291,7 +291,7 @@ function mockKhoiBaiHoc(nut: NutNguCanh[]): { khoi: unknown[] } {
       khoi: [
         {
           kind: "canh_bao",
-          data: { md: "Chưa đủ căn cứ trong kho — cần biên tập viên bổ sung.", loai: "thieu_can_cu" },
+          data: { md: "Chưa đủ căn cứ trong kho — cần quản trị viên nội dung bổ sung.", loai: "thieu_can_cu" },
           citations: [],
         },
       ],

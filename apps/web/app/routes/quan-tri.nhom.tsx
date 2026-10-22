@@ -41,7 +41,7 @@ const GIOI_HAN = 300;
 const LOC = ["don_vi", "q", "trang_thai"] as const;
 
 export async function loader({ request }: Route.LoaderArgs) {
-  const { token } = await yeuCauVaiTro(request, "quan_ly");
+  const { token } = await yeuCauVaiTro(request, "lanh_dao");
   const p = new URL(request.url).searchParams;
   const loc: Record<string, string> = {};
   for (const k of LOC) {

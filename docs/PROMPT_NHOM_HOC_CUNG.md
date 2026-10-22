@@ -30,7 +30,7 @@
 ### 1.1. Người dùng
 
 - **Người học** là cán bộ, chiến sĩ (vai trò `can_bo`), học trên điện thoại xen giữa ca trực. Mỗi lần mở nhóm chỉ vài phút: xem còn bài nào chưa học, học tiếp, cổ vũ đồng đội.
-- **Cán bộ quản lý** (vai trò `quan_ly`) xem trên máy tính là chính, cần bảng, bộ lọc và xuất Excel như báo cáo GĐ7.
+- **Lãnh đạo UBND xã** (vai trò `lanh_dao`) xem trên máy tính là chính, cần bảng, bộ lọc và xuất Excel như báo cáo GĐ7.
 - Nhóm học cùng là **hoạt động tự nguyện**. Nó không thay việc giao bài, giao đề chính thức (`exam_assignments`).
 
 ### 1.2. Tài liệu phải đọc trước khi làm
@@ -48,9 +48,9 @@
 - Kiểm đầu vào bằng zod qua `parseBody`, `parseQuery`. Lỗi dùng `badRequest`, `notFound`, `conflict`. Tất cả ở `apps/api/src/http.ts`.
   - `ApiError` chỉ có mã 400, 404, 409, 500, 501.
   - 403 ném bằng lớp `KhongDuQuyen`, `NgoaiPhamVi` ở `apps/api/src/auth.ts`. 429 và 503 trả thẳng bằng `c.json(..., mã)`, ví dụ `routes/ask.ts`.
-- Vai trò ở `packages/auth/src/rbac.ts`, thứ tự từ thấp lên: `khach < can_bo < tra_cuu < quan_ly < bien_tap < phap_che < quan_tri`.
+- Vai trò ở `packages/auth/src/rbac.ts`, thứ tự từ thấp lên: `khach < can_bo < lanh_dao < quan_ly < quan_tri`.
   - Không có vai trò "học viên": người học là `can_bo`.
-  - Hàm `trongPhamVi(principal, unitPath)` kiểm theo cây đơn vị (ltree). Tài khoản chưa gắn đơn vị thì không nằm trong phạm vi của ai, trừ `quan_tri`.
+  - Hàm `trongPhamVi(principal, unitPath)` kiểm theo cây đơn vị (ltree). Tài khoản chưa gắn đơn vị thì không nằm trong phạm vi của ai, trừ `quan_ly` và `quan_tri` (hai vai trò này thấy mọi đơn vị).
 - Hàm kiểm quyền trong `apps/api/src/auth.ts`: `batBuocDangNhap`, `batBuocVaiTro`, `phamViCua`, `batBuocPhamViDonVi`. Hàm `ghiNhatKy` cùng tệp ghi `audit_log`.
 - Phía web: `yeuCauVaiTro`, `duVaiTro` ở `apps/web/app/lib/session.server.ts`.
 - **Giới hạn tần suất (429):** không có hàm dùng chung.
@@ -132,8 +132,8 @@
    - Điểm chỉ người học và quản lý có phạm vi xem, như quy tắc hiện có.
    - Phản hồi API cho thành viên phải qua test quét khóa cấm (mục 2.5).
 3. **Phạm vi quản lý áp ở tầng truy vấn** (`phamViCua`, `trongPhamVi`), không chỉ ở giao diện.
-   - `quan_ly` chỉ thấy thành viên thuộc cây đơn vị của mình. Thành viên ngoài phạm vi chỉ hiện số lượng.
-   - `quan_tri` thấy tất cả.
+   - `lanh_dao` chỉ thấy thành viên thuộc cây đơn vị của mình. Thành viên ngoài phạm vi chỉ hiện số lượng.
+   - `quan_ly` và `quan_tri` thấy tất cả.
 4. **Chỉ chia sẻ nội dung đã xuất bản hoặc đã duyệt:** bài học `xuat_ban`, câu hỏi `da_duyet`.
    - Nội dung bị gỡ sau khi đã chia sẻ thì mục hiện "Nội dung không còn được xuất bản" và không tính vào tiến độ.
 5. **Việc làm trong nhóm không tính vào tiến độ cá nhân.** Tiến độ nhóm tính bằng phần trăm bài học và đề ôn tập; cổ vũ không ảnh hưởng tiến độ (N8).
@@ -179,7 +179,7 @@
 
 *N16 đã trả lời ngày 29/9/2026 (xem gạch đầu dòng cuối mục này). Đã áp câu N11 và đề xuất Đ11 ngày 29/9/2026 (hai gạch đầu dòng cuối).*
 
-| Hành động | Thành viên | Trưởng nhóm | `quan_ly` (cây đơn vị của mình) | `quan_tri` |
+| Hành động | Thành viên | Trưởng nhóm | `lanh_dao` (cây đơn vị của mình) | `quan_ly`, `quan_tri` (mọi đơn vị) |
 |---|---|---|---|---|
 | Tạo nhóm | `can_bo` trở lên, kể cả người chưa có nhóm | — | Có, với tư cách người học | Có |
 | Tham gia bằng mã mời | Có (N3) | — | Có, với tư cách người học | Có |
@@ -200,7 +200,7 @@
 - Nhóm đã lưu trữ chỉ còn xem được, mọi thao tác ghi trả 409.
 - Trưởng nhóm bị khóa tài khoản (N16): lần đọc hoặc ghi kế tiếp vào nhóm chuyển quyền cho thành viên đang ở trong nhóm có `joined_at` sớm nhất và tài khoản còn hoạt động. Không còn ai thì nhóm chuyển `luu_tru`.
 - Quản lý (N11): xem, và lưu trữ nhóm có trưởng nhóm trong phạm vi, ghi `audit_log` `nhom.luu_tru`. Không sửa nội dung, không giao bài qua nhóm, không cổ vũ từ trang quản trị.
-- Phạm vi (Đ11): thành viên chưa gắn đơn vị là "ngoài phạm vi" với mọi `quan_ly`, chỉ `quan_tri` thấy. `quan_ly` chưa gắn đơn vị gọi `/v1/quan-tri/nhom` nhận 403.
+- Phạm vi (Đ11): thành viên chưa gắn đơn vị là "ngoài phạm vi" với mọi `lanh_dao`, chỉ `quan_tri` thấy. `lanh_dao` chưa gắn đơn vị gọi `/v1/quan-tri/nhom` nhận 403.
 
 ### 2.2. Mô hình dữ liệu (migration `0056_nhom_hoc_cung.sql`)
 
@@ -392,7 +392,7 @@ Mọi đầu vào kiểm bằng zod với `.strict()`, để khóa lạ (ví d�
 - Phiên đề ôn tập làm và kết thúc bằng các route luyện tập có sẵn. `GET /v1/luyen-tap/phien/:id` trả thêm `nhom: { id, ten_de }` khi `source = 'nhom'` (Đ14).
 - **Test quét khóa cấm:** phản hồi của `GET /v1/nhom/:id` và `GET /v1/nhom/:id/thanh-vien/:accountId/tien-do` không được chứa các khóa `score`, `diem`, `correct`, `so_cau_dung`, `passed`, `dat` ở bất kỳ độ sâu nào.
 
-**Quản lý: `/v1/quan-tri/nhom`** (`quan_ly` trở lên, lọc theo `phamViCua`; `quan_ly` chưa gắn đơn vị nhận 403, Đ11)
+**Quản lý: `/v1/quan-tri/nhom`** (`lanh_dao` trở lên, lọc theo `phamViCua`; `lanh_dao` chưa gắn đơn vị nhận 403, Đ11)
 
 | Phương thức, đường dẫn | Việc |
 |---|---|
@@ -537,7 +537,7 @@ Ghi trả lời vào cột cuối. Phiên làm mã đọc cột này.
 | N13 | "Quản lý xem tiến độ học của mọi học viên": phạm vi đến đâu? | Báo cáo tiến độ chung của từng cán bộ trong cây đơn vị (bài học, luyện tập, thi, nhóm), không chỉ trong nhóm | Chỉ tiến độ trong các nhóm học cùng | Theo đề xuất (29/9/2026) |
 | N14 | Trang bài học chưa gửi vị trí khối đang đọc (mục 1.3), nên phần trăm một bài học hiện chỉ là 0 hoặc 100. Có sửa trang bài học trong GĐ16 không? | Không sửa. Hàm tính vẫn theo công thức `phanTramBai`, nên tự đúng khi trang bài học gửi vị trí khối sau này. Giao diện nhóm hiện bài học là 0% hoặc 100% | GĐ16b sửa `training.lesson.tsx`: mở bài từ nhóm thì ghi danh trước; đọc qua một khối thì gửi `lastBlockOrdinal` qua `POST /v1/dao-tao/bai/:id/tien-do`. Thêm tệp vào "File sửa" GĐ16b và ca kiểm vào `scripts/e2e/bai-giang.ts` | Theo đề xuất (29/9/2026) |
 | N15 | Nếu N9 chọn có thông báo: người dùng tắt riêng thông báo nhóm bằng cách nào? | Thêm cột `notification_prefs.group_activity` (mặc định bật) trong `0056` và công tắc "Thông báo nhóm học" trong khối nhắc học ở `/toi`. Thông báo phát trong nhịp job `nhac-hoc`, trễ tối đa 15 phút, không gửi trong giờ yên lặng | Không có công tắc riêng; muốn tắt thì tắt toàn bộ thông báo trên thiết bị | Theo đề xuất (29/9/2026) |
-| N16 | Trưởng nhóm bị khóa tài khoản (`enabled = false`) thì ai giữ quyền trưởng nhóm? | Khi đọc hoặc ghi vào nhóm, máy chủ thấy trưởng nhóm bị khóa thì chuyển quyền cho thành viên đang ở trong nhóm có `joined_at` sớm nhất. Không còn ai thì nhóm chuyển `luu_tru` | Giữ nguyên: nhóm không có trưởng nhóm hoạt động cho tới khi quản lý lưu trữ. Hoặc cho `quan_ly` chỉ định trưởng nhóm mới trong phạm vi, ghi `audit_log` | Theo đề xuất (29/9/2026) |
+| N16 | Trưởng nhóm bị khóa tài khoản (`enabled = false`) thì ai giữ quyền trưởng nhóm? | Khi đọc hoặc ghi vào nhóm, máy chủ thấy trưởng nhóm bị khóa thì chuyển quyền cho thành viên đang ở trong nhóm có `joined_at` sớm nhất. Không còn ai thì nhóm chuyển `luu_tru` | Giữ nguyên: nhóm không có trưởng nhóm hoạt động cho tới khi quản lý lưu trữ. Hoặc cho `lanh_dao` chỉ định trưởng nhóm mới trong phạm vi, ghi `audit_log` | Theo đề xuất (29/9/2026) |
 | N17 | Đề ôn tập có câu cố định. Làm lại nhiều lần thì phần trăm mục tính thế nào? | Được làm lại. Phần trăm mục lấy theo phiên có phần trăm cao nhất như mục 2.3 | Chỉ tính lần làm đầu tiên | Theo đề xuất (29/9/2026) |
 
 **Soát bảng ngày 29/9/2026**
@@ -573,7 +573,7 @@ Câu cần trả lời trước từng giai đoạn:
 | Đ8 | 2.4 giới hạn 60 lần/phút; 2.5 `POST /tham-gia` | Không có hàm giới hạn tần suất dùng chung (mục 1.3) | Mã mời sai: thêm bảng `study_group_join_attempts (id bigserial, account_id, ok boolean, created_at)` vào `0056`, đếm 15 phút như `login_attempts`, không mất khi khởi động lại. Nút cổ vũ: đếm trong bộ nhớ theo mẫu `choPhepDoc`. Trả 429 bằng `c.json(..., 429)` | Đồng ý (29/9/2026) |
 | Đ9 | 2.4 thông báo; mục 4 GĐ16a việc 7 | API không gửi được Web Push; `phatThongBao` chỉ được job `nhac-hoc` gọi (mục 1.3) | API không phát thông báo. Thêm nhánh `nhom_hoc` vào `thongBaoCanGui` (`lich-nhac.ts`) và `chayNhacHoc` (`thong-bao.ts`): người có lượt cổ vũ mới hoặc mục mới trong ngày nhận một thông báo, `ref` là ngày. Không cần nới CHECK vì `notifications_sent.kind` không có CHECK. Công tắc theo N15 | Đồng ý (29/9/2026) |
 | Đ10 | 2.4, 2.5 phản hồi cổ vũ | Các khóa khác của `/v1/nhom` và route luyện tập viết snake_case | Trả `{ da_co_vu, tong }` thay cho `{ daCoVu, tong }` | Đồng ý (29/9/2026) |
-| Đ11 | 2.1, 2.5 quản lý | `trongPhamVi` trả false với tài khoản chưa gắn đơn vị; báo cáo GĐ7 trả 403 cho `quan_ly` chưa gắn đơn vị | Ghi rõ: thành viên chưa gắn đơn vị là "ngoài phạm vi" với mọi `quan_ly`, chỉ `quan_tri` thấy. `quan_ly` chưa gắn đơn vị gọi `/v1/quan-tri/nhom` nhận 403 | Đồng ý (29/9/2026) |
+| Đ11 | 2.1, 2.5 quản lý | `trongPhamVi` trả false với tài khoản chưa gắn đơn vị; báo cáo GĐ7 trả 403 cho `lanh_dao` chưa gắn đơn vị | Ghi rõ: thành viên chưa gắn đơn vị là "ngoài phạm vi" với mọi `lanh_dao`, chỉ `quan_tri` thấy. `lanh_dao` chưa gắn đơn vị gọi `/v1/quan-tri/nhom` nhận 403 | Đồng ý (29/9/2026) |
 | Đ12 | 2.5 báo cáo tiến độ học | `chuanBi()`, `traVe()` trong `routes/bao-cao.ts` đã làm phạm vi, xuất tệp, `audit_log`. Đặc tả chưa định nghĩa ba cột | Dùng lại hai hàm đó. "Số bài đã ghi danh" là số bài `xuat_ban` thuộc chuyên đề `xuat_ban` người đó đã ghi danh. "Bài thi được giao" tính như cột "Được giao" của báo cáo tổng hợp đơn vị GĐ7. "Lần học gần nhất" là thời điểm lớn nhất trong `lesson_progress.updated_at`, `practice_answers.created_at`, `exam_attempts.submitted_at` | Đồng ý (29/9/2026) |
 | Đ13 | 2.6 thanh tiến độ | `ThanhTienDo.tsx` hiện số câu đúng | Tạo `components/nhom/ThanhPhanTram.tsx` (`role="progressbar"`, `aria-valuenow`, luôn kèm số phần trăm), không dùng `ThanhTienDo` | Đồng ý (29/9/2026) |
 | Đ14 | 2.5 "làm và kết thúc bằng các route luyện tập có sẵn"; mục 4 GĐ16b | Trang `/luyen-tap/:phien` đặt tiêu đề theo `nguon` và tên chủ đề; kiểu `nguon` ở `lib/luyen-tap.server.ts` có 3 giá trị | `GET /v1/luyen-tap/phien/:id` trả thêm `nhom: { id, ten_de }` khi `source = 'nhom'` (sửa `apps/api/src/routes/luyen-tap.ts`, chỉ phần này). GĐ16b thêm `'nhom'` vào kiểu `nguon`, hiện tên đề ôn tập, thêm nút "Về nhóm" ở trang kết quả (`luyen-tap.phien.tsx`, `luyen-tap.ket-qua.tsx`) | Đồng ý (29/9/2026) |
@@ -631,7 +631,7 @@ Test bắt buộc:
 - Unit (nhom-hoc.test.ts): phần trăm bài học khớp phanTramBai cũ; đề ôn tập đang làm tối đa 99; mục đã gỡ không tính; 0 mục trả null; làm tròn xuống; cổ vũ qua mốc 0h giờ Việt Nam (23:30 hôm trước, 0:30 hôm sau) được tính là hai ngày.
 - API (nhom.test.ts), dữ liệu gieo 3 thành viên, 2 bài học, 1 đề ôn tập:
   - phần trăm từng người và trung bình nhóm khớp phép tính tay trong test; bài xong trước khi vào nhóm tính 100;
-  - không phải thành viên gọi GET /v1/nhom/:id nhận 404; thành viên thường đổi mã mời nhận 403; quan_ly không là thành viên nhận 404;
+  - không phải thành viên gọi GET /v1/nhom/:id nhận 404; thành viên thường đổi mã mời nhận 403; lanh_dao không là thành viên nhận 404;
   - sai mã 10 lần thì lần 11 nhận 429; mã cũ sau khi đổi nhận 404; nhóm đủ số thành viên nhận 409; nhóm lưu trữ nhận 409 với mọi thao tác ghi;
   - chia sẻ bài chưa xuất bản nhận 400; chủ đề dưới 5 câu đã duyệt nhận 400; chia sẻ trùng bài nhận 409; gửi kèm khóa phan_tram nhận 400;
   - quét khóa cấm (mục 2.5) trên phản hồi của thành viên đạt;
@@ -693,11 +693,11 @@ File sửa: apps/api/src/app.ts, apps/api/src/routes/nhom.ts, apps/api/src/route
 File tạo: apps/web/app/routes/quan-tri.nhom.tsx, quan-tri.nhom.chi-tiet.tsx, apps/api/src/quan-tri-nhom.test.ts.
 
 Test bắt buộc (dữ liệu gieo: đội A, đội B cùng một phòng; 10 cán bộ; 2 nhóm, trong đó một nhóm có thành viên cả hai đội):
-- quan_ly đội A chỉ thấy người đội A; với nhóm lẫn hai đội, thấy thành viên đội A và số thành viên ngoài phạm vi, không thấy tên người đội B.
-- quan_ly đội A lọc đội B nhận 403; quan_ly cấp phòng thấy cả hai đội; quan_tri thấy tất cả; can_bo gọi API quản trị nhận 403.
+- lanh_dao đội A chỉ thấy người đội A; với nhóm lẫn hai đội, thấy thành viên đội A và số thành viên ngoài phạm vi, không thấy tên người đội B.
+- lanh_dao đội A lọc đội B nhận 403; lanh_dao cấp phòng thấy cả hai đội; quan_tri thấy tất cả; can_bo gọi API quản trị nhận 403.
 - Số liệu báo cáo tiến độ học khớp phép tính tay trong test (bài xong, phiên luyện tập, bài thi, phần trăm trong nhóm).
 - File xlsx mở bằng docOExcelTho: đúng tiêu đề cột, đúng số dòng, cột số là kiểu số. PDF có chữ tiếng Việt đúng dấu. Mỗi lần xuất có dòng audit_log bao_cao.xuat.
-- Lưu trữ nhóm từ trang quản trị ghi audit_log nhom.luu_tru; quan_ly không lưu trữ được nhóm có trưởng nhóm ngoài phạm vi (403).
+- Lưu trữ nhóm từ trang quản trị ghi audit_log nhom.luu_tru; lanh_dao không lưu trữ được nhóm có trưởng nhóm ngoài phạm vi (403).
 - Báo cáo 1.000 cán bộ, 50 nhóm trả về dưới 2 giây trên máy dev.
 
 Cuối phiên: cập nhật PLAN.md GĐ16c và đưa tóm tắt để tôi commit.
@@ -715,7 +715,7 @@ Việc làm:
 2. prompts/nhom-hoc/goi-y-thu-tu.md và prompts/nhom-hoc/tom-tat-tien-do.md, cùng định dạng prompts/dao-tao/sinh-cau-hoi-ngan-hang.md (frontmatter version, ## SYSTEM, ## USER). Prompt cấm nêu quy định, mức phạt, điều khoản; yêu cầu JSON đúng schema; viết theo QUY-TAC-HANH-VAN.
 3. packages/dao-tao/src/hau-kiem-nhom-hoc.ts: hậu kiểm tất định theo bảng mục 2.7 (hoán vị đúng, số trong đầu ra phải có trong đầu vào, mã TVn phải tồn tại, không có mẫu viện dẫn, không emoji, không dấu chấm than, giới hạn độ dài). Không nhờ mô hình tự kiểm.
 4. packages/db/src/nhom-hoc.ts: dựng đầu vào đã ẩn danh (TV1…TVn, không họ tên, tên đăng nhập, email, đơn vị, cấp bậc), tính input_hash, dùng lại kết quả cũ khi trùng hash, ghi study_group_ai_notes kèm model, token, chi phí. AI-2 chỉ dùng thành viên trong phạm vi của quản lý đang xem.
-5. API: POST /v1/nhom/:id/ai/thu-tu (trưởng nhóm), POST /v1/quan-tri/nhom/:id/ai/tom-tat (quan_ly trở lên). Hạn mức theo mục 2.7 (429). Provider là mock ngoài NODE_ENV=test thì trả 503 và giao diện ẩn nút. Hết giờ sau 20 giây.
+5. API: POST /v1/nhom/:id/ai/thu-tu (trưởng nhóm), POST /v1/quan-tri/nhom/:id/ai/tom-tat (lanh_dao trở lên). Hạn mức theo mục 2.7 (429). Provider là mock ngoài NODE_ENV=test thì trả 503 và giao diện ẩn nút. Hết giờ sau 20 giây.
 6. Giao diện: nút "Gợi ý thứ tự học" và hộp thoại xem trước trong /nhom/:id (trưởng nhóm); khối tóm tắt có dòng cảnh báo trong /quan-tri/nhom/:id. Máy chủ thay TVn bằng họ tên sau khi hậu kiểm.
 7. packages/llm/src/mock.ts: thêm nhánh kết quả tất định cho hai prompt, dựng từ dữ liệu đầu vào, để chạy trọn luồng khi chưa có khóa API.
 
@@ -726,7 +726,7 @@ Test bắt buộc:
 - Unit hậu kiểm: thiếu hoặc thừa mã mục thì loại; lặp mã thì loại; số không có trong đầu vào thì loại; mã TV không tồn tại thì loại; có "Điều 5", "Nghị định", số tiền, emoji, dấu chấm than thì loại; đầu vào hợp lệ thì đạt.
 - API với LLM_PROVIDER=mock: AI-1 trả hoán vị hợp lệ và không tự đổi thứ tự; áp dụng xong thì thứ tự đổi; AI-2 trả tóm tắt có họ tên thật sau khi thay mã.
 - Dữ liệu gửi cho provider (bắt bằng mock) không chứa họ tên, tên đăng nhập, email, tên đơn vị của bất kỳ ai.
-- AI-2 của quan_ly đội A không chứa số liệu của thành viên đội B.
+- AI-2 của lanh_dao đội A không chứa số liệu của thành viên đội B.
 - Gọi lại với cùng dữ liệu không gọi provider lần hai; quá hạn mức nhận 429; đầu ra bị loại được ghi bi_loai kèm lý do và không hiện cho người dùng.
 - Mô phỏng provider mock ngoài NODE_ENV=test: API trả 503 và nút AI bị ẩn.
 - Chạy thật với khóa API (nếu máy có ANTHROPIC_API_KEY) trên một nhóm demo: ghi vào PLAN.md tỷ lệ đầu ra qua hậu kiểm và chi phí mỗi lần gọi. Không có khóa thì ghi "Chưa làm" kèm cách chạy.

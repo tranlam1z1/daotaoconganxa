@@ -280,7 +280,9 @@ export default function TraCuu({ loaderData }: Route.ComponentProps) {
           >
             {laBienBao ? (
               !q ? (
-                <p>Biển báo hiện ra sau khi biên tập viên đối chiếu với QCVN 41:2024/BGTVT và duyệt.</p>
+                <p>
+                  Biển báo hiện ra sau khi quản trị viên nội dung đối chiếu với QCVN 41:2024/BGTVT và duyệt.
+                </p>
               ) : null
             ) : coXeKhac ? (
               // Bộ lọc loại xe làm rỗng kết quả, không phải chủ đề thiếu dữ liệu.

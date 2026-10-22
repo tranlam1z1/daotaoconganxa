@@ -1,6 +1,6 @@
 /**
  * Tạo việc AI sinh câu hỏi vào ngân hàng (docs/PLAN.md GĐ8), dùng chung cho hai lối vào:
- *  - /v1/quan-tri/ngan-hang/sinh-ai: biên tập viên chọn chủ đề và điều khoản;
+ *  - /v1/quan-tri/ngan-hang/sinh-ai: Admin quản lý chọn chủ đề và điều khoản;
  *  - /v1/quan-tri/dao-tao/bai/:id/sinh-cau-hoi: sinh cho một bài học, vào chủ đề của bài.
  *
  * Hai lối vào phải kiểm cùng một bộ luật (điều khoản có hiệu lực, không bị bãi bỏ, trần chi phí),
@@ -16,7 +16,7 @@ import { khoiChayViecSoanBai } from "./chay-soan-bai.ts";
 import { badRequest, conflict } from "./http.ts";
 import { aiChuaCauHinh } from "./routes/ask.ts";
 
-/** Ước tính chi phí vượt mức này (USD) thì cần vai trò pháp chế, như việc soạn bài lô lớn. */
+/** Ước tính chi phí vượt mức này (USD) thì cần vai trò Admin quản trị hệ thống, như việc soạn bài lô lớn. */
 export function tranChiPhiAi(): number {
   const n = Number(process.env.NGAN_HANG_AI_TRAN_USD ?? 2);
   return Number.isFinite(n) && n >= 0 ? n : 2;
@@ -57,7 +57,7 @@ export interface YeuCauSinhCauHoi {
  * Kiểm điều khoản, ước tính chi phí, rồi (nếu không chạy thử) tạo việc và cho chạy: qua hàng đợi
  * khi có worker đang nghe, không thì ngay trong API (chay-soan-bai.ts).
  * Trả `taoViec: false` khi chạy thử. Ném `badRequest` khi điều khoản không dùng được, và
- * `KhongDuQuyen` khi ước tính vượt trần mà người gọi chưa đủ vai trò pháp chế.
+ * `KhongDuQuyen` khi ước tính vượt trần mà người gọi chưa đủ vai trò Admin quản trị hệ thống.
  */
 export async function taoViecSinhCauHoi(p: Pick<Principal, "email" | "role">, y: YeuCauSinhCauHoi) {
   // Máy chủ khai không có dịch vụ AI (LLM_PROVIDER=none): provider giả lập chỉ trả câu giữ chỗ ghép từ
@@ -110,8 +110,8 @@ export async function taoViecSinhCauHoi(p: Pick<Principal, "email" | "role">, y:
   }));
   if (y.chayThu) return { taoViec: false as const, uocTinh, dieuKhoan: dieuKhoanTraVe };
 
-  if (uocTinh.chi_phi_usd > tranChiPhiAi() && !atLeast(p.role, "phap_che"))
-    throw new KhongDuQuyen("phap_che");
+  if (uocTinh.chi_phi_usd > tranChiPhiAi() && !atLeast(p.role, "quan_tri"))
+    throw new KhongDuQuyen("quan_tri");
 
   const chuDe = await y.layChuDe();
   const viec = await taoViecSoanBai({
@@ -131,7 +131,7 @@ export async function taoViecSinhCauHoi(p: Pick<Principal, "email" | "role">, y:
     },
     // Ngân sách của việc: gấp đôi ước tính, để mô hình trả dài hơn dự kiến vẫn nằm trong trần.
     budgetUsd: Math.max(0.01, Math.round(uocTinh.chi_phi_usd * 2 * 10_000) / 10_000),
-    // Biên tập viên chờ kết quả để duyệt nên không đi Batch API.
+    // Admin quản lý chờ kết quả để duyệt nên không đi Batch API.
     batch: false,
     requestedBy: p.email,
   });

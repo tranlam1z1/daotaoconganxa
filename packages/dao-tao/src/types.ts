@@ -26,7 +26,7 @@ export const NHAN_TRANG_THAI_NOI_DUNG: Record<TrangThaiNoiDung, string> = {
   nhap: "Bản nháp",
   ai_soan: "AI vừa soạn",
   bien_tap: "Đang biên tập",
-  cho_phap_che: "Chờ pháp chế duyệt",
+  cho_phap_che: "Chờ duyệt",
   xuat_ban: "Đã xuất bản",
   can_cap_nhat: "Cần cập nhật",
   luu_tru: "Lưu trữ",
@@ -48,14 +48,14 @@ export function chuyenDuoc(tu: TrangThaiNoiDung, den: TrangThaiNoiDung): boolean
 }
 
 /** Vai trò tối thiểu để đặt một trạng thái (đối chiếu ROLES của @qdpl/auth). */
-export const VAI_TRO_DAT_TRANG_THAI: Record<TrangThaiNoiDung, "bien_tap" | "phap_che" | "quan_tri"> = {
-  nhap: "bien_tap",
-  ai_soan: "bien_tap",
-  bien_tap: "bien_tap",
-  cho_phap_che: "bien_tap",
-  xuat_ban: "phap_che",
-  can_cap_nhat: "bien_tap",
-  luu_tru: "phap_che",
+export const VAI_TRO_DAT_TRANG_THAI: Record<TrangThaiNoiDung, "quan_ly" | "quan_tri"> = {
+  nhap: "quan_ly",
+  ai_soan: "quan_ly",
+  bien_tap: "quan_ly",
+  cho_phap_che: "quan_ly",
+  xuat_ban: "quan_ly",
+  can_cap_nhat: "quan_ly",
+  luu_tru: "quan_ly",
 };
 
 /* ------------------------------------------------------------------ */
@@ -328,7 +328,7 @@ export interface MoTaLoaiBaiTap {
   kind: LoaiBaiTap;
   ten: string;
   mo_ta: string;
-  /** Cách chấm mặc định; biên tập viên đổi được sang cách chặt hơn. */
+  /** Cách chấm mặc định; quản trị viên nội dung đổi được sang cách chặt hơn. */
   cham: CachCham;
   /** true khi cần rubric (mọi bài chấm bằng AI hoặc người). */
   can_rubric: boolean;

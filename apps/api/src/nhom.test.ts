@@ -125,7 +125,7 @@ beforeAll(async () => {
   for (const ten of ["a", "b", "c", "d", "e", "g", "h", "x", "y", "z", "w", "n1", "n2", "n3"]) {
     tk[ten] = await taoTaiKhoan(ten);
   }
-  tk.q = await taoTaiKhoan("q", "quan_ly");
+  tk.q = await taoTaiKhoan("q", "lanh_dao");
   tk.k = await taoTaiKhoan("k", "khach");
 
   const [c] = (await sql`

@@ -8,17 +8,21 @@ import { redirect } from "react-router";
 
 import { layToken, type NguoiDung, nguoiDungHienTai } from "./auth.server";
 
-/** Thứ tự vai trò từ thấp lên cao, khớp với ROLES trong packages/auth/src/rbac.ts. */
-const VAI_TRO_THU_TU = ["khach", "can_bo", "tra_cuu", "quan_ly", "bien_tap", "phap_che", "quan_tri"] as const;
+/**
+ * Thứ tự vai trò từ thấp lên cao, khớp với ROLES trong packages/auth/src/rbac.ts.
+ *
+ * Web không import được @qdpl/auth (gói đó kéo theo @qdpl/db — chỉ chạy ở server Node/Bun,
+ * không dựng được vào gói React Router), nên thang này là bản sao. Sửa thang ở đây thì
+ * sửa cả hai bên cùng lúc.
+ */
+const VAI_TRO_THU_TU = ["khach", "can_bo", "lanh_dao", "quan_ly", "quan_tri"] as const;
 export type VaiTro = (typeof VAI_TRO_THU_TU)[number];
 const TEN_VAI_TRO: Record<VaiTro, string> = {
   khach: "Khách",
-  can_bo: "Cán bộ",
-  tra_cuu: "Người tra cứu",
-  quan_ly: "Cán bộ quản lý",
-  bien_tap: "Biên tập viên",
-  phap_che: "Pháp chế",
-  quan_tri: "Quản trị viên",
+  can_bo: "Cán bộ, công chức",
+  lanh_dao: "Lãnh đạo UBND xã",
+  quan_ly: "Admin quản lý",
+  quan_tri: "Admin quản trị hệ thống",
 };
 
 export function duVaiTro(nguoiDung: NguoiDung | null, can: VaiTro): boolean {

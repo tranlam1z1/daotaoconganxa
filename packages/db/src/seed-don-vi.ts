@@ -1,8 +1,9 @@
 /**
- * Gieo cây đơn vị mẫu và 10 tài khoản mẫu để trình diễn và thử nghiệm (docs/PLAN.md GĐ2).
+ * Gieo cây đơn vị mẫu và 11 tài khoản mẫu để trình diễn và thử nghiệm (docs/PLAN.md GĐ2).
  *
  * Cây: Phòng Cảnh sát giao thông (PC08) > Đội 1, Đội 2, Đội 3.
- * Tài khoản: 1 quản trị, 2 cán bộ quản lý (phòng, đội 1), 7 cán bộ.
+ * Tài khoản: 1 Admin quản trị hệ thống, 1 Admin quản lý, 2 lãnh đạo (phòng, đội 1),
+ * 7 cán bộ.
  * Mật khẩu chung lấy từ SEED_MAT_KHAU (mặc định "Matkhau2026"); tài khoản mẫu KHÔNG bị bắt
  * đổi mật khẩu để người trình diễn đăng nhập được ngay. Không dùng cho môi trường thật.
  *
@@ -24,18 +25,21 @@ const DON_VI = [
 ] as const;
 
 const TAI_KHOAN = [
-  { username: "quantri", name: "Quản trị hệ thống", role: "quan_tri", donVi: null, capBac: null },
+  { username: "quantri", name: "Admin quản trị hệ thống", role: "quan_tri", donVi: null, capBac: null },
+  { username: "quanly", name: "Admin quản lý", role: "quan_ly", donVi: null, capBac: null },
+  // Tên đăng nhập đặt theo vai trò: `lanhdao.*` là lãnh đạo UBND xã (thang mới 5 bậc),
+  // `quanly.*` là vai trò Cán bộ quản lý của thang cũ, đã bị gộp vào `lanh_dao`.
   {
-    username: "quanly.phong",
+    username: "lanhdao.phong",
     name: "Nguyễn Văn Hùng",
-    role: "quan_ly",
+    role: "lanh_dao",
     donVi: "PC08",
     capBac: "Trung tá, Trưởng phòng",
   },
   {
-    username: "quanly.doi1",
+    username: "lanhdao.doi1",
     name: "Trần Minh Đức",
-    role: "quan_ly",
+    role: "lanh_dao",
     donVi: "PC08-D1",
     capBac: "Thiếu tá, Đội trưởng",
   },

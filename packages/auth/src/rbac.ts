@@ -11,20 +11,30 @@ import { bootstrapAdminEnabled, defaultRole } from "./config.ts";
 /**
  * Vai trò xếp theo mức tăng dần của quyền (docs/PLAN.md A5).
  *
- * `can_bo` và `quan_ly` là hai vai trò nghiệp vụ của PRD. Thứ bậc chỉ quyết định VIỆC được
- * làm; PHẠM VI dữ liệu theo đơn vị kiểm riêng bằng `trongPhamVi`, không suy ra từ thứ bậc.
+ * Thang đơn 5 bậc theo tổ chức, không còn tách vai trò tổ chức và vai trò dòng công việc
+ * (migration 0073):
+ *
+ * - `khach` — khách, chỉ tra cứu công khai.
+ * - `can_bo` — cán bộ, công chức: học tập, luyện tập, thi, tra cứu.
+ * - `lanh_dao` — lãnh đạo UBND xã: quản lý trong cây đơn vị của mình (cán bộ, báo cáo, đề thi, nhóm).
+ * - `quan_ly` — Admin quản lý: quản trị nội dung toàn hệ thống, gồm cả duyệt và xuất bản.
+ * - `quan_tri` — Admin quản trị hệ thống: toàn quyền, gồm quản lý tài khoản.
+ *
+ * Vai trò soạn nội dung và vai trò phê duyệt đã gộp làm một (`quan_ly`): người soạn cũng là
+ * người duyệt. Muốn tách trở lại thì phải tách thứ bậc, không chỉ đổi nhãn.
+ *
+ * Thứ bậc chỉ quyết định VIỆC được làm; PHẠM VI dữ liệu theo đơn vị kiểm riêng bằng
+ * `trongPhamVi`, không suy ra từ thứ bậc.
  */
-export const ROLES = ["khach", "can_bo", "tra_cuu", "quan_ly", "bien_tap", "phap_che", "quan_tri"] as const;
+export const ROLES = ["khach", "can_bo", "lanh_dao", "quan_ly", "quan_tri"] as const;
 export type Role = (typeof ROLES)[number];
 
 export const ROLE_LABEL: Record<Role, string> = {
   khach: "Khách (chỉ tra cứu văn bản công khai)",
-  can_bo: "Cán bộ (học tập, luyện tập, thi, tra cứu)",
-  tra_cuu: "Người tra cứu (đầy đủ công cụ tra cứu và kiểm chứng)",
-  quan_ly: "Cán bộ quản lý (giao bài, xem kết quả của đơn vị mình)",
-  bien_tap: "Biên tập viên (xử lý hàng đợi, báo vấn đề)",
-  phap_che: "Pháp chế (duyệt lệnh sửa đổi, quyết định hiệu lực)",
-  quan_tri: "Quản trị (toàn quyền, gồm quản lý tài khoản)",
+  can_bo: "Cán bộ, công chức (học tập, luyện tập, thi, tra cứu)",
+  lanh_dao: "Lãnh đạo UBND xã (quản lý đơn vị mình: cán bộ, báo cáo, đề thi, nhóm)",
+  quan_ly: "Admin quản lý (quản trị nội dung toàn hệ thống: soạn, duyệt, xuất bản)",
+  quan_tri: "Admin quản trị hệ thống (toàn quyền, gồm quản lý tài khoản)",
 };
 
 export function roleRank(role: Role): number {
@@ -40,8 +50,9 @@ export function atLeast(role: Role, required: Role): boolean {
  *
  * Cân nhắc khi xếp mức:
  * - Tra cứu văn bản là dịch vụ công -> khách dùng được.
- * - Chẩn đoán kho và hàng đợi biên tập lộ tình trạng nội bộ -> từ biên tập viên.
- * - Duyệt lệnh sửa đổi làm thay đổi nội dung pháp lý người dân đọc -> chỉ pháp chế trở lên.
+ * - Chẩn đoán kho lộ tình trạng nội bộ -> từ cán bộ trở lên.
+ * - Hàng đợi biên tập và số hóa là công việc quản trị nội dung -> từ Admin quản lý.
+ * - Duyệt lệnh sửa đổi làm thay đổi nội dung pháp lý người dân đọc -> từ Admin quản lý.
  */
 export const TOOL_ROLE: Record<string, Role> = {
   // Tra cứu
@@ -54,25 +65,26 @@ export const TOOL_ROLE: Record<string, Role> = {
   so_sanh_thoi_diem: "khach",
   doi_chieu_thu_bac: "khach",
   danh_sach_van_ban: "khach",
-  // Chẩn đoán và biên tập
-  thong_ke_kho: "tra_cuu",
-  kiem_tra_suc_khoe_du_lieu: "bien_tap",
-  hang_doi_bien_tap: "bien_tap",
-  xem_lenh_sua_doi: "bien_tap",
-  thu_hop_nhat: "bien_tap",
-  bao_van_de: "bien_tap",
-  ra_soat_vien_dan: "bien_tap",
-  xu_ly_viec_bien_tap: "bien_tap",
+  // Chẩn đoán
+  thong_ke_kho: "can_bo",
+  // Quản trị nội dung
+  kiem_tra_suc_khoe_du_lieu: "quan_ly",
+  hang_doi_bien_tap: "quan_ly",
+  xem_lenh_sua_doi: "quan_ly",
+  thu_hop_nhat: "quan_ly",
+  bao_van_de: "quan_ly",
+  ra_soat_vien_dan: "quan_ly",
+  xu_ly_viec_bien_tap: "quan_ly",
   // Số hóa văn bản (ke-hoach/05): agent đọc PDF và dựng Markdown. Đây là công việc
-  // biên tập nội dung, không phải tra cứu, nên từ vai trò biên tập viên trở lên.
-  trang_thai_so_hoa: "bien_tap",
-  nhan_viec_so_hoa: "bien_tap",
-  lay_cua_so_trang: "bien_tap",
-  nop_cua_so: "bien_tap",
-  hoan_tat_so_hoa: "bien_tap",
-  bo_qua_viec_so_hoa: "bien_tap",
+  // quản trị nội dung, không phải tra cứu, nên từ vai trò Admin quản lý trở lên.
+  trang_thai_so_hoa: "quan_ly",
+  nhan_viec_so_hoa: "quan_ly",
+  lay_cua_so_trang: "quan_ly",
+  nop_cua_so: "quan_ly",
+  hoan_tat_so_hoa: "quan_ly",
+  bo_qua_viec_so_hoa: "quan_ly",
   // Quyết định pháp lý
-  duyet_lenh_sua_doi: "phap_che",
+  duyet_lenh_sua_doi: "quan_ly",
   // Quản trị
   quan_ly_tai_khoan: "quan_tri",
 };
@@ -118,17 +130,18 @@ export interface Principal {
 /**
  * Người này có được xem dữ liệu của đơn vị mang đường dẫn `unitPath` không.
  *
- * - `quan_tri` xem mọi đơn vị.
+ * - `quan_tri` và `quan_ly` xem mọi đơn vị: hai vai trò này quản trị toàn hệ thống.
  * - Người khác chỉ xem đơn vị của mình và các đơn vị con, cháu (so tiền tố đường dẫn ltree).
+ *   Với `lanh_dao` đó là toàn bộ cây đơn vị của xã.
  * - Chưa gắn đơn vị thì không xem được đơn vị nào.
  *
- * Hàm chỉ trả lời câu hỏi PHẠM VI; vai trò tối thiểu (ví dụ `quan_ly`) người gọi kiểm riêng.
+ * Hàm chỉ trả lời câu hỏi PHẠM VI; vai trò tối thiểu (ví dụ `lanh_dao`) người gọi kiểm riêng.
  */
 export function trongPhamVi(
   principal: Pick<Principal, "role" | "unitPath">,
   unitPath: string | null | undefined,
 ): boolean {
-  if (principal.role === "quan_tri") return true;
+  if (principal.role === "quan_tri" || principal.role === "quan_ly") return true;
   if (!principal.unitPath || !unitPath) return false;
   return unitPath === principal.unitPath || unitPath.startsWith(`${principal.unitPath}.`);
 }

@@ -41,7 +41,7 @@ interface LuotCanCham {
 }
 
 export async function loader({ request }: Route.LoaderArgs) {
-  const { token } = await yeuCauVaiTro(request, "bien_tap");
+  const { token } = await yeuCauVaiTro(request, "quan_ly");
   const { items } = await goiApiQuanTri<{ items: LuotCanCham[] }>(token, "/v1/quan-tri/dao-tao/cham-lai");
   return { items };
 }
@@ -51,7 +51,7 @@ type KetQua = { loi: string } | { ok: string };
 const so = (n: number) => n.toLocaleString("vi-VN", { maximumFractionDigits: 2 });
 
 export async function action({ request }: Route.ActionArgs): Promise<KetQua> {
-  const { token } = await yeuCauVaiTro(request, "bien_tap");
+  const { token } = await yeuCauVaiTro(request, "quan_ly");
   const f = await request.formData();
   try {
     const { luot } = await goiApiQuanTri<{

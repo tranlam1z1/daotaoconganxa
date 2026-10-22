@@ -125,14 +125,14 @@ describe("mức thành thạo (BKT)", () => {
 
 describe("bản đồ năng lực", () => {
   const kyNang = [
-    { id: "k1", code: "tra_cuu", name: "Tra cứu", prerequisites: [] },
-    { id: "k2", code: "phan_loai", name: "Phân loại", prerequisites: ["tra_cuu"] },
+    { id: "k1", code: "can_bo", name: "Tra cứu", prerequisites: [] },
+    { id: "k2", code: "phan_loai", name: "Phân loại", prerequisites: ["can_bo"] },
     { id: "k3", code: "tong_muc", name: "Tổng mức", prerequisites: ["phan_loai"] },
   ];
 
   test("chưa vững kỹ năng nền thì kỹ năng sau chưa mở", () => {
     const mo = kyNangDaMo(kyNang, new Map([["k1", { pKnown: 0.4, attempts: 3, correct: 1 }]]));
-    expect(mo.has("tra_cuu")).toBe(true);
+    expect(mo.has("can_bo")).toBe(true);
     expect(mo.has("phan_loai")).toBe(false);
   });
 

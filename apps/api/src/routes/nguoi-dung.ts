@@ -69,7 +69,7 @@ export const donViRoute = new Hono();
 
 /** GET /v1/quan-tri/don-vi — cây đơn vị trong phạm vi của người gọi. */
 donViRoute.get("/", async (c) => {
-  const p = await batBuocVaiTro(c, "quan_ly");
+  const p = await batBuocVaiTro(c, "lanh_dao");
   const phamVi = phamViCua(p);
   const items = phamVi === "khong_co" ? [] : await danhSachDonVi(phamVi);
   return c.json({ items });
@@ -126,7 +126,7 @@ const locSchema = z.object({
  */
 nguoiDungRoute.get("/", async (c) => {
   const q = parseQuery(c, locSchema);
-  let nguoiGoi = await batBuocVaiTro(c, "quan_ly");
+  let nguoiGoi = await batBuocVaiTro(c, "lanh_dao");
   let donViPath: string | null = null;
   if (q.don_vi) {
     const kq = await batBuocPhamViDonVi(c, q.don_vi);
@@ -282,7 +282,7 @@ const xacMinhSchema = z.discriminatedUnion("duyet", [
  * đơn vị trong cây đó. Tài khoản đã xác minh trả 409.
  */
 nguoiDungRoute.post("/:id/xac-minh", async (c) => {
-  const p = await batBuocVaiTro(c, "quan_ly");
+  const p = await batBuocVaiTro(c, "lanh_dao");
   const id = idHopLe(c.req.param("id"));
   const body = await parseBody(c, xacMinhSchema);
   const item = await layNguoiDung(id);
@@ -305,7 +305,7 @@ nguoiDungRoute.post("/:id/xac-minh", async (c) => {
 
 /** GET /v1/quan-tri/nguoi-dung/:id — một tài khoản, trong phạm vi của người gọi. */
 nguoiDungRoute.get("/:id", async (c) => {
-  const p = await batBuocVaiTro(c, "quan_ly");
+  const p = await batBuocVaiTro(c, "lanh_dao");
   const item = await layNguoiDung(idHopLe(c.req.param("id")));
   if (!item || !trongPhamVi(p, item.pham_vi_path)) {
     throw new NgoaiPhamVi("Tài khoản này nằm ngoài phạm vi quản lý của tài khoản đang đăng nhập.");

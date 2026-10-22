@@ -4,7 +4,7 @@
  * luat-giay-to (GĐ-T1; lọc theo nhóm `nhom` từ GĐ-T11), tai-trong (GĐ-T12), bieu-mau (tệp tải lên của
  * trang "Quy trình, Biểu mẫu").
  *
- * Cùng quyền và cùng vòng đời với ngân hàng câu hỏi: `bien_tap` soạn, sửa, gửi duyệt, lưu trữ, khôi
+ * Cùng quyền và cùng vòng đời với ngân hàng câu hỏi: `quan_ly` soạn, sửa, gửi duyệt, lưu trữ, khôi
  * phục dòng đã lưu trữ, xóa hẳn dòng chưa từng duyệt; vai trò
  * duyệt (NGAN_HANG_VAI_TRO_DUYET) duyệt và từ chối. Sửa dòng đã duyệt thì dòng về chờ duyệt, tăng
  * phiên bản, rời khỏi tra cứu nhanh và khỏi mọi tình huống trỏ tới nó cho tới khi duyệt lại.
@@ -415,7 +415,7 @@ async function layDong(loai: LoaiDuLieuTraCuu, ma: string) {
 }
 
 duLieuTraCuuRoute.get("/:loai", async (c) => {
-  await batBuocVaiTro(c, "bien_tap");
+  await batBuocVaiTro(c, "quan_ly");
   const loai = loaiTu(c.req.param("loai"));
   const q = parseQuery(
     c,
@@ -465,7 +465,7 @@ function kiemForm<S extends z.ZodType>(schema: S, du: unknown): z.infer<S> {
  * để không rơi vào luồng soạn bằng JSON. Dòng vào bản nháp, hoặc chờ duyệt khi `gui_duyet` = "1".
  */
 duLieuTraCuuRoute.post("/bieu-mau", async (c) => {
-  const p = await batBuocVaiTro(c, "bien_tap");
+  const p = await batBuocVaiTro(c, "quan_ly");
   const { chu, tep } = await docFormCoTep(c);
   const b = kiemForm(bieuMauMoi, { ...chu, gui_duyet: chu.gui_duyet === "1" });
   if (await dongDuLieuTraCuu("bieu-mau", b.code)) throw conflict(`Mã "${b.code}" đã có. Chọn mã khác.`);
@@ -495,7 +495,7 @@ duLieuTraCuuRoute.post("/bieu-mau", async (c) => {
  * như biểu mẫu. Biển vào bản nháp, hoặc chờ duyệt khi `gui_duyet` = "1".
  */
 duLieuTraCuuRoute.post("/bien-bao", async (c) => {
-  const p = await batBuocVaiTro(c, "bien_tap");
+  const p = await batBuocVaiTro(c, "quan_ly");
   const { chu, tep } = await docFormCoTep(c);
   const b = kiemForm(bienBaoMoi, { ...chu, gui_duyet: chu.gui_duyet === "1" });
   kiemNhomBien(b.code, b.group_name);
@@ -525,7 +525,7 @@ duLieuTraCuuRoute.post("/bien-bao", async (c) => {
  * duyệt về chờ duyệt và tăng phiên bản, như khi sửa dòng khác.
  */
 duLieuTraCuuRoute.post("/bien-bao/:ma/anh", async (c) => {
-  const p = await batBuocVaiTro(c, "bien_tap");
+  const p = await batBuocVaiTro(c, "quan_ly");
   const cu = await layDong("bien-bao", c.req.param("ma"));
   const { chu, tep } = await docFormCoTep(c);
   if (Number(chu.version) !== cu.version) throw conflict(DA_SUA);
@@ -543,7 +543,7 @@ duLieuTraCuuRoute.post("/bien-bao/:ma/anh", async (c) => {
  * đã duyệt về chờ duyệt và tăng phiên bản, như khi sửa dòng khác.
  */
 duLieuTraCuuRoute.post("/bieu-mau/:ma/tep", async (c) => {
-  const p = await batBuocVaiTro(c, "bien_tap");
+  const p = await batBuocVaiTro(c, "quan_ly");
   const cu = await layDong("bieu-mau", c.req.param("ma"));
   const { chu, tep } = await docFormCoTep(c);
   if (Number(chu.version) !== cu.version) throw conflict(DA_SUA);
@@ -558,7 +558,7 @@ duLieuTraCuuRoute.post("/bieu-mau/:ma/tep", async (c) => {
 
 /** Tệp của một biểu mẫu ở mọi trạng thái, để người soạn và người duyệt xem trước khi duyệt. */
 duLieuTraCuuRoute.get("/bieu-mau/:ma/tep", async (c) => {
-  await batBuocVaiTro(c, "bien_tap");
+  await batBuocVaiTro(c, "quan_ly");
   const d = await layDong("bieu-mau", c.req.param("ma"));
   return traTepTaiLieu(
     {
@@ -576,7 +576,7 @@ duLieuTraCuuRoute.get("/bieu-mau/:ma/tep", async (c) => {
  * phiên bản: đây là phân loại để lọc và xếp mục "phổ biến", không phải nội dung được duyệt.
  */
 duLieuTraCuuRoute.put("/:loai/:ma/phan-loai", async (c) => {
-  const p = await batBuocVaiTro(c, "bien_tap");
+  const p = await batBuocVaiTro(c, "quan_ly");
   const loai = loaiTu(c.req.param("loai"));
   if (!(LOAI_CO_PHAN_LOAI as readonly string[]).includes(loai))
     throw badRequest("Loại dữ liệu này không có phân loại.");
@@ -594,7 +594,7 @@ duLieuTraCuuRoute.put("/:loai/:ma/phan-loai", async (c) => {
 
 // Soạn dòng mới (mức phạt, quy trình, tốc độ tối đa, tải trọng). Dòng vào bản nháp, hoặc chờ duyệt khi `gui_duyet`.
 duLieuTraCuuRoute.post("/:loai", async (c) => {
-  const p = await batBuocVaiTro(c, "bien_tap");
+  const p = await batBuocVaiTro(c, "quan_ly");
   const loai = loaiTu(c.req.param("loai"));
   if (!(LOAI_SOAN_DUOC as readonly string[]).includes(loai))
     throw badRequest("Loại dữ liệu này chưa soạn được trong ứng dụng; thêm qua tệp nạp.");
@@ -617,7 +617,7 @@ duLieuTraCuuRoute.post("/:loai", async (c) => {
 });
 
 duLieuTraCuuRoute.get("/:loai/:ma", async (c) => {
-  await batBuocVaiTro(c, "bien_tap");
+  await batBuocVaiTro(c, "quan_ly");
   const loai = loaiTu(c.req.param("loai"));
   const d = await layDong(loai, c.req.param("ma"));
   return c.json({
@@ -628,7 +628,7 @@ duLieuTraCuuRoute.get("/:loai/:ma", async (c) => {
 });
 
 duLieuTraCuuRoute.put("/:loai/:ma", async (c) => {
-  const p = await batBuocVaiTro(c, "bien_tap");
+  const p = await batBuocVaiTro(c, "quan_ly");
   const loai = loaiTu(c.req.param("loai"));
   const cu = await layDong(loai, c.req.param("ma"));
   const b = await parseBody(c, SCHEMA_SUA[loai].and(z.object({ version: z.number().int().min(1) })));
@@ -657,7 +657,7 @@ duLieuTraCuuRoute.put("/:loai/:ma", async (c) => {
 
 // Xóa hẳn dòng chưa từng duyệt (nháp, bị từ chối). Dòng đã từng duyệt chỉ ngừng dùng được.
 duLieuTraCuuRoute.delete("/:loai/:ma", async (c) => {
-  const p = await batBuocVaiTro(c, "bien_tap");
+  const p = await batBuocVaiTro(c, "quan_ly");
   const loai = loaiTu(c.req.param("loai"));
   const cu = await layDong(loai, c.req.param("ma"));
   const da = await xoaDuLieuTraCuu(loai, cu.code, p.email);
@@ -670,7 +670,7 @@ duLieuTraCuuRoute.delete("/:loai/:ma", async (c) => {
 
 // Đưa dòng đã ngừng dùng về bản nháp để sửa và gửi duyệt lại.
 duLieuTraCuuRoute.post("/:loai/:ma/khoi-phuc", async (c) => {
-  const p = await batBuocVaiTro(c, "bien_tap");
+  const p = await batBuocVaiTro(c, "quan_ly");
   const loai = loaiTu(c.req.param("loai"));
   const cu = await layDong(loai, c.req.param("ma"));
   const rows = await chuyenTrangThaiDuLieu({
@@ -687,7 +687,7 @@ duLieuTraCuuRoute.post("/:loai/:ma/khoi-phuc", async (c) => {
 });
 
 function vaiTroCho(hd: HanhDongDuyet): Role {
-  return hd === "duyet" || hd === "tu_choi" ? vaiTroDuyet() : "bien_tap";
+  return hd === "duyet" || hd === "tu_choi" ? vaiTroDuyet() : "quan_ly";
 }
 
 function routeHanhDong(duongDan: string, hd: HanhDongDuyet) {

@@ -28,7 +28,7 @@ export function meta({ data }: Route.MetaArgs) {
 const NGAY = /^\d{4}-\d{2}-\d{2}$/;
 
 export async function loader({ request, params }: Route.LoaderArgs) {
-  const { token } = await yeuCauVaiTro(request, "quan_ly");
+  const { token } = await yeuCauVaiTro(request, "lanh_dao");
   const p = new URL(request.url).searchParams;
   const loc: { tu?: string; den?: string } = {};
   for (const k of ["tu", "den"] as const) {

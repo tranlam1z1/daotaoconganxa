@@ -68,7 +68,7 @@ interface NguCanh {
 
 /** Kiểm quyền, tính phạm vi và đơn vị lọc. */
 async function chuanBi(c: Context, q: z.infer<typeof locSchema>): Promise<NguCanh> {
-  const p = await batBuocVaiTro(c, "quan_ly");
+  const p = await batBuocVaiTro(c, "lanh_dao");
   const phamVi = phamViCua(p);
   if (phamVi === "khong_co") {
     throw new NgoaiPhamVi("Tài khoản chưa gắn đơn vị nên không có dữ liệu báo cáo.");
@@ -167,7 +167,7 @@ async function traVe(c: Context, n: NguCanh, json: unknown, bang: () => Bang): P
 /* ------------------------------------------------------------------ */
 
 baoCao.get("/bo-loc", async (c) => {
-  const p = await batBuocVaiTro(c, "quan_ly");
+  const p = await batBuocVaiTro(c, "lanh_dao");
   const phamVi = phamViCua(p);
   const [deThi, donVi] = await Promise.all([
     deThiChoBaoCao(),

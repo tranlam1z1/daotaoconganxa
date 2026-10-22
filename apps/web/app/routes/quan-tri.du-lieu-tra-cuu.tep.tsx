@@ -7,7 +7,7 @@ import { yeuCauVaiTro } from "../lib/session.server";
 import type { Route } from "./+types/quan-tri.du-lieu-tra-cuu.tep";
 
 export async function loader({ request, params }: Route.LoaderArgs) {
-  const { token } = await yeuCauVaiTro(request, "bien_tap");
+  const { token } = await yeuCauVaiTro(request, "quan_ly");
   return await taiTepQuanTri(
     token,
     `/v1/quan-tri/du-lieu-tra-cuu/bieu-mau/${encodeURIComponent(params.ma)}/tep`,

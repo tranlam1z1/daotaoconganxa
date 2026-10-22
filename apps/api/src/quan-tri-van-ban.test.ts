@@ -77,7 +77,7 @@ beforeAll(async () => {
   await donDep();
   for (const [k, role] of [
     ["canBo", "can_bo"],
-    ["bienTap", "bien_tap"],
+    ["bienTap", "quan_ly"],
     ["quanTri", "quan_tri"],
   ] as const) {
     const [r] = (await sql`
@@ -259,7 +259,7 @@ describe("thêm, sửa, xóa", () => {
     expect(body.tomTat).toBeNull();
   });
 
-  test("xóa: biên tập viên 403; còn nơi trỏ tới thì 409 cho tới khi xác nhận", async () => {
+  test("xóa: Admin quản lý không được xóa; còn nơi trỏ tới thì 409 cho tới khi xác nhận", async () => {
     await sql`
       INSERT INTO citations (owner_kind, owner_id, node_urn, as_of)
       VALUES ('lesson', uuid_generate_v4(), ${`${URN}#dieu-1`}, '2099-06-01')`;

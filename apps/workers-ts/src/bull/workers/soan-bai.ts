@@ -1,7 +1,7 @@
 /**
  * Giai đoạn SOẠN BÀI — dựng bản đầu của bài học và bài tập bằng mô hình (ke-hoach/09-a §5).
  *
- * Worker này KHÔNG xuất bản gì. Nó ghi kết quả vào `authoring_jobs.output` để biên tập viên
+ * Worker này KHÔNG xuất bản gì. Nó ghi kết quả vào `authoring_jobs.output` để quản trị viên nội dung
  * xem, sửa và nhận từng khối ở màn hình `/quan-tri/soan-bai-ai`. Không có đường nào từ mô
  * hình thẳng ra trang người học.
  *
@@ -255,7 +255,7 @@ export const soanBaiStage = defineStage(QUEUES.soanBai, async (job, ctx) => {
       urnNguCanh,
     };
 
-    /* ---- Hậu kiểm tất định: phần qua hậu kiểm là phần biên tập viên nhận được vào bài ---- */
+    /* ---- Hậu kiểm tất định: phần qua hậu kiểm là phần quản trị viên nội dung nhận được vào bài ---- */
     if (viec.step === BUOC_SOAN_KHOI) {
       const doc = docKhoiAi(json);
       const hk = hauKiemKhoiAi(doc.khoi, {
@@ -303,7 +303,7 @@ export const soanBaiStage = defineStage(QUEUES.soanBai, async (job, ctx) => {
     });
 
     // Việc con của một lần soạn tự động: nhận luôn vào BẢN NHÁP (không phải xuất bản). Nhận
-    // không được (bài đã chuyển sang chờ pháp chế, kết quả rỗng...) thì việc vẫn xong, biên tập
+    // không được (bài đã chuyển sang chờ duyệt, kết quả rỗng...) thì việc vẫn xong, biên tập
     // viên thấy nút nhận tay ở màn hình quản trị; lỗi lúc nhận không làm hỏng kết quả đã có.
     if (viec.auto_apply && (viec.step === BUOC_SOAN_KHOI || laSinhBaiTap)) {
       try {
@@ -318,7 +318,7 @@ export const soanBaiStage = defineStage(QUEUES.soanBai, async (job, ctx) => {
 
     return {
       ...(course?.id ? { documentId: course.id } : {}),
-      // Không đẩy job kế tiếp: bước sau do biên tập viên (hoặc việc cha soạn tự động) quyết định.
+      // Không đẩy job kế tiếp: bước sau do quản trị viên nội dung (hoặc việc cha soạn tự động) quyết định.
       next: 0,
       detail: { buoc: viec.step, model: res.model, chiPhiUsd: res.costUsd },
     };

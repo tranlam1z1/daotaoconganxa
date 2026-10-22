@@ -215,15 +215,18 @@ export const COT_NHAP_NGUOI_DUNG: CotDoc<KhoaNhapNguoiDung>[] = [
 ];
 
 /**
- * Vai trò nhận khi nhập tệp: chỉ hai vai trò nghiệp vụ. Vai trò biên tập, pháp chế, quản trị
- * cấp riêng từng người trên màn hình quản trị, không cấp hàng loạt qua tệp.
+ * Vai trò nhận khi nhập tệp: chỉ hai vai trò nghiệp vụ. Vai trò Admin quản lý, Admin quản trị
+ * hệ thống cấp riêng từng người trên màn hình quản trị, không cấp hàng loạt qua tệp.
  */
-const VAI_TRO_NHAP: Record<string, "can_bo" | "quan_ly"> = {
+const VAI_TRO_NHAP: Record<string, "can_bo" | "lanh_dao"> = {
   "": "can_bo",
   "can bo": "can_bo",
   "can bo chien si": "can_bo",
-  "can bo quan ly": "quan_ly",
-  "quan ly": "quan_ly",
+  "cong chuc": "can_bo",
+  "can bo quan ly": "lanh_dao",
+  "quan ly": "lanh_dao",
+  "lanh dao": "lanh_dao",
+  "lanh dao ubnd xa": "lanh_dao",
 };
 
 export interface TuyChonNhap {
@@ -303,7 +306,7 @@ export async function nhapNguoiDung(
     else if (!unit) loi.push(`không có đơn vị mã "${g.maDonVi.trim()}"`);
 
     const role = VAI_TRO_NHAP[chuanHoaTieuDe(g.vaiTro).replace(/_/g, " ")];
-    if (!role) loi.push(`vai trò "${g.vaiTro}" không hợp lệ, chỉ nhận "Cán bộ" hoặc "Cán bộ quản lý"`);
+    if (!role) loi.push(`vai trò "${g.vaiTro}" không hợp lệ, chỉ nhận "Cán bộ" hoặc "Lãnh đạo UBND xã"`);
 
     if (email && !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) loi.push(`email "${email}" không hợp lệ`);
     else if (email && emailDaCo.has(email)) loi.push(`email "${email}" đã có trong hệ thống`);
@@ -393,7 +396,7 @@ export async function taoMauNhapNguoiDung(): Promise<Uint8Array> {
         'Điền danh sách vào trang "Người dùng", mỗi người một dòng, bắt đầu từ dòng 2.',
         "Bắt buộc: Họ và tên, Tên đăng nhập, Mã đơn vị. Mã đơn vị lấy ở bảng trên.",
         "Tên đăng nhập: 3 đến 50 ký tự, chữ không dấu, chữ số, dấu chấm, gạch ngang hoặc gạch dưới.",
-        'Vai trò: "Cán bộ" hoặc "Cán bộ quản lý". Để trống thì là Cán bộ.',
+        'Vai trò: "Cán bộ" hoặc "Lãnh đạo UBND xã". Để trống thì là Cán bộ.',
         "Hệ thống cấp mật khẩu tạm cho từng người; người dùng phải đổi mật khẩu ở lần đăng nhập đầu.",
       ],
     },

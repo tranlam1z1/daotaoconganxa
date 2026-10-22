@@ -22,7 +22,7 @@ export function registerAdminTools(reg: ToolRegistrar): void {
       title: "Quản lý tài khoản và vai trò",
       description:
         "Xem danh sách tài khoản, đổi vai trò, khóa hoặc mở khóa tài khoản, thu hồi phiên đăng nhập. " +
-        "Vai trò: khach < tra_cuu < bien_tap < phap_che < quan_tri.",
+        "Vai trò: khach < can_bo < lanh_dao < quan_ly < quan_tri.",
       inputSchema: {
         hanh_dong: z.enum(["liet_ke", "doi_vai_tro", "khoa", "mo_khoa", "thu_hoi_phien"]),
         email: z.string().email().optional().describe("Bắt buộc với mọi hành động trừ liet_ke."),

@@ -151,7 +151,7 @@ export default function QuyTrinhPage({ loaderData }: Route.ComponentProps) {
             </EmptyState>
           ) : (
             <EmptyState icon="file" title="Chưa có quy trình, biểu mẫu được duyệt" className="mt-3">
-              <p>Quy trình và biểu mẫu hiện ở đây sau khi biên tập viên soạn và được duyệt.</p>
+              <p>Quy trình và biểu mẫu hiện ở đây sau khi quản trị viên nội dung soạn và được duyệt.</p>
             </EmptyState>
           )
         ) : (

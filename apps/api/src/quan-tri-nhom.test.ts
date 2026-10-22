@@ -239,10 +239,10 @@ beforeAll(async () => {
   dv.B = (await taoDonVi({ code: `${PREFIX}-B`, name: TEN_DOI.B, parentId: dv.P, ordinal: 1 }, a)).id;
   for (const n of CAN_BO) acc[n] = await taoTaiKhoan(n, "can_bo", dv[n[0]!]!);
   acc.X0 = await taoTaiKhoan("X0", "can_bo", null);
-  acc.quanLyA = await taoTaiKhoan("quan-ly-a", "quan_ly", dv.A!);
-  acc.quanLyP = await taoTaiKhoan("quan-ly-p", "quan_ly", dv.P!);
+  acc.quanLyA = await taoTaiKhoan("quan-ly-a", "lanh_dao", dv.A!);
+  acc.quanLyP = await taoTaiKhoan("quan-ly-p", "lanh_dao", dv.P!);
   acc.quanTri = await taoTaiKhoan("quan-tri", "quan_tri", null);
-  acc.quanLyTrong = await taoTaiKhoan("quan-ly-trong", "quan_ly", null);
+  acc.quanLyTrong = await taoTaiKhoan("quan-ly-trong", "lanh_dao", null);
   for (const k of Object.keys(acc)) tk[k] = (await createSession(acc[k]!, "test")).token;
 
   // Nội dung: chuyên đề C1 xuất bản (L1–L3 xuất bản, L4 nháp), chuyên đề C2 nháp (L5).

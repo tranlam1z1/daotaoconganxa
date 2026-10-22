@@ -4,7 +4,7 @@
  *
  * Không dùng embedding: ghép cặp bằng độ tương đồng tiêu đề điều và nội dung
  * (n-gram ký tự đã bỏ dấu + trùng thuật ngữ), rồi giải bài toán ghép cặp tham lam
- * có ràng buộc một-một. Kết quả luôn cần biên tập viên xác nhận.
+ * có ràng buộc một-một. Kết quả luôn cần quản trị viên nội dung xác nhận.
  * Xem ke-hoach/06-cau-truc-va-hop-nhat.md §5.
  */
 import { walk } from "./parser.ts";
@@ -124,7 +124,7 @@ function collect(root: LegalNode, level: "dieu" | "khoan"): LegalNode[] {
 /**
  * Ghép cặp điều giữa hai văn bản.
  * Thuật toán: tính ma trận điểm, sắp giảm dần, lấy tham lam với ràng buộc một-một
- * (đủ tốt cho quy mô vài trăm điều và cho kết quả ổn định, dễ giải thích cho biên tập viên).
+ * (đủ tốt cho quy mô vài trăm điều và cho kết quả ổn định, dễ giải thích cho quản trị viên nội dung).
  */
 export function alignDocuments(
   oldRoot: LegalNode,

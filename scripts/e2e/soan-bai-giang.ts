@@ -1,10 +1,10 @@
 /**
  * Kịch bản E2E soạn bài giảng trong khu quản trị (/quan-tri/chuyen-de) trên khung điện thoại 360×740:
- *  1. tài khoản pháp chế tạo chuyên đề (đường dẫn tự gợi ý từ tên), thêm một bài;
+ *  1. tài khoản Admin quản lý tạo chuyên đề (đường dẫn tự gợi ý từ tên), thêm một bài;
  *  2. thêm khối Thẻ căn cứ, Hỏi nhanh, Ghi nhớ qua biểu mẫu từng loại; xem trước cập nhật khi gõ;
  *  3. mở Sửa rồi đóng không lưu thì nội dung cũ giữ nguyên;
  *  4. đưa bài và chuyên đề qua vòng duyệt tới xuất bản, học viên mở được bài ở /hoc;
- *  5. tài khoản biên tập viên soạn được nhưng không thấy nút Xuất bản.
+ *  5. tài khoản quản trị viên nội dung soạn được nhưng không thấy nút Xuất bản.
  *
  * Cần ít nhất một lĩnh vực đào tạo trong CSDL (`bun run db:seed:dao-tao:gtdb`).
  */
@@ -29,7 +29,7 @@ export default async function soanBaiGiang(n: NguCanhE2E) {
   const slug = `${TIEN_TO}soan-${crypto.randomUUID().slice(0, 6)}`;
   n.donDep(() => n.sql`DELETE FROM courses WHERE slug = ${slug}`);
 
-  const tk = await n.taoTaiKhoan({ role: "phap_che", ten: "Pháp chế E2E" });
+  const tk = await n.taoTaiKhoan({ role: "quan_ly", ten: "Admin quản lý E2E" });
   const page = await n.moTrang();
   const loiTrang: string[] = [];
   page.on("pageerror", (e) => loiTrang.push(e.message));
@@ -104,7 +104,7 @@ export default async function soanBaiGiang(n: NguCanhE2E) {
     throw new Error("Đóng không lưu mà nội dung vẫn đổi.");
 
   // 4. Vòng duyệt bài
-  for (const nut of ["Chuyển sang biên tập", "Gửi pháp chế duyệt", "Xuất bản"]) await bamVaCho(page, nut);
+  for (const nut of ["Chuyển sang biên tập", "Gửi duyệt", "Xuất bản"]) await bamVaCho(page, nut);
   await page.getByText("Đã xuất bản bài.").first().waitFor();
   // Thông báo hiện ngay khi action xong; chờ loader tải lại để nút trạng thái mới xuất hiện.
   await page.getByRole("button", { name: "Đánh dấu cần cập nhật" }).waitFor();
@@ -113,7 +113,7 @@ export default async function soanBaiGiang(n: NguCanhE2E) {
 
   // Vòng duyệt chuyên đề
   await page.goto(`${n.web}/quan-tri/chuyen-de/${slug}`);
-  for (const nut of ["Chuyển sang biên tập", "Gửi pháp chế duyệt", "Xuất bản"]) await bamVaCho(page, nut);
+  for (const nut of ["Chuyển sang biên tập", "Gửi duyệt", "Xuất bản"]) await bamVaCho(page, nut);
   await page.getByText("Đã xuất bản", { exact: true }).first().waitFor();
 
   // Học viên mở được bài
@@ -129,17 +129,17 @@ export default async function soanBaiGiang(n: NguCanhE2E) {
   if (res?.status() !== 200) throw new Error(`Học viên không mở được bài (${res?.status()}).`);
   await trangHoc.getByText("Luật này quy định về quy tắc giao thông đường bộ.").first().waitFor();
 
-  // 5. Biên tập viên: soạn được, không có nút Xuất bản.
-  const bienTap = await n.taoTaiKhoan({ role: "bien_tap", ten: "Biên tập E2E" });
+  // 5. Admin quản lý: soạn được, không có nút Xuất bản.
+  const bienTap = await n.taoTaiKhoan({ role: "quan_ly", ten: "Admin quản lý E2E" });
   const trangBt = await n.moTrang();
   await n.dangNhap(trangBt, bienTap);
   await trangBt.goto(baiUrl);
   await trangBt.getByRole("button", { name: "Đánh dấu cần cập nhật" }).waitFor();
   if (await trangBt.getByRole("button", { name: "Xuất bản", exact: true }).count()) {
-    throw new Error("Biên tập viên thấy nút Xuất bản.");
+    throw new Error("Admin quản lý thấy nút Xuất bản.");
   }
   if (await trangBt.getByRole("button", { name: "Xóa bài này" }).count()) {
-    throw new Error("Biên tập viên thấy nút xóa bài.");
+    throw new Error("Admin quản lý thấy nút xóa bài.");
   }
 
   if (loiTrang.length) throw new Error(`Lỗi JavaScript trên trang: ${loiTrang.join(" | ")}`);

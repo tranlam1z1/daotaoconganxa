@@ -16,12 +16,12 @@ const nguoi = (role: Principal["role"], unitPath?: string) => ({ role, unitPath 
 
 describe("trongPhamVi", () => {
   test("quản lý phòng thấy phòng và mọi đội, tổ bên dưới", () => {
-    const qlPhong = nguoi("quan_ly", P);
+    const qlPhong = nguoi("lanh_dao", P);
     for (const path of [P, A, A1, B, AB]) expect(trongPhamVi(qlPhong, path)).toBe(true);
   });
 
   test("quản lý đội A thấy đội A và tổ A1, không thấy đội B, không thấy phòng", () => {
-    const qlA = nguoi("quan_ly", A);
+    const qlA = nguoi("lanh_dao", A);
     expect(trongPhamVi(qlA, A)).toBe(true);
     expect(trongPhamVi(qlA, A1)).toBe(true);
     expect(trongPhamVi(qlA, B)).toBe(false);
@@ -29,21 +29,26 @@ describe("trongPhamVi", () => {
   });
 
   test("không nhầm đơn vị có nhãn bắt đầu giống nhau", () => {
-    expect(trongPhamVi(nguoi("quan_ly", A), AB)).toBe(false);
+    expect(trongPhamVi(nguoi("lanh_dao", A), AB)).toBe(false);
   });
 
   test("quản trị thấy mọi đơn vị, kể cả khi không gắn đơn vị", () => {
     expect(trongPhamVi(nguoi("quan_tri"), B)).toBe(true);
   });
 
-  test("chưa gắn đơn vị thì không thấy đơn vị nào; đơn vị đích rỗng thì không khớp", () => {
-    expect(trongPhamVi(nguoi("quan_ly"), A)).toBe(false);
-    expect(trongPhamVi(nguoi("quan_ly", A), null)).toBe(false);
+  test("Admin quản lý quản trị toàn hệ thống nên thấy mọi đơn vị", () => {
+    expect(trongPhamVi(nguoi("quan_ly"), B)).toBe(true);
+    expect(trongPhamVi(nguoi("quan_ly"), A)).toBe(true);
   });
 
-  test("phạm vi không phụ thuộc thứ bậc vai trò: biên tập viên gắn đội A cũng chỉ thấy đội A", () => {
-    const bienTap = nguoi("bien_tap", A);
-    expect(trongPhamVi(bienTap, A1)).toBe(true);
-    expect(trongPhamVi(bienTap, B)).toBe(false);
+  test("chưa gắn đơn vị thì không thấy đơn vị nào; đơn vị đích rỗng thì không khớp", () => {
+    expect(trongPhamVi(nguoi("lanh_dao"), A)).toBe(false);
+    expect(trongPhamVi(nguoi("lanh_dao", A), null)).toBe(false);
+  });
+
+  test("phạm vi của lãnh đạo UBND xã là cây đơn vị của mình, không tính thứ bậc vai trò", () => {
+    const lanhDao = nguoi("lanh_dao", A);
+    expect(trongPhamVi(lanhDao, A1)).toBe(true);
+    expect(trongPhamVi(lanhDao, B)).toBe(false);
   });
 });

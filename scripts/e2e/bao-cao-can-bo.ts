@@ -30,8 +30,8 @@ export default async function baoCaoCanBo(n: NguCanhE2E) {
   const doi1 = await taoDonVi({ code: `${ma}-1`, name: "Đội thử số 1", parentId: phong.id }, ma);
   const doi2 = await taoDonVi({ code: `${ma}-2`, name: "Đội thử số 2", parentId: phong.id, ordinal: 1 }, ma);
 
-  const quanLy = await n.taoTaiKhoan({ role: "quan_ly", ten: "Đội trưởng Thử Một" });
-  const quanLyKhac = await n.taoTaiKhoan({ role: "quan_ly", ten: "Đội trưởng Thử Hai" });
+  const quanLy = await n.taoTaiKhoan({ role: "lanh_dao", ten: "Đội trưởng Thử Một" });
+  const quanLyKhac = await n.taoTaiKhoan({ role: "lanh_dao", ten: "Đội trưởng Thử Hai" });
   const daHoc = await n.taoTaiKhoan({ ten: "Nguyễn Văn Đã Học" });
   const chuaHoc = await n.taoTaiKhoan({ ten: "Trần Thị Chưa Học" });
   await sql`UPDATE accounts SET unit_id = ${doi1.id}, rank_title = 'Đại úy', so_hieu = '123-456'

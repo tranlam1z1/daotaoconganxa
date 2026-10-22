@@ -74,8 +74,8 @@ beforeAll(async () => {
   dv.toA1 = (await taoDonVi({ code: `${PREFIX}-A1`, name: "Tổ A1", parentId: dv.doiA }, a)).id;
   dv.doiB = (await taoDonVi({ code: `${PREFIX}-B`, name: "Đội B", parentId: dv.phong }, a)).id;
   tk.quanTri = await taoTaiKhoan("quan-tri", "quan_tri", null);
-  tk.quanLyA = await taoTaiKhoan("quan-ly-a", "quan_ly", dv.doiA);
-  tk.quanLyB = await taoTaiKhoan("quan-ly-b", "quan_ly", dv.doiB);
+  tk.quanLyA = await taoTaiKhoan("quan-ly-a", "lanh_dao", dv.doiA);
+  tk.quanLyB = await taoTaiKhoan("quan-ly-b", "lanh_dao", dv.doiB);
   tk.canBoA1 = await taoTaiKhoan("can-bo-a1", "can_bo", dv.toA1);
   tk.canBoB = await taoTaiKhoan("can-bo-b", "can_bo", dv.doiB);
 

@@ -79,7 +79,7 @@ describe("lời dẫn tuân thủ quy tắc hành văn", () => {
   });
 
   test("lời dẫn không diễn giải nội dung pháp lý, chỉ điều hướng", () => {
-    // Không câu nào viện dẫn điều khoản: diễn giải quy định là việc của khối đã qua pháp chế
+    // Không câu nào viện dẫn điều khoản: diễn giải quy định là việc của khối đã qua duyệt
     // duyệt, nhân vật chỉ dẫn đường tới đó.
     for (const b of lapLoTrinhDanDat(khoi, o)) {
       expect(b.loi).not.toMatch(/Điều\s+\d|khoản\s+\d|điểm\s+[a-z]\)/);

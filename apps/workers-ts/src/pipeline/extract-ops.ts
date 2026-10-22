@@ -242,7 +242,7 @@ export interface ExtractedOp {
   effectiveTo?: string;
   ordinal: number;
   confidence: number;
-  /** Câu lệnh gốc, để biên tập viên đối chiếu. */
+  /** Câu lệnh gốc, để quản trị viên nội dung đối chiếu. */
   evidence: string;
 }
 
@@ -741,7 +741,7 @@ export async function extractOpsForDocument(
   }
   await saveAmendOps(rows);
 
-  // Hàng đợi duyệt: mỗi lệnh một mục để biên tập viên đối chiếu.
+  // Hàng đợi duyệt: mỗi lệnh một mục để quản trị viên nội dung đối chiếu.
   for (let i = 0; i < rows.length; i++) {
     await addReview({
       kind: "amend_op",

@@ -131,7 +131,7 @@ const DA_XONG = {
 type ViecXong = keyof typeof DA_XONG;
 
 export async function loader({ request }: Route.LoaderArgs) {
-  const { token, nguoiDung } = await yeuCauVaiTro(request, "bien_tap");
+  const { token, nguoiDung } = await yeuCauVaiTro(request, "quan_ly");
   const url = new URL(request.url);
   const p = url.searchParams;
   const loai = (LOAI.some((l) => l.id === p.get("loai")) ? p.get("loai") : "muc-phat") as Loai;
@@ -247,7 +247,7 @@ async function dongKeTiep(
 }
 
 export async function action({ request }: Route.ActionArgs) {
-  const { token } = await yeuCauVaiTro(request, "bien_tap");
+  const { token } = await yeuCauVaiTro(request, "quan_ly");
   const f = await request.formData();
   const loai = String(f.get("loai")) as Loai;
   const intent = String(f.get("intent"));

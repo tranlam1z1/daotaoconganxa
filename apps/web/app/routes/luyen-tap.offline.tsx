@@ -286,11 +286,7 @@ function ThongBaoDongBo({ kq }: { kq: KetQuaDongBo | null }) {
   if (!kq) return null;
   if (kq.trangThai === "xong") {
     if (!kq.soPhien) return null;
-    return (
-      <Notice className="mt-4">
-        Đã gửi {kq.soPhien} phiên lên máy chủ{kq.xp ? `, +${kq.xp} điểm kinh nghiệm` : ""}.
-      </Notice>
-    );
+    return <Notice className="mt-4">Đã gửi {kq.soPhien} phiên lên máy chủ.</Notice>;
   }
   return (
     <Notice tone={kq.trangThai === "can_dang_nhap" ? "danger" : "info"} className="mt-4">

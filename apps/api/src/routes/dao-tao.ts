@@ -509,7 +509,7 @@ daoTao.get("/chuyen-de/:slug/bai/:baiSlug", async (c) => {
 
 /**
  * POST /v1/dao-tao/chuyen-de/:slug/bai/:baiSlug/hoan-thanh — người học bấm "Hoàn thành bài".
- * Ghi danh nếu chưa có, đánh dấu bài xong và cộng XP một lần (GĐ9, GĐ11) trong một giao dịch.
+ * Ghi danh nếu chưa có, đánh dấu bài xong (GĐ11) trong một giao dịch.
  */
 daoTao.post("/chuyen-de/:slug/bai/:baiSlug/hoan-thanh", async (c) => {
   const principal = await batBuocDangNhap(c);
@@ -546,14 +546,14 @@ daoTao.post("/bai/:id/tien-do", async (c) => {
     throw new NgoaiPhamVi("Ghi danh này không thuộc tài khoản đang đăng nhập.");
   }
   if (body.xong) {
-    // Hoàn thành bài đi qua cùng một lối với nút "Hoàn thành" để XP được cộng đúng một lần.
-    const kq = await hoanThanhBaiHoc({
+    // Hoàn thành bài đi qua cùng một lối với nút "Hoàn thành" để trạng thái được ghi đúng một lần.
+    await hoanThanhBaiHoc({
       accountId: principal.accountId!,
       courseId: ghiDanhCua.course_id,
       lessonId: c.req.param("id"),
       themGiay: body.themGiay,
     });
-    return c.json({ tienDo: { state: "xong" }, xpCong: kq.xpCong });
+    return c.json({ tienDo: { state: "xong" } });
   }
   const row = await ghiTienDo({
     enrollmentId: body.ghiDanhId,

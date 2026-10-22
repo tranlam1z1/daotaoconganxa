@@ -9,7 +9,6 @@ import {
   chuanHoaMaMoi,
   type DuLieuMucCuaNguoi,
   khoaDuLieuMuc,
-  khoaXpDeOnTap,
   type MucNhomTinh,
   ngayCoVu,
   nhanLuotTrongCuaSo,
@@ -142,7 +141,7 @@ describe("tiến độ cả nhóm", () => {
   });
 });
 
-describe("cổ vũ, XP, bộ đếm", () => {
+describe("cổ vũ, bộ đếm", () => {
   test("23:30 ngày 01/10/2026 và 00:30 ngày 02/10/2026 giờ Việt Nam là hai ngày khác nhau", () => {
     const truoc = new Date("2026-10-01T23:30:00+07:00");
     const sau = new Date("2026-10-02T00:30:00+07:00");
@@ -152,12 +151,6 @@ describe("cổ vũ, XP, bộ đếm", () => {
     expect(ngayCoVu(new Date("2026-10-02T00:30:00+07:00"))).toBe(
       ngayCoVu(new Date("2026-10-02T23:59:00+07:00")),
     );
-  });
-
-  test("khóa XP đề ôn tập theo người và mục, không theo phiên", () => {
-    expect(khoaXpDeOnTap("muc-1", "nguoi-1")).toBe("nhom:muc-1:nguoi-1");
-    expect(khoaXpDeOnTap("muc-1", "nguoi-1")).toBe(khoaXpDeOnTap("muc-1", "nguoi-1"));
-    expect(khoaXpDeOnTap("muc-1", "nguoi-2")).not.toBe(khoaXpDeOnTap("muc-1", "nguoi-1"));
   });
 
   test("bộ đếm cửa sổ trượt: lượt thứ 61 trong một phút bị từ chối, sang phút sau lại nhận", () => {
@@ -202,8 +195,6 @@ describe("thông báo nhóm học cùng", () => {
   const nguoi = (nhom?: { co_vu_moi: number; muc_moi: number }, bat = true) => ({
     cai_dat: { ...CAI_DAT_MAC_DINH, group_activity: bat },
     da_hoc_hom_nay: true,
-    chuoi_ngay: 0,
-    co_thu_thach: false,
     bai_giao_moi: [],
     ...(nhom ? { nhom_hoc: nhom } : {}),
   });

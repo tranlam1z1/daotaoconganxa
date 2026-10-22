@@ -3,8 +3,7 @@
   "luu_y_bien_tap": [
     "BẢN NHÁP. Chỉ dùng văn bản công khai. Các bước được soạn khi kho chưa có Luật Xử lý vi phạm hành chính, nên CHƯA đối chiếu với nguyên văn.",
     "Cần khách hàng xác nhận nội dung quy trình theo câu hỏi GAP 4.5-25 trước khi chuyển sang da_duyet. Quy trình xử lý tai nạn chưa soạn, chờ khách hàng cung cấp văn bản áp dụng.",
-    "Luật Xử lý vi phạm hành chính số 15/2012/QH13 đã được sửa đổi nhiều lần; khi đối chiếu, kiểm tra câu chữ tại ngày áp dụng.",
-    "Quy trình \"dung-xe-kiem-tra\" dùng cho trò chơi Dừng xe đúng quy trình (docs/PLAN.md GĐ-T4): DỮ LIỆU DEMO, CHƯA DUYỆT. Ngày 27/9/2026 tra kho văn bản đang nối (chỉ có Nghị định số 100/2026/NĐ-CP và 150/2027/NĐ-CP, là văn bản thử) không thấy điều khoản nào cho các bước, nên mọi bước để can_cu = null và tro_choi.nguon = chua_co_can_cu. Thứ tự và nội dung bước cần đơn vị chuyên môn xác nhận theo bảng ở docs/GAME_DESIGN.md §5.4."
+    "Luật Xử lý vi phạm hành chính số 15/2012/QH13 đã được sửa đổi nhiều lần; khi đối chiếu, kiểm tra câu chữ tại ngày áp dụng."
   ],
   "quy_trinh": [
     {
@@ -74,61 +73,52 @@
       "ma": "dung-xe-kiem-tra",
       "loai": "vi_pham",
       "tieu_de": "[Demo] Dừng xe kiểm tra",
-      "tom_tat": "Các bước khi dừng một xe để kiểm tra, dùng cho trò chơi Dừng xe đúng quy trình. Dữ liệu demo, chưa duyệt: chưa đối chiếu được văn bản nào trong kho.",
+      "tom_tat": "Các bước khi dừng một xe để kiểm tra. Dữ liệu demo, chưa duyệt: chưa đối chiếu được văn bản nào trong kho.",
       "cac_buoc": [
         {
           "tieu_de": "Ra hiệu lệnh dừng xe",
           "mo_ta": "Ra hiệu lệnh để người lái biết phải dừng xe. Người lái không dừng thì ra hiệu lệnh lại.",
-          "can_cu": null,
-          "tro_choi": { "ma": "hieu_lenh_dung", "thao_tac": "vuot", "bat_buoc": true, "dieu_kien": null, "nguon": "chua_co_can_cu" }
+          "can_cu": null
         },
         {
           "tieu_de": "Hướng dẫn xe vào vị trí dừng an toàn",
           "mo_ta": "Cho xe dừng sát lề ở chỗ thoáng tầm nhìn, không cản trở giao thông; không để xe dừng giữa làn, sau khúc cua, trên cầu hẹp.",
-          "can_cu": null,
-          "tro_choi": { "ma": "vi_tri_dung", "thao_tac": "cham", "bat_buoc": true, "dieu_kien": "co_vi_tri", "nguon": "chua_co_can_cu" }
+          "can_cu": null
         },
         {
           "tieu_de": "Chào, thông báo lý do dừng xe",
           "mo_ta": "Tiếp xúc với người lái, chào và thông báo lý do dừng xe trước khi yêu cầu gì khác.",
-          "can_cu": null,
-          "tro_choi": { "ma": "thong_bao_ly_do", "thao_tac": "cham", "bat_buoc": true, "dieu_kien": null, "nguon": "chua_co_can_cu" }
+          "can_cu": null
         },
         {
           "tieu_de": "Đề nghị xuất trình giấy tờ",
           "mo_ta": "Đề nghị người lái xuất trình giấy tờ của người lái và của xe.",
-          "can_cu": null,
-          "tro_choi": { "ma": "yeu_cau_xuat_trinh", "thao_tac": "cham", "bat_buoc": true, "dieu_kien": null, "nguon": "chua_co_can_cu" }
+          "can_cu": null
         },
         {
           "tieu_de": "Từ chối đề nghị bỏ qua",
           "mo_ta": "Người lái xin bỏ qua thì trả lời dứt khoát là không, đề nghị hợp tác để làm tiếp.",
-          "can_cu": null,
-          "tro_choi": { "ma": "tu_choi_de_nghi", "thao_tac": "cham", "bat_buoc": true, "dieu_kien": "xin_bo_qua", "nguon": "chua_co_can_cu" }
+          "can_cu": null
         },
         {
           "tieu_de": "Kiểm tra giấy tờ",
           "mo_ta": "Đối chiếu từng giấy tờ với xe và người lái: có đủ không, còn giá trị không, có khớp không.",
-          "can_cu": null,
-          "tro_choi": { "ma": "kiem_giay_to", "thao_tac": "keo", "bat_buoc": true, "dieu_kien": null, "nguon": "chua_co_can_cu" }
+          "can_cu": null
         },
         {
           "tieu_de": "Yêu cầu chấp hành kiểm tra nồng độ cồn",
           "mo_ta": "Người lái không chịu thổi thì giải thích đây là yêu cầu bắt buộc và đề nghị chấp hành.",
-          "can_cu": null,
-          "tro_choi": { "ma": "yeu_cau_chap_hanh_do", "thao_tac": "cham", "bat_buoc": true, "dieu_kien": "tu_choi_thoi", "nguon": "chua_co_can_cu" }
+          "can_cu": null
         },
         {
           "tieu_de": "Kiểm tra nồng độ cồn",
           "mo_ta": "Đo nồng độ cồn bằng máy đo, đủ thời gian máy yêu cầu, rồi đọc kết quả.",
-          "can_cu": null,
-          "tro_choi": { "ma": "do_nong_do_con", "thao_tac": "giu", "bat_buoc": true, "dieu_kien": "co_do_con", "nguon": "chua_co_can_cu" }
+          "can_cu": null
         },
         {
           "tieu_de": "Quyết định hướng xử lý",
           "mo_ta": "Từ kết quả kiểm tra: không có vi phạm thì cho đi; có vi phạm thì lập biên bản, tạm giữ phương tiện trong trường hợp được phép.",
-          "can_cu": null,
-          "tro_choi": { "ma": "xu_ly", "thao_tac": "keo", "bat_buoc": true, "dieu_kien": null, "nguon": "chua_co_can_cu" }
+          "can_cu": null
         }
       ],
       "trang_thai": "nhap",

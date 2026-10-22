@@ -7,8 +7,8 @@
  */
 import { type CauHoiNguon, ngayVietNam } from "@qdpl/dao-tao";
 import { sql, type Tx } from "./client.ts";
-import { ghiHoatDong, ghiHoatDongHomNay } from "./hoat-dong.ts";
 import { ghiKetQuaChuDe } from "./ho-so-chu-de.ts";
+import { ghiHoatDong, ghiHoatDongHomNay } from "./hoat-dong.ts";
 
 /**
  * `nhom` là phiên đề ôn tập của nhóm học cùng (GĐ16a), gắn với mục qua `group_item_id`.
@@ -247,7 +247,7 @@ export async function ghiCauTraLoi(inp: {
 
 /**
  * Cập nhật danh sách câu sai cho một câu trả lời, trong giao dịch `tx` của người gọi. Luyện tập
- * (GĐ4) và bước trò chơi có câu hỏi ngân hàng (GĐ-G0) dùng chung.
+ * (GĐ4) và các nơi khác có câu hỏi ngân hàng (GĐ-G0) dùng chung.
  */
 export async function capNhatCauSaiTrongGiaoDich(
   tx: Tx,

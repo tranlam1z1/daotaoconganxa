@@ -32,8 +32,8 @@ export async function danhTinh(c: Context): Promise<Principal | undefined> {
  * Nhóm API tài khoản chưa được xác minh cán bộ (chờ duyệt hoặc bị từ chối, migration 0064) được dùng
  * với danh tính của mình: chỉ đủ cho trang Tài khoản (xem trạng thái xét duyệt, khai lại thông tin,
  * đổi mật khẩu, ảnh đại diện, đăng xuất). Ngoài các nhóm này, tài khoản đó bị coi như người chưa
- * đăng nhập: endpoint công khai (tra cứu) vẫn trả lời, endpoint cần đăng nhập (học, luyện tập, trò
- * chơi, thi…) trả 401. Mặc định từ chối, nên nhóm API thêm sau không tự mở cho tài khoản chưa duyệt.
+ * đăng nhập: endpoint công khai (tra cứu) vẫn trả lời, endpoint cần đăng nhập (học, luyện tập, thi…)
+ * trả 401. Mặc định từ chối, nên nhóm API thêm sau không tự mở cho tài khoản chưa duyệt.
  */
 export const CHO_XAC_MINH_DUOC_GOI: readonly string[] = ["/v1/auth", "/v1/toi/anh-dai-dien"];
 

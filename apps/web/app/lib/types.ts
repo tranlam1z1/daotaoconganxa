@@ -364,6 +364,4 @@ export interface NguoiDung {
    */
   cho_xac_minh?: boolean;
   xac_minh?: ThongTinXacMinh | null;
-  /** Bản gọn điểm thưởng cho thanh đầu trang (docs/PLAN.md GĐ9). */
-  diem?: { xp: number; cap: number; chuoi: number; da_hoc_hom_nay: boolean } | null;
 }

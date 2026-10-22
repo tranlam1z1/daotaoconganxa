@@ -53,10 +53,10 @@ let topicId = "";
  * Mong đợi tính tay (13 cột của báo cáo, khoảng ngày không lọc):
  * - A1: ghi danh chuyên đề C1 (3 bài xuất bản L1–L3, bài L4 nháp không tính) và chuyên đề nháp C2
  *   (không tính). Xong L1 → 1/3 = 33,3%. Luyện tập: phiên chủ đề 3 câu (2 đúng) + phiên D1 5 câu
- *   (4 đúng); phiên trò chơi 2 câu không tính → 2 phiên, 6/8 = 75%. Đề thi: E1 (giao phòng P kèm
+ *   (4 đúng) → 2 phiên, 6/8 = 75%. Đề thi: E1 (giao phòng P kèm
  *   cấp dưới), E2 (giao thẳng A1), E3 (giao đội A không kèm cấp dưới); E5 bị hủy giao không tính →
  *   3 được giao; nộp E1 (đạt), E2 (không đạt) → 2 đã nộp, 1 đạt. Nhóm N1: L1 = 100, L2 đọc 1/2
- *   khối = 50, D1 xong = 100 → ⌊250/3⌋ = 83. Học gần nhất: câu trò chơi lúc 20/9 02:00 UTC.
+ *   khối = 50, D1 xong = 100 → ⌊250/3⌋ = 83. Học gần nhất: bài thi nộp lúc 17/9 02:00 UTC.
  * - A4: chưa ghi danh → 0/0, phần trăm trống. Phiên D2 đang làm, trả lời 2/5 (1 đúng) → 1 phiên,
  *   50%. Được giao E1, E3; chưa nộp. N2: L1 = 0, D2 = ⌊2/5·100⌋ = 40 → ⌊40/2⌋ = 20.
  * - B1: xong L1, L3 → 2/3 = 66,7%. Phiên D2 xong 5 câu (3 đúng) → 1 phiên, 60%. Được giao E1 (E3
@@ -78,7 +78,7 @@ const MONG_DOI = {
     bai_thi_dat: 1,
     so_nhom: 1,
     phan_tram_nhom: 83,
-    lan_hoc_gan_nhat: "2026-09-20T02:00:00.000Z",
+    lan_hoc_gan_nhat: "2026-09-17T02:00:00.000Z",
   },
   A4: {
     ho_ten: "Cán bộ A4",
@@ -295,12 +295,6 @@ beforeAll(async () => {
     mucId: muc.D1,
     batDau: "2026-09-13T02:00:00Z",
     dung: [true, true, true, true, false],
-    xong: true,
-  });
-  await phien("A1", {
-    source: "game:vuot_man",
-    batDau: "2026-09-20T01:58:00Z",
-    dung: [true, true],
     xong: true,
   });
   await phien("A4", {

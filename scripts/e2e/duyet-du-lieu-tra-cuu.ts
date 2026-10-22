@@ -4,7 +4,7 @@
  *     dòng hiện tóm tắt mức phạt và căn cứ đọc được;
  *  2. duyệt ngay trên dòng; mở một dòng, sửa rồi "Lưu và duyệt" thì trang tự mở dòng chờ duyệt kế tiếp;
  *  3. từ chối ở khung chi tiết cũng tự sang dòng kế; tích "Chọn cả trang" rồi duyệt các dòng còn lại;
- *  4. quy trình: sửa bước bằng ô nhập, đổi thứ tự bước, phần trò chơi của bước được giữ nguyên;
+ *  4. quy trình: sửa bước bằng ô nhập, đổi thứ tự bước;
  *  5. khung điện thoại 360×740 không cuộn ngang.
  */
 import type { NguCanhE2E } from "./chay.ts";
@@ -34,13 +34,6 @@ export default async function duyetDuLieuTraCuu(n: NguCanhE2E) {
       tieu_de: "Chào và thông báo lý do",
       mo_ta: "Chào theo điều lệnh, nêu lý do kiểm tra.",
       can_cu: null,
-      tro_choi: {
-        ma: "chao_hoi",
-        thao_tac: "cham",
-        bat_buoc: true,
-        dieu_kien: null,
-        nguon: "tai_lieu_nghiep_vu",
-      },
     },
   ];
   await n.sql`
@@ -128,12 +121,6 @@ export default async function duyetDuLieuTraCuu(n: NguCanhE2E) {
   await page.goto(`${n.web}${DUONG}?loai=quy-trinh&trang_thai=nhap&q=${tienTo}&ma=${qt}`);
   const chiTietQt = page.getByRole("region", { name: new RegExp(`^${qt}`) });
   if ((await chiTietQt.getByLabel("Việc cần làm").count()) !== 2) throw new Error("Phải có 2 khối bước.");
-  if (!(await chiTietQt.getByLabel("Bước này dùng trong trò chơi").nth(1).isChecked())) {
-    throw new Error("Bước 2 phải được đánh dấu dùng trong trò chơi.");
-  }
-  if ((await chiTietQt.getByLabel("Loại bước").inputValue()) !== "chao_hoi") {
-    throw new Error("Ô Loại bước phải mang mã của phần trò chơi.");
-  }
   await chiTietQt.getByRole("button", { name: "Đưa bước 2 lên" }).click();
   await chiTietQt.getByLabel("Mô tả").first().fill("Chào theo điều lệnh, thông báo lý do kiểm tra.");
   await n.chupAnh(page, "quy-trinh");
@@ -149,10 +136,7 @@ export default async function duyetDuLieuTraCuu(n: NguCanhE2E) {
     dqt?.status !== "da_duyet" ||
     b1?.tieu_de !== "Chào và thông báo lý do" ||
     b1.mo_ta !== "Chào theo điều lệnh, thông báo lý do kiểm tra." ||
-    b1.tro_choi?.ma !== "chao_hoi" ||
-    b1.tro_choi.nguon !== "tai_lieu_nghiep_vu" ||
-    b2?.tieu_de !== "Ra hiệu lệnh dừng xe" ||
-    "tro_choi" in (b2 ?? {})
+    b2?.tieu_de !== "Ra hiệu lệnh dừng xe"
   ) {
     throw new Error(`Sau khi sửa bước, quy trình sai: ${JSON.stringify(dqt)}.`);
   }

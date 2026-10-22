@@ -15,9 +15,8 @@
 
 1. **Mã nguồn hiện tại không phải một hệ thống viết cho PRD này.** Đây là nền tảng **quydinhphapluat.vn**: một dịch vụ công khai để tra cứu, đối chiếu và vận dụng văn bản quy phạm pháp luật, có thêm mô-đun "đào tạo theo chuyên đề". Lĩnh vực đào tạo đầu tiên là *đầu tư CNTT từ ngân sách nhà nước*. Lĩnh vực *giao thông đường bộ cho CSGT* được thêm sau và mới soạn xong một phần.
 2. **Phần tra cứu văn bản mạnh hơn PRD yêu cầu.** Văn bản được lưu có cấu trúc đến điều/khoản/điểm, dựng lại theo thời điểm, so sánh được giữa các phiên bản, và có hỏi đáp AI kèm trích dẫn đã kiểm chứng.
-3. **Phần sát hạch, trò chơi hóa, đơn vị, báo cáo và PWA hầu như chưa có.** Cụ thể là chưa có:
+3. **Phần sát hạch, đơn vị, báo cáo và PWA hầu như chưa có.** Cụ thể là chưa có:
    - đề thi có tính giờ, trộn đề;
-   - điểm, XP, huy hiệu, chuỗi ngày học, bảng xếp hạng;
    - mô hình đơn vị (tổ chức);
    - vai trò *cán bộ quản lý* và việc giao bài;
    - xuất Excel/PDF;
@@ -110,7 +109,6 @@ content/, prompts/, evals/, ke-hoach/, infra/, .do/
 | # | Yêu cầu | Trạng thái | Bằng chứng / ghi chú |
 |---|---|---|---|
 | I.1a | Hỗ trợ cán bộ tự học pháp luật, luật giao thông, tài liệu chuyên môn | 🟡 | Mô-đun đào tạo đầy đủ; nội dung giao thông mới có ~7 bài hoàn chỉnh (`seed-dao-tao-gtdb.ts`) |
-| I.1b | Học theo hướng trò chơi hóa, tương tác | 🟡 | Có 15 dạng bài tập tương tác và nhân vật đồng hành, nhưng **không có** cơ chế game (điểm, cấp độ, màn chơi) |
 | I.1c | Lãnh đạo theo dõi, đánh giá bằng số liệu tập trung | 🟡 | Chỉ có thống kê theo chuyên đề/câu hỏi (`/v1/quan-tri/dao-tao/.../thong-ke`); không có theo người, theo đơn vị |
 | I.1d | Web User và PWA cực kỳ đơn giản | 🟡 | Web thiên về tra cứu pháp lý chuyên sâu (thời điểm hiệu lực, hợp nhất, lược đồ): nhiều khái niệm, không "cực kỳ đơn giản". PWA chưa có |
 | I.2a | Thí điểm lĩnh vực Giao thông | 🟡 | Lĩnh vực `giao-thong-duong-bo` ở trạng thái `bien_tap`; thiếu biển báo, bảng mức phạt |
@@ -130,7 +128,7 @@ content/, prompts/, evals/, ke-hoach/, infra/, .do/
 | II.3 | API dùng chung cho các phân hệ | ✅ | `apps/api` REST `/v1`, định dạng lỗi thống nhất |
 | II.4 | **FE Admin ReactJS** riêng | 🟡 | Có React nhưng nằm chung ứng dụng SSR với web người dùng ⚠️ UI đang dựng lại |
 | II.5 | FE User Web định hướng hàn lâm | ✅ ⚠️ | Đúng định hướng (đọc văn bản, tra cứu, ôn luyện) |
-| II.6 | **PWA** cài được iOS/Android, định hướng trò chơi | ❌ | Không có manifest, service worker |
+| II.6 | **PWA** cài được iOS/Android | ❌ | Không có manifest, service worker |
 | II.7 | Mô-đun AI: hỏi – đáp theo văn bản | ✅ ⚠️ | `POST /v1/ask`: có kiểm chứng URN còn hiệu lực, từ chối khi thiếu căn cứ |
 | II.8 | Mô-đun AI: sinh câu hỏi tự động | 🟡 | Bước `sinh_bai_tap` trong worker `soan-bai`, kết quả vào bản nháp chờ biên tập |
 | II.9 | Mô-đun AI: hỗ trợ giọng nói | 🟡 | Chỉ có **TTS (Vbee)** cho lời thoại nhân vật; **không có STT** |
@@ -148,7 +146,6 @@ content/, prompts/, evals/, ke-hoach/, infra/, .do/
 | 1.2d | Trộn đề, đảo câu, đảo đáp án | ❌ | Chỉ có các trường cấu hình `xao_cau`, `xao_phuong_an` trong `assessments.config`, chưa có mã xử lý |
 | 1.2e | Cấu hình số câu (30–40), thời gian, ngưỡng đạt | ❌ | Như trên (`so_cau`, `thoi_gian_phut`, `pass_score`), chưa dùng |
 | 1.3a | Báo cáo điểm, thời gian làm bài, số lần thực hiện | 🟡 | Dữ liệu thô có đủ (`attempts.score`, `seconds_spent`, `attempt_no`). Chỉ có thống kê gộp theo chuyên đề, không có báo cáo theo người học |
-| 1.3b | Xếp hạng cá nhân và đơn vị | ❌ | Không có (trang tiến độ còn **cố ý** không có bảng xếp hạng) |
 | 1.3c | Xuất Excel/PDF | ❌ | Không có thư viện hay endpoint xuất |
 
 ### 2.4. Phân hệ học tập (PRD §III.2)
@@ -156,14 +153,12 @@ content/, prompts/, evals/, ke-hoach/, infra/, .do/
 | # | Yêu cầu | Trạng thái | Ghi chú |
 |---|---|---|---|
 | 2.1a | Học bài giảng do CA cung cấp hoặc AI tạo | ✅ ⚠️ | Bài có trường `source = nguoi | ai | ai_da_sua` |
-| 2.1b | Hình thức: **chơi game** | 🟡 | Có bài tập tương tác (xem §2.6), không có game đúng nghĩa |
 | 2.1c | Hình thức: **xem slide** | ❌ | Bài học hiển thị dạng trang cuộn gồm các khối, không có chế độ trình chiếu |
 | 2.1d | Hình thức: **sách nói** | 🟡 | TTS Vbee đã tích hợp (`/v1/mascot/giong-doc`) nhưng chỉ đọc lời thoại nhân vật, chưa đọc cả bài |
-| 2.1e | Chuỗi màn chơi, qua màn trước mới mở màn sau | ❌ | Bài học **không khóa**: mọi bài đã xuất bản đều mở được. Hàm mở khóa kỹ năng theo tiên quyết (`kyNangDaMo`) có trong `packages/dao-tao` nhưng không route nào gọi |
-| 2.1f | Điểm, huy hiệu, chuỗi ngày học, bảng xếp hạng cá nhân/đơn vị | ❌ | Chỉ có trường `activities.points` và mục tiêu số phút mỗi tuần |
+| 2.1e | Học theo thứ tự: xong bài trước mới mở bài sau | ❌ | Bài học **không khóa**: mọi bài đã xuất bản đều mở được. Hàm mở khóa kỹ năng theo tiên quyết (`kyNangDaMo`) có trong `packages/dao-tao` nhưng không route nào gọi |
 | 2.1g | Hỏi – đáp bằng **giọng nói** với AI | ❌ | Không có STT; hỏi đáp AI chỉ nhận văn bản |
 | 2.1h | Học ngắn 5–10 phút mỗi lượt | 🟡 | Có chế độ học `nhanh`, phiên ôn tập khoảng 5 phút; thời lượng mặc định của một bài là 15 phút |
-| 2.1i | Thông báo nhắc học, thử thách mới | ❌ | Không có push, email hay lịch nhắc; chỉ có nhân vật đồng hành nhắc trong trang |
+| 2.1i | Thông báo nhắc học | ❌ | Không có push, email hay lịch nhắc; chỉ có nhân vật đồng hành nhắc trong trang |
 | 2.2a | Thư viện văn bản: đọc, tìm kiếm | ✅ ⚠️ | Đọc theo thời điểm, mục lục, chú thích hợp nhất, sao chép trích dẫn; tìm kiếm lai có bộ lọc |
 | 2.2b | Thư viện: **đánh dấu, ghi chú theo điều khoản** | ❌ | Không có bảng hay UI bookmark/ghi chú cá nhân |
 | 2.2c | Tra cứu nhanh **mức xử phạt**, hình thức bổ sung **theo tốc độ** | ❌ | Chỉ tra được bằng tìm kiếm văn bản hoặc khối `bang_tra` trong bài. Không có dữ liệu có cấu trúc kiểu hành vi → mức phạt → trừ điểm → hình thức bổ sung |
@@ -190,33 +185,6 @@ content/, prompts/, evals/, ke-hoach/, infra/, .do/
 | IV.4c | PWA hoạt động khi mạng yếu/offline | ❌ | |
 | IV.5 | Tra cứu thông thường < 3 giây | 🟡 | Chưa đo. Tìm kiếm chạy trong Postgres nên có khả năng đạt; embedding mặc định là băm giả lập, chuyển sang bge-m3 sẽ thêm độ trễ gọi TEI. Hỏi đáp AI (Opus + suy luận) chắc chắn vượt 3 giây |
 
-### 2.6. 20 trò chơi (PRD §V) ↔ dạng bài tập/khối đang có
-
-| # | Trò chơi | Trạng thái | Nền tảng có thể tái dụng |
-|---|---|---|---|
-| 1 | Thử thách vượt màn | ❌ | Có câu hỏi; thiếu cơ chế màn và khóa màn |
-| 2 | Đua thời gian 60 giây | ❌ | — |
-| 3 | Ai là triệu phú nghiệp vụ | ❌ | Có `difficulty` để xếp câu tăng dần |
-| 4 | Đoán biển báo | ❌ | Không có dữ liệu biển báo |
-| 5 | Ghép cặp lỗi – mức phạt | 🟡 | Bài tập `ghep_cap` (chấm máy) |
-| 6 | Sắp xếp quy trình | 🟡 | Bài tập `sap_xep` (chấm bằng Kendall tau, có phương án thay kéo thả bằng bàn phím) |
-| 7 | Đúng hay sai | 🟡 | `dung_sai` có, nhưng mặc định **chấm bằng AI**, mà chấm AI **chưa được cài đặt** (`cham-ai.ts` không tồn tại) |
-| 8 | Tình huống hiện trường phân nhánh | 🟡 | Bài tập `phan_nhanh`, khối `cay_quyet_dinh`, `kich_ban` |
-| 9 | Ô chữ pháp luật | ❌ | — |
-| 10 | Lật thẻ ghi nhớ (tìm cặp) | 🟡 | Khối `the_lat` (lật thẻ), chưa có luật chơi tìm cặp |
-| 11 | Điền vào chỗ trống | 🟡 | Bài tập `dien_khuyet` (so khớp không phân biệt dấu) |
-| 12 | Thẻ ghi nhớ thông minh (lặp lại ngắt quãng) | ✅ ⚠️ | SM-2, ưu tiên câu sai, tự tạm dừng thẻ khi căn cứ pháp lý thay đổi |
-| 13 | Đấu trí đối kháng thời gian thực | ❌ | Không có WebSocket hay ghép cặp người chơi |
-| 14 | Thi đua đơn vị | ❌ | Không có đơn vị |
-| 15 | Hỏi nhanh bằng giọng nói | 🟡 | Có TTS để đọc câu hỏi; thiếu STT |
-| 16 | Thử thách hằng ngày, chuỗi ngày học | ❌ | — |
-| 17 | Tìm lỗi vi phạm qua ảnh/video | ❌ | `soi_loi` là soi lỗi trên văn bản, chấm AI (chưa cài đặt); khối `diem_nong`/`video` có khai báo kiểu |
-| 18 | Vòng quay kiến thức | ❌ | — |
-| 19 | Phân loại nhanh (kéo thả vào nhóm) | 🟡 | `keo_tha_so_do`, `ghep_cap` |
-| 20 | Nhập vai cán bộ tuần tra | 🟡 | Khối `kich_ban`, bài tập `phan_nhanh`; thiếu chuỗi tình huống có chấm điểm tổng hợp |
-
-Nhận xét: phần "ruột" của khoảng 8/20 trò chơi (câu hỏi, cách chấm) đã có. Phần "vỏ game" thì chưa: màn chơi, đồng hồ, điểm, âm thanh, hiệu ứng, bảng xếp hạng.
-
 ---
 
 ## 3. Những chỗ mã hiện tại mâu thuẫn với PRD
@@ -237,7 +205,6 @@ Nhận xét: phần "ruột" của khoảng 8/20 trò chơi (câu hỏi, cách c
 |---|---|---|
 | P1 | Hệ thống **nội bộ** cho cán bộ, chiến sĩ CA | Nền tảng **công khai** quydinhphapluat.vn: tra cứu không cần đăng nhập, người đăng nhập đầu tiên thành quản trị, người sau nhận vai trò `khach` |
 | P2 | Lĩnh vực thí điểm: **Giao thông** | Lĩnh vực chính là **đầu tư CNTT/NSNN**. Toàn bộ `content/courses`, `content/use-cases` và nhiều prompt, eval, hướng dẫn sử dụng đều viết cho lĩnh vực đó |
-| P3 | **Trò chơi hóa**: điểm, huy hiệu, bảng xếp hạng, màn chơi | Triết lý thiết kế ngược lại: trang tiến độ **cố ý không có bảng xếp hạng**; bài học không khóa; tạo động lực bằng nhân vật đồng hành, mức thành thạo và ôn giãn cách |
 | P4 | Học ngắn, **cực kỳ đơn giản** | Thiết kế hàn lâm pháp lý: mọi màn hình xoay quanh `asOf` (thời điểm hiệu lực), hợp nhất, thứ bậc văn bản, 19 loại khối, 4 chế độ học, rubric có tiêu chí căn cứ bắt buộc |
 | P5 | Đối tượng là **cán bộ, chiến sĩ** theo đơn vị | Đối tượng là `khach_hang` (người áp dụng) / `tu_van` (người tư vấn). Nhân vật đồng hành, lời thoại và giọng điệu viết cho người học dân sự |
 | P6 | Nguồn dữ liệu **do đơn vị chuyên môn cung cấp** | Nguồn chính là **crawler** các cổng văn bản công khai; có hàng đợi biên tập, nhưng không có luồng "đơn vị gửi tài liệu → duyệt" |
@@ -251,7 +218,6 @@ Nhận xét: phần "ruột" của khoảng 8/20 trò chơi (câu hỏi, cách c
 | D3 | **Ngân hàng câu hỏi** độc lập, phân loại chủ đề / mức độ / loại, duyệt **từng câu** | `activities.course_id NOT NULL`; mức độ là số thực `difficulty`; duyệt theo bài | Câu hỏi không dùng chung được giữa đề thi và chuyên đề; không đếm được "1.000 câu đã duyệt" |
 | D4 | **Đề thi** được giao, có phiên bản trộn cho từng người, tính giờ | `assessments` gắn với chuyên đề + `level` + `after_lesson_id`; không có bảng đề đã sinh, bảng giao đề, bảng lượt thi | Cần thêm các bảng: đề thi, ma trận đề, lượt giao (người/đơn vị/hạn), lượt thi (thời điểm bắt đầu/nộp, thứ tự câu/đáp án đã đảo) |
 | D5 | Kết quả gắn với **người dùng** | Mọi bản ghi học tập (`attempts`, `mastery`, `srs_cards`, `lesson_progress`) gắn với **`enrollment`** (ghi danh một chuyên đề) | Báo cáo theo người phải đi vòng qua ghi danh; bài thi không thuộc chuyên đề thì không có chỗ lưu |
-| D6 | Điểm, XP, huy hiệu, chuỗi ngày, bảng xếp hạng | Không có bảng nào | Cần thêm sổ điểm, huy hiệu, streak, bảng xếp hạng theo kỳ |
 | D7 | Đánh dấu, ghi chú theo điều khoản | Không có | Cần bảng bookmark/ghi chú theo `node_urn` + người dùng |
 | D8 | Dữ liệu tra cứu nhanh (mức phạt, biển báo, quy trình) | Chỉ có văn bản dạng cây `nodes` | Cần dữ liệu có cấu trúc riêng, có trích dẫn về `node_urn` |
 | D9 | Tài khoản cho cán bộ (nhiều khả năng không dùng Google) | `accounts.email UNIQUE NOT NULL`, đăng nhập bằng Google hoặc mật khẩu demo chung | Cần tài khoản tên đăng nhập/mật khẩu riêng hoặc SSO nội bộ, và nhập danh sách hàng loạt |
@@ -284,7 +250,7 @@ Các lỗi dưới đây đã được kiểm tra lại trực tiếp trong mã:
 1. **NestJS là bắt buộc** (hồ sơ thầu, quy định của đơn vị, đội vận hành) **hay chỉ là gợi ý?** Nếu không bắt buộc, có chấp nhận giữ Hono + Bun không? Việc này quyết định giữ hay viết lại toàn bộ lớp API.
 2. **Quan hệ với nền tảng quydinhphapluat.vn:** tách một bản riêng (fork) cho CA, hay dùng chung một hệ thống nhiều đơn vị (multi-tenant)? Có giữ các chức năng ngoài PRD không: nhân vật đồng hành, hợp nhất theo thời điểm, so sánh phiên bản, lược đồ quan hệ, MCP, chứng nhận, trường hợp ứng dụng, lĩnh vực đầu tư CNTT? Giữ ẩn, giữ hiện hay gỡ bỏ?
 3. **FE Admin có bắt buộc là ứng dụng tách riêng** (triển khai, tên miền riêng) không, hay được phép là một khu vực trong cùng ứng dụng web?
-4. **Web User và PWA:** một bản mã chung với hai giao diện (hàn lâm / game), hay hai ứng dụng riêng? PWA có cần đầy đủ tra cứu văn bản không, hay chỉ học nhanh và game?
+4. **Web User và PWA:** một bản mã chung cho cả web và PWA, hay hai ứng dụng riêng? PWA có cần đầy đủ tra cứu văn bản không, hay chỉ học nhanh?
 5. **Hạ tầng:** máy chủ Internet thương mại (DigitalOcean Singapore như hiện nay) có được chấp nhận với đơn vị CA không? Có yêu cầu đặt máy chủ trong nước, cấp độ an toàn thông tin (theo NĐ 85/2016), hay tên miền `.gov.vn`/nội bộ không?
 
 ### 4.2. Tổ chức, người dùng, phân quyền
@@ -304,14 +270,11 @@ Các lỗi dưới đây đã được kiểm tra lại trực tiếp trong mã:
 15. **Thang điểm** (10 hay 100) và **ngưỡng đạt** mặc định? Khi mất mạng hoặc đóng trình duyệt giữa giờ thi thì xử lý thế nào? Có cần chống gian lận (chặn chuyển tab, xáo thứ tự, giới hạn thiết bị) không?
 16. **Thi sát hạch có được làm offline không**, hay chỉ ôn luyện mới được offline?
 
-### 4.4. Học tập và trò chơi hóa
+### 4.4. Học tập
 
 17. **"Bài giảng"** cụ thể là gì? "Xem slide" là slide do AI sinh từ nội dung bài, hay tệp PowerPoint/PDF đơn vị tải lên? "Sách nói" là đọc TTS toàn bài, hay tệp ghi âm có sẵn?
-18. **"Màn chơi"** tương ứng với bài học, chủ đề hay một bộ 10 câu? Ngưỡng qua màn là bao nhiêu?
-19. **Công thức điểm/XP, danh sách huy hiệu, cách lên cấp**: KH có yêu cầu cụ thể, hay đội dự án tự đề xuất? PRD ghi "cần đề xuất thêm yếu tố" và "danh sách trò chơi chưa hay, cần đề xuất lại". **Ai duyệt danh sách mới, và demo cần bao nhiêu trò?**
-20. **Bảng xếp hạng** hiển thị họ tên thật hay biệt danh? Phạm vi (đơn vị mình hay toàn hệ thống) và chu kỳ (tuần, tháng, mùa)?
 21. **Thông báo nhắc học** qua kênh nào: Web Push (iOS chỉ hỗ trợ từ 16.4 và phải cài PWA ra màn hình chính), email, SMS hay Zalo?
-22. **Offline cụ thể** gồm những gì: đọc bài, làm bài tập, chơi game, đọc văn bản? Kết quả làm offline có được tính điểm và xếp hạng khi đồng bộ lại không?
+22. **Offline cụ thể** gồm những gì: đọc bài, làm bài tập, đọc văn bản? Kết quả làm offline có được tính vào tiến độ khi đồng bộ lại không?
 
 ### 4.5. Tra cứu nhanh và AI
 
@@ -340,7 +303,6 @@ Các lỗi dưới đây đã được kiểm tra lại trực tiếp trong mã:
   - đơn vị và phân quyền theo phạm vi;
   - ngân hàng câu hỏi độc lập có duyệt từng câu;
   - đề thi, giao bài, lượt thi tính giờ;
-  - trò chơi hóa (điểm, XP, huy hiệu, streak, bảng xếp hạng);
   - báo cáo và xuất Excel/PDF;
   - PWA offline;
   - STT;

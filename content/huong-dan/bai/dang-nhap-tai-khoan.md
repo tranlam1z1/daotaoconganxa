@@ -37,7 +37,7 @@ Tài khoản đăng nhập đầu tiên của hệ thống được cấp vai tr
 Tài khoản tự đăng ký ở trang **Đăng ký**, và tài khoản Google mới, phải được xác minh đúng người trước khi thành tài khoản cán bộ.
 
 1. Khi đăng ký, khai **Số hiệu CAND**, **Đơn vị công tác** và (không bắt buộc) **Cấp bậc, chức vụ**. Tài khoản Google khai các thông tin này ở mục **Xác minh cán bộ** trên trang Tài khoản.
-2. Trong lúc chờ, tài khoản chỉ dùng được trang Tài khoản và các trang tra cứu, bộ công cụ công khai. Bài giảng, luyện tập, trò chơi, thi, nhóm học, bảng xếp hạng và thông báo nhắc học mở sau khi được duyệt.
+2. Trong lúc chờ, tài khoản chỉ dùng được trang Tài khoản và các trang tra cứu, bộ công cụ công khai. Bài giảng, luyện tập, thi, nhóm học và thông báo nhắc học mở sau khi được duyệt.
 3. Mục **Xác minh cán bộ** trên trang Tài khoản cho biết trạng thái. Nếu bị từ chối, mục này nêu lý do; sửa thông tin rồi bấm **Gửi xác minh** để vào lại hàng chờ.
 
 Người duyệt là quản trị viên (mọi tài khoản) hoặc cán bộ quản lý (người khai đơn vị thuộc đơn vị mình và các đơn vị cấp dưới). Ở trang **Quản trị › Người dùng**, chọn bộ lọc **Xác minh: Chờ xác minh**, đối chiếu họ tên, số hiệu, đơn vị và số điện thoại, rồi:

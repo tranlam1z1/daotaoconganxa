@@ -2,7 +2,7 @@
  * Một bài giảng `/hoc/:course/:lesson` (docs/PLAN.md GĐ11).
  *
  * Hai chế độ trên cùng dữ liệu: đọc cuộn (mặc định) và slide (`?che_do=slide`, mỗi khối một
- * trang). Cuối bài: "Hoàn thành bài" (cộng XP một lần) và kiểm tra nhanh 3–5 câu từ ngân hàng
+ * trang). Cuối bài: "Hoàn thành bài" (đánh dấu đã xong) và kiểm tra nhanh 3–5 câu từ ngân hàng
  * theo chủ đề của bài. Trước phần kết bài là bài tập (tự luận AI chấm, trắc nghiệm) nếu bài có.
  * Nhân vật đồng hành tắt (giả định A8).
  */
@@ -168,7 +168,7 @@ export async function action({
         `/v1/dao-tao/chuyen-de/${encodeURIComponent(params.course)}/bai/${encodeURIComponent(params.lesson)}/hoan-thanh`,
         { body: {} },
       );
-      return { hoanThanh: { xpCong: kq.xpCong, daXongTruoc: kq.daXongTruoc } };
+      return { hoanThanh: { daXongTruoc: kq.daXongTruoc } };
     }
     if (f.get("intent") === "kiem-tra") {
       const soCau = Number(f.get("so_cau") ?? 5);

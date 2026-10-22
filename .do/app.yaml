@@ -139,7 +139,7 @@ workers:
       deploy_on_push: true
     source_dir: /
     build_command: bun install --frozen-lockfile && bun run build:server
-    run_command: bun run start:worker -- --queues reconcile,soan-bai,mascot-anh,thi-het-gio,sach-noi,nhac-hoc,mua-giai,don-khach
+    run_command: bun run start:worker -- --queues reconcile,soan-bai,mascot-anh,thi-het-gio,sach-noi,nhac-hoc,don-khach
     instance_size_slug: apps-s-1vcpu-1gb
     instance_count: 1
     envs:

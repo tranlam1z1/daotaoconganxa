@@ -1,5 +1,5 @@
 {
-  "mo_ta": "Luật giấy tờ cho trò Kiểm tra giấy tờ (docs/PLAN.md GĐ-T1). Mỗi dòng là một phép kiểm; bộ kiểm ở packages/dao-tao/src/tro-choi/chung/giay-to.ts. Nạp bằng: bun run tra-cuu:nap",
+  "mo_ta": "Luật giấy tờ người lái, nhóm giay_to_nguoi_lai (docs/PLAN.md GĐ-T1). Mỗi dòng là một phép kiểm; bộ kiểm ở packages/dao-tao/src/luat-tai-lieu.ts. Nạp bằng: bun run tra-cuu:nap",
   "luu_y_bien_tap": [
     "BẢN NHÁP, DỮ LIỆU DEMO, CHƯA DUYỆT. Soạn khi kho văn bản chưa có Luật số 36/2024/QH15 và văn bản về bảo hiểm bắt buộc; căn cứ mới ghi ở mức văn bản.",
     "Trước khi duyệt: xác định điều, khoản cụ thể; đối chiếu nguyên văn tại ngày áp dụng; bổ sung mã mức phạt (ma_muc_phat) khi bảng mức phạt có dòng tương ứng đã đối chiếu Nghị định số 168/2024/NĐ-CP.",

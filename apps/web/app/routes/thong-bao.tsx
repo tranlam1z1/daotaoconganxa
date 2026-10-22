@@ -13,9 +13,7 @@ export interface CauHinhThongBao {
   so_thiet_bi: number;
   cai_dat: {
     remind_at: string | null;
-    streak_warning: boolean;
     new_exam: boolean;
-    new_challenge: boolean;
     quiet_from: string;
     quiet_to: string;
   };

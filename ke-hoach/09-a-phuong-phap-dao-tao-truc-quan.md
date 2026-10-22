@@ -235,8 +235,7 @@ Cùng một chuyên đề, học viên chọn chế độ, hệ thống đổi c
 ### 6.6 Mục tiêu và nhịp
 
 Học viên đặt mục tiêu tuần (mặc định 60 phút/tuần, 3 buổi). Hệ thống chỉ nhắc theo mục tiêu
-**người học tự đặt**, không tự tăng mục tiêu, không dùng chuỗi ngày (`streak`) làm áp lực —
-chuỗi ngày có hiển thị nhưng đứt chuỗi không mất gì.
+**người học tự đặt**, không tự tăng mục tiêu và không tạo áp lực thời gian.
 
 ## 7. Thống kê
 
@@ -248,7 +247,7 @@ chuỗi ngày có hiển thị nhưng đứt chuỗi không mất gì.
 - Ba lỗi khái niệm hay mắc nhất, kèm nút "vá ngay".
 - Hồ sơ sản phẩm: các sản phẩm đã nộp cho ví dụ xuyên suốt, tải về được.
 - Lịch ôn hôm nay và số thẻ đến hạn.
-- **Không hiển thị** bảng xếp hạng giữa các học viên. Cán bộ công chức học nghề, không thi đấu.
+- Mục tiêu là học để làm được việc: cán bộ công chức học nghề, không cần cơ chế so sánh với nhau.
 
 ### 7.2 Cho quản trị và giảng viên
 

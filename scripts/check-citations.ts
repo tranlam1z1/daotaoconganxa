@@ -49,14 +49,6 @@ const hongTraCuu = await kiemTraCanCuTraCuu(urnTraCuu, asOf ?? new Date().toISOS
 console.log(`\nTra cứu nhanh: ${urnTraCuu.length} căn cứ đã duyệt, ${hongTraCuu.length} hỏng`);
 for (const h of hongTraCuu) console.log(`  ${h.urn}\n          ${h.lyDo}`);
 
-// Nội dung trò chơi đã duyệt (docs/PLAN.md GĐ-G2): căn cứ ghi trên từng tình huống.
-const urnTroChoi = (
-  (await sql`
-  SELECT DISTINCT unnest(citations) AS urn FROM game_content WHERE status = 'da_duyet'`) as any[]
-).map((r) => r.urn as string);
-const hongTroChoi = await kiemTraCanCuTraCuu(urnTroChoi, asOf ?? new Date().toISOString().slice(0, 10));
-console.log(`\nNội dung trò chơi: ${urnTroChoi.length} căn cứ đã duyệt, ${hongTroChoi.length} hỏng`);
-for (const h of hongTroChoi) console.log(`  ${h.urn}\n          ${h.lyDo}`);
 
 await sql.end();
-process.exit(r.repealed || r.missing || hongTraCuu.length || hongTroChoi.length ? 1 : 0);
+process.exit(r.repealed || r.missing || hongTraCuu.length ? 1 : 0);

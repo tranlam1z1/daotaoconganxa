@@ -53,8 +53,6 @@ describe("chế độ khách đã tắt", () => {
       "/v1/auth/me",
       "/v1/toi/tong-quan",
       "/v1/luyen-tap/chu-de",
-      "/v1/luot-choi",
-      "/v1/tro-choi",
       "/v1/thi",
       "/v1/nhom",
     ]) {
@@ -69,15 +67,8 @@ describe("chuyển tiếp cho khách cũ", () => {
     const khach = await taoKhachCu("Người học thử");
     // Hai ngày học của khách: hôm kia và hôm qua (giờ Việt Nam không quan trọng ở đây).
     await sql`
-      INSERT INTO xp_ledger (account_id, source_kind, source_id, xp, day)
-      VALUES (${khach.id}, 'test_khach', ${`${khach.id}-1`}, 30, current_date - 2),
-             (${khach.id}, 'test_khach', ${`${khach.id}-2`}, 20, current_date - 1)`;
-    await sql`
       INSERT INTO daily_activity (account_id, day, xp)
       VALUES (${khach.id}, current_date - 2, 30), (${khach.id}, current_date - 1, 20)`;
-    await sql`
-      INSERT INTO streaks (account_id, current, best, last_day)
-      VALUES (${khach.id}, 2, 2, current_date - 1)`;
 
     await sql`DELETE FROM units WHERE code = 'test-khach-gop-dv'`;
     const donVi = await taoDonVi({ code: "test-khach-gop-dv", name: "Đội gộp khách thử" }, "test-khach-gop");
@@ -97,15 +88,9 @@ describe("chuyển tiếp cho khách cũ", () => {
     const [conKhach] = (await sql`SELECT id FROM accounts WHERE id = ${khach.id}`) as any[];
     expect(conKhach).toBeUndefined();
 
-    const [xp] = (await sql`
-      SELECT COALESCE(sum(xp), 0)::int AS n FROM xp_ledger WHERE account_id = ${that.id}`) as any[];
-    expect(xp.n).toBe(50);
     const [ngay] = (await sql`
       SELECT count(*)::int AS n FROM daily_activity WHERE account_id = ${that.id}`) as any[];
     expect(ngay.n).toBe(2);
-    const [chuoi] = (await sql`SELECT current, best FROM streaks WHERE account_id = ${that.id}`) as any[];
-    expect(chuoi.current).toBe(2);
-    expect(chuoi.best).toBe(2);
   });
 
   test("token không phải khách thì không gộp gì, đăng nhập vẫn thành công", async () => {

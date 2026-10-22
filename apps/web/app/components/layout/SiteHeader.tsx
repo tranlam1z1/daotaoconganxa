@@ -15,7 +15,6 @@ import {
   SITE_TAGLINE,
 } from "../../lib/site";
 import type { NguoiDung } from "../../lib/types";
-import { ChipChuoiNgay } from "../tro-choi/ChipChuoiNgay";
 import { AnhDaiDien } from "../ui/AnhDaiDien";
 import { Icon } from "../ui/Icon";
 import { LogoHocTap } from "../ui/LogoHocTap";
@@ -49,7 +48,7 @@ function navClass(active: boolean) {
 /** Mục điều hướng chứa trang hiện tại (để làm tiêu đề tạm và đích quay lại khi không có lịch sử). */
 function mucCha(pathname: string): { to: string; label: string } {
   return (
-    // MORE_NAV trước: /hoi-dap, /bang-xep-hang, /nhom lấy tên mục riêng thay vì Tra cứu, Học.
+    // MORE_NAV trước: /hoi-dap, /nhom lấy tên mục riêng thay vì Tra cứu, Học.
     [...MORE_NAV, ...BOTTOM_NAV].find((m) => m.to !== "/" && dangOMuc(m, pathname)) ?? {
       to: "/",
       label: SITE_NAME,
@@ -172,17 +171,9 @@ export function SiteHeader({ nguoiDung }: { nguoiDung: NguoiDung | null }) {
           ))}
         </nav>
 
-        {/* Thứ tự bên phải: chuỗi và XP · mục "Tôi" (cuối cùng). */}
+        {/* Thứ tự bên phải: mục "Tôi" (cuối cùng). */}
         <div className="ml-auto flex shrink-0 items-center gap-1 md:ml-2">
-          {nguoiDung?.diem ? (
-            <ChipChuoiNgay
-              chuoi={nguoiDung.diem.chuoi}
-              xp={nguoiDung.diem.xp}
-              cap={nguoiDung.diem.cap}
-              daHocHomNay={nguoiDung.diem.da_hoc_hom_nay}
-            />
-          ) : null}
-          {/* Từ 768px: mục "Tôi" (hoặc "Đăng nhập") của menu, đứng sau chip điểm. */}
+          {/* Từ 768px: mục "Tôi" (hoặc "Đăng nhập") của menu, đứng sau các nút khác. */}
           <span className="hidden md:block">{lienKet(toi)}</span>
           {/* Ảnh đại diện dẫn tới trang cá nhân; từ 768px đã có trong mục "Tôi" ở trên. */}
           {nguoiDung ? (
@@ -199,10 +190,7 @@ export function SiteHeader({ nguoiDung }: { nguoiDung: NguoiDung | null }) {
         </div>
       </div>
       {/* Vạch màu thương hiệu ngay dưới thanh đầu trang. */}
-      <div
-        aria-hidden="true"
-        className="h-[3px] bg-linear-to-r from-primary via-[#1E9E4A] to-[#FFC107]"
-      />
+      <div aria-hidden="true" className="h-[3px] bg-linear-to-r from-primary via-[#1E9E4A] to-[#FFC107]" />
     </header>
   );
 }

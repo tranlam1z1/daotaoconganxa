@@ -18,7 +18,7 @@ const PHIEN_BAN = "qdpl-v3";
 const CACHE_TINH = `${PHIEN_BAN}-tinh`;
 const CACHE_TRANG = `${PHIEN_BAN}-trang`;
 const TRANG_DU_PHONG = "/offline.html";
-const TRANG_OFFLINE = ["/luyen-tap/offline", "/tro-choi/offline"];
+const TRANG_OFFLINE = ["/luyen-tap/offline"];
 const TEP_CAI_DAT = [
   TRANG_DU_PHONG,
   "/manifest.webmanifest",

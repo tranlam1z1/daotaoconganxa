@@ -104,7 +104,7 @@
   --nen-tro: color-mix(in srgb, var(--primary) 5%, var(--surface));
 
   /* Bộ biểu tượng (components/ui/Icon.tsx): hai sắc riêng và độ đậm lớp nền. --g-nhan,
-     --g-tren-nhan cùng giá trị với tro-choi.css, khai ở đây để biểu tượng ngoài khu trò chơi dùng.
+     --g-tren-nhan khai ở đây để biểu tượng dùng chung.
      Màu biểu tượng theo thương hiệu: điều hướng xanh dương, thao tác xanh lá/đỏ/tím, trạng thái
      xanh/vàng/đỏ/xám. */
   --tim: #6d3fc0;
@@ -233,7 +233,7 @@
  * - the-co-nut: thẻ không bấm được nhưng chứa nút — viền đậm, bóng sâu; không nhấc (để khỏi tưởng
  *   cả thẻ bấm được).
  * Biểu tượng trong dong-bam, the-bam, the-co-nut phóng nhẹ, nghiêng khi trỏ: .ic, hoặc khối có lớp
- * hinh-noi (ảnh trò chơi, ô tròn biểu tượng; .ic bên trong khối đó không phóng thêm lần nữa).
+ * hinh-noi (ô tròn biểu tượng; .ic bên trong khối đó không phóng thêm lần nữa).
  */
 @utility lun {
   -webkit-tap-highlight-color: transparent;
@@ -787,7 +787,7 @@
   }
 
   /*
-   * Cùng hiệu ứng mở cho hộp dựng bằng div (trò chơi: giấy tờ phóng to, lớp chúc mừng): .hop-vao cho
+   * Cùng hiệu ứng mở cho hộp dựng bằng div: .hop-vao cho
    * khung hộp, .nen-hien-dan cho nền mờ. Giảm chuyển động: chỉ hiện dần (khai trong @layer base).
    */
   .hop-vao {
@@ -893,7 +893,7 @@
 
 /*
  * Bộ biểu tượng "Nét đậm, hai lớp màu" (components/ui/Icon.tsx, docs/PROMPT_BO_ICON.md).
- * Sắc khai trên chính thẻ <svg> nên theo token của vùng chứa (khu trò chơi đổi --primary thì biểu
+ * Sắc khai trên chính thẻ <svg> nên theo token của vùng chứa (vùng đổi --primary thì biểu
  * tượng đổi theo). --ic-nen: sắc pha trong suốt (25% sáng, 35% tối); --ic-nhan: sắc pha 10% màu
  * chữ cho đậm hơn một chút; --ic-tren: màu nét trên ô tô đặc (kiểu "dac").
  * Màu theo thương hiệu: điều hướng xanh dương #0052CC, thao tác xanh lá/đỏ/tím, trạng thái
@@ -985,26 +985,12 @@
 }
 
 /*
- * Hoạt ảnh biểu tượng, chỉ khi không bật giảm chuyển động: .ic-lay ngọn lửa lay nhẹ (chuỗi ngày
- * đang giữ), .ic-lac chuông lắc một lần (thông báo mới). Ngôi sao lên cấp dùng animate-bounce.
+ * Hoạt ảnh biểu tượng, chỉ khi không bật giảm chuyển động: .ic-lac chuông lắc một lần (thông báo mới).
  */
 @media (prefers-reduced-motion: no-preference) {
-  .ic-lay {
-    transform-origin: 50% 90%;
-    animation: ic-lay 2.4s ease-in-out infinite;
-  }
   .ic-lac {
     transform-origin: 50% 12%;
     animation: ic-lac 0.9s ease-in-out 1;
-  }
-}
-@keyframes ic-lay {
-  0%,
-  100% {
-    transform: rotate(-4deg);
-  }
-  50% {
-    transform: rotate(4deg) scaleY(1.04);
   }
 }
 @keyframes ic-lac {

@@ -5,7 +5,7 @@
 ## Cách dùng
 
 1. Dán **Prompt 0 (hệ thiết kế)** trước, chế độ *Mobile*. Chọn bản ưng nhất làm gốc.
-2. Trong cùng dự án Stitch, dán lần lượt từng prompt màn hình (1 → 10). Mỗi lần **một màn hình**: Stitch làm tốt khi prompt ngắn và tập trung.
+2. Trong cùng dự án Stitch, dán lần lượt từng prompt màn hình (1 → 9). Mỗi lần **một màn hình**: Stitch làm tốt khi prompt ngắn và tập trung.
 3. Sửa bằng prompt ngắn, mỗi lần một thay đổi (ví dụ: "Make the bottom navigation labels 13px and increase icon size to 24px"). Không dán lại cả prompt dài.
 4. Màn hình máy tính: sau khi chốt bản điện thoại, dùng prompt "Create the desktop version (1280px) of this screen..." ở cuối tệp.
 5. Xuất mã HTML/Tailwind từ Stitch chỉ để tham khảo bố cục và token; mã thật vẫn viết lại trong `apps/web` theo component sẵn có (`components/ui/*`).
@@ -15,7 +15,7 @@
 ## Prompt 0: Hệ thiết kế và khung chung
 
 ```text
-Design a mobile-first web app (360–430px wide) for Vietnamese traffic police officers to look up legal regulations, study, play training games, and take certification exams. App name: "Quy định Pháp luật". All UI text must be in Vietnamese with correct diacritics.
+Design a mobile-first web app (360–430px wide) for Vietnamese traffic police officers to look up legal regulations, study lessons, practise quizzes and take certification exams. App name: "Quy định Pháp luật". All UI text must be in Vietnamese with correct diacritics.
 
 AUDIENCE & TONE
 - Users are working police officers and civil servants handling real cases, often on mid-range Android phones, sometimes outdoors in bright sunlight.
@@ -29,26 +29,24 @@ VISUAL STYLE ("Công báo" — official gazette, modernized)
 - Primary: deep indigo #233E8B (hover #1B3172), soft tint #E7ECF8.
 - Accent "seal red" #B3261E used sparingly (stamps, key status).
 - Status: success #17623A on #E4F2E9, warning #8A4A0B on #FBEFD9, danger #9B1C1C on #FBE6E3, info #1D4D86 on #E3EDF8.
-- Gamification accent (XP, stars, streaks only): amber #F2A516 with dark text #1A1407.
+- Accent amber #F2A516 with dark text #1A1407, used sparingly for scores and highlighted figures.
 - Provide a dark mode too: background #111317, cards #181B21, text #EDEBE5, primary #A3B8FF.
-- Typography: "Be Vietnam Pro" for all UI and body text (body 16px minimum, line-height 1.6); "Noto Serif" only for the body of legal documents; "Lexend" for big numbers (scores, timers) with tabular figures.
+- Typography: "Be Vietnam Pro" for all UI and body text (body 16px minimum, line-height 1.6); "Noto Serif" only for the body of legal documents; a geometric display face with tabular figures for big numbers (scores, timers).
 - Corner radius: cards 12px, buttons 10px. Soft two-layer card shadow. Generous whitespace, clear hierarchy, 8px spacing grid.
 - Icons: consistent outline icon set, 1.75px stroke, 24px.
 - Contrast WCAG AA (4.5:1 for text). Touch targets at least 44px. Meaning never conveyed by color alone (always icon + label for correct/incorrect, status).
 
 APP SHELL
-- Top app bar: small shield logo + "Quy định Pháp luật" on the home screen; on inner screens a back arrow + page title. Right side: search icon and avatar.
-- Fixed bottom navigation (5 items): "Trang chủ" (home), "Học" (graduation cap), "Thi" (checklist), "Tôi" (user), "Thêm" (grid / more). Active item uses primary color with a soft pill behind the icon.
-- "Thêm" opens a bottom sheet with: Tra cứu, Hỏi trợ lý AI, Bảng xếp hạng, Nhóm học cùng, Hướng dẫn sử dụng, Quản trị (managers only), and a light/dark theme toggle.
+- Top app bar: small shield logo + app name on the home screen; on inner screens a back arrow + page title. Right side: search icon and avatar.
+- Fixed bottom navigation (5 items), shown on the home screen only: "Tra cứu" (magnifier), "Học" (graduation cap), "Trang chủ" (home, raised round logo button in the centre), "Thi" (checklist), "Tôi" (person). Active item uses primary color with a soft pill behind the icon.
+- On phones, a menu button in the top bar opens a side panel sliding in from the right with: Hỏi trợ lý AI, Nhóm học cùng, Hướng dẫn sử dụng, Quản trị (managers only), and a light/dark theme toggle. From 768px these items sit in the top bar instead.
 
 FIRST SCREEN TO GENERATE: Home ("Trang chủ")
-- Greeting line with officer name and unit, e.g. "Chào đồng chí Nguyễn Văn An · Đội CSGT số 3".
-- Prominent search field: placeholder "Tìm văn bản, điều khoản, mức phạt…" with a microphone icon.
-- Progress strip: current level, XP bar, day streak chip ("Chuỗi 6 ngày"), and today's goal.
-- 2×2 feature grid of cards with icon, title and one-line description: "Học" (bài giảng theo chuyên đề), "Tra cứu" (văn bản, mức phạt, biển báo), "Đánh giá" (luyện tập và thi sát hạch), "Trợ lý AI" (hỏi đáp có trích dẫn căn cứ).
-- Horizontal carousel "Tra cứu nhanh": Mức phạt, Tốc độ tối đa, Quy trình xử lý, Biển báo.
-- Section "Học tập qua trò chơi" with 2–3 game cards (title, number of levels, estimated minutes).
-- Section "Văn bản mới cập nhật": list rows with document type chip (Luật / Nghị định / Thông tư), number/symbol like "168/2024/NĐ-CP", short title, and effective-status chip ("Còn hiệu lực" green, "Sắp có hiệu lực" amber, "Hết hiệu lực" red).
+- Greeting band: a soft tinted panel with a small status chip ("Hệ thống học tập nghiệp vụ 2026"), the officer's name ("Xin chào, Nguyễn Văn An") and one short line of guidance.
+- Search panel "Tra cứu vi phạm": a row of vehicle chips (Xe máy, Xe ô tô, plus a "…" chip that opens the topic list), then one wide search field with placeholder "Tra cứu từ khóa vi phạm", a microphone button to dictate and a magnifier button to submit.
+- Two shortcut grids, side by side on wide screens and stacked on phones. Each grid has a heading with a small outline icon and a "Xem tất cả" link, and a two-column list of tiles: a round tinted icon on the left, the label on the right.
+  - "Bộ công cụ nghiệp vụ": Chuyển đổi địa giới hành chính, Tính ngày xử lý vi phạm, Xác định tuổi vi phạm, Tính % quá tải.
+  - "Nghiệp vụ nhanh": Tra cứu văn bản, Quy trình biểu mẫu, Tra cứu biển báo, Hỏi đáp.
 ```
 
 ---
@@ -83,7 +81,7 @@ Design the legal document reading screen, the most important screen of the app, 
 Design the quick lookup screen "Tra cứu nhanh · Mức phạt" for officers checking fines in the field.
 - Segmented control for vehicle type: Ô tô, Xe máy, Xe đạp/xe thô sơ, Người đi bộ.
 - Search field "Tìm hành vi vi phạm…".
-- List of violation cards: violation description (bold), fine range in large Lexend numbers "6.000.000 – 8.000.000 đ", additional penalties as chips ("Trừ 4 điểm GPLX", "Tạm giữ xe 7 ngày"), and a footer link with the legal basis "Điểm a khoản 6 Điều 7 NĐ 168/2024/NĐ-CP".
+- List of violation cards: violation description (bold), fine range in large figures "6.000.000 – 8.000.000 đ", additional penalties as chips ("Trừ 4 điểm GPLX", "Tạm giữ xe 7 ngày"), and a footer link with the legal basis "Điểm a khoản 6 Điều 7 NĐ 168/2024/NĐ-CP".
 - Readable in sunlight: solid backgrounds behind text, strong contrast, no gradients behind numbers.
 ```
 
@@ -91,10 +89,10 @@ Design the quick lookup screen "Tra cứu nhanh · Mức phạt" for officers ch
 
 ```text
 Design the "Học & luyện tập" hub.
-- Header card with level, XP progress bar (amber), streak chip, and a short "Mục tiêu hôm nay: 20 câu" with progress.
-- Tabs: Bài giảng, Luyện tập, Trò chơi, Nhóm.
-- "Bài giảng" tab content: list of topics (chuyên đề) grouped by field, each card with icon, title, number of lessons, progress ring, and "Tiếp tục bài 3" button for the one in progress.
-- Section "Điểm yếu cần ôn": 3 topic chips with low accuracy percentages and an "Ôn ngay" action.
+- Shortcut row at the top: three tiles — "Bài giảng" (đọc bài, kiểm tra nhanh), "Nhóm học cùng" (theo dõi tiến độ đồng đội), "Không cần mạng" (tải chủ đề về máy).
+- Banner "Luyện câu sai" when the officer still has wrong answers, with a count and a primary button.
+- Topic catalogue: each root topic is a wide card; level-1 topics are cards in a two-column grid; deeper levels are tappable rows inside the level-1 card. Every topic shows an outline icon, the title, the number of questions and a progress badge ("100%" with a tick, or a percentage, or "Chưa làm"), plus a "Luyện tập" button that starts a 10-question session immediately.
+- Section "Bài giảng nổi bật": topic cards grouped by field, each with icon, title, number of lessons, a progress ring and a "Tiếp tục bài 3" button for the lesson in progress.
 ```
 
 ## Prompt 5: Màn luyện tập một câu hỏi
@@ -108,30 +106,18 @@ Design a single practice question screen.
 - Primary button at the bottom: "Câu tiếp".
 ```
 
-## Prompt 6: Trò chơi (khu trò chơi, phong cách "Cảnh phục")
-
-```text
-Design the games hub "Trò chơi". This area uses a slightly more energetic sub-theme called "Cảnh phục" while staying professional:
-- Page background #F4F1E8, cards white with 20px radius, primary deep green #1E4D3A (white text), accent amber #F2A516 for stars, points and streaks, correct #14733A, wrong #C2261D.
-- Headings and numbers in Lexend. A very subtle diagonal road-marking stripe pattern (6% opacity) only in the page header.
-- Primary buttons: solid deep green, 52px tall, 14px radius, with a 4px darker bottom shadow so they feel "pressable" like game buttons.
-- Content: weekly unit season banner with rank; grid of game cards — "Kiểm tra giấy tờ", "Cắm biển cho tuyến đường", "Dừng xe đúng quy trình", "Soi camera", "Điều tiết giao lộ", "Tự lái qua phố" — each with a simple flat illustration (vehicles, road signs, documents, no people's faces), level progress (e.g. "Màn 3/8"), stars earned, and duration "3–5 phút".
-- Badge "Chơi được khi mất mạng" on games that work offline.
-- Also design the game result screen: big score with stars, XP gained, streak, and a list of mistakes, each with the correct answer and its legal basis.
-```
-
-## Prompt 7: Thi sát hạch
+## Prompt 6: Thi sát hạch
 
 ```text
 Design the exam taking screen "Thi sát hạch".
-- Sticky header: exam name, countdown timer in Lexend (turns amber under 5 minutes, red under 1 minute, with an icon, not color only), and a "Nộp bài" button.
+- Sticky header: exam name, countdown timer in a display face (turns amber under 5 minutes, red under 1 minute, with an icon, not color only), and a "Nộp bài" button.
 - Question area like the practice screen but without instant feedback; a "Đánh dấu xem lại" flag toggle.
 - Bottom sheet "Danh sách câu hỏi": grid of numbered squares showing states answered / not answered / flagged, with a legend.
 - Submit confirmation dialog: "Còn 3 câu chưa trả lời. Nộp bài?" with buttons "Quay lại làm tiếp" and "Nộp bài".
 - Result screen: pass/fail status with icon and label, score, time used, breakdown by topic as horizontal bars.
 ```
 
-## Prompt 8: Hỏi trợ lý AI
+## Prompt 7: Hỏi trợ lý AI
 
 ```text
 Design the AI assistant chat screen "Hỏi trợ lý AI".
@@ -142,23 +128,23 @@ Design the AI assistant chat screen "Hỏi trợ lý AI".
 - Input bar at the bottom with microphone button and send button; suggested questions as chips when the conversation is empty.
 ```
 
-## Prompt 9: Trang cá nhân "Tôi"
+## Prompt 8: Trang cá nhân "Tôi"
 
 ```text
 Design the personal profile screen "Tôi".
-- Header: avatar, full name, rank-free job title and unit (no insignia), level and XP bar.
-- Stats row: Chuỗi ngày, Tổng XP, Huy hiệu, Hạng trong đơn vị.
-- Section "Huy hiệu": horizontal list of flat geometric badges (locked ones greyed out with a lock icon).
-- Section "Điểm mạnh, điểm yếu theo chủ đề": list with percentage bars.
+- Header: avatar, full name and unit (no insignia), with two primary buttons: "Luyện câu sai (n)" and "Luyện tập theo chủ đề".
+- Stats row of four cards: Câu sai cần luyện, Tỷ lệ đúng gần đây, Số phiên đã luyện, Chủ đề đã luyện — number in large figures, small outline icon in the corner.
+- Section "Hồ sơ chủ đề": a topic list with an outline icon, the topic name, the number of questions, a percentage bar and a trophy icon for the leading topic.
 - Section "Nhắc học": time picker row and toggle for push reminders.
+- Section "Lịch sử luyện tập": rows with the session name, the date and the score "12/20", plus a "Làm tiếp" state for unfinished sessions.
 - Settings list: Tài khoản, Đổi mật khẩu, Giao diện sáng/tối, Kết nối trợ lý AI, Đăng xuất.
 ```
 
-## Prompt 10: Bảng điều khiển quản trị (máy tính)
+## Prompt 9: Bảng điều khiển quản trị (máy tính)
 
 ```text
 Design a desktop admin dashboard (1440px) for unit managers, same design system but denser.
-- Left sidebar groups: Tổng quan; Tổ chức (Đơn vị, Người dùng); Nội dung (Ngân hàng câu hỏi, Bài giảng, Nội dung trò chơi, Dữ liệu tra cứu, Kho văn bản); Thi (Đề thi, Giao bài); Báo cáo; Nhóm học cùng; Mùa giải.
+- Left sidebar groups: Thống kê (Tổng quan, Báo cáo); Tổ chức (Đơn vị, Người dùng); Thi (Đề thi, Giao bài, Nhóm học cùng); Kho văn bản (Văn bản); Đào tạo (Ngân hàng câu hỏi, Duyệt dữ liệu tra cứu, Chuyên đề, Chấm tự luận).
 - Overview page: KPI cards (Cán bộ hoạt động tuần này, Tỉ lệ hoàn thành bài giao, Điểm thi trung bình, Nội dung chờ duyệt), a line chart of weekly activity, a table of units ranked by completion, and a "Chờ duyệt" queue list with status chips (Nháp, Chờ duyệt, Đã duyệt, Từ chối).
 - Tables: zebra-free, 1px row dividers, sticky header, row actions on hover, bulk actions bar when rows are selected, filters above the table.
 ```
@@ -191,7 +177,7 @@ Design the empty state, loading skeleton, and offline error state for this scree
 
 - Chữ trên giao diện theo [QUY-TAC-HANH-VAN.md](../QUY-TAC-HANH-VAN.md): giọng nghiêm túc, không emoji, không dấu chấm than, không câu quảng cáo. Stitch hay chèn câu kiểu "Chào mừng bạn trở lại!": cần sửa.
 - Không có quân hiệu, cấp hiệu, phù hiệu, logo lực lượng ([VISUAL_STYLE.md §1](VISUAL_STYLE.md)).
-- Phong cách "Cảnh phục" chỉ cho khu trò chơi; tra cứu, đọc văn bản, thi, quản trị giữ hệ "Công báo".
+- Toàn ứng dụng giữ hệ "Công báo": không có màn nào đổi phong cách riêng.
 - Dấu tiếng Việt chồng ("ẫ", "ỗ", "ự") không bị cắt ở cỡ chữ lớn.
-- Menu điện thoại giữ tối đa 4 mục chính cộng "Thêm" (`apps/web/app/lib/site.ts`).
+- Thanh điều hướng dưới giữ 5 mục: Tra cứu, Học, Trang chủ, Thi, Tôi; các mục phụ nằm trong ngăn tiện ích trượt từ bên phải (`apps/web/app/lib/site.ts`).
 - Tên route không đổi khi làm lại giao diện (`apps/web/app/routes.ts`).

@@ -3,7 +3,7 @@
  *  1. mở MỌI bài `xuat_ban` của lĩnh vực giao thông ở chế độ đọc cuộn và chế độ slide: không lỗi
  *     JavaScript, không cuộn ngang, chế độ slide chuyển trang được bằng phím mũi tên;
  *  2. chế độ slide chuyển trang bằng vuốt ngang;
- *  3. hoàn thành một bài (được cộng XP), rồi vào kiểm tra cuối bài (phiên luyện tập của GĐ4);
+ *  3. hoàn thành một bài, rồi vào kiểm tra cuối bài (phiên luyện tập của GĐ4);
  *  4. đường cũ /dao-tao chuyển sang /hoc; menu có mục "Học & luyện tập".
  *
  * Cần CSDL đã gieo bài giảng giao thông (`bun run db:seed:dao-tao:gtdb`, `bun run db:seed:ngan-hang`).
@@ -109,9 +109,6 @@ export default async function baiGiang(n: NguCanhE2E) {
   await n.chupAnh(page, "doc-cuon");
   await page.locator("button", { hasText: "Hoàn thành bài" }).click();
   await page.locator("text=/Đã hoàn thành bài/").waitFor();
-  const [xp] = await n.sql<Array<{ n: number }>>`
-    SELECT count(*)::int AS n FROM xp_ledger WHERE account_id = ${tk.id} AND source_kind = 'bai_hoc'`;
-  if (xp?.n !== 1) throw new Error(`Hoàn thành bài không cộng XP (số dòng xp_ledger: ${xp?.n}).`);
 
   const nutKiemTra = page.locator("button", { hasText: "Làm bài kiểm tra" });
   if (await nutKiemTra.count()) {

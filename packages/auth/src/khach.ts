@@ -1,6 +1,6 @@
 /**
  * Tài khoản khách (migration 0062) đã tắt: không tạo khách mới, phiên khách không còn là danh tính
- * (session.ts). Học và chơi cần tài khoản đã được xác minh cán bộ.
+ * (session.ts). Học và luyện tập cần tài khoản đã được xác minh cán bộ.
  *
  * Tệp này chỉ còn lối chuyển tiếp cho khách cũ: người từng học bằng tên khách đăng nhập hoặc đăng ký
  * trên cùng máy thì gopKhachVaoTaiKhoan chuyển tiến độ sang tài khoản thật rồi xóa tài khoản khách.

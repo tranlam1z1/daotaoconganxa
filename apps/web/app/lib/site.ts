@@ -28,7 +28,7 @@ export const MAIN_NAV: NavItem[] = [
   { to: "/tra-cuu", label: "Tra cứu", khop: ["/tim-kiem", "/van-ban", "/hoi-dap", "/tra-cuu-nhanh"] },
   // Bài giảng gộp vào mục này (docs/PLAN.md GĐ11) để menu vẫn chỉ có 4 mục. Nhóm học cùng
   // (GĐ16b) cũng thuộc mục này; trên điện thoại có thêm một dòng trong ngăn "Thêm" (câu N1).
-  { to: "/luyen-tap", label: "Học & luyện tập", khop: ["/tro-choi", "/hoc", "/dao-tao", "/nhom"] },
+  { to: "/luyen-tap", label: "Học & luyện tập", khop: ["/hoc", "/dao-tao", "/nhom"] },
   { to: "/thi", label: "Thi" },
 ];
 
@@ -46,7 +46,7 @@ export interface MobileNavItem extends NavItem {
  */
 export const BOTTOM_NAV: MobileNavItem[] = [
   { ...MAIN_NAV[0]!, icon: "search" },
-  { ...MAIN_NAV[1]!, label: "Học", icon: "cap", khop: [...(MAIN_NAV[1]!.khop ?? []), "/bang-xep-hang"] },
+  { ...MAIN_NAV[1]!, label: "Học", icon: "cap" },
   { to: "/", label: "Trang chủ", icon: "home" },
   { ...MAIN_NAV[2]!, icon: "steps" },
   {
@@ -63,7 +63,6 @@ export const BOTTOM_NAV: MobileNavItem[] = [
  */
 export const MORE_NAV: Array<MobileNavItem & { quanLy?: boolean }> = [
   { to: "/hoi-dap", label: "Hỏi trợ lý AI", icon: "chat" },
-  { to: "/bang-xep-hang", label: "Bảng xếp hạng", icon: "trophy" },
   { to: "/nhom", label: "Nhóm học cùng", icon: "nhom" },
   { to: "/huong-dan", label: "Hướng dẫn sử dụng", icon: "help" },
   { to: "/quan-tri", label: "Quản trị", icon: "layers", quanLy: true },

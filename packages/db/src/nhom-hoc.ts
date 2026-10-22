@@ -36,12 +36,7 @@ import {
   trangThaiMuc,
 } from "@qdpl/dao-tao";
 import { sql, type Tx } from "./client.ts";
-import {
-  cauHoiDaDuyetTheoId,
-  chuDeLuyenTap,
-  nguonTheoChuDe,
-  taoPhienLuyenTap,
-} from "./luyen-tap.ts";
+import { cauHoiDaDuyetTheoId, chuDeLuyenTap, nguonTheoChuDe, taoPhienLuyenTap } from "./luyen-tap.ts";
 
 export type LoaiLoiNhom =
   | "khong_tim_thay"
@@ -809,7 +804,7 @@ export type BatDauMuc =
 
 /**
  * Bắt đầu học một mục. Bài học: trả đường dẫn `/hoc/...`. Đề ôn tập: tạo phiên `nhom` theo đường
- * của thử thách hằng ngày (câu còn duyệt theo đúng thứ tự đã chốt, đảo phương án theo seed); đã có
+ * của đề ôn tập (câu còn duyệt theo đúng thứ tự đã chốt, đảo phương án theo seed); đã có
  * phiên đang làm thì trả phiên đó.
  */
 export async function batDauMuc(groupId: string, accountId: string, itemId: string): Promise<BatDauMuc> {
@@ -872,7 +867,7 @@ export async function mucNhomCuaPhien(groupItemId: string): Promise<{ id: string
 
 /**
  * Cổ vũ hoặc bỏ cổ vũ hôm nay (N7): mỗi người cổ vũ một thành viên khác tối đa một lần mỗi ngày
- * giờ Việt Nam trong mỗi nhóm; bấm lại trong ngày thì bỏ lượt. Không cộng XP (N8).
+ * giờ Việt Nam trong mỗi nhóm; bấm lại trong ngày thì bỏ lượt.
  */
 export async function coVu(
   groupId: string,
@@ -931,7 +926,7 @@ function coThanhVienTrongPhamViSql(groupCot: ReturnType<typeof sql>, phamVi: str
 
 /**
  * Lần học gần nhất của từng người (đề xuất Đ12): thời điểm lớn nhất trong
- * `lesson_progress.updated_at`, `practice_answers.created_at` (mọi nguồn phiên, kể cả trò chơi) và
+ * `lesson_progress.updated_at`, `practice_answers.created_at` (mọi nguồn phiên) và
  * `exam_attempts.submitted_at`. Không lọc theo khoảng ngày. Dùng chung cho trang quản lý nhóm và
  * báo cáo "Tiến độ học".
  */

@@ -430,7 +430,7 @@ function KhungSua({ loai, d, khiDoi }: { loai: Loai; d: Dong; khiDoi: () => void
           className={inputClass}
         />
       </Truong>
-      <SuaBuocQuyTrinh banDau={(d.steps as BuocQuyTrinh[] | null) ?? []} coTroChoi khiDoi={khiDoi} />
+      <SuaBuocQuyTrinh banDau={(d.steps as BuocQuyTrinh[] | null) ?? []} khiDoi={khiDoi} />
     </>
   );
 }
@@ -743,7 +743,7 @@ function KhungChiTiet({
           <Button type="submit" name="intent" value="luu-tru" variant="secondary" size="sm" disabled={busy}>
             Ngừng dùng
           </Button>
-          {/* Dòng chưa từng duyệt chưa vào trò chơi hay lượt làm nào nên xóa hẳn được; API kiểm lại. */}
+          {/* Dòng chưa từng duyệt chưa vào lượt làm nào nên xóa hẳn được; API kiểm lại. */}
           {chuaGui && !chon.approved_at ? (
             <Button
               type="submit"
@@ -815,8 +815,8 @@ export default function DuLieuTraCuu({ loaderData, actionData }: Route.Component
         </ButtonLink>
       </div>
       <p className="mt-2 max-w-2xl text-[15px] leading-relaxed text-ink-2">
-        Người học và trò chơi chỉ thấy dòng đã duyệt. Sửa dòng đã duyệt thì dòng về chờ duyệt, tăng phiên bản,
-        và tạm rời tra cứu nhanh cùng mọi tình huống trò chơi trỏ tới nó cho tới khi được duyệt lại.
+        Người học chỉ thấy dòng đã duyệt. Sửa dòng đã duyệt thì dòng về chờ duyệt, tăng phiên bản, và tạm rời
+        tra cứu nhanh cùng mọi tình huống trỏ tới nó cho tới khi được duyệt lại.
       </p>
 
       {loi ? (

@@ -28,8 +28,6 @@ export const QUEUES = {
   sachNoi: "qdpl-sach-noi",
   /** Nhắc học và thông báo đẩy, chạy lặp mỗi 15 phút (docs/PLAN.md GĐ15). */
   nhacHoc: "qdpl-nhac-hoc",
-  /** Mùa giải đơn vị: bắt đầu mùa, chốt tuần lúc 06:00 thứ Hai; chạy lặp mỗi giờ (docs/PLAN.md GĐ-G6). */
-  muaGiai: "qdpl-mua-giai",
   /** Dọn tài khoản khách bỏ không quá 30 ngày, cùng tiến độ; chạy lặp 6 giờ một lần (migration 0062). */
   donKhach: "qdpl-don-khach",
 } as const;
@@ -146,9 +144,6 @@ export interface SachNoiJob {
 /** Job lặp nhắc học: mỗi lần chạy tự tính ai cần nhận gì lúc đó, không cần dữ liệu. */
 export type NhacHocJob = Record<string, never>;
 
-/** Job lặp mùa giải: mỗi lần chạy tự xét mùa nào cần bắt đầu, tuần nào cần chốt. */
-export type MuaGiaiJob = Record<string, never>;
-
 /** Job lặp dọn tài khoản khách: mỗi lần chạy tự tìm khách quá hạn. */
 export type DonKhachJob = Record<string, never>;
 
@@ -170,7 +165,6 @@ export interface JobPayloads {
   [QUEUES.thiHetGio]: ThiHetGioJob;
   [QUEUES.sachNoi]: SachNoiJob;
   [QUEUES.nhacHoc]: NhacHocJob;
-  [QUEUES.muaGiai]: MuaGiaiJob;
   [QUEUES.donKhach]: DonKhachJob;
 }
 

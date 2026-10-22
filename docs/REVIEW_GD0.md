@@ -38,7 +38,7 @@ Lượt thăm dò `POST /v1/ask` không token đã ghi thêm một dòng vào `a
 |---|---|
 | `apps/api/src/routes/editorial.ts` | Đã sửa cho S1, đúng phạm vi |
 | `apps/api/src/routes/ask.ts` | **Không đổi so với HEAD**, S2 chưa làm |
-| `apps/api/src/routes/dao-tao.ts` | Có sửa, nhưng thuộc GĐ9/GĐ11 (hoàn thành bài, XP). Riêng `POST /bai/:id/tien-do` có kiểm chủ sở hữu ghi chú "GĐ0, S3". Các route `:id` khác chưa kiểm |
+| `apps/api/src/routes/dao-tao.ts` | Có sửa, nhưng thuộc GĐ9/GĐ11 (hoàn thành bài, tiến độ). Riêng `POST /bai/:id/tien-do` có kiểm chủ sở hữu ghi chú "GĐ0, S3". Các route `:id` khác chưa kiểm |
 | `apps/api/src/app.ts` | Có sửa, nhưng thuộc GĐ2 (nhật ký truy cập) và các route mới. CORS (S5) **không đổi** |
 | `packages/auth/src/demo.ts`, `config.ts` | **Không đổi**, S4 chưa làm |
 | `packages/db/src/dao-tao.ts`: `chuGhiDanh`, `chuTheOn` | **Không có** hai hàm này |

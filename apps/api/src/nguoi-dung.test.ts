@@ -322,9 +322,6 @@ describe("xác minh cán bộ tự đăng ký", () => {
     const choD = await taoChoDuyet("cho-d", dv.doiD);
 
     // Chưa duyệt: ngoài nhóm API tài khoản, mọi nhóm khác coi như chưa đăng nhập.
-    expect((await goi("GET", "/v1/bang-xep-hang?pham_vi=don_vi&ky=tuan", { token: choC.token })).status).toBe(
-      401,
-    );
     expect((await goi("GET", "/v1/toi/tong-quan", { token: choC.token })).status).toBe(401);
 
     const ds = await goi("GET", "/v1/quan-tri/nguoi-dung?xac_minh=cho_duyet", { token: quanLyC });
@@ -370,9 +367,6 @@ describe("xác minh cán bộ tự đăng ký", () => {
     });
     // Phiên đang mở có quyền cán bộ ngay, không phải đăng nhập lại.
     expect((await goi("GET", "/v1/toi/tong-quan", { token: choC.token })).status).toBe(200);
-    expect((await goi("GET", "/v1/bang-xep-hang?pham_vi=don_vi&ky=tuan", { token: choC.token })).status).toBe(
-      200,
-    );
     const lai = await goi("POST", `/v1/quan-tri/nguoi-dung/${choC.id}/xac-minh`, {
       token: quanLyC,
       body: { duyet: true },

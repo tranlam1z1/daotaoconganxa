@@ -1,7 +1,7 @@
 /**
  * Chụp ảnh soát bộ biểu tượng (docs/PROMPT_BO_ICON.md mục 1, "Kiểm tra trước khi xong"): khung
  * 360×740, giao diện sáng và tối, các trang trang chủ, thanh điều hướng dưới (cả ngăn "Thêm"),
- * /tro-choi, /toi, /bang-xep-hang, /tra-cuu-nhanh, một trang bài giảng; thêm trang xem trước
+ * /toi, /tra-cuu-nhanh, một trang bài giảng; thêm trang xem trước
  * /xem-bieu-tuong ở khung 1280px.
  *
  *   E2E_NHAN=truoc QDPL_XEM_BIEU_TUONG=1 bun run e2e bieu-tuong
@@ -35,9 +35,7 @@ export default async function bieuTuong(n: NguCanhE2E) {
   const tk = await n.taoTaiKhoan({ ten: "Cán bộ biểu tượng E2E" });
   const TRANG = [
     { ten: "trang-chu", url: "/" },
-    { ten: "tro-choi", url: "/tro-choi" },
     { ten: "toi", url: "/toi" },
-    { ten: "bang-xep-hang", url: "/bang-xep-hang" },
     { ten: "tra-cuu-nhanh", url: "/tra-cuu-nhanh" },
     { ten: "bai-giang", url: `/hoc/${bai.chuyen_de}/${bai.slug}` },
   ];

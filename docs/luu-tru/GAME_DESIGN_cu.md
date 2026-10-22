@@ -2,6 +2,8 @@
 
 *Lưu ngày 27/9/2026, khi danh sách trò chơi được thay bằng 10 trò mới ở [../PRD.md](../PRD.md) mục V. Chỉ để tra lại quyết định và dữ liệu cần kiểm của các trò đã làm (Súng bắn tốc độ, Cung đường biển báo). Không còn là yêu cầu.*
 
+*Ghi chú (21/10/2026): toàn bộ trò chơi và lớp trò chơi hóa (XP, cấp độ, huy hiệu, chuỗi ngày, bảng xếp hạng, mùa giải, thử thách hằng ngày) đã gỡ khỏi sản phẩm. Tài liệu này chỉ còn để tra lại, không phải yêu cầu.*
+
 ---
 
 

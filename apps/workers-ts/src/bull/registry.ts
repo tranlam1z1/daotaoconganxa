@@ -10,7 +10,6 @@ import { fetchStage } from "./workers/fetch.ts";
 import { indexStage } from "./workers/index.ts";
 import { ingestStage } from "./workers/ingest.ts";
 import { mascotAnhStage } from "./workers/mascot-anh.ts";
-import { muaGiaiStage } from "./workers/mua-giai.ts";
 import { nhacHocStage } from "./workers/nhac-hoc.ts";
 import { parseStage } from "./workers/parse.ts";
 import { reconcileStage } from "./workers/reconcile.ts";
@@ -45,8 +44,6 @@ export const STAGES: StageDef<QueueName>[] = [
   nhacHocStage,
   // Sách nói: đọc trước bài giảng đã xuất bản, chạy lặp 6 giờ một lần (docs/PLAN.md GĐ14).
   sachNoiStage,
-  // Mùa giải đơn vị: bắt đầu mùa, chốt tuần lúc 06:00 thứ Hai; chạy lặp mỗi giờ (docs/PLAN.md GĐ-G6).
-  muaGiaiStage,
   // Dọn tài khoản khách bỏ không quá 30 ngày; chạy lặp 6 giờ một lần (migration 0062).
   donKhachStage,
 ] as StageDef<QueueName>[];

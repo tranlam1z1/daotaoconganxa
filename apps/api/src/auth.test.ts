@@ -204,15 +204,12 @@ describe("tự đăng ký tài khoản", () => {
       cap_bac_chuc_vu: "Thượng úy",
     });
 
-    // Chưa duyệt: học, luyện tập, trò chơi và mọi nhóm API khác coi như chưa đăng nhập.
+    // Chưa duyệt: học, luyện tập, thi và mọi nhóm API khác coi như chưa đăng nhập.
     for (const duong of [
       "/v1/toi/tong-quan",
       "/v1/luyen-tap/chu-de",
-      "/v1/luot-choi",
-      "/v1/tro-choi",
       "/v1/giong-doc",
       "/v1/thi",
-      "/v1/bang-xep-hang?pham_vi=don_vi&ky=tuan",
     ]) {
       expect((await goi("GET", duong, token)).status).toBe(401);
     }

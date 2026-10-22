@@ -147,7 +147,7 @@ async function ghiLichSu(
     VALUES (${kind}, ${ref}, ${version}, ${action}, ${actor}, ${note ?? null})`;
 }
 
-/** Trường sửa được của từng loại: mọi trường trừ mã, vì trò chơi và lịch sử duyệt trỏ theo mã. */
+/** Trường sửa được của từng loại: mọi trường trừ mã, vì lịch sử duyệt trỏ theo mã. */
 export interface SuaMucPhat {
   vehicle: LoaiXe;
   behavior: string;
@@ -177,9 +177,6 @@ export interface SuaBienBao {
   name: string;
   meaning: string;
   citation_urn: string;
-  /** Thao tác đúng và giải thích trong trò Cung đường biển báo (GĐ-G8); null: biển không dùng. */
-  reaction: string | null;
-  reaction_note: string | null;
   note: string | null;
   topic_id: string | null;
 }
@@ -251,8 +248,8 @@ export interface SuaBieuMau {
 
 /**
  * Sửa một dòng. Chỉ ghi khi `version` khớp. `sau` là hệ quả tính bằng `hauQuaSua` (trạng thái
- * theo luật chung): sửa dòng đã duyệt thì về chờ duyệt và tăng phiên bản, nên tình huống trò chơi
- * trỏ tới dòng này tự rút khỏi trò chơi cho tới khi duyệt lại.
+ * theo luật chung): sửa dòng đã duyệt thì về chờ duyệt và tăng phiên bản, nên tình huống trỏ tới
+ * dòng này tự rút khỏi bộ dữ liệu cho tới khi duyệt lại.
  */
 export async function suaDuLieuTraCuu(
   loai: LoaiDuLieuTraCuu,
@@ -285,7 +282,7 @@ export async function suaDuLieuTraCuu(
       r = await tx`
         UPDATE traffic_signs SET group_name = ${d.group_name}, name = ${d.name}, meaning = ${d.meaning},
           citation_urn = ${d.citation_urn},
-          reaction = ${d.reaction}, reaction_note = ${d.reaction_note}, note = ${d.note}, topic_id = ${d.topic_id}, search_text = ${chuoiTimBienBao({ ma: code, ten: d.name })},
+          note = ${d.note}, topic_id = ${d.topic_id}, search_text = ${chuoiTimBienBao({ ma: code, ten: d.name })},
           status = ${status}, version = ${sau.version}, updated_at = now()
         WHERE code = ${code} AND version = ${versionCu}`;
     } else if (loai === "toc-do-toi-da") {
@@ -467,11 +464,11 @@ export async function taoBienBao(
   return (await sql.begin(async (tx) => {
     const r = await tx`
       INSERT INTO traffic_signs (code, group_name, name, meaning, search_text, image_uri, citation_urn,
-        ordinal, reaction, reaction_note, status, note, topic_id, created_by, updated_at)
+        ordinal, status, note, topic_id, created_by, updated_at)
       VALUES (${d.code}, ${d.group_name}, ${d.name}, ${d.meaning},
         ${chuoiTimBienBao({ ma: d.code, ten: d.name })}, ${d.image_uri}, ${d.citation_urn},
         (SELECT coalesce(max(ordinal), 0) + 1 FROM traffic_signs WHERE group_name = ${d.group_name}),
-        ${d.reaction}, ${d.reaction_note}, ${status}, ${d.note}, ${d.topic_id}, ${actor}, now())
+        ${status}, ${d.note}, ${d.topic_id}, ${actor}, now())
       ON CONFLICT (code) DO NOTHING`;
     if (!r.count) return false;
     await ghiLichSu(tx, kind, d.code, 1, "tao", actor);
@@ -597,7 +594,7 @@ export async function phanLoaiTaiLieu(
 
 /**
  * Xóa hẳn một dòng chưa từng duyệt: đang nháp hoặc bị từ chối, và chưa có lần duyệt nào. Dòng đã từng
- * duyệt có thể đã nằm trong lượt chơi hoặc được tình huống trò chơi trỏ tới nên chỉ ngừng dùng. Trả dòng
+ * duyệt có thể đã nằm trong lượt làm hoặc được tình huống trỏ tới nên chỉ ngừng dùng. Trả dòng
  * đã xóa, hoặc undefined khi dòng không xóa được. Lịch sử duyệt của dòng được giữ lại.
  */
 export async function xoaDuLieuTraCuu(

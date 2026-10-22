@@ -59,17 +59,7 @@ const chuHoacNull = (v: FormDataEntryValue | null) => chu(v) || null;
 /** Trường chữ gửi kèm tệp của hai loại soạn bằng form multipart. */
 const TRUONG_FORM = {
   "bieu-mau": ["code", "kind", "title", "summary", "vehicle", "group_name", "note", "topic_id"],
-  "bien-bao": [
-    "code",
-    "group_name",
-    "name",
-    "meaning",
-    "citation_urn",
-    "reaction",
-    "reaction_note",
-    "note",
-    "topic_id",
-  ],
+  "bien-bao": ["code", "group_name", "name", "meaning", "citation_urn", "note", "topic_id"],
 } as const;
 
 export async function action({ request }: Route.ActionArgs) {

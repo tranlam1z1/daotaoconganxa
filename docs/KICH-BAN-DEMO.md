@@ -1,6 +1,6 @@
 # Kịch bản demo
 
-Kịch bản trình bày hệ thống học tập, sát hạch và tra cứu nghiệp vụ cho Phòng Cảnh sát giao thông, theo thứ tự từng bước, kèm dữ liệu chuẩn bị sẵn. Cách dựng máy demo, danh sách đầy đủ màn hình và ghi chú từng trò chơi ở [DEMO.md](DEMO.md); tài liệu này chỉ nêu **trình bày cái gì, theo thứ tự nào, bấm gì, nói gì**.
+Kịch bản trình bày hệ thống học tập và tra cứu nghiệp vụ cho Phòng Cảnh sát giao thông, theo thứ tự từng bước, kèm dữ liệu chuẩn bị sẵn. Cách dựng máy demo, danh sách đầy đủ màn hình ở [DEMO.md](DEMO.md); tài liệu này chỉ nêu **trình bày cái gì, theo thứ tự nào, bấm gì, nói gì**.
 
 | | |
 |---|---|
@@ -32,7 +32,7 @@ Kịch bản trình bày hệ thống học tập, sát hạch và tra cứu ngh
    ```
    bun run demo --lam-lai --duong-ham
    ```
-   Lịch sử học mẫu tính lùi 14 ngày từ lúc gieo, nên dựng lại càng gần buổi demo thì số liệu "tuần này" càng đầy. Nên chạy lại lệnh này sáng hôm demo.
+   Lịch sử học mẫu tính lùi 14 ngày từ lúc gieo, nên dựng lại càng gần buổi demo thì số liệu báo cáo càng đầy. Nên chạy lại lệnh này sáng hôm demo.
 
 ### 1.2. Trước giờ demo 30 phút
 
@@ -43,7 +43,7 @@ Kịch bản trình bày hệ thống học tập, sát hạch và tra cứu ngh
 | Mở http://localhost:3081/health | Trả về trạng thái tốt |
 | Tắt thông báo Windows, Zalo, Teams; cắm sạc | |
 | Phóng to trình duyệt 110–125% cho người ngồi xa | |
-| Điện thoại: mở địa chỉ đường hầm, đăng nhập `canbo.d1.01`, cài PWA, tải trước một chủ đề luyện tập offline (mục 3, bước 8) | Biểu tượng ứng dụng có trên màn hình chính |
+| Điện thoại: mở địa chỉ đường hầm, đăng nhập `canbo.d1.01`, cài PWA, tải trước một chủ đề luyện tập offline (mục 3, bước 7) | Biểu tượng ứng dụng có trên màn hình chính |
 
 ### 1.3. Bốn hồ sơ Chrome
 
@@ -51,7 +51,7 @@ Dùng bốn hồ sơ Chrome (Profile) để không phải đăng xuất, đăng 
 
 | Hồ sơ | Tài khoản | Người | Vai | Tab mở sẵn |
 |---|---|---|---|---|
-| A | `canbo.d1.01` | Đại úy Lê Quang Huy, Đội 1 | Người học chính | `/`, `/tro-choi` |
+| A | `canbo.d1.01` | Đại úy Lê Quang Huy, Đội 1 | Người học chính | `/`, `/hoc` |
 | B | `canbo.d2.01` | Đại úy Vũ Đức Thắng, Đội 2 | Người học thứ hai: **chưa làm bài thi**, tham gia nhóm | `/thi` |
 | C | `quanly.doi1` | Thiếu tá Trần Minh Đức, Đội trưởng Đội 1 | Cán bộ quản lý đội | `/quan-tri/bao-cao` |
 | D | `quantri` | Quản trị hệ thống | Quản trị viên | `/quan-tri/nguoi-dung` |
@@ -85,13 +85,12 @@ Tài khoản `quantri` không thuộc đơn vị nào.
 |---|---|---|
 | Câu hỏi đã duyệt | Chuyển từ bài tập của các bài giảng | 3 |
 | Bài giảng đã xuất bản | 9 bài ở 5 chuyên đề | 2 |
-| Trò chơi đã bật, có nội dung | 14 trò, nội dung "[Demo]" duyệt tự động | 4 |
 
-`bun run demo` không gieo đề thi, lịch sử học, nhóm hay mùa giải. Trước buổi demo, soạn và giao một đề thi theo [DU-LIEU-MAU-DEMO.md](DU-LIEU-MAU-DEMO.md) mục D3, D4 để có bài cho bước 3.4–3.7, 6.4 và 7c.
+`bun run demo` không gieo đề thi, lịch sử học hay nhóm. Trước buổi demo, soạn và giao một đề thi theo [DU-LIEU-MAU-DEMO.md](DU-LIEU-MAU-DEMO.md) mục D3, D4 để có bài cho bước 3.4–3.7, 5.4 và 6c.
 
 ### 2.3. Dữ liệu nhập trong buổi demo
 
-**Tệp [demo/demo-nhap-nguoi-dung.xlsx](demo/demo-nhap-nguoi-dung.xlsx)** (bước 7a). Kết quả khi nhập:
+**Tệp [demo/demo-nhap-nguoi-dung.xlsx](demo/demo-nhap-nguoi-dung.xlsx)** (bước 6a). Kết quả khi nhập:
 
 | Dòng | Tên đăng nhập | Đơn vị | Vai trò | Kết quả |
 |---|---|---|---|---|
@@ -114,8 +113,8 @@ Tệp đã được đọc thử bằng đúng bộ đọc của API. Tệp ch�
 | 1.4 | Tra cứu nhanh, tốc độ (`/tra-cuu-nhanh/toc-do`) | Loại xe: Ô tô; tốc độ cho phép `60`; tốc độ đo được `75` (vượt 15 km/h) |
 | 1.5 | Tra cứu nhanh, biển báo | `P.127` |
 | 1.6 | Hỏi trợ lý AI (khi có key) | `Người điều khiển xe ô tô có nồng độ cồn trong hơi thở bị xử phạt thế nào?` |
-| 5.3 | Tên nhóm mới | `Ôn thi tháng 10, Đội 1` |
-| 5.5 | Đề ôn tập chia sẻ vào nhóm | Chủ đề "Giấy phép lái xe", 5 câu, tên `Đề ôn giấy phép lái xe` |
+| 4.2 | Tên nhóm mới | `Ôn thi tháng 10, Đội 1` |
+| 4.4 | Đề ôn tập chia sẻ vào nhóm | Chủ đề "Giấy phép lái xe", 5 câu, tên `Đề ôn giấy phép lái xe` |
 
 ---
 
@@ -128,13 +127,13 @@ Mỗi bước ghi: hồ sơ Chrome, thao tác, lời dẫn (gợi ý, nói theo 
 **Thao tác:** mở `/` của `canbo.d1.01`.
 
 **Lời dẫn:**
-> Hệ thống gồm bốn phần trên một ứng dụng web: tra cứu văn bản và quy định nghiệp vụ, học bài giảng, luyện tập và thi, trò chơi nghiệp vụ. Cán bộ dùng trên máy tính hoặc cài lên điện thoại. Cán bộ quản lý giao bài và xem báo cáo trên cùng ứng dụng.
+> Hệ thống gồm ba phần trên một ứng dụng web: tra cứu văn bản và quy định nghiệp vụ, học bài giảng, luyện tập và thi. Cán bộ dùng trên máy tính hoặc cài lên điện thoại. Cán bộ quản lý giao bài và xem báo cáo trên cùng ứng dụng.
 >
-> Dữ liệu hôm nay là dữ liệu mẫu chạy trên máy này. Tên người, đơn vị là giả định. Nội dung trò chơi và một phần câu hỏi được duyệt tự động để chạy thử, chưa qua đơn vị chuyên môn đối chiếu. Hệ thống thật chỉ hiện cho cán bộ những nội dung đã duyệt.
+> Dữ liệu hôm nay là dữ liệu mẫu chạy trên máy này. Tên người, đơn vị là giả định. Một phần câu hỏi và dữ liệu tra cứu được duyệt tự động để chạy thử, chưa qua đơn vị chuyên môn đối chiếu. Hệ thống thật chỉ hiện cho cán bộ những nội dung đã duyệt.
 
-**Người xem thấy:** trang chủ với lối vào các phần, nút "Chơi ngay".
+**Người xem thấy:** trang chủ với ô tra cứu vi phạm, bộ công cụ nghiệp vụ và nghiệp vụ nhanh.
 
-### Bước 1. Tra cứu (5 phút) · Hồ sơ A
+### Bước 1. Tra cứu (7 phút) · Hồ sơ A
 
 | # | Thao tác | Lời dẫn | Người xem thấy |
 |---|---|---|---|
@@ -147,9 +146,9 @@ Mỗi bước ghi: hồ sơ Chrome, thao tác, lời dẫn (gợi ý, nói theo 
 
 Không có key AI thì bỏ 1.6. Nếu người xem hỏi, mở `/hoi-dap`: trang báo "Hỏi đáp AI chưa được cấu hình trên máy chủ này", không đưa câu trả lời giả.
 
-**Lưu ý khi nói:** mức phạt, biển báo trong bản demo là bản nháp duyệt tự động; trên hệ thống thật, pháp chế duyệt từng dòng (xem bước 7d).
+**Lưu ý khi nói:** mức phạt, biển báo trong bản demo là bản nháp duyệt tự động; trên hệ thống thật, pháp chế duyệt từng dòng (xem bước 6d).
 
-### Bước 2. Học bài giảng (5 phút) · Hồ sơ A
+### Bước 2. Học bài giảng (7 phút) · Hồ sơ A
 
 | # | Thao tác | Lời dẫn | Người xem thấy |
 |---|---|---|---|
@@ -158,9 +157,9 @@ Không có key AI thì bỏ 1.6. Nếu người xem hỏi, mở `/hoi-dap`: tran
 | 2.3 | Chuyển sang chế độ slide | Cùng một bài dùng được cho buổi sinh hoạt chuyên đề tại đội | Bài ở dạng slide |
 | 2.4 | Cuộn tới kiểm tra cuối bài, làm 1–2 câu | Học xong làm kiểm tra ngắn; kết quả vào tiến độ học | Phản hồi đúng sai, giải thích |
 
-**Chuyển ý:** "Nội dung bài này cũng là nội dung của trò Kiểm tra giấy tờ ở bước 4."
+**Chuyển ý:** "Bài này có sẵn câu hỏi ôn; phần luyện tập và thi dùng chính các câu đó."
 
-### Bước 3. Luyện tập và thi (5 phút)
+### Bước 3. Luyện tập và thi (7 phút)
 
 **Luyện tập · Hồ sơ A**
 
@@ -181,57 +180,28 @@ Không có key AI thì bỏ 1.6. Nếu người xem hỏi, mở `/hoi-dap`: tran
 
 `canbo.d2.01` còn 1 lượt sau bước này. Người xem muốn thử thì đưa tài khoản `canbo.d3.01`.
 
-### Bước 4. Trò chơi nghiệp vụ (8 phút) · Hồ sơ A
-
-**Lời dẫn chung:**
-> Trò chơi không phải trắc nghiệm. Cán bộ soi giấy tờ, vuốt, đóng dấu, khoanh vùng, kéo thả như khi làm việc thật. Máy chủ chấm điểm; cuối lượt có giải thích từng lỗi kèm căn cứ. Mỗi trò có 5 màn, qua màn trước mới mở màn sau.
-
-| # | Thao tác | Lời dẫn | Người xem thấy |
-|---|---|---|---|
-| 4.1 | Mở `/tro-choi` | 14 trò đang bật trong bản demo | Lưới biểu tượng trò chơi |
-| 4.2 | Chạm **Kiểm tra giấy tờ** → "Màn 1". Với người lái đầu: chạm giấy tờ để phóng to, chạm dòng sai, "Xong", đóng dấu "Giữ lại". Người lái sau giấy tờ đúng: "Cho qua" | Đối chiếu giấy phép lái xe, đăng ký xe, bảo hiểm của từng người lái | Giấy tờ phóng to, dòng đánh dấu, dấu đóng |
-| 4.3 | Chơi hết hoặc tới màn kết quả | Kết quả giải thích từng chỗ sai | Sao, danh sách lỗi, căn cứ |
-| 4.4 | Quay lại, chạm **Duyệt hồ sơ phạt nguội** → "Màn 1". Hồ sơ đủ căn cứ: vuốt trái. Hồ sơ thiếu thời điểm (PN-05) hoặc ảnh mờ (PN-08): chạm chỗ thiếu rồi vuốt phải | Duyệt hồ sơ camera trước khi gửi thông báo vi phạm | Thẻ hồ sơ, vuốt trái phải |
-| 4.5 | Chạm **Tái dựng hiện trường** → "Màn 1" (TD-01). Đọc dấu vết; tab "Dựng xe": đặt xe A ở x 12 m, y 64 m, hướng bắc, tốc độ "Rất nhanh", hành động "Phanh gấp"; bấm "Mô phỏng". Tab "Kết luận": kéo thẻ "Chạy quá tốc độ" vào xe A, "Chốt kết luận" | Kéo xe về vị trí ban đầu theo dấu vết, cho mô phỏng chạy để kiểm chứng, rồi kết luận lỗi | Vết mô phỏng phủ lên dấu vết thật, bảng so sánh lệch bao nhiêu mét |
-| 4.6 | (Nói) Chọn "Nhanh" thay vì "Rất nhanh" thì xe dừng trước rào | Độ dài vết phanh cho biết tốc độ | |
-
-Nếu thời gian còn, mở thêm một trong các trò (lời giải sẵn ở [DEMO.md](DEMO.md) mục 7):
-
-| Trò | Tình huống nên chọn |
-|---|---|
-| Trạm cân tải trọng | Màn 1: xe đúng bằng giới hạn (TC-02, cho đi), vượt đúng 10% (TC-04, hạ tải), vượt 10,1% (TC-07, lập biên bản) |
-| Dựng chốt an toàn ban đêm | CD-01 (chốt mét 160, làn phải), bố trí đủ 100 điểm: biển ở mét 60 và 110 lề phải; 6 cọc làn phải mét 130, 135 … 155; đèn lề phải mét 128; hai chiến sĩ làn phải mét 162, 166 |
-| Soi camera | Màn 1: "Bắt đầu xem", thấy xe vi phạm thì "Dừng hình", khoanh xe, kéo thẻ lỗi |
-| Lên xe khách | XK-04 (đúng bằng số chỗ, không vượt) rồi XK-06 (hành lý ở lối đi dễ đếm nhầm) |
-| Tự lái qua phố | Màn 1: đi thẳng khi đèn đỏ trong 13 giây đầu, chạy quá 40 km/h; cuối lượt có biên bản, chạm lỗi để tua lại |
-
-Thứ tự hồ sơ, xe trong một lượt có thể khác lần diễn tập. Không gặp đúng tình huống đã định thì nói theo tình huống đang hiện.
-
-**Lưu ý khi nói:** nội dung trò chơi là dữ liệu demo; số tiền, ngưỡng tải trọng, thời gian lái là số minh họa. Danh sách điểm cần đơn vị chuyên môn đối chiếu ở [GAME_DESIGN.md](GAME_DESIGN.md) mục 5.
-
-### Bước 5. Theo dõi cá nhân, thi đua, nhóm học cùng (5 phút)
+### Bước 4. Theo dõi cá nhân, nhóm học cùng (6 phút)
 
 | # | Hồ sơ | Thao tác | Lời dẫn | Người xem thấy |
 |---|---|---|---|---|
-| 5.1 | A | Mở `/toi` | Mỗi cán bộ thấy lịch sử, câu sai cần ôn, huy hiệu, điểm mạnh và điểm yếu theo chủ đề | Lịch sử, câu sai, huy hiệu, hồ sơ chủ đề |
-| 5.2 | A | Mở `/bang-xep-hang`, rồi tab "Mùa giải" | Thi đua giữa các đội theo tuần, chia hạng, lên hạng xuống hạng. Số hạng, cỡ nhóm, số lên/xuống là đề xuất, chờ phòng chốt | Bảng xếp hạng; tab Mùa giải trống cho tới khi quản trị tạo mùa (7e) |
-| 5.3 | A | Mở **Học → Nhóm học cùng**, "Tạo nhóm", tên `Ôn thi tháng 10, Đội 1`, "Sao chép liên kết mời" | Cán bộ tự lập nhóm ôn cùng nhau, kể cả khác đội | Mã mời, liên kết mời |
-| 5.4 | B | Dán liên kết mời, "Tham gia nhóm" | Thành viên chỉ thấy họ tên và phần trăm hoàn thành của nhau, không thấy điểm | Trang tham gia nêu rõ phạm vi chia sẻ |
-| 5.5 | A | Trong nhóm, "Chia sẻ vào nhóm" → "Đề ôn tập", chủ đề "Giấy phép lái xe", 5 câu, tên `Đề ôn giấy phép lái xe` | Trưởng nhóm chia sẻ bài học, đề ôn; đặt hạn gợi ý | Mục mới trong nhóm |
-| 5.6 | A | Trong nhóm vừa tạo, bấm "Cổ vũ" ở dòng của B | Thành viên cổ vũ nhau; cổ vũ không cộng điểm kinh nghiệm | Số lượt cổ vũ |
+| 4.1 | A | Mở `/toi` | Mỗi cán bộ thấy câu sai cần luyện, tỷ lệ đúng gần đây, số phiên đã luyện và hồ sơ chủ đề đã luyện | Câu sai, tỷ lệ đúng, số phiên đã luyện, lịch sử luyện tập |
+| 4.2 | A | Mở **Học → Nhóm học cùng**, "Tạo nhóm", tên `Ôn thi tháng 10, Đội 1`, "Sao chép liên kết mời" | Cán bộ tự lập nhóm ôn cùng nhau, kể cả khác đội | Mã mời, liên kết mời |
+| 4.3 | B | Dán liên kết mời, "Tham gia nhóm" | Thành viên chỉ thấy họ tên và phần trăm hoàn thành của nhau, không thấy điểm | Trang tham gia nêu rõ phạm vi chia sẻ |
+| 4.4 | A | Trong nhóm, "Chia sẻ vào nhóm" → "Đề ôn tập", chủ đề "Giấy phép lái xe", 5 câu, tên `Đề ôn giấy phép lái xe` | Trưởng nhóm chia sẻ bài học, đề ôn; đặt hạn gợi ý | Mục mới trong nhóm |
+| 4.5 | A | Trong nhóm vừa tạo, bấm "Cổ vũ" ở dòng của B | Thành viên cổ vũ nhau; cổ vũ chỉ để động viên, không tính vào kết quả học | Số lượt cổ vũ |
 
-### Bước 6. Cán bộ quản lý (3 phút) · Hồ sơ C (`quanly.doi1`)
+### Bước 5. Cán bộ quản lý (4 phút) · Hồ sơ C (`quanly.doi1`)
 
 | # | Thao tác | Lời dẫn | Người xem thấy |
 |---|---|---|---|
-| 6.1 | `/quan-tri/bao-cao`, tab "Cán bộ" (mở sẵn) | Đội trưởng thấy từng cán bộ trong đội: bài học, luyện tập, bài thi, lần học gần nhất; bấm tên mở hồ sơ chi tiết | Mỗi cán bộ Đội 1 một dòng |
-| 6.2 | Bấm "Tải Excel", rồi "Tải PDF" | Xuất báo cáo nộp cấp trên | Hai tệp tải về |
-| 6.3 | `/quan-tri/nhom`, mở nhóm vừa tạo ở bước 5 | Quản lý chỉ thấy cán bộ thuộc đơn vị mình: Đội trưởng Đội 1 thấy A, không thấy B (Đội 2) | 1 người trong phạm vi, 1 người ngoài phạm vi |
-| 6.4 | `/quan-tri/giao-bai` | Giao đề thi, bài học cho đội, có hạn | Danh sách bài đã giao |
+| 5.1 | `/quan-tri/bao-cao`, tab "Cán bộ" (mở sẵn) | Đội trưởng thấy từng cán bộ trong đội: bài học, luyện tập, bài thi, lần học gần nhất; bấm tên mở hồ sơ chi tiết | Mỗi cán bộ Đội 1 một dòng |
+| 5.2 | Bấm "Tải Excel", rồi "Tải PDF" | Xuất báo cáo nộp cấp trên | Hai tệp tải về |
+| 5.3 | `/quan-tri/nhom`, mở nhóm vừa tạo ở bước 4 | Quản lý chỉ thấy cán bộ thuộc đơn vị mình: Đội trưởng Đội 1 thấy A, không thấy B (Đội 2) | 1 người trong phạm vi, 1 người ngoài phạm vi |
+| 5.4 | `/quan-tri/giao-bai` | Giao đề thi, bài học cho đội, có hạn | Danh sách bài đã giao |
 
-### Bước 7. Quản trị (8 phút) · Hồ sơ D (`quantri`)
+### Bước 6. Quản trị (8 phút) · Hồ sơ D (`quantri`)
 
-**7a. Nhập người dùng từ Excel**
+**6a. Nhập người dùng từ Excel**
 
 | # | Thao tác | Người xem thấy |
 |---|---|---|
@@ -239,7 +209,7 @@ Thứ tự hồ sơ, xe trong một lượt có thể khác lần diễn tập. 
 | 2 | Bỏ chọn "Chạy thử", nhập lại | 4 tài khoản được tạo, mỗi người một mật khẩu tạm |
 | 3 | (Nói) | Dòng lỗi không chặn dòng đúng. Người mới phải đổi mật khẩu tạm ở lần đăng nhập đầu. Vai trò biên tập, pháp chế, quản trị cấp riêng từng người, không cấp qua tệp |
 
-**7b. Ngân hàng câu hỏi: nhập và duyệt**
+**6b. Ngân hàng câu hỏi: nhập và duyệt**
 
 | # | Thao tác | Người xem thấy |
 |---|---|---|
@@ -247,23 +217,17 @@ Thứ tự hồ sơ, xe trong một lượt có thể khác lần diễn tập. 
 | 2 | Lọc câu chờ duyệt, mở câu vừa soạn, bấm "Duyệt" | Câu chuyển sang đã duyệt; chỉ câu đã duyệt mới vào luyện tập, đề thi |
 | 3 | (Nói) | Câu nhập từ tệp Excel cũng qua cùng luồng duyệt. Nút "Sinh bằng AI" cần key AI và Redis, bản demo không chạy |
 
-**7c. Đề thi**
+**6c. Đề thi**
 
 `/quan-tri/de-thi`, mở đề đã soạn trước buổi demo (mục 2.2): ma trận theo chủ đề và mức độ, thời gian, số lượt tối đa. Không sửa đề đang giao.
 
-**7d. Nội dung trò chơi và dữ liệu tra cứu**
+**6d. Dữ liệu tra cứu**
 
 | # | Thao tác | Lời dẫn |
 |---|---|---|
-| 1 | `/quan-tri/noi-dung-tro-choi` | Mỗi tình huống của trò chơi đi qua cùng quy trình duyệt như câu hỏi: biên tập soạn, pháp chế duyệt, quản trị bật tắt trò |
-| 2 | Mở `/quan-tri/noi-dung-tro-choi/moi`, chọn trò "Tái dựng hiện trường" hoặc "Cắm biển cho tuyến đường" | Biên tập viên soạn tình huống mới bằng trình soạn có nút "Chơi thử" |
-| 3 | `/quan-tri/du-lieu-tra-cuu`, tab Mức phạt | Mức phạt, biển báo, quy trình, tải trọng được duyệt từng dòng; dòng nháp không hiện cho cán bộ |
+| 1 | `/quan-tri/du-lieu-tra-cuu`, tab Mức phạt | Mức phạt, biển báo, quy trình, tải trọng được duyệt từng dòng; dòng nháp không hiện cho cán bộ |
 
-**7e. Mùa giải (tùy thời gian)**
-
-`/quan-tri/mua-giai`: cấu hình hạng, cỡ nhóm, số lên/xuống, trần XP; nút "Chốt ngay các tuần đã tới hạn".
-
-### Bước 8. Điện thoại và offline (3 phút, tùy chọn)
+### Bước 7. Điện thoại và offline (3 phút, tùy chọn)
 
 Chiếu màn hình điện thoại (cáp hoặc ứng dụng chiếu), đã chuẩn bị ở mục 1.2.
 
@@ -272,11 +236,11 @@ Chiếu màn hình điện thoại (cáp hoặc ứng dụng chiếu), đã chu�
 3. **Bật chế độ máy bay**, làm 2–3 câu.
 4. Tắt chế độ máy bay: kết quả tự gửi lên máy chủ và được chấm lại.
 
-**Lời dẫn:** "Cán bộ ở chốt, trên tuyến không có sóng vẫn học được; trò chơi cũng tải về chơi offline được."
+**Lời dẫn:** "Cán bộ ở chốt, trên tuyến không có sóng vẫn học được; bài luyện tập đã tải về cũng làm offline được."
 
-### Bước 9. Kết (1 phút)
+### Bước 8. Kết (1 phút)
 
-> Tóm tắt: tra cứu có căn cứ, học, luyện tập và thi có chấm tự động, trò chơi nghiệp vụ, báo cáo theo đơn vị. Các điểm cần phòng quyết định hoặc cung cấp: (1) đơn vị chuyên môn đối chiếu nội dung trò chơi và mức phạt; (2) các con số thi đua (điểm từng việc, ngưỡng cấp, huy hiệu); (3) tài liệu nghiệp vụ nội bộ cho các trò dừng xe, dựng chốt, xử lý tai nạn.
+> Tóm tắt: tra cứu có căn cứ, học, luyện tập và thi có chấm tự động, nhóm học cùng, báo cáo theo đơn vị. Các điểm cần phòng quyết định hoặc cung cấp: (1) đơn vị chuyên môn đối chiếu mức phạt và biển báo; (2) tài liệu nghiệp vụ nội bộ cho các quy trình dừng xe, dựng chốt, xử lý tai nạn.
 
 ---
 
@@ -285,14 +249,13 @@ Chiếu màn hình điện thoại (cáp hoặc ứng dụng chiếu), đã chu�
 | Câu hỏi | Trả lời |
 |---|---|
 | Mức phạt, biển báo lấy từ đâu, có đúng không? | Từ văn bản trong kho. Bản demo dùng bản nháp duyệt tự động để chạy thử. Hệ thống thật chỉ hiện dòng đã được pháp chế duyệt, kèm căn cứ tới điều, khoản. |
-| Văn bản sửa đổi thì sao? | Văn bản lưu theo phiên bản và thời điểm áp dụng; dòng tra cứu, câu hỏi gắn căn cứ. Sửa một dòng dữ liệu thì dòng đó về chờ duyệt; ví dụ sửa một giới hạn tải trọng thì các xe dùng giới hạn đó rời trò Trạm cân cho tới khi duyệt lại. |
+| Văn bản sửa đổi thì sao? | Văn bản lưu theo phiên bản và thời điểm áp dụng; dòng tra cứu, câu hỏi gắn căn cứ. Sửa một dòng dữ liệu thì dòng đó về chờ duyệt; ví dụ sửa một mức phạt thì dòng tra cứu đó về chờ duyệt cho tới khi pháp chế duyệt lại. |
 | AI có trả lời sai, bịa căn cứ không? | Trợ lý chỉ trả lời từ văn bản trong kho và kèm căn cứ. Kho không có căn cứ thì trả lời là chưa có căn cứ. Câu hỏi do AI sinh vẫn phải qua duyệt. |
-| Không có mạng có dùng được không? | Cài ứng dụng lên điện thoại, tải chủ đề luyện tập, trò chơi về máy. Kết quả gửi lên và chấm lại khi có mạng. |
-| Cán bộ có gian lận điểm được không? | Điểm chấm trên máy chủ; trò mô phỏng được máy chủ chạy lại từ nhật ký thao tác. Chơi lặp trong ngày nhận điểm giảm dần. |
+| Không có mạng có dùng được không? | Cài ứng dụng lên điện thoại, tải chủ đề luyện tập về máy. Kết quả gửi lên và chấm lại khi có mạng. |
+| Cán bộ có gian lận điểm được không? | Điểm bài thi chấm trên máy chủ; mỗi lượt thi có hạn và số lượt tối đa do quản trị đặt. |
 | Ai thấy được dữ liệu của ai? | Cán bộ thấy dữ liệu của mình. Thành viên nhóm chỉ thấy họ tên, phần trăm, lượt cổ vũ. Quản lý thấy cán bộ trong đơn vị mình và đơn vị cấp dưới. |
-| Thêm cán bộ hàng loạt thế nào? | Nhập Excel theo mẫu (bước 7a), có chạy thử trước. |
+| Thêm cán bộ hàng loạt thế nào? | Nhập Excel theo mẫu (bước 6a), có chạy thử trước. |
 | Đăng nhập bằng tài khoản khác được không? | Hệ thống có đăng nhập bằng Google khi cấu hình `GOOGLE_CLIENT_ID`; bản demo không bật. |
-| Trò chơi nào còn chờ? | Danh sách và các câu chờ quyết định ở [PRD.md](PRD.md) mục V và [GAME_DESIGN.md](GAME_DESIGN.md) mục 8. Dừng xe đúng quy trình và Lập biên bản đã có mã nhưng đang tắt trong bản demo. |
 
 Câu nào chưa trả lời chắc chắn được thì ghi lại, hẹn trả lời bằng văn bản. Không hứa thời hạn ngay trong buổi demo.
 
@@ -304,9 +267,8 @@ Câu nào chưa trả lời chắc chắn được thì ghi lại, hẹn trả l
 |---|---|
 | Web hoặc API dừng | Ctrl+C, chạy `bun run demo --nhanh --khong-build` (khoảng 30 giây). Trong lúc chờ, nói tiếp phần hỏi đáp |
 | "Không bật được Postgres" | Mở Docker Desktop, chờ "Engine running", chạy lại lệnh trên |
-| Đường hầm không lên, điện thoại không mở được | Bỏ bước 8, hoặc dùng địa chỉ `http://192.168.x.x:3080` cùng Wi-Fi (xem được giao diện, không thử offline) |
+| Đường hầm không lên, điện thoại không mở được | Bỏ bước 7, hoặc dùng địa chỉ `http://192.168.x.x:3080` cùng Wi-Fi (xem được giao diện, không thử offline) |
 | Mất mạng Internet | Bản demo chạy trên máy, vẫn dùng được. Mất hỏi đáp AI và đường hầm |
-| Một trò chơi lỗi hoặc tình huống khó | Chuyển sang trò khác trong bảng bước 4 |
 | Lỡ làm hỏng dữ liệu | Sau buổi: `bun run demo --lam-lai`. Trong buổi: đổi sang tài khoản khác cùng vai |
 | Máy trình chiếu hỏng hẳn | Mở [huong-dan-su-dung.pdf](../apps/web/public/tai-lieu/huong-dan-su-dung.pdf) và ảnh chụp màn hình ở `apps/web/public/tai-lieu/huong-dan/anh/` trên máy khác |
 
@@ -320,10 +282,10 @@ Câu nào chưa trả lời chắc chắn được thì ghi lại, hẹn trả l
 | 1–4 | Tìm kiếm, đọc văn bản, tra cứu nhanh mức phạt | 1.1, 1.2, 1.4 |
 | 4–6 | Một bài giảng | 2.2 |
 | 6–9 | Thi: làm 3 câu, nộp, xem kết quả | 3.4–3.7 |
-| 9–14 | Kiểm tra giấy tờ, Tái dựng hiện trường | 4.1–4.5 |
-| 14–16 | Trang Tôi, mùa giải | 5.1, 5.2 |
-| 16–19 | Báo cáo của quản lý; nhập người dùng Excel | 6.1, 7a |
-| 19–20 | Kết | 9 |
+| 9–12 | Trang Tôi, nhóm học cùng | 4.1, 4.2 |
+| 12–15 | Báo cáo của quản lý | 5.1, 5.2 |
+| 15–19 | Nhập người dùng Excel; duyệt câu hỏi | 6a, 6b |
+| 19–20 | Kết | 8 |
 
 ---
 

@@ -16,36 +16,11 @@ export type LoaiSoan = (typeof LOAI_SOAN)[number]["id"];
 
 export const laLoaiSoan = (v: string | null): v is LoaiSoan => LOAI_SOAN.some((l) => l.id === v);
 
-/** Cử chỉ của bước quy trình trong trò chơi (khớp THAO_TAC_BUOC của @qdpl/dao-tao). */
-export const THAO_TAC_BUOC = [
-  { id: "vuot", ten: "Vuốt" },
-  { id: "cham", ten: "Chạm" },
-  { id: "keo", ten: "Kéo" },
-  { id: "giu", ten: "Giữ" },
-] as const;
-
-/** Nguồn của bước quy trình trong trò chơi (khớp NGUON_BUOC của @qdpl/dao-tao). */
-export const NGUON_BUOC = [
-  { id: "van_ban", ten: "Văn bản trong kho (phải ghi căn cứ)" },
-  { id: "tai_lieu_nghiep_vu", ten: "Tài liệu nghiệp vụ của đơn vị" },
-  { id: "chua_co_can_cu", ten: "Chưa có căn cứ" },
-] as const;
-
-/** Phần trò chơi của một bước quy trình (BuocCoThaoTac của @qdpl/dao-tao). */
-export interface TroChoiCuaBuoc {
-  ma: string;
-  thao_tac: string;
-  bat_buoc: boolean;
-  dieu_kien?: string | null;
-  nguon: string;
-}
-
 /** Một bước quy trình như API nhận và trả (BuocQuyTrinh của @qdpl/dao-tao). */
 export interface BuocQuyTrinh {
   tieu_de: string;
   mo_ta: string;
   can_cu?: string | null;
-  tro_choi?: TroChoiCuaBuoc | null;
 }
 
 /** Loại giới hạn tải trọng (khớp `load_limits.kind`). */
@@ -124,12 +99,10 @@ export function docBienBao(f: FormData) {
     name: chu(f.get("name")),
     meaning: chu(f.get("meaning")),
     citation_urn: chu(f.get("citation_urn")),
-    reaction: chu(f.get("reaction")) || null,
-    reaction_note: chu(f.get("reaction_note")) || null,
   };
 }
 
-/** Nhóm luật giấy tờ (khớp NHOM_LUAT của @qdpl/dao-tao); mỗi nhóm phục vụ một trò chơi. */
+/** Nhóm luật giấy tờ (khớp NHOM_LUAT của @qdpl/dao-tao). */
 export const NHOM_LUAT = [
   { id: "giay_to_nguoi_lai", ten: "Giấy tờ người lái" },
   { id: "ho_so_phat_nguoi", ten: "Hồ sơ phạt nguội" },
@@ -248,8 +221,8 @@ export function docTaiTrong(f: FormData) {
 
 /**
  * Đọc ô ẩn `steps` của khung nhập bước (components/quan-tri/SuaBuocQuyTrinh.tsx) thành các bước gửi
- * API: cắt khoảng trắng, căn cứ trống thành null, bỏ bước để trống hoàn toàn. Bước không dùng trong
- * trò chơi thì không có khóa `tro_choi`. Trả null khi ô ẩn không đọc được.
+ * API: cắt khoảng trắng, căn cứ trống thành null, bỏ bước để trống hoàn toàn. Trả null khi ô ẩn
+ * không đọc được.
  */
 export function docBuocQuyTrinh(raw: FormDataEntryValue | null): BuocQuyTrinh[] | null {
   let ds: unknown;
@@ -261,22 +234,12 @@ export function docBuocQuyTrinh(raw: FormDataEntryValue | null): BuocQuyTrinh[] 
   if (!Array.isArray(ds)) return null;
   const buoc: BuocQuyTrinh[] = [];
   for (const b of ds as Array<Record<string, unknown>>) {
-    const t = b?.tro_choi as Record<string, unknown> | null | undefined;
     const mot: BuocQuyTrinh = {
       tieu_de: chu(b?.tieu_de),
       mo_ta: chu(b?.mo_ta),
       can_cu: chu(b?.can_cu) || null,
     };
-    if (t && typeof t === "object") {
-      mot.tro_choi = {
-        ma: chu(t.ma),
-        thao_tac: chu(t.thao_tac),
-        bat_buoc: t.bat_buoc === true,
-        dieu_kien: chu(t.dieu_kien) || null,
-        nguon: chu(t.nguon),
-      };
-    }
-    if (mot.tieu_de || mot.mo_ta || mot.can_cu || mot.tro_choi) buoc.push(mot);
+    if (mot.tieu_de || mot.mo_ta || mot.can_cu) buoc.push(mot);
   }
   return buoc;
 }

@@ -34,7 +34,7 @@ import {
   upsertAccount,
   verifyGoogleIdToken,
 } from "@qdpl/auth";
-import { danhSachDonVi, sql, tomTatDiem } from "@qdpl/db";
+import { danhSachDonVi, sql } from "@qdpl/db";
 import type { Context } from "hono";
 import { Hono } from "hono";
 import { z } from "zod";
@@ -161,8 +161,6 @@ async function moTa(principal: Principal) {
     // Tài khoản chưa được xác minh cán bộ: chỉ dùng trang Tài khoản cho tới khi được duyệt (migration 0064).
     cho_xac_minh: Boolean(principal.choXacMinh),
     xac_minh: xacMinh ? xacMinhJson(xacMinh) : null,
-    // Bản gọn cho chip chuỗi ngày và XP ở thanh đầu trang (docs/PLAN.md GĐ9).
-    diem: principal.accountId ? await tomTatDiem(principal.accountId) : null,
   };
 }
 

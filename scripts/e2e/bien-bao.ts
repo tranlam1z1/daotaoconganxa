@@ -2,8 +2,6 @@
  * Kịch bản E2E biển báo (docs/PLAN.md GĐ12) trên khung điện thoại 360×740:
  *  1. Lưới biển báo tải lần đầu dưới 2 giây trên mạng 4G giả lập (4 Mbit/s, trễ 20 ms), ảnh
  *     lười và mỗi ảnh ≤ 20 KB; lọc theo nhóm, tìm theo tên, mở chi tiết.
- *  2. Đường dẫn game đoán biển báo cũ chuyển về "Cung đường biển báo" (GĐ-G8): đoán biển nay là phần
- *     khởi động của trò đó, chơi trọn trong scripts/e2e/cung-duong.ts.
  *
  * Tự tạo bản sao đã duyệt của các biển mẫu (mã có tiền tố e2e-), dùng lại ảnh trong
  * data/bien-bao/anh/, xóa khi xong. Không đụng dữ liệu biển báo thật.
@@ -85,12 +83,4 @@ export default async function bienBao(n: NguCanhE2E) {
   await n.kiemKhongCuonNgang(page, "Chi tiết biển báo");
   await n.chupAnh(page, "2-chi-tiet");
 
-  /* 2. Đoán biển báo đã thành phần khởi động của Cung đường ----------- */
-  const tk = await n.taoTaiKhoan({ ten: "Cán bộ biển báo E2E" });
-  await n.dangNhap(page, tk);
-  await page.goto(`${n.web}/tro-choi/doan-bien-bao`);
-  await page.waitForURL(/\/tro-choi\/cung-duong-bien-bao$/);
-  await page.getByRole("heading", { name: "Cung đường biển báo" }).waitFor();
-  await n.kiemKhongCuonNgang(page, "Cung đường biển báo");
-  await n.chupAnh(page, "3-cung-duong");
 }

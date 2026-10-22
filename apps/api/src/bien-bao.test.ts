@@ -1,9 +1,8 @@
 /**
  * Kiểm thử API biển báo (docs/PLAN.md GĐ12) trên Postgres test thật: tra cứu chỉ thấy biển đã
- * duyệt, ảnh phục vụ từ kho đối tượng, game đoán biển báo chấm trên máy chủ và XP một lần mỗi ván.
+ * duyệt và ảnh phục vụ từ kho đối tượng.
  */
 import { afterAll, beforeAll, describe, expect, test } from "bun:test";
-import { createSession } from "@qdpl/auth";
 import { sql } from "@qdpl/db";
 import { deleteObject, putObject } from "@qdpl/storage";
 import { createApp } from "./app.ts";
@@ -31,27 +30,14 @@ async function goi(method: string, path: string, token?: string, body?: unknown)
   };
 }
 
-async function taoTaiKhoan(ten: string) {
-  const [acc] = await sql<Array<{ id: string }>>`
-    INSERT INTO accounts (email, role) VALUES (${`${PREFIX}-${ten}@vidu.vn`}, 'can_bo') RETURNING id`;
-  return { id: acc!.id, token: (await createSession(acc!.id, "test")).token };
-}
-
 async function donDep() {
   await sql`DELETE FROM traffic_signs WHERE code LIKE ${`${PREFIX}%`}`;
-  await sql`DELETE FROM xp_ledger WHERE account_id IN (SELECT id FROM accounts WHERE email LIKE ${`${PREFIX}%`})`;
   await sql`DELETE FROM accounts WHERE email LIKE ${`${PREFIX}%`}`;
   await deleteObject(`assets/bien-bao/${ANH}`).catch(() => {});
 }
 
-let A: { id: string; token: string };
-let B: { id: string; token: string };
-let soDaDuyet = 0;
-
 beforeAll(async () => {
   await donDep();
-  A = await taoTaiKhoan("a");
-  B = await taoTaiKhoan("b");
   await putObject(
     `assets/bien-bao/${ANH}`,
     new TextEncoder().encode('<svg xmlns="http://www.w3.org/2000/svg"/>'),
@@ -72,10 +58,6 @@ beforeAll(async () => {
       VALUES (${MA(d.i)}, ${d.nhom}, ${d.ten}, ${`Ý nghĩa ${d.i}`}, ${`${MA(d.i)} ${d.ten}`.normalize("NFD").replace(/[̀-ͯ]/g, "").replace(/đ/g, "d").toLowerCase()},
               ${`assets/bien-bao/${ANH}`}, 'vn:vbqppl:qcvn:41/2024/BGTVT', ${d.i}, ${d.status})`;
   }
-  const [n] = await sql<
-    Array<{ n: number }>
-  >`SELECT count(*)::int AS n FROM traffic_signs WHERE status = 'da_duyet'`;
-  soDaDuyet = n!.n;
 });
 
 afterAll(async () => {
@@ -117,74 +99,5 @@ describe("tra cứu biển báo", () => {
     expect(r.headers.get("cache-control")).toContain("max-age");
     expect((await goi("GET", "/v1/tra-cuu/bien-bao/anh/khong-co.svg")).status).toBe(404);
     expect((await goi("GET", "/v1/tra-cuu/bien-bao/anh/..%2F..%2Fsecret.txt")).status).toBe(404);
-  });
-});
-
-describe("game đoán biển báo", () => {
-  test("chưa đăng nhập nhận 401", async () => {
-    expect((await goi("POST", "/v1/tro-choi/doan-bien-bao/bat-dau")).status).toBe(401);
-  });
-
-  test("ván đầy đủ: 4 phương án mỗi câu, không lộ mã; chấm đúng; trả lời lại 409; XP một lần", async () => {
-    const bd = await goi("POST", "/v1/tro-choi/doan-bien-bao/bat-dau", A.token);
-    expect(bd.status).toBe(201);
-    const soCau = Math.min(10, soDaDuyet);
-    expect(bd.body.cau).toHaveLength(soCau);
-    expect(bd.body.cau.every((c: { phuong_an: unknown[] }) => c.phuong_an.length === 4)).toBe(true);
-    const json = JSON.stringify(bd.body);
-    expect(json).not.toContain(`${PREFIX}-`);
-    expect(json).not.toContain('"answer"');
-
-    // Đáp án đọc từ ảnh chụp trong CSDL.
-    const [p] = await sql<Array<{ items: Array<{ ma: string; phuong_an: string[] }> }>>`
-      SELECT items FROM practice_sessions WHERE id = ${bd.body.id}`;
-    const dung = p!.items.map((c) => String(c.phuong_an.indexOf(c.ma)));
-
-    expect(
-      (
-        await goi("POST", `/v1/tro-choi/doan-bien-bao/${bd.body.id}/tra-loi`, B.token, {
-          stt: 1,
-          chon: dung[0],
-        })
-      ).status,
-    ).toBe(403);
-    for (const [i, chon] of dung.entries()) {
-      const r = await goi("POST", `/v1/tro-choi/doan-bien-bao/${bd.body.id}/tra-loi`, A.token, {
-        stt: i + 1,
-        chon,
-      });
-      expect(r.status).toBe(200);
-      expect(r.body.dung).toBe(true);
-      expect(r.body.dap_an).toBe(chon);
-    }
-    const lai = await goi("POST", `/v1/tro-choi/doan-bien-bao/${bd.body.id}/tra-loi`, A.token, {
-      stt: 1,
-      chon: dung[0],
-    });
-    expect(lai.status).toBe(409);
-
-    const kt = await goi("POST", `/v1/tro-choi/doan-bien-bao/${bd.body.id}/ket-thuc`, A.token);
-    expect(kt.body).toMatchObject({ dung: soCau, tong: soCau, xp: soCau + 5 });
-    const kt2 = await goi("POST", `/v1/tro-choi/doan-bien-bao/${bd.body.id}/ket-thuc`, A.token);
-    expect(kt2.body.dung).toBe(soCau);
-    const xp =
-      await sql`SELECT xp FROM xp_ledger WHERE account_id = ${A.id} AND source_kind = 'game:doan_bien_bao'`;
-    expect(xp).toHaveLength(1);
-
-    // Ván đoán biển báo không mở được qua API luyện tập.
-    expect((await goi("GET", `/v1/luyen-tap/phien/${bd.body.id}`, A.token)).status).toBe(404);
-  });
-
-  test("chọn sai thì trả về phương án đúng và ý nghĩa biển", async () => {
-    const bd = await goi("POST", "/v1/tro-choi/doan-bien-bao/bat-dau", A.token);
-    const [p] = await sql<Array<{ items: Array<{ ma: string; phuong_an: string[] }> }>>`
-      SELECT items FROM practice_sessions WHERE id = ${bd.body.id}`;
-    const dungO = p!.items[0]!.phuong_an.indexOf(p!.items[0]!.ma);
-    const r = await goi("POST", `/v1/tro-choi/doan-bien-bao/${bd.body.id}/tra-loi`, A.token, {
-      stt: 1,
-      chon: String((dungO + 1) % 4),
-    });
-    expect(r.body).toMatchObject({ dung: false, dap_an: String(dungO) });
-    expect(r.body.y_nghia).toBeTruthy();
   });
 });

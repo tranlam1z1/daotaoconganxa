@@ -83,24 +83,8 @@ export default [
   route("nhom/:id/thanh-vien/:accountId/tien-do", "routes/nhom.tien-do.tsx"),
   // Cầu nối thông báo đẩy cho khối Nhắc học ở /toi (docs/PLAN.md GĐ15), không có giao diện.
   route("thong-bao", "routes/thong-bao.tsx"),
-  // Trò chơi (docs/PLAN.md GĐ10), thuộc mục Luyện tập trên menu.
-  route("tro-choi", "routes/tro-choi._index.tsx"),
-  // Khung lượt chơi chung (docs/PLAN.md GĐ-G0). "offline" là route chạy phía client.
-  route("tro-choi/offline", "routes/tro-choi.offline.tsx"),
-  // Trang duyệt phong cách trò chơi (docs/VISUAL_STYLE.md §7), không có trong menu.
-  route("game-style-demo", "routes/game-style-demo.tsx"),
   // Xem trước bộ biểu tượng (docs/PROMPT_BO_ICON.md), chỉ bật ở môi trường dev.
   route("xem-bieu-tuong", "routes/xem-bieu-tuong.tsx"),
-  route("tro-choi/luot/:id", "routes/tro-choi.luot.tsx"),
-  route("tro-choi/vuot-man/:chuDe", "routes/tro-choi.vuot-man.tsx"),
-  route("tro-choi/dua-thoi-gian", "routes/tro-choi.dua-thoi-gian.tsx"),
-  route("tro-choi/ghep-cap", "routes/tro-choi.ghep-cap.tsx"),
-  route("tro-choi/doan-bien-bao", "routes/tro-choi.doan-bien-bao.tsx"),
-  route("tro-choi/cung-duong-bien-bao", "routes/tro-choi.cung-duong-bien-bao.tsx"),
-  route("tro-choi/lap-bien-ban", "routes/tro-choi.lap-bien-ban.tsx"),
-  route("tro-choi/hoi-nhanh-giong-noi", "routes/tro-choi.hoi-nhanh-giong-noi.tsx"),
-  // Trò chơi hóa (docs/PLAN.md GĐ9).
-  route("bang-xep-hang", "routes/bang-xep-hang.tsx"),
 
   // Thi sát hạch (docs/PLAN.md GĐ6). "luot/:id/luu" là resource route lưu từng câu trả lời.
   route("thi", "routes/thi._index.tsx"),
@@ -133,12 +117,7 @@ export default [
     route("cau-hoi/moi", "routes/quan-tri.cau-hoi.sua.tsx", { id: "quan-tri-cau-hoi-moi" }),
     route("cau-hoi/tep/:loai", "routes/quan-tri.cau-hoi.tep.tsx"),
     route("cau-hoi/:id", "routes/quan-tri.cau-hoi.sua.tsx"),
-    // Nội dung trò chơi và dữ liệu tra cứu, duyệt như câu hỏi (docs/PLAN.md GĐ-G0).
-    route("noi-dung-tro-choi", "routes/quan-tri.noi-dung-tro-choi.tsx"),
-    route("noi-dung-tro-choi/moi", "routes/quan-tri.noi-dung-tro-choi.sua.tsx", {
-      id: "quan-tri-noi-dung-tro-choi-moi",
-    }),
-    route("noi-dung-tro-choi/:id", "routes/quan-tri.noi-dung-tro-choi.sua.tsx"),
+    // Dữ liệu tra cứu nhanh, duyệt như câu hỏi (docs/PLAN.md GĐ-G0).
     route("du-lieu-tra-cuu", "routes/quan-tri.du-lieu-tra-cuu.tsx"),
     route("du-lieu-tra-cuu/moi", "routes/quan-tri.du-lieu-tra-cuu.moi.tsx"),
     // Tệp của biểu mẫu ở mọi trạng thái, cho người soạn và người duyệt xem trước.
@@ -172,8 +151,6 @@ export default [
     // Nhóm học cùng (docs/PLAN.md GĐ16c): quản lý xem nhóm có thành viên trong phạm vi, lưu trữ nhóm.
     route("nhom", "routes/quan-tri.nhom.tsx"),
     route("nhom/:id", "routes/quan-tri.nhom.chi-tiet.tsx"),
-    // Mùa giải đơn vị (docs/PLAN.md GĐ-G6): chỉ quản trị viên.
-    route("mua-giai", "routes/quan-tri.mua-giai.tsx"),
     // Soạn bài giảng: chuyên đề → bài → khối nội dung. Đường tĩnh "moi", "tu-pdf" khai trước ":slug", ":id".
     route("chuyen-de", "routes/quan-tri.chuyen-de.tsx"),
     route("chuyen-de/moi", "routes/quan-tri.chuyen-de.sua.tsx", { id: "quan-tri-chuyen-de-moi" }),

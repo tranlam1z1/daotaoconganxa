@@ -103,7 +103,6 @@ const CONCURRENCY_MAC_DINH: Record<QueueName, number> = {
   // Sách nói gọi Vbee tuần tự từng khối: một job một lúc là đủ và không đốt hạn mức ký tự.
   [QUEUES.sachNoi]: 1,
   [QUEUES.nhacHoc]: 1,
-  [QUEUES.muaGiai]: 1,
   [QUEUES.donKhach]: 1,
 };
 

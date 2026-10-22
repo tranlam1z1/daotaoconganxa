@@ -7,7 +7,7 @@
  * Cùng quyền và cùng vòng đời với ngân hàng câu hỏi: `bien_tap` soạn, sửa, gửi duyệt, lưu trữ, khôi
  * phục dòng đã lưu trữ, xóa hẳn dòng chưa từng duyệt; vai trò
  * duyệt (NGAN_HANG_VAI_TRO_DUYET) duyệt và từ chối. Sửa dòng đã duyệt thì dòng về chờ duyệt, tăng
- * phiên bản, rời khỏi tra cứu nhanh và khỏi mọi tình huống trò chơi trỏ tới nó cho tới khi duyệt lại.
+ * phiên bản, rời khỏi tra cứu nhanh và khỏi mọi tình huống trỏ tới nó cho tới khi duyệt lại.
  */
 
 import type { Role } from "@qdpl/auth";
@@ -27,7 +27,6 @@ import {
   type NhomBienBao,
   PHAN_LOAI_XE,
   TEN_NHOM_BIEN_BAO,
-  THAO_TAC_BIEN_BAO,
   TRANG_THAI_DUYET,
   TRUONG_KHOP_XE,
   trangThaiTruoc,
@@ -116,17 +115,9 @@ const bienBao = z.object({
   name: z.string().trim().min(2).max(300),
   meaning: z.string().trim().min(3).max(3000),
   citation_urn: urn,
-  // Cung đường biển báo (GĐ-G8): thao tác đúng và giải thích; bỏ trống thì biển không vào trò.
-  reaction: z.enum(THAO_TAC_BIEN_BAO).nullish(),
-  reaction_note: z.string().trim().max(500).nullish(),
   note: ghiChu,
   topic_id: topic,
 });
-const coGiaiThich = [
-  (d: { reaction?: string | null; reaction_note?: string | null }) =>
-    !d.reaction || (d.reaction_note ?? "").length >= 3,
-  "Có phản ứng thì cần giải thích ngắn.",
-] as const;
 
 const luatGiayTo = z.object({
   name: z.string().trim().min(5).max(300),
@@ -219,7 +210,7 @@ const TRUONG_GIU: Partial<Record<LoaiDuLieuTraCuu, readonly string[]>> = {
 
 const SCHEMA_SUA = {
   "muc-phat": mucPhat.extend(z.object(mucPhatThem).partial().shape).refine(...phatTuNhoHon),
-  "bien-bao": bienBao.extend({ group_name: z.enum(NHOM_BIEN_BAO).optional() }).refine(...coGiaiThich),
+  "bien-bao": bienBao.extend({ group_name: z.enum(NHOM_BIEN_BAO).optional() }),
   "toc-do-toi-da": tocDoToiDa.partial({
     vehicle_class: true,
     violation_vehicle: true,
@@ -390,13 +381,11 @@ function nemTrungDong(e: unknown): never {
 const bieuMauMoi = SCHEMA_SUA["bieu-mau"].extend({ code: maMoi, ...phanLoai, gui_duyet: z.boolean() });
 
 /** Trường chữ của form multipart khi soạn biển báo mới kèm ảnh. Mã theo dạng mã biển (P.102). */
-const bienBaoMoi = bienBao
-  .extend({
-    code: z.string().trim().refine(laMaBienBao, "Mã biển không đúng dạng (ví dụ P.102, W.207a)."),
-    group_name: z.enum(NHOM_BIEN_BAO),
-    gui_duyet: z.boolean(),
-  })
-  .refine(...coGiaiThich);
+const bienBaoMoi = bienBao.extend({
+  code: z.string().trim().refine(laMaBienBao, "Mã biển không đúng dạng (ví dụ P.102, W.207a)."),
+  group_name: z.enum(NHOM_BIEN_BAO),
+  gui_duyet: z.boolean(),
+});
 
 /** Mã biển đúng dạng thì chữ cái đầu phải thuộc nhóm (P là biển cấm, W là biển nguy hiểm…). */
 function kiemNhomBien(code: string, nhom: unknown) {
@@ -520,8 +509,6 @@ duLieuTraCuuRoute.post("/bien-bao", async (c) => {
       meaning: b.meaning,
       image_uri: anh,
       citation_urn: b.citation_urn,
-      reaction: b.reaction ?? null,
-      reaction_note: b.reaction ? (b.reaction_note ?? null) : null,
       note: b.note ?? null,
       topic_id: b.topic_id ?? null,
     },
@@ -661,9 +648,6 @@ duLieuTraCuuRoute.put("/:loai/:ma", async (c) => {
       : {}),
     ...(loai === "quy-trinh" || loai === "bieu-mau" ? { summary: du.summary ?? null } : {}),
     ...(loai === "luat-giay-to" ? { violation_code: du.violation_code ?? null } : {}),
-    ...(loai === "bien-bao"
-      ? { reaction: du.reaction ?? null, reaction_note: du.reaction ? (du.reaction_note ?? null) : null }
-      : {}),
   };
   if (!(await suaDuLieuTraCuu(loai, cu.code, chuan as never, cu.version, sau, p.email).catch(nemTrungDong)))
     throw conflict(DA_SUA);

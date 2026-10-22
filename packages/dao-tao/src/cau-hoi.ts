@@ -6,7 +6,7 @@
  * `chamBaiTap` của grading.ts, để luyện tập, thi và bài tập trong bài học chấm cùng một thuật toán.
  *
  * Câu `tu_luan` chỉ dùng trong đề thi: chấm theo `rubric` bằng mô hình (cham-tu-luan.ts) hoặc
- * giảng viên. Luyện tập, trò chơi, gói offline chỉ rút các loại trong `LOAI_CHAM_MAY`.
+ * giảng viên. Luyện tập và gói offline chỉ rút các loại trong `LOAI_CHAM_MAY`.
  *
  * Ranh giới giữ nghiêm như grading.ts: `answer` không bao giờ rời máy chủ trước khi người học
  * trả lời. Phần gửi cho người học đi qua `deChoNguoiHoc`.
@@ -30,7 +30,7 @@ export const LOAI_CAU_HOI = [
 ] as const;
 export type LoaiCauHoi = (typeof LOAI_CAU_HOI)[number];
 
-/** Loại câu máy chấm được ngay: nguồn câu của luyện tập, trò chơi, gói offline. */
+/** Loại câu máy chấm được ngay: nguồn câu của luyện tập và gói offline. */
 export const LOAI_CHAM_MAY = [
   "mot_dap_an",
   "nhieu_dap_an",

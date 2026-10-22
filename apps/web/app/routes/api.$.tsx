@@ -13,12 +13,6 @@ const DANH_SACH_CHO_PHEP: ReadonlyArray<{ phuongThuc: "GET" | "POST"; mau: RegEx
   { phuongThuc: "GET", mau: /^luyen-tap\/chu-de$/ },
   { phuongThuc: "GET", mau: /^luyen-tap\/goi-offline\/[A-Za-z0-9-]{1,80}$/ },
   { phuongThuc: "POST", mau: /^luyen-tap\/dong-bo$/ },
-  // Trò chơi offline (docs/PLAN.md GĐ-G0).
-  { phuongThuc: "GET", mau: /^luot-choi$/ },
-  { phuongThuc: "GET", mau: /^luot-choi\/goi-offline\/[a-z0-9_]{2,40}$/ },
-  { phuongThuc: "POST", mau: /^luot-choi\/dong-bo$/ },
-  // Truy vết xe bỏ trốn (docs/PLAN.md GĐ-T17): mở camera của lượt đang chơi.
-  { phuongThuc: "POST", mau: /^truy-vet\/luot\/[0-9a-fA-F-]{36}\/camera$/ },
 ];
 
 /** Thân yêu cầu tối đa (byte): 20 phiên × 50 câu trả lời dư sức nằm trong mức này. */

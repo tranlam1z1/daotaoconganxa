@@ -28,25 +28,6 @@ const TIEN_TO_MA: Record<NhomBienBao, string> = {
 
 export type TrangThaiBienBao = "nhap" | "da_duyet" | "ngung";
 
-/**
- * Bộ thao tác phản ứng với biển của trò "Cung đường biển báo" (docs/PLAN.md GĐ-G8, GAME_DESIGN
- * §5.5). Cột `traffic_signs.reaction` chỉ nhận các giá trị này (CHECK ở migration 0035).
- * Người chơi mặc định lái ô tô con.
- */
-export const THAO_TAC_BIEN_BAO = ["giam_toc", "dung_lai", "khong_vao", "di_tiep"] as const;
-export type ThaoTacBienBao = (typeof THAO_TAC_BIEN_BAO)[number];
-
-export const TEN_THAO_TAC_BIEN_BAO: Record<ThaoTacBienBao, string> = {
-  giam_toc: "Giảm tốc",
-  dung_lai: "Dừng lại",
-  khong_vao: "Không rẽ, không vào",
-  di_tiep: "Đi tiếp",
-};
-
-export function laThaoTacBienBao(v: unknown): v is ThaoTacBienBao {
-  return typeof v === "string" && (THAO_TAC_BIEN_BAO as readonly string[]).includes(v);
-}
-
 /** Một biển trong tệp dữ liệu. */
 export interface BienBao {
   ma: string;
@@ -59,10 +40,6 @@ export interface BienBao {
   trang_thai: TrangThaiBienBao;
   thu_tu?: number;
   ghi_chu?: string;
-  /** Thao tác đúng khi gặp biển trên đường (GĐ-G8); vắng thì biển không dùng trong Cung đường. */
-  phan_ung?: ThaoTacBienBao | null;
-  /** Giải thích ngắn vì sao phản ứng như vậy, hiện sau khi chấm. */
-  ghi_chu_phan_ung?: string | null;
 }
 
 export interface LoiBienBao {
@@ -98,14 +75,6 @@ export function kiemTraBienBao(ds: BienBao[]): LoiBienBao[] {
     if (!/^[\w.-]+\.(svg|png|webp)$/i.test(b.anh ?? ""))
       loi.push({ ma, loi: `Tên tệp ảnh không hợp lệ: "${b.anh}"` });
     if (!/^vn:\S+$/.test(b.can_cu ?? "")) loi.push({ ma, loi: `Căn cứ không đúng dạng URN: "${b.can_cu}"` });
-    if (b.phan_ung != null && !laThaoTacBienBao(b.phan_ung)) {
-      loi.push({
-        ma,
-        loi: `Phản ứng không hợp lệ: "${b.phan_ung}" (chỉ nhận ${THAO_TAC_BIEN_BAO.join(", ")})`,
-      });
-    }
-    if (b.phan_ung && !b.ghi_chu_phan_ung?.trim())
-      loi.push({ ma, loi: "Có phản ứng nhưng chưa có giải thích" });
     if (!["nhap", "da_duyet", "ngung"].includes(b.trang_thai)) {
       loi.push({ ma, loi: `Trạng thái không hợp lệ: "${b.trang_thai}"` });
     }

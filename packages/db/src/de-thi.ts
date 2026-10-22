@@ -7,7 +7,7 @@
  *
  * Câu tự luận: nộp lượt chỉ chấm phần máy (trong giao dịch); câu tự luận có bài làm chờ mô hình
  * chấm NGOÀI giao dịch (`chamTuLuanCuaLuot`), mô hình không chấm được thì chờ giảng viên. Lượt ở
- * trạng thái `cho_cham` tới khi mọi câu có điểm thì `chotLuotNeuDu` mới chốt điểm, cộng XP.
+ * trạng thái `cho_cham` tới khi mọi câu có điểm thì `chotLuotNeuDu` mới chốt điểm.
  * Gói này không gọi mô hình trực tiếp: người gọi truyền hàm gọi mô hình (`goiMoHinhChamTuLuan`
  * của @qdpl/llm) để gói db không phụ thuộc gói llm.
  */
@@ -664,7 +664,7 @@ export async function chamTuLuanConTon(
 
 /**
  * Chốt điểm lượt khi mọi câu đã có điểm: `cho_cham` -> `da_nop`, ghi hồ sơ chủ đề cho câu tự luận,
- * cộng XP. Lượt đã chốt (phúc khảo) thì chỉ tính lại điểm. Còn câu chưa có điểm thì không làm gì.
+ * Lượt đã chốt (phúc khảo) thì chỉ tính lại điểm. Còn câu chưa có điểm thì không làm gì.
  */
 export async function chotLuotNeuDu(attemptId: string, now: Date = new Date()): Promise<boolean> {
   return (await sql.begin(async (tx) => {

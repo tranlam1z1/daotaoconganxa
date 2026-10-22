@@ -55,12 +55,6 @@ const GROUPS: Array<{
     ],
   },
   {
-    // Mùa giải đơn vị (docs/PLAN.md GĐ-G6): tạo mùa, cấu hình, kết thúc sớm.
-    label: "Thi đua",
-    vaiTro: "quan_tri",
-    items: [{ to: "/quan-tri/mua-giai", label: "Mùa giải đơn vị" }],
-  },
-  {
     // Thêm, sửa, xóa văn bản trong kho; xóa cần quản trị viên (API kiểm quyền).
     label: "Kho văn bản",
     vaiTro: "bien_tap",
@@ -71,7 +65,6 @@ const GROUPS: Array<{
     vaiTro: "bien_tap",
     items: [
       { to: "/quan-tri/cau-hoi", label: "Ngân hàng câu hỏi" },
-      { to: "/quan-tri/noi-dung-tro-choi", label: "Nội dung trò chơi" },
       { to: "/quan-tri/du-lieu-tra-cuu", label: "Duyệt dữ liệu tra cứu" },
       { to: "/quan-tri/chuyen-de", label: "Chuyên đề" },
       { to: "/quan-tri/cham-tu-luan", label: "Chấm tự luận" },

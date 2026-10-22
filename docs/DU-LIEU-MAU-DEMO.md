@@ -244,7 +244,7 @@ Chỉ để trình bày luồng "sửa thì dòng về chờ duyệt". **Ghi ch�
 ```
 Sửa thử trong buổi demo: bổ sung ghi chú, không đổi nội dung biển.
 ```
-Lưu → dòng chuyển sang chờ duyệt → bấm "Duyệt" ngay để biển P.127 hiện lại cho cán bộ và trò Súng bắn tốc độ.
+Lưu → dòng chuyển sang chờ duyệt → bấm "Duyệt" ngay để biển P.127 hiện lại cho cán bộ.
 
 ### C3. Thêm quy trình (`/quan-tri/du-lieu-tra-cuu/moi`, loại Quy trình)
 
@@ -497,130 +497,7 @@ Bấm kiểm tra trước khi xuất bản: bài phải có ít nhất một kh�
 
 ---
 
-## Phần F. Nội dung trò chơi (`/quan-tri/noi-dung-tro-choi/moi`, tài khoản `quantri`)
-
-Trang mở ra bước chọn trò chơi; chọn trò xong, biểu mẫu lấy sẵn số liệu của một nội dung đã có của trò đó (ô "Soạn dựa trên nội dung đã có"). Để dán các khối JSON dưới đây: bấm "Sửa dạng mã (dành cho bộ phận kỹ thuật)" ở cuối khung nội dung. Ô "Phần người chơi thấy (JSON)" và "Đáp án (JSON)" **không kiểm tra cấu trúc khi lưu**: sai một trường vẫn lưu được nhưng tình huống không bao giờ xuất hiện trong trò. Dán nguyên khối, không sửa tay. Mục "Tham chiếu (mỗi dòng loai:ma)" nay là khung "Dữ liệu liên quan": chọn loại và mục trong danh sách rồi bấm "Thêm"; căn cứ chọn bằng nút "Thêm căn cứ".
-
-### F1. Súng bắn tốc độ
-
-- Trò chơi: **Súng bắn tốc độ**; Mức độ: **Trung bình**
-- Chủ đề: **Tốc độ, khoảng cách**
-
-**Tên tình huống**
-```
-[Demo] Xe khách 29 chỗ chạy 92 km/h qua biển 70 km/h
-```
-**Phần người chơi thấy (JSON)**
-```json
-{"loai_xe":"o_to","mo_ta_xe":"Xe khách 29 chỗ màu xanh","boi_canh":"Đoạn quốc lộ ngoài khu dân cư có biển P.127 giới hạn 70 km/h","bien_toc_do":70,"toc_do_do":92}
-```
-**Đáp án (JSON)**
-```json
-{}
-```
-**Giải thích**
-```
-Xe vượt 22 km/h so với biển P.127, rơi vào khung vượt trên 20 đến 35 km/h đối với xe ô tô.
-```
-**Tham chiếu (mỗi dòng loai:ma)**
-```
-violation:oto-toc-do-5-10
-violation:oto-toc-do-10-20
-violation:oto-toc-do-20-35
-violation:oto-toc-do-tren-35
-traffic_sign:P.127
-```
-
-### F2. Kiểm tra giấy tờ
-
-- Trò chơi: **Kiểm tra giấy tờ**; Mức độ: **Trung bình**
-- Chủ đề: **Phương tiện và người lái xe**
-
-**Tên tình huống**
-```
-[Demo] Màn 3 · Đặng Thu Hà · bảo hiểm hết hạn
-```
-**Phần người chơi thấy (JSON)**
-```json
-{"ngay_kiem_tra":"2026-10-02","muc":3,"nguoi_lai":{"ho_ten":"Đặng Thu Hà","ngay_sinh":"1992-03-18","loi_noi":"Em chào anh. Em là Đặng Thu Hà, sinh ngày 18/03/1992, giấy tờ đây ạ."},"xe":{"phan_loai":"mo_to_lon","bien_so":"29-H1 482.37","nhan_hieu":"Honda SH 160i","mau":"Trắng","dung_tich":156,"so_cho":null},"giay_to":{"gplx":{"so":"012345678912","ho_ten":"Đặng Thu Hà","ngay_sinh":"1992-03-18","hang":["A"],"co_gia_tri_den":null},"dang_ky":{"so":"731245","chu_xe":"Đặng Thu Hà","bien_so":"29-H1 482.37","nhan_hieu":"Honda SH 160i","mau":"Trắng","dung_tich":156,"so_cho":null},"bao_hiem":{"so":"BH55120931","chu_xe":"Đặng Thu Hà","bien_so":"29-H1 482.37","tu_ngay":"2025-06-10","den_ngay":"2026-06-09"}}}
-```
-**Đáp án (JSON)**
-```json
-{"loi":["bao_hiem_ngoai_han"]}
-```
-**Giải thích**
-```
-Giấy chứng nhận bảo hiểm hết hạn ngày 09/06/2026, trước ngày kiểm tra 02/10/2026. Giấy phép lái xe hạng A và giấy đăng ký xe hợp lệ.
-```
-Tham chiếu: để trống.
-
-### F3. Lập biên bản (trò đang tắt trong bản demo; soạn được nhưng người học chưa chơi)
-
-- Trò chơi: **Lập biên bản**; Mức độ: **Dễ**
-- Chủ đề: **Xử lý vi phạm hành chính**
-
-**Tên tình huống**
-```
-[Demo] Xe máy vượt đèn đỏ tại ngã tư
-```
-**Phần người chơi thấy (JSON)**
-```json
-{"loi_ke":"Khoảng 17 giờ 15 phút, tại ngã tư nội thị, anh Nguyễn Văn T. điều khiển xe gắn máy đi thẳng khi đèn tín hiệu hướng của anh đã chuyển sang màu đỏ khoảng 3 giây. Anh T. có đội mũ bảo hiểm, giấy tờ đầy đủ.","hinh":null}
-```
-**Đáp án (JSON)**
-```json
-{"vi_pham":["mt-den-do"]}
-```
-**Tham chiếu**
-```
-violation:mt-den-do
-```
-
-### F4. Trò có trình soạn riêng (không dán JSON)
-
-"Tái dựng hiện trường", "Cắm biển cho tuyến đường", "Soi camera" có trình soạn kéo thả, có nút "Chơi thử". Chỉ cần đặt tên:
-
-```
-[Demo] Va chạm phía sau tại đoạn đường thẳng
-```
-
-Mỗi tình huống: "Lưu và gửi duyệt" → "Duyệt". Tình huống mới vào lượt chơi kế tiếp của trò đó.
-
----
-
-## Phần G. Mùa giải (`/quan-tri/mua-giai` → "Tạo mùa giải mới")
-
-Bản demo không gieo mùa giải: làm **trước** bước 5.2 của kịch bản nếu muốn tab Mùa giải có dữ liệu.
-
-**Tên mùa**
-```
-Mùa giải quý IV/2026
-```
-**Mã mùa**
-```
-mua-2026-q4
-```
-**Cấp đơn vị thi đấu**
-```
-Đội
-```
-
-| Ô | Giá trị |
-|---|---|
-| Ngày bắt đầu | Thứ Hai gần nhất (ví dụ `05/10/2026`). Ngày khác thứ Hai bị từ chối |
-| Số tuần | `12` |
-| Số hạng | `2` |
-| Cỡ nhóm | `6` |
-| Số đơn vị lên hạng | `1` |
-| Số đơn vị xuống hạng | `1` |
-| Trần XP mỗi người mỗi tuần | `700` |
-| Quân số tối thiểu để xếp hạng | `2` |
-
-Số lên hạng cộng số xuống hạng phải nhỏ hơn cỡ nhóm.
-
----
-
-## Phần H. Văn bản mới (`/quan-tri/van-ban/moi`, tài khoản `quantri`)
+## Phần F. Văn bản mới (`/quan-tri/van-ban/moi`, tài khoản `quantri`)
 
 Văn bản thử, tên ghi rõ "[Demo]", không phải văn bản thật. Xóa sau buổi demo hoặc dựng lại dữ liệu.
 

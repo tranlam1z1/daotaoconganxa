@@ -1,7 +1,7 @@
 /**
  * Giọng nói (docs/PLAN.md GĐ14) trên Postgres test thật: /v1/giong-doc bắt đăng nhập (cả bí
  * danh /v1/mascot/giong-doc), khớp lời nói, sách nói (danh sách, tải tệp, nhớ vị trí nghe) và
- * game hỏi nhanh bằng giọng nói. Không gọi Vbee thật: phần đọc thành tiếng chỉ kiểm quyền và
+ * Không gọi Vbee thật: phần đọc thành tiếng chỉ kiểm quyền và
  * dữ liệu vào; tệp sách nói ghi sẵn vào kho cục bộ tạm.
  */
 import { afterAll, beforeAll, describe, expect, test } from "bun:test";
@@ -77,14 +77,6 @@ beforeAll(async () => {
     const uri = `giong-doc/${PREFIX}-${i}.mp3`;
     await putObject(uri, new Uint8Array(32_000).fill(i), { contentType: "audio/mpeg" });
     await luuAmThanhKhoi({ lessonId: baiId, blockId: b.id, uri, seconds: 2, textHash: `${PREFIX}-${i}` });
-  }
-
-  // Ba câu đúng/sai đã duyệt, bảo đảm game có đủ câu kể cả khi CSDL test chưa gieo ngân hàng.
-  for (const i of [1, 2, 3]) {
-    await sql`
-      INSERT INTO questions (code, level, kind, stem, options, answer, explanation, status)
-      VALUES (${`${PREFIX}-${i}`}, 'de', 'dung_sai', ${`Nhận định thử giọng nói ${i}`}, '{}',
-              ${sql.json({ dung: ["dung"] })}, 'Giải thích.', 'da_duyet')`;
   }
 });
 
@@ -189,36 +181,5 @@ describe("sách nói", () => {
       giay: 1,
     });
     expect(sai.status).toBe(400);
-  });
-});
-
-describe("game hỏi nhanh bằng giọng nói", () => {
-  test("chơi hết lượt đúng mọi câu: ghi kỷ lục và cộng XP một lần", async () => {
-    const bd = await goiJson("POST", "/v1/tro-choi/hoi-nhanh-giong-noi/bat-dau", token);
-    expect(bd.status).toBe(201);
-    const id = bd.body.id as string;
-    const [p] = (await sql`SELECT items FROM practice_sessions WHERE id = ${id}`) as any[];
-    const items = p.items as any[];
-    expect(items.every((c) => ["mot_dap_an", "dung_sai"].includes(c.noi_dung.kind))).toBe(true);
-    for (const [i, c] of items.entries()) {
-      const r = await goi("POST", `/v1/luyen-tap/phien/${id}/tra-loi`, token, {
-        stt: i + 1,
-        tra_loi: { chon: [c.noi_dung.answer.dung[0]] },
-      });
-      expect(r.status).toBe(200);
-    }
-    const kt = await goiJson("POST", `/v1/luyen-tap/phien/${id}/ket-thuc`, token);
-    expect(kt.body.tro_choi).toMatchObject({
-      ma: "hoi_nhanh_giong_noi",
-      diem: items.length,
-      tong: items.length,
-      pha_ky_luc: true,
-      xp: items.length + 5,
-    });
-    const kyLuc = await goiJson("GET", "/v1/tro-choi/hoi-nhanh-giong-noi", token);
-    expect(kyLuc.body.ky_luc).toBe(items.length);
-    const xp = (await sql`
-      SELECT xp FROM xp_ledger WHERE account_id = ${accountId} AND source_kind = 'game:hoi_nhanh_giong_noi'`) as any[];
-    expect(xp.map((r) => r.xp)).toEqual([items.length + 5]);
   });
 });

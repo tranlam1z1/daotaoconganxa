@@ -1,9 +1,9 @@
 /**
- * Hồ sơ điểm mạnh, điểm yếu theo chủ đề (docs/GAME_DESIGN.md §6.2). Luật ở
- * packages/dao-tao/src/ho-so-chu-de.ts; tệp này đọc và ghi `topic_stats`.
+ * Hồ sơ điểm mạnh, điểm yếu theo chủ đề. Luật ở packages/dao-tao/src/ho-so-chu-de.ts; tệp này đọc
+ * và ghi `topic_stats`.
  *
- * `ghiKetQuaChuDe` gọi TRONG giao dịch của câu trả lời (luyện tập, nộp bài thi, bước trò chơi),
- * nên hồ sơ không lệch với kết quả đã ghi.
+ * `ghiKetQuaChuDe` gọi TRONG giao dịch của câu trả lời (luyện tập, nộp bài thi), nên hồ sơ không
+ * lệch với kết quả đã ghi.
  */
 import { capNhatHoSo, type DongHoSo, manhYeu } from "@qdpl/dao-tao";
 import { sql, type Tx } from "./client.ts";
@@ -45,8 +45,8 @@ export async function hoSoChuDe(accountId: string) {
 }
 
 /**
- * Tính lại toàn bộ hồ sơ từ lịch sử (luyện tập, bài thi đã nộp, bước trò chơi), theo đúng thứ tự
- * thời gian. Dùng khi đổi công thức hoặc sau khi nạp dữ liệu cũ. Trả số câu trả lời đã tính.
+ * Tính lại toàn bộ hồ sơ từ lịch sử (luyện tập, bài thi đã nộp), theo đúng thứ tự thời gian.
+ * Dùng khi đổi công thức hoặc sau khi nạp dữ liệu cũ. Trả số câu trả lời đã tính.
  */
 export async function tinhLaiHoSoChuDe(accountId?: string): Promise<number> {
   return (await sql.begin(async (tx) => {
@@ -64,10 +64,6 @@ export async function tinhLaiHoSoChuDe(accountId?: string): Promise<number> {
         JOIN exam_attempts t ON t.id = e.attempt_id
         JOIN questions q ON q.id = e.question_id
         WHERE t.status = 'da_nop' AND e.correct IS NOT NULL
-        UNION ALL
-        SELECT r.account_id, st.topic_id::text, st.correct, st.answered_at
-        FROM game_run_steps st JOIN game_runs r ON r.id = st.run_id
-        WHERE st.correct IS NOT NULL
       ) x
       WHERE topic_id IS NOT NULL AND topic_id <> '' ${loc}
       ORDER BY luc`) as any[];

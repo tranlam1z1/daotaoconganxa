@@ -50,7 +50,7 @@ export function duongDangNhap(request: Request): string {
 /**
  * Bắt buộc đăng nhập bằng tài khoản đã được xác minh cán bộ; trả về danh tính và token phiên để gọi
  * API thay người dùng. Chưa đăng nhập thì chuyển tới trang đăng nhập, xong quay lại đúng trang này.
- * Mọi trang học, luyện tập, trò chơi và thi đều đi qua đây.
+ * Mọi trang học, luyện tập và thi đều đi qua đây.
  *
  * Tài khoản chưa được xác minh (chờ duyệt hoặc bị từ chối) chỉ dùng được trang Tài khoản: API từ
  * chối mọi việc khác, nên chuyển về đó xem trạng thái xét duyệt. Trang Tài khoản và đổi mật khẩu

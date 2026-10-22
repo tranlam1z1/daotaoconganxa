@@ -1,6 +1,6 @@
 /**
- * Vòng đời duyệt dùng chung cho mọi loại nội dung (docs/GAME_DESIGN.md §3.1): câu hỏi ngân hàng
- * (GĐ3), nội dung trò chơi, mức phạt, biển báo, quy trình (GĐ-G0).
+ * Vòng đời duyệt dùng chung cho mọi loại nội dung (docs/PLAN.md GĐ-G0): câu hỏi ngân hàng
+ * (GĐ3), mức phạt, biển báo, quy trình.
  *
  *   nhap ──gửi duyệt──► cho_duyet ──duyệt──► da_duyet ──lưu trữ──► luu_tru
  *     ▲                     │                    │

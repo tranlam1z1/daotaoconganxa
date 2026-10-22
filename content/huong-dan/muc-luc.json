@@ -71,30 +71,6 @@
       "ly_do": "Tạm miễn: tra cứu biển báo mới dựng ở GĐ12, dữ liệu còn là bản nháp chờ đối chiếu QCVN 41:2024/BGTVT; viết bài kèm ảnh khi có dữ liệu đã duyệt (docs/PLAN.md)."
     },
     {
-      "route": "routes/tro-choi.doan-bien-bao.tsx",
-      "ly_do": "Chỉ chuyển hướng về Cung đường biển báo (GĐ-G8): đoán biển báo đã thành phần khởi động của trò này."
-    },
-    {
-      "route": "routes/tro-choi.hoi-nhanh-giong-noi.tsx",
-      "ly_do": "Tạm miễn: game hỏi nhanh bằng giọng nói mới dựng ở GĐ14, cách chơi ghi ngay trên màn hình bắt đầu; viết bài kèm ảnh sau đợt soát tay trên Chrome Android và Safari iOS (docs/PLAN.md)."
-    },
-    {
-      "route": "routes/tro-choi._index.tsx",
-      "ly_do": "Tạm miễn: trang chọn trò chơi dạng lưới biểu tượng, chạm một biểu tượng mở ngăn chi tiết có mô tả và nút chơi; viết bài kèm ảnh khi khách hàng chốt danh sách game (GAP 4.4-19, docs/PLAN.md)."
-    },
-    {
-      "route": "routes/tro-choi.vuot-man.tsx",
-      "ly_do": "Tạm miễn: bản đồ màn của trò chơi vượt màn mới dựng ở GĐ10; viết bài kèm ảnh khi khách hàng chốt danh sách game (docs/PLAN.md)."
-    },
-    {
-      "route": "routes/tro-choi.dua-thoi-gian.tsx",
-      "ly_do": "Tạm miễn: trò chơi đua thời gian mới dựng ở GĐ10, cách chơi ghi ngay trên màn hình bắt đầu (docs/PLAN.md)."
-    },
-    {
-      "route": "routes/tro-choi.ghep-cap.tsx",
-      "ly_do": "Tạm miễn: trò chơi ghép lỗi với mức phạt mới dựng ở GĐ10, cách chơi ghi ngay trên bảng ghép (docs/PLAN.md)."
-    },
-    {
       "route": "routes/nhom.tsx",
       "ly_do": "Tạm miễn: danh sách nhóm học cùng mới dựng ở GĐ16b, hai nút Tạo nhóm và Nhập mã mời có chú thích ngay trong hộp thoại; viết bài kèm ảnh cùng trang quản lý nhóm ở GĐ16c (docs/PLAN.md)."
     },
@@ -175,10 +151,6 @@
       "ly_do": "Tạm miễn: trang kết quả thi; viết bài kèm ảnh cùng mục Thi (docs/PLAN.md GĐ6)."
     },
     {
-      "route": "routes/bang-xep-hang.tsx",
-      "ly_do": "Tạm miễn: bảng xếp hạng mới dựng ở GĐ9, luật tính điểm còn chờ khách hàng chốt (GAP 4.4-19); viết bài kèm ảnh khi chốt (docs/PLAN.md)."
-    },
-    {
       "route": "routes/tra-cuu.tsx",
       "ly_do": "Trang chọn giữa tra văn bản và tra cứu nhanh, chỉ gồm liên kết. Viết bài khi cập nhật bộ hướng dẫn sau đợt dựng lại giao diện (docs/PLAN.md GĐ1, GĐ5)."
     },
@@ -203,44 +175,12 @@
       "ly_do": "Tạm miễn: trang mở một biểu mẫu chỉ có tên, phân loại và nút mở, tải tệp; viết bài kèm ảnh cùng trang Quy trình, Biểu mẫu khi có biểu mẫu được duyệt."
     },
     {
-      "route": "routes/tro-choi.luot.tsx",
-      "ly_do": "Tạm miễn: màn chơi một lượt trên khung trò chơi chung mới dựng ở GĐ-G0, cách chơi ghi ngay trên màn hình; viết bài kèm ảnh khi có trò chơi thật ở GĐ-G1 (docs/PLAN.md)."
-    },
-    {
-      "route": "routes/tro-choi.offline.tsx",
-      "ly_do": "Tạm miễn: chơi trò chơi khi không có mạng mới dựng ở GĐ-G0; trang có hướng dẫn tại chỗ, viết bài kèm ảnh sau khi soát trên iPhone và Android (docs/PLAN.md)."
-    },
-    {
-      "route": "routes/quan-tri.noi-dung-tro-choi.tsx",
-      "ly_do": "Tạm miễn: danh sách nội dung trò chơi mới dựng ở GĐ-G0; viết bài kèm ảnh khi có trò chơi dùng nội dung soạn tay (docs/PLAN.md)."
-    },
-    {
-      "route": "routes/quan-tri.noi-dung-tro-choi.sua.tsx",
-      "ly_do": "Tạm miễn: màn hình soạn và duyệt nội dung trò chơi mới dựng ở GĐ-G0, còn soạn dạng JSON; viết bài khi có trình soạn riêng của từng trò (docs/PLAN.md)."
-    },
-    {
       "route": "routes/quan-tri.du-lieu-tra-cuu.tsx",
       "ly_do": "Tạm miễn: màn hình duyệt mức phạt, biển báo, quy trình mới dựng ở GĐ-G0; viết bài kèm ảnh khi giao diện quản trị ổn định (docs/PLAN.md)."
     },
     {
-      "route": "routes/game-style-demo.tsx",
-      "ly_do": "Trang nội bộ để duyệt phong cách và hiệu ứng trò chơi (docs/VISUAL_STYLE.md), không có trong menu, không dành cho người học."
-    },
-    {
       "route": "routes/xem-bieu-tuong.tsx",
       "ly_do": "Trang xem trước bộ biểu tượng cho người phát triển (docs/PROMPT_BO_ICON.md), chỉ bật ở môi trường dev, không có trong menu."
-    },
-    {
-      "route": "routes/tro-choi.cung-duong-bien-bao.tsx",
-      "ly_do": "Tạm miễn: trò Cung đường biển báo mới dựng ở GĐ-G8, luật chơi ghi ngay trên trang giới thiệu; dữ liệu biển còn là bản nháp chờ đối chiếu QCVN 41:2024/BGTVT. Viết bài kèm ảnh khi có dữ liệu đã duyệt (docs/PLAN.md)."
-    },
-    {
-      "route": "routes/tro-choi.lap-bien-ban.tsx",
-      "ly_do": "Tạm miễn: trò Lập biên bản mới dựng ở GĐ-G3, luật chơi ghi ngay trên trang giới thiệu; bảng mức phạt còn là bản nháp chờ đối chiếu Nghị định số 168/2024/NĐ-CP. Viết bài kèm ảnh khi có dữ liệu đã duyệt (docs/luu-tru/PLAN_TRO_CHOI_CU.md)."
-    },
-    {
-      "route": "routes/quan-tri.mua-giai.tsx",
-      "ly_do": "Tạm miễn: màn hình quản trị mùa giải đơn vị mới dựng ở GĐ-G6, chỉ quản trị viên dùng; cấu hình mùa còn chờ chốt (GAME_DESIGN câu Q11, D2). Viết bài kèm ảnh khi chốt (docs/luu-tru/PLAN_TRO_CHOI_CU.md)."
     },
     {
       "route": "routes/quan-tri.nhom.tsx",

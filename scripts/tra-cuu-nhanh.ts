@@ -60,9 +60,9 @@ export async function docTocDoToiDa(): Promise<DongTocDoToiDa[]> {
 }
 
 /**
- * Luật giấy tờ của trò Kiểm tra giấy tờ (docs/PLAN.md GĐ-T1), hoặc luật kiểm hồ sơ của trò Duyệt hồ sơ
- * phạt nguội (GĐ-T11, tệp luat-ho-so-phat-nguoi.json, nhóm ho_so_phat_nguoi), hoặc luật vận tải hành
- * khách của trò Lên xe khách (GĐ-T13, tệp luat-van-tai-khach.json, nhóm van_tai_khach).
+ * Luật giấy tờ người lái (docs/PLAN.md GĐ-T1), hoặc luật kiểm hồ sơ phạt nguội
+ * (GĐ-T11, tệp luat-ho-so-phat-nguoi.json, nhóm ho_so_phat_nguoi), hoặc luật vận tải hành khách
+ * (GĐ-T13, tệp luat-van-tai-khach.json, nhóm van_tai_khach).
  */
 export async function docLuatGiayTo<T = DongLuatGiayToTep>(tep = "luat-giay-to.json"): Promise<T[]> {
   const f = Bun.file(join(THU_MUC, tep));

@@ -96,7 +96,7 @@ export async function taoPdfBang(b: BangPdf): Promise<Uint8Array> {
 }
 
 /**
- * Tạo PDF gồm nhiều bảng nối nhau (hồ sơ một cán bộ: bài thi, bài học, luyện tập, trò chơi). Mỗi
+ * Tạo PDF gồm nhiều bảng nối nhau (hồ sơ một cán bộ: bài thi, bài học, luyện tập). Mỗi
  * bảng có bộ cột riêng; bảng tràn sang trang mới thì lặp lại dòng tiêu đề cột của chính nó.
  */
 export async function taoPdfNhieuBang(t: TaiLieuPdf): Promise<Uint8Array> {

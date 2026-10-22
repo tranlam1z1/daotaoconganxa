@@ -1,5 +1,5 @@
 {
-  "mo_ta": "Biển báo đường bộ theo QCVN 41:2024/BGTVT (docs/PLAN.md GĐ12, GĐ-G8). Mọi dòng đang là bản nháp mẫu, chờ biên tập viên đối chiếu và duyệt. `phan_ung` là thao tác đúng trong trò Cung đường biển báo (dữ liệu demo, chưa duyệt). Nạp: bun run bien-bao:nap.",
+  "mo_ta": "Biển báo đường bộ theo QCVN 41:2024/BGTVT (docs/PLAN.md GĐ12). Mọi dòng đang là bản nháp mẫu, chờ biên tập viên đối chiếu và duyệt. Nạp: bun run bien-bao:nap.",
   "bien": [
     {
       "ma": "P.102",
@@ -10,9 +10,7 @@
       "can_cu": "vn:vbqppl:qcvn:41/2024/BGTVT",
       "trang_thai": "nhap",
       "thu_tu": 1,
-      "ghi_chu": "Bản nháp mẫu (GĐ12): tên, ý nghĩa và hình do hệ thống soạn để thử chức năng; phải đối chiếu với QCVN 41:2024/BGTVT trước khi duyệt. Ảnh tự vẽ theo hình dạng chuẩn, chưa phải ảnh chính thức (GAP 4.5-24). Phản ứng trong trò Cung đường biển báo (GĐ-G8): dữ liệu demo, chưa duyệt; người chơi giả định lái ô tô con. Đơn vị chuyên môn cần kiểm thao tác đúng và lời giải thích.",
-      "phan_ung": "khong_vao",
-      "ghi_chu_phan_ung": "Biển cấm đi ngược chiều: không được đi vào chiều đặt biển."
+      "ghi_chu": "Bản nháp mẫu (GĐ12): tên, ý nghĩa và hình do hệ thống soạn để thử chức năng; phải đối chiếu với QCVN 41:2024/BGTVT trước khi duyệt. Ảnh tự vẽ theo hình dạng chuẩn, chưa phải ảnh chính thức (GAP 4.5-24)."
     },
     {
       "ma": "P.103a",
@@ -23,9 +21,7 @@
       "can_cu": "vn:vbqppl:qcvn:41/2024/BGTVT",
       "trang_thai": "nhap",
       "thu_tu": 2,
-      "ghi_chu": "Bản nháp mẫu (GĐ12): tên, ý nghĩa và hình do hệ thống soạn để thử chức năng; phải đối chiếu với QCVN 41:2024/BGTVT trước khi duyệt. Ảnh tự vẽ theo hình dạng chuẩn, chưa phải ảnh chính thức (GAP 4.5-24). Phản ứng trong trò Cung đường biển báo (GĐ-G8): dữ liệu demo, chưa duyệt; người chơi giả định lái ô tô con. Đơn vị chuyên môn cần kiểm thao tác đúng và lời giải thích.",
-      "phan_ung": "khong_vao",
-      "ghi_chu_phan_ung": "Biển cấm xe ô tô: xe của bạn là ô tô con nên không được đi vào."
+      "ghi_chu": "Bản nháp mẫu (GĐ12): tên, ý nghĩa và hình do hệ thống soạn để thử chức năng; phải đối chiếu với QCVN 41:2024/BGTVT trước khi duyệt. Ảnh tự vẽ theo hình dạng chuẩn, chưa phải ảnh chính thức (GAP 4.5-24)."
     },
     {
       "ma": "P.106a",
@@ -36,9 +32,7 @@
       "can_cu": "vn:vbqppl:qcvn:41/2024/BGTVT",
       "trang_thai": "nhap",
       "thu_tu": 3,
-      "ghi_chu": "Bản nháp mẫu (GĐ12): tên, ý nghĩa và hình do hệ thống soạn để thử chức năng; phải đối chiếu với QCVN 41:2024/BGTVT trước khi duyệt. Ảnh tự vẽ theo hình dạng chuẩn, chưa phải ảnh chính thức (GAP 4.5-24). Phản ứng trong trò Cung đường biển báo (GĐ-G8): dữ liệu demo, chưa duyệt; người chơi giả định lái ô tô con. Đơn vị chuyên môn cần kiểm thao tác đúng và lời giải thích. CẦN KIỂM: P.106a có cấm cả loại xe khác (máy kéo, xe chuyên dùng) và có biển phụ về khối lượng không; nếu có thì câu giải thích cần nói rõ.",
-      "phan_ung": "di_tiep",
-      "ghi_chu_phan_ung": "Biển chỉ cấm xe ô tô tải; ô tô con được đi tiếp."
+      "ghi_chu": "Bản nháp mẫu (GĐ12): tên, ý nghĩa và hình do hệ thống soạn để thử chức năng; phải đối chiếu với QCVN 41:2024/BGTVT trước khi duyệt. Ảnh tự vẽ theo hình dạng chuẩn, chưa phải ảnh chính thức (GAP 4.5-24)."
     },
     {
       "ma": "P.123a",
@@ -49,9 +43,7 @@
       "can_cu": "vn:vbqppl:qcvn:41/2024/BGTVT",
       "trang_thai": "nhap",
       "thu_tu": 4,
-      "ghi_chu": "Bản nháp mẫu (GĐ12): tên, ý nghĩa và hình do hệ thống soạn để thử chức năng; phải đối chiếu với QCVN 41:2024/BGTVT trước khi duyệt. Ảnh tự vẽ theo hình dạng chuẩn, chưa phải ảnh chính thức (GAP 4.5-24). Phản ứng trong trò Cung đường biển báo (GĐ-G8): dữ liệu demo, chưa duyệt; người chơi giả định lái ô tô con. Đơn vị chuyên môn cần kiểm thao tác đúng và lời giải thích.",
-      "phan_ung": "khong_vao",
-      "ghi_chu_phan_ung": "Biển cấm rẽ trái: không được rẽ trái ở nơi đặt biển."
+      "ghi_chu": "Bản nháp mẫu (GĐ12): tên, ý nghĩa và hình do hệ thống soạn để thử chức năng; phải đối chiếu với QCVN 41:2024/BGTVT trước khi duyệt. Ảnh tự vẽ theo hình dạng chuẩn, chưa phải ảnh chính thức (GAP 4.5-24)."
     },
     {
       "ma": "P.127",
@@ -62,9 +54,7 @@
       "can_cu": "vn:vbqppl:qcvn:41/2024/BGTVT",
       "trang_thai": "nhap",
       "thu_tu": 5,
-      "ghi_chu": "Bản nháp mẫu (GĐ12): tên, ý nghĩa và hình do hệ thống soạn để thử chức năng; phải đối chiếu với QCVN 41:2024/BGTVT trước khi duyệt. Ảnh tự vẽ theo hình dạng chuẩn, chưa phải ảnh chính thức (GAP 4.5-24). Phản ứng trong trò Cung đường biển báo (GĐ-G8): dữ liệu demo, chưa duyệt; người chơi giả định lái ô tô con. Đơn vị chuyên môn cần kiểm thao tác đúng và lời giải thích. CẦN KIỂM: Thao tác đúng phụ thuộc tốc độ đang chạy; trò giả định xe đang chạy nhanh hơn số trên biển. Có nên giữ biển này trong trò không?",
-      "phan_ung": "giam_toc",
-      "ghi_chu_phan_ung": "Biển tốc độ tối đa: giảm tốc xuống không quá số ghi trên biển."
+      "ghi_chu": "Bản nháp mẫu (GĐ12): tên, ý nghĩa và hình do hệ thống soạn để thử chức năng; phải đối chiếu với QCVN 41:2024/BGTVT trước khi duyệt. Ảnh tự vẽ theo hình dạng chuẩn, chưa phải ảnh chính thức (GAP 4.5-24)."
     },
     {
       "ma": "P.130",
@@ -75,9 +65,7 @@
       "can_cu": "vn:vbqppl:qcvn:41/2024/BGTVT",
       "trang_thai": "nhap",
       "thu_tu": 6,
-      "ghi_chu": "Bản nháp mẫu (GĐ12): tên, ý nghĩa và hình do hệ thống soạn để thử chức năng; phải đối chiếu với QCVN 41:2024/BGTVT trước khi duyệt. Ảnh tự vẽ theo hình dạng chuẩn, chưa phải ảnh chính thức (GAP 4.5-24). Phản ứng trong trò Cung đường biển báo (GĐ-G8): dữ liệu demo, chưa duyệt; người chơi giả định lái ô tô con. Đơn vị chuyên môn cần kiểm thao tác đúng và lời giải thích.",
-      "phan_ung": "di_tiep",
-      "ghi_chu_phan_ung": "Biển cấm dừng xe và đỗ xe: được đi qua, chỉ không được dừng hoặc đỗ."
+      "ghi_chu": "Bản nháp mẫu (GĐ12): tên, ý nghĩa và hình do hệ thống soạn để thử chức năng; phải đối chiếu với QCVN 41:2024/BGTVT trước khi duyệt. Ảnh tự vẽ theo hình dạng chuẩn, chưa phải ảnh chính thức (GAP 4.5-24)."
     },
     {
       "ma": "P.131a",
@@ -88,9 +76,7 @@
       "can_cu": "vn:vbqppl:qcvn:41/2024/BGTVT",
       "trang_thai": "nhap",
       "thu_tu": 7,
-      "ghi_chu": "Bản nháp mẫu (GĐ12): tên, ý nghĩa và hình do hệ thống soạn để thử chức năng; phải đối chiếu với QCVN 41:2024/BGTVT trước khi duyệt. Ảnh tự vẽ theo hình dạng chuẩn, chưa phải ảnh chính thức (GAP 4.5-24). Phản ứng trong trò Cung đường biển báo (GĐ-G8): dữ liệu demo, chưa duyệt; người chơi giả định lái ô tô con. Đơn vị chuyên môn cần kiểm thao tác đúng và lời giải thích.",
-      "phan_ung": "di_tiep",
-      "ghi_chu_phan_ung": "Biển cấm đỗ xe: được đi qua, chỉ không được đỗ."
+      "ghi_chu": "Bản nháp mẫu (GĐ12): tên, ý nghĩa và hình do hệ thống soạn để thử chức năng; phải đối chiếu với QCVN 41:2024/BGTVT trước khi duyệt. Ảnh tự vẽ theo hình dạng chuẩn, chưa phải ảnh chính thức (GAP 4.5-24)."
     },
     {
       "ma": "W.224",
@@ -101,9 +87,7 @@
       "can_cu": "vn:vbqppl:qcvn:41/2024/BGTVT",
       "trang_thai": "nhap",
       "thu_tu": 8,
-      "ghi_chu": "Bản nháp mẫu (GĐ12): tên, ý nghĩa và hình do hệ thống soạn để thử chức năng; phải đối chiếu với QCVN 41:2024/BGTVT trước khi duyệt. Ảnh tự vẽ theo hình dạng chuẩn, chưa phải ảnh chính thức (GAP 4.5-24). Phản ứng trong trò Cung đường biển báo (GĐ-G8): dữ liệu demo, chưa duyệt; người chơi giả định lái ô tô con. Đơn vị chuyên môn cần kiểm thao tác đúng và lời giải thích.",
-      "phan_ung": "giam_toc",
-      "ghi_chu_phan_ung": "Sắp đến chỗ người đi bộ sang ngang: giảm tốc, sẵn sàng nhường đường."
+      "ghi_chu": "Bản nháp mẫu (GĐ12): tên, ý nghĩa và hình do hệ thống soạn để thử chức năng; phải đối chiếu với QCVN 41:2024/BGTVT trước khi duyệt. Ảnh tự vẽ theo hình dạng chuẩn, chưa phải ảnh chính thức (GAP 4.5-24)."
     },
     {
       "ma": "W.225",
@@ -114,9 +98,7 @@
       "can_cu": "vn:vbqppl:qcvn:41/2024/BGTVT",
       "trang_thai": "nhap",
       "thu_tu": 9,
-      "ghi_chu": "Bản nháp mẫu (GĐ12): tên, ý nghĩa và hình do hệ thống soạn để thử chức năng; phải đối chiếu với QCVN 41:2024/BGTVT trước khi duyệt. Ảnh tự vẽ theo hình dạng chuẩn, chưa phải ảnh chính thức (GAP 4.5-24). Phản ứng trong trò Cung đường biển báo (GĐ-G8): dữ liệu demo, chưa duyệt; người chơi giả định lái ô tô con. Đơn vị chuyên môn cần kiểm thao tác đúng và lời giải thích.",
-      "phan_ung": "giam_toc",
-      "ghi_chu_phan_ung": "Đoạn đường có trẻ em: giảm tốc, chú ý trẻ em chạy ra đường."
+      "ghi_chu": "Bản nháp mẫu (GĐ12): tên, ý nghĩa và hình do hệ thống soạn để thử chức năng; phải đối chiếu với QCVN 41:2024/BGTVT trước khi duyệt. Ảnh tự vẽ theo hình dạng chuẩn, chưa phải ảnh chính thức (GAP 4.5-24)."
     },
     {
       "ma": "R.302a",
@@ -127,9 +109,7 @@
       "can_cu": "vn:vbqppl:qcvn:41/2024/BGTVT",
       "trang_thai": "nhap",
       "thu_tu": 10,
-      "ghi_chu": "Bản nháp mẫu (GĐ12): tên, ý nghĩa và hình do hệ thống soạn để thử chức năng; phải đối chiếu với QCVN 41:2024/BGTVT trước khi duyệt. Ảnh tự vẽ theo hình dạng chuẩn, chưa phải ảnh chính thức (GAP 4.5-24). Phản ứng trong trò Cung đường biển báo (GĐ-G8): dữ liệu demo, chưa duyệt; người chơi giả định lái ô tô con. Đơn vị chuyên môn cần kiểm thao tác đúng và lời giải thích. CẦN KIỂM: Trong bộ 4 thao tác, 'Đi tiếp' có đủ diễn đạt 'đi theo hướng biển chỉ' không?",
-      "phan_ung": "di_tiep",
-      "ghi_chu_phan_ung": "Biển hiệu lệnh đi vòng sang phải chướng ngại vật: đi tiếp theo hướng biển chỉ."
+      "ghi_chu": "Bản nháp mẫu (GĐ12): tên, ý nghĩa và hình do hệ thống soạn để thử chức năng; phải đối chiếu với QCVN 41:2024/BGTVT trước khi duyệt. Ảnh tự vẽ theo hình dạng chuẩn, chưa phải ảnh chính thức (GAP 4.5-24)."
     },
     {
       "ma": "R.303",
@@ -140,9 +120,7 @@
       "can_cu": "vn:vbqppl:qcvn:41/2024/BGTVT",
       "trang_thai": "nhap",
       "thu_tu": 11,
-      "ghi_chu": "Bản nháp mẫu (GĐ12): tên, ý nghĩa và hình do hệ thống soạn để thử chức năng; phải đối chiếu với QCVN 41:2024/BGTVT trước khi duyệt. Ảnh tự vẽ theo hình dạng chuẩn, chưa phải ảnh chính thức (GAP 4.5-24). Phản ứng trong trò Cung đường biển báo (GĐ-G8): dữ liệu demo, chưa duyệt; người chơi giả định lái ô tô con. Đơn vị chuyên môn cần kiểm thao tác đúng và lời giải thích.",
-      "phan_ung": "giam_toc",
-      "ghi_chu_phan_ung": "Sắp vào nút giao vòng xuyến: giảm tốc, nhường xe đi trong vòng xuyến theo quy tắc."
+      "ghi_chu": "Bản nháp mẫu (GĐ12): tên, ý nghĩa và hình do hệ thống soạn để thử chức năng; phải đối chiếu với QCVN 41:2024/BGTVT trước khi duyệt. Ảnh tự vẽ theo hình dạng chuẩn, chưa phải ảnh chính thức (GAP 4.5-24)."
     },
     {
       "ma": "I.408",
@@ -153,9 +131,7 @@
       "can_cu": "vn:vbqppl:qcvn:41/2024/BGTVT",
       "trang_thai": "nhap",
       "thu_tu": 12,
-      "ghi_chu": "Bản nháp mẫu (GĐ12): tên, ý nghĩa và hình do hệ thống soạn để thử chức năng; phải đối chiếu với QCVN 41:2024/BGTVT trước khi duyệt. Ảnh tự vẽ theo hình dạng chuẩn, chưa phải ảnh chính thức (GAP 4.5-24). Phản ứng trong trò Cung đường biển báo (GĐ-G8): dữ liệu demo, chưa duyệt; người chơi giả định lái ô tô con. Đơn vị chuyên môn cần kiểm thao tác đúng và lời giải thích.",
-      "phan_ung": "di_tiep",
-      "ghi_chu_phan_ung": "Biển chỉ dẫn nơi đỗ xe: chỉ để biết, không bắt buộc phản ứng."
+      "ghi_chu": "Bản nháp mẫu (GĐ12): tên, ý nghĩa và hình do hệ thống soạn để thử chức năng; phải đối chiếu với QCVN 41:2024/BGTVT trước khi duyệt. Ảnh tự vẽ theo hình dạng chuẩn, chưa phải ảnh chính thức (GAP 4.5-24)."
     },
     {
       "ma": "S.501",
@@ -177,9 +153,7 @@
       "can_cu": "vn:vbqppl:qcvn:41/2024/BGTVT",
       "trang_thai": "nhap",
       "thu_tu": 14,
-      "ghi_chu": "Bản nháp mẫu (GĐ-G8): mã, tên, ý nghĩa soạn theo hiểu biết của người soạn về QCVN 41 (bản 2019), chưa đối chiếu QCVN 41:2024/BGTVT vì kho chưa có văn bản này. Ảnh tự vẽ tối giản, chưa phải ảnh chính thức (GAP 4.5-24). Phản ứng trong trò Cung đường biển báo (GĐ-G8): dữ liệu demo, chưa duyệt; người chơi giả định lái ô tô con. Đơn vị chuyên môn cần kiểm thao tác đúng và lời giải thích.",
-      "phan_ung": "khong_vao",
-      "ghi_chu_phan_ung": "Đường cấm: không được đi vào."
+      "ghi_chu": "Bản nháp mẫu (GĐ-G8): mã, tên, ý nghĩa soạn theo hiểu biết của người soạn về QCVN 41 (bản 2019), chưa đối chiếu QCVN 41:2024/BGTVT vì kho chưa có văn bản này. Ảnh tự vẽ tối giản, chưa phải ảnh chính thức (GAP 4.5-24)."
     },
     {
       "ma": "P.123b",
@@ -190,9 +164,7 @@
       "can_cu": "vn:vbqppl:qcvn:41/2024/BGTVT",
       "trang_thai": "nhap",
       "thu_tu": 15,
-      "ghi_chu": "Bản nháp mẫu (GĐ-G8): mã, tên, ý nghĩa soạn theo hiểu biết của người soạn về QCVN 41 (bản 2019), chưa đối chiếu QCVN 41:2024/BGTVT vì kho chưa có văn bản này. Ảnh tự vẽ tối giản, chưa phải ảnh chính thức (GAP 4.5-24). Phản ứng trong trò Cung đường biển báo (GĐ-G8): dữ liệu demo, chưa duyệt; người chơi giả định lái ô tô con. Đơn vị chuyên môn cần kiểm thao tác đúng và lời giải thích.",
-      "phan_ung": "khong_vao",
-      "ghi_chu_phan_ung": "Biển cấm rẽ phải: không được rẽ phải ở nơi đặt biển."
+      "ghi_chu": "Bản nháp mẫu (GĐ-G8): mã, tên, ý nghĩa soạn theo hiểu biết của người soạn về QCVN 41 (bản 2019), chưa đối chiếu QCVN 41:2024/BGTVT vì kho chưa có văn bản này. Ảnh tự vẽ tối giản, chưa phải ảnh chính thức (GAP 4.5-24)."
     },
     {
       "ma": "P.124a",
@@ -203,9 +175,7 @@
       "can_cu": "vn:vbqppl:qcvn:41/2024/BGTVT",
       "trang_thai": "nhap",
       "thu_tu": 16,
-      "ghi_chu": "Bản nháp mẫu (GĐ-G8): mã, tên, ý nghĩa soạn theo hiểu biết của người soạn về QCVN 41 (bản 2019), chưa đối chiếu QCVN 41:2024/BGTVT vì kho chưa có văn bản này. Ảnh tự vẽ tối giản, chưa phải ảnh chính thức (GAP 4.5-24). Phản ứng trong trò Cung đường biển báo (GĐ-G8): dữ liệu demo, chưa duyệt; người chơi giả định lái ô tô con. Đơn vị chuyên môn cần kiểm thao tác đúng và lời giải thích. CẦN KIỂM: Nút 'Không rẽ, không vào' có phù hợp cho biển cấm quay đầu không?",
-      "phan_ung": "khong_vao",
-      "ghi_chu_phan_ung": "Biển cấm quay đầu: không được quay đầu xe."
+      "ghi_chu": "Bản nháp mẫu (GĐ-G8): mã, tên, ý nghĩa soạn theo hiểu biết của người soạn về QCVN 41 (bản 2019), chưa đối chiếu QCVN 41:2024/BGTVT vì kho chưa có văn bản này. Ảnh tự vẽ tối giản, chưa phải ảnh chính thức (GAP 4.5-24)."
     },
     {
       "ma": "P.128",
@@ -216,9 +186,7 @@
       "can_cu": "vn:vbqppl:qcvn:41/2024/BGTVT",
       "trang_thai": "nhap",
       "thu_tu": 17,
-      "ghi_chu": "Bản nháp mẫu (GĐ-G8): mã, tên, ý nghĩa soạn theo hiểu biết của người soạn về QCVN 41 (bản 2019), chưa đối chiếu QCVN 41:2024/BGTVT vì kho chưa có văn bản này. Ảnh tự vẽ tối giản, chưa phải ảnh chính thức (GAP 4.5-24). Phản ứng trong trò Cung đường biển báo (GĐ-G8): dữ liệu demo, chưa duyệt; người chơi giả định lái ô tô con. Đơn vị chuyên môn cần kiểm thao tác đúng và lời giải thích.",
-      "phan_ung": "di_tiep",
-      "ghi_chu_phan_ung": "Biển cấm dùng còi: vẫn đi tiếp bình thường, chỉ không bấm còi."
+      "ghi_chu": "Bản nháp mẫu (GĐ-G8): mã, tên, ý nghĩa soạn theo hiểu biết của người soạn về QCVN 41 (bản 2019), chưa đối chiếu QCVN 41:2024/BGTVT vì kho chưa có văn bản này. Ảnh tự vẽ tối giản, chưa phải ảnh chính thức (GAP 4.5-24)."
     },
     {
       "ma": "P.136",
@@ -229,9 +197,7 @@
       "can_cu": "vn:vbqppl:qcvn:41/2024/BGTVT",
       "trang_thai": "nhap",
       "thu_tu": 18,
-      "ghi_chu": "Bản nháp mẫu (GĐ-G8): mã, tên, ý nghĩa soạn theo hiểu biết của người soạn về QCVN 41 (bản 2019), chưa đối chiếu QCVN 41:2024/BGTVT vì kho chưa có văn bản này. Ảnh tự vẽ tối giản, chưa phải ảnh chính thức (GAP 4.5-24). Phản ứng trong trò Cung đường biển báo (GĐ-G8): dữ liệu demo, chưa duyệt; người chơi giả định lái ô tô con. Đơn vị chuyên môn cần kiểm thao tác đúng và lời giải thích.",
-      "phan_ung": "khong_vao",
-      "ghi_chu_phan_ung": "Biển cấm đi thẳng: không được đi thẳng vào hướng bị cấm."
+      "ghi_chu": "Bản nháp mẫu (GĐ-G8): mã, tên, ý nghĩa soạn theo hiểu biết của người soạn về QCVN 41 (bản 2019), chưa đối chiếu QCVN 41:2024/BGTVT vì kho chưa có văn bản này. Ảnh tự vẽ tối giản, chưa phải ảnh chính thức (GAP 4.5-24)."
     },
     {
       "ma": "W.201a",
@@ -242,9 +208,7 @@
       "can_cu": "vn:vbqppl:qcvn:41/2024/BGTVT",
       "trang_thai": "nhap",
       "thu_tu": 19,
-      "ghi_chu": "Bản nháp mẫu (GĐ-G8): mã, tên, ý nghĩa soạn theo hiểu biết của người soạn về QCVN 41 (bản 2019), chưa đối chiếu QCVN 41:2024/BGTVT vì kho chưa có văn bản này. Ảnh tự vẽ tối giản, chưa phải ảnh chính thức (GAP 4.5-24). Phản ứng trong trò Cung đường biển báo (GĐ-G8): dữ liệu demo, chưa duyệt; người chơi giả định lái ô tô con. Đơn vị chuyên môn cần kiểm thao tác đúng và lời giải thích.",
-      "phan_ung": "giam_toc",
-      "ghi_chu_phan_ung": "Sắp đến chỗ ngoặt nguy hiểm: giảm tốc trước khi vào cua."
+      "ghi_chu": "Bản nháp mẫu (GĐ-G8): mã, tên, ý nghĩa soạn theo hiểu biết của người soạn về QCVN 41 (bản 2019), chưa đối chiếu QCVN 41:2024/BGTVT vì kho chưa có văn bản này. Ảnh tự vẽ tối giản, chưa phải ảnh chính thức (GAP 4.5-24)."
     },
     {
       "ma": "W.203b",
@@ -255,9 +219,7 @@
       "can_cu": "vn:vbqppl:qcvn:41/2024/BGTVT",
       "trang_thai": "nhap",
       "thu_tu": 20,
-      "ghi_chu": "Bản nháp mẫu (GĐ-G8): mã, tên, ý nghĩa soạn theo hiểu biết của người soạn về QCVN 41 (bản 2019), chưa đối chiếu QCVN 41:2024/BGTVT vì kho chưa có văn bản này. Ảnh tự vẽ tối giản, chưa phải ảnh chính thức (GAP 4.5-24). Phản ứng trong trò Cung đường biển báo (GĐ-G8): dữ liệu demo, chưa duyệt; người chơi giả định lái ô tô con. Đơn vị chuyên môn cần kiểm thao tác đúng và lời giải thích.",
-      "phan_ung": "giam_toc",
-      "ghi_chu_phan_ung": "Đường hẹp dần: giảm tốc, chú ý xe đi ngược chiều."
+      "ghi_chu": "Bản nháp mẫu (GĐ-G8): mã, tên, ý nghĩa soạn theo hiểu biết của người soạn về QCVN 41 (bản 2019), chưa đối chiếu QCVN 41:2024/BGTVT vì kho chưa có văn bản này. Ảnh tự vẽ tối giản, chưa phải ảnh chính thức (GAP 4.5-24)."
     },
     {
       "ma": "W.207a",
@@ -268,9 +230,7 @@
       "can_cu": "vn:vbqppl:qcvn:41/2024/BGTVT",
       "trang_thai": "nhap",
       "thu_tu": 21,
-      "ghi_chu": "Bản nháp mẫu (GĐ-G8): mã, tên, ý nghĩa soạn theo hiểu biết của người soạn về QCVN 41 (bản 2019), chưa đối chiếu QCVN 41:2024/BGTVT vì kho chưa có văn bản này. Ảnh tự vẽ tối giản, chưa phải ảnh chính thức (GAP 4.5-24). Phản ứng trong trò Cung đường biển báo (GĐ-G8): dữ liệu demo, chưa duyệt; người chơi giả định lái ô tô con. Đơn vị chuyên môn cần kiểm thao tác đúng và lời giải thích. CẦN KIỂM: Giảm tốc ở biển này có nên tính là đúng không? Trò đang chấm 'Giảm tốc' là thận trọng (0 điểm, không mất mạng).",
-      "phan_ung": "di_tiep",
-      "ghi_chu_phan_ung": "Bạn đang đi trên đường ưu tiên: đi tiếp, vẫn chú ý quan sát."
+      "ghi_chu": "Bản nháp mẫu (GĐ-G8): mã, tên, ý nghĩa soạn theo hiểu biết của người soạn về QCVN 41 (bản 2019), chưa đối chiếu QCVN 41:2024/BGTVT vì kho chưa có văn bản này. Ảnh tự vẽ tối giản, chưa phải ảnh chính thức (GAP 4.5-24)."
     },
     {
       "ma": "W.208",
@@ -281,9 +241,7 @@
       "can_cu": "vn:vbqppl:qcvn:41/2024/BGTVT",
       "trang_thai": "nhap",
       "thu_tu": 22,
-      "ghi_chu": "Bản nháp mẫu (GĐ-G8): mã, tên, ý nghĩa soạn theo hiểu biết của người soạn về QCVN 41 (bản 2019), chưa đối chiếu QCVN 41:2024/BGTVT vì kho chưa có văn bản này. Ảnh tự vẽ tối giản, chưa phải ảnh chính thức (GAP 4.5-24). Phản ứng trong trò Cung đường biển báo (GĐ-G8): dữ liệu demo, chưa duyệt; người chơi giả định lái ô tô con. Đơn vị chuyên môn cần kiểm thao tác đúng và lời giải thích. CẦN KIỂM: Có trường hợp nào phải 'Dừng lại' thay vì 'Giảm tốc' ở biển này không?",
-      "phan_ung": "giam_toc",
-      "ghi_chu_phan_ung": "Sắp giao với đường ưu tiên: giảm tốc, nhường đường cho xe trên đường ưu tiên."
+      "ghi_chu": "Bản nháp mẫu (GĐ-G8): mã, tên, ý nghĩa soạn theo hiểu biết của người soạn về QCVN 41 (bản 2019), chưa đối chiếu QCVN 41:2024/BGTVT vì kho chưa có văn bản này. Ảnh tự vẽ tối giản, chưa phải ảnh chính thức (GAP 4.5-24)."
     },
     {
       "ma": "W.210",
@@ -294,9 +252,7 @@
       "can_cu": "vn:vbqppl:qcvn:41/2024/BGTVT",
       "trang_thai": "nhap",
       "thu_tu": 23,
-      "ghi_chu": "Bản nháp mẫu (GĐ-G8): mã, tên, ý nghĩa soạn theo hiểu biết của người soạn về QCVN 41 (bản 2019), chưa đối chiếu QCVN 41:2024/BGTVT vì kho chưa có văn bản này. Ảnh tự vẽ tối giản, chưa phải ảnh chính thức (GAP 4.5-24). Phản ứng trong trò Cung đường biển báo (GĐ-G8): dữ liệu demo, chưa duyệt; người chơi giả định lái ô tô con. Đơn vị chuyên môn cần kiểm thao tác đúng và lời giải thích.",
-      "phan_ung": "giam_toc",
-      "ghi_chu_phan_ung": "Sắp đến đường ngang có rào chắn: giảm tốc, dừng lại khi rào đóng hoặc có tín hiệu."
+      "ghi_chu": "Bản nháp mẫu (GĐ-G8): mã, tên, ý nghĩa soạn theo hiểu biết của người soạn về QCVN 41 (bản 2019), chưa đối chiếu QCVN 41:2024/BGTVT vì kho chưa có văn bản này. Ảnh tự vẽ tối giản, chưa phải ảnh chính thức (GAP 4.5-24)."
     },
     {
       "ma": "W.211a",
@@ -307,9 +263,7 @@
       "can_cu": "vn:vbqppl:qcvn:41/2024/BGTVT",
       "trang_thai": "nhap",
       "thu_tu": 24,
-      "ghi_chu": "Bản nháp mẫu (GĐ-G8): mã, tên, ý nghĩa soạn theo hiểu biết của người soạn về QCVN 41 (bản 2019), chưa đối chiếu QCVN 41:2024/BGTVT vì kho chưa có văn bản này. Ảnh tự vẽ tối giản, chưa phải ảnh chính thức (GAP 4.5-24). Phản ứng trong trò Cung đường biển báo (GĐ-G8): dữ liệu demo, chưa duyệt; người chơi giả định lái ô tô con. Đơn vị chuyên môn cần kiểm thao tác đúng và lời giải thích. CẦN KIỂM: Quy tắc có bắt buộc 'Dừng lại' để quan sát tại đường ngang không có rào chắn không? Nếu có thì đổi thao tác đúng thành 'Dừng lại'.",
-      "phan_ung": "giam_toc",
-      "ghi_chu_phan_ung": "Sắp đến đường ngang không có rào chắn: giảm tốc, quan sát hai phía trước khi qua."
+      "ghi_chu": "Bản nháp mẫu (GĐ-G8): mã, tên, ý nghĩa soạn theo hiểu biết của người soạn về QCVN 41 (bản 2019), chưa đối chiếu QCVN 41:2024/BGTVT vì kho chưa có văn bản này. Ảnh tự vẽ tối giản, chưa phải ảnh chính thức (GAP 4.5-24)."
     },
     {
       "ma": "W.227",
@@ -320,9 +274,7 @@
       "can_cu": "vn:vbqppl:qcvn:41/2024/BGTVT",
       "trang_thai": "nhap",
       "thu_tu": 25,
-      "ghi_chu": "Bản nháp mẫu (GĐ-G8): mã, tên, ý nghĩa soạn theo hiểu biết của người soạn về QCVN 41 (bản 2019), chưa đối chiếu QCVN 41:2024/BGTVT vì kho chưa có văn bản này. Ảnh tự vẽ tối giản, chưa phải ảnh chính thức (GAP 4.5-24). Phản ứng trong trò Cung đường biển báo (GĐ-G8): dữ liệu demo, chưa duyệt; người chơi giả định lái ô tô con. Đơn vị chuyên môn cần kiểm thao tác đúng và lời giải thích.",
-      "phan_ung": "giam_toc",
-      "ghi_chu_phan_ung": "Đoạn đường đang thi công: giảm tốc, đi theo hướng dẫn."
+      "ghi_chu": "Bản nháp mẫu (GĐ-G8): mã, tên, ý nghĩa soạn theo hiểu biết của người soạn về QCVN 41 (bản 2019), chưa đối chiếu QCVN 41:2024/BGTVT vì kho chưa có văn bản này. Ảnh tự vẽ tối giản, chưa phải ảnh chính thức (GAP 4.5-24)."
     },
     {
       "ma": "W.245a",
@@ -333,9 +285,7 @@
       "can_cu": "vn:vbqppl:qcvn:41/2024/BGTVT",
       "trang_thai": "nhap",
       "thu_tu": 26,
-      "ghi_chu": "Bản nháp mẫu (GĐ-G8): mã, tên, ý nghĩa soạn theo hiểu biết của người soạn về QCVN 41 (bản 2019), chưa đối chiếu QCVN 41:2024/BGTVT vì kho chưa có văn bản này. Ảnh tự vẽ tối giản, chưa phải ảnh chính thức (GAP 4.5-24). Phản ứng trong trò Cung đường biển báo (GĐ-G8): dữ liệu demo, chưa duyệt; người chơi giả định lái ô tô con. Đơn vị chuyên môn cần kiểm thao tác đúng và lời giải thích.",
-      "phan_ung": "giam_toc",
-      "ghi_chu_phan_ung": "Biển nhắc đi chậm: giảm tốc."
+      "ghi_chu": "Bản nháp mẫu (GĐ-G8): mã, tên, ý nghĩa soạn theo hiểu biết của người soạn về QCVN 41 (bản 2019), chưa đối chiếu QCVN 41:2024/BGTVT vì kho chưa có văn bản này. Ảnh tự vẽ tối giản, chưa phải ảnh chính thức (GAP 4.5-24)."
     },
     {
       "ma": "R.122",
@@ -346,9 +296,7 @@
       "can_cu": "vn:vbqppl:qcvn:41/2024/BGTVT",
       "trang_thai": "nhap",
       "thu_tu": 27,
-      "ghi_chu": "Bản nháp mẫu (GĐ-G8): mã, tên, ý nghĩa soạn theo hiểu biết của người soạn về QCVN 41 (bản 2019), chưa đối chiếu QCVN 41:2024/BGTVT vì kho chưa có văn bản này. Ảnh tự vẽ tối giản, chưa phải ảnh chính thức (GAP 4.5-24). Phản ứng trong trò Cung đường biển báo (GĐ-G8): dữ liệu demo, chưa duyệt; người chơi giả định lái ô tô con. Đơn vị chuyên môn cần kiểm thao tác đúng và lời giải thích. CẦN KIỂM: Mã và nhóm của biển 'Dừng lại' (STOP) trong QCVN 41:2024 có còn là R.122 không?",
-      "phan_ung": "dung_lai",
-      "ghi_chu_phan_ung": "Biển hiệu lệnh dừng lại: phải dừng hẳn trước vạch dừng rồi mới đi."
+      "ghi_chu": "Bản nháp mẫu (GĐ-G8): mã, tên, ý nghĩa soạn theo hiểu biết của người soạn về QCVN 41 (bản 2019), chưa đối chiếu QCVN 41:2024/BGTVT vì kho chưa có văn bản này. Ảnh tự vẽ tối giản, chưa phải ảnh chính thức (GAP 4.5-24)."
     },
     {
       "ma": "R.301a",
@@ -359,9 +307,7 @@
       "can_cu": "vn:vbqppl:qcvn:41/2024/BGTVT",
       "trang_thai": "nhap",
       "thu_tu": 28,
-      "ghi_chu": "Bản nháp mẫu (GĐ-G8): mã, tên, ý nghĩa soạn theo hiểu biết của người soạn về QCVN 41 (bản 2019), chưa đối chiếu QCVN 41:2024/BGTVT vì kho chưa có văn bản này. Ảnh tự vẽ tối giản, chưa phải ảnh chính thức (GAP 4.5-24). Phản ứng trong trò Cung đường biển báo (GĐ-G8): dữ liệu demo, chưa duyệt; người chơi giả định lái ô tô con. Đơn vị chuyên môn cần kiểm thao tác đúng và lời giải thích.",
-      "phan_ung": "di_tiep",
-      "ghi_chu_phan_ung": "Biển hiệu lệnh chỉ được đi thẳng: đi tiếp, không rẽ."
+      "ghi_chu": "Bản nháp mẫu (GĐ-G8): mã, tên, ý nghĩa soạn theo hiểu biết của người soạn về QCVN 41 (bản 2019), chưa đối chiếu QCVN 41:2024/BGTVT vì kho chưa có văn bản này. Ảnh tự vẽ tối giản, chưa phải ảnh chính thức (GAP 4.5-24)."
     },
     {
       "ma": "I.409",
@@ -372,9 +318,7 @@
       "can_cu": "vn:vbqppl:qcvn:41/2024/BGTVT",
       "trang_thai": "nhap",
       "thu_tu": 29,
-      "ghi_chu": "Bản nháp mẫu (GĐ-G8): mã, tên, ý nghĩa soạn theo hiểu biết của người soạn về QCVN 41 (bản 2019), chưa đối chiếu QCVN 41:2024/BGTVT vì kho chưa có văn bản này. Ảnh tự vẽ tối giản, chưa phải ảnh chính thức (GAP 4.5-24). Phản ứng trong trò Cung đường biển báo (GĐ-G8): dữ liệu demo, chưa duyệt; người chơi giả định lái ô tô con. Đơn vị chuyên môn cần kiểm thao tác đúng và lời giải thích.",
-      "phan_ung": "di_tiep",
-      "ghi_chu_phan_ung": "Biển chỉ dẫn chỗ quay xe: chỉ để biết, không bắt buộc phản ứng."
+      "ghi_chu": "Bản nháp mẫu (GĐ-G8): mã, tên, ý nghĩa soạn theo hiểu biết của người soạn về QCVN 41 (bản 2019), chưa đối chiếu QCVN 41:2024/BGTVT vì kho chưa có văn bản này. Ảnh tự vẽ tối giản, chưa phải ảnh chính thức (GAP 4.5-24)."
     },
     {
       "ma": "I.423b",
@@ -385,9 +329,7 @@
       "can_cu": "vn:vbqppl:qcvn:41/2024/BGTVT",
       "trang_thai": "nhap",
       "thu_tu": 30,
-      "ghi_chu": "Bản nháp mẫu (GĐ-G8): mã, tên, ý nghĩa soạn theo hiểu biết của người soạn về QCVN 41 (bản 2019), chưa đối chiếu QCVN 41:2024/BGTVT vì kho chưa có văn bản này. Ảnh tự vẽ tối giản, chưa phải ảnh chính thức (GAP 4.5-24). Phản ứng trong trò Cung đường biển báo (GĐ-G8): dữ liệu demo, chưa duyệt; người chơi giả định lái ô tô con. Đơn vị chuyên môn cần kiểm thao tác đúng và lời giải thích. CẦN KIỂM: Biển chỉ dẫn này có nên chấm 'Giảm tốc' là bắt buộc (mất mạng nếu bỏ qua) không?",
-      "phan_ung": "giam_toc",
-      "ghi_chu_phan_ung": "Chỗ người đi bộ sang ngang: giảm tốc, nhường đường cho người đi bộ."
+      "ghi_chu": "Bản nháp mẫu (GĐ-G8): mã, tên, ý nghĩa soạn theo hiểu biết của người soạn về QCVN 41 (bản 2019), chưa đối chiếu QCVN 41:2024/BGTVT vì kho chưa có văn bản này. Ảnh tự vẽ tối giản, chưa phải ảnh chính thức (GAP 4.5-24)."
     },
     {
       "ma": "I.434a",
@@ -398,9 +340,7 @@
       "can_cu": "vn:vbqppl:qcvn:41/2024/BGTVT",
       "trang_thai": "nhap",
       "thu_tu": 31,
-      "ghi_chu": "Bản nháp mẫu (GĐ-G8): mã, tên, ý nghĩa soạn theo hiểu biết của người soạn về QCVN 41 (bản 2019), chưa đối chiếu QCVN 41:2024/BGTVT vì kho chưa có văn bản này. Ảnh tự vẽ tối giản, chưa phải ảnh chính thức (GAP 4.5-24). Phản ứng trong trò Cung đường biển báo (GĐ-G8): dữ liệu demo, chưa duyệt; người chơi giả định lái ô tô con. Đơn vị chuyên môn cần kiểm thao tác đúng và lời giải thích.",
-      "phan_ung": "di_tiep",
-      "ghi_chu_phan_ung": "Biển chỉ dẫn bến xe buýt: ô tô con đi tiếp, chú ý xe buýt ra vào bến."
+      "ghi_chu": "Bản nháp mẫu (GĐ-G8): mã, tên, ý nghĩa soạn theo hiểu biết của người soạn về QCVN 41 (bản 2019), chưa đối chiếu QCVN 41:2024/BGTVT vì kho chưa có văn bản này. Ảnh tự vẽ tối giản, chưa phải ảnh chính thức (GAP 4.5-24)."
     }
   ]
 }

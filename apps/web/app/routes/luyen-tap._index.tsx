@@ -102,7 +102,6 @@ const CONG_CU: Array<{ to: string; ten: string; mo: string; icon: IconName; sac:
   { to: "/hoc", ten: "Bài giảng", mo: "Đọc bài, kiểm tra nhanh", icon: "cap", sac: "chinh" },
   { to: "/nhom", ten: "Nhóm học cùng", mo: "Theo dõi tiến độ đồng đội", icon: "nhom", sac: "ngoc" },
   { to: "/luyen-tap/offline", ten: "Không cần mạng", mo: "Tải chủ đề về máy", icon: "book", sac: "tim" },
-  { to: "/tro-choi", ten: "Trò chơi", mo: "Vượt màn, đua 60 giây", icon: "trophy", sac: "vang" },
 ];
 
 /** Nhãn phần trăm góc thẻ: xong hết có dấu tích, chưa đúng câu nào thì ghi "Chưa làm". */
@@ -304,7 +303,7 @@ export default function LuyenTap({ loaderData, actionData }: Route.ComponentProp
         ) : null}
       </div>
 
-      {/* Bài giảng (GĐ11), nhóm học cùng (GĐ16b), luyện tập không cần mạng (GĐ13), trò chơi (GĐ10). */}
+      {/* Bài giảng (GĐ11), nhóm học cùng (GĐ16b), luyện tập không cần mạng (GĐ13). */}
       <nav aria-label="Cách học khác" className="grid grid-cols-2 gap-3 lg:grid-cols-4">
         {CONG_CU.map((o) => (
           <Link

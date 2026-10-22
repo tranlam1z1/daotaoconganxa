@@ -201,20 +201,12 @@ export function tinhTienDoNhom(p: {
 }
 
 /* ------------------------------------------------------------------ */
-/* Cổ vũ, XP                                                            */
+/* Cổ vũ                                                               */
 /* ------------------------------------------------------------------ */
 
 /** Ngày của một lượt cổ vũ (giờ Việt Nam): mỗi người cổ vũ một thành viên tối đa một lần mỗi ngày (N7). */
 export function ngayCoVu(now: Date): string {
   return ngayVietNam(now);
-}
-
-/**
- * Khóa XP của phiên đề ôn tập (N17): theo người và mục, không theo phiên, để chỉ lần kết thúc đầu
- * tiên có XP. Làm lại cùng đề không cộng thêm.
- */
-export function khoaXpDeOnTap(itemId: string, accountId: string): string {
-  return `nhom:${itemId}:${accountId}`;
 }
 
 /**

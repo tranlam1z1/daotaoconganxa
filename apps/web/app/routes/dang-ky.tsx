@@ -85,9 +85,7 @@ export default function DangKy({ loaderData, actionData }: Route.ComponentProps)
           <span className="font-display text-xl font-bold uppercase leading-tight text-primary">
             {SITE_NAME}
           </span>
-          <span className="text-xs uppercase tracking-[0.14em] leading-tight text-ink-2">
-            {SITE_TAGLINE}
-          </span>
+          <span className="text-xs uppercase tracking-[0.14em] leading-tight text-ink-2">{SITE_TAGLINE}</span>
         </span>
       </Link>
 
@@ -97,8 +95,8 @@ export default function DangKy({ loaderData, actionData }: Route.ComponentProps)
           Tạo tài khoản để học, luyện tập và thi. Tra cứu văn bản không cần đăng nhập.
         </p>
         <p className="mt-2 text-sm leading-relaxed text-ink-2">
-          Tài khoản cần được cán bộ quản lý đơn vị hoặc quản trị viên xác minh. Học, luyện tập, trò chơi và
-          thi mở sau khi tài khoản được duyệt.
+          Tài khoản cần được cán bộ quản lý đơn vị hoặc quản trị viên xác minh. Học, luyện tập và thi mở sau
+          khi tài khoản được duyệt.
         </p>
 
         {actionData?.loi ? (

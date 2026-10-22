@@ -18,7 +18,7 @@ export function NutMicro({
   nhan: string;
   nhanDangNghe?: string;
   className?: string;
-  /** Nút to ở giữa màn hình (trò chơi). */
+  /** Nút to ở giữa màn hình. */
   lon?: boolean;
 }) {
   const g = useNhanDangGiong(onKetQua);

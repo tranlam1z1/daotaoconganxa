@@ -211,13 +211,13 @@ function XacMinhCanBo({
         </Notice>
       ) : chuaKhai ? (
         <p className="mt-2 text-sm leading-relaxed text-ink-2">
-          Khai số hiệu và đơn vị công tác để cán bộ quản lý đơn vị hoặc quản trị viên xác minh. Học, luyện
-          tập, trò chơi và thi mở sau khi tài khoản được duyệt.
+          Khai số hiệu và đơn vị công tác để cán bộ quản lý đơn vị hoặc quản trị viên xác minh. Học, luyện tập
+          và thi mở sau khi tài khoản được duyệt.
         </p>
       ) : (
         <p className="mt-2 text-sm leading-relaxed text-ink-2">
-          Tài khoản đang chờ cán bộ quản lý đơn vị hoặc quản trị viên xác minh. Học, luyện tập, trò chơi, thi,
-          nhóm học và bảng xếp hạng mở sau khi được duyệt; tra cứu và bộ công cụ dùng được ngay.
+          Tài khoản đang chờ cán bộ quản lý đơn vị hoặc quản trị viên xác minh. Học, luyện tập, thi và nhóm
+          học mở sau khi được duyệt; tra cứu và bộ công cụ dùng được ngay.
         </p>
       )}
 

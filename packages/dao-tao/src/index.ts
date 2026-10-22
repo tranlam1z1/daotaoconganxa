@@ -30,7 +30,6 @@ export * from "./sach-noi.ts";
 export * from "./srs.ts";
 export * from "./stats.ts";
 export * from "./tai-trong.ts";
-export * from "./tham-chieu.ts";
 export * from "./tra-cuu-nhanh.ts";
 export * from "./types.ts";
 export * from "./vong-doi-duyet.ts";

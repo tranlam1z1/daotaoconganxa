@@ -4,7 +4,7 @@
     "KHUNG CHỜ ĐIỀN, CHƯA CÓ SỐ LIỆU. Kho văn bản của hệ thống chưa có văn bản quy định tốc độ và khoảng cách khai thác trên đường bộ, nên mọi ô toc_do_toi_da và can_cu để null (docs/GAME_DESIGN.md §7 câu Q6). Không điền theo trí nhớ.",
     "Nhờ đơn vị chuyên môn: (1) xác định văn bản đang có hiệu lực quy định tốc độ tối đa theo loại xe và loại đường; (2) kiểm tra danh sách loại xe chi tiết và loại đường dưới đây có khớp cách phân loại của văn bản không, thêm hoặc bớt dòng cho khớp; (3) điền toc_do_toi_da và can_cu (URN tới đúng điều, khoản) cho từng dòng.",
     "Sau khi văn bản được nạp vào kho và các ô được điền, chạy bun run tra-cuu:nap: dòng có số liệu vào trạng thái chờ duyệt, người duyệt duyệt ở /quan-tri/du-lieu-tra-cuu (tab Tốc độ tối đa). Dòng còn null không được nạp.",
-    "Khi chưa có dòng nào được duyệt, trò Súng bắn tốc độ chỉ dùng tốc độ ghi trên biển P.127 của từng tình huống."
+    "Khi chưa có dòng nào được duyệt, chỉ dùng tốc độ ghi trên biển P.127 của từng tình huống."
   ],
   "dong": [
     {

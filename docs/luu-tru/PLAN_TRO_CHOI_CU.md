@@ -2,6 +2,8 @@
 
 *Tách khỏi [../PLAN.md](../PLAN.md) ngày 27/9/2026, khi danh sách trò chơi được thay bằng 10 trò mới. GĐ-G0 vẫn ở PLAN.md. Các giai đoạn dưới đây dừng; trạng thái ghi ở từng mục là trạng thái lúc dừng.*
 
+*Ghi chú (21/10/2026): toàn bộ trò chơi và lớp trò chơi hóa (XP, cấp độ, huy hiệu, chuỗi ngày, bảng xếp hạng, mùa giải, thử thách hằng ngày) đã gỡ khỏi sản phẩm. Tài liệu này chỉ còn để tra lại, không phải yêu cầu.*
+
 ---
 
 ## GĐ-G1 — Lệnh trực hằng ngày

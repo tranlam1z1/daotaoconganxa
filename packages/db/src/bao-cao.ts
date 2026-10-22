@@ -257,12 +257,11 @@ export async function tongHopDonVi(examId: string, l: LocBaoCao): Promise<DongTo
 export type NhomLuyenTap = "nguoi" | "don_vi" | "chu_de";
 
 /**
- * Nguồn phiên được tính là luyện tập. Phiên chơi game (GĐ10, `source` dạng `game:...`) dùng chung
- * bảng `practice_sessions` nhưng không tính vào báo cáo luyện tập. Báo cáo câu hỏi khó thì vẫn
- * gộp mọi câu trả lời, vì câu trả lời trong game cũng cho biết câu nào hay bị sai. Phiên đề ôn
- * tập của nhóm học cùng (`nhom`) được tính (docs/PLAN.md GĐ16a, câu N6).
+ * Nguồn phiên được tính là luyện tập. Phiên đề ôn tập của nhóm học cùng (`nhom`) được tính
+ * (docs/PLAN.md GĐ16a, câu N6); các nguồn khác trong bảng `practice_sessions` không tính vào báo
+ * cáo luyện tập.
  */
-const NGUON_LUYEN_TAP = ["chu_de", "cau_sai", "thu_thach", "nhom"];
+const NGUON_LUYEN_TAP = ["chu_de", "cau_sai", "nhom"];
 
 export interface DongLuyenTap {
   nhom: string;
@@ -645,7 +644,7 @@ export interface ChuDeCuaCanBo {
   ty_le_dung: number | null;
 }
 
-/** Chủ đề mạnh, yếu theo hồ sơ chủ đề (luyện tập, thi và trò chơi gộp lại). */
+/** Chủ đề mạnh, yếu theo hồ sơ chủ đề (luyện tập và thi gộp lại). */
 export interface ChuDeManhYeu {
   ten: string;
   so_luot: number;
@@ -682,8 +681,8 @@ export interface HoSoCanBo {
 }
 
 /**
- * Hồ sơ học tập của một cán bộ: từng đề thi, từng chuyên đề, luyện tập theo chủ đề, trò chơi và
- * điểm thưởng. Người gọi đã kiểm người này nằm trong phạm vi (`canBoTrongPhamVi`).
+ * Hồ sơ học tập của một cán bộ: từng đề thi, từng chuyên đề và luyện tập theo chủ đề. Người gọi
+ * đã kiểm người này nằm trong phạm vi (`canBoTrongPhamVi`).
  *
  * Các con số đếm cùng cách với dòng của người đó ở báo cáo tiến độ học (`tienDoHocVien`), nên phần
  * `tong_quan` khớp với danh sách:
@@ -693,7 +692,7 @@ export interface HoSoCanBo {
  * - Luyện tập: phiên có nguồn trong `NGUON_LUYEN_TAP`.
  *
  * Khoảng ngày (`tu`, `den`) áp cho lúc nộp bài thi, lúc xong bài học, lúc làm bài tập, câu trả lời
- * luyện tập và lúc chơi. XP, chuỗi ngày, huy hiệu, hạng, chủ đề mạnh yếu và lần học gần nhất không
+ * luyện tập. Chủ đề mạnh yếu và lần học gần nhất không
  * lọc theo ngày.
  */
 export async function hoSoCanBo(

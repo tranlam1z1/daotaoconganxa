@@ -193,12 +193,7 @@ function gieoDuLieu() {
     ["Ngân hàng câu hỏi", ["bun", "run", "packages/db/src/seed-ngan-hang.ts"]],
     ["Tra cứu nhanh (mức phạt, tốc độ, quy trình)", ["bun", "run", "scripts/tra-cuu-nhanh.ts"]],
     ["Biển báo", ["bun", "run", "scripts/bien-bao.ts"]],
-    // Duyệt tự động dữ liệu demo cho trò Súng bắn tốc độ (docs/DEMO.md mục 7a). Chỉ chạy trên CSDL demo.
-    [
-      "Trò chơi Súng bắn tốc độ, Cung đường biển báo, Kiểm tra giấy tờ (dữ liệu demo)",
-      ["bun", "run", "scripts/demo-tro-choi.ts"],
-    ],
-    // Đặt sau câu hỏi, bài giảng, tra cứu nhanh, trò chơi: script đọc căn cứ của các nội dung đó để
+    // Đặt sau câu hỏi, bài giảng, tra cứu nhanh: script đọc căn cứ của các nội dung đó để
     // biết cần chép văn bản nào (docs/DEMO.md mục 5). Trước chỉ mục tìm kiếm để văn bản được đánh chỉ mục.
     [
       "Văn bản được nội dung trích dẫn (chép từ kho thật)",

@@ -8,7 +8,7 @@
  *  - GET /cau-hoi-kho     câu có tỷ lệ sai cao nhất        (?de_thi= tùy chọn)
  *  - GET /tien-do-hoc     tiến độ học của từng người       (?nhom=, ?q= tùy chọn; GĐ16c)
  *  - GET /tong-quan       số liệu gọn và người cần chú ý cho trang Tổng quan
- *  - GET /can-bo/:id      hồ sơ một cán bộ: bài thi, bài học, luyện tập, trò chơi
+ *  - GET /can-bo/:id      hồ sơ một cán bộ: bài thi, bài học, luyện tập
  *
  * Bộ lọc chung: `don_vi` (id, cây con), `tu`, `den` (YYYY-MM-DD). `dinh_dang=xlsx|pdf` trả tệp
  * thay cho JSON; mọi lần xuất tệp ghi `audit_log`.

@@ -1,5 +1,5 @@
 {
-  "mo_ta": "Luật kiểm hồ sơ phạt nguội cho trò Duyệt hồ sơ phạt nguội (docs/PLAN.md GĐ-T11). Lưu ở document_rules, nhóm ho_so_phat_nguoi (câu D16). Mỗi dòng là một phép kiểm; bộ chạy luật ở packages/dao-tao/src/tro-choi/duyet-phat-nguoi.ts. Nạp bằng: bun run tra-cuu:nap",
+  "mo_ta": "Luật kiểm hồ sơ phạt nguội, nhóm ho_so_phat_nguoi (docs/PLAN.md GĐ-T11). Lưu ở document_rules (câu D16). Mỗi dòng là một phép kiểm; bộ kiểm ở packages/dao-tao/src/luat-tai-lieu.ts. Nạp bằng: bun run tra-cuu:nap",
   "luu_y_bien_tap": [
     "BẢN NHÁP, DỮ LIỆU DEMO, CHƯA DUYỆT. Ngày soạn 28/9/2026, kho văn bản đang nối chưa có văn bản nào về sử dụng dữ liệu thu từ phương tiện, thiết bị kỹ thuật nghiệp vụ, thủ tục gửi thông báo vi phạm, kiểm định thiết bị (tra bằng công cụ tìm kiếm quy định: 0 kết quả).",
     "Căn cứ mới ghi ở mức văn bản, URN dự kiến, chưa kiểm được trong kho. Trước khi duyệt: đơn vị chuyên môn xác định văn bản, điều, khoản cụ thể và đối chiếu nguyên văn tại ngày áp dụng.",
@@ -75,7 +75,7 @@
       "phan_loai": [],
       "tham_so": {},
       "ten": "Thiết bị ghi hình, đo tốc độ phải còn hạn kiểm định tại thời điểm ghi",
-      "giai_thich": "Kết quả từ thiết bị đã hết hạn kiểm định, hiệu chuẩn tại ngày ghi hình thì không dùng làm căn cứ. Thiết bị hết hạn đúng ngày ghi hình vẫn được coi là còn hạn trong trò chơi.",
+      "giai_thich": "Kết quả từ thiết bị đã hết hạn kiểm định, hiệu chuẩn tại ngày ghi hình thì không dùng làm căn cứ. Thiết bị hết hạn đúng ngày ghi hình vẫn được coi là còn hạn.",
       "can_cu": "vn:vbqppl:l:15/2012/QH13",
       "ma_muc_phat": null,
       "hieu_luc_tu": "2025-01-01",

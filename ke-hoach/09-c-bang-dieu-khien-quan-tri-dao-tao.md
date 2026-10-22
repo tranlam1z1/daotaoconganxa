@@ -79,7 +79,7 @@ Bốn tab:
 Ba cột trên màn hình rộng, xếp chồng trên mobile:
 
 1. **Danh sách khối** — kéo thả đổi thứ tự, thêm khối theo 19 kiểu (`09-a §2`), nhân bản, xoá.
-   Mỗi khối hiện huy hiệu nguồn: `nguoi` / `ai` / `ai_da_sua`.
+   Mỗi khối hiện nhãn nguồn: `nguoi` / `ai` / `ai_da_sua`.
 2. **Trình soạn khối** — biểu mẫu theo schema của kiểu khối đang chọn; khối `can_cu` dùng
    **bộ chọn viện dẫn**: gõ "khoản 2 điều 15 nđ 224/2026" → gọi `/v1/citations/resolve` → chèn
    URN đã kiểm chứng kèm nguyên văn. Không cho gõ tay nguyên văn: nguyên văn luôn lấy từ kho.

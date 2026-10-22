@@ -1,7 +1,7 @@
 /**
- * Hồ sơ điểm mạnh, điểm yếu theo chủ đề (docs/GAME_DESIGN.md §6.2).
+ * Hồ sơ điểm mạnh, điểm yếu theo chủ đề (docs/PLAN.md GĐ16c).
  *
- * Mỗi câu trả lời có chủ đề (luyện tập, thi, trò chơi) cập nhật một dòng (người, chủ đề):
+ * Mỗi câu trả lời có chủ đề (luyện tập, thi) cập nhật một dòng (người, chủ đề):
  * số lượt, số lần đúng, và trung bình trượt `score_ema` nghiêng về các lần gần đây. Hàm thuần,
  * để tính lại được toàn bộ hồ sơ từ lịch sử khi đổi công thức.
  */

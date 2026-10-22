@@ -176,7 +176,7 @@ export function isoSangGioVietNam(d: Date | string): string {
   return t.toISOString().slice(0, 16);
 }
 
-/** Kiểm tra chuỗi ngày hợp lệ YYYY-MM-DD. */
+/** Kiểm tra ngày hợp lệ YYYY-MM-DD. */
 export function isIsoDate(value: string | null | undefined): value is string {
   return !!value && /^\d{4}-\d{2}-\d{2}$/.test(value);
 }

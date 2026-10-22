@@ -1,17 +1,9 @@
 /**
- * Vòng đời duyệt dùng chung (docs/PLAN.md GĐ-G0), tham chiếu của nội dung trò chơi và hồ sơ
- * điểm mạnh/yếu theo chủ đề.
+ * Vòng đời duyệt dùng chung (docs/PLAN.md GĐ-G0) và hồ sơ điểm mạnh/yếu theo chủ đề.
  */
 import { describe, expect, test } from "bun:test";
 import { chuyenTrangThaiCauHoi, hauQuaSua as hauQuaSuaCauHoi } from "../src/cau-hoi.ts";
 import { capNhatHoSo, type DongHoSo, manhYeu } from "../src/ho-so-chu-de.ts";
-import {
-  docThamChieu,
-  ghiPhienBanThamChieu,
-  khoaThamChieu,
-  kiemTraThamChieu,
-  type TrangThaiMuc,
-} from "../src/tham-chieu.ts";
 import { chuyenTrangThai, hauQuaSua, trangThaiTruoc } from "../src/vong-doi-duyet.ts";
 
 describe("vòng đời duyệt", () => {
@@ -37,54 +29,6 @@ describe("vòng đời duyệt", () => {
   test("tên cũ của câu hỏi (GĐ3) dùng cùng luật", () => {
     expect(chuyenTrangThaiCauHoi).toBe(chuyenTrangThai);
     expect(hauQuaSuaCauHoi).toBe(hauQuaSua);
-  });
-});
-
-describe("tham chiếu của nội dung trò chơi", () => {
-  const hienTai = new Map<string, TrangThaiMuc>([
-    [khoaThamChieu("violation", "oto-toc-do-5-10"), { status: "da_duyet", version: 3 }],
-    [khoaThamChieu("traffic_sign", "P.102"), { status: "cho_duyet", version: 2 }],
-  ]);
-
-  test("đúng phiên bản và đã duyệt thì dùng được", () => {
-    expect(kiemTraThamChieu([{ loai: "violation", ma: "oto-toc-do-5-10", version: 3 }], hienTai)).toEqual([]);
-  });
-
-  test("mục được trỏ tới lên phiên bản mới thì tình huống bị loại, kèm lý do đọc được", () => {
-    const lyDo = kiemTraThamChieu([{ loai: "violation", ma: "oto-toc-do-5-10", version: 2 }], hienTai);
-    expect(lyDo).toEqual([
-      "Mức phạt oto-toc-do-5-10 đã được sửa (phiên bản 2 thành 3), cần duyệt lại tình huống.",
-    ]);
-  });
-
-  test("mục về chờ duyệt hoặc không còn thì bị loại", () => {
-    expect(kiemTraThamChieu([{ loai: "traffic_sign", ma: "P.102", version: 2 }], hienTai)).toEqual([
-      "Biển báo P.102 không còn ở trạng thái đã duyệt.",
-    ]);
-    expect(kiemTraThamChieu([{ loai: "question", ma: "x", version: 1 }], hienTai)).toEqual([
-      "Không còn câu hỏi x.",
-    ]);
-  });
-
-  test("lúc duyệt: ghi phiên bản hiện tại; trỏ tới mục chưa duyệt thì báo lỗi", () => {
-    const ok = ghiPhienBanThamChieu(
-      [
-        { loai: "violation", ma: "oto-toc-do-5-10" },
-        { loai: "violation", ma: "oto-toc-do-5-10" },
-      ],
-      hienTai,
-    );
-    expect(ok).toEqual({ refs: [{ loai: "violation", ma: "oto-toc-do-5-10", version: 3 }], loi: [] });
-    expect(ghiPhienBanThamChieu([{ loai: "traffic_sign", ma: "P.102" }], hienTai).loi).toEqual([
-      "Biển báo P.102 chưa được duyệt.",
-    ]);
-  });
-
-  test("đọc dòng loai:ma", () => {
-    const r = docThamChieu(["violation:oto-1", "", "sai-dang", "abc:x"]);
-    expect(r.refs).toEqual([{ loai: "violation", ma: "oto-1" }]);
-    expect(r.loi.length).toBe(2);
-    expect(r.loi[0]).toContain("Dòng 3");
   });
 });
 

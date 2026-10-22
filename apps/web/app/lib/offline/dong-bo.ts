@@ -1,18 +1,17 @@
 /**
  * Đồng bộ kết quả luyện tập offline lên máy chủ (docs/PLAN.md GĐ13).
  *
- * Gửi mọi phiên còn chờ trong kho qua cầu nối `/api/luyen-tap/dong-bo` (routes/api.$.tsx), rồi mọi
- * lượt trò chơi offline qua `/api/luot-choi/dong-bo` (GĐ-G0). Gửi
+ * Gửi mọi phiên còn chờ trong kho qua cầu nối `/api/luyen-tap/dong-bo` (routes/api.$.tsx). Gửi
  * lại bao nhiêu lần cũng an toàn: máy chủ bỏ qua bản trùng theo `client_id` của phiên và của
  * từng câu trả lời. Chỉ gửi phiên đã nộp bài: trước khi nộp, người học còn sửa được câu trả lời.
  *
  * Tự chạy khi có mạng trở lại (sự kiện `online`), khi mở trang luyện tập offline, và sau mỗi
  * phiên; lỗi mạng thì thử lại sau, giãn dần tới 5 phút.
  */
-import { luotChoDongBo, luuLuot, luuPhien, type PhienOffline, phienChoDongBo } from "./kho";
+import { luuPhien, type PhienOffline, phienChoDongBo } from "./kho";
 
 export type KetQuaDongBo =
-  | { trangThai: "xong"; soPhien: number; xp: number }
+  | { trangThai: "xong"; soPhien: number }
   | { trangThai: "khong_co_mang" | "can_dang_nhap" | "loi"; thongBao: string };
 
 /** Sự kiện `window` phát sau mỗi lượt gửi, `detail` là KetQuaDongBo. */
@@ -45,74 +44,13 @@ async function guiMotLan(): Promise<KetQuaDongBo> {
   }
   const phien = await guiPhienLuyenTap();
   if (phien.trangThai !== "xong") return phien;
-  const luot = await guiLuotChoi();
-  if (luot.trangThai !== "xong") return luot;
-  return { trangThai: "xong", soPhien: phien.soPhien + luot.soPhien, xp: phien.xp + luot.xp };
-}
-
-/**
- * Gửi lượt trò chơi đã chơi trên máy (docs/PLAN.md GĐ-G0) qua `/api/luot-choi/dong-bo`. Máy chủ
- * sinh lại lượt từ gói và seed, chấm lại, bỏ qua bản trùng theo `client_id`; lượt chưa xong gửi
- * phần đã chơi và được gửi lại khi xong.
- */
-async function guiLuotChoi(): Promise<KetQuaDongBo> {
-  const cho = await luotChoDongBo();
-  if (!cho.length) return { trangThai: "xong", soPhien: 0, xp: 0 };
-  let res: Response;
-  try {
-    res = await fetch("/api/luot-choi/dong-bo", {
-      method: "POST",
-      headers: { "content-type": "application/json" },
-      body: JSON.stringify({
-        luot: cho.slice(0, 20).map((l) => ({
-          client_id: l.client_id,
-          ma: l.ma,
-          goi_id: l.goi_id,
-          seed: l.seed,
-          man: l.man ?? null,
-          bat_dau: l.bat_dau,
-          ket_thuc: l.ket_thuc,
-          buoc: l.buoc.map((b) => ({
-            client_id: b.client_id,
-            thu_tu: b.thu_tu,
-            tra_loi: b.tra_loi,
-            luc: b.luc,
-          })),
-        })),
-      }),
-    });
-  } catch {
-    return { trangThai: "khong_co_mang", thongBao: "Chưa gửi được kết quả. Sẽ thử lại khi có mạng." };
-  }
-  if (res.status === 401) {
-    return {
-      trangThai: "can_dang_nhap",
-      thongBao: "Đăng nhập bằng tài khoản đã được xác minh để gửi kết quả chơi offline.",
-    };
-  }
-  if (!res.ok) return { trangThai: "loi", thongBao: "Máy chủ chưa nhận kết quả. Sẽ thử lại sau." };
-  const { ket_qua } = (await res.json()) as {
-    ket_qua: Array<{ client_id: string; loi?: string; xp?: number }>;
-  };
-  let xp = 0;
-  let soPhien = 0;
-  for (const kq of ket_qua) {
-    const l = cho.find((x) => x.client_id === kq.client_id);
-    if (!l) continue;
-    xp += kq.xp ?? 0;
-    // Lượt bị từ chối (gói hết hạn, mã trùng) không gửi lại nữa, để không kẹt hàng đợi.
-    if (kq.loi || l.ket_thuc) {
-      await luuLuot({ ...l, da_dong_bo: new Date().toISOString(), xp: (l.xp ?? 0) + (kq.xp ?? 0) });
-      soPhien++;
-    }
-  }
-  return { trangThai: "xong", soPhien, xp };
+  return { trangThai: "xong", soPhien: phien.soPhien };
 }
 
 /** Gửi phiên luyện tập offline (GĐ13). */
 async function guiPhienLuyenTap(): Promise<KetQuaDongBo & { trangThai: string }> {
   const cho = await phienChoDongBo();
-  if (!cho.length) return { trangThai: "xong", soPhien: 0, xp: 0 };
+  if (!cho.length) return { trangThai: "xong", soPhien: 0 };
 
   let res: Response;
   try {
@@ -133,14 +71,12 @@ async function guiPhienLuyenTap(): Promise<KetQuaDongBo & { trangThai: string }>
   if (!res.ok) return { trangThai: "loi", thongBao: "Máy chủ chưa nhận kết quả. Sẽ thử lại sau." };
 
   const { ket_qua } = (await res.json()) as {
-    ket_qua: Array<{ client_id: string; loi?: string; xp?: number; da_ket_thuc?: boolean }>;
+    ket_qua: Array<{ client_id: string; loi?: string; da_ket_thuc?: boolean }>;
   };
-  let xp = 0;
   let soPhien = 0;
   for (const kq of ket_qua) {
     const p = cho.find((x) => x.client_id === kq.client_id);
     if (!p) continue;
-    xp += kq.xp ?? 0;
     // Phiên máy chủ từ chối (ví dụ mã phiên trùng) không gửi lại nữa, để không kẹt hàng đợi.
     // Phiên chưa làm xong giữ trạng thái chờ, để phần làm tiếp được gửi lên sau.
     if (kq.loi || p.ket_thuc) {
@@ -148,7 +84,7 @@ async function guiPhienLuyenTap(): Promise<KetQuaDongBo & { trangThai: string }>
       soPhien++;
     }
   }
-  return { trangThai: "xong", soPhien, xp };
+  return { trangThai: "xong", soPhien };
 }
 
 /** Gửi kết quả đang chờ. Gọi chồng nhau thì dùng chung một lượt gửi. */

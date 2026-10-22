@@ -1,5 +1,5 @@
 /**
- * Phần kết bài giảng (docs/PLAN.md GĐ11): nút "Hoàn thành bài" (cộng XP một lần, GĐ9) và kiểm
+ * Phần kết bài giảng (docs/PLAN.md GĐ11): nút "Hoàn thành bài" (đánh dấu bài đã xong) và kiểm
  * tra nhanh 3–5 câu rút từ ngân hàng theo chủ đề của bài. Bài kiểm tra chạy bằng phiên luyện
  * tập của GĐ4: mỗi câu một màn hình, nộp bài rồi mới xem đúng/sai, giải thích và điều khoản gốc.
  */
@@ -10,7 +10,6 @@ import { Button } from "../ui/Button";
 import { Notice } from "../ui/Field";
 
 export interface KetQuaHoanThanh {
-  xpCong: number;
   daXongTruoc: boolean;
 }
 
@@ -41,9 +40,7 @@ export function KiemTraCuoiBai({
 
       {hoanThanh ? (
         <p className="mt-2 text-base font-semibold text-ok" role="status">
-          {hoanThanh.xpCong > 0
-            ? `Đã hoàn thành bài. +${hoanThanh.xpCong} điểm kinh nghiệm.`
-            : "Đã hoàn thành bài."}
+          Đã hoàn thành bài.
         </p>
       ) : daXong ? (
         <p className="mt-2 text-base text-ok">Bạn đã hoàn thành bài này.</p>

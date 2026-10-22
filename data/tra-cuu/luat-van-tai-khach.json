@@ -1,5 +1,5 @@
 {
-  "mo_ta": "Luật vận tải hành khách cho trò Lên xe khách (docs/PLAN.md GĐ-T13). Lưu ở document_rules, nhóm van_tai_khach (câu D16). Mỗi dòng là một phép kiểm; bộ chạy luật ở packages/dao-tao/src/tro-choi/len-xe-khach.ts. Nạp bằng: bun run tra-cuu:nap",
+  "mo_ta": "Luật vận tải hành khách, nhóm van_tai_khach (docs/PLAN.md GĐ-T13). Lưu ở document_rules (câu D16). Mỗi dòng là một phép kiểm; bộ kiểm ở packages/dao-tao/src/luat-tai-lieu.ts. Nạp bằng: bun run tra-cuu:nap",
   "luu_y_bien_tap": [
     "BẢN NHÁP, DỮ LIỆU DEMO, CHƯA DUYỆT. Ngày soạn 28/9/2026, kho văn bản đang nối chưa có văn bản nào về chở quá số người, kinh doanh vận tải hành khách, lệnh vận chuyển, phù hiệu, thiết bị giám sát hành trình, thời gian lái xe liên tục và trong ngày (tra bằng công cụ tìm kiếm quy định: 0 kết quả; kho chỉ có 2 nghị định mẫu về quản lý hoạt động thử nghiệm).",
     "Căn cứ ghi vn:chua-co-trong-kho: không viện dẫn theo trí nhớ. Trước khi duyệt, đơn vị chuyên môn xác định văn bản, điều, khoản cụ thể và thay bằng URN có trong kho.",

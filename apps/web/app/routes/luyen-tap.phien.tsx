@@ -1,6 +1,6 @@
 /**
  * Một phiên luyện tập (docs/PLAN.md GĐ4): mỗi câu một màn hình, nút "Câu trước"/"Câu sau", lưới số
- * câu và "Nộp bài". Dùng cho luyện theo chủ đề, luyện câu sai, thử thách, đề ôn tập của nhóm, kiểm
+ * câu và "Nộp bài". Dùng cho luyện theo chủ đề, luyện câu sai, đề ôn tập của nhóm, kiểm
  * tra cuối bài giảng và màn của trò Vượt màn.
  *
  * Trong lúc làm KHÔNG báo đúng/sai: câu trả lời được lưu tạm lên máy chủ (chờ 0,6 giây sau lần sửa
@@ -69,23 +69,9 @@ export function shouldRevalidate({
 export async function action({ request, params }: Route.ActionArgs) {
   const { token } = await yeuCauDangNhap(request);
   try {
-    const kq = await ketThuc(token, params.phien);
+    await ketThuc(token, params.phien);
     // Nộp xong thì trang đích THAY CHỖ trang làm bài trong lịch sử (replace): phiên đã kết thúc,
     // bấm quay lại mà về trang làm bài thì loader lại đẩy sang kết quả, người dùng bị kẹt.
-    // Màn vượt màn (GĐ10): về bản đồ màn, kèm kết quả để hiện sao và màn vừa mở.
-    if (kq.tro_choi?.ma === "vuot_man") {
-      const t = kq.tro_choi;
-      const qs = new URLSearchParams({
-        man: String(t.man),
-        dung: String(kq.dung),
-        tong: String(kq.tong),
-        sao: String(t.sao),
-        dat: t.dat ? "1" : "0",
-        xp: String(t.xp),
-        phien: params.phien,
-      });
-      return replace(`/tro-choi/vuot-man/${t.chu_de_id}?${qs}`);
-    }
     return replace(`/luyen-tap/${params.phien}/ket-qua`);
   } catch (err) {
     if (err instanceof LoiApi) return { loi: err.message };

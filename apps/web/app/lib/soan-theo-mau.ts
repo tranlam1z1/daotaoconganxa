@@ -1,6 +1,6 @@
 /**
- * Phần thuần của trình soạn theo mẫu (components/quan-tri/tro-choi/SoanTheoMau.tsx): tên hiển thị của
- * từng trường và gợi ý rút từ các nội dung đã có của cùng trò chơi.
+ * Phần thuần của trình soạn theo mẫu: tên hiển thị của
+ * từng trường và gợi ý rút từ các nội dung đã có trong cùng chủ đề.
  *
  * Trò chưa có trình soạn riêng không có lược đồ; kiểu của một trường và các giá trị hay dùng được suy
  * ra từ nội dung đã có, theo TÊN trường (không theo đường dẫn).

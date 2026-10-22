@@ -3,12 +3,12 @@
  *
  * Phần duyệt nội dung chạy trên mọi bài `xuat_ban` của lĩnh vực giao thông trong CSDL (seed
  * giao thông: `bun run db:seed:dao-tao:gtdb` rồi `bun run db:seed:ngan-hang`). CSDL chưa gieo thì
- * phần đó chỉ cảnh báo, như dao-tao.test.ts. Phần hoàn thành bài và XP tự tạo chuyên đề riêng.
+ * phần đó chỉ cảnh báo, như dao-tao.test.ts. Phần hoàn thành bài tự tạo chuyên đề riêng.
  * Kiểm tra hiển thị trong trình duyệt ở cả hai chế độ nằm ở scripts/e2e/bai-giang.ts.
  */
 import { afterAll, beforeAll, describe, expect, test } from "bun:test";
 import { createSession } from "@qdpl/auth";
-import { KHOI_BAI_GIANG, NGUONG_DAT_KIEM_TRA_CUOI_BAI, QUY_TAC_XP } from "@qdpl/dao-tao";
+import { KHOI_BAI_GIANG, NGUONG_DAT_KIEM_TRA_CUOI_BAI } from "@qdpl/dao-tao";
 import { chuyenDeDaHoanThanh, sql } from "@qdpl/db";
 import { createApp } from "./app.ts";
 
@@ -135,17 +135,16 @@ describe("hoàn thành bài", () => {
     expect((await goi("POST", `${BAI}/bai-1/hoan-thanh`, undefined, {})).status).toBe(401);
   });
 
-  test("lesson_progress thành xong và XP cộng đúng một lần", async () => {
+  test("lesson_progress thành xong và chỉ ghi một lần", async () => {
     const lan1 = await goi("POST", `${BAI}/bai-1/hoan-thanh`, tk.a, {});
     expect(lan1.status).toBe(200);
     expect(lan1.body).toMatchObject({
       trangThai: "xong",
       daXongTruoc: false,
-      xpCong: QUY_TAC_XP.hoan_thanh_bai_hoc,
     });
 
     const lan2 = await goi("POST", `${BAI}/bai-1/hoan-thanh`, tk.a, {});
-    expect(lan2.body).toMatchObject({ daXongTruoc: true, xpCong: 0 });
+    expect(lan2.body).toMatchObject({ daXongTruoc: true });
 
     const [td] = (await sql`
       SELECT p.state, p.finished_at FROM lesson_progress p JOIN enrollments e ON e.id = p.enrollment_id
@@ -153,11 +152,6 @@ describe("hoàn thành bài", () => {
       WHERE e.account_id = ${acc.a} AND l.slug = 'bai-1' AND l.course_id = (SELECT id FROM courses WHERE slug = ${`${PREFIX}-cd`})`) as any[];
     expect(td.state).toBe("xong");
     expect(td.finished_at).not.toBeNull();
-
-    const [xp] = (await sql`
-      SELECT count(*)::int AS n, COALESCE(sum(xp), 0)::int AS tong FROM xp_ledger
-      WHERE account_id = ${acc.a} AND source_kind = 'bai_hoc'`) as any[];
-    expect(xp).toEqual({ n: 1, tong: QUY_TAC_XP.hoan_thanh_bai_hoc });
   });
 
   test("mở lại bài đã xong vẫn giữ trạng thái xong", async () => {
@@ -167,7 +161,7 @@ describe("hoàn thành bài", () => {
     expect(cd.body.loTrinh.map((b: any) => b.trangThai)).toEqual(["xong", "chua_mo"]);
   });
 
-  test("hoàn thành qua tien-do (xong: true) cũng chỉ cộng XP một lần", async () => {
+  test("hoàn thành qua tien-do (xong: true) cũng chỉ ghi một lần", async () => {
     const r = await goi("GET", `${BAI}/bai-2`, tk.b);
     expect(r.body.ghiDanhId).toBeNull();
     const ht = await goi("POST", `${BAI}/bai-2/hoan-thanh`, tk.b, {});
@@ -176,10 +170,7 @@ describe("hoàn thành bài", () => {
       AND course_id = (SELECT id FROM courses WHERE slug = ${`${PREFIX}-cd`})`) as any[];
     const lai = await goi("POST", `/v1/dao-tao/bai/${l2.id}/tien-do`, tk.b, { ghiDanhId, xong: true });
     expect(lai.status).toBe(200);
-    expect(lai.body.xpCong).toBe(0);
-    const [xp] = (await sql`
-      SELECT count(*)::int AS n FROM xp_ledger WHERE account_id = ${acc.b} AND source_kind = 'bai_hoc'`) as any[];
-    expect(xp.n).toBe(1);
+    expect(lai.body).toMatchObject({ tienDo: { state: "xong" } });
   });
 
   test("ghi tiến độ vào ghi danh của người khác nhận 403", async () => {

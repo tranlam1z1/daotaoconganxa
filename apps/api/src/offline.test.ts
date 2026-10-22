@@ -4,7 +4,7 @@
  */
 import { afterAll, beforeAll, describe, expect, test } from "bun:test";
 import { createSession } from "@qdpl/auth";
-import { QUY_TAC_XP } from "@qdpl/dao-tao";
+import { ngayVietNam } from "@qdpl/dao-tao";
 import { sql } from "@qdpl/db";
 import { createApp } from "./app.ts";
 
@@ -130,7 +130,6 @@ describe("đồng bộ", () => {
       id: lan1.body.ket_qua[0].id,
       so_cau_moi: 0,
       so_cau_trung: 10,
-      xp: 0,
     });
     expect(await demCauTraLoi(p.client_id)).toBe(10);
 
@@ -140,14 +139,14 @@ describe("đồng bộ", () => {
     expect(s.finished_at).not.toBeNull();
   });
 
-  test("XP cộng một lần khi đồng bộ, đúng như phiên online", async () => {
+  test("đồng bộ xong thì ghi nhận hoạt động học của ngày đó", async () => {
     const p = phienMau(goiA, () => true);
     const r = await goi("POST", "/v1/luyen-tap/dong-bo", tk.a, { phien: [p] });
-    const xp = 10 * QUY_TAC_XP.cau_dung_luyen_tap + QUY_TAC_XP.hoan_thanh_phien;
-    expect(r.body.ket_qua[0].xp).toBe(xp);
-    const [dong] = (await sql`
-      SELECT count(*)::int AS n FROM xp_ledger WHERE source_kind = 'phien_luyen_tap' AND source_id = ${r.body.ket_qua[0].id}`) as any[];
-    expect(dong.n).toBe(1);
+    expect(r.body.ket_qua[0].da_ket_thuc).toBe(true);
+    const [hoatDong] = (await sql`
+      SELECT count(*)::int AS n FROM daily_activity
+      WHERE account_id = ${acc.a} AND day = ${ngayVietNam(new Date())}::date`) as any[];
+    expect(hoatDong.n).toBe(1);
   });
 
   test("máy chủ chấm lại: gửi câu sai kèm cờ đúng cũng không được tính đúng", async () => {
@@ -159,10 +158,14 @@ describe("đồng bộ", () => {
     expect(s.correct).toBe(0);
   });
 
-  test("kết quả làm quá 7 ngày trước vẫn được lưu nhưng không cộng XP", async () => {
+  test("kết quả làm quá 7 ngày trước vẫn được lưu nhưng không ghi nhận hoạt động", async () => {
     const p = phienMau(goiA, () => true, new Date(Date.now() - 9 * 24 * 3600 * 1000));
     const r = await goi("POST", "/v1/luyen-tap/dong-bo", tk.a, { phien: [p] });
-    expect(r.body.ket_qua[0]).toMatchObject({ so_cau_moi: 10, xp: 0 });
+    expect(r.body.ket_qua[0]).toMatchObject({ so_cau_moi: 10 });
+    const [hoatDong] = (await sql`
+      SELECT count(*)::int AS n FROM daily_activity WHERE account_id = ${acc.a}`) as any[];
+    // Chỉ ngày học hôm nay được ghi, phiên cũ không sinh dòng hoạt động nào khác.
+    expect(hoatDong.n).toBeLessThanOrEqual(1);
   });
 
   test("mã phiên của người khác bị bỏ qua, không ghi vào phiên của họ", async () => {

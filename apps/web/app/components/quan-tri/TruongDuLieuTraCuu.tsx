@@ -5,7 +5,6 @@
  */
 import { NHOM_BIEN_BAO } from "../../lib/bien-bao";
 import { cn } from "../../lib/cn";
-import { TEN_THAO_TAC_BIEN_BAO, THAO_TAC_BIEN_BAO } from "../../lib/cung-duong";
 import {
   BIEN_KHOANG,
   KIEU_KIEM_LUAT,
@@ -327,26 +326,6 @@ export function TruongBienBao({ d, khiDoi }: { d?: Dong; khiDoi?: () => void }) 
           className={inputClass}
         />
       </Truong>
-      <Truong id="reaction" nhan="Phản ứng đúng (trò Cung đường biển báo)">
-        <select id="reaction" name="reaction" defaultValue={chu(d?.reaction)} className={o}>
-          <option value="">Không dùng trong trò</option>
-          {THAO_TAC_BIEN_BAO.map((t) => (
-            <option key={t} value={t}>
-              {TEN_THAO_TAC_BIEN_BAO[t]}
-            </option>
-          ))}
-        </select>
-      </Truong>
-      <Truong id="reaction_note" nhan="Giải thích phản ứng" goiY="Bắt buộc khi có phản ứng.">
-        <textarea
-          id="reaction_note"
-          name="reaction_note"
-          rows={2}
-          maxLength={500}
-          defaultValue={chu(d?.reaction_note)}
-          className={inputClass}
-        />
-      </Truong>
       <Truong id="citation_urn" nhan="Căn cứ">
         <OCanCu
           id="citation_urn"
@@ -361,7 +340,7 @@ export function TruongBienBao({ d, khiDoi }: { d?: Dong; khiDoi?: () => void }) 
 }
 
 /**
- * Luật giấy tờ của ba trò chơi dùng chung một bảng: nhóm quyết định kiểu kiểm, phần được kiểm và tham số
+ * Luật giấy tờ dùng chung một bảng: nhóm quyết định kiểu kiểm, phần được kiểm và tham số
  * nào hợp lệ. Khung hiện đủ mọi lựa chọn; API kiểm sự hợp nhau và báo lại lý do.
  */
 export function TruongLuatGiayTo({ d, khiDoi }: { d?: Dong; khiDoi?: () => void }) {

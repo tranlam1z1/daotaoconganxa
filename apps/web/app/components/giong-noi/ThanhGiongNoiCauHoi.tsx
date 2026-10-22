@@ -44,7 +44,7 @@ export function ThanhGiongNoiCauHoi({
   onChon: (id: string) => void;
   /** Câu đã chấm: không nhận đáp án nói nữa. */
   khoa?: boolean;
-  /** Đọc câu hỏi ngay khi hiện (trò chơi hỏi nhanh). */
+  /** Đọc câu hỏi ngay khi hiện. */
   tuDoc?: boolean;
 }) {
   const tts = useDocThanhTieng();
@@ -53,7 +53,7 @@ export function ThanhGiongNoiCauHoi({
   const phuongAn = de.options.phuong_an ?? [];
   const loiDoc = loiDocCauHoi(de);
 
-  // Đổi câu thì xóa thông báo cũ; trò chơi tự đọc câu mới.
+  // Đổi câu thì xóa thông báo cũ; trình đọc tự đọc câu mới.
   // biome-ignore lint/correctness/useExhaustiveDependencies: chỉ chạy lại khi đổi câu hoặc khi biết có giọng đọc
   useEffect(() => {
     setThongBao(null);

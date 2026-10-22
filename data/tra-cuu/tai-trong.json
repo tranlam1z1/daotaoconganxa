@@ -1,5 +1,5 @@
 {
-  "mo_ta": "Giới hạn tải trọng cho trò Trạm cân tải trọng (docs/PLAN.md GĐ-T12), bảng load_limits (câu D17). Mỗi dòng là một con số duyệt được: tổng trọng lượng theo loại xe, trục đơn, cụm trục theo số trục và khoảng cách trục [từ, đến) cm. Nạp bằng: bun run tra-cuu:nap",
+  "mo_ta": "Giới hạn tải trọng (docs/PLAN.md GĐ-T12), bảng load_limits (câu D17). Mỗi dòng là một con số duyệt được: tổng trọng lượng theo loại xe, trục đơn, cụm trục theo số trục và khoảng cách trục [từ, đến) cm. Nạp bằng: bun run tra-cuu:nap",
   "luu_y_bien_tap": [
     "BẢN NHÁP, DỮ LIỆU DEMO, CHƯA DUYỆT. MỌI CON SỐ Ở ĐÂY LÀ SỐ MINH HỌA ĐỂ CHẠY THỬ TRÒ CHƠI, KHÔNG LẤY TỪ VĂN BẢN. Ngày soạn 28/9/2026, kho văn bản đang nối chưa có văn bản nào về tải trọng trục, tổng trọng lượng, giấy phép lưu hành xe quá tải (tra bằng công cụ tìm kiếm quy định: 0 kết quả).",
     "Căn cứ ghi URN dự kiến ở mức văn bản, chưa có trong kho, chưa kiểm. Trước khi duyệt: đơn vị chuyên môn thay từng con số bằng số của văn bản, xác định điều, khoản, đối chiếu nguyên văn tại ngày áp dụng.",

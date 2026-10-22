@@ -37,7 +37,6 @@
     "db:seed:dao-tao:gtdb": "bun run packages/db/src/seed-dao-tao-gtdb.ts",
     "db:seed:ngan-hang": "bun run packages/db/src/seed-ngan-hang.ts",
     "db:seed:don-vi": "bun run packages/db/src/seed-don-vi.ts",
-    "db:seed:tro-choi": "bun run packages/db/src/seed-tro-choi.ts",
     "db:reset": "bun run scripts/db-reset.ts",
     "worker": "bun run apps/workers-ts/src/worker.ts",
     "pipeline": "bun run apps/workers-ts/src/cli.ts",

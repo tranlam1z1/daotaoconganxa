@@ -4,7 +4,7 @@
  *
  * - Người đăng ký khai số hiệu CAND, đơn vị công tác, cấp bậc/chức vụ. Tài khoản mới ở trạng thái
  *   chờ xác minh, vai trò `khach`: đăng nhập được nhưng chỉ vào trang Tài khoản (xem trạng thái xét
- *   duyệt, sửa thông tin đã khai, đổi mật khẩu); học, luyện tập, trò chơi và thi đều chờ duyệt.
+ *   duyệt, sửa thông tin đã khai, đổi mật khẩu); học, luyện tập và thi đều chờ duyệt.
  *   Quản trị viên hoặc cán bộ quản lý của đơn vị đã khai duyệt thì thành cán bộ (`duyetTaiKhoan`
  *   trong @qdpl/db).
  * - Đăng nhập bằng email: `username` = email chữ thường, nên dùng chung luồng mật khẩu,

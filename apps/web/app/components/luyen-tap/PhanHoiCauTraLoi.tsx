@@ -123,7 +123,7 @@ type DuLieuCanCu = ReturnType<typeof useFetcher<typeof canCuLoader>>["data"];
 
 /**
  * Nguyên văn một căn cứ đã tải từ /luyen-tap/can-cu. Dùng chung cho ngăn kéo căn cứ ở trên và phần
- * "Xem chi tiết" của hộp kết quả trò chơi (docs/PLAN.md GĐ17a, H8).
+ * "Xem chi tiết" của hộp kết quả (docs/PLAN.md GĐ17a, H8).
  */
 export function NoiDungCanCu({ d, dangTai }: { d: DuLieuCanCu; dangTai: boolean }) {
   return (

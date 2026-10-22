@@ -26,8 +26,8 @@ export interface CauTrongPhien {
 
 export interface PhienLuyenTap {
   id: string;
-  /** Phiên của trò chơi (Vượt màn, Đua, Hỏi nhanh) có nguồn `game:<mã trò>` (docs/PLAN.md GĐ17a, Đ6). */
-  nguon: "chu_de" | "cau_sai" | "thu_thach" | "nhom" | `game:${string}`;
+  /** Nguồn câu hỏi của phiên: theo chủ đề, luyện lại câu sai, đề ôn tập của nhóm học cùng. */
+  nguon: "chu_de" | "cau_sai" | "nhom";
   chu_de: string | null;
   /** Đề ôn tập của nhóm học cùng (docs/PLAN.md GĐ16b, đề xuất Đ14): nhóm để quay về và tên đề. */
   nhom?: { id: string; ten_de: string };
@@ -86,7 +86,7 @@ export const luuTam = (
     },
   );
 
-/** Chấm ngay một câu: chỉ Đua thời gian dùng; các phiên khác lưu tạm rồi chấm khi kết thúc. */
+/** Chấm ngay một câu: trả đúng/sai, đáp án, giải thích, căn cứ. */
 export const traLoi = (
   token: string,
   id: string,
@@ -100,21 +100,8 @@ export const traLoi = (
     },
   );
 
-/** Phần riêng của game trong phản hồi kết thúc phiên (GĐ10). */
-export type KetQuaTroChoi =
-  | { ma: "vuot_man"; man: number; chu_de_id: string; ty_le: number; dat: boolean; sao: number; xp: number }
-  | { ma: "dua_thoi_gian"; diem: number; ky_luc: number; pha_ky_luc: boolean; xp: number }
-  | {
-      ma: "hoi_nhanh_giong_noi";
-      diem: number;
-      tong: number;
-      ky_luc: number;
-      pha_ky_luc: boolean;
-      xp: number;
-    };
-
 export const ketThuc = (token: string, id: string) =>
-  goiApiQuanTri<{ dung: number; tong: number; giay: number; tro_choi?: KetQuaTroChoi }>(
+  goiApiQuanTri<{ dung: number; tong: number; giay: number }>(
     token,
     `/v1/luyen-tap/phien/${encodeURIComponent(id)}/ket-thuc`,
     { method: "POST" },

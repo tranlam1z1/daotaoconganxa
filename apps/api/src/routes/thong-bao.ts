@@ -71,9 +71,7 @@ thongBao.put("/cai-dat", async (c) => {
     c,
     z.object({
       remind_at: gio.nullable().optional(),
-      streak_warning: z.boolean().optional(),
       new_exam: z.boolean().optional(),
-      new_challenge: z.boolean().optional(),
       // Thông báo nhóm học cùng (docs/PLAN.md GĐ16a, câu N15).
       group_activity: z.boolean().optional(),
       quiet_from: gio.optional(),
@@ -82,9 +80,7 @@ thongBao.put("/cai-dat", async (c) => {
   );
   const moi = await luuCaiDatNhac(acc, {
     remind_at: b.remind_at === undefined ? cu.remind_at : b.remind_at,
-    streak_warning: b.streak_warning ?? cu.streak_warning,
     new_exam: b.new_exam ?? cu.new_exam,
-    new_challenge: b.new_challenge ?? cu.new_challenge,
     group_activity: b.group_activity ?? cu.group_activity,
     quiet_from: b.quiet_from ?? cu.quiet_from,
     quiet_to: b.quiet_to ?? cu.quiet_to,

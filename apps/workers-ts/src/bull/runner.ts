@@ -17,7 +17,6 @@ import { bullName, snapshot } from "./queues.ts";
 import { STAGE_BY_QUEUE, STAGES } from "./registry.ts";
 import { wrapStage } from "./stage.ts";
 import { LICH_DON_KHACH } from "./workers/don-khach.ts";
-import { LICH_MUA_GIAI } from "./workers/mua-giai.ts";
 import { LICH_NHAC_HOC } from "./workers/nhac-hoc.ts";
 import { LICH_SACH_NOI } from "./workers/sach-noi.ts";
 import { LICH_THI_HET_GIO } from "./workers/thi-het-gio.ts";
@@ -124,15 +123,6 @@ export function startWorkers(opts: RunnerOptions = {}): RunnerHandle {
         { name: QUEUES.sachNoi, data: {} },
       )
       .catch((e) => log.error("Không đăng ký được lịch dựng sách nói", { error: errText(e) }));
-  }
-  if (queues.includes(QUEUES.muaGiai)) {
-    void getQueue(QUEUES.muaGiai)
-      .upsertJobScheduler(
-        LICH_MUA_GIAI.id,
-        { every: LICH_MUA_GIAI.everyMs },
-        { name: QUEUES.muaGiai, data: {} },
-      )
-      .catch((e) => log.error("Không đăng ký được lịch mùa giải", { error: errText(e) }));
   }
   if (queues.includes(QUEUES.donKhach)) {
     void getQueue(QUEUES.donKhach)

@@ -3,7 +3,7 @@ import { type ComponentProps, type ReactNode, useEffect, useRef } from "react";
 import { cn } from "../../lib/cn";
 
 /**
- * Thanh nút dính đáy màn hình (khay trò chơi, nút chuyển trang slide): lớp .thanh-dinh-day trong
+ * Thanh nút dính đáy màn hình (khay công cụ, nút chuyển trang slide): lớp .thanh-dinh-day trong
  * app.css đặt thanh ngay trên thanh điều hướng dưới cùng, hoặc trên vùng thanh home của iPhone ở trang
  * không có thanh đó. Khi thanh đang dính đáy, chiều cao của nó được khai vào biến --thanh-hanh-dong
  * trên <html> để nút nổi "Lên đầu trang" và thông báo nhanh (toast) nằm phía trên, không che nút chính.

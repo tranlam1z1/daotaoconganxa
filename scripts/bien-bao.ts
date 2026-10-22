@@ -112,8 +112,6 @@ if (import.meta.main) {
       ordinal: b.thu_tu ?? i + 1,
       status: b.trang_thai,
       note: b.ghi_chu ?? null,
-      reaction: b.phan_ung ?? null,
-      reaction_note: b.ghi_chu_phan_ung ?? null,
     })),
     // Tệp chỉ là nguồn nhập; duyệt trong ứng dụng (docs/PLAN.md GĐ-G0).
     { cheDo: args.includes("--chap-nhan-trang-thai") ? "theo_tep" : "cho_duyet" },

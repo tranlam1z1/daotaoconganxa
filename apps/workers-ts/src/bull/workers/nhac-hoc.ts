@@ -1,6 +1,6 @@
 /**
  * Nhắc học và thông báo đẩy (docs/PLAN.md GĐ15). Chạy lặp mỗi 15 phút theo lịch do runner đăng ký
- * (`LICH_NHAC_HOC`): giờ học tự chọn, chuỗi ngày sắp đứt (20h), thử thách mới (7h), đề thi mới
+ * (`LICH_NHAC_HOC`): giờ học tự chọn, đề thi mới
  * được giao. Tôn trọng giờ yên lặng 22h–6h (mỗi người đổi được).
  *
  * Lớp mỏng: quyết định gửi gì nằm ở packages/dao-tao/src/lich-nhac.ts, việc chống gửi trùng và

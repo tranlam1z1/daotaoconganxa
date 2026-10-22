@@ -1,6 +1,6 @@
 # PROMPT LÀM CHỨC NĂNG NHÓM HỌC CÙNG
 
-*Soạn ngày 29/9/2026. Dùng cho phiên trợ lý lập trình (Claude Code) làm việc trong repo này. Cùng khuôn với [PROMPT_TRO_CHOI_MOI.md](PROMPT_TRO_CHOI_MOI.md).*
+*Soạn ngày 29/9/2026. Dùng cho phiên trợ lý lập trình (Claude Code) làm việc trong repo này.*
 
 **Chức năng:** cán bộ lập nhóm học cùng, chia sẻ bài học và đề ôn tập vào nhóm để các thành viên khác cùng học. Mỗi thành viên có tiến độ theo phần trăm. Thành viên cổ vũ lẫn nhau. Cán bộ quản lý xem tiến độ học của mọi cán bộ trong đơn vị mình. Giao diện dùng hộp thoại (modal). Một số việc dùng mô hình AI.
 
@@ -43,7 +43,7 @@
 
 **API và quyền**
 - Hono. Mỗi miền một tệp `apps/api/src/routes/<miền>.ts`, gắn vào `apps/api/src/app.ts` bằng `app.route("/v1/...")`.
-  - Một tệp có thể export hai route, ví dụ `mua-giai.ts` export `muaGiaiRoute` và `quanTriMuaGiaiRoute`.
+  - Một tệp có thể export hai route: một cho người học, một cho quản trị.
   - Các route `/v1/quan-tri/<miền>` gắn trước dòng `app.route("/v1/quan-tri", quanTri)`.
 - Kiểm đầu vào bằng zod qua `parseBody`, `parseQuery`. Lỗi dùng `badRequest`, `notFound`, `conflict`. Tất cả ở `apps/api/src/http.ts`.
   - `ApiError` chỉ có mã 400, 404, 409, 500, 501.
@@ -68,7 +68,7 @@
 - Đơn vị: `units.path` kiểu ltree; tài khoản gắn đơn vị qua `accounts.unit_id`. Khóa chính của `accounts`, `units` là uuid, mặc định `uuid_generate_v4()`.
 - Tài khoản: họ tên ở `accounts.name`, cấp bậc ở `accounts.rank_title`, cùng `username`, `email`. Khóa tài khoản là đặt `enabled = false`; mã không xóa cứng tài khoản, chỉ test xóa khi dọn dữ liệu.
 
-**Bài học, luyện tập, thi, điểm thưởng**
+**Bài học, luyện tập, thi**
 - **Bài học:** `courses`, `lessons` (`status`, `topic_id`, `estimated_minutes`), `lesson_blocks`.
   - Trang bài học chỉ mở khi **cả chuyên đề và bài** ở `xuat_ban`; thiếu một trong hai thì API bài học trả 404 (`apps/api/src/routes/dao-tao.ts`, `GET /chuyen-de/:slug/bai/:baiSlug`).
   - Ghi danh: `enrollments`, UNIQUE theo `(account_id, course_id)`.
@@ -78,28 +78,20 @@
   - Hàm `hoanThanhBaiHoc`, `ghiTienDo` ở `packages/db/src/dao-tao.ts`. `hoanThanhBaiHoc` tự ghi danh nếu chưa có.
   - **Trang web chưa gửi vị trí khối.** Không tệp nào trong `apps/web/app` gọi `POST /v1/dao-tao/bai/:id/tien-do`. Mở bài khi đã ghi danh chỉ ghi `dang_hoc` với khối 0; chưa ghi danh thì mở bài không ghi gì. Vì vậy phần trăm một bài hiện chỉ là 0 hoặc 100 (xem N14).
 - **Luyện tập:** `practice_sessions`.
-  - CHECK của cột `source` được tạo ở `0014` và nới lại ở `0020`, `0022`, `0024`. Không migration nào khác sửa CHECK này. Bản mới nhất (`0024_sach_noi.sql`) có 8 giá trị: `chu_de`, `cau_sai`, `thu_thach`, `game:vuot_man`, `game:dua_thoi_gian`, `game:ghep_cap`, `game:doan_bien_bao`, `game:hoi_nhanh_giong_noi`.
+  - CHECK của cột `source` được tạo ở `0014` và nới lại ở `0020`, `0022`, `0024`, `0056`. Danh sách giá trị đầy đủ nằm trong các migration đó; khi nới CHECK phải liệt kê đủ mọi giá trị đã có.
   - Mỗi phiên lưu ảnh chụp câu ở `items`, số câu ở `total`, lúc kết thúc ở `finished_at`, số câu đúng ở `correct`. Câu trả lời ở `practice_answers`, UNIQUE `(session_id, question_id)`.
-  - Kiểu `NguonPhien` ở `packages/db/src/luyen-tap.ts`. `POST /v1/luyen-tap/phien` chỉ nhận `chu_de`, `cau_sai`, `thu_thach`. Phiên offline luôn ghi `chu_de`.
-  - `ketThucPhien` (`packages/db/src/luyen-tap.ts`) cộng XP với nguồn `thu_thach` hoặc `phien_luyen_tap`, bỏ qua `game:*`. Kiểu `NguonPhienXp` ở `packages/dao-tao/src/diem-thuong.ts`.
-- **Thử thách hằng ngày** chốt danh sách câu trong `daily_challenges.question_ids uuid[]`. Đề ôn tập của nhóm làm theo đúng mẫu này. Mã nằm ở ba chỗ:
-  - nhánh `thu_thach` của `POST /v1/luyen-tap/phien` trong `apps/api/src/routes/luyen-tap.ts`;
-  - `cauThuThachNgay`, `cauHoiDaDuyetTheoId`, `phienThuThachHomNay` ở `packages/db/src/diem-thuong.ts`;
-  - `dungCauThuThach` (bỏ câu không còn duyệt, giữ thứ tự, đảo phương án theo seed) ở `packages/dao-tao/src/diem-thuong.ts`.
+  - Kiểu `NguonPhien` ở `packages/db/src/luyen-tap.ts`. `POST /v1/luyen-tap/phien` chỉ nhận `chu_de`, `cau_sai`. Phiên offline luôn ghi `chu_de`.
 - **Rút câu theo chủ đề:** `nguonTheoChuDe` (gồm chủ đề con) và `chuDeLuyenTap` (số câu đã duyệt gồm chủ đề con) ở `packages/db/src/luyen-tap.ts`; `rutCauLuyenTap({ soCau })` (chia đủ ba mức độ) ở `packages/dao-tao/src/luyen-tap.ts`.
 - **Thi:** bảng `exams` (đề 30–40 câu, trạng thái `nhap|xuat_ban|dong`), `exam_assignments` (giao cho đơn vị hoặc cho một người), `exam_attempts` (`dang_lam|da_nop`), view `v_ket_qua_thi`.
-- **Điểm thưởng (XP):** chỉ cộng qua `congXp(tx, …)` ở `packages/db/src/diem-thuong.ts`. Mức điểm để trong `QUY_TAC_XP` ở `packages/dao-tao/src/diem-thuong.ts`.
-  - `congXp` ghi cả `daily_activity` và chuỗi ngày học (`streaks`), xét huy hiệu. Mỗi lần cộng XP được tính là một ngày học.
-  - Khóa chống cộng hai lần: UNIQUE `(source_kind, source_id)` trên `xp_ledger`, không có CHECK cho `source_kind`.
 
 **Báo cáo, thông báo**
 - **Báo cáo GĐ7:** `apps/api/src/routes/bao-cao.ts` và `packages/db/src/bao-cao.ts`.
   - Có 4 báo cáo và `GET /bo-loc`. Xuất `?dinh_dang=xlsx|pdf`, mỗi lần xuất ghi `audit_log` với hành động `bao_cao.xuat`.
   - Hàm `chuanBi()` (quyền, phạm vi, 403 khi chưa gắn đơn vị) và `traVe()` (JSON, Excel, PDF, ghi nhật ký) trong `routes/bao-cao.ts` dùng lại được.
-  - **Chưa có báo cáo tiến độ bài học.** Báo cáo luyện tập chỉ tính `source` trong hằng `NGUON_LUYEN_TAP = ['chu_de','cau_sai','thu_thach']` ở `packages/db/src/bao-cao.ts`. Báo cáo câu hỏi khó tính mọi câu trả lời luyện tập, không lọc `source`.
+  - **Chưa có báo cáo tiến độ bài học.** Báo cáo luyện tập chỉ tính `source` trong hằng `NGUON_LUYEN_TAP = ['chu_de','cau_sai','nhom']` ở `packages/db/src/bao-cao.ts`. Báo cáo câu hỏi khó tính mọi câu trả lời luyện tập, không lọc `source`.
 - **Thông báo:** chỉ có Web Push, không có hộp thư trong ứng dụng.
   - Bảng ở `0025_thong_bao.sql`, chống gửi trùng bằng UNIQUE `(account_id, kind, ref)`. `notifications_sent.kind` không có CHECK.
-  - `notification_prefs` có một cột bật/tắt cho từng loại (`streak_warning`, `new_exam`, `new_challenge`), chưa có cột cho nhóm.
+  - `notification_prefs` có cột bật/tắt `new_exam`; GĐ16a thêm cột `group_activity` cho nhóm học.
   - Kiểu `LoaiThongBao` và hàm `thongBaoCanGui` ở `packages/dao-tao/src/lich-nhac.ts`; `phatThongBao`, `chayNhacHoc` ở `packages/db/src/thong-bao.ts`.
   - **API không tự gửi được thông báo.** Thư viện `web-push` chỉ cài ở `apps/workers-ts`. `phatThongBao` nhận hàm gửi từ ngoài vào, và chỉ job `nhac-hoc` (15 phút một nhịp, `apps/workers-ts/src/bull/workers/nhac-hoc.ts`) gọi nó qua `chayNhacHoc`.
 
@@ -111,7 +103,7 @@
   - máy tính: `MAIN_NAV` (Tra cứu · Học & luyện tập · Thi) và mục "Tôi" dựng bằng hàm `mucToi`;
   - điện thoại (dưới 768px): thanh dưới `BOTTOM_NAV` (Trang chủ · Học · Thi) cộng mục "Tôi" và nút "Thêm"; ngăn "Thêm" lấy từ `MORE_NAV`;
   - mục "Học" của `BOTTOM_NAV` chép `khop` từ `MAIN_NAV[1]`, nên thêm `/nhom` vào `MAIN_NAV[1].khop` là đủ cho cả hai.
-- Làm bài luyện tập ở `/luyen-tap/:phien` và `/luyen-tap/:phien/ket-qua`. Kiểu `nguon` ở `apps/web/app/lib/luyen-tap.server.ts` chỉ có `chu_de`, `cau_sai`, `thu_thach`.
+- Làm bài luyện tập ở `/luyen-tap/:phien` và `/luyen-tap/:phien/ket-qua`. Kiểu `nguon` ở `apps/web/app/lib/luyen-tap.server.ts` chỉ có `chu_de`, `cau_sai`, `nhom`.
 - **Chưa có component hộp thoại dùng chung.** Hai chỗ dùng thẻ `<dialog>` gốc với `showModal()`: `components/thi/HopXacNhanNop.tsx` và ngăn "Thêm" trong `components/layout/BottomNav.tsx` (chạm nền mờ thì đóng).
   - Lớp `.sheet` (`styles/app.css`) biến hộp thoại thành tấm bám đáy màn hình, chỉ dưới 768px. Từ 768px mỗi hộp tự khai kiểu bằng tiền tố `md:`.
   - `.sheet` không có hiệu ứng chuyển động và không khóa cuộn nền.
@@ -130,7 +122,7 @@
 - **API test:** `createApp().request(...)`, tạo phiên bằng `(await createSession(acc, "test")).token`. Dữ liệu gieo mang tiền tố `PREFIX` và xóa trong `afterAll`. Mẫu: `apps/api/src/bao-cao.test.ts`.
 - **E2E:** mỗi kịch bản là một tệp `scripts/e2e/<tên>.ts`, chạy bằng `bun run e2e <tên>`. Ngữ cảnh `NguCanhE2E` (`scripts/e2e/chay.ts`) có sẵn `taoTaiKhoan`, `dangNhap`, `kiemKhongCuonNgang`, `donDep`.
 
-**Chức năng xã hội:** chưa có (không có thích, bình luận, mã mời, nhóm học). Chữ "nhóm" trong `mua-giai.ts` là bảng đấu của mùa giải, không liên quan.
+**Chức năng xã hội:** chưa có (không có thích, bình luận, mã mời, nhóm học).
 
 ### 1.4. Quy tắc cứng
 
@@ -144,7 +136,7 @@
    - `quan_tri` thấy tất cả.
 4. **Chỉ chia sẻ nội dung đã xuất bản hoặc đã duyệt:** bài học `xuat_ban`, câu hỏi `da_duyet`.
    - Nội dung bị gỡ sau khi đã chia sẻ thì mục hiện "Nội dung không còn được xuất bản" và không tính vào tiến độ.
-5. **Không cộng XP mới cho việc làm trong nhóm.** Hành động gốc (hoàn thành bài, kết thúc phiên luyện tập) đã cộng XP qua `congXp`. Cổ vũ có cộng XP hay không theo N8.
+5. **Việc làm trong nhóm không tính vào tiến độ cá nhân.** Tiến độ nhóm tính bằng phần trăm bài học và đề ôn tập; cổ vũ không ảnh hưởng tiến độ (N8).
 6. **Menu người học giữ tối đa 4 mục** (PLAN §0.4). Lối vào nhóm học theo N1, không thêm mục menu thứ năm.
 7. **Giao diện điện thoại:**
    - khung 360×740, không cuộn ngang, chữ nội dung ≥ 16px, vùng chạm ≥ 48px;
@@ -258,7 +250,7 @@ Index: `(owner_account_id)`, `(unit_id)`, `(status, updated_at DESC)`.
 | `kind` | `text NOT NULL` | CHECK `IN ('bai_hoc','de_on_tap')` |
 | `lesson_id` | `uuid REFERENCES lessons(id) ON DELETE CASCADE` | Khi `kind = 'bai_hoc'` |
 | `topic_id` | `uuid REFERENCES question_topics(id) ON DELETE SET NULL` | Chủ đề nguồn của đề ôn tập, để hiển thị |
-| `question_ids` | `uuid[]` | Đề ôn tập: 5–20 câu `da_duyet` chốt lúc chia sẻ, giống `daily_challenges` |
+| `question_ids` | `uuid[]` | Đề ôn tập: 5–20 câu `da_duyet` chốt lúc chia sẻ |
 | `title` | `text` | Tên đề ôn tập do người chia sẻ đặt, 3–80 ký tự, bắt buộc với đề ôn tập. Bài học để trống và đọc tên từ `lessons.title` lúc hiển thị (Đ6) |
 | `shared_by` | `uuid REFERENCES accounts(id) ON DELETE SET NULL` | |
 | `ordinal` | `int NOT NULL DEFAULT 0` | Thứ tự do trưởng nhóm sắp |
@@ -274,7 +266,7 @@ Index: `(owner_account_id)`, `(unit_id)`, `(status, updated_at DESC)`.
 
 **`practice_sessions` (sửa bảng có sẵn)**
 - Thêm cột `group_item_id uuid REFERENCES study_group_items(id) ON DELETE SET NULL`.
-- Nới CHECK `source` thêm giá trị `'nhom'`, giữ đủ 8 giá trị của `0024`.
+- Nới CHECK `source` thêm giá trị `'nhom'`, giữ đủ các giá trị đã có trong các migration trước.
 - Thêm index một phần `(group_item_id, account_id) WHERE group_item_id IS NOT NULL`.
 - Thêm UNIQUE một phần `(group_item_id, account_id) WHERE group_item_id IS NOT NULL AND finished_at IS NULL`: mỗi người một phiên đang làm cho mỗi đề, bấm "Làm đề" hai lần cùng lúc vẫn chỉ có một phiên.
 
@@ -333,7 +325,7 @@ Hàm thuần `tinhTienDoNhom(...)` đặt ở `packages/dao-tao/src/nhom-hoc.ts`
   - chưa làm là 0.
 - **Dựng đề ôn tập** dùng lại mã có sẵn (Đ3):
   - lúc chia sẻ: `nguonTheoChuDe` (gồm chủ đề con) và `rutCauLuyenTap({ soCau })`, lưu `question_ids`;
-  - lúc bắt đầu: `cauHoiDaDuyetTheoId`, `dungCauThuThach` (bỏ câu không còn duyệt, giữ thứ tự, đảo phương án theo seed), `taoPhienLuyenTap` với `groupItemId`;
+  - lúc bắt đầu: `cauHoiDaDuyetTheoId`, `dungCauTheoId` (bỏ câu không còn duyệt, giữ thứ tự, đảo phương án theo seed), `taoPhienLuyenTap` với `groupItemId`;
   - `GET /nguon?loai=chu_de` dùng `chuDeLuyenTap`.
 - Không có loại "đề thi" (N2 chọn đề xuất).
 
@@ -344,7 +336,7 @@ Hàm thuần `tinhTienDoNhom(...)` đặt ở `packages/dao-tao/src/nhom-hoc.ts`
 **Quy tắc biên:**
 - Học trước khi vào nhóm vẫn tính. Bài đã xong từ trước là 100.
 - Mục đã gỡ, hoặc nội dung không còn xuất bản, không tính.
-- Câu hỏi trong đề ôn tập bị gỡ duyệt sau khi chia sẻ thì đề ngắn lại cho mọi người, không thay câu khác (giống thử thách hằng ngày). Còn dưới 5 câu (đếm trên `question_ids` còn `da_duyet`, Đ4) thì mục hiện "Nội dung không còn đủ câu", không tính, và không bắt đầu phiên mới được (409).
+- Câu hỏi trong đề ôn tập bị gỡ duyệt sau khi chia sẻ thì đề ngắn lại cho mọi người, không thay câu khác. Còn dưới 5 câu (đếm trên `question_ids` còn `da_duyet`, Đ4) thì mục hiện "Nội dung không còn đủ câu", không tính, và không bắt đầu phiên mới được (409).
 - Tiến độ của thành viên đã rời nhóm không hiện với thành viên khác.
 
 ### 2.4. Cổ vũ
@@ -359,7 +351,7 @@ Hàm thuần `tinhTienDoNhom(...)` đặt ở `packages/dao-tao/src/nhom-hoc.ts`
   - không cổ vũ người đã rời nhóm.
 - API trả `{ da_co_vu, tong }` sau mỗi lần bấm (Đ10). Giao diện cập nhật ngay, lỗi thì trả về trạng thái cũ và báo lỗi.
 - Giới hạn 60 lần bấm mỗi phút cho mỗi tài khoản, quá thì trả 429. Đếm trong bộ nhớ theo mẫu `choPhepDoc` (Đ8), vì API chạy 1 instance.
-- Không cộng XP (N8).
+- Không ảnh hưởng tiến độ của người nhận (N8).
 - **Thông báo (N9, N15, Đ9):**
   - loại `nhom_hoc` trong `LoaiThongBao`;
   - API không phát thông báo; job `nhac-hoc` (15 phút một nhịp) đếm lượt cổ vũ nhận trong ngày và bài người khác chia sẻ trong ngày, ở nhóm đang hoạt động mà người đó đang là thành viên;
@@ -397,7 +389,7 @@ Mọi đầu vào kiểm bằng zod với `.strict()`, để khóa lạ (ví d�
 | `POST /:id/co-vu/:accountId` | Cổ vũ hoặc bỏ cổ vũ hôm nay, trả `{ da_co_vu, tong }` |
 | `POST /:id/luu-tru` | Lưu trữ nhóm (trưởng nhóm) |
 
-- Phiên đề ôn tập làm và kết thúc bằng các route luyện tập có sẵn. XP theo N17: chỉ lần kết thúc đầu tiên của mỗi người với mỗi mục có XP (khóa `xp_ledger` `nhom:<mục>:<người>`). `GET /v1/luyen-tap/phien/:id` trả thêm `nhom: { id, ten_de }` khi `source = 'nhom'` (Đ14).
+- Phiên đề ôn tập làm và kết thúc bằng các route luyện tập có sẵn. `GET /v1/luyen-tap/phien/:id` trả thêm `nhom: { id, ten_de }` khi `source = 'nhom'` (Đ14).
 - **Test quét khóa cấm:** phản hồi của `GET /v1/nhom/:id` và `GET /v1/nhom/:id/thanh-vien/:accountId/tien-do` không được chứa các khóa `score`, `diem`, `correct`, `so_cau_dung`, `passed`, `dat` ở bất kỳ độ sâu nào.
 
 **Quản lý: `/v1/quan-tri/nhom`** (`quan_ly` trở lên, lọc theo `phamViCua`; `quan_ly` chưa gắn đơn vị nhận 403, Đ11)
@@ -440,7 +432,7 @@ Mọi đầu vào kiểm bằng zod với `.strict()`, để khóa lạ (ví d�
   - Chạm vào một thành viên thì mở hộp thoại tiến độ của người đó.
 - `/nhom/tham-gia/:ma`: trang đích của liên kết mời. Chưa đăng nhập thì chuyển sang đăng nhập rồi quay lại.
 - Lối vào theo N1 (chọn khác): thẻ "Nhóm học cùng" trên `/luyen-tap`, và dòng "Nhóm học cùng" trong ngăn "Thêm" (`MORE_NAV`) trên điện thoại. Không có dòng ở `/toi`.
-  - `/nhom` nằm trong `khop` của mục "Học & luyện tập", nên mục đó (và mục "Học" trên điện thoại) sáng khi đang ở trang nhóm, như trang Bảng xếp hạng.
+  - `/nhom` nằm trong `khop` của mục "Học & luyện tập", nên mục đó (và mục "Học" trên điện thoại) sáng khi đang ở trang nhóm.
 - Thanh phần trăm dùng `components/nhom/ThanhPhanTram.tsx` (Đ13), không dùng `ThanhTienDo`.
 - Đề ôn tập làm trên trang `/luyen-tap/:phien` có sẵn; đầu trang hiện "Đề ôn tập của nhóm: <tên đề>", trang kết quả có nút chính "Về nhóm" (Đ14).
 - Bài học hiện 0% hoặc 100% vì trang bài học chưa gửi vị trí khối (N14 chọn không sửa trang bài học).
@@ -537,16 +529,16 @@ Ghi trả lời vào cột cuối. Phiên làm mã đọc cột này.
 | N5 | Phần trăm chung tính thế nào? | Trung bình cộng các mục, trọng số bằng nhau, làm tròn xuống | Trọng số theo thời lượng ước tính của bài và số câu của đề | Theo đề xuất (29/9/2026) |
 | N6 | Đề ôn tập tính 100% khi nào? Báo cáo luyện tập GĐ7 có tính phiên `nhom` không? | Kết thúc một phiên là 100%, không đòi điểm tối thiểu. Báo cáo luyện tập có tính phiên `nhom` | Đòi tối thiểu 70% câu đúng; khi đó phần trăm lộ gián tiếp kết quả. Không tính phiên `nhom` vào báo cáo | Theo đề xuất (29/9/2026) |
 | N7 | Luật cổ vũ? | Mỗi ngày tối đa một lượt cho mỗi người trong mỗi nhóm; bấm lại để bỏ; hiện tổng lượt nhận trong nhóm | Cổ vũ gắn với từng mục đã hoàn thành, mỗi người một lần mỗi mục | Theo đề xuất (29/9/2026) |
-| N8 | Cổ vũ có cộng XP không? | Không, để tránh cổ vũ qua lại lấy điểm | +1 XP cho người nhận, tối đa 5 XP mỗi ngày, qua `congXp`, nguồn `co_vu` | Theo đề xuất (29/9/2026) |
+| N8 | Cổ vũ có làm thay đổi tiến độ học của người nhận không? | Không, cổ vũ chỉ ghi nhận lượt cổ vũ trong nhóm, không tính vào tiến độ | Có, cổ vũ tính thêm vào tiến độ của mục đã hoàn thành | Theo đề xuất (29/9/2026) |
 | N9 | Có gửi thông báo khi được cổ vũ, khi có bài mới trong nhóm? | Có, Web Push loại `nhom_hoc`, gộp tối đa một thông báo mỗi ngày | Không gửi, chỉ hiện trong trang nhóm | Theo đề xuất (29/9/2026) |
 | N10 | Giới hạn số lượng? | Tối đa 30 thành viên mỗi nhóm, 30 mục đang có mỗi nhóm. Mỗi người tạo tối đa 5 nhóm đang hoạt động, tham gia tối đa 10 nhóm | Nêu số khác | Theo đề xuất (29/9/2026) |
-| N11 | Quản lý có quyền gì với nhóm? | Xem, và lưu trữ nhóm có trưởng nhóm trong phạm vi (ghi `audit_log`). Không sửa nội dung, không giao bài qua nhóm | Giao bài qua nhóm: thêm `exam_assignments.group_id`, liên quan câu hỏi mở ở GAP_ANALYSIS.md dòng 303 | Theo đề xuất (29/9/2026) |
+| N11 | Quản lý có quyền gì với nhóm? | Xem, và lưu trữ nhóm có trưởng nhóm trong phạm vi (ghi `audit_log`). Không sửa nội dung, không giao bài qua nhóm | Giao bài qua nhóm: thêm `exam_assignments.group_id`, liên quan câu hỏi mở ở GAP_ANALYSIS.md §4.3, câu 14 | Theo đề xuất (29/9/2026) |
 | N12 | Làm những việc AI nào? | AI-1 (gợi ý thứ tự học) và AI-2 (tóm tắt tiến độ cho quản lý). AI-3 (soạn lời nhắc cho thành viên chậm) để sau | Chỉ AI-2; hoặc thêm AI-3; hoặc không làm GĐ16d | Theo đề xuất (30/9/2026) |
 | N13 | "Quản lý xem tiến độ học của mọi học viên": phạm vi đến đâu? | Báo cáo tiến độ chung của từng cán bộ trong cây đơn vị (bài học, luyện tập, thi, nhóm), không chỉ trong nhóm | Chỉ tiến độ trong các nhóm học cùng | Theo đề xuất (29/9/2026) |
 | N14 | Trang bài học chưa gửi vị trí khối đang đọc (mục 1.3), nên phần trăm một bài học hiện chỉ là 0 hoặc 100. Có sửa trang bài học trong GĐ16 không? | Không sửa. Hàm tính vẫn theo công thức `phanTramBai`, nên tự đúng khi trang bài học gửi vị trí khối sau này. Giao diện nhóm hiện bài học là 0% hoặc 100% | GĐ16b sửa `training.lesson.tsx`: mở bài từ nhóm thì ghi danh trước; đọc qua một khối thì gửi `lastBlockOrdinal` qua `POST /v1/dao-tao/bai/:id/tien-do`. Thêm tệp vào "File sửa" GĐ16b và ca kiểm vào `scripts/e2e/bai-giang.ts` | Theo đề xuất (29/9/2026) |
 | N15 | Nếu N9 chọn có thông báo: người dùng tắt riêng thông báo nhóm bằng cách nào? | Thêm cột `notification_prefs.group_activity` (mặc định bật) trong `0056` và công tắc "Thông báo nhóm học" trong khối nhắc học ở `/toi`. Thông báo phát trong nhịp job `nhac-hoc`, trễ tối đa 15 phút, không gửi trong giờ yên lặng | Không có công tắc riêng; muốn tắt thì tắt toàn bộ thông báo trên thiết bị | Theo đề xuất (29/9/2026) |
 | N16 | Trưởng nhóm bị khóa tài khoản (`enabled = false`) thì ai giữ quyền trưởng nhóm? | Khi đọc hoặc ghi vào nhóm, máy chủ thấy trưởng nhóm bị khóa thì chuyển quyền cho thành viên đang ở trong nhóm có `joined_at` sớm nhất. Không còn ai thì nhóm chuyển `luu_tru` | Giữ nguyên: nhóm không có trưởng nhóm hoạt động cho tới khi quản lý lưu trữ. Hoặc cho `quan_ly` chỉ định trưởng nhóm mới trong phạm vi, ghi `audit_log` | Theo đề xuất (29/9/2026) |
-| N17 | Đề ôn tập có câu cố định. Làm lại nhiều lần thì có cộng XP mỗi lần không? | Được làm lại. XP chỉ cộng ở lần kết thúc đầu tiên của mỗi người với mỗi mục: khóa `xp_ledger` theo người và mục thay cho theo phiên. Phần trăm mục vẫn lấy phiên cao nhất như mục 2.3 | Mỗi lần kết thúc cộng XP như phiên luyện tập thường; đề 20 câu làm đúng hết được 45 XP mỗi lần (20 × 2 + 5 theo `QUY_TAC_XP`) | Theo đề xuất (29/9/2026) |
+| N17 | Đề ôn tập có câu cố định. Làm lại nhiều lần thì phần trăm mục tính thế nào? | Được làm lại. Phần trăm mục lấy theo phiên có phần trăm cao nhất như mục 2.3 | Chỉ tính lần làm đầu tiên | Theo đề xuất (29/9/2026) |
 
 **Soát bảng ngày 29/9/2026**
 
@@ -554,7 +546,6 @@ Ghi trả lời vào cột cuối. Phiên làm mã đọc cột này.
 - N6 gồm hai quyết định độc lập: điều kiện tính 100% và việc báo cáo luyện tập GĐ7 có tính phiên `nhom` hay không. Trả lời được riêng từng vế.
 - Hệ quả rút từ mã, để cân nhắc khi chọn khác đề xuất:
   - N5: thời lượng bài lấy từ `lessons.estimated_minutes`, mặc định 15 phút cho bài chưa khai.
-  - N8: `congXp` ghi cả `daily_activity` và chuỗi ngày học. Cổ vũ có XP thì người được cổ vũ giữ được chuỗi ngày học mà không học bài nào.
   - N9: API không tự gửi được Web Push (mục 1.3). Thông báo nhóm phải đi qua job `nhac-hoc` 15 phút một nhịp.
 
 Câu cần trả lời trước từng giai đoạn:
@@ -574,7 +565,7 @@ Câu cần trả lời trước từng giai đoạn:
 |---|---|---|---|---|
 | Đ1 | 1.4 quy tắc 4; 2.3 quy tắc biên; 2.5 `POST /:id/muc` | API bài học trả 404 khi chuyên đề chưa `xuat_ban`, dù bài đã `xuat_ban` | Bài học chia sẻ được và được tính khi **cả bài và chuyên đề** ở `xuat_ban`. Chuyên đề bị gỡ thì mục hiện "Nội dung không còn được xuất bản" | Đồng ý (29/9/2026) |
 | Đ2 | 2.3 Bài học | `phanTramBai` là hàm nội bộ, làm tròn bằng `Math.round`; số khối đếm theo từng chuyên đề (`soKhoiTheoBai`) | Hàm thuần mới nhận `(state, lastBlockOrdinal, soKhoi)`, giữ `Math.round` và mức chặn 99 để kết quả cũ không đổi. Truy vấn nhóm đếm khối theo danh sách `lesson_id` của nhóm trong cùng lượt truy vấn. Phần trăm chung và trung bình nhóm vẫn làm tròn xuống | Đồng ý (29/9/2026) |
-| Đ3 | 2.3, 2.5 đề ôn tập | Các hàm chọn câu, dựng phiên và đếm câu theo chủ đề đã có (mục 1.3, "Thử thách hằng ngày" và "Rút câu theo chủ đề"). Mục 4 GĐ16a việc 4 trước đây trỏ nhầm sang `packages/db/src/luyen-tap.ts`, đã sửa | Lúc chia sẻ: chọn câu bằng `nguonTheoChuDe` và `rutCauLuyenTap({ soCau })`, lưu `question_ids`. Lúc bắt đầu: `cauHoiDaDuyetTheoId`, rồi `dungCauThuThach`, rồi `taoPhienLuyenTap`. `GET /nguon?loai=chu_de` dùng `chuDeLuyenTap`. Không viết lại các hàm này | Đồng ý (29/9/2026) |
+| Đ3 | 2.3, 2.5 đề ôn tập | Các hàm chọn câu, dựng phiên và đếm câu theo chủ đề đã có (mục 1.3, "Rút câu theo chủ đề"). Mục 4 GĐ16a việc 4 trước đây trỏ nhầm sang `packages/db/src/luyen-tap.ts`, đã sửa | Lúc chia sẻ: chọn câu bằng `nguonTheoChuDe` và `rutCauLuyenTap({ soCau })`, lưu `question_ids`. Lúc bắt đầu: `cauHoiDaDuyetTheoId`, rồi `dungCauTheoId`, rồi `taoPhienLuyenTap`. `GET /nguon?loai=chu_de` dùng `chuDeLuyenTap`. Không viết lại các hàm này | Đồng ý (29/9/2026) |
 | Đ4 | 2.3 Đề ôn tập | Phiên lưu ảnh chụp câu ở `items`; `total` là số câu lúc bắt đầu; câu đã trả lời ở `practice_answers` | Phiên đang làm: số dòng `practice_answers` của phiên chia `total` của chính phiên đó. Ngưỡng "còn dưới 5 câu" tính trên số câu trong `question_ids` còn `da_duyet` | Đồng ý (29/9/2026) |
 | Đ5 | 2.2 `join_scope`, `show_progress`, `exam_id`, giá trị `de_thi` | Các cột chỉ có nghĩa khi N3, N4, N2 chọn khác đề xuất | Chỉ tạo cột và giá trị CHECK khi câu tương ứng chọn phương án cần chúng. Cần sau thì thêm bằng `ADD COLUMN IF NOT EXISTS` | Đồng ý (29/9/2026) |
 | Đ6 | 2.2 `study_group_items.title` | `lessons.title` sửa được qua `POST /v1/quan-tri/dao-tao/bai` (`luuBaiHoc`) | Bài học đọc tên từ `lessons.title` lúc hiển thị, để bài đổi tên thì nhóm thấy tên mới. `title` chỉ bắt buộc với đề ôn tập (CHECK theo `kind`) | Đồng ý (29/9/2026) |
@@ -628,12 +619,12 @@ Việc làm:
 1. Migration 0056_nhom_hoc_cung.sql theo mục 2.2: study_groups, study_group_members, study_group_items, study_group_cheers; cột practice_sessions.group_item_id và giá trị source 'nhom' (liệt kê đủ mọi giá trị CHECK đã có). Chỉ thêm, chạy lại được.
 2. packages/dao-tao/src/nhom-hoc.ts: hằng số giới hạn (N10), sinh mã mời, hàm thuần tinhTienDoNhom theo mục 2.3, luật cổ vũ theo ngày giờ Việt Nam (nhận tham số now). Chuyển phanTramBai từ apps/api/src/routes/dao-tao.ts sang đây; route cũ gọi lại hàm mới, kết quả không đổi.
 3. packages/db/src/nhom-hoc.ts: truy vấn và giao dịch (tạo nhóm, tham gia, rời, chuyển quyền, chia sẻ, gỡ, sắp thứ tự, cổ vũ, lưu trữ). Tiến độ một nhóm gom bằng một lượt truy vấn, không truy vấn lặp theo người.
-4. Đề ôn tập: chốt question_ids lúc chia sẻ (chỉ câu da_duyet, 5–20 câu), tạo phiên source = 'nhom' theo đúng đường của thử thách hằng ngày: nhánh thu_thach của POST /v1/luyen-tap/phien trong apps/api/src/routes/luyen-tap.ts, hàm cauHoiDaDuyetTheoId ở packages/db/src/diem-thuong.ts, dungCauThuThach ở packages/dao-tao/src/diem-thuong.ts, taoPhienLuyenTap ở packages/db/src/luyen-tap.ts. Kết thúc phiên dùng route luyện tập có sẵn, XP theo N17.
+4. Đề ôn tập: chốt question_ids lúc chia sẻ (chỉ câu da_duyet, 5–20 câu), tạo phiên source = 'nhom' bằng các hàm có sẵn: cauHoiDaDuyetTheoId ở packages/db/src/luyen-tap.ts, dungCauTheoId ở packages/dao-tao/src/luyen-tap.ts, taoPhienLuyenTap ở packages/db/src/luyen-tap.ts. Kết thúc phiên dùng route luyện tập có sẵn.
 5. apps/api/src/routes/nhom.ts: các route /v1/nhom ở mục 2.5, zod .strict(), 404 với người không phải thành viên, giới hạn thử mã mời (429).
 6. N6: nếu báo cáo luyện tập tính phiên 'nhom' thì thêm 'nhom' vào bộ lọc source trong packages/db/src/bao-cao.ts, không đổi phần khác.
 7. N9: thêm loại 'nhom_hoc' vào LoaiThongBao và nhánh gửi trong thongBaoCanGui (packages/dao-tao/src/lich-nhac.ts), đếm hoạt động nhóm trong tinhTrangNguoiNhan (packages/db/src/thong-bao.ts). Thông báo phát trong nhịp job nhac-hoc, không phát từ API (Đ9); tối đa một thông báo mỗi ngày mỗi người; công tắc group_activity theo N15.
 
-File sửa: apps/api/src/app.ts (gắn route), apps/api/src/routes/dao-tao.ts (chỉ phần phanTramBai), apps/api/src/routes/luyen-tap.ts (chỉ trường nhom, Đ14), apps/api/src/routes/thong-bao.ts (công tắc group_activity, N15), packages/dao-tao/src/index.ts, packages/dao-tao/src/diem-thuong.ts (chỉ kiểu NguonPhienXp), packages/db/src/index.ts, packages/db/src/luyen-tap.ts (nguồn 'nhom', khóa XP N17), packages/db/src/bao-cao.ts (chỉ bộ lọc source, nếu N6 chọn tính), packages/dao-tao/src/lich-nhac.ts và packages/db/src/thong-bao.ts (chỉ khi N9 chọn có), docs/PLAN.md.
+File sửa: apps/api/src/app.ts (gắn route), apps/api/src/routes/dao-tao.ts (chỉ phần phanTramBai), apps/api/src/routes/luyen-tap.ts (chỉ trường nhom, Đ14), apps/api/src/routes/thong-bao.ts (công tắc group_activity, N15), packages/dao-tao/src/index.ts, packages/db/src/index.ts, packages/db/src/luyen-tap.ts (nguồn 'nhom'), packages/db/src/bao-cao.ts (chỉ bộ lọc source, nếu N6 chọn tính), packages/dao-tao/src/lich-nhac.ts và packages/db/src/thong-bao.ts (chỉ khi N9 chọn có), docs/PLAN.md.
 File tạo: packages/db/migrations/0056_nhom_hoc_cung.sql, packages/dao-tao/src/nhom-hoc.ts, packages/dao-tao/tests/nhom-hoc.test.ts, packages/db/src/nhom-hoc.ts, apps/api/src/routes/nhom.ts, apps/api/src/nhom.test.ts.
 
 Test bắt buộc:
@@ -644,9 +635,9 @@ Test bắt buộc:
   - sai mã 10 lần thì lần 11 nhận 429; mã cũ sau khi đổi nhận 404; nhóm đủ số thành viên nhận 409; nhóm lưu trữ nhận 409 với mọi thao tác ghi;
   - chia sẻ bài chưa xuất bản nhận 400; chủ đề dưới 5 câu đã duyệt nhận 400; chia sẻ trùng bài nhận 409; gửi kèm khóa phan_tram nhận 400;
   - quét khóa cấm (mục 2.5) trên phản hồi của thành viên đạt;
-  - tự cổ vũ nhận 400; bấm hai lần trong ngày thì về 0; không cổ vũ được người đã rời; không có dòng xp_ledger nào do cổ vũ (nếu N8 chọn không);
+  - tự cổ vũ nhận 400; bấm hai lần trong ngày thì về 0; không cổ vũ được người đã rời; cổ vũ không làm thay đổi tiến độ của người nhận;
   - trưởng nhóm rời khi còn thành viên nhận 409; chuyển quyền rồi rời được; thành viên cuối rời thì nhóm thành luu_tru;
-  - bắt đầu đề ôn tập hai lần trả cùng một phiên; kết thúc phiên thì phần trăm mục là 100 và XP cộng đúng một lần.
+  - bắt đầu đề ôn tập hai lần trả cùng một phiên; kết thúc phiên thì phần trăm mục là 100.
 - Hiệu năng: GET /v1/nhom/:id với 30 thành viên, 30 mục trả về dưới 300 ms trên máy dev.
 - Migration áp sạch trên CSDL trống và trên CSDL đang có dữ liệu; chạy lại lần hai không lỗi.
 

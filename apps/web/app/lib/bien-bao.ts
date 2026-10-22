@@ -1,6 +1,6 @@
 /**
  * Biển báo phía web (docs/PLAN.md GĐ12): kiểu, nhãn nhóm và lời gọi tra cứu công khai (không
- * cần token). Lời gọi game cần token nằm ở bien-bao.server.ts.
+ * cần token).
  */
 import { apiBase } from "./api";
 

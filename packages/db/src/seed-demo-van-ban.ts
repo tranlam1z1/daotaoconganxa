@@ -5,7 +5,7 @@
  * điều khoản, quan hệ và lệnh sửa đổi từ kho thật (`DEMO_NGUON_DATABASE_URL`, chỉ đọc) sang CSDL
  * demo (`DATABASE_URL`). Danh sách văn bản gồm các văn bản bài giảng giao thông khai báo (`VB`
  * trong seed-dao-tao-gtdb.ts), QCVN 41:2024/BGTVT về biển báo, và mọi văn bản mà nội dung trong
- * CSDL demo đang trích: câu hỏi, bài giảng, hoạt động, nội dung trò chơi, dữ liệu tra cứu nhanh.
+ * CSDL demo đang trích: câu hỏi, bài giảng, hoạt động, dữ liệu tra cứu nhanh.
  * Vì đọc căn cứ từ CSDL demo, `bun run demo` chạy bước này SAU khi đã gieo các nội dung đó.
  *
  * An toàn:
@@ -39,7 +39,6 @@ async function danhSachVanBan(): Promise<string[]> {
   const trich = await sql<Array<{ urn: string }>>`
     WITH cc AS (
       SELECT unnest(citations) AS u FROM questions
-      UNION ALL SELECT unnest(citations) FROM game_content
       UNION ALL SELECT unnest(citations) FROM lesson_blocks
       UNION ALL SELECT unnest(citations) FROM activities
       UNION ALL SELECT node_urn FROM citations

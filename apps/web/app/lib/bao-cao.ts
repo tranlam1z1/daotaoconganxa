@@ -246,24 +246,6 @@ export interface HoSoCanBo {
     manh: ChuDeManhYeu[];
     yeu: ChuDeManhYeu[];
   };
-  tro_choi: {
-    xp_tong: number;
-    xp_tuan: number;
-    cap: number;
-    chuoi_hien_tai: number;
-    chuoi_tot_nhat: number;
-    hang_don_vi: number | null;
-    so_nguoi_don_vi: number;
-    huy_hieu: Array<{ ten: string; mo_ta: string; dat_luc: string }>;
-    luot: Array<{
-      ma: string;
-      ten: string;
-      so_luot: number;
-      sao: number | null;
-      diem: number | null;
-      lan_choi: string | null;
-    }>;
-  };
 }
 
 /* ------------------------------------------------------------------ */

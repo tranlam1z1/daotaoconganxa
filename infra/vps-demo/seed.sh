@@ -11,7 +11,6 @@ step "Bài giảng giao thông đường bộ" bun run packages/db/src/seed-dao-
 step "Ngân hàng câu hỏi" bun run packages/db/src/seed-ngan-hang.ts
 step "Tra cứu nhanh" bun run scripts/tra-cuu-nhanh.ts
 step "Biển báo" bun run scripts/bien-bao.ts
-step "Trò chơi (dữ liệu demo)" bun run scripts/demo-tro-choi.ts
 step "Văn bản chép từ kho thật" bun run packages/db/src/seed-demo-van-ban.ts
 step "Văn bản từ tệp Markdown" bun run scripts/demo-van-ban-tep.ts
 step "Đơn vị và tài khoản mẫu" bun run packages/db/src/seed-don-vi.ts

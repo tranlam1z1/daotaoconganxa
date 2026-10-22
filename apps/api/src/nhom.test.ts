@@ -256,16 +256,10 @@ describe("tiến độ trên dữ liệu gieo 3 thành viên, 2 bài học, 1 đ
     expect(r.body).toMatchObject({ phien_id: n.phienC, da_co: true });
   });
 
-  test("kết thúc phiên thì mục là 100 và XP cộng đúng một lần; làm lại không cộng thêm (N17)", async () => {
-    const khoa = `nhom:${n.de}:${tk.c!.id}`;
+  test("kết thúc phiên thì mục là 100; làm lại vẫn giữ 100 (N17)", async () => {
     expect((await goi("POST", `/v1/luyen-tap/phien/${n.phienC}/ket-thuc`, tk.c!.token)).status).toBe(200);
     const muc = await goi("GET", `/v1/nhom/${n.id}`, tk.c!.token);
     expect(muc.body.muc[2].phan_tram_cua_toi).toBe(100);
-    const dem = async () =>
-      ((await sql`SELECT count(*)::int AS n FROM xp_ledger WHERE source_id = ${khoa}`) as any[])[0]
-        .n as number;
-    expect(await dem()).toBe(1);
-
     const lai = await goi("POST", `/v1/nhom/${n.id}/muc/${n.de}/bat-dau`, tk.c!.token);
     expect(lai.status).toBe(201);
     expect(lai.body.phien_id).not.toBe(n.phienC);
@@ -273,7 +267,6 @@ describe("tiến độ trên dữ liệu gieo 3 thành viên, 2 bài học, 1 đ
     expect((await goi("POST", `/v1/luyen-tap/phien/${lai.body.phien_id}/ket-thuc`, tk.c!.token)).status).toBe(
       200,
     );
-    expect(await dem()).toBe(1);
   });
 });
 
@@ -503,11 +496,7 @@ describe("cổ vũ", () => {
   });
   const coVu = (tu: TaiKhoan, den: string) => goi("POST", `/v1/nhom/${n.id}/co-vu/${den}`, tu.token);
 
-  test("tự cổ vũ nhận 400; bấm hai lần trong ngày thì về 0; không cộng XP (N8)", async () => {
-    const xp = async () =>
-      ((await sql`SELECT count(*)::int AS n FROM xp_ledger WHERE account_id = ${tk.h!.id}`) as any[])[0]
-        .n as number;
-    const truoc = await xp();
+  test("tự cổ vũ nhận 400; bấm hai lần trong ngày thì về 0 (N8)", async () => {
     expect((await coVu(tk.g!, tk.g!.id)).status).toBe(400);
     const lan1 = await coVu(tk.g!, tk.h!.id);
     expect(lan1.body).toEqual({ da_co_vu: true, tong: 1 });
@@ -516,7 +505,6 @@ describe("cổ vũ", () => {
     const xemG = await goi("GET", `/v1/nhom/${n.id}`, tk.g!.token);
     expect(xemG.body.thanh_vien.find((t: any) => t.id === tk.h!.id).da_co_vu).toBe(true);
     expect((await coVu(tk.g!, tk.h!.id)).body).toEqual({ da_co_vu: false, tong: 0 });
-    expect(await xp()).toBe(truoc);
   });
 
   test("không cổ vũ được người đã rời nhóm", async () => {
@@ -585,9 +573,7 @@ describe("thông báo nhóm học cùng", () => {
     await thamGia(tk.n3!, g.ma);
     const tatCa = {
       remind_at: null,
-      streak_warning: false,
       new_exam: false,
-      new_challenge: false,
       quiet_from: "00:00",
       quiet_to: "00:00",
     };
@@ -625,27 +611,17 @@ describe("thông báo nhóm học cùng", () => {
 /* ------------------------------------------------------------------ */
 
 describe("CHECK nguồn phiên", () => {
-  test("tạo được phiên với cả 9 giá trị source", async () => {
-    const nguon = [
-      "chu_de",
-      "cau_sai",
-      "thu_thach",
-      "game:vuot_man",
-      "game:dua_thoi_gian",
-      "game:ghep_cap",
-      "game:doan_bien_bao",
-      "game:hoi_nhanh_giong_noi",
-      "nhom",
-    ];
+  test("tạo được phiên với các giá trị source còn dùng", async () => {
+    const nguon = ["chu_de", "cau_sai", "nhom"];
     const tao = (await sql`
       INSERT INTO practice_sessions (account_id, source)
       SELECT ${tk.a!.id}, s FROM unnest(${nguon}::text[]) s
       RETURNING id`) as any[];
-    expect(tao).toHaveLength(9);
+    expect(tao).toHaveLength(3);
     await sql`DELETE FROM practice_sessions WHERE id = ANY(${tao.map((r) => r.id as string)}::uuid[])`;
     let loiCheck = "";
     try {
-      await sql`INSERT INTO practice_sessions (account_id, source) VALUES (${tk.a!.id}, 'game:khong_co')`;
+      await sql`INSERT INTO practice_sessions (account_id, source) VALUES (${tk.a!.id}, 'khong_co')`;
     } catch (e) {
       loiCheck = (e as { constraint_name?: string }).constraint_name ?? "";
     }

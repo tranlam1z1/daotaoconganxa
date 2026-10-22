@@ -1,6 +1,6 @@
 /**
  * Lịch nhắc học (docs/PLAN.md GĐ15), dùng tham số `now` theo giờ Việt Nam (UTC+7): đúng giờ thì
- * có thông báo, giờ yên lặng thì không, đã học hôm nay thì không cảnh báo chuỗi ngày.
+ * có thông báo, giờ yên lặng thì không, đã học hôm nay thì không nhắc lại.
  */
 import { describe, expect, test } from "bun:test";
 import {
@@ -19,8 +19,6 @@ const luc = (vn: string) => new Date(`${vn.replace(" ", "T")}:00+07:00`);
 const nguoi = (p: Partial<TinhTrangNguoiHoc> = {}): TinhTrangNguoiHoc => ({
   cai_dat: { ...CAI_DAT_MAC_DINH, remind_at: "19:30" },
   da_hoc_hom_nay: false,
-  chuoi_ngay: 3,
-  co_thu_thach: true,
   bai_giao_moi: [],
   ...p,
 });
@@ -77,30 +75,7 @@ describe("nhắc giờ học", () => {
   });
 });
 
-describe("cảnh báo chuỗi ngày", () => {
-  test("20h mà hôm nay chưa học thì cảnh báo", () => {
-    expect(loai(nguoi(), luc("2026-09-24 20:00"))).toContain("chuoi_ngay");
-  });
-
-  test("người đã học hôm nay không nhận cảnh báo chuỗi ngày", () => {
-    expect(loai(nguoi({ da_hoc_hom_nay: true }), luc("2026-09-24 20:00"))).not.toContain("chuoi_ngay");
-  });
-
-  test("chưa có chuỗi hoặc đã tắt cảnh báo thì không gửi; trước 20h thì chưa gửi", () => {
-    expect(loai(nguoi({ chuoi_ngay: 0 }), luc("2026-09-24 20:10"))).not.toContain("chuoi_ngay");
-    expect(
-      loai(nguoi({ cai_dat: { ...CAI_DAT_MAC_DINH, streak_warning: false } }), luc("2026-09-24 20:10")),
-    ).not.toContain("chuoi_ngay");
-    expect(loai(nguoi(), luc("2026-09-24 19:59"))).not.toContain("chuoi_ngay");
-  });
-});
-
-describe("thử thách và đề thi mới", () => {
-  test("7h có thử thách thì gửi; không có câu thì không", () => {
-    expect(loai(nguoi(), luc("2026-09-24 07:00"))).toContain("thu_thach");
-    expect(loai(nguoi({ co_thu_thach: false }), luc("2026-09-24 07:00"))).not.toContain("thu_thach");
-  });
-
+describe("đề thi mới", () => {
   test("mỗi bài giao mới là một thông báo, ref là id bài giao; tắt thì không gửi", () => {
     const t = nguoi({
       bai_giao_moi: [

@@ -80,7 +80,6 @@ describe("API đăng ký và cài đặt", () => {
     expect(r.body.so_thiet_bi).toBe(0);
     expect(r.body.cai_dat).toMatchObject({
       remind_at: null,
-      streak_warning: true,
       quiet_from: "22:00",
       quiet_to: "06:00",
     });
@@ -99,10 +98,10 @@ describe("API đăng ký và cài đặt", () => {
 
   test("đặt giờ nhắc; giờ sai dạng bị từ chối; chỉ sửa trường gửi lên", async () => {
     const r = await goi("PUT", "/v1/thong-bao/cai-dat", A.token, { remind_at: "19:30" });
-    expect(r.body).toMatchObject({ remind_at: "19:30", streak_warning: true });
+    expect(r.body).toMatchObject({ remind_at: "19:30" });
     expect((await goi("PUT", "/v1/thong-bao/cai-dat", A.token, { remind_at: "25:00" })).status).toBe(400);
-    const tat = await goi("PUT", "/v1/thong-bao/cai-dat", A.token, { streak_warning: false });
-    expect(tat.body).toMatchObject({ remind_at: "19:30", streak_warning: false });
+    const tat = await goi("PUT", "/v1/thong-bao/cai-dat", A.token, { new_exam: false });
+    expect(tat.body).toMatchObject({ remind_at: "19:30", new_exam: false });
   });
 
   test("hủy đăng ký chỉ xóa được thiết bị của chính mình", async () => {
@@ -156,9 +155,7 @@ describe("một nhịp nhắc học", () => {
     await luuDangKyDay({ accountId: C.id, endpoint: endpoint("c1"), ...KHOA });
     await luuCaiDatNhac(C.id, {
       remind_at: "19:30",
-      streak_warning: true,
       new_exam: true,
-      new_challenge: false,
       quiet_from: "22:00",
       quiet_to: "06:00",
     });
@@ -189,9 +186,7 @@ describe("một nhịp nhắc học", () => {
     // Không giờ yên lặng, để test không phụ thuộc giờ chạy.
     await luuCaiDatNhac(D.id, {
       remind_at: null,
-      streak_warning: false,
       new_exam: true,
-      new_challenge: false,
       quiet_from: "00:00",
       quiet_to: "00:00",
     });

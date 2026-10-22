@@ -149,8 +149,7 @@ export function NhacHoc({ laQuanTri = false }: { laQuanTri?: boolean }) {
         Nhắc học
       </h2>
       <p className="mt-1 text-[15px] leading-relaxed text-ink-2">
-        Nhận thông báo khi đến giờ học, khi chuỗi ngày sắp đứt, khi có thử thách hoặc bài thi mới. Không gửi
-        từ 22h đến 6h.
+        Nhận thông báo khi đến giờ học và khi có bài thi mới. Không gửi từ 22h đến 6h.
       </p>
 
       {ch && !ch.da_cau_hinh ? (
@@ -218,9 +217,7 @@ export function NhacHoc({ laQuanTri = false }: { laQuanTri?: boolean }) {
 function CaiDat({ caiDat }: { caiDat: CauHinhThongBao["cai_dat"] & { group_activity?: boolean } }) {
   const f = useFetcher<typeof action>();
   const [gio, datGio] = useState(caiDat.remind_at ?? "");
-  const [chuoi, datChuoi] = useState(caiDat.streak_warning);
   const [deThi, datDeThi] = useState(caiDat.new_exam);
-  const [thuThach, datThuThach] = useState(caiDat.new_challenge);
   const [nhom, datNhom] = useState(caiDat.group_activity ?? true);
 
   const oChon = (id: string, nhan: string, gt: boolean, dat: (v: boolean) => void) => (
@@ -250,9 +247,7 @@ function CaiDat({ caiDat }: { caiDat: CauHinhThongBao["cai_dat"] & { group_activ
           className={inputClass}
         />
       </div>
-      {oChon("canh-bao-chuoi", "Báo lúc 20h nếu chuỗi ngày học sắp đứt", chuoi, datChuoi)}
       {oChon("de-thi-moi", "Báo khi có bài thi mới được giao", deThi, datDeThi)}
-      {oChon("thu-thach", "Báo thử thách mỗi sáng lúc 7h", thuThach, datThuThach)}
       {oChon("thong-bao-nhom", "Báo khi có lượt cổ vũ hoặc bài mới trong nhóm học cùng", nhom, datNhom)}
       <Button
         variant="secondary"
@@ -264,9 +259,7 @@ function CaiDat({ caiDat }: { caiDat: CauHinhThongBao["cai_dat"] & { group_activ
               intent: "cai-dat",
               du_lieu: JSON.stringify({
                 remind_at: gio ? gio.slice(0, 5) : null,
-                streak_warning: chuoi,
                 new_exam: deThi,
-                new_challenge: thuThach,
                 group_activity: nhom,
               }),
             },

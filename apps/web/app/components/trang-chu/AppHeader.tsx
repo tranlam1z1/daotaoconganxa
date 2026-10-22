@@ -5,7 +5,6 @@ import type { NguoiDung } from "../../lib/types";
 /**
  * Băng chào đầu trang chủ, ngay dưới thanh đầu trang (SiteHeader): nền theo giao diện sáng/tối
  * (lớp .bang-chao và token --chao-* trong app.css), lời chào và đoạn giới thiệu.
- * Cấp và XP xem ở trang /toi, không nhắc lại ở đây.
  */
 export function AppHeader({ nguoiDung }: { nguoiDung: NguoiDung | null }) {
   const hoTen = nguoiDung ? (nguoiDung.ten ?? nguoiDung.ten_dang_nhap ?? nguoiDung.email) : null;
@@ -21,8 +20,8 @@ export function AppHeader({ nguoiDung }: { nguoiDung: NguoiDung | null }) {
         </h1>
         {nguoiDung?.cho_xac_minh ? (
           <p className="mt-2 max-w-2xl text-base leading-relaxed text-ink-2">
-            Tài khoản chưa được xác minh cán bộ. Tra cứu và bộ công cụ dùng được ngay; học, luyện tập, trò
-            chơi và thi mở sau khi được duyệt.{" "}
+            Tài khoản chưa được xác minh cán bộ. Tra cứu và bộ công cụ dùng được ngay; học, luyện tập và thi
+            mở sau khi được duyệt.{" "}
             <Link to="/tai-khoan" className="font-medium text-primary underline underline-offset-2">
               Xem trạng thái xác minh
             </Link>

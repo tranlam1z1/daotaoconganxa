@@ -325,9 +325,6 @@ describe("danh sách, hồ sơ cán bộ và tổng quan", () => {
       { chu_de: "Tốc độ (thử GĐ7)", so_phien: 2, so_cau: 3, so_dung: 2, ty_le_dung: 66.7 },
     ]);
     expect(r.body.bai_hoc).toEqual([]);
-    expect(r.body.tro_choi).toMatchObject({ xp_tong: 0, cap: 1, chuoi_hien_tai: 0, luot: [] });
-    // Đội A có 4 cán bộ và 1 cán bộ quản lý.
-    expect(r.body.tro_choi.so_nguoi_don_vi).toBe(5);
   });
 
   test("người không đạt, và lọc ngày không còn lượt nào thì đề thành quá hạn", async () => {
@@ -380,7 +377,6 @@ describe("danh sách, hồ sơ cán bộ và tổng quan", () => {
       `${PREFIX} Đề sát hạch tháng 9`,
       "Chưa ghi danh chuyên đề nào.",
       "Tốc độ (thử GĐ7)",
-      "Chưa chơi trò nào.",
     ]) {
       expect(chu).toContain(co);
     }

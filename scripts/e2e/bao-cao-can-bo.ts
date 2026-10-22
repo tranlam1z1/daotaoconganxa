@@ -118,7 +118,7 @@ export default async function baoCaoCanBo(n: NguCanhE2E) {
 
   /* 3. Hồ sơ */
   await page.getByRole("heading", { name: "Nguyễn Văn Đã Học" }).waitFor();
-  for (const phan of ["Bài thi", "Bài học", "Luyện tập", "Trò chơi và điểm thưởng"]) {
+  for (const phan of ["Bài thi", "Bài học", "Luyện tập"]) {
     await page.getByRole("heading", { name: phan, exact: true }).waitFor();
   }
   const dongDe = page.getByRole("row", { name: new RegExp(`${ma} Đề sát hạch thử`) });

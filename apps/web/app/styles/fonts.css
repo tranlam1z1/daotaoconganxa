@@ -6,7 +6,7 @@
  * Bộ font theo thương hiệu (docs/brand): Inter cho chữ chạy (thân bài, giao diện), Poppins cho chữ
  * hiển thị (tiêu đề, chữ nhấn). Poppins không có bộ ký tự tiếng Việt nên chuỗi font cho chữ hiển thị
  * kèm "Be Vietnam Pro" (hình học, có đủ dấu tiếng Việt) làm dự phòng — không phụ thuộc font hệ
- * thống nên hiển thị giống nhau trên mọi máy. Lexend là font riêng của khu trò chơi (giấy tờ, biểu
+ * thống nên hiển thị giống nhau trên mọi máy. Lexend là font riêng của phần biểu tượng (biểu
  * bằng), giữ nguyên.
  *
  * Tạo lại: tải CSS từ fonts.googleapis.com (Inter 400–700, Poppins 500–700, Be Vietnam Pro 400–700,

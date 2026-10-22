@@ -1,6 +1,6 @@
 /**
  * Hồ sơ học tập của một cán bộ, mở từ danh sách cán bộ ở trang Báo cáo hoặc từ trang Tổng quan:
- * bài thi (từng đề), bài học (từng chuyên đề), luyện tập (từng chủ đề), trò chơi và điểm thưởng.
+ * bài thi (từng đề), bài học (từng chuyên đề) và luyện tập (từng chủ đề).
  * Lọc được theo khoảng ngày; tải về Excel hoặc PDF.
  *
  * Phạm vi do API kiểm: cán bộ ngoài cây đơn vị của người xem trả 403, hiện trang "Không đủ quyền".
@@ -145,14 +145,13 @@ export default function HoSoCanBoTrang({ loaderData, params }: Route.ComponentPr
             ]}
           />
           <p className="mt-3 text-sm text-ink-2">
-            Khoảng ngày áp cho bài thi đã nộp, bài học đã xong, bài tập, câu trả lời luyện tập và lượt chơi.
-            Số đề được giao, điểm thưởng, huy hiệu, chủ đề mạnh yếu và lần học gần nhất không lọc theo ngày.
+            Khoảng ngày áp cho bài thi đã nộp, bài học đã xong, bài tập và câu trả lời luyện tập. Số đề được
+            giao, chủ đề mạnh yếu và lần học gần nhất không lọc theo ngày.
           </p>
 
           <BaiThi ds={hoSo.bai_thi} />
           <BaiHoc ds={hoSo.bai_hoc} />
           <LuyenTap lt={hoSo.luyen_tap} />
-          <TroChoi tc={hoSo.tro_choi} />
         </div>
       ) : null}
     </section>
@@ -324,7 +323,7 @@ function LuyenTap({ lt }: { lt: HoSoCanBo["luyen_tap"] }) {
         <DanhSachChuDe nhan="Chủ đề yếu" ds={lt.yeu} tone="warn" />
       </div>
       <p className="mt-2 text-sm text-ink-3">
-        Chủ đề mạnh, yếu tính từ mọi câu trả lời (luyện tập, thi và trò chơi), ưu tiên lượt gần đây.
+        Chủ đề mạnh, yếu tính từ mọi câu trả lời (luyện tập và thi), ưu tiên lượt gần đây.
       </p>
       {lt.chu_de.length === 0 ? (
         <Trong title="Chưa có câu trả lời luyện tập nào" />
@@ -371,81 +370,6 @@ function LuyenTap({ lt }: { lt: HoSoCanBo["luyen_tap"] }) {
               <td className={cn(TD, SO)}>{soVn(lt.ty_le_dung, "%")}</td>
             </tr>
           </tfoot>
-        </KhungBang>
-      )}
-    </Phan>
-  );
-}
-
-function TroChoi({ tc }: { tc: HoSoCanBo["tro_choi"] }) {
-  return (
-    <Phan id="hs-tro-choi" tieuDe="Trò chơi và điểm thưởng">
-      <TomTat
-        muc={[
-          { nhan: "Điểm thưởng (XP)", giaTri: soVn(tc.xp_tong), phu: `tuần này ${soVn(tc.xp_tuan)}` },
-          { nhan: "Cấp", giaTri: soVn(tc.cap) },
-          {
-            nhan: "Chuỗi ngày học",
-            giaTri: `${tc.chuoi_hien_tai} ngày`,
-            phu: `dài nhất ${tc.chuoi_tot_nhat} ngày`,
-          },
-          {
-            nhan: "Hạng tuần trong đơn vị",
-            giaTri: tc.hang_don_vi ? `${tc.hang_don_vi}/${tc.so_nguoi_don_vi}` : "—",
-          },
-        ]}
-      />
-      <div className="mt-3 rounded-xl border border-line bg-surface p-3">
-        <h4 className="font-sans text-sm font-semibold text-ink-2">Huy hiệu đã đạt</h4>
-        {tc.huy_hieu.length === 0 ? (
-          <p className="mt-2 text-sm text-ink-3">Chưa có huy hiệu nào.</p>
-        ) : (
-          <ul className="mt-2 grid gap-2 sm:grid-cols-2">
-            {tc.huy_hieu.map((h) => (
-              <li key={h.ten} className="text-sm">
-                <span className="font-semibold">{h.ten}</span>
-                <span className="block text-ink-3">
-                  {h.mo_ta} · {formatNgayGio(h.dat_luc)}
-                </span>
-              </li>
-            ))}
-          </ul>
-        )}
-      </div>
-      {tc.luot.length === 0 ? (
-        <Trong title="Chưa chơi trò nào" />
-      ) : (
-        <KhungBang minRem={34}>
-          <thead className="text-ink-3">
-            <tr>
-              <th scope="col" className={cn(TH, DINH)}>
-                Trò chơi
-              </th>
-              <th scope="col" className={cn(TH, SO)}>
-                Số lượt
-              </th>
-              <th scope="col" className={cn(TH, SO)}>
-                Sao cao nhất
-              </th>
-              <th scope="col" className={cn(TH, SO)}>
-                Điểm cao nhất
-              </th>
-              <th scope="col" className={TH}>
-                Chơi gần nhất
-              </th>
-            </tr>
-          </thead>
-          <tbody>
-            {tc.luot.map((l) => (
-              <tr key={l.ma} className="border-t border-line">
-                <td className={cn(TD, DINH)}>{l.ten}</td>
-                <td className={cn(TD, SO)}>{l.so_luot}</td>
-                <td className={cn(TD, SO)}>{l.sao === null ? "—" : `${l.sao}/3`}</td>
-                <td className={cn(TD, SO)}>{soVn(l.diem)}</td>
-                <td className={TD}>{formatNgayGio(l.lan_choi)}</td>
-              </tr>
-            ))}
-          </tbody>
         </KhungBang>
       )}
     </Phan>

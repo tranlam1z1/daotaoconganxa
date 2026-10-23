@@ -322,7 +322,7 @@ describe("xác minh cán bộ tự đăng ký", () => {
     const choD = await taoChoDuyet("cho-d", dv.doiD);
 
     // Chưa duyệt: ngoài nhóm API tài khoản, mọi nhóm khác coi như chưa đăng nhập.
-    expect((await goi("GET", "/v1/toi/tong-quan", { token: choC.token })).status).toBe(401);
+    expect((await goi("GET", "/v1/toi/lich-su", { token: choC.token })).status).toBe(401);
 
     const ds = await goi("GET", "/v1/quan-tri/nguoi-dung?xac_minh=cho_duyet", { token: quanLyC });
     expect(ds.status).toBe(200);
@@ -366,7 +366,7 @@ describe("xác minh cán bộ tự đăng ký", () => {
       xac_minh_boi: `${PREFIX}-quan-ly-c`,
     });
     // Phiên đang mở có quyền cán bộ ngay, không phải đăng nhập lại.
-    expect((await goi("GET", "/v1/toi/tong-quan", { token: choC.token })).status).toBe(200);
+    expect((await goi("GET", "/v1/toi/lich-su", { token: choC.token })).status).toBe(200);
     const lai = await goi("POST", `/v1/quan-tri/nguoi-dung/${choC.id}/xac-minh`, {
       token: quanLyC,
       body: { duyet: true },
@@ -396,7 +396,7 @@ describe("xác minh cán bộ tự đăng ký", () => {
     const me = await goi("GET", "/v1/auth/me", { token: choD.token });
     expect(me.body.cho_xac_minh).toBe(true);
     expect(me.body.xac_minh.ly_do_tu_choi).toBe("Số hiệu không khớp danh sách đội");
-    expect((await goi("GET", "/v1/toi/tong-quan", { token: choD.token })).status).toBe(401);
+    expect((await goi("GET", "/v1/toi/lich-su", { token: choD.token })).status).toBe(401);
 
     const ds = await goi("GET", "/v1/quan-tri/nguoi-dung?xac_minh=tu_choi", { token: tk.quanTri });
     expect(ds.body.items.map((u: any) => u.id)).toContain(choD.id);

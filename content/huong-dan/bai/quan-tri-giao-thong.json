@@ -1,0 +1,18 @@
+{
+  "tieu_de": "Nhập và duyệt dữ liệu giao thông",
+  "tom_tat": "Đưa tài liệu vào vùng chờ, đối chiếu căn cứ và duyệt khung phạt theo tình tiết.",
+  "routes": ["routes/quan-tri.giao-thong.tsx"],
+  "anh": [
+    {
+      "ten": "quan-tri-giao-thong-staging",
+      "chu_thich": "Nhập tài liệu vào vùng chờ kiểm duyệt",
+      "url": "/quan-tri/giao-thong",
+      "dang_nhap": true,
+      "vung": "main",
+      "danh_dau": [
+        { "o": "#traffic-import", "ghi_chu": "Dán manifest đã trích xuất", "huong": "tren" },
+        { "o": "button:text-is('Đưa vào vùng chờ')", "ghi_chu": "Lưu staging, chưa công khai", "huong": "duoi" }
+      ]
+    }
+  ]
+}

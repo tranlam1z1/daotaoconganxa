@@ -205,7 +205,7 @@ describe("tự đăng ký tài khoản", () => {
     });
 
     // Chưa duyệt: học, luyện tập, thi và mọi nhóm API khác coi như chưa đăng nhập.
-    for (const duong of ["/v1/toi/tong-quan", "/v1/luyen-tap/chu-de", "/v1/giong-doc", "/v1/thi"]) {
+    for (const duong of ["/v1/toi/lich-su", "/v1/luyen-tap/chu-de", "/v1/giong-doc", "/v1/thi"]) {
       expect((await goi("GET", duong, token)).status).toBe(401);
     }
     // Ảnh đại diện thuộc trang Tài khoản: xóa ảnh (chưa có ảnh nào) vẫn được nhận.

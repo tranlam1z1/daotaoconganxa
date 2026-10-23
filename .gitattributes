@@ -1,0 +1,2 @@
+# Preserve reviewed dataset bytes: its approval manifest pins the exact SHA-256.
+data/bien-bao/qcvn-41-2024-source.json -text

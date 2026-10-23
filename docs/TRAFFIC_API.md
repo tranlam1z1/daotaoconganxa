@@ -141,6 +141,27 @@ effective_to: YYYY-MM-DD hoặc null
 Các nguồn trên xác nhận đầu mối văn bản, không chứng nhận toàn bộ dữ liệu sẵn có trong repository.
 Chưa nạp bộ dữ liệu pháp luật đầy đủ và chưa xác nhận tất cả quan hệ sửa đổi sau các văn bản trên.
 
+## Bộ 31 biển đối chiếu từ QCVN 41:2024/BGTVT
+
+`data/bien-bao/qcvn-41-2024-source.json` chứa 31 biển thuộc 5 nhóm, ảnh PNG
+trích từ PDF Chính phủ và nội dung mục tương ứng. Đây là bộ trích chọn, không phải
+toàn bộ quy chuẩn. Bộ mẫu `bien-bao.json` và SVG minh họa cũ không được tự công khai.
+
+```sh
+bun run bien-bao:nap:qcvn
+bun run bien-bao:nap:qcvn --apply
+```
+
+Lệnh mặc định chỉ kiểm tra. `--apply` nạp vào CSDL và kho ảnh đang cấu hình;
+nạp lại dữ liệu giống nhau không tạo bản ghi trùng. Bộ nạp kiểm SHA-256 của bộ dữ liệu,
+PDF nguồn và từng ảnh theo `qcvn-41-2024-review.json`, lưu căn cứ, lịch sử duyệt
+và bản trích canonical. Actor `codex:source-verification` ghi nhận đối chiếu bằng
+công cụ, không đại diện cho người duyệt. Không ghi đè nội dung khác đã duyệt.
+
+Có thể tái trích bằng `python scripts/extract-qcvn-signs.py path/to/51-bgtvt-kem.pdf`
+(cần PyMuPDF). Kết quả trích luôn chờ duyệt; thay đổi dữ liệu làm mất hiệu lực
+manifest đối chiếu cũ và phải đối chiếu lại trước khi nạp.
+
 ## Giới hạn triển khai
 
 - Bản chụp `traffic_revisions` giữ lịch sử chỉnh sửa, nhưng API as_of đọc bảng nội dung hiện tại;

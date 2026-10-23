@@ -160,7 +160,6 @@ export default async function giongNoi(n: NguCanhE2E) {
   );
   await n.chupAnh(page, "3-luyen-tap-noi-dap-an");
 
-
   /* 4. Sách nói ---------------------------------------------------------- */
   if (storageMode() !== "local") {
     console.warn("  [giong-noi] Kho đang là R2: bỏ qua phần sách nói. Chạy với STORAGE_BACKEND=local.");

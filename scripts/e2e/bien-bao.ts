@@ -82,5 +82,4 @@ export default async function bienBao(n: NguCanhE2E) {
   await page.getByRole("heading", { name: `Cấm đi ngược chiều (E2E ${duoi})` }).waitFor();
   await n.kiemKhongCuonNgang(page, "Chi tiết biển báo");
   await n.chupAnh(page, "2-chi-tiet");
-
 }

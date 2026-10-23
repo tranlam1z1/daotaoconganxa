@@ -34,12 +34,11 @@ import {
   type TraLoiCauHoi,
   tinhDiemRubric,
   tongHopDiem,
-
 } from "@qdpl/dao-tao";
 import { sql, type Tx } from "./client.ts";
-import { ghiHoatDongHomNay } from "./hoat-dong.ts";
 import { LoiNghiepVu } from "./don-vi.ts";
 import { ghiKetQuaChuDe } from "./ho-so-chu-de.ts";
+import { ghiHoatDongHomNay } from "./hoat-dong.ts";
 import { nguCanhCanCu } from "./ngan-hang.ts";
 
 /* ------------------------------------------------------------------ */

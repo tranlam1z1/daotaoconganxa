@@ -49,13 +49,7 @@ describe("chế độ khách đã tắt", () => {
 
   test("phiên khách cũ không còn là danh tính ở bất kỳ nhóm API nào", async () => {
     const { token } = await taoKhachCu();
-    for (const duong of [
-      "/v1/auth/me",
-      "/v1/toi/tong-quan",
-      "/v1/luyen-tap/chu-de",
-      "/v1/thi",
-      "/v1/nhom",
-    ]) {
+    for (const duong of ["/v1/auth/me", "/v1/toi/tong-quan", "/v1/luyen-tap/chu-de", "/v1/thi", "/v1/nhom"]) {
       expect((await goi("GET", duong, undefined, token)).status).toBe(401);
     }
     expect((await goi("POST", "/v1/auth/mcp-token", {}, token)).status).toBe(401);

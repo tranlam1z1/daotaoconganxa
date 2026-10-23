@@ -617,16 +617,16 @@ export default function QuanTriNguoiDung({ loaderData, actionData }: Route.Compo
     <section className="trang-nguoi-dung">
       <div className="nguoi-dung-tieu-de flex flex-wrap items-center justify-between gap-3">
         <div className="flex min-w-0 items-center gap-4">
-          <span className="nguoi-dung-bieu-tuong"><Icon name="shield" className="size-7" /></span>
+          <span className="nguoi-dung-bieu-tuong">
+            <Icon name="shield" className="size-7" />
+          </span>
           <div className="min-w-0">
-          <h2 className="text-2xl font-bold">
-            Người dùng
-          </h2>
-          <p className="mt-1 text-sm text-ink-2">
-            {laQuanTri
-              ? "Toàn bộ tài khoản của hệ thống. Bấm một dòng để xem chi tiết hoặc sửa."
-              : "Tài khoản thuộc đơn vị của bạn và các đơn vị cấp dưới. Bấm một dòng để xem chi tiết."}
-          </p>
+            <h2 className="text-2xl font-bold">Người dùng</h2>
+            <p className="mt-1 text-sm text-ink-2">
+              {laQuanTri
+                ? "Toàn bộ tài khoản của hệ thống. Bấm một dòng để xem chi tiết hoặc sửa."
+                : "Tài khoản thuộc đơn vị của bạn và các đơn vị cấp dưới. Bấm một dòng để xem chi tiết."}
+            </p>
           </div>
         </div>
         {laQuanTri ? (
@@ -660,7 +660,9 @@ export default function QuanTriNguoiDung({ loaderData, actionData }: Route.Compo
             open={Boolean(actionData && "nhap" in actionData)}
           >
             <summary className="flex min-h-16 cursor-pointer items-center gap-4 font-semibold text-primary">
-              <span className="nguoi-dung-excel-icon" aria-hidden="true">X</span>
+              <span className="nguoi-dung-excel-icon" aria-hidden="true">
+                X
+              </span>
               <span className="flex-1">Nhập danh sách từ Excel</span>
               <Icon name="chevronRight" className="nguoi-dung-excel-chevron size-5 text-ink" />
             </summary>
@@ -697,7 +699,10 @@ export default function QuanTriNguoiDung({ loaderData, actionData }: Route.Compo
         </div>
       ) : null}
 
-      <Form method="get" className="nguoi-dung-bo-loc mt-3 flex flex-wrap items-end gap-4 rounded-xl border border-line p-5">
+      <Form
+        method="get"
+        className="nguoi-dung-bo-loc mt-3 flex flex-wrap items-end gap-4 rounded-xl border border-line p-5"
+      >
         <div className="min-w-48 flex-1">
           <Label htmlFor="loc-dv">Đơn vị</Label>
           <ChonDonVi
@@ -731,85 +736,85 @@ export default function QuanTriNguoiDung({ loaderData, actionData }: Route.Compo
       </Form>
 
       <div className="mt-3 rounded-xl border border-line p-4">
-      <p className="px-1 text-sm text-ink-3">{total.toLocaleString("vi-VN")} người</p>
-      {items.length === 0 ? (
-        <div className="mt-2">
-          <EmptyState icon="user" title="Không có người dùng nào khớp bộ lọc" />
-        </div>
-      ) : (
-        <ul className="mt-2 divide-y divide-line overflow-hidden rounded-xl border border-line bg-surface">
-          {items.map((u, index) => {
-            const ten = u.username ?? u.email ?? "";
-            return (
-              <li key={u.id}>
-                <button
-                  type="button"
-                  onClick={() => hop.mo("chiTiet", u.id)}
-                  className="nguoi-dung-hang lun flex min-h-16 w-full items-center gap-5 px-4 py-2.5 text-left hover:bg-surface-2"
-                >
-                  <span className={`nguoi-dung-avatar nguoi-dung-avatar-${index % 6}`} aria-hidden="true">
-                    {(u.name ?? ten).trim().charAt(0).toLocaleUpperCase("vi-VN") || "?"}
-                  </span>
-                  <span className="nguoi-dung-danh-tinh min-w-0">
-                    <span className="block truncate font-semibold text-ink">{u.name ?? ten}</span>
-                    <span className="mt-0.5 block break-all text-sm text-ink-2">{ten}</span>
-                  </span>
-                  <span className="min-w-0 flex-1">
-                    <span className="flex flex-wrap items-center gap-x-3 gap-y-1">
-                      <Badge
-                        tone={
-                          u.role === "lanh_dao" || u.role === "quan_ly" || u.role === "quan_tri"
-                            ? "info"
-                            : "muted"
-                        }
-                      >
-                        {TEN_VAI_TRO[u.role] ?? u.role}
-                      </Badge>
-                      {!u.enabled ? <Badge tone="danger">Đã khóa</Badge> : null}
-                      {u.must_change_password ? <Badge tone="warn">Chưa đổi mật khẩu tạm</Badge> : null}
-                      {u.xac_minh !== "da_xac_minh" ? (
-                        <Badge tone={XAC_MINH[u.xac_minh].tone}>{XAC_MINH[u.xac_minh].nhan}</Badge>
-                      ) : null}
+        <p className="px-1 text-sm text-ink-3">{total.toLocaleString("vi-VN")} người</p>
+        {items.length === 0 ? (
+          <div className="mt-2">
+            <EmptyState icon="user" title="Không có người dùng nào khớp bộ lọc" />
+          </div>
+        ) : (
+          <ul className="mt-2 divide-y divide-line overflow-hidden rounded-xl border border-line bg-surface">
+            {items.map((u, index) => {
+              const ten = u.username ?? u.email ?? "";
+              return (
+                <li key={u.id}>
+                  <button
+                    type="button"
+                    onClick={() => hop.mo("chiTiet", u.id)}
+                    className="nguoi-dung-hang lun flex min-h-16 w-full items-center gap-5 px-4 py-2.5 text-left hover:bg-surface-2"
+                  >
+                    <span className={`nguoi-dung-avatar nguoi-dung-avatar-${index % 6}`} aria-hidden="true">
+                      {(u.name ?? ten).trim().charAt(0).toLocaleUpperCase("vi-VN") || "?"}
                     </span>
-                    <span className="mt-1 block text-sm text-ink-2">
-                      {u.unit_name ?? "Chưa gắn đơn vị"}
-                      {u.rank_title ? ` · ${u.rank_title}` : ""}
+                    <span className="nguoi-dung-danh-tinh min-w-0">
+                      <span className="block truncate font-semibold text-ink">{u.name ?? ten}</span>
+                      <span className="mt-0.5 block break-all text-sm text-ink-2">{ten}</span>
                     </span>
-                  </span>
-                  <Icon name="chevronRight" className="size-4 shrink-0 text-ink-3" />
-                </button>
-                {baoTaiDong && u.username === tenCoMatKhau ? (
-                  <div ref={refBaoTaiDong} className="scroll-my-24 px-4 pb-3">
-                    {thongBaoOk}
-                  </div>
-                ) : null}
-                {u.xac_minh !== "da_xac_minh" && u.enabled ? (
-                  <div className="px-4 pb-3">
-                    <XetXacMinh u={u} ten={ten} donVi={donVi} busy={busy} />
-                  </div>
-                ) : null}
-              </li>
-            );
-          })}
-        </ul>
-      )}
+                    <span className="min-w-0 flex-1">
+                      <span className="flex flex-wrap items-center gap-x-3 gap-y-1">
+                        <Badge
+                          tone={
+                            u.role === "lanh_dao" || u.role === "quan_ly" || u.role === "quan_tri"
+                              ? "info"
+                              : "muted"
+                          }
+                        >
+                          {TEN_VAI_TRO[u.role] ?? u.role}
+                        </Badge>
+                        {!u.enabled ? <Badge tone="danger">Đã khóa</Badge> : null}
+                        {u.must_change_password ? <Badge tone="warn">Chưa đổi mật khẩu tạm</Badge> : null}
+                        {u.xac_minh !== "da_xac_minh" ? (
+                          <Badge tone={XAC_MINH[u.xac_minh].tone}>{XAC_MINH[u.xac_minh].nhan}</Badge>
+                        ) : null}
+                      </span>
+                      <span className="mt-1 block text-sm text-ink-2">
+                        {u.unit_name ?? "Chưa gắn đơn vị"}
+                        {u.rank_title ? ` · ${u.rank_title}` : ""}
+                      </span>
+                    </span>
+                    <Icon name="chevronRight" className="size-4 shrink-0 text-ink-3" />
+                  </button>
+                  {baoTaiDong && u.username === tenCoMatKhau ? (
+                    <div ref={refBaoTaiDong} className="scroll-my-24 px-4 pb-3">
+                      {thongBaoOk}
+                    </div>
+                  ) : null}
+                  {u.xac_minh !== "da_xac_minh" && u.enabled ? (
+                    <div className="px-4 pb-3">
+                      <XetXacMinh u={u} ten={ten} donVi={donVi} busy={busy} />
+                    </div>
+                  ) : null}
+                </li>
+              );
+            })}
+          </ul>
+        )}
 
-      {total > MOI_TRANG ? (
-        <nav aria-label="Trang danh sách" className="mt-4 flex justify-between gap-3">
-          {trang > 1 ? (
-            <Link to={trangHref(trang - 1)} className="flex min-h-11 items-center text-sm underline">
-              Trang trước
-            </Link>
-          ) : (
-            <span />
-          )}
-          {trang * MOI_TRANG < total ? (
-            <Link to={trangHref(trang + 1)} className="flex min-h-11 items-center text-sm underline">
-              Trang sau
-            </Link>
-          ) : null}
-        </nav>
-      ) : null}
+        {total > MOI_TRANG ? (
+          <nav aria-label="Trang danh sách" className="mt-4 flex justify-between gap-3">
+            {trang > 1 ? (
+              <Link to={trangHref(trang - 1)} className="flex min-h-11 items-center text-sm underline">
+                Trang trước
+              </Link>
+            ) : (
+              <span />
+            )}
+            {trang * MOI_TRANG < total ? (
+              <Link to={trangHref(trang + 1)} className="flex min-h-11 items-center text-sm underline">
+                Trang sau
+              </Link>
+            ) : null}
+          </nav>
+        ) : null}
       </div>
 
       {laQuanTri ? (

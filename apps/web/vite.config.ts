@@ -17,9 +17,7 @@ export default defineConfig({
     // Không tự nhảy sang cổng khác: scripts/serve.ts đã giải phóng cổng trước khi chạy,
     // nếu vẫn bận thì phải báo lỗi để biết, chứ không im lặng đổi cổng.
     strictPort: true,
-    allowedHosts: [
-      'resort-nail-deserving.ngrok-free.dev'
-    ]
+    allowedHosts: ["resort-nail-deserving.ngrok-free.dev"],
   },
   preview: { port, strictPort: true },
 });

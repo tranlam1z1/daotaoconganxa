@@ -288,12 +288,7 @@ function kiemTraLuatVanTai(l: Partial<LuatVanTaiKhach>): string[] {
     loi.push("Phần được kiểm không hợp lệ.");
   const t = l.tham_so;
   if (!t || typeof t !== "object") loi.push("Thiếu tham số.");
-  else if (
-    l.kiem &&
-    l.phan &&
-    !laLuatTreEm(l as LuatVanTaiKhach) &&
-    !loiVanTaiCuaLuat(l as LuatVanTaiKhach)
-  )
+  else if (l.kiem && l.phan && !laLuatTreEm(l as LuatVanTaiKhach) && !loiVanTaiCuaLuat(l as LuatVanTaiKhach))
     loi.push("Luật không ứng với lỗi nào: kiểm lại kiểu kiểm và phần được kiểm.");
   else if (l.kiem === "lai_lien_tuc" || l.kiem === "lai_trong_ngay") {
     if (!soNguyenTrong(t.toi_da_phut, 1, 1440))

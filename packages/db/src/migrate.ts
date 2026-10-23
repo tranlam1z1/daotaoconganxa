@@ -2,15 +2,15 @@
 import { readdir, readFile } from "node:fs/promises";
 import { join } from "node:path";
 import postgres from "postgres";
-import { sql as shared } from "./client.ts";
+import { databaseUrl } from "./client.ts";
 
 const dir = join(import.meta.dir, "..", "migrations");
 
 /**
  * Migration chạy THẲNG vào Postgres, không qua PgBouncer.
  * PgBouncer chế độ transaction không giữ trạng thái phiên giữa các câu lệnh, nên DDL nhiều
- * lệnh trong một file có thể hỏng khó lường. Không đặt DATABASE_URL_DIRECT thì dùng kết nối
- * chung (đúng cho Postgres cục bộ lúc chạy test và cho CI).
+ * lệnh trong một file có thể hỏng khó lường. Luôn dùng pool riêng một kết nối, kể cả khi
+ * không đặt DATABASE_URL_DIRECT, để các migration có BEGIN/COMMIT chạy được trong CI.
  */
 /**
  * Chỉ dùng kết nối trực tiếp khi nó trỏ đúng CSDL mà DATABASE_URL đang trỏ. Không có điều
@@ -32,7 +32,7 @@ function directUrl(): string | undefined {
 }
 
 const direct = directUrl();
-const sql = direct ? postgres(direct, { max: 1, onnotice: () => {} }) : shared;
+const sql = postgres(direct ?? databaseUrl, { max: 1, prepare: false, onnotice: () => {} });
 
 await sql`CREATE TABLE IF NOT EXISTS schema_migrations (name text PRIMARY KEY, applied_at timestamptz NOT NULL DEFAULT now())`;
 const applied = new Set((await sql`SELECT name FROM schema_migrations`).map((r: any) => r.name as string));

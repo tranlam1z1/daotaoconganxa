@@ -35,6 +35,7 @@ import { thiRoute } from "./routes/thi.ts";
 import { thongBao } from "./routes/thong-bao.ts";
 import { toi } from "./routes/toi.ts";
 import { traCuuNhanh } from "./routes/tra-cuu-nhanh.ts";
+import { traffic, trafficGuard } from "./routes/traffic.ts";
 
 export function createApp() {
   const app = new Hono();
@@ -90,6 +91,8 @@ export function createApp() {
 
   // Tài khoản chưa được xác minh cán bộ chỉ mang danh tính vào nhóm API tài khoản (auth.ts).
   app.use("/v1/*", gioiHanChoXacMinh);
+  app.use("/api/v1/*", gioiHanChoXacMinh);
+  app.use("/api/v1/*", trafficGuard);
 
   app.onError((err, c) => loiXacThuc(err, c) ?? handleError(err, c));
   app.notFound((c) => {
@@ -120,6 +123,10 @@ export function createApp() {
   });
 
   app.route("/v1/auth", auth);
+  app.route("/api/v1/traffic", traffic);
+  app.route("/api/v1/tra-cuu/bien-bao", bienBao);
+  app.route("/api/v1/tra-cuu", traCuuNhanh);
+  app.route("/api/v1/quan-tri/du-lieu-tra-cuu", duLieuTraCuuRoute);
   app.route("/v1/documents", documents);
   app.route("/v1/nodes", nodes);
   app.route("/v1/search", searchRoute);

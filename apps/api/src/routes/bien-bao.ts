@@ -6,7 +6,7 @@
  */
 
 import { NHOM_BIEN_BAO } from "@qdpl/dao-tao";
-import { type BienBaoRow, bienBaoTheoMa, danhSachBienBao } from "@qdpl/db";
+import { type BienBaoRow, bienBaoTheoMa, danhSachBienBao, sql } from "@qdpl/db";
 import { docUrnOf } from "@qdpl/legal-model";
 import { getObject } from "@qdpl/storage";
 import { Hono } from "hono";
@@ -14,7 +14,7 @@ import { z } from "zod";
 import { notFound, parseQuery } from "../http.ts";
 import { vanBanCoTrongKho } from "./tra-cuu-nhanh.ts";
 
-const gomBanNhap = () => process.env.TRA_CUU_NHANH_BAN_NHAP === "1";
+const gomBanNhap = () => process.env.NODE_ENV !== "production" && process.env.TRA_CUU_NHANH_BAN_NHAP === "1";
 
 /** Tên tệp ảnh trong image_uri (assets/bien-bao/P.102.svg -> P.102.svg). */
 const tepAnh = (uri: string) => uri.split("/").pop() ?? uri;
@@ -38,15 +38,29 @@ function sangBienBao(r: BienBaoRow, coTrongKho: Set<string>) {
 /* ------------------------------------------------------------------ */
 
 export const bienBao = new Hono();
+bienBao.get("/nhom", async (c) =>
+  c.json({ items: await sql`SELECT code AS value,name AS label FROM sign_categories ORDER BY code` }),
+);
 
 bienBao.get("/", async (c) => {
   const p = parseQuery(
     c,
-    z.object({ q: z.string().trim().max(100).optional(), nhom: z.enum(NHOM_BIEN_BAO).optional() }),
+    z.object({
+      q: z.string().trim().max(100).optional(),
+      nhom: z.enum(NHOM_BIEN_BAO).optional(),
+      page: z.coerce.number().int().min(1).max(10000).optional(),
+    }),
   );
   const rows = await danhSachBienBao({ q: p.q, nhom: p.nhom, gomBanNhap: gomBanNhap() });
   const coTrongKho = await vanBanCoTrongKho(rows.map((r) => r.citation_urn));
-  return c.json({ items: rows.map((r) => sangBienBao(r, coTrongKho)), ban_nhap: gomBanNhap() });
+  const selected = p.page ? rows.slice((p.page - 1) * 24, p.page * 24) : rows;
+  return c.json({
+    items: selected.map((r) => sangBienBao(r, coTrongKho)),
+    ban_nhap: gomBanNhap(),
+    total: rows.length,
+    page: p.page ?? 1,
+    page_size: p.page ? 24 : rows.length,
+  });
 });
 
 const LOAI_ANH: Record<string, string> = { svg: "image/svg+xml", png: "image/png", webp: "image/webp" };

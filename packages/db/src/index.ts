@@ -26,3 +26,4 @@ export * from "./tai-khoan-khach.ts";
 export * from "./tai-lieu-tra-cuu.ts";
 export * from "./thong-bao.ts";
 export * from "./tra-cuu-nhanh.ts";
+export * from "./traffic-api.ts";

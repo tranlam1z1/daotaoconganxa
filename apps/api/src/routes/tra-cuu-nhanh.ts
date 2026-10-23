@@ -22,6 +22,7 @@ import {
   timMucPhat,
   timTaiLieu,
   tocDoToiDa,
+  trafficPenaltyFrames,
 } from "@qdpl/db";
 import { docUrnOf } from "@qdpl/legal-model";
 import { Hono } from "hono";
@@ -29,7 +30,7 @@ import { z } from "zod";
 import { badRequest, notFound, parseQuery, today } from "../http.ts";
 import { traTepTaiLieu } from "../tep-tai-lieu.ts";
 
-const gomBanNhap = () => process.env.TRA_CUU_NHANH_BAN_NHAP === "1";
+const gomBanNhap = () => process.env.NODE_ENV !== "production" && process.env.TRA_CUU_NHANH_BAN_NHAP === "1";
 
 const ngaySchema = z
   .string()
@@ -108,26 +109,50 @@ function demLuotXem(loai: "quy-trinh" | "bieu-mau", ma: string) {
 }
 
 export const traCuuNhanh = new Hono();
+traCuuNhanh.get("/chu-de-muc-phat", async (c) =>
+  c.json({
+    items:
+      await sql`SELECT DISTINCT group_name AS name FROM violations WHERE status='da_duyet' AND deleted_at IS NULL AND group_name IS NOT NULL ORDER BY name`,
+  }),
+);
 
 traCuuNhanh.get("/muc-phat", async (c) => {
   const p = parseQuery(
     c,
     z.object({
       q: z.string().trim().max(200, "Từ khóa quá dài (tối đa 200 ký tự)").optional(),
+      nhom: z.string().trim().max(200).optional(),
       xe: xeSchema.optional(),
       ngay: ngaySchema,
+      page: z.coerce.number().int().min(1).max(10000).optional(),
     }),
   );
   const ngay = p.ngay ?? today();
   // Trang Tra cứu đếm mức phạt theo chủ đề trên cả kho (vài trăm dòng), nên không cắt ở 50 dòng mặc định.
-  const rows = await timMucPhat({ q: p.q, xe: p.xe, ngay, gomBanNhap: gomBanNhap(), limit: 1000 });
+  const rows = await timMucPhat({
+    q: p.q,
+    nhom: p.nhom,
+    xe: p.xe,
+    ngay,
+    gomBanNhap: gomBanNhap(),
+    limit: 1000,
+  });
   const coTrongKho = await vanBanCoTrongKho(rows.map((r) => r.canCu));
+  const frames = await trafficPenaltyFrames(
+    rows.map((r) => r.ma),
+    ngay,
+  );
   return c.json({
     q: p.q ?? "",
     xe: p.xe ?? null,
     ngay,
     total: rows.length,
-    items: rows.map((r) => shapeMucPhat(r, coTrongKho)),
+    page: p.page ?? 1,
+    page_size: p.page ? 24 : rows.length,
+    items: (p.page ? rows.slice((p.page - 1) * 24, p.page * 24) : rows).map((r) => ({
+      ...shapeMucPhat(r, coTrongKho),
+      khungPhat: frames.filter((f) => f.violation_code === r.ma),
+    })),
   });
 });
 

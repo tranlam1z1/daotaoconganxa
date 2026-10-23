@@ -95,6 +95,7 @@ export const trangThaiXem = (gomBanNhap: boolean) => (gomBanNhap ? ["da_duyet", 
  */
 export async function timMucPhat(opts: {
   q?: string;
+  nhom?: string;
   xe?: LoaiXe;
   ngay: string;
   gomBanNhap?: boolean;
@@ -105,6 +106,8 @@ export async function timMucPhat(opts: {
   const rows = await sql`
     SELECT * FROM violations
     WHERE status = ANY(${trangThaiXem(!!opts.gomBanNhap)})
+      AND deleted_at IS NULL
+      ${opts.nhom ? sql`AND group_name = ${opts.nhom}` : sql``}
       AND effective_from <= ${opts.ngay} AND (effective_to IS NULL OR effective_to > ${opts.ngay})
       ${opts.xe ? sql`AND vehicle = ${opts.xe}` : sql``}
       ${tu.reduce((acc, t) => sql`${acc} AND search_text LIKE '%' || unaccent(lower(${t})) || '%'`, sql``)}

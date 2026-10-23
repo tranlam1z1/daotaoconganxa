@@ -1,0 +1,31 @@
+{
+  "dataset_sha256": "239d54b1d9a0ca25be263aed9df2827c7fef737c309fa3a9b3b5e3eb8ffc1e8f",
+  "source_sha256": "e3b85e890db443a1e2fcc6de33dc1dfee400196bfa96e1d724996cf948f06dfa",
+  "amendment_sha256": "e0a45c4b1fbb1ef3f2cb98031ebb20a27428802b50f02648cfccc4096ee89f2b",
+  "reviewed_by": "codex:source-verification",
+  "reviewed_on": "2026-10-23",
+  "verified_codes": [
+    "oto-toc-do-5-10",
+    "oto-toc-do-10-20",
+    "oto-toc-do-20-35",
+    "oto-toc-do-tren-35",
+    "mt-toc-do-5-10",
+    "mt-toc-do-10-20",
+    "mt-toc-do-tren-20",
+    "oto-con-muc-1",
+    "oto-con-muc-2",
+    "oto-con-muc-3",
+    "oto-con-khong-chap-hanh",
+    "mt-con-muc-1",
+    "mt-con-muc-2",
+    "mt-con-muc-3",
+    "mt-con-khong-chap-hanh",
+    "oto-den-do",
+    "mt-den-do",
+    "oto-dien-thoai",
+    "mt-dien-thoai",
+    "mt-mu-bao-hiem",
+    "oto-day-an-toan"
+  ],
+  "scope": "21 hành vi thông thường cho ô tô và mô tô/xe gắn máy: tốc độ, nồng độ cồn, đèn tín hiệu, điện thoại, mũ bảo hiểm, dây đai. Đối chiếu từng điểm, khoản, tiền, điểm GPLX và tước GPLX với nguồn Chính phủ, kiểm tra sửa đổi NĐ 238/2026. Đây là bộ trích chọn, chưa bao quát mọi tình tiết hoặc khung gây tai nạn; không thay thế đánh giá hồ sơ. Đối chiếu bằng công cụ, không giả danh người duyệt."
+}

@@ -54,6 +54,7 @@
     "ranh-gioi:dung": "bun run scripts/ranh-gioi.ts",
     "bien-bao:nap": "bun run scripts/bien-bao.ts",
     "bien-bao:nap:qcvn": "bun run scripts/nap-bien-bao-qcvn.ts",
+    "muc-phat:nap:reviewed": "bun run scripts/nap-muc-phat-reviewed.ts",
     "content:check": "bun run scripts/kiem-tra-bai-hoc.ts",
     "index": "bun run packages/search/src/cli.ts",
     "corpus:load": "bun run scripts/corpus.ts nap",

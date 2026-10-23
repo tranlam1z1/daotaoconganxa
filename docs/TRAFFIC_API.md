@@ -162,6 +162,28 @@ Có thể tái trích bằng `python scripts/extract-qcvn-signs.py path/to/51-bg
 (cần PyMuPDF). Kết quả trích luôn chờ duyệt; thay đổi dữ liệu làm mất hiệu lực
 manifest đối chiếu cũ và phải đối chiếu lại trước khi nạp.
 
+## Bộ hành vi đã đối chiếu
+
+`data/tra-cuu/muc-phat-reviewed-source.json` có 21 hành vi thông thường cho ô tô
+và mô tô/xe gắn máy tại Điều 6, Điều 7 Nghị định 168/2024/NĐ-CP. Đã đối chiếu
+tiền phạt, điểm GPLX, tước GPLX, điểm/khoản căn cứ và phạm vi sửa đổi của
+Nghị định 238/2026/NĐ-CP từ nguồn Chính phủ. Hai dòng điện thoại trong bộ mẫu
+ghi 2 điểm; bộ đã đối chiếu sửa thành 4 điểm. Bộ mẫu cũ vẫn là bản nháp.
+
+```sh
+bun run muc-phat:nap:reviewed
+bun run muc-phat:nap:reviewed --apply
+```
+
+Mặc định chỉ kiểm tra hash, danh sách duyệt và căn cứ. `--apply` tạo các điểm
+trích chọn trong kho canonical, hành vi, khung phạt và dấu vết đối chiếu.
+Chạy lại cùng dữ liệu không tạo trùng; từ chối ghi đè dữ liệu khác đã có.
+Manifest ghi actor công cụ `codex:source-verification`, không giả danh người duyệt.
+
+Đây chưa phải toàn bộ hành vi hoặc mọi khung tăng nặng/gây tai nạn. Khung trả về
+ghi tình tiết cần đối chiếu, gồm loại xe, hành vi, tai nạn, số đo và tình trạng GPLX.
+Trang tra cứu hiện ngay danh sách đã duyệt khi mở tab, cùng chủ đề và bộ lọc loại xe.
+
 ## Giới hạn triển khai
 
 - Bản chụp `traffic_revisions` giữ lịch sử chỉnh sửa, nhưng API as_of đọc bảng nội dung hiện tại;

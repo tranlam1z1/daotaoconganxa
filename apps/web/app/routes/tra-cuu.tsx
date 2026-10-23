@@ -1,7 +1,7 @@
 /**
  * Mục "Tra cứu": hai tab Tra cứu biển báo · Tra cứu hành vi (mức phạt), mỗi tab có ô tìm (gõ hoặc
  * nói), chip lọc và danh sách thẻ. Tab biển báo hiện hết biển ngay khi mở, chưa cần nhập; tab hành vi
- * chỉ hiện danh sách sau khi tra hoặc chọn chủ đề (xem `daTra` trong loader). Bấm một thẻ thì thẻ mở
+ * hiện danh sách đã duyệt ngay khi mở và hỗ trợ chọn chủ đề. Bấm một thẻ thì thẻ mở
  * rộng ngay tại chỗ (`?ma=`).
  * Tab hành vi có thêm lưới "Tra cứu theo chủ đề" (`?cd=`), hiện khi ô tìm trống và chưa chọn chủ đề:
  * xóa hết chữ trong ô là lưới hiện ngay, không chờ bấm Tra cứu.
@@ -55,8 +55,8 @@ export async function loader({ request }: Route.LoaderArgs) {
     const thuocChuDe = (m: MucPhat) => !chuDe || chuDeCua(m) === chuDe.ten;
     const demChuDe: Record<string, number> = {};
     for (const m of items) demChuDe[chuDeCua(m)] = (demChuDe[chuDeCua(m)] ?? 0) + 1;
-    // Tab hành vi: ô trống thì hiện lưới chủ đề thay cho danh sách tất cả mức phạt.
-    const daTra = q !== "" || chuDe !== null;
+    // Hiện dữ liệu đã duyệt ngay khi mở tab, cùng lưới chủ đề để thu hẹp kết quả.
+    const daTra = true;
     return {
       tab: "hanh-vi" as const,
       q,
@@ -64,7 +64,7 @@ export async function loader({ request }: Route.LoaderArgs) {
       loc: xe,
       chuDe,
       demChuDe,
-      mucPhat: !daTra ? [] : items.filter(thuocChuDe),
+      mucPhat: items.filter(thuocChuDe),
       coXeKhac: daTra && xe !== "" && !items.some(thuocChuDe) && moiXe.some(thuocChuDe),
       bienBao: [],
       nhomCoBien: [],
@@ -167,8 +167,9 @@ export default function TraCuu({ loaderData }: Route.ComponentProps) {
     : [{ value: "", label: "Tất cả" }, ...LOAI_XE];
   const soKetQua = laBienBao ? bienBao.length : mucPhat.length;
   const tenXeDangLoc = LOAI_XE.find((x) => x.value === loc)?.label.toLowerCase() ?? "loại xe này";
-  // Tab hành vi, ô trống, chưa chọn chủ đề: hiện lưới chủ đề, ẩn kết quả của từ khóa vừa xóa.
+  // Khi vừa xóa chữ, ẩn kết quả cũ cho đến khi URL cập nhật; ô trống từ đầu vẫn hiện danh sách.
   const hienLuoi = !laBienBao && !chuDe && oTrong;
+  const anKetQuaCu = hienLuoi && q !== "";
 
   return (
     <KhungTraCuu
@@ -275,7 +276,7 @@ export default function TraCuu({ loaderData }: Route.ComponentProps) {
       ) : null}
 
       <div className={cn("mt-4", busy && "opacity-60")} aria-busy={busy}>
-        {!daTra || hienLuoi ? null : soKetQua === 0 ? (
+        {!daTra || anKetQuaCu ? null : soKetQua === 0 ? (
           <EmptyState
             className="tra-cuu-trong bg-primary-soft/20"
             icon="search"
@@ -288,7 +289,7 @@ export default function TraCuu({ loaderData }: Route.ComponentProps) {
                     ? `Không có mức phạt cho ${tenXeDangLoc} ${chuDe ? "trong chủ đề này" : "trong kho"}`
                     : chuDe
                       ? `Chưa có mức phạt cho chủ đề “${chuDe.ten}”`
-                      : "Chưa có mức phạt nào"
+                      : "Chưa có mức phạt được duyệt"
             }
           >
             {laBienBao ? (
@@ -308,7 +309,11 @@ export default function TraCuu({ loaderData }: Route.ComponentProps) {
               </p>
             ) : (
               <p>
-                {chuDe && !q ? "Chủ đề này đang được biên tập." : "Thử từ khóa ngắn hơn hoặc chọn “Tất cả”."}{" "}
+                {chuDe && !q
+                  ? "Chủ đề này đang được biên tập."
+                  : !q
+                    ? "Dữ liệu hành vi hiện chưa có mục được đối chiếu và duyệt."
+                    : "Thử từ khóa ngắn hơn hoặc chọn “Tất cả”."}{" "}
                 {chuDe?.ma === CHU_DE_CO_CONG_CU.ma ? (
                   <>
                     Trong lúc này, hãy dùng{" "}

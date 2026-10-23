@@ -1,0 +1,733 @@
+{
+  "source_url": "https://xaydungchinhsach.chinhphu.vn/toan-van-nghi-dinh-168-2024-nd-cp-quy-dinh-xu-phat-vi-pham-hanh-chinh-ve-trat-tu-atgt-duong-bo-119241231164556785.htm",
+  "source_sha256": "e3b85e890db443a1e2fcc6de33dc1dfee400196bfa96e1d724996cf948f06dfa",
+  "signed_pdf_url": "https://datafiles.chinhphu.vn/cpp/files/vbpq/2025/01/168-nd-cp.signed.pdf",
+  "signed_pdf_sha256": "7bb11b939d162499ab404aa41a940cce05dbf071d9cbae7a8898b00d4b4a48bd",
+  "amendment_url": "https://congbao.chinhphu.vn/van-ban/nghi-dinh-so-238-2026-nd-cp-469913.htm",
+  "amendment_sha256": "e0a45c4b1fbb1ef3f2cb98031ebb20a27428802b50f02648cfccc4096ee89f2b",
+  "amendment_check": "Đối chiếu toàn bộ NĐ 238/2026, gồm Điều 2, 17, 19, 20, 21: các điểm hành vi được chọn và mức phạt tại đây không bị thay đổi. Điều 50 về thực hiện trừ điểm phải đối chiếu theo tình trạng GPLX.",
+  "provisions": {
+    "dieu-6.khoan-3.diem-a": "Điều khiển xe chạy quá tốc độ quy định từ 05 km/h đến dưới 10 km/h;",
+    "dieu-6.khoan-3": "Phạt tiền từ 800.000 đồng đến 1.000.000 đồng đối với người điều khiển xe thực hiện một trong các hành vi vi phạm sau đây:",
+    "dieu-6.khoan-5.diem-đ": "Điều khiển xe chạy quá tốc độ quy định từ 10 km/h đến 20 km/h;",
+    "dieu-6.khoan-5": "Phạt tiền từ 4.000.000 đồng đến 6.000.000 đồng đối với người điều khiển xe thực hiện một trong các hành vi vi phạm sau đây:",
+    "dieu-6.khoan-6.diem-a": "Điều khiển xe chạy quá tốc độ quy định trên 20 km/h đến 35 km/h;",
+    "dieu-6.khoan-6": "Phạt tiền từ 6.000.000 đồng đến 8.000.000 đồng đối với người điều khiển xe thực hiện một trong các hành vi vi phạm sau đây:",
+    "dieu-6.khoan-7.diem-a": "Điều khiển xe chạy quá tốc độ quy định trên 35 km/h;",
+    "dieu-6.khoan-7": "Phạt tiền từ 12.000.000 đồng đến 14.000.000 đồng đối với người điều khiển xe thực hiện một trong các hành vi vi phạm sau đây:",
+    "dieu-7.khoan-2.diem-b": "Điều khiển xe chạy quá tốc độ quy định từ 05 km/h đến dưới 10 km/h;",
+    "dieu-7.khoan-2": "Phạt tiền từ 400.000 đồng đến 600.000 đồng đối với người điều khiển xe thực hiện một trong các hành vi vi phạm sau đây:",
+    "dieu-7.khoan-4.diem-a": "Điều khiển xe chạy quá tốc độ quy định từ 10 km/h đến 20 km/h;",
+    "dieu-7.khoan-4": "Phạt tiền từ 800.000 đồng đến 1.000.000 đồng đối với người điều khiển xe thực hiện một trong các hành vi vi phạm sau đây:",
+    "dieu-7.khoan-8.diem-a": "Điều khiển xe chạy quá tốc độ quy định trên 20 km/h;",
+    "dieu-7.khoan-8": "Phạt tiền từ 6.000.000 đồng đến 8.000.000 đồng đối với người điều khiển xe thực hiện một trong các hành vi vi phạm sau đây:",
+    "dieu-6.khoan-6.diem-c": "Điều khiển xe trên đường mà trong máu hoặc hơi thở có nồng độ cồn nhưng chưa vượt quá 50 miligam/100 mililít máu hoặc chưa vượt quá 0,25 miligam/1 lít khí thở;",
+    "dieu-6.khoan-9.diem-a": "Điều khiển xe trên đường mà trong máu hoặc hơi thở có nồng độ cồn vượt quá 50 miligam đến 80 miligam/100 mililít máu hoặc vượt quá 0,25 miligam đến 0,4 miligam/1 lít khí thở;",
+    "dieu-6.khoan-9": "Phạt tiền từ 18.000.000 đồng đến 20.000.000 đồng đối với người điều khiển xe thực hiện một trong các hành vi vi phạm sau đây:",
+    "dieu-6.khoan-11.diem-a": "Điều khiển xe trên đường mà trong máu hoặc hơi thở có nồng độ cồn vượt quá 80 miligam/100 mililít máu hoặc vượt quá 0,4 miligam/1 lít khí thở;",
+    "dieu-6.khoan-11": "Phạt tiền từ 30.000.000 đồng đến 40.000. 000 đồng đối với người điều khiển xe thực hiện một trong các hành vi vi phạm sau đây:",
+    "dieu-6.khoan-11.diem-b": "Không chấp hành yêu cầu kiểm tra về nồng độ cồn của người thi hành công vụ;",
+    "dieu-7.khoan-6.diem-a": "Điều khiển xe trên đường mà trong máu hoặc hơi thở có nồng độ cồn nhưng chưa vượt quá 50 miligam/100 mililít máu hoặc chưa vượt quá 0,25 miligam/1 lít khí thở;",
+    "dieu-7.khoan-6": "Phạt tiền từ 2.000.000 đồng đến 3.000.000 đồng đối với người điều khiển xe thực hiện một trong các hành vi vi phạm sau đây:",
+    "dieu-7.khoan-8.diem-b": "Điều khiển xe trên đường mà trong máu hoặc hơi thở có nồng độ cồn vượt quá 50 miligam đến 80 miligam/100 mililít máu hoặc vượt quá 0,25 miligam đến 0,4 miligam/1 lít khí thở .",
+    "dieu-7.khoan-9.diem-d": "Điều khiển xe trên đường mà trong máu hoặc hơi thở có nồng độ cồn vượt quá 80 miligam/100 mililít máu hoặc vượt quá 0,4 miligam/1 lít khí thở;",
+    "dieu-7.khoan-9": "Phạt tiền từ 8.000.000 đồng đến 10.000.000 đồng đối với người điều khiển xe thực hiện một trong các hành vi vi phạm sau đây:",
+    "dieu-7.khoan-9.diem-đ": "Không chấp hành yêu cầu kiểm tra về nồng độ cồn của người thi hành công vụ;",
+    "dieu-6.khoan-9.diem-b": "Không chấp hành hiệu lệnh của đèn tín hiệu giao thông;",
+    "dieu-7.khoan-7.diem-c": "Không chấp hành hiệu lệnh của đèn tín hiệu giao thông;",
+    "dieu-7.khoan-7": "Phạt tiền từ 4.000.000 đồng đến 6.000.000 đồng đối với người điều khiển xe thực hiện một trong các hành vi vi phạm sau đây:",
+    "dieu-6.khoan-5.diem-h": "Dùng tay cầm và sử dụng điện thoại hoặc các thiết bị điện tử khác khi điều khiển phương tiện tham gia giao thông đang di chuyển trên đường bộ;",
+    "dieu-7.khoan-4.diem-đ": "Người đang điều khiển xe sử dụng ô (dù), thiết bị âm thanh (trừ thiết bị trợ thính), dùng tay cầm và sử dụng điện thoại hoặc các thiết bị điện tử khác.",
+    "dieu-7.khoan-2.diem-h": "Không đội \"mũ bảo hiểm cho người đi mô tô, xe máy\" hoặc đội \"mũ bảo hiểm cho người đi mô tô, xe máy\" không cài quai đúng quy cách khi điều khiển xe tham gia giao thông trên đường bộ;",
+    "dieu-6.khoan-3.diem-k": "Không thắt dây đai an toàn khi điều khiển xe chạy trên đường;",
+    "dieu-6.khoan-15": "Ngoài việc bị phạt tiền, người điều khiển xe thực hiện hành vi vi phạm còn bị áp dụng các hình thức xử phạt bổ sung sau đây:",
+    "dieu-6.khoan-15.diem-a": "Thực hiện hành vi quy định tại điểm e khoản 5 Điều này còn bị tịch thu thiết bị phát tín hiệu ưu tiên lắp đặt, sử dụng trái quy định;",
+    "dieu-6.khoan-15.diem-b": "Thực hiện hành vi quy định tại khoản 12 Điều này bị tước quyền sử dụng giấy phép lái xe từ 10 tháng đến 12 tháng;",
+    "dieu-6.khoan-15.diem-c": "Thực hiện hành vi quy định tại điểm a, điểm b, điểm c, điểm d khoản 11; khoản 13; khoản 14 Điều này bị tước quyền sử dụng giấy phép lái xe từ 22 tháng đến 24 tháng.",
+    "dieu-6.khoan-16": "Ngoài việc bị áp dụng hình thức xử phạt, người điều khiển xe thực hiện hành vi vi phạm còn bị trừ điểm giấy phép lái xe như sau:",
+    "dieu-6.khoan-16.diem-a": "Thực hiện hành vi quy định tại điểm h, điểm i khoản 3; điểm a, điểm b, điểm c, điểm d, điểm đ, điểm g khoản 4; điểm a, điểm b, điểm c, điểm d, điểm đ, điểm e , điểm g, điểm i, điểm k , điểm n, điểm o khoản 5 Điều này bị trừ điểm giấy phép lái xe 02 điểm;",
+    "dieu-6.khoan-16.diem-b": "Thực hiện hành vi quy định tại điểm h khoản 5; khoản 6; điểm b khoản 7; điểm b, điểm c, điểm d khoản 9 Điều này bị trừ điểm giấy phép lái xe 04 điểm;",
+    "dieu-6.khoan-16.diem-c": "Thực hiện hành vi quy định tại điểm p khoản 5; điểm a , điểm c khoản 7; khoản 8 Điều này bị trừ điểm giấy phép lái xe 06 điểm;",
+    "dieu-6.khoan-16.diem-d": "Thực hiện hành vi quy định tại điểm a khoản 9, khoản 10, điểm đ khoản 11 Điều này bị trừ điểm giấy phép lái xe 10 điểm.",
+    "dieu-7.khoan-12": "Ngoài việc bị áp dụng hình thức xử phạt chính, người điều khiển xe thực hiện hành vi vi phạm còn bị áp dụng các hình thức xử phạt bổ sung sau đây:",
+    "dieu-7.khoan-12.diem-a": "Thực hiện hành vi quy định tại điểm đ khoản 2 Điều này còn bị tịch thu thiết bị phát tín hiệu ưu tiên lắp đặt, sử dụng trái quy định;",
+    "dieu-7.khoan-12.diem-b": "Thực hiện hành vi quy định tại điểm a, điểm b, điểm h, điểm i, điểm k khoản 9 Điều này bị tước quyền sử dụng giấy phép lái xe từ 10 tháng đến 12 tháng;",
+    "dieu-7.khoan-12.diem-c": "Thực hiện hành vi quy định tại điểm d, điểm đ, điểm e, điểm g khoản 9; khoản 11 Điều này bị tước quyền sử dụng giấy phép lái xe từ 22 tháng đến 24 tháng.",
+    "dieu-7.khoan-13": "Ngoài việc bị áp dụng hình thức xử phạt, người điều khiển xe thực hiện hành vi vi phạm còn bị trừ điểm giấy phép lái xe như sau:",
+    "dieu-7.khoan-13.diem-a": "Thực hiện hành vi quy định tại điểm b khoản 3; khoản 5; điểm b, điểm c, điểm d khoản 6; điểm a khoản 7 Điều này bị trừ điểm giấy phép lái xe 02 điểm;",
+    "dieu-7.khoan-13.diem-b": "Thực hiện hành vi quy định tại điểm đ khoản 4; điểm a khoản 6; điểm c, điểm d , điểm đ khoản 7; điểm a khoản 8 Điều này bị trừ điểm giấy phép lái xe 04 điểm;",
+    "dieu-7.khoan-13.diem-c": "Thực hiện hành vi quy định tại điểm b khoản 7 , điểm c khoản 9 Điều này bị trừ điểm giấy phép lái xe 06 điểm;",
+    "dieu-7.khoan-13.diem-d": "Thực hiện hành vi quy định tại điểm b khoản 8, khoản 10 Điều này bị trừ điểm giấy phép lái xe 10 điểm.",
+    "dieu-6.khoan-10": "Phạt tiền từ 20.000.000 đồng đến 22.000.000 đồng đối với người điều khiển xe thực hiện một trong các hành vi vi phạm sau đây:",
+    "dieu-6.khoan-10.diem-a": "Điều khiển xe không quan sát, giảm tốc độ hoặc dừng lại để bảo đảm an toàn theo quy định mà gây tai nạn giao thông; điều khiển xe chạy quá tốc độ quy định gây tai nạn giao thông; dừng xe, đỗ xe, quay đầu xe, lùi xe, tránh xe, vượt xe, chuyển hướng, chuyển làn đường không đúng quy định gây tai nạn giao thông; không đi đúng phần đường, làn đường, không giữ khoảng cách an toàn giữa hai xe theo quy định gây tai nạn giao thông hoặc đi vào đường có biển báo hiệu có nội dung cấm đi vào đối với loại phương tiện đang điều khiển gây tai nạn giao thông, trừ các hành vi vi phạm quy định tại điểm đ khoản 11 Điều này;",
+    "dieu-6.khoan-10.diem-b": "Vi phạm quy định tại một trong các điểm, khoản sau của Điều này mà gây tai nạn giao thông: điểm a, điểm b, điểm c, điểm d, điểm đ khoản 1; điểm c khoản 2; điểm b, điểm g, điểm h, điểm n, điểm o, điểm p, khoản 3; điểm a, điểm c , điểm d khoản 4; điểm c, điểm d, điểm e, điểm h, điểm n, điểm o, điểm q khoản 5; điểm b khoản 7; điểm b, điểm c, điểm d khoản 9 Điều này.",
+    "dieu-7.khoan-10": "Phạt tiền từ 10.000.000 đồng đến 14.000.000 đồng đối với người điều khiển xe thực hiện một trong các hành vi vi phạm sau đây:",
+    "dieu-7.khoan-10.diem-a": "Điều khiển xe không quan sát, giảm tốc độ hoặc dừng lại để bảo đảm an toàn theo quy định mà gây tai nạn giao thông; điều khiển xe chạy quá tốc độ quy định gây tai nạn giao thông; đi vào đường cao tốc, dừng xe, đỗ xe, quay đầu xe, lùi xe, vượt xe, chuyển hướng, chuyển làn đường không đúng quy định gây tai nạn giao thông; không đi đúng phần đường, làn đường, không giữ khoảng cách an toàn giữa hai xe theo quy định gây tai nạn giao thông hoặc đi vào đường có biển báo hiệu có nội dung cấm đi vào đối với loại phương tiện đang điều khiển, đi ngược chiều của đường một chiều, đi ngược chiều trên đường có biển \"Cấm đi ngược chiều\" gây tai nạn giao thông;",
+    "dieu-7.khoan-10.diem-b": "Vi phạm quy định tại một trong các điểm, khoản sau của Điều này mà gây tai nạn giao thông: điểm a, điểm d, điểm đ, điểm g, điểm h , điểm i, điểm k khoản 1; điểm c , điểm đ , điểm g khoản 2; điểm b, điểm e , điểm g, điểm h, điểm k khoản 3; điểm đ khoản 4 ; điểm c, điểm d khoản 6; điểm c, điểm d, điểm đ khoản 7; điểm a, điểm b, điểm h, điểm k khoản 9 Điều này."
+  },
+  "dong": [
+    {
+      "ma": "oto-toc-do-5-10",
+      "xe": "o_to",
+      "nhom": "Tốc độ",
+      "hanh_vi": "Điều khiển xe chạy quá tốc độ quy định từ 05 km/h đến dưới 10 km/h",
+      "tu_khoa": [
+        "quá tốc độ",
+        "chạy nhanh",
+        "vượt tốc độ"
+      ],
+      "phat_tu": 800000,
+      "phat_den": 1000000,
+      "hinh_thuc_bo_sung": [],
+      "tru_diem": null,
+      "toc_do_vuot": {
+        "tu": 5,
+        "den": 10,
+        "bien": "[)"
+      },
+      "can_cu": "vn:vbqppl:nd:168/2024/NĐ-CP#dieu-6.khoan-3.diem-a",
+      "hieu_luc_tu": "2025-01-01",
+      "trang_thai": "cho_duyet",
+      "suspension_months": null,
+      "conditions": [
+        "Khung thông thường của hành vi tại điểm được dẫn; phải đối chiếu tình tiết và trường hợp loại trừ."
+      ],
+      "required_facts": [
+        "Loại phương tiện và hành vi cụ thể",
+        "Có gây tai nạn giao thông hoặc thuộc khung khác không",
+        "Tình trạng giấy phép lái xe, trường hợp không trừ điểm theo Điều 50",
+        "Tốc độ cho phép, tốc độ xác định và số km/h vượt quá"
+      ]
+    },
+    {
+      "ma": "oto-toc-do-10-20",
+      "xe": "o_to",
+      "nhom": "Tốc độ",
+      "hanh_vi": "Điều khiển xe chạy quá tốc độ quy định từ 10 km/h đến 20 km/h",
+      "tu_khoa": [
+        "quá tốc độ",
+        "chạy nhanh",
+        "vượt tốc độ"
+      ],
+      "phat_tu": 4000000,
+      "phat_den": 6000000,
+      "hinh_thuc_bo_sung": [],
+      "tru_diem": 2,
+      "toc_do_vuot": {
+        "tu": 10,
+        "den": 20,
+        "bien": "[]"
+      },
+      "can_cu": "vn:vbqppl:nd:168/2024/NĐ-CP#dieu-6.khoan-5.diem-đ",
+      "hieu_luc_tu": "2025-01-01",
+      "trang_thai": "cho_duyet",
+      "suspension_months": null,
+      "conditions": [
+        "Khung thông thường của hành vi tại điểm được dẫn; phải đối chiếu tình tiết và trường hợp loại trừ."
+      ],
+      "required_facts": [
+        "Loại phương tiện và hành vi cụ thể",
+        "Có gây tai nạn giao thông hoặc thuộc khung khác không",
+        "Tình trạng giấy phép lái xe, trường hợp không trừ điểm theo Điều 50",
+        "Tốc độ cho phép, tốc độ xác định và số km/h vượt quá"
+      ]
+    },
+    {
+      "ma": "oto-toc-do-20-35",
+      "xe": "o_to",
+      "nhom": "Tốc độ",
+      "hanh_vi": "Điều khiển xe chạy quá tốc độ quy định trên 20 km/h đến 35 km/h",
+      "tu_khoa": [
+        "quá tốc độ",
+        "chạy nhanh",
+        "vượt tốc độ"
+      ],
+      "phat_tu": 6000000,
+      "phat_den": 8000000,
+      "hinh_thuc_bo_sung": [],
+      "tru_diem": 4,
+      "toc_do_vuot": {
+        "tu": 20,
+        "den": 35,
+        "bien": "(]"
+      },
+      "can_cu": "vn:vbqppl:nd:168/2024/NĐ-CP#dieu-6.khoan-6.diem-a",
+      "hieu_luc_tu": "2025-01-01",
+      "trang_thai": "cho_duyet",
+      "suspension_months": null,
+      "conditions": [
+        "Khung thông thường của hành vi tại điểm được dẫn; phải đối chiếu tình tiết và trường hợp loại trừ."
+      ],
+      "required_facts": [
+        "Loại phương tiện và hành vi cụ thể",
+        "Có gây tai nạn giao thông hoặc thuộc khung khác không",
+        "Tình trạng giấy phép lái xe, trường hợp không trừ điểm theo Điều 50",
+        "Tốc độ cho phép, tốc độ xác định và số km/h vượt quá"
+      ]
+    },
+    {
+      "ma": "oto-toc-do-tren-35",
+      "xe": "o_to",
+      "nhom": "Tốc độ",
+      "hanh_vi": "Điều khiển xe chạy quá tốc độ quy định trên 35 km/h",
+      "tu_khoa": [
+        "quá tốc độ",
+        "chạy nhanh",
+        "vượt tốc độ"
+      ],
+      "phat_tu": 12000000,
+      "phat_den": 14000000,
+      "hinh_thuc_bo_sung": [],
+      "tru_diem": 6,
+      "toc_do_vuot": {
+        "tu": 35,
+        "den": null,
+        "bien": "()"
+      },
+      "can_cu": "vn:vbqppl:nd:168/2024/NĐ-CP#dieu-6.khoan-7.diem-a",
+      "hieu_luc_tu": "2025-01-01",
+      "trang_thai": "cho_duyet",
+      "suspension_months": null,
+      "conditions": [
+        "Khung thông thường của hành vi tại điểm được dẫn; phải đối chiếu tình tiết và trường hợp loại trừ."
+      ],
+      "required_facts": [
+        "Loại phương tiện và hành vi cụ thể",
+        "Có gây tai nạn giao thông hoặc thuộc khung khác không",
+        "Tình trạng giấy phép lái xe, trường hợp không trừ điểm theo Điều 50",
+        "Tốc độ cho phép, tốc độ xác định và số km/h vượt quá"
+      ]
+    },
+    {
+      "ma": "mt-toc-do-5-10",
+      "xe": "mo_to",
+      "nhom": "Tốc độ",
+      "hanh_vi": "Điều khiển xe chạy quá tốc độ quy định từ 05 km/h đến dưới 10 km/h",
+      "tu_khoa": [
+        "quá tốc độ",
+        "chạy nhanh",
+        "vượt tốc độ",
+        "xe máy"
+      ],
+      "phat_tu": 400000,
+      "phat_den": 600000,
+      "hinh_thuc_bo_sung": [],
+      "tru_diem": null,
+      "toc_do_vuot": {
+        "tu": 5,
+        "den": 10,
+        "bien": "[)"
+      },
+      "can_cu": "vn:vbqppl:nd:168/2024/NĐ-CP#dieu-7.khoan-2.diem-b",
+      "hieu_luc_tu": "2025-01-01",
+      "trang_thai": "cho_duyet",
+      "suspension_months": null,
+      "conditions": [
+        "Khung thông thường của hành vi tại điểm được dẫn; phải đối chiếu tình tiết và trường hợp loại trừ."
+      ],
+      "required_facts": [
+        "Loại phương tiện và hành vi cụ thể",
+        "Có gây tai nạn giao thông hoặc thuộc khung khác không",
+        "Tình trạng giấy phép lái xe, trường hợp không trừ điểm theo Điều 50",
+        "Tốc độ cho phép, tốc độ xác định và số km/h vượt quá"
+      ]
+    },
+    {
+      "ma": "mt-toc-do-10-20",
+      "xe": "mo_to",
+      "nhom": "Tốc độ",
+      "hanh_vi": "Điều khiển xe chạy quá tốc độ quy định từ 10 km/h đến 20 km/h",
+      "tu_khoa": [
+        "quá tốc độ",
+        "chạy nhanh",
+        "vượt tốc độ",
+        "xe máy"
+      ],
+      "phat_tu": 800000,
+      "phat_den": 1000000,
+      "hinh_thuc_bo_sung": [],
+      "tru_diem": null,
+      "toc_do_vuot": {
+        "tu": 10,
+        "den": 20,
+        "bien": "[]"
+      },
+      "can_cu": "vn:vbqppl:nd:168/2024/NĐ-CP#dieu-7.khoan-4.diem-a",
+      "hieu_luc_tu": "2025-01-01",
+      "trang_thai": "cho_duyet",
+      "suspension_months": null,
+      "conditions": [
+        "Khung thông thường của hành vi tại điểm được dẫn; phải đối chiếu tình tiết và trường hợp loại trừ."
+      ],
+      "required_facts": [
+        "Loại phương tiện và hành vi cụ thể",
+        "Có gây tai nạn giao thông hoặc thuộc khung khác không",
+        "Tình trạng giấy phép lái xe, trường hợp không trừ điểm theo Điều 50",
+        "Tốc độ cho phép, tốc độ xác định và số km/h vượt quá"
+      ]
+    },
+    {
+      "ma": "mt-toc-do-tren-20",
+      "xe": "mo_to",
+      "nhom": "Tốc độ",
+      "hanh_vi": "Điều khiển xe chạy quá tốc độ quy định trên 20 km/h",
+      "tu_khoa": [
+        "quá tốc độ",
+        "chạy nhanh",
+        "vượt tốc độ",
+        "xe máy"
+      ],
+      "phat_tu": 6000000,
+      "phat_den": 8000000,
+      "hinh_thuc_bo_sung": [],
+      "tru_diem": 4,
+      "toc_do_vuot": {
+        "tu": 20,
+        "den": null,
+        "bien": "()"
+      },
+      "can_cu": "vn:vbqppl:nd:168/2024/NĐ-CP#dieu-7.khoan-8.diem-a",
+      "hieu_luc_tu": "2025-01-01",
+      "trang_thai": "cho_duyet",
+      "suspension_months": null,
+      "conditions": [
+        "Khung thông thường của hành vi tại điểm được dẫn; phải đối chiếu tình tiết và trường hợp loại trừ."
+      ],
+      "required_facts": [
+        "Loại phương tiện và hành vi cụ thể",
+        "Có gây tai nạn giao thông hoặc thuộc khung khác không",
+        "Tình trạng giấy phép lái xe, trường hợp không trừ điểm theo Điều 50",
+        "Tốc độ cho phép, tốc độ xác định và số km/h vượt quá"
+      ]
+    },
+    {
+      "ma": "oto-con-muc-1",
+      "xe": "o_to",
+      "nhom": "Nồng độ cồn, chất kích thích",
+      "hanh_vi": "Điều khiển xe trên đường mà trong máu hoặc hơi thở có nồng độ cồn nhưng chưa vượt quá 50 miligam/100 mililít máu hoặc chưa vượt quá 0,25 miligam/1 lít khí thở",
+      "tu_khoa": [
+        "nồng độ cồn",
+        "rượu bia",
+        "uống rượu",
+        "say xỉn",
+        "thổi nồng độ cồn"
+      ],
+      "phat_tu": 6000000,
+      "phat_den": 8000000,
+      "hinh_thuc_bo_sung": [],
+      "tru_diem": 4,
+      "can_cu": "vn:vbqppl:nd:168/2024/NĐ-CP#dieu-6.khoan-6.diem-c",
+      "hieu_luc_tu": "2025-01-01",
+      "trang_thai": "cho_duyet",
+      "suspension_months": null,
+      "conditions": [
+        "Khung thông thường của hành vi tại điểm được dẫn; phải đối chiếu tình tiết và trường hợp loại trừ."
+      ],
+      "required_facts": [
+        "Loại phương tiện và hành vi cụ thể",
+        "Có gây tai nạn giao thông hoặc thuộc khung khác không",
+        "Tình trạng giấy phép lái xe, trường hợp không trừ điểm theo Điều 50",
+        "Kết quả đo nồng độ cồn và đơn vị đo"
+      ]
+    },
+    {
+      "ma": "oto-con-muc-2",
+      "xe": "o_to",
+      "nhom": "Nồng độ cồn, chất kích thích",
+      "hanh_vi": "Điều khiển xe trên đường mà trong máu hoặc hơi thở có nồng độ cồn vượt quá 50 miligam đến 80 miligam/100 mililít máu hoặc vượt quá 0,25 miligam đến 0,4 miligam/1 lít khí thở",
+      "tu_khoa": [
+        "nồng độ cồn",
+        "rượu bia",
+        "uống rượu",
+        "say xỉn",
+        "thổi nồng độ cồn"
+      ],
+      "phat_tu": 18000000,
+      "phat_den": 20000000,
+      "hinh_thuc_bo_sung": [],
+      "tru_diem": 10,
+      "can_cu": "vn:vbqppl:nd:168/2024/NĐ-CP#dieu-6.khoan-9.diem-a",
+      "hieu_luc_tu": "2025-01-01",
+      "trang_thai": "cho_duyet",
+      "suspension_months": null,
+      "conditions": [
+        "Khung thông thường của hành vi tại điểm được dẫn; phải đối chiếu tình tiết và trường hợp loại trừ."
+      ],
+      "required_facts": [
+        "Loại phương tiện và hành vi cụ thể",
+        "Có gây tai nạn giao thông hoặc thuộc khung khác không",
+        "Tình trạng giấy phép lái xe, trường hợp không trừ điểm theo Điều 50",
+        "Kết quả đo nồng độ cồn và đơn vị đo"
+      ]
+    },
+    {
+      "ma": "oto-con-muc-3",
+      "xe": "o_to",
+      "nhom": "Nồng độ cồn, chất kích thích",
+      "hanh_vi": "Điều khiển xe trên đường mà trong máu hoặc hơi thở có nồng độ cồn vượt quá 80 miligam/100 mililít máu hoặc vượt quá 0,4 miligam/1 lít khí thở",
+      "tu_khoa": [
+        "nồng độ cồn",
+        "rượu bia",
+        "uống rượu",
+        "say xỉn",
+        "thổi nồng độ cồn"
+      ],
+      "phat_tu": 30000000,
+      "phat_den": 40000000,
+      "hinh_thuc_bo_sung": [
+        "Tước quyền sử dụng giấy phép lái xe từ 22 tháng đến 24 tháng"
+      ],
+      "tru_diem": null,
+      "can_cu": "vn:vbqppl:nd:168/2024/NĐ-CP#dieu-6.khoan-11.diem-a",
+      "hieu_luc_tu": "2025-01-01",
+      "trang_thai": "cho_duyet",
+      "suspension_months": [
+        22,
+        24
+      ],
+      "conditions": [
+        "Khung thông thường của hành vi tại điểm được dẫn; phải đối chiếu tình tiết và trường hợp loại trừ."
+      ],
+      "required_facts": [
+        "Loại phương tiện và hành vi cụ thể",
+        "Có gây tai nạn giao thông hoặc thuộc khung khác không",
+        "Tình trạng giấy phép lái xe, trường hợp không trừ điểm theo Điều 50",
+        "Kết quả đo nồng độ cồn và đơn vị đo"
+      ]
+    },
+    {
+      "ma": "oto-con-khong-chap-hanh",
+      "xe": "o_to",
+      "nhom": "Nồng độ cồn, chất kích thích",
+      "hanh_vi": "Không chấp hành yêu cầu kiểm tra về nồng độ cồn của người thi hành công vụ",
+      "tu_khoa": [
+        "nồng độ cồn",
+        "không thổi",
+        "từ chối kiểm tra",
+        "rượu bia"
+      ],
+      "phat_tu": 30000000,
+      "phat_den": 40000000,
+      "hinh_thuc_bo_sung": [
+        "Tước quyền sử dụng giấy phép lái xe từ 22 tháng đến 24 tháng"
+      ],
+      "tru_diem": null,
+      "can_cu": "vn:vbqppl:nd:168/2024/NĐ-CP#dieu-6.khoan-11.diem-b",
+      "hieu_luc_tu": "2025-01-01",
+      "trang_thai": "cho_duyet",
+      "suspension_months": [
+        22,
+        24
+      ],
+      "conditions": [
+        "Khung thông thường của hành vi tại điểm được dẫn; phải đối chiếu tình tiết và trường hợp loại trừ."
+      ],
+      "required_facts": [
+        "Loại phương tiện và hành vi cụ thể",
+        "Có gây tai nạn giao thông hoặc thuộc khung khác không",
+        "Tình trạng giấy phép lái xe, trường hợp không trừ điểm theo Điều 50"
+      ]
+    },
+    {
+      "ma": "mt-con-muc-1",
+      "xe": "mo_to",
+      "nhom": "Nồng độ cồn, chất kích thích",
+      "hanh_vi": "Điều khiển xe trên đường mà trong máu hoặc hơi thở có nồng độ cồn nhưng chưa vượt quá 50 miligam/100 mililít máu hoặc chưa vượt quá 0,25 miligam/1 lít khí thở",
+      "tu_khoa": [
+        "nồng độ cồn",
+        "rượu bia",
+        "uống rượu",
+        "say xỉn",
+        "thổi nồng độ cồn",
+        "xe máy"
+      ],
+      "phat_tu": 2000000,
+      "phat_den": 3000000,
+      "hinh_thuc_bo_sung": [],
+      "tru_diem": 4,
+      "can_cu": "vn:vbqppl:nd:168/2024/NĐ-CP#dieu-7.khoan-6.diem-a",
+      "hieu_luc_tu": "2025-01-01",
+      "trang_thai": "cho_duyet",
+      "suspension_months": null,
+      "conditions": [
+        "Khung thông thường của hành vi tại điểm được dẫn; phải đối chiếu tình tiết và trường hợp loại trừ."
+      ],
+      "required_facts": [
+        "Loại phương tiện và hành vi cụ thể",
+        "Có gây tai nạn giao thông hoặc thuộc khung khác không",
+        "Tình trạng giấy phép lái xe, trường hợp không trừ điểm theo Điều 50",
+        "Kết quả đo nồng độ cồn và đơn vị đo"
+      ]
+    },
+    {
+      "ma": "mt-con-muc-2",
+      "xe": "mo_to",
+      "nhom": "Nồng độ cồn, chất kích thích",
+      "hanh_vi": "Điều khiển xe trên đường mà trong máu hoặc hơi thở có nồng độ cồn vượt quá 50 miligam đến 80 miligam/100 mililít máu hoặc vượt quá 0,25 miligam đến 0,4 miligam/1 lít khí thở ",
+      "tu_khoa": [
+        "nồng độ cồn",
+        "rượu bia",
+        "uống rượu",
+        "say xỉn",
+        "thổi nồng độ cồn",
+        "xe máy"
+      ],
+      "phat_tu": 6000000,
+      "phat_den": 8000000,
+      "hinh_thuc_bo_sung": [],
+      "tru_diem": 10,
+      "can_cu": "vn:vbqppl:nd:168/2024/NĐ-CP#dieu-7.khoan-8.diem-b",
+      "hieu_luc_tu": "2025-01-01",
+      "trang_thai": "cho_duyet",
+      "suspension_months": null,
+      "conditions": [
+        "Khung thông thường của hành vi tại điểm được dẫn; phải đối chiếu tình tiết và trường hợp loại trừ."
+      ],
+      "required_facts": [
+        "Loại phương tiện và hành vi cụ thể",
+        "Có gây tai nạn giao thông hoặc thuộc khung khác không",
+        "Tình trạng giấy phép lái xe, trường hợp không trừ điểm theo Điều 50",
+        "Kết quả đo nồng độ cồn và đơn vị đo"
+      ]
+    },
+    {
+      "ma": "mt-con-muc-3",
+      "xe": "mo_to",
+      "nhom": "Nồng độ cồn, chất kích thích",
+      "hanh_vi": "Điều khiển xe trên đường mà trong máu hoặc hơi thở có nồng độ cồn vượt quá 80 miligam/100 mililít máu hoặc vượt quá 0,4 miligam/1 lít khí thở",
+      "tu_khoa": [
+        "nồng độ cồn",
+        "rượu bia",
+        "uống rượu",
+        "say xỉn",
+        "thổi nồng độ cồn",
+        "xe máy"
+      ],
+      "phat_tu": 8000000,
+      "phat_den": 10000000,
+      "hinh_thuc_bo_sung": [
+        "Tước quyền sử dụng giấy phép lái xe từ 22 tháng đến 24 tháng"
+      ],
+      "tru_diem": null,
+      "can_cu": "vn:vbqppl:nd:168/2024/NĐ-CP#dieu-7.khoan-9.diem-d",
+      "hieu_luc_tu": "2025-01-01",
+      "trang_thai": "cho_duyet",
+      "suspension_months": [
+        22,
+        24
+      ],
+      "conditions": [
+        "Khung thông thường của hành vi tại điểm được dẫn; phải đối chiếu tình tiết và trường hợp loại trừ."
+      ],
+      "required_facts": [
+        "Loại phương tiện và hành vi cụ thể",
+        "Có gây tai nạn giao thông hoặc thuộc khung khác không",
+        "Tình trạng giấy phép lái xe, trường hợp không trừ điểm theo Điều 50",
+        "Kết quả đo nồng độ cồn và đơn vị đo"
+      ]
+    },
+    {
+      "ma": "mt-con-khong-chap-hanh",
+      "xe": "mo_to",
+      "nhom": "Nồng độ cồn, chất kích thích",
+      "hanh_vi": "Không chấp hành yêu cầu kiểm tra về nồng độ cồn của người thi hành công vụ",
+      "tu_khoa": [
+        "nồng độ cồn",
+        "không thổi",
+        "từ chối kiểm tra",
+        "rượu bia",
+        "xe máy"
+      ],
+      "phat_tu": 8000000,
+      "phat_den": 10000000,
+      "hinh_thuc_bo_sung": [
+        "Tước quyền sử dụng giấy phép lái xe từ 22 tháng đến 24 tháng"
+      ],
+      "tru_diem": null,
+      "can_cu": "vn:vbqppl:nd:168/2024/NĐ-CP#dieu-7.khoan-9.diem-đ",
+      "hieu_luc_tu": "2025-01-01",
+      "trang_thai": "cho_duyet",
+      "suspension_months": [
+        22,
+        24
+      ],
+      "conditions": [
+        "Khung thông thường của hành vi tại điểm được dẫn; phải đối chiếu tình tiết và trường hợp loại trừ."
+      ],
+      "required_facts": [
+        "Loại phương tiện và hành vi cụ thể",
+        "Có gây tai nạn giao thông hoặc thuộc khung khác không",
+        "Tình trạng giấy phép lái xe, trường hợp không trừ điểm theo Điều 50"
+      ]
+    },
+    {
+      "ma": "oto-den-do",
+      "xe": "o_to",
+      "nhom": "Hiệu lệnh, chỉ dẫn",
+      "hanh_vi": "Không chấp hành hiệu lệnh của đèn tín hiệu giao thông",
+      "tu_khoa": [
+        "vượt đèn đỏ",
+        "đèn đỏ",
+        "đèn vàng",
+        "đèn tín hiệu"
+      ],
+      "phat_tu": 18000000,
+      "phat_den": 20000000,
+      "hinh_thuc_bo_sung": [],
+      "tru_diem": 4,
+      "can_cu": "vn:vbqppl:nd:168/2024/NĐ-CP#dieu-6.khoan-9.diem-b",
+      "hieu_luc_tu": "2025-01-01",
+      "trang_thai": "cho_duyet",
+      "suspension_months": null,
+      "conditions": [
+        "Khung thông thường của hành vi tại điểm được dẫn; phải đối chiếu tình tiết và trường hợp loại trừ."
+      ],
+      "required_facts": [
+        "Loại phương tiện và hành vi cụ thể",
+        "Có gây tai nạn giao thông hoặc thuộc khung khác không",
+        "Tình trạng giấy phép lái xe, trường hợp không trừ điểm theo Điều 50"
+      ]
+    },
+    {
+      "ma": "mt-den-do",
+      "xe": "mo_to",
+      "nhom": "Hiệu lệnh, chỉ dẫn",
+      "hanh_vi": "Không chấp hành hiệu lệnh của đèn tín hiệu giao thông",
+      "tu_khoa": [
+        "vượt đèn đỏ",
+        "đèn đỏ",
+        "đèn vàng",
+        "đèn tín hiệu",
+        "xe máy"
+      ],
+      "phat_tu": 4000000,
+      "phat_den": 6000000,
+      "hinh_thuc_bo_sung": [],
+      "tru_diem": 4,
+      "can_cu": "vn:vbqppl:nd:168/2024/NĐ-CP#dieu-7.khoan-7.diem-c",
+      "hieu_luc_tu": "2025-01-01",
+      "trang_thai": "cho_duyet",
+      "suspension_months": null,
+      "conditions": [
+        "Khung thông thường của hành vi tại điểm được dẫn; phải đối chiếu tình tiết và trường hợp loại trừ."
+      ],
+      "required_facts": [
+        "Loại phương tiện và hành vi cụ thể",
+        "Có gây tai nạn giao thông hoặc thuộc khung khác không",
+        "Tình trạng giấy phép lái xe, trường hợp không trừ điểm theo Điều 50"
+      ]
+    },
+    {
+      "ma": "oto-dien-thoai",
+      "xe": "o_to",
+      "nhom": "Khác",
+      "hanh_vi": "Dùng tay cầm và sử dụng điện thoại hoặc các thiết bị điện tử khác khi điều khiển phương tiện tham gia giao thông đang di chuyển trên đường bộ",
+      "tu_khoa": [
+        "điện thoại",
+        "nghe điện thoại",
+        "nhắn tin",
+        "cầm điện thoại"
+      ],
+      "phat_tu": 4000000,
+      "phat_den": 6000000,
+      "hinh_thuc_bo_sung": [],
+      "tru_diem": 4,
+      "can_cu": "vn:vbqppl:nd:168/2024/NĐ-CP#dieu-6.khoan-5.diem-h",
+      "hieu_luc_tu": "2025-01-01",
+      "trang_thai": "cho_duyet",
+      "suspension_months": null,
+      "conditions": [
+        "Khung thông thường của hành vi tại điểm được dẫn; phải đối chiếu tình tiết và trường hợp loại trừ."
+      ],
+      "required_facts": [
+        "Loại phương tiện và hành vi cụ thể",
+        "Có gây tai nạn giao thông hoặc thuộc khung khác không",
+        "Tình trạng giấy phép lái xe, trường hợp không trừ điểm theo Điều 50"
+      ]
+    },
+    {
+      "ma": "mt-dien-thoai",
+      "xe": "mo_to",
+      "nhom": "Khác",
+      "hanh_vi": "Người đang điều khiển xe sử dụng ô (dù), thiết bị âm thanh (trừ thiết bị trợ thính), dùng tay cầm và sử dụng điện thoại hoặc các thiết bị điện tử khác",
+      "tu_khoa": [
+        "điện thoại",
+        "nghe điện thoại",
+        "nhắn tin",
+        "cầm điện thoại",
+        "xe máy"
+      ],
+      "phat_tu": 800000,
+      "phat_den": 1000000,
+      "hinh_thuc_bo_sung": [],
+      "tru_diem": 4,
+      "can_cu": "vn:vbqppl:nd:168/2024/NĐ-CP#dieu-7.khoan-4.diem-đ",
+      "hieu_luc_tu": "2025-01-01",
+      "trang_thai": "cho_duyet",
+      "suspension_months": null,
+      "conditions": [
+        "Khung thông thường của hành vi tại điểm được dẫn; phải đối chiếu tình tiết và trường hợp loại trừ."
+      ],
+      "required_facts": [
+        "Loại phương tiện và hành vi cụ thể",
+        "Có gây tai nạn giao thông hoặc thuộc khung khác không",
+        "Tình trạng giấy phép lái xe, trường hợp không trừ điểm theo Điều 50"
+      ]
+    },
+    {
+      "ma": "mt-mu-bao-hiem",
+      "xe": "mo_to",
+      "nhom": "Khác",
+      "hanh_vi": "Không đội \"mũ bảo hiểm cho người đi mô tô, xe máy\" hoặc đội \"mũ bảo hiểm cho người đi mô tô, xe máy\" không cài quai đúng quy cách khi điều khiển xe tham gia giao thông trên đường bộ",
+      "tu_khoa": [
+        "mũ bảo hiểm",
+        "không đội mũ",
+        "nón bảo hiểm",
+        "xe máy"
+      ],
+      "phat_tu": 400000,
+      "phat_den": 600000,
+      "hinh_thuc_bo_sung": [],
+      "tru_diem": null,
+      "can_cu": "vn:vbqppl:nd:168/2024/NĐ-CP#dieu-7.khoan-2.diem-h",
+      "hieu_luc_tu": "2025-01-01",
+      "trang_thai": "cho_duyet",
+      "suspension_months": null,
+      "conditions": [
+        "Khung thông thường của hành vi tại điểm được dẫn; phải đối chiếu tình tiết và trường hợp loại trừ."
+      ],
+      "required_facts": [
+        "Loại phương tiện và hành vi cụ thể",
+        "Có gây tai nạn giao thông hoặc thuộc khung khác không",
+        "Tình trạng giấy phép lái xe, trường hợp không trừ điểm theo Điều 50"
+      ]
+    },
+    {
+      "ma": "oto-day-an-toan",
+      "xe": "o_to",
+      "nhom": "Khác",
+      "hanh_vi": "Không thắt dây đai an toàn khi điều khiển xe chạy trên đường",
+      "tu_khoa": [
+        "dây an toàn",
+        "thắt dây",
+        "dây đai"
+      ],
+      "phat_tu": 800000,
+      "phat_den": 1000000,
+      "hinh_thuc_bo_sung": [],
+      "tru_diem": null,
+      "can_cu": "vn:vbqppl:nd:168/2024/NĐ-CP#dieu-6.khoan-3.diem-k",
+      "hieu_luc_tu": "2025-01-01",
+      "trang_thai": "cho_duyet",
+      "suspension_months": null,
+      "conditions": [
+        "Khung thông thường của hành vi tại điểm được dẫn; phải đối chiếu tình tiết và trường hợp loại trừ."
+      ],
+      "required_facts": [
+        "Loại phương tiện và hành vi cụ thể",
+        "Có gây tai nạn giao thông hoặc thuộc khung khác không",
+        "Tình trạng giấy phép lái xe, trường hợp không trừ điểm theo Điều 50"
+      ]
+    }
+  ]
+}

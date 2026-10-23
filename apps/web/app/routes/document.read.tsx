@@ -5,8 +5,16 @@
  *  - không có `dieu`: toàn văn; văn bản lớn chia theo từng phần 30 điều (`?tu=dieu-31`).
  * Ngày áp dụng mặc định là hôm nay (giờ Việt Nam), chỉ đổi trong "Xem theo ngày khác".
  */
-import { useEffect } from "react";
-import { Form, Link, useNavigation, useRevalidator, useRouteLoaderData, useSearchParams } from "react-router";
+import { useEffect, useRef } from "react";
+import {
+  Form,
+  Link,
+  useLocation,
+  useNavigation,
+  useRevalidator,
+  useRouteLoaderData,
+  useSearchParams,
+} from "react-router";
 
 import { MucLucNganKeo } from "../components/tra-cuu/MucLucNganKeo";
 import { type NguCanhDoc, NoiDungDieu } from "../components/tra-cuu/NoiDungDieu";
@@ -219,6 +227,37 @@ function TepGoc({
 export default function DocumentRead({ loaderData: data, actionData }: Route.ComponentProps) {
   const layout = useRouteLoaderData<typeof documentLoader>("routes/document");
   const [params] = useSearchParams();
+  const location = useLocation();
+  const contentRef = useRef<HTMLDivElement>(null);
+  useEffect(() => {
+    if (!location.hash || data.cheDo === "chua-co-chu") return;
+    let id: string;
+    try {
+      id = decodeURIComponent(location.hash.slice(1));
+    } catch {
+      return;
+    }
+    // Chờ nội dung và ScrollRestoration hoàn tất, kể cả điều hướng trong ứng dụng.
+    let target: HTMLElement | null = null;
+    let previousTabIndex: string | null = null;
+    const frame = requestAnimationFrame(() => {
+      const element = document.getElementById(id);
+      if (!element || !contentRef.current?.contains(element)) return;
+      target = element;
+      previousTabIndex = target.getAttribute("tabindex");
+      target.setAttribute("data-citation-target", "true");
+      target.setAttribute("tabindex", "-1");
+      target.focus({ preventScroll: true });
+      target.scrollIntoView({ block: "start", behavior: "instant" });
+    });
+    return () => {
+      cancelAnimationFrame(frame);
+      if (!target) return;
+      target.removeAttribute("data-citation-target");
+      if (previousTabIndex === null) target.removeAttribute("tabindex");
+      else target.setAttribute("tabindex", previousTabIndex);
+    };
+  }, [location, data]);
   if (!layout) return null;
   const meta = layout.detail.meta;
   const base = layout.basePath;
@@ -251,7 +290,7 @@ export default function DocumentRead({ loaderData: data, actionData }: Route.Com
   };
 
   return (
-    <div>
+    <div ref={contentRef}>
       <div className="no-print flex flex-wrap items-center gap-2">
         <MucLucNganKeo
           muc={data.toc}

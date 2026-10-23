@@ -623,6 +623,16 @@
 
 /* Vùng đọc Markdown pháp lý (đầu ra của lib/markdown.ts). */
 @layer components {
+  /* Giữ nổi bật đúng đoạn căn cứ khi mở liên kết trong ứng dụng hoặc tải lại trang. */
+  [data-citation-target="true"] {
+    scroll-margin-top: 6rem;
+    border-radius: 0.375rem;
+    background-color: var(--color-warn-soft);
+    box-shadow: 0 0 0 4px var(--color-warn-soft);
+    outline: 2px solid var(--color-warn);
+    outline-offset: 4px;
+  }
+
   .prose-legal {
     font-size: 1.0625rem;
     line-height: 1.75;

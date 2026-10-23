@@ -436,14 +436,17 @@ function KhungThe({
         to={href}
         preventScrollReset
         aria-expanded={mo}
-        className="flex gap-4 rounded-2xl p-3 sm:p-4 dong-bam"
+        className="flex gap-3 rounded-2xl p-3 sm:gap-4 sm:p-4 dong-bam"
       >
-        <span className="grid size-22 shrink-0 place-items-center self-center rounded-xl border border-line bg-surface-2">
+        <span className="grid size-16 shrink-0 place-items-center self-start rounded-xl border border-line bg-surface-2 sm:size-22 sm:self-center">
           {hinh}
         </span>
         <span className="min-w-0 flex-1">
-          <span className="block text-lg font-semibold leading-snug">{tieuDe}</span>
+          <span className="block text-base font-semibold leading-snug sm:text-lg">{tieuDe}</span>
           {children}
+          <span className="mt-2 block text-xs font-medium text-primary sm:text-sm">
+            {mo ? "Thu gọn" : "Xem chi tiết"}
+          </span>
         </span>
       </Link>
       {mo ? <div className="border-t border-line px-4 pt-1 pb-4">{moRong}</div> : null}
@@ -464,24 +467,30 @@ function TheBienBao({ b, mo, href }: { b: BienBao; mo: boolean; href: string }) 
           height={64}
           loading="lazy"
           decoding="async"
-          className="size-16"
+          className="size-12 object-contain sm:size-16"
         />
       }
       tieuDe={
         <>
-          Biển số {b.ma} “{b.ten}”
+          <span className="hidden sm:inline">Biển số </span>
+          {b.ma} “{b.ten}”
         </>
       }
       moRong={
-        <div className="flex flex-wrap items-center justify-between gap-2">
-          <CanCuBienBao b={b} />
-          {b.ban_nhap ? <Badge tone="warn">Bản nháp</Badge> : null}
+        <div>
+          <p className="mt-3 text-sm leading-relaxed text-ink-2 sm:text-base">{b.y_nghia}</p>
+          <div className="mt-2 flex flex-wrap items-center justify-between gap-2">
+            <CanCuBienBao b={b} />
+            {b.ban_nhap ? <Badge tone="warn">Bản nháp</Badge> : null}
+          </div>
         </div>
       }
     >
-      <span className={cn("mt-1 block text-base leading-relaxed text-ink-2", !mo && "line-clamp-4")}>
-        {b.y_nghia}
-      </span>
+      {!mo ? (
+        <span className="mt-1 line-clamp-2 text-sm leading-relaxed text-ink-2 sm:line-clamp-4 sm:text-base">
+          {b.y_nghia}
+        </span>
+      ) : null}
     </KhungThe>
   );
 }

@@ -140,7 +140,10 @@ describe("bảo vệ điểm cuối MCP", () => {
     expect(body.email).toBe(EMAIL);
     expect(body.vai_tro).toBe("quan_ly");
     expect(body.cong_cu_kha_dung).toContain("hang_doi_bien_tap");
-    expect(body.cong_cu_kha_dung).not.toContain("duyet_lenh_sua_doi");
+    // Migration 0073 gộp quyền duyệt vào quan_ly, nhưng cổng ghi vẫn phải được bật.
+    expect(body.cong_cu_kha_dung.includes("duyet_lenh_sua_doi")).toBe(
+      process.env.QDPL_MCP_ALLOW_WRITE === "1",
+    );
   });
 
   test("thu hồi phiên thì token hết dùng được ngay", async () => {

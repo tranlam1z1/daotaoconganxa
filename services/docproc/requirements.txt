@@ -1,5 +1,6 @@
 # Gói bắt buộc — tổng dung lượng ~170 MB, chạy được trên CPU, không cần GPU.
-pymupdf>=1.24
+# PyMuPDF 2 changes table extraction/layout; keep the tested 1.x engine contract.
+pymupdf>=1.24,<2
 pypdf>=4.0
 python-docx>=1.1
 pillow>=10.0

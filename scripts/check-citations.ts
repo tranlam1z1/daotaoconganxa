@@ -49,6 +49,5 @@ const hongTraCuu = await kiemTraCanCuTraCuu(urnTraCuu, asOf ?? new Date().toISOS
 console.log(`\nTra cứu nhanh: ${urnTraCuu.length} căn cứ đã duyệt, ${hongTraCuu.length} hỏng`);
 for (const h of hongTraCuu) console.log(`  ${h.urn}\n          ${h.lyDo}`);
 
-
 await sql.end();
 process.exit(r.repealed || r.missing || hongTraCuu.length ? 1 : 0);

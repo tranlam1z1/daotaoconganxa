@@ -236,9 +236,7 @@ describe("duyệt", () => {
   });
 
   test("cán bộ và lãnh đạo UBND xã đều không duyệt được (403)", async () => {
-    expect((await goi("POST", `${BASE}/cau-hoi/${choDuyet[0]}/duyet`, { token: tk.canBo })).status).toBe(
-      403,
-    );
+    expect((await goi("POST", `${BASE}/cau-hoi/${choDuyet[0]}/duyet`, { token: tk.canBo })).status).toBe(403);
     const hl = await goi("POST", `${BASE}/duyet-hang-loat`, {
       token: tk.canBo,
       body: { ids: choDuyet.slice(0, 2) },

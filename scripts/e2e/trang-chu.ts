@@ -78,5 +78,4 @@ export default async function trangChu(n: NguCanhE2E) {
     if (dienThoai) await page.getByRole("link", { name: "Trang cá nhân" }).waitFor();
     await n.chupAnh(page, `can-bo-${khung.width}`);
   }
-
 }

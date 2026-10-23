@@ -119,6 +119,7 @@ export default [
     route("cau-hoi/:id", "routes/quan-tri.cau-hoi.sua.tsx"),
     // Dữ liệu tra cứu nhanh, duyệt như câu hỏi (docs/PLAN.md GĐ-G0).
     route("du-lieu-tra-cuu", "routes/quan-tri.du-lieu-tra-cuu.tsx"),
+    route("giao-thong", "routes/quan-tri.giao-thong.tsx"),
     route("du-lieu-tra-cuu/moi", "routes/quan-tri.du-lieu-tra-cuu.moi.tsx"),
     // Tệp của biểu mẫu ở mọi trạng thái, cho người soạn và người duyệt xem trước.
     route("du-lieu-tra-cuu/tep/:ma", "routes/quan-tri.du-lieu-tra-cuu.tep.tsx"),

@@ -35,6 +35,21 @@ export const CHU_DE_MUC_PHAT: ReadonlyArray<{ ma: string; ten: string; icon: Ico
 ];
 
 export interface MucPhat {
+  khungPhat?: Array<{
+    id: string;
+    conditions: string[];
+    required_facts: string[];
+    fine_min: string;
+    fine_max: string;
+    point_deduction: number | null;
+    suspension_months_min: number | null;
+    suspension_months_max: number | null;
+    additional_penalties: string[];
+    remedies: string[];
+    citation_urn: string;
+    effective_from: string;
+    effective_to: string | null;
+  }>;
   ma: string;
   xe: LoaiXe;
   tenXe: string;
@@ -112,8 +127,17 @@ async function goi<T>(path: string, params: Record<string, string | number | und
   return (await res.json()) as T;
 }
 
-export async function timMucPhat(q: { q?: string; xe?: LoaiXe; ngay?: string }) {
-  return goi<{ total: number; items: MucPhat[] }>("/v1/tra-cuu/muc-phat", q);
+export async function timMucPhat(q: {
+  q?: string;
+  nhom?: string;
+  xe?: LoaiXe;
+  ngay?: string;
+  page?: number;
+}) {
+  return goi<{ total: number; items: MucPhat[]; page: number }>("/api/v1/tra-cuu/muc-phat", q);
+}
+export async function layChuDeMucPhat() {
+  return goi<{ items: Array<{ name: string }> }>("/api/v1/tra-cuu/chu-de-muc-phat");
 }
 
 export async function traTocDo(q: {

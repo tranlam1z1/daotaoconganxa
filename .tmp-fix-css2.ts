@@ -4,10 +4,16 @@ const crlf = raw.includes("\r\n");
 const lines = raw.split("\n").map((l) => l.replace(/\r$/, ""));
 
 const iCmt = lines.findIndex((l) => l.includes("Hoạt ảnh biểu tượng, chỉ khi không bật giảm chuyển động"));
-if (iCmt < 0) { console.log("MISS"); process.exit(1); }
+if (iCmt < 0) {
+  console.log("MISS");
+  process.exit(1);
+}
 // Từ dòng ghi chú đến trước "@keyframes ic-lac" là phần hỏng: thay bằng khối đúng.
 const iKey = lines.findIndex((l) => l.startsWith("@keyframes ic-lac {"));
-if (iKey < 0) { console.log("MISS key"); process.exit(1); }
+if (iKey < 0) {
+  console.log("MISS key");
+  process.exit(1);
+}
 const khoi = [
   "/*",
   " * Hoạt ảnh biểu tượng, chỉ khi không bật giảm chuyển động: .ic-lac chuông lắc một lần (thông báo mới).",

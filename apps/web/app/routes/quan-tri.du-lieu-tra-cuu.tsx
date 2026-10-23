@@ -815,6 +815,7 @@ export default function DuLieuTraCuu({ loaderData, actionData }: Route.Component
         <ButtonLink to={`/quan-tri/du-lieu-tra-cuu/moi${laLoaiSoan(loai) ? `?loai=${loai}` : ""}`}>
           Soạn nội dung tra cứu
         </ButtonLink>
+        <ButtonLink to="/quan-tri/giao-thong">Nhập tài liệu, khung phạt</ButtonLink>
       </div>
       <p className="mt-2 max-w-2xl text-[15px] leading-relaxed text-ink-2">
         Người học chỉ thấy dòng đã duyệt. Sửa dòng đã duyệt thì dòng về chờ duyệt, tăng phiên bản, và tạm rời

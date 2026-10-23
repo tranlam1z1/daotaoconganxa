@@ -31,14 +31,23 @@ export interface BienBao {
   ban_nhap: boolean;
 }
 
-export async function timBienBao(q: { q?: string; nhom?: NhomBienBao }) {
+export async function timBienBao(q: { q?: string; nhom?: NhomBienBao; page?: number }) {
   const qs = new URLSearchParams();
   if (q.q) qs.set("q", q.q);
   if (q.nhom) qs.set("nhom", q.nhom);
-  const res = await fetch(`${apiBase()}/v1/tra-cuu/bien-bao${qs.size ? `?${qs}` : ""}`, {
+  if (q.page) qs.set("page", String(q.page));
+  const res = await fetch(`${apiBase()}/api/v1/tra-cuu/bien-bao${qs.size ? `?${qs}` : ""}`, {
     headers: { accept: "application/json" },
     signal: AbortSignal.timeout(10_000),
   });
   if (!res.ok) throw new Error(`API biển báo trả về ${res.status}`);
-  return (await res.json()) as { items: BienBao[]; ban_nhap: boolean };
+  return (await res.json()) as { items: BienBao[]; ban_nhap: boolean; total: number; page: number };
+}
+
+export async function layNhomBienBao() {
+  const res = await fetch(`${apiBase()}/api/v1/tra-cuu/bien-bao/nhom`, {
+    signal: AbortSignal.timeout(10000),
+  });
+  if (!res.ok) throw new Error("Chưa tải được nhóm biển báo.");
+  return (await res.json()) as { items: Array<{ value: NhomBienBao; label: string }> };
 }

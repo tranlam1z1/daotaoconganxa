@@ -111,9 +111,9 @@ describe("S1 — API quản trị phải kiểm quyền", () => {
     });
     expect(status).toBe(403);
     expect(body.error.code).toBe("khong_du_quyen");
-    expect((await goi("POST", `/v1/amend-ops/${lenhDuyet}/approve`, { token: tk.lanhDao, body: {} })).status).toBe(
-      403,
-    );
+    expect(
+      (await goi("POST", `/v1/amend-ops/${lenhDuyet}/approve`, { token: tk.lanhDao, body: {} })).status,
+    ).toBe(403);
   });
 
   test("từ chối lệnh sửa đổi cũng cần vai trò Admin quản lý trở lên", async () => {

@@ -5,7 +5,7 @@
  * học lần nữa) và để gộp nhật ký của tài khoản khách vào tài khoản thật.
  */
 import { ngayVietNam } from "@qdpl/dao-tao";
-import { type Tx } from "./client.ts";
+import type { Tx } from "./client.ts";
 
 /** Ghi một dòng hoạt động cho ngày `ngay` (YYYY-MM-DD). Đã có dòng thì giữ nguyên. */
 export async function ghiHoatDong(tx: Tx, accountId: string, ngay: string): Promise<void> {

@@ -6,8 +6,8 @@ import type { ReactNode } from "react";
 import { Link } from "react-router";
 
 import { cn } from "../../lib/cn";
-import { Icon, type IconName } from "../ui/Icon";
 import { EmptyState } from "../ui/EmptyState";
+import { Icon, type IconName } from "../ui/Icon";
 
 export const TH = "py-2 pr-3 font-medium";
 export const TD = "py-2 pr-3 align-top";
@@ -58,7 +58,14 @@ export function TomTat({ muc }: { muc: MucTomTat[] }) {
             m.to && "dong-bam",
           )}
         >
-          {m.icon ? <><span className="tong-quan-icon"><Icon name={m.icon} className="size-7" /></span><Icon name={m.icon === "book" ? "chart" : m.icon} className="tong-quan-watermark" /></> : null}
+          {m.icon ? (
+            <>
+              <span className="tong-quan-icon">
+                <Icon name={m.icon} className="size-7" />
+              </span>
+              <Icon name={m.icon === "book" ? "chart" : m.icon} className="tong-quan-watermark" />
+            </>
+          ) : null}
           <dt className="text-sm text-ink-2">
             {m.to ? (
               // Lớp phủ ::after cho cả ô bấm được, mà <dl> vẫn chỉ chứa <div>, <dt>, <dd>.

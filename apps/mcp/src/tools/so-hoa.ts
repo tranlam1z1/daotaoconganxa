@@ -449,7 +449,9 @@ export function registerSoHoaTools(reg: ToolRegistrar): void {
         bo_qua_canh_bao: z
           .boolean()
           .optional()
-          .describe("Vẫn chốt dù kiểm chứng không đạt (dùng khi người quản trị nội dung đã xem và chấp nhận)."),
+          .describe(
+            "Vẫn chốt dù kiểm chứng không đạt (dùng khi người quản trị nội dung đã xem và chấp nhận).",
+          ),
       },
       annotations: { readOnlyHint: false, idempotentHint: true, openWorldHint: false },
     },

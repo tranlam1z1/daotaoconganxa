@@ -49,13 +49,7 @@ describe("chế độ khách đã tắt", () => {
 
   test("phiên khách cũ không còn là danh tính ở bất kỳ nhóm API nào", async () => {
     const { token } = await taoKhachCu();
-    for (const duong of [
-      "/v1/auth/me",
-      "/v1/toi/tong-quan",
-      "/v1/luyen-tap/chu-de",
-      "/v1/thi",
-      "/v1/nhom",
-    ]) {
+    for (const duong of ["/v1/auth/me", "/v1/toi/lich-su", "/v1/luyen-tap/chu-de", "/v1/thi", "/v1/nhom"]) {
       expect((await goi("GET", duong, undefined, token)).status).toBe(401);
     }
     expect((await goi("POST", "/v1/auth/mcp-token", {}, token)).status).toBe(401);
@@ -123,6 +117,17 @@ describe("chuyển tiếp cho khách cũ", () => {
  * xếp vào đây hoặc vào GOP_TIEN_DO_BANG (packages/db/src/tai-khoan-khach.ts).
  */
 const KHONG_GOP = [
+  // Game đã rút khỏi luồng học hiện tại; dữ liệu cũ không thuộc tiến độ được chuyển tiếp.
+  "account_badges",
+  "game_level_progress",
+  "game_packs",
+  "game_progress",
+  "game_runs",
+  "game_scores",
+  "streaks",
+  "xp_ledger",
+  // Phiên khách đã bị vô hiệu hóa trước khi thêm API lịch sử tra cứu theo tài khoản.
+  "search_histories",
   "sessions",
   "mcp_call_log",
   "access_log",

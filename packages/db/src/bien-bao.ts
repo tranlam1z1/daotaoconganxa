@@ -29,17 +29,25 @@ export async function danhSachBienBao(opts: {
   gomBanNhap?: boolean;
 }): Promise<BienBaoRow[]> {
   const q = opts.q?.trim() ? `%${opts.q.trim()}%` : null;
-  return await sql<BienBaoRow[]>`
+  const rows = await sql<BienBaoRow[]>`
     SELECT ${COT} FROM traffic_signs
     WHERE ${locTrangThai(Boolean(opts.gomBanNhap))}
       AND (${opts.nhom ?? null}::text IS NULL OR group_name = ${opts.nhom ?? null})
-      AND (${q}::text IS NULL OR search_text LIKE lower(unaccent(${q})) OR code ILIKE ${q})
+      AND deleted_at IS NULL
+      AND (${q}::text IS NULL OR search_text LIKE lower(unaccent(${q})) OR code ILIKE ${q}
+        OR lower(unaccent(meaning)) LIKE lower(unaccent(${q})))
     ORDER BY group_name, ordinal, code`;
+  if (rows.length || !opts.q?.trim()) return rows;
+  return sql<BienBaoRow[]>`SELECT ${COT} FROM traffic_signs
+    WHERE ${locTrangThai(Boolean(opts.gomBanNhap))} AND deleted_at IS NULL
+    AND (${opts.nhom ?? null}::text IS NULL OR group_name = ${opts.nhom ?? null})
+    AND search_text % lower(unaccent(${opts.q.trim()}))
+    ORDER BY similarity(search_text, lower(unaccent(${opts.q.trim()}))) DESC, code LIMIT 100`;
 }
 
 export async function bienBaoTheoMa(code: string, gomBanNhap = false): Promise<BienBaoRow | undefined> {
   const [row] = await sql<BienBaoRow[]>`
-    SELECT ${COT} FROM traffic_signs WHERE code = ${code} AND ${locTrangThai(gomBanNhap)}`;
+    SELECT ${COT} FROM traffic_signs WHERE code = ${code} AND deleted_at IS NULL AND ${locTrangThai(gomBanNhap)}`;
   return row;
 }
 

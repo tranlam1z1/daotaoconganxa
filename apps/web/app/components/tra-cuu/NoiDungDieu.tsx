@@ -62,6 +62,8 @@ export function NoiDungDieu({ node, ctx }: { node: LegalNode; ctx: NguCanhDoc })
           <span className="block">{node.label}</span>
           {node.heading ? <span className="mt-1 block">{node.heading}</span> : null}
         </h2>
+        {node.text ? <VanBan html={renderMarkdown(node.text)} className="mt-3" /> : null}
+        {node.note ? <GhiChuSuaDoi text={node.note} /> : null}
         {con}
       </section>
     );

@@ -14,6 +14,7 @@ import { useFetcher } from "react-router";
 import type { action, CauHinhThongBao } from "../../routes/thong-bao";
 import { Button } from "../ui/Button";
 import { inputClass, Notice } from "../ui/Field";
+import { Icon } from "../ui/Icon";
 
 type TinhTrang =
   | "dang-kiem"
@@ -143,10 +144,10 @@ export function NhacHoc({ laQuanTri = false }: { laQuanTri?: boolean }) {
   return (
     <section
       aria-labelledby="nhac-hoc"
-      className="rounded-card border border-line bg-surface p-5 shadow-card"
+      className="ho-so-nhac-hoc rounded-card border border-line bg-surface p-5 shadow-card"
     >
       <h2 id="nhac-hoc" className="text-lg font-semibold">
-        Nhắc học
+        <Icon name="bell" className="size-6 text-primary" /> Nhắc học
       </h2>
       <p className="mt-1 text-[15px] leading-relaxed text-ink-2">
         Nhận thông báo khi đến giờ học và khi có bài thi mới. Không gửi từ 22h đến 6h.

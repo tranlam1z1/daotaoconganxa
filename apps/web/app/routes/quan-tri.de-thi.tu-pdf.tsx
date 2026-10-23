@@ -7,9 +7,9 @@
  */
 import { useState } from "react";
 import { Form, Link, redirect, useNavigation } from "react-router";
-
 import { Button } from "../components/ui/Button";
 import { Input, inputClass, Label, Notice } from "../components/ui/Field";
+import { TieuDeTrang } from "../components/ui/KhungTrang";
 import { goiApiQuanTri, LoiApi } from "../lib/quan-tri.server";
 import { yeuCauVaiTro } from "../lib/session.server";
 import { pageMeta } from "../lib/site";
@@ -64,7 +64,9 @@ export default function TaoDeThiTuPdf({ loaderData, actionData }: Route.Componen
       >
         Về danh sách đề thi
       </Link>
-      <h2 className="text-xl font-semibold">Tạo đề thi từ tệp PDF</h2>
+      <TieuDeTrang as="h2" icon="shield" className="text-xl font-semibold">
+        Tạo đề thi từ tệp PDF
+      </TieuDeTrang>
       <p className="mt-1 text-sm text-ink-2">
         Chọn tệp PDF của văn bản (luật, nghị định, thông tư). Hệ thống lưu văn bản vào kho, tạo đề mang tên
         văn bản và cho AI sinh câu hỏi. Cán bộ chỉ làm được đề sau khi bạn duyệt câu hỏi và xuất bản đề.

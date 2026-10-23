@@ -81,7 +81,7 @@ export interface PortHolder {
 
 /**
  * Tìm các tiến trình đang LẮNG NGHE trên một cổng.
- * Dùng `ss` trước (luôn có trên Linux), rồi `lsof`, rồi `fuser`.
+ * Windows dùng netstat/tasklist; Linux dùng ss, rồi lsof.
  * Chỉ nhận tiến trình ở trạng thái LISTEN — không đụng tới kết nối đang mở tới cổng đó.
  */
 export async function findPortHolders(port: number): Promise<PortHolder[]> {
@@ -98,15 +98,21 @@ export async function findPortHolders(port: number): Promise<PortHolder[]> {
     }
   };
 
-  // ss: dòng LISTEN có users:(("tên",pid=123,fd=4))
-  const ssOut = await run(["ss", "-ltnpH", `sport = :${port}`]);
-  for (const m of ssOut.matchAll(/pid=(\d+)/g)) pids.add(Number(m[1]));
+  if (process.platform === "win32") {
+    for (const pid of windowsListenerPids(await run(["netstat", "-ano", "-p", "tcp"]), port)) {
+      pids.add(pid);
+    }
+  } else {
+    // ss: dòng LISTEN có users:(("tên",pid=123,fd=4))
+    const ssOut = await run(["ss", "-ltnpH", `sport = :${port}`]);
+    for (const m of ssOut.matchAll(/pid=(\d+)/g)) pids.add(Number(m[1]));
 
-  if (!pids.size) {
-    const lsofOut = await run(["lsof", "-ti", `tcp:${port}`, "-sTCP:LISTEN"]);
-    for (const line of lsofOut.split("\n")) {
-      const n = Number(line.trim());
-      if (Number.isFinite(n) && n > 0) pids.add(n);
+    if (!pids.size) {
+      const lsofOut = await run(["lsof", "-ti", `tcp:${port}`, "-sTCP:LISTEN"]);
+      for (const line of lsofOut.split("\n")) {
+        const n = Number(line.trim());
+        if (Number.isFinite(n) && n > 0) pids.add(n);
+      }
     }
   }
 
@@ -114,13 +120,44 @@ export async function findPortHolders(port: number): Promise<PortHolder[]> {
   for (const pid of pids) {
     let command = "?";
     try {
-      command = (await Bun.file(`/proc/${pid}/cmdline`).text()).replace(/\0/g, " ").trim() || "?";
+      if (process.platform === "win32") {
+        const task = await run(["tasklist", "/FI", `PID eq ${pid}`, "/FO", "CSV", "/NH"]);
+        command = task.match(/^"([^"]+)","\d+"/m)?.[1] ?? "?";
+        if (command === "?") {
+          // tasklist có thể bị chặn ngay cả khi Get-Process vẫn đọc được tên tiến trình.
+          command =
+            (
+              await run([
+                "powershell.exe",
+                "-NoProfile",
+                "-NonInteractive",
+                "-Command",
+                `(Get-Process -Id ${pid} -ErrorAction Stop).ProcessName`,
+              ])
+            ).trim() || "?";
+        }
+      } else {
+        command = (await Bun.file(`/proc/${pid}/cmdline`).text()).replace(/\0/g, " ").trim() || "?";
+      }
     } catch {
       // tiến trình đã thoát giữa chừng
     }
     holders.push({ pid, command: command.slice(0, 120) });
   }
   return holders;
+}
+
+/** Chỉ lấy PID lắng nghe đúng cổng cục bộ, kể cả IPv6; bỏ kết nối tới máy chủ khác. */
+export function windowsListenerPids(output: string, port: number): number[] {
+  const pids = new Set<number>();
+  for (const line of output.split(/\r?\n/)) {
+    const [protocol, local, , state, rawPid] = line.trim().split(/\s+/);
+    if (protocol !== "TCP" || state !== "LISTENING") continue;
+    if (Number(local?.slice(local.lastIndexOf(":") + 1)) !== port) continue;
+    const pid = Number(rawPid);
+    if (Number.isInteger(pid) && pid > 0) pids.add(pid);
+  }
+  return [...pids];
 }
 
 /** Cổng có đang bị chiếm không (thử mở thật, chắc chắn hơn là đọc bảng tiến trình). */
@@ -175,6 +212,8 @@ export async function ensurePortFree(port: number, opts: EnsureOptions = {}): Pr
   const holders = await findPortHolders(port);
 
   if (!holders.length) {
+    // Tiến trình có thể vừa thoát giữa lần thử bind và lúc đọc bảng kết nối.
+    if (await isPortFree(port)) return;
     throw new PortBusyError(
       port,
       [],

@@ -8,10 +8,10 @@
  * Giảng viên chọn mức điểm từng tiêu chí của rubric (như mô hình), kèm nhận xét cho người thi.
  */
 import { Link } from "react-router";
-
 import { ChamTheoRubric, docDiemTieuChi, NguonChamTuLuan } from "../components/quan-tri/ChamTheoRubric";
 import { EmptyState } from "../components/ui/EmptyState";
 import { Notice } from "../components/ui/Field";
+import { TieuDeTrang } from "../components/ui/KhungTrang";
 import { cn } from "../lib/cn";
 import { formatNgayGio } from "../lib/format";
 import { laRubric } from "../lib/ngan-hang";
@@ -74,7 +74,9 @@ export default function ChamTuLuan({ loaderData, actionData }: Route.ComponentPr
   const { items, cheDo } = loaderData;
   return (
     <section>
-      <h2 className="text-xl font-semibold">Chấm tự luận</h2>
+      <TieuDeTrang as="h2" icon="shield" className="text-xl font-semibold">
+        Chấm tự luận
+      </TieuDeTrang>
       <NguonChamTuLuan dangXem="de-thi" />
       <p className="mt-4 max-w-3xl text-sm text-ink-2">
         Câu tự luận trong đề thi được chấm tự động theo tiêu chí khi người thi nộp bài. Câu chưa chấm được nằm

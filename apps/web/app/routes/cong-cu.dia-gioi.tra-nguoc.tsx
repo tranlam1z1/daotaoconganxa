@@ -3,7 +3,6 @@
  * theo huyện cũ. Biểu mẫu GET: `tinh` lọc theo tỉnh mới, `q` tìm theo tên, `xa` xem một xã mới.
  */
 import { Form, Link, useNavigation } from "react-router";
-
 import {
   BangDiaChi,
   DongDiaChi,
@@ -13,6 +12,7 @@ import {
 } from "../components/dia-gioi/ChungDiaGioi";
 import { Notice } from "../components/ui/Field";
 import { Icon } from "../components/ui/Icon";
+import { KhungTrang, TieuDeTrang } from "../components/ui/KhungTrang";
 import { cn } from "../lib/cn";
 import {
   DUONG_DIA_GIOI,
@@ -68,7 +68,7 @@ export default function TraNguoc({ loaderData }: Route.ComponentProps) {
   const dangTai = useNavigation().state !== "idle";
 
   return (
-    <div className="wrap max-w-2xl py-6 sm:py-10">
+    <KhungTrang className="wrap max-w-2xl py-6 sm:py-10">
       <p className="hidden md:block">
         <Link
           to={DUONG_DIA_GIOI}
@@ -81,7 +81,9 @@ export default function TraNguoc({ loaderData }: Route.ComponentProps) {
       <div className="flex items-center gap-4">
         <OBieuTuong icon="turn" className="size-16 sm:size-16" />
         <div className="min-w-0">
-          <h1 className="text-2xl font-bold leading-tight sm:text-3xl">Tra ngược từ xã, phường mới</h1>
+          <TieuDeTrang icon="map" className="">
+            Tra ngược từ xã, phường mới
+          </TieuDeTrang>
           <p className="mt-1 text-base text-ink-2">Các xã, phường cũ đã nhập vào một xã, phường hiện nay.</p>
         </div>
       </div>
@@ -164,7 +166,7 @@ export default function TraNguoc({ loaderData }: Route.ComponentProps) {
           </>
         ) : null}
       </div>
-    </div>
+    </KhungTrang>
   );
 }
 

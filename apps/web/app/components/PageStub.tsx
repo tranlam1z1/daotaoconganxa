@@ -1,7 +1,7 @@
 import type { ReactNode } from "react";
-
 import { EmptyState } from "./ui/EmptyState";
 import type { IconName } from "./ui/Icon";
+import { KhungTrang } from "./ui/KhungTrang";
 import { PageHeader } from "./ui/PageHeader";
 
 /**
@@ -54,9 +54,9 @@ export function PageStub({
   }
 
   return (
-    <div className="wrap py-10">
+    <KhungTrang className="wrap py-10">
       <PageHeader eyebrow={eyebrow} title={title} description={description} actions={actions} />
       <div className="mt-8">{body}</div>
-    </div>
+    </KhungTrang>
   );
 }

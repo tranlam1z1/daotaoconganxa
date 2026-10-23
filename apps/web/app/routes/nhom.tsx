@@ -3,7 +3,6 @@
  * mở hộp thoại. Mỗi nhóm hiện số thành viên, phần trăm của tôi và phần trăm trung bình nhóm.
  */
 import { Link, redirect } from "react-router";
-
 import { HopTaoNhom } from "../components/nhom/HopTaoNhom";
 import { HopThamGia } from "../components/nhom/HopThamGia";
 import { ThanhPhanTram } from "../components/nhom/ThanhPhanTram";
@@ -12,6 +11,7 @@ import { Button } from "../components/ui/Button";
 import { EmptyState } from "../components/ui/EmptyState";
 import { useHop } from "../components/ui/HopThoai";
 import { Icon } from "../components/ui/Icon";
+import { DauTrangAnh, KhungTrang } from "../components/ui/KhungTrang";
 import type { KetQuaThaoTacNhom } from "../lib/nhom";
 import { nhomCuaToi, taoNhom, thamGiaNhom, xemTruocNhom } from "../lib/nhom.server";
 import { LoiApi } from "../lib/quan-tri.server";
@@ -77,17 +77,11 @@ export default function NhomCuaToi({ loaderData }: Route.ComponentProps) {
   );
 
   return (
-    <div className="wrap max-w-3xl py-8 lg:max-w-7xl" data-nhom="">
-      <p className="hidden text-sm md:block">
-        <Link to="/luyen-tap" className="inline-flex min-h-11 items-center text-primary hover:underline">
-          Học & luyện tập
-        </Link>
-      </p>
-      <h1 className="mt-2 text-3xl font-semibold lg:text-4xl">Nhóm học cùng</h1>
-      <p className="mt-2 text-base leading-relaxed text-ink-2 lg:max-w-3xl">
+    <KhungTrang className="wrap max-w-3xl py-8 lg:max-w-7xl" data-nhom="">
+      <DauTrangAnh icon="nhom" tieuDe="Nhóm học cùng">
         Học cùng đồng đội: chia sẻ bài học và đề ôn tập vào nhóm, theo dõi phần trăm tiến độ của từng người.
         Thành viên không thấy điểm của nhau.
-      </p>
+      </DauTrangAnh>
 
       {nhom.length === 0 ? (
         <div className="mt-8">
@@ -131,6 +125,6 @@ export default function NhomCuaToi({ loaderData }: Route.ComponentProps) {
 
       <HopTaoNhom key={`tao-${hop.lan}`} mo={hop.la("tao")} onDong={hop.dong} />
       <HopThamGia key={`tham-gia-${hop.lan}`} mo={hop.la("tham-gia")} onDong={hop.dong} />
-    </div>
+    </KhungTrang>
   );
 }

@@ -5,12 +5,13 @@
  */
 import { useRef } from "react";
 import { Form, Link, redirect, useNavigation } from "react-router";
-
 import { NutMicro } from "../components/giong-noi/NutMicro";
 import { TheCanCu } from "../components/tra-cuu/TheCanCu";
 import { Button, ButtonLink } from "../components/ui/Button";
 import { EmptyState } from "../components/ui/EmptyState";
 import { Notice } from "../components/ui/Field";
+import { Icon } from "../components/ui/Icon";
+import { KhungTrang } from "../components/ui/KhungTrang";
 import { ask, LoiHoiDap } from "../lib/api";
 import { layToken } from "../lib/auth.server";
 import { formatDate, isIsoDate, todayIso } from "../lib/format";
@@ -72,11 +73,21 @@ export default function AskPage({ loaderData }: Route.ComponentProps) {
   const oHoi = useRef<HTMLTextAreaElement>(null);
 
   return (
-    <div className="wrap max-w-3xl py-8">
-      <h1 className="text-3xl font-semibold">Hỏi trợ lý AI</h1>
-      <p className="mt-2 text-[15px] leading-relaxed text-ink-2">
-        Câu trả lời chỉ đưa ra khi tìm được điều, khoản làm căn cứ. Không đủ căn cứ thì hệ thống nói rõ.
-      </p>
+    <KhungTrang className="wrap max-w-3xl py-8">
+      <header className="tieu-de-trang tieu-de-trang-banner relative isolate flex min-w-0 items-center gap-3">
+        <span
+          className="relative grid size-12 shrink-0 place-items-center rounded-xl bg-primary-soft text-primary"
+          aria-hidden="true"
+        >
+          <Icon name="chat" kieu="net" className="size-6" />
+        </span>
+        <div className="min-w-0 flex-1 sm:max-w-[60%]">
+          <h1 className="text-2xl font-bold leading-tight">Hỏi trợ lý AI</h1>
+          <p className="mt-1 text-sm text-ink-2">
+            Câu trả lời chỉ đưa ra khi tìm được điều, khoản làm căn cứ. Không đủ căn cứ thì hệ thống nói rõ.
+          </p>
+        </div>
+      </header>
 
       {daDangNhap ? null : (
         <Notice className="mt-4">
@@ -165,7 +176,7 @@ export default function AskPage({ loaderData }: Route.ComponentProps) {
 
         {ketQua?.loai === "tra-loi" ? <CauTraLoi data={ketQua.data} asOf={asOf} /> : null}
       </div>
-    </div>
+    </KhungTrang>
   );
 }
 

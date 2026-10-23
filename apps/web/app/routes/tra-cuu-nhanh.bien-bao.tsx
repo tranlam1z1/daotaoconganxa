@@ -6,8 +6,8 @@
  * ≤ 20 KB (scripts/bien-bao.ts chặn ảnh quá cỡ), nên lưới tải nhanh trên mạng di động.
  */
 import { Form, Link, useSearchParams } from "react-router";
-
 import { CanCuBienBao } from "../components/tra-cuu/CanCuBienBao";
+import { KhungTraCuu } from "../components/tra-cuu/KhungTraCuu";
 import { Badge } from "../components/ui/Badge";
 import { EmptyState } from "../components/ui/EmptyState";
 import { Icon } from "../components/ui/Icon";
@@ -54,21 +54,14 @@ export default function BienBaoPage({ loaderData }: Route.ComponentProps) {
   };
 
   return (
-    <div className="wrap max-w-3xl py-8">
-      <p className="hidden text-sm md:block">
-        <Link to="/tra-cuu-nhanh" className="inline-flex min-h-11 items-center text-ink-2 underline">
-          Tra cứu nhanh
-        </Link>
-      </p>
-      <h1 className="text-3xl font-semibold">Biển báo đường bộ</h1>
-
+    <KhungTraCuu title="Biển báo đường bộ" description="Tra cứu biển báo theo nhóm, tên hoặc mã.">
       {xemBanNhap ? (
         <p className="mt-2 rounded-lg bg-warn-soft px-3 py-2 text-sm text-warn">
           Đang xem cả biển bản nháp, chưa được đối chiếu với QCVN 41:2024/BGTVT.
         </p>
       ) : null}
 
-      <Form method="get" className="mt-4 flex gap-2" role="search">
+      <Form method="get" className="tra-cuu-form mt-4 grid gap-2" role="search">
         {nhom ? <input type="hidden" name="nhom" value={nhom} /> : null}
         <label htmlFor="tim-bien-bao" className="sr-only">
           Tên hoặc mã biển
@@ -86,12 +79,12 @@ export default function BienBaoPage({ loaderData }: Route.ComponentProps) {
           aria-label="Tìm biển báo"
           className="grid min-h-12 min-w-12 place-items-center rounded-lg bg-primary text-on-primary"
         >
-          <Icon name="search" />
+          <Icon name="search" kieu="net" /> Tra cứu
         </button>
       </Form>
 
-      <nav aria-label="Nhóm biển báo" className="-mx-4 mt-3 overflow-x-auto px-4">
-        <ul className="flex gap-2 pb-1">
+      <nav aria-label="Nhóm biển báo" className="mt-4 border-t border-line pt-4">
+        <ul className="flex flex-wrap gap-2 pb-1">
           {[{ value: "", label: "Tất cả" }, ...NHOM_BIEN_BAO].map((n) => (
             <li key={n.value} className="shrink-0">
               <Link
@@ -117,7 +110,9 @@ export default function BienBaoPage({ loaderData }: Route.ComponentProps) {
         <div className="mt-6">
           <EmptyState icon="search" title={q ? `Không có biển nào khớp "${q}"` : "Chưa có biển báo nào"}>
             {!q ? (
-              <p>Biển báo hiện ra sau khi quản trị viên nội dung đối chiếu với QCVN 41:2024/BGTVT và duyệt.</p>
+              <p>
+                Biển báo hiện ra sau khi quản trị viên nội dung đối chiếu với QCVN 41:2024/BGTVT và duyệt.
+              </p>
             ) : null}
           </EmptyState>
         </div>
@@ -150,7 +145,7 @@ export default function BienBaoPage({ loaderData }: Route.ComponentProps) {
           ))}
         </ul>
       )}
-    </div>
+    </KhungTraCuu>
   );
 }
 

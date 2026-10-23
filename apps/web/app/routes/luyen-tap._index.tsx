@@ -10,6 +10,7 @@ import { Button } from "../components/ui/Button";
 import { EmptyState } from "../components/ui/EmptyState";
 import { Notice } from "../components/ui/Field";
 import { Icon, type IconName, type Sac } from "../components/ui/Icon";
+import { KhungNoiDung } from "../components/ui/KhungNoiDung";
 import { cn } from "../lib/cn";
 import { type ChuDeLuyenTap, layChuDe, taoPhien } from "../lib/luyen-tap.server";
 import { LoiApi } from "../lib/quan-tri.server";
@@ -97,7 +98,7 @@ const BIEU_TUONG_CHU_DE: Array<[RegExp, IconName]> = [
 
 const bieuTuongCua = (ten: string): IconName => BIEU_TUONG_CHU_DE.find(([re]) => re.test(ten))?.[1] ?? "book";
 
-/** Lối tắt sang các khu học khác: hai cột trên điện thoại, bốn cột trên máy tính. */
+/** Lối tắt sang các khu học khác: một cột trên điện thoại, ba cột khi đủ chỗ. */
 const CONG_CU: Array<{ to: string; ten: string; mo: string; icon: IconName; sac: Sac }> = [
   { to: "/hoc", ten: "Bài giảng", mo: "Đọc bài, kiểm tra nhanh", icon: "cap", sac: "chinh" },
   { to: "/nhom", ten: "Nhóm học cùng", mo: "Theo dõi tiến độ đồng đội", icon: "nhom", sac: "ngoc" },
@@ -187,8 +188,8 @@ function TheChuDeGoc({ t, coCon, dangTao }: { t: ChuDeLuyenTap; coCon: boolean; 
           </p>
         </div>
       </div>
-      <div className="flex items-center gap-4 md:shrink-0">
-        <div className="min-w-0 flex-1 md:w-52 md:flex-none">
+      <div className="flex flex-col items-stretch gap-4 sm:flex-row sm:items-center md:shrink-0">
+        <div className="min-w-0 flex-1 md:w-44 md:flex-none">
           <p className="flex items-baseline justify-between gap-2 text-sm">
             <span className="font-semibold tabular-nums">
               {t.da_lam_dung}/{t.so_cau} câu đúng
@@ -203,7 +204,7 @@ function TheChuDeGoc({ t, coCon, dangTao }: { t: ChuDeLuyenTap; coCon: boolean; 
           tenDoc={ten}
           variant="primary"
           dangTao={dangTao}
-          className="shrink-0"
+          className="w-full sm:w-auto sm:shrink-0"
         />
       </div>
     </div>
@@ -289,108 +290,107 @@ export default function LuyenTap({ loaderData, actionData }: Route.ComponentProp
   const tongDung = nhom.reduce((s, n) => s + n.goc.da_lam_dung, 0);
 
   return (
-    <div className="wrap max-w-3xl space-y-8 py-8 lg:max-w-7xl">
-      <div>
-        <h1 className="text-3xl font-semibold lg:text-4xl">Luyện tập</h1>
-        <p className="mt-2 max-w-3xl text-[15px] leading-relaxed text-ink-2">
-          Chọn một chủ đề để làm 10 câu trắc nghiệm. Mỗi câu có đáp án, giải thích và điều khoản làm căn cứ
-          sau khi nộp bài.
-        </p>
+    <KhungNoiDung
+      title="Luyện tập"
+      icon="cap"
+      description="Chọn một chủ đề để làm 10 câu trắc nghiệm. Mỗi câu có đáp án, giải thích và điều khoản làm căn cứ sau khi nộp bài."
+    >
+      <div className="space-y-6 sm:space-y-8">
         {actionData?.loi ? (
           <Notice tone="danger" className="mt-4">
             {actionData.loi}
           </Notice>
         ) : null}
-      </div>
 
-      {/* Bài giảng (GĐ11), nhóm học cùng (GĐ16b), luyện tập không cần mạng (GĐ13). */}
-      <nav aria-label="Cách học khác" className="grid grid-cols-2 gap-3 lg:grid-cols-4">
-        {CONG_CU.map((o) => (
-          <Link
-            key={o.to}
-            to={o.to}
-            className="flex min-h-16 items-center gap-3 rounded-card border border-line bg-surface p-3 shadow-card dong-bam sm:p-3.5"
-          >
-            <span className="hinh-noi grid size-10 shrink-0 place-items-center rounded-btn bg-surface-2">
-              <Icon name={o.icon} sac={o.sac} className="size-6" />
-            </span>
-            <span className="min-w-0">
-              <span className="block text-sm font-semibold leading-snug">{o.ten}</span>
-              <span className="mt-0.5 hidden text-xs text-ink-3 sm:block">{o.mo}</span>
-            </span>
-          </Link>
-        ))}
-      </nav>
-
-      {soCauSai > 0 ? (
-        <section
-          aria-labelledby="cau-sai-tieu-de"
-          className="bang-cau-sai flex flex-col gap-4 rounded-2xl p-5 shadow-card md:flex-row md:items-center md:justify-between md:p-6"
-        >
-          <div className="flex items-start gap-4">
-            <span className="bang-cau-sai-o grid size-12 shrink-0 place-items-center rounded-card">
-              <Icon name="alert" kieu="net" className="size-7" />
-            </span>
-            <div>
-              <span className="bang-cau-sai-o inline-block rounded-full px-2.5 py-0.5 text-xs font-semibold">
-                Nên ôn lại
-              </span>
-              <h2 id="cau-sai-tieu-de" className="mt-1 text-lg font-bold">
-                Bạn có {soCauSai} câu trả lời chưa đúng
-              </h2>
-              <p className="mt-0.5 text-sm">Luyện lại ngay để củng cố kiến thức trước kỳ thi.</p>
-            </div>
-          </div>
-          <Form method="post" className="md:shrink-0">
-            <input type="hidden" name="nguon" value="cau_sai" />
-            {/* Nút nền giấy trên băng đỏ; không qua buttonClass vì cn không gộp được lớp màu trùng. */}
-            <button
-              type="submit"
-              disabled={dangTao}
-              className="inline-flex min-h-12 w-full items-center justify-center gap-2 whitespace-nowrap rounded-btn bg-surface px-5 text-base font-semibold text-primary shadow-card lun hover:bg-surface-2 disabled:opacity-50 md:w-auto"
+        {/* Bài giảng (GĐ11), nhóm học cùng (GĐ16b), luyện tập không cần mạng (GĐ13). */}
+        <nav aria-label="Cách học khác" className="grid grid-cols-1 gap-3 sm:grid-cols-3">
+          {CONG_CU.map((o) => (
+            <Link
+              key={o.to}
+              to={o.to}
+              className="flex min-h-16 items-center gap-3 rounded-card border border-line bg-surface p-3 shadow-card dong-bam sm:p-3.5"
             >
-              <Icon name="turn" kieu="net" sac="chinh" />
-              Luyện câu sai ({soCauSai})
-            </button>
-          </Form>
-        </section>
-      ) : null}
+              <span className="hinh-noi grid size-10 shrink-0 place-items-center rounded-btn bg-surface-2">
+                <Icon name={o.icon} sac={o.sac} className="size-6" />
+              </span>
+              <span className="min-w-0">
+                <span className="block text-sm font-semibold leading-snug">{o.ten}</span>
+                <span className="mt-0.5 block text-xs text-ink-3">{o.mo}</span>
+              </span>
+            </Link>
+          ))}
+        </nav>
 
-      <section aria-labelledby="chu-de-tieu-de" className="space-y-4">
-        <div className="flex flex-wrap items-baseline justify-between gap-x-4 gap-y-1">
-          <h2 id="chu-de-tieu-de" className="text-lg font-semibold">
-            Danh mục chủ đề
-          </h2>
-          {tongCau > 0 ? (
-            <p className="text-sm text-ink-2">
-              Đã làm đúng{" "}
-              <span className="font-semibold tabular-nums text-ink">
-                {tongDung}/{tongCau}
-              </span>{" "}
-              câu
-            </p>
-          ) : null}
-        </div>
-
-        {nhom.length === 0 ? (
-          <EmptyState icon="cap" title="Chưa có chủ đề nào có câu hỏi">
-            <p>Câu hỏi được đưa vào luyện tập sau khi được duyệt trong ngân hàng câu hỏi.</p>
-          </EmptyState>
-        ) : (
-          nhom.map((n) => (
-            <div key={n.goc.id} className="space-y-3">
-              <TheChuDeGoc t={n.goc} coCon={n.con.length > 0} dangTao={dangTao} />
-              {n.con.length ? (
-                <ul className="grid gap-3 md:grid-cols-2 xl:grid-cols-3">
-                  {n.con.map(({ chuDe: t, chau }) => (
-                    <TheChuDe key={t.id} t={t} chau={chau} dangTao={dangTao} />
-                  ))}
-                </ul>
-              ) : null}
+        {soCauSai > 0 ? (
+          <section
+            aria-labelledby="cau-sai-tieu-de"
+            className="bang-cau-sai flex flex-col gap-4 rounded-2xl p-5 shadow-card md:flex-row md:items-center md:justify-between md:p-6"
+          >
+            <div className="flex items-start gap-4">
+              <span className="bang-cau-sai-o grid size-12 shrink-0 place-items-center rounded-card">
+                <Icon name="alert" kieu="net" className="size-7" />
+              </span>
+              <div>
+                <span className="bang-cau-sai-o inline-block rounded-full px-2.5 py-0.5 text-xs font-semibold">
+                  Nên ôn lại
+                </span>
+                <h2 id="cau-sai-tieu-de" className="mt-1 text-lg font-bold">
+                  Bạn có {soCauSai} câu trả lời chưa đúng
+                </h2>
+                <p className="mt-0.5 text-sm">Luyện lại ngay để củng cố kiến thức trước kỳ thi.</p>
+              </div>
             </div>
-          ))
-        )}
-      </section>
-    </div>
+            <Form method="post" className="md:shrink-0">
+              <input type="hidden" name="nguon" value="cau_sai" />
+              {/* Nút nền giấy trên băng đỏ; không qua buttonClass vì cn không gộp được lớp màu trùng. */}
+              <button
+                type="submit"
+                disabled={dangTao}
+                className="inline-flex min-h-12 w-full items-center justify-center gap-2 whitespace-nowrap rounded-btn bg-surface px-5 text-base font-semibold text-primary shadow-card lun hover:bg-surface-2 disabled:opacity-50 md:w-auto"
+              >
+                <Icon name="turn" kieu="net" sac="chinh" />
+                Luyện câu sai ({soCauSai})
+              </button>
+            </Form>
+          </section>
+        ) : null}
+
+        <section aria-labelledby="chu-de-tieu-de" className="space-y-4 border-t border-line pt-5">
+          <div className="flex flex-wrap items-baseline justify-between gap-x-4 gap-y-1">
+            <h2 id="chu-de-tieu-de" className="text-lg font-semibold">
+              Danh mục chủ đề
+            </h2>
+            {tongCau > 0 ? (
+              <p className="text-sm text-ink-2">
+                Đã làm đúng{" "}
+                <span className="font-semibold tabular-nums text-ink">
+                  {tongDung}/{tongCau}
+                </span>{" "}
+                câu
+              </p>
+            ) : null}
+          </div>
+
+          {nhom.length === 0 ? (
+            <EmptyState className="bg-surface-2" icon="cap" title="Chưa có chủ đề nào có câu hỏi">
+              <p>Câu hỏi được đưa vào luyện tập sau khi được duyệt trong ngân hàng câu hỏi.</p>
+            </EmptyState>
+          ) : (
+            nhom.map((n) => (
+              <div key={n.goc.id} className="space-y-3">
+                <TheChuDeGoc t={n.goc} coCon={n.con.length > 0} dangTao={dangTao} />
+                {n.con.length ? (
+                  <ul className="grid gap-3 md:grid-cols-2 xl:grid-cols-3">
+                    {n.con.map(({ chuDe: t, chau }) => (
+                      <TheChuDe key={t.id} t={t} chau={chau} dangTao={dangTao} />
+                    ))}
+                  </ul>
+                ) : null}
+              </div>
+            ))
+          )}
+        </section>
+      </div>
+    </KhungNoiDung>
   );
 }

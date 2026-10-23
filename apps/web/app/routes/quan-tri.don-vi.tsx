@@ -5,7 +5,6 @@
  */
 import { useEffect, useState } from "react";
 import { Link, useFetcher } from "react-router";
-
 import { Badge } from "../components/ui/Badge";
 import { Button, ButtonLink } from "../components/ui/Button";
 import { EmptyState } from "../components/ui/EmptyState";
@@ -274,17 +273,25 @@ export default function QuanTriDonVi({ loaderData }: Route.ComponentProps) {
 
   return (
     <section>
-      <div className="flex flex-wrap items-start justify-between gap-3">
-        <div className="min-w-0">
-          <h2 className="text-xl font-semibold">Đơn vị</h2>
-          <p className="mt-1 text-sm text-ink-2">
-            {laQuanTri
-              ? "Toàn bộ cây đơn vị. Bấm tên đơn vị để xem chi tiết hoặc sửa."
-              : "Đơn vị của bạn và các đơn vị cấp dưới. Bấm tên đơn vị để xem chi tiết."}
-          </p>
+      <div className="flex flex-wrap items-start justify-between gap-5">
+        <div className="flex min-w-0 flex-1 items-start gap-4 sm:gap-6">
+          <span
+            className="grid size-11 shrink-0 place-items-center rounded-xl bg-primary-soft text-primary"
+            aria-hidden="true"
+          >
+            <Icon name="shield" kieu="net" className="size-6" />
+          </span>
+          <div className="min-w-0">
+            <h2 className="text-2xl font-bold leading-tight sm:text-[28px]">Đơn vị</h2>
+            <p className="mt-1 text-sm text-ink-2">
+              {laQuanTri
+                ? "Toàn bộ cây đơn vị. Bấm tên đơn vị để xem chi tiết hoặc sửa."
+                : "Đơn vị của bạn và các đơn vị cấp dưới. Bấm tên đơn vị để xem chi tiết."}
+            </p>
+          </div>
         </div>
         {laQuanTri ? (
-          <Button icon="plus" onClick={() => hop.mo("them")}>
+          <Button icon="plus" className="min-h-11 px-5" onClick={() => hop.mo("them")}>
             Thêm đơn vị
           </Button>
         ) : null}
@@ -304,23 +311,38 @@ export default function QuanTriDonVi({ loaderData }: Route.ComponentProps) {
         </div>
       ) : (
         <>
-          <p className="mt-4 text-sm text-ink-3">
+          <p className="mt-6 flex min-h-[60px] items-center gap-5 rounded-xl bg-primary-soft px-5 py-4 text-sm font-semibold text-ink">
+            <Icon name="nhom" kieu="net" className="size-6 shrink-0 text-primary" />
             {items.length} đơn vị, {tongNguoi} người
           </p>
-          <ul className="mt-2 divide-y divide-line overflow-hidden rounded-xl border border-line bg-surface">
+          <ul className="mt-5 space-y-3">
             {items.map((d) => (
-              <li key={d.id} className="flex items-center">
+              <li
+                key={d.id}
+                className="flex items-center overflow-hidden rounded-xl border border-line bg-surface transition-colors hover:border-primary/40"
+              >
                 <button
                   type="button"
                   onClick={() => hop.mo("chiTiet", d.id)}
-                  className="lun flex min-h-14 min-w-0 flex-1 items-center gap-3 py-2 pr-2 text-left hover:bg-surface-2"
-                  style={{ paddingLeft: `${1 + (d.cap - capGoc) * 1.5}rem` }}
+                  className="lun flex min-h-[88px] min-w-0 flex-1 items-center gap-4 py-3 pr-2 text-left hover:bg-surface-2 sm:gap-6"
+                  style={{ paddingLeft: `${1.25 + (d.cap - capGoc) * 1.5}rem` }}
                 >
+                  <span
+                    className="grid size-12 shrink-0 place-items-center rounded-xl bg-primary-soft text-primary sm:size-[60px]"
+                    aria-hidden="true"
+                  >
+                    <Icon name="toaNha" kieu="net" className="size-7" />
+                  </span>
                   <span className="min-w-0 flex-1">
-                    <span className={cn("block font-semibold", !d.enabled && "text-ink-3 line-through")}>
+                    <span
+                      className={cn(
+                        "block text-base font-bold sm:text-lg",
+                        !d.enabled && "text-ink-3 line-through",
+                      )}
+                    >
                       {d.name}
                     </span>
-                    <span className="block text-sm text-ink-3">
+                    <span className="mt-1 block break-words text-sm text-ink-3">
                       {d.level_label ? `${d.level_label} · ` : ""}
                       {d.code}
                     </span>
@@ -330,10 +352,10 @@ export default function QuanTriDonVi({ loaderData }: Route.ComponentProps) {
                 <Link
                   to={`/quan-tri/nguoi-dung?don_vi=${d.id}`}
                   aria-label={`${d.so_nguoi} người thuộc ${d.name}, xem danh sách`}
-                  className="flex min-h-11 shrink-0 items-center gap-1 px-3 text-sm font-medium text-primary hover:underline"
+                  className="flex min-h-11 shrink-0 items-center gap-2 px-3 text-sm font-semibold text-primary hover:underline sm:gap-4 sm:px-5 sm:text-base"
                 >
                   {d.so_nguoi} người
-                  <Icon name="chevronRight" className="size-4" />
+                  <Icon name="chevronRight" kieu="net" className="size-5" />
                 </Link>
               </li>
             ))}

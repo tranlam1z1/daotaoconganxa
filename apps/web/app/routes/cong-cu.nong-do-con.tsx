@@ -5,7 +5,6 @@
  */
 import { useState } from "react";
 import { Form, useNavigation } from "react-router";
-
 import { DauTrangCongCu, lopLuaChon, lopO } from "../components/cong-cu/BieuMau";
 import { LuuYDoiChieu, TheKhungPhat } from "../components/cong-cu/TheKhungPhat";
 import { Badge } from "../components/ui/Badge";
@@ -13,6 +12,7 @@ import { Button } from "../components/ui/Button";
 import { Card } from "../components/ui/Card";
 import { Notice } from "../components/ui/Field";
 import { Icon } from "../components/ui/Icon";
+import { KhungTrang } from "../components/ui/KhungTrang";
 import { docSoLe } from "../lib/doc-so";
 import {
   CACH_DO,
@@ -88,7 +88,7 @@ export default function NongDoCon({ loaderData }: Route.ComponentProps) {
   const cachDaTra = nhap.cach;
 
   return (
-    <div className="wrap max-w-3xl py-6 sm:py-10">
+    <KhungTrang className="wrap max-w-3xl py-6 sm:py-10">
       <DauTrangCongCu tieuDe="Tính mức xử phạt nồng độ cồn">
         Chọn loại xe và nhập kết quả đo nồng độ cồn để biết mức vi phạm và khung xử phạt.
       </DauTrangCongCu>
@@ -216,6 +216,6 @@ export default function NongDoCon({ loaderData }: Route.ComponentProps) {
           )}
         </section>
       ) : null}
-    </div>
+    </KhungTrang>
   );
 }

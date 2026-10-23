@@ -7,11 +7,11 @@
  * Tóm tắt bị hậu kiểm loại thì chỉ hiện câu cố định; AI chưa bật thì không hiện khối.
  */
 import { Form, Link, useFetcher, useNavigation } from "react-router";
-
 import { Badge } from "../components/ui/Badge";
 import { Button } from "../components/ui/Button";
 import { EmptyState } from "../components/ui/EmptyState";
 import { Notice } from "../components/ui/Field";
+import { TieuDeTrang } from "../components/ui/KhungTrang";
 import { soVn } from "../lib/bao-cao";
 import { cn } from "../lib/cn";
 import { formatDate, formatNgayGio } from "../lib/format";
@@ -200,7 +200,9 @@ export default function QuanTriNhomChiTiet({ loaderData, actionData }: Route.Com
         Về danh sách nhóm
       </Link>
       <div className="mt-1 flex flex-wrap items-center gap-3">
-        <h2 className="text-xl font-semibold [overflow-wrap:anywhere]">{nhom.ten}</h2>
+        <TieuDeTrang as="h2" icon="shield" className="text-xl font-semibold [overflow-wrap:anywhere]">
+          {nhom.ten}
+        </TieuDeTrang>
         <Badge tone={nhom.trang_thai === "hoat_dong" ? "ok" : "muted"}>
           {nhom.trang_thai === "hoat_dong" ? "Đang hoạt động" : "Đã lưu trữ"}
         </Badge>

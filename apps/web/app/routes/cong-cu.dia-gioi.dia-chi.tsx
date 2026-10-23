@@ -9,10 +9,10 @@
  */
 import { useRef } from "react";
 import { Link, useFetcher } from "react-router";
-
 import { BangDiaChi, DongDiaChi, DongDiaChiCu } from "../components/dia-gioi/ChungDiaGioi";
 import { Notice } from "../components/ui/Field";
 import { Icon } from "../components/ui/Icon";
+import { KhungTrang, TieuDeTrang } from "../components/ui/KhungTrang";
 import { cn } from "../lib/cn";
 import { type DiaChiBanDo, DUONG_DIA_GIOI, diaChiRaViTri, LoiDiaGioi } from "../lib/dia-gioi";
 import { pageMeta } from "../lib/site";
@@ -63,7 +63,7 @@ export default function TraTheoDiaChi() {
   };
 
   return (
-    <div className="wrap max-w-2xl py-6 sm:py-10">
+    <KhungTrang className="wrap max-w-2xl py-6 sm:py-10">
       <p className="hidden md:block">
         <Link
           to={DUONG_DIA_GIOI}
@@ -73,7 +73,9 @@ export default function TraTheoDiaChi() {
           Chuyển đổi địa giới hành chính
         </Link>
       </p>
-      <h1 className="text-2xl font-bold leading-tight sm:text-3xl">Tra cứu theo địa chỉ cụ thể</h1>
+      <TieuDeTrang icon="map" className="">
+        Tra cứu theo địa chỉ cụ thể
+      </TieuDeTrang>
 
       <section className="mt-5 rounded-2xl border border-line bg-surface p-4 shadow-card sm:p-5">
         <h2 className="flex items-center gap-2 text-lg font-semibold text-primary">
@@ -217,6 +219,6 @@ export default function TraTheoDiaChi() {
         ))}
       </ul>
       <p className="mt-5 text-center text-sm text-ink-2">Địa chỉ tra cứu không được lưu trên hệ thống.</p>
-    </div>
+    </KhungTrang>
   );
 }

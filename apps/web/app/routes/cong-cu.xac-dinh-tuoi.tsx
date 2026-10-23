@@ -4,13 +4,13 @@
  * thắng route chung cong-cu/:ma.
  */
 import { useState } from "react";
-import { Form, Link, useNavigation } from "react-router";
-
+import { Form, useNavigation } from "react-router";
 import { Badge } from "../components/ui/Badge";
 import { Button } from "../components/ui/Button";
 import { Card } from "../components/ui/Card";
 import { Notice } from "../components/ui/Field";
 import { Icon } from "../components/ui/Icon";
+import { KhungTrang } from "../components/ui/KhungTrang";
 import { formatDate, todayIso } from "../lib/format";
 import { pageMeta } from "../lib/site";
 import { ngayDayDu } from "../lib/tinh-ngay-xu-ly";
@@ -123,17 +123,22 @@ export default function XacDinhTuoi({ loaderData }: Route.ComponentProps) {
   const namNay = Number(homNay.slice(0, 4));
 
   return (
-    <div className="wrap max-w-3xl py-6 sm:py-10">
-      <p className="hidden md:block">
-        <Link to="/cong-cu" className="inline-flex min-h-11 items-center gap-1 text-sm text-ink-2 underline">
-          <Icon name="arrowLeft" className="size-4" />
-          Công cụ nghiệp vụ
-        </Link>
-      </p>
-      <h1 className="text-2xl font-bold leading-tight sm:text-3xl">Xác định tuổi vi phạm</h1>
-      <p className="mt-2 text-base text-ink-2">
-        Tuổi tính đến hôm nay, {ngayDayDu(homNay)}. Người được coi là đủ N tuổi kể từ ngày sinh nhật thứ N.
-      </p>
+    <KhungTrang className="wrap max-w-3xl py-6 sm:py-10">
+      <header className="tieu-de-trang tieu-de-trang-banner relative isolate flex min-w-0 items-center gap-3">
+        <span
+          className="relative grid size-12 shrink-0 place-items-center rounded-xl bg-primary-soft text-primary"
+          aria-hidden="true"
+        >
+          <Icon name="shield" kieu="net" className="size-6" />
+        </span>
+        <div className="min-w-0 flex-1 sm:max-w-[60%]">
+          <h1 className="text-2xl font-bold leading-tight">Xác định tuổi vi phạm</h1>
+          <p className="mt-1 text-sm text-ink-2">
+            Tuổi tính đến hôm nay, {ngayDayDu(homNay)}. Người được coi là đủ N tuổi kể từ ngày sinh nhật thứ
+            N.
+          </p>
+        </div>
+      </header>
 
       <Form method="get" action="/cong-cu/xac-dinh-tuoi" replace className="mt-5 grid gap-4">
         <fieldset className="grid gap-2 sm:grid-cols-3">
@@ -297,6 +302,6 @@ export default function XacDinhTuoi({ loaderData }: Route.ComponentProps) {
           </Notice>
         </section>
       ) : null}
-    </div>
+    </KhungTrang>
   );
 }

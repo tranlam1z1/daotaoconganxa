@@ -8,9 +8,9 @@
  */
 import { useState } from "react";
 import { Form, Link, redirect, useNavigation } from "react-router";
-
 import { Button } from "../components/ui/Button";
 import { Input, inputClass, Label, Notice } from "../components/ui/Field";
+import { TieuDeTrang } from "../components/ui/KhungTrang";
 import { goiApiQuanTri, LoiApi } from "../lib/quan-tri.server";
 import { yeuCauVaiTro } from "../lib/session.server";
 import { pageMeta } from "../lib/site";
@@ -73,7 +73,9 @@ export default function TaoChuyenDeTuPdf({ loaderData, actionData }: Route.Compo
       >
         Về danh sách chuyên đề
       </Link>
-      <h2 className="text-xl font-semibold">Tạo chuyên đề từ tệp PDF</h2>
+      <TieuDeTrang as="h2" icon="shield" className="text-xl font-semibold">
+        Tạo chuyên đề từ tệp PDF
+      </TieuDeTrang>
       <p className="mt-1 text-sm text-ink-2">
         Chọn tệp PDF của văn bản (luật, nghị định, thông tư). Hệ thống lưu văn bản vào kho, tạo chuyên đề mang
         tên văn bản và soạn sẵn các bài học. Bài soạn ra là bản nháp, học viên chỉ thấy sau khi bạn xuất bản.

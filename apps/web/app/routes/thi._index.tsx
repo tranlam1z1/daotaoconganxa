@@ -8,6 +8,7 @@ import { Badge } from "../components/ui/Badge";
 import { Button, ButtonLink } from "../components/ui/Button";
 import { EmptyState } from "../components/ui/EmptyState";
 import { Notice } from "../components/ui/Field";
+import { KhungNoiDung } from "../components/ui/KhungNoiDung";
 import { formatNgayGio } from "../lib/format";
 import { goiApiQuanTri, LoiApi } from "../lib/quan-tri.server";
 import { yeuCauDangNhap } from "../lib/session.server";
@@ -44,7 +45,9 @@ function TheBaiThi({ b, busy }: { b: BaiThi; busy: boolean }) {
   return (
     <li className="rounded-xl border border-line bg-surface p-4 shadow-card">
       <div className="flex flex-wrap items-start justify-between gap-2">
-        <h3 className="font-display text-lg font-semibold leading-snug">{b.exam_title}</h3>
+        <h3 className="min-w-0 break-words font-display text-lg font-semibold leading-snug">
+          {b.exam_title}
+        </h3>
         <Badge tone={TONE_TRANG_THAI_BAI[b.trang_thai]}>
           {/* Đề cho làm nhiều lần: đã nộp một lượt mà còn lượt thì không ghi "Chưa làm". */}
           {b.trang_thai === "chua_lam" && b.so_luot_nop > 0
@@ -102,8 +105,11 @@ export default function ThiIndex({ loaderData, actionData }: Route.ComponentProp
   const daXong = loaderData.items.filter((b) => !canLam.includes(b));
 
   return (
-    <div className="wrap max-w-3xl py-8 lg:max-w-7xl">
-      <h1 className="text-3xl font-semibold lg:text-4xl">Thi</h1>
+    <KhungNoiDung
+      title="Thi"
+      icon="file"
+      description="Theo dõi bài thi được giao, thời hạn làm bài và kết quả của bạn."
+    >
       {actionData?.loi ? (
         <Notice tone="danger" className="mt-4">
           {actionData.loi}
@@ -111,8 +117,8 @@ export default function ThiIndex({ loaderData, actionData }: Route.ComponentProp
       ) : null}
 
       {loaderData.items.length === 0 ? (
-        <div className="mt-6">
-          <EmptyState icon="cap" title="Chưa có bài thi được giao">
+        <div className="mt-6 border-t border-line pt-5">
+          <EmptyState className="bg-surface-2" icon="cap" title="Chưa có bài thi được giao">
             <p>Bài thi do đơn vị giao sẽ hiện ở đây, kèm hạn làm bài.</p>
           </EmptyState>
           <p className="mt-4 text-sm text-ink-2">
@@ -153,6 +159,6 @@ export default function ThiIndex({ loaderData, actionData }: Route.ComponentProp
           ) : null}
         </>
       )}
-    </div>
+    </KhungNoiDung>
   );
 }

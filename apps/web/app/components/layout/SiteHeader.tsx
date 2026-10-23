@@ -1,5 +1,5 @@
-import { useEffect, useState } from "react";
-import { Link, useLocation, useNavigate } from "react-router";
+import { useEffect, useRef, useState } from "react";
+import { Link, useLocation } from "react-router";
 
 import { cn } from "../../lib/cn";
 import {
@@ -40,14 +40,15 @@ export function BrandMark() {
   );
 }
 
-function navClass(active: boolean) {
+function navClass(active: boolean, compact = false) {
   return cn(
-    "lun flex min-h-11 items-center whitespace-nowrap rounded-lg px-3 text-[15px] font-medium",
+    "lun flex min-h-11 items-center whitespace-nowrap rounded-lg px-3 font-medium",
+    compact ? "text-[13px]" : "text-[15px]",
     active ? "bg-primary-soft text-primary" : "text-ink-2 hover:bg-surface-2 hover:text-ink",
   );
 }
 
-/** Mục điều hướng chứa trang hiện tại (để làm tiêu đề tạm và đích quay lại khi không có lịch sử). */
+/** Mục điều hướng chứa trang hiện tại, dùng làm tiêu đề tạm và đích quay lại. */
 function mucCha(pathname: string): { to: string; label: string } {
   return (
     // MORE_NAV trước: /hoi-dap, /nhom lấy tên mục riêng thay vì Tra cứu, Học.
@@ -66,7 +67,6 @@ const DUOI_TIEU_DE = ` | ${SITE_NAME_SHORT}`;
  * meta của từng route) sau khi trang hiển thị; trước đó (và khi render phía máy chủ) dùng tên mục.
  */
 function DauTrangCon({ pathname }: { pathname: string }) {
-  const navigate = useNavigate();
   const cha = mucCha(pathname);
   const [tieuDe, setTieuDe] = useState(cha.label);
 
@@ -81,14 +81,9 @@ function DauTrangCon({ pathname }: { pathname: string }) {
       <Link
         // Đang ở chính trang mục (vd /tra-cuu) thì đích quay lại là trang chủ.
         to={cha.to === pathname ? "/" : cha.to}
+        // Về mục cha trong một lần bấm; không thêm trang con vào lịch sử khi quay lại.
+        replace
         aria-label="Quay lại"
-        onClick={(e) => {
-          // Có trang trước trong ứng dụng thì lùi lại đúng trang đó, không thì về mục cha.
-          if ((window.history.state?.idx ?? 0) > 0) {
-            e.preventDefault();
-            navigate(-1);
-          }
-        }}
         className="lun -ml-2 grid size-11 shrink-0 place-items-center rounded-lg text-ink-2 hover:bg-surface-2 hover:text-ink"
       >
         <Icon name="arrowLeft" className="size-6" />
@@ -109,6 +104,28 @@ function DauTrangCon({ pathname }: { pathname: string }) {
 export function SiteHeader({ nguoiDung }: { nguoiDung: NguoiDung | null }) {
   const { pathname } = useLocation();
   const goc = laTrangGoc(pathname);
+  const [moTaiKhoan, setMoTaiKhoan] = useState(false);
+  const taiKhoanRef = useRef<HTMLDivElement>(null);
+  const nutTaiKhoanRef = useRef<HTMLButtonElement>(null);
+
+  useEffect(() => {
+    if (!moTaiKhoan) return;
+    const dongBenNgoai = (event: PointerEvent) => {
+      if (!taiKhoanRef.current?.contains(event.target as Node)) setMoTaiKhoan(false);
+    };
+    const dongBangPhim = (event: KeyboardEvent) => {
+      if (event.key === "Escape") {
+        setMoTaiKhoan(false);
+        nutTaiKhoanRef.current?.focus();
+      }
+    };
+    document.addEventListener("pointerdown", dongBenNgoai);
+    document.addEventListener("keydown", dongBangPhim);
+    return () => {
+      document.removeEventListener("pointerdown", dongBenNgoai);
+      document.removeEventListener("keydown", dongBangPhim);
+    };
+  }, [moTaiKhoan]);
 
   // Tài khoản chưa được xác minh không có trang Tôi: mục này dẫn thẳng tới trang Tài khoản.
   const toi: NavItem = nguoiDung
@@ -176,7 +193,47 @@ export function SiteHeader({ nguoiDung }: { nguoiDung: NguoiDung | null }) {
         {/* Thứ tự bên phải: mục "Tôi" (cuối cùng). */}
         <div className="ml-auto flex shrink-0 items-center gap-1 md:ml-2">
           {/* Từ 768px: mục "Tôi" (hoặc "Đăng nhập") của menu, đứng sau các nút khác. */}
-          <span className="hidden md:block">{lienKet(toi)}</span>
+          <div className="relative hidden md:block" ref={taiKhoanRef}>
+            {nguoiDung ? (
+              <>
+                <button
+                  ref={nutTaiKhoanRef}
+                  type="button"
+                  aria-expanded={moTaiKhoan}
+                  aria-controls="menu-tai-khoan"
+                  className={navClass(dangOMuc(toi, pathname))}
+                  onClick={() => setMoTaiKhoan((mo) => !mo)}
+                >
+                  <AnhDaiDien nguoiDung={nguoiDung} className="mr-2 size-7 shrink-0 text-[13px]" />
+                  <span className="max-w-48 truncate">{hoTen}</span>
+                  <Icon name="chevronDown" className="ml-2 size-4" />
+                </button>
+                {moTaiKhoan ? (
+                  <div
+                    id="menu-tai-khoan"
+                    className="absolute right-0 top-full mt-2 w-56 rounded-xl border border-line bg-surface p-1.5 shadow-card"
+                  >
+                    <Link
+                      to={toi.to}
+                      onClick={() => setMoTaiKhoan(false)}
+                      className={navClass(pathname === toi.to, true)}
+                    >
+                      <Icon name="user" kieu="net" className="mr-2 size-4" /> Hồ sơ của tôi
+                    </Link>
+                    <Link
+                      to="/tai-khoan"
+                      onClick={() => setMoTaiKhoan(false)}
+                      className={navClass(pathname === "/tai-khoan", true)}
+                    >
+                      <Icon name="lock" kieu="net" className="mr-2 size-4" /> Tài khoản và mật khẩu
+                    </Link>
+                  </div>
+                ) : null}
+              </>
+            ) : (
+              lienKet(toi)
+            )}
+          </div>
           {/* Ảnh đại diện dẫn tới trang cá nhân; từ 768px đã có trong mục "Tôi" ở trên. */}
           {nguoiDung ? (
             <Link

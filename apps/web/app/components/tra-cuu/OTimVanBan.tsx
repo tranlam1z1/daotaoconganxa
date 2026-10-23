@@ -1,6 +1,6 @@
 /**
  * Khung tìm của trang /tim-kiem: tiêu đề, ô nhập (kính lúp bên trái, micro bên phải) và nút
- * "Tra cứu văn bản" nằm vắt qua mép dưới khung. Nói xong thì chữ được điền vào ô để người dùng xem
+ * "Tra cứu văn bản" rộng hết khung, nằm dưới ô nhập. Nói xong thì chữ được điền vào ô để người dùng xem
  * lại rồi tự bấm tra. Trình duyệt không có nhận dạng giọng nói thì không có nút micro.
  * Ô mang id "o-tim-kiem" nên phím tắt "/" đưa con trỏ vào (root.tsx).
  */
@@ -23,13 +23,7 @@ export function OTimVanBan({ q }: { q: string }) {
   const dangTra = nav.state !== "idle" && nav.location?.pathname === "/tim-kiem";
 
   return (
-    <section
-      aria-labelledby="tk-tieu-de"
-      className="relative rounded-2xl border border-line bg-surface px-3 pt-4 pb-9 shadow-card sm:px-6 sm:pt-5"
-    >
-      <h1 id="tk-tieu-de" className="font-sans text-xl font-semibold">
-        Tra cứu văn bản pháp luật
-      </h1>
+    <div className="tra-cuu-form">
       <Form method="get" action="/tim-kiem" role="search" className="mt-3">
         <label htmlFor="o-tim-kiem" className="sr-only">
           Từ khóa, số ký hiệu hoặc điều, khoản
@@ -82,11 +76,12 @@ export function OTimVanBan({ q }: { q: string }) {
         <button
           type="submit"
           disabled={dangTra}
-          className="lun absolute bottom-0 left-1/2 flex min-h-12 w-3/5 min-w-52 -translate-x-1/2 translate-y-1/2 items-center justify-center rounded-2xl bg-primary px-4 text-base font-semibold text-on-primary shadow-card hover:bg-primary-hover disabled:opacity-70"
+          className="lun mt-2 flex min-h-12 w-full items-center justify-center gap-2 rounded-2xl bg-primary px-4 text-base font-semibold text-on-primary shadow-card hover:bg-primary-hover disabled:opacity-70"
         >
+          <Icon name="search" kieu="net" className="size-5" />
           {dangTra ? "Đang tra…" : "Tra cứu văn bản"}
         </button>
       </Form>
-    </section>
+    </div>
   );
 }

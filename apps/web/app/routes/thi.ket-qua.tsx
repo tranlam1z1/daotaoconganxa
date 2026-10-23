@@ -8,6 +8,7 @@
 import { HienThiCauHoi } from "../components/cau-hoi/HienThiCauHoi";
 import { ButtonLink } from "../components/ui/Button";
 import { Notice } from "../components/ui/Field";
+import { KhungTrang, TieuDeTrang } from "../components/ui/KhungTrang";
 import { cn } from "../lib/cn";
 import { formatNgayGio } from "../lib/format";
 import { goiApiQuanTri, khongTimThay } from "../lib/quan-tri.server";
@@ -33,16 +34,16 @@ export default function KetQua({ loaderData }: Route.ComponentProps) {
   // Đề có điểm câu khác 1 (hoặc có tự luận): hiện thêm điểm theo thang của đề.
   const coDiemTho = kq.co_tu_luan || kq.tong_diem_tho !== kq.tong;
   return (
-    <div className="wrap max-w-3xl py-8">
+    <KhungTrang className="wrap max-w-3xl py-8">
       <p className="text-sm text-ink-3">{kq.exam_title}</p>
       {choCham ? (
         <section
           aria-labelledby="ket-luan"
           className="mt-3 rounded-xl border-2 border-warn bg-warn-soft p-6 text-center"
         >
-          <h1 id="ket-luan" className="text-3xl font-semibold text-warn">
+          <TieuDeTrang variant="status" icon="file" id="ket-luan" className="text-warn">
             Đang chờ chấm
-          </h1>
+          </TieuDeTrang>
           <p className="mt-3 text-[15px] text-ink-2">
             Bài đã được nộp. Còn {kq.so_cau_cho_cham} câu tự luận chờ giảng viên chấm; điểm sẽ hiện ở đây khi
             chấm xong.
@@ -56,9 +57,13 @@ export default function KetQua({ loaderData }: Route.ComponentProps) {
             kq.dat ? "border-ok bg-ok-soft" : "border-danger bg-danger-soft",
           )}
         >
-          <h1 id="ket-luan" className={cn("text-4xl font-semibold", kq.dat ? "text-ok" : "text-danger")}>
+          <TieuDeTrang
+            icon="file"
+            id="ket-luan"
+            className={cn("text-4xl font-semibold", kq.dat ? "text-ok" : "text-danger")}
+          >
             {kq.dat ? "Đạt" : "Chưa đạt"}
-          </h1>
+          </TieuDeTrang>
           <p className="mt-3 font-sans text-3xl font-semibold tabular-nums text-ink">
             {diemSo(kq.diem ?? 0)}
             <span className="text-lg font-medium text-ink-2">/100 điểm</span>
@@ -153,7 +158,7 @@ export default function KetQua({ loaderData }: Route.ComponentProps) {
             : "Đề thi này không cho xem lại đáp án từng câu."}
         </p>
       )}
-    </div>
+    </KhungTrang>
   );
 }
 

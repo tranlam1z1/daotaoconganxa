@@ -1,7 +1,7 @@
 /**
  * Khung tìm của trang Quy trình, Biểu mẫu: ô từ khóa (kính lúp bên trái, micro bên phải), ô chọn loại
  * tài liệu, liên kết "Tra cứu nâng cao" mở thêm hai ô lọc phương tiện và loại vi phạm, và nút "Tra cứu
- * biểu mẫu" nằm vắt qua mép dưới khung như ở trang Tra cứu văn bản (OTimVanBan).
+ * biểu mẫu" rộng hết khung như ở trang Tra cứu văn bản (OTimVanBan).
  * Mọi ô cùng một cỡ: rộng hết khung, cao bằng ô từ khóa.
  * Thu gọn phần nâng cao là bỏ hai bộ lọc đó ở lần tra kế tiếp.
  */
@@ -71,13 +71,7 @@ export function OTimBieuMau({ q, loai, xe, nhom }: { q: string; loai: string; xe
   const [nangCao, setNangCao] = useState(Boolean(xe || nhom));
 
   return (
-    <section
-      aria-labelledby="bm-tieu-de"
-      className="relative rounded-2xl border border-line bg-surface px-3 pt-4 pb-9 shadow-card sm:px-6 sm:pt-5"
-    >
-      <h1 id="bm-tieu-de" className="font-sans text-xl font-semibold">
-        Tra cứu biểu mẫu làm việc
-      </h1>
+    <div className="tra-cuu-form">
       {/* Đổi khóa theo bộ lọc trên URL để các ô lấy lại giá trị khi bấm "Xem tất cả" hoặc lùi trang. */}
       <Form
         method="get"
@@ -178,11 +172,12 @@ export function OTimBieuMau({ q, loai, xe, nhom }: { q: string; loai: string; xe
         <button
           type="submit"
           disabled={dangTra}
-          className="lun absolute bottom-0 left-1/2 flex min-h-12 w-3/5 min-w-52 -translate-x-1/2 translate-y-1/2 items-center justify-center rounded-2xl bg-primary px-4 text-base font-semibold text-on-primary shadow-card hover:bg-primary-hover disabled:opacity-70"
+          className="lun mt-2 flex min-h-12 w-full items-center justify-center gap-2 rounded-2xl bg-primary px-4 text-base font-semibold text-on-primary shadow-card hover:bg-primary-hover disabled:opacity-70"
         >
+          <Icon name="search" kieu="net" className="size-5" />
           {dangTra ? "Đang tra…" : "Tra cứu biểu mẫu"}
         </button>
       </Form>
-    </section>
+    </div>
   );
 }

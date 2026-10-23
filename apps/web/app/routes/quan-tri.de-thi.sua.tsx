@@ -14,11 +14,11 @@
  */
 import { useEffect } from "react";
 import { Form, Link, redirect, useNavigation, useRevalidator } from "react-router";
-
 import { HienThiCauHoi } from "../components/cau-hoi/HienThiCauHoi";
 import { Badge } from "../components/ui/Badge";
 import { Button, ButtonLink } from "../components/ui/Button";
 import { Input, inputClass, Label, Notice } from "../components/ui/Field";
+import { TieuDeTrang } from "../components/ui/KhungTrang";
 import { ThanhLuuBieuMau } from "../components/ui/ThanhDinhDay";
 import { cn } from "../lib/cn";
 import type { DapAnCauHoi, DeCauHoi, LoaiCauHoi, MucDoCauHoi, TraLoiCauHoi } from "../lib/ngan-hang";
@@ -221,7 +221,9 @@ export default function SuaDeThi({ loaderData, actionData }: Route.ComponentProp
         Về danh sách đề thi
       </Link>
       <div className="flex flex-wrap items-center gap-3">
-        <h2 className="text-xl font-semibold">{de ? de.title : "Tạo đề thi"}</h2>
+        <TieuDeTrang as="h2" icon="shield" className="text-xl font-semibold">
+          {de ? de.title : "Tạo đề thi"}
+        </TieuDeTrang>
         {de ? (
           <>
             <span className="font-mono text-sm text-ink-3">{de.code}</span>

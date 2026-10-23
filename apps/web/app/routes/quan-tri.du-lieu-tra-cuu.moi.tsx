@@ -5,7 +5,6 @@
  * nạp tệp (`bun run tra-cuu:nap`) chuyển sang ngừng.
  */
 import { Form, Link, redirect, useNavigation } from "react-router";
-
 import { SuaBuocQuyTrinh } from "../components/quan-tri/SuaBuocQuyTrinh";
 import {
   Truong,
@@ -18,6 +17,7 @@ import {
 } from "../components/quan-tri/TruongDuLieuTraCuu";
 import { Button } from "../components/ui/Button";
 import { inputClass, Notice } from "../components/ui/Field";
+import { TieuDeTrang } from "../components/ui/KhungTrang";
 import { ThanhLuuBieuMau } from "../components/ui/ThanhDinhDay";
 import { cn } from "../lib/cn";
 import {
@@ -230,7 +230,9 @@ export default function SoanDuLieuTraCuu({ loaderData, actionData }: Route.Compo
           Duyệt dữ liệu tra cứu
         </Link>
       </p>
-      <h1 className="mt-2 text-2xl font-semibold">Soạn nội dung tra cứu</h1>
+      <TieuDeTrang icon="search" className="mt-2">
+        Soạn nội dung tra cứu
+      </TieuDeTrang>
       <p className="mt-2 text-[15px] leading-relaxed text-ink-2">
         Dòng mới vào bản nháp, hoặc chờ duyệt nếu chọn "Lưu và gửi duyệt". Người học chỉ thấy dòng đã duyệt.
         Quy trình và biểu mẫu hiện ở trang Quy trình, Biểu mẫu.

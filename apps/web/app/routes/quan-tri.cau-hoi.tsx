@@ -10,12 +10,12 @@
  */
 import { useEffect, useState } from "react";
 import { Form, Link, redirect, useNavigation, useRevalidator } from "react-router";
-
 import { OCanCu } from "../components/quan-tri/OCanCu";
 import { Badge } from "../components/ui/Badge";
 import { Button, ButtonLink, buttonClass } from "../components/ui/Button";
 import { EmptyState } from "../components/ui/EmptyState";
 import { Input, inputClass, Label, Notice } from "../components/ui/Field";
+import { TieuDeTrang } from "../components/ui/KhungTrang";
 import { cn } from "../lib/cn";
 import { formatNgayGio } from "../lib/format";
 import {
@@ -223,7 +223,9 @@ export default function QuanTriCauHoi({ loaderData, actionData }: Route.Componen
   return (
     <section>
       <div className="flex flex-wrap items-center justify-between gap-3">
-        <h2 className="text-xl font-semibold">Ngân hàng câu hỏi</h2>
+        <TieuDeTrang as="h2" icon="shield" className="text-xl font-semibold">
+          Ngân hàng câu hỏi
+        </TieuDeTrang>
         <div className="flex flex-wrap gap-2">
           <ButtonLink to="/quan-tri/cau-hoi/moi" icon="plus">
             Thêm câu hỏi

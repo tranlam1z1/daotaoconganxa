@@ -3,8 +3,8 @@
  * danh sách thẻ mức phạt. Ngày áp dụng mặc định là hôm nay.
  */
 import { Form, Link, useNavigation, useSearchParams } from "react-router";
-
 import { ChonNgayApDung } from "../components/tra-cuu/ChonNgayApDung";
+import { KhungTraCuu } from "../components/tra-cuu/KhungTraCuu";
 import { TheMucPhat } from "../components/tra-cuu/TheMucPhat";
 import { EmptyState } from "../components/ui/EmptyState";
 import { Icon } from "../components/ui/Icon";
@@ -53,19 +53,13 @@ export default function MucPhatPage({ loaderData }: Route.ComponentProps) {
   };
 
   return (
-    <div className="wrap max-w-3xl py-8">
-      <p className="hidden md:block">
-        <Link
-          to="/tra-cuu-nhanh"
-          className="inline-flex min-h-11 items-center gap-1 text-sm text-ink-2 underline"
-        >
-          <Icon name="arrowLeft" className="size-4" />
-          Tra cứu nhanh
-        </Link>
-      </p>
-      <h1 className="text-3xl font-semibold leading-tight">Tra mức phạt</h1>
-
-      <Form method="get" action="/tra-cuu-nhanh/muc-phat" role="search" className="mt-4 flex gap-2">
+    <KhungTraCuu title="Tra mức phạt" description="Tra cứu hành vi vi phạm, mức xử phạt và căn cứ pháp luật.">
+      <Form
+        method="get"
+        action="/tra-cuu-nhanh/muc-phat"
+        role="search"
+        className="tra-cuu-form mt-4 grid gap-2"
+      >
         {xe ? <input type="hidden" name="xe" value={xe} /> : null}
         {ngay !== homNay ? <input type="hidden" name="ngay" value={ngay} /> : null}
         <label htmlFor="mp-q" className="sr-only">
@@ -84,7 +78,7 @@ export default function MucPhatPage({ loaderData }: Route.ComponentProps) {
           type="submit"
           className="lun min-h-12 shrink-0 rounded-lg bg-primary px-5 text-base font-semibold text-on-primary hover:bg-primary-hover"
         >
-          Tra
+          <Icon name="search" kieu="net" className="size-5" /> Tra cứu
         </button>
       </Form>
 
@@ -154,6 +148,6 @@ export default function MucPhatPage({ loaderData }: Route.ComponentProps) {
           </>
         )}
       </div>
-    </div>
+    </KhungTraCuu>
   );
 }

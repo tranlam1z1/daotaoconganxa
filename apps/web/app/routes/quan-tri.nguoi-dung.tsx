@@ -13,7 +13,6 @@
  */
 import { type ReactNode, useEffect, useRef, useState } from "react";
 import { Form, Link, useFetcher, useNavigation, useSearchParams } from "react-router";
-
 import { Badge } from "../components/ui/Badge";
 import { Button, ButtonLink } from "../components/ui/Button";
 import { EmptyState } from "../components/ui/EmptyState";
@@ -615,15 +614,20 @@ export default function QuanTriNguoiDung({ loaderData, actionData }: Route.Compo
   };
 
   return (
-    <section>
-      <div className="flex flex-wrap items-start justify-between gap-3">
-        <div className="min-w-0">
-          <h2 className="text-xl font-semibold">Người dùng</h2>
+    <section className="trang-nguoi-dung">
+      <div className="nguoi-dung-tieu-de flex flex-wrap items-center justify-between gap-3">
+        <div className="flex min-w-0 items-center gap-4">
+          <span className="nguoi-dung-bieu-tuong"><Icon name="shield" className="size-7" /></span>
+          <div className="min-w-0">
+          <h2 className="text-2xl font-bold">
+            Người dùng
+          </h2>
           <p className="mt-1 text-sm text-ink-2">
             {laQuanTri
               ? "Toàn bộ tài khoản của hệ thống. Bấm một dòng để xem chi tiết hoặc sửa."
               : "Tài khoản thuộc đơn vị của bạn và các đơn vị cấp dưới. Bấm một dòng để xem chi tiết."}
           </p>
+          </div>
         </div>
         {laQuanTri ? (
           <Button icon="plus" onClick={() => hop.mo("them")}>
@@ -652,11 +656,13 @@ export default function QuanTriNguoiDung({ loaderData, actionData }: Route.Compo
       {laQuanTri ? (
         <div className="mt-4">
           <details
-            className="rounded-xl border border-line bg-surface px-4"
+            className="nguoi-dung-excel rounded-xl border border-line px-5"
             open={Boolean(actionData && "nhap" in actionData)}
           >
-            <summary className="flex min-h-11 cursor-pointer items-center font-medium text-primary">
-              Nhập danh sách từ Excel
+            <summary className="flex min-h-16 cursor-pointer items-center gap-4 font-semibold text-primary">
+              <span className="nguoi-dung-excel-icon" aria-hidden="true">X</span>
+              <span className="flex-1">Nhập danh sách từ Excel</span>
+              <Icon name="chevronRight" className="nguoi-dung-excel-chevron size-5 text-ink" />
             </summary>
             <div className="pb-4">
               <p className="text-sm text-ink-2">
@@ -691,7 +697,7 @@ export default function QuanTriNguoiDung({ loaderData, actionData }: Route.Compo
         </div>
       ) : null}
 
-      <Form method="get" className="mt-6 flex flex-wrap items-end gap-3">
+      <Form method="get" className="nguoi-dung-bo-loc mt-3 flex flex-wrap items-end gap-4 rounded-xl border border-line p-5">
         <div className="min-w-48 flex-1">
           <Label htmlFor="loc-dv">Đơn vị</Label>
           <ChonDonVi
@@ -719,32 +725,44 @@ export default function QuanTriNguoiDung({ loaderData, actionData }: Route.Compo
             <option value="chua_xac_minh">Chưa được xác minh (cả hai)</option>
           </select>
         </div>
-        <Button type="submit" variant="secondary">
+        <Button type="submit" variant="secondary" icon="loc">
           Lọc danh sách
         </Button>
       </Form>
 
-      <p className="mt-4 text-sm text-ink-3">{total.toLocaleString("vi-VN")} người</p>
+      <div className="mt-3 rounded-xl border border-line p-4">
+      <p className="px-1 text-sm text-ink-3">{total.toLocaleString("vi-VN")} người</p>
       {items.length === 0 ? (
         <div className="mt-2">
           <EmptyState icon="user" title="Không có người dùng nào khớp bộ lọc" />
         </div>
       ) : (
         <ul className="mt-2 divide-y divide-line overflow-hidden rounded-xl border border-line bg-surface">
-          {items.map((u) => {
+          {items.map((u, index) => {
             const ten = u.username ?? u.email ?? "";
             return (
               <li key={u.id}>
                 <button
                   type="button"
                   onClick={() => hop.mo("chiTiet", u.id)}
-                  className="lun flex min-h-14 w-full items-center gap-3 px-4 py-2.5 text-left hover:bg-surface-2"
+                  className="nguoi-dung-hang lun flex min-h-16 w-full items-center gap-5 px-4 py-2.5 text-left hover:bg-surface-2"
                 >
+                  <span className={`nguoi-dung-avatar nguoi-dung-avatar-${index % 6}`} aria-hidden="true">
+                    {(u.name ?? ten).trim().charAt(0).toLocaleUpperCase("vi-VN") || "?"}
+                  </span>
+                  <span className="nguoi-dung-danh-tinh min-w-0">
+                    <span className="block truncate font-semibold text-ink">{u.name ?? ten}</span>
+                    <span className="mt-0.5 block break-all text-sm text-ink-2">{ten}</span>
+                  </span>
                   <span className="min-w-0 flex-1">
                     <span className="flex flex-wrap items-center gap-x-3 gap-y-1">
-                      <span className="font-semibold text-ink">{u.name ?? ten}</span>
-                      <span className="min-w-0 break-all font-mono text-sm text-ink">{ten}</span>
-                      <Badge tone={u.role === "lanh_dao" || u.role === "quan_ly" || u.role === "quan_tri" ? "info" : "muted"}>
+                      <Badge
+                        tone={
+                          u.role === "lanh_dao" || u.role === "quan_ly" || u.role === "quan_tri"
+                            ? "info"
+                            : "muted"
+                        }
+                      >
                         {TEN_VAI_TRO[u.role] ?? u.role}
                       </Badge>
                       {!u.enabled ? <Badge tone="danger">Đã khóa</Badge> : null}
@@ -792,6 +810,7 @@ export default function QuanTriNguoiDung({ loaderData, actionData }: Route.Compo
           ) : null}
         </nav>
       ) : null}
+      </div>
 
       {laQuanTri ? (
         <HopThoai mo={hop.la("them")} onDong={hop.dong} tieuDe="Thêm người dùng">

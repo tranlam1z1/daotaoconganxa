@@ -2,11 +2,9 @@
  * Chuyển đổi địa giới hành chính: chọn cách tra (nhập đơn vị cũ, vị trí GPS, địa chỉ cụ thể, tra ngược
  * từ xã mới). Khai riêng trong routes.ts nên thắng route chung cong-cu/:ma.
  */
-import { Link } from "react-router";
-
 import { NutLichSuDiaGioi, TheLuaChon } from "../components/dia-gioi/ChungDiaGioi";
 import { Icon } from "../components/ui/Icon";
-import { LogoHocTap } from "../components/ui/LogoHocTap";
+import { KhungTrang } from "../components/ui/KhungTrang";
 import { DUONG_DIA_GIOI } from "../lib/dia-gioi";
 import { pageMeta } from "../lib/site";
 import type { Route } from "./+types/cong-cu.dia-gioi._index";
@@ -47,25 +45,23 @@ const CACH_TRA = [
 
 export default function DiaGioiHanhChinh() {
   return (
-    <div className="wrap max-w-2xl py-6 sm:py-10">
-      <p className="hidden md:block">
-        <Link to="/cong-cu" className="inline-flex min-h-11 items-center gap-1 text-sm text-ink-2 underline">
-          <Icon name="arrowLeft" className="size-4" />
-          Công cụ nghiệp vụ
-        </Link>
-      </p>
-      <div className="text-center">
-        <LogoHocTap className="mx-auto h-20 w-auto sm:h-24" />
-        <h1 className="mt-3 text-2xl font-bold leading-tight sm:text-3xl">Chuyển đổi địa giới hành chính</h1>
-        <p className="mx-auto mt-2 max-w-md text-base text-ink-2">
-          Chọn cách tra cứu phù hợp để chuẩn hóa địa chỉ theo địa giới hành chính mới.
-        </p>
-      </div>
+    <KhungTrang className="wrap max-w-5xl py-6 sm:py-10">
+      <header className="tra-cuu-tieu-de relative isolate mb-6 flex min-h-20 items-center gap-3">
+        <span className="grid size-12 shrink-0 place-items-center rounded-xl bg-primary-soft text-primary">
+          <Icon name="map" kieu="net" className="size-6" />
+        </span>
+        <div className="min-w-0">
+          <h1 className="text-2xl font-bold leading-tight">Chuyển đổi địa giới hành chính</h1>
+          <p className="mt-1 text-sm text-ink-2">
+            Chọn cách tra cứu phù hợp để chuẩn hóa địa chỉ theo địa giới hành chính mới.
+          </p>
+        </div>
+      </header>
 
       <div className="mt-4 flex justify-end">
         <NutLichSuDiaGioi className="-mr-2" />
       </div>
-      <ul className="mt-1 grid gap-3">
+      <ul className="mt-1 grid gap-3 md:grid-cols-2">
         {CACH_TRA.map((c) => (
           <li key={c.to}>
             <TheLuaChon {...c} />
@@ -80,6 +76,6 @@ export default function DiaGioiHanhChinh() {
       <p className="mt-4 text-center text-sm text-ink-2">
         Hệ thống chỉ lấy vị trí khi bạn bấm Lấy vị trí hiện tại và không lưu vị trí.
       </p>
-    </div>
+    </KhungTrang>
   );
 }

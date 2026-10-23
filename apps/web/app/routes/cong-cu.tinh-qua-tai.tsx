@@ -4,13 +4,14 @@
  * cong-cu/:ma.
  */
 import { useState } from "react";
-import { Form, Link, useNavigation } from "react-router";
-
+import { Form, useNavigation } from "react-router";
+import { DauTrangCongCu } from "../components/cong-cu/BieuMau";
 import { Badge } from "../components/ui/Badge";
 import { Button } from "../components/ui/Button";
 import { Card } from "../components/ui/Card";
 import { Notice } from "../components/ui/Field";
 import { Icon } from "../components/ui/Icon";
+import { KhungTrang } from "../components/ui/KhungTrang";
 import { pageMeta } from "../lib/site";
 import {
   type CongThuc,
@@ -153,17 +154,10 @@ export default function TinhQuaTai({ loaderData }: Route.ComponentProps) {
   const xe = LOAI_XE[loai];
 
   return (
-    <div className="wrap max-w-3xl py-6 sm:py-10">
-      <p className="hidden md:block">
-        <Link to="/cong-cu" className="inline-flex min-h-11 items-center gap-1 text-sm text-ink-2 underline">
-          <Icon name="arrowLeft" className="size-4" />
-          Công cụ nghiệp vụ
-        </Link>
-      </p>
-      <h1 className="text-2xl font-bold leading-tight sm:text-3xl">Tính % quá tải</h1>
-      <p className="mt-2 text-base text-ink-2">
+    <KhungTrang className="wrap max-w-3xl py-6 sm:py-10">
+      <DauTrangCongCu tieuDe="Tính % quá tải">
         Nhập các khối lượng theo kg, lấy từ phiếu cân và giấy chứng nhận kiểm định của xe.
-      </p>
+      </DauTrangCongCu>
 
       <Form method="get" action="/cong-cu/tinh-qua-tai" replace className="mt-5 grid gap-4">
         <fieldset className="grid gap-2 sm:grid-cols-3">
@@ -247,6 +241,6 @@ export default function TinhQuaTai({ loaderData }: Route.ComponentProps) {
           )}
         </section>
       ) : null}
-    </div>
+    </KhungTrang>
   );
 }

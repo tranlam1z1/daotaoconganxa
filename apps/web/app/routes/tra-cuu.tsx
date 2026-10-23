@@ -10,6 +10,7 @@
 import { type ReactNode, useEffect, useState } from "react";
 import { Link, useNavigation, useSearchParams } from "react-router";
 import { CanCuBienBao } from "../components/tra-cuu/CanCuBienBao";
+import { KhungTraCuu } from "../components/tra-cuu/KhungTraCuu";
 import { OTimTraCuu } from "../components/tra-cuu/OTimTraCuu";
 import { ChiTietMucPhat } from "../components/tra-cuu/TheMucPhat";
 import { Badge } from "../components/ui/Badge";
@@ -170,10 +171,18 @@ export default function TraCuu({ loaderData }: Route.ComponentProps) {
   const hienLuoi = !laBienBao && !chuDe && oTrong;
 
   return (
-    <div className="wrap max-w-3xl py-6 sm:py-10">
-      <h1 className="sr-only">Tra cứu</h1>
-
-      <nav aria-label="Loại tra cứu" className="rounded-2xl border border-line bg-surface p-1 shadow-card">
+    <KhungTraCuu
+      title={laBienBao ? "Tra cứu biển báo" : "Tra cứu hành vi"}
+      description={
+        laBienBao
+          ? "Tra cứu thông tin biển báo giao thông theo quy chuẩn hiện hành."
+          : "Tra cứu hành vi vi phạm, mức xử phạt và căn cứ pháp luật."
+      }
+    >
+      <nav
+        aria-label="Loại tra cứu"
+        className="relative rounded-2xl border border-line bg-surface p-1 shadow-card"
+      >
         <ul className="grid grid-cols-2 gap-1">
           {TAB.map((t) => {
             const chon = t.value === tab;
@@ -183,13 +192,13 @@ export default function TraCuu({ loaderData }: Route.ComponentProps) {
                   to={t.value === "bien-bao" ? "/tra-cuu" : "/tra-cuu?tab=hanh-vi"}
                   aria-current={chon ? "page" : undefined}
                   className={cn(
-                    "lun flex min-h-12 items-center justify-center gap-1.5 rounded-xl px-1 text-[15px] font-semibold whitespace-nowrap sm:gap-2 sm:text-base",
+                    "lun flex min-h-11 items-center justify-center gap-1.5 rounded-xl px-1 text-xs font-semibold sm:gap-2 sm:text-sm",
                     chon ? "bg-primary text-on-primary shadow-card" : "text-ink-2 hover:text-ink",
                   )}
                 >
                   {/* Kiểu nét vẽ bằng currentColor: trắng trên tab đang chọn, xám ở tab còn lại. */}
-                  <Icon name={t.icon} kieu="net" className="size-5 sm:size-6" />
-                  {t.label}
+                  <Icon name={t.icon} kieu="net" className="size-4 shrink-0 sm:size-6" />
+                  <span className="min-w-0 text-center leading-snug">{t.label}</span>
                 </Link>
               </li>
             );
@@ -197,7 +206,7 @@ export default function TraCuu({ loaderData }: Route.ComponentProps) {
         </ul>
       </nav>
 
-      <div className="mt-4">
+      <div className="tra-cuu-o-tim relative mt-4">
         <OTimTraCuu
           q={q}
           loai={tab}
@@ -209,7 +218,10 @@ export default function TraCuu({ loaderData }: Route.ComponentProps) {
       </div>
 
       {/* Chip tự xuống dòng khi không đủ chiều rộng, để tên nhóm dài không bị cắt ở mép phải. */}
-      <nav aria-label={laBienBao ? "Nhóm biển báo" : "Loại xe"} className="mt-2">
+      <nav
+        aria-label={laBienBao ? "Nhóm biển báo" : "Loại xe"}
+        className="relative mt-2 border-t border-line pt-3"
+      >
         <ul className="flex flex-wrap gap-2 py-1">
           {chip.map((c) => {
             const chon = c.value === loc;
@@ -219,7 +231,7 @@ export default function TraCuu({ loaderData }: Route.ComponentProps) {
                   to={hrefVoi({ [khoaLoc]: c.value || null, ma: null })}
                   aria-current={chon ? "true" : undefined}
                   className={cn(
-                    "inline-flex min-h-11 items-center rounded-2xl border px-4 text-base",
+                    "inline-flex min-h-11 items-center rounded-full border px-4 text-sm sm:min-h-8",
                     chon
                       ? "border-2 border-primary bg-primary-soft font-semibold text-primary"
                       : "border-line-strong bg-surface text-ink-2 dong-bam",
@@ -265,6 +277,7 @@ export default function TraCuu({ loaderData }: Route.ComponentProps) {
       <div className={cn("mt-4", busy && "opacity-60")} aria-busy={busy}>
         {!daTra || hienLuoi ? null : soKetQua === 0 ? (
           <EmptyState
+            className="tra-cuu-trong bg-primary-soft/20"
             icon="search"
             title={
               q
@@ -347,7 +360,7 @@ export default function TraCuu({ loaderData }: Route.ComponentProps) {
           </>
         )}
       </div>
-    </div>
+    </KhungTraCuu>
   );
 }
 

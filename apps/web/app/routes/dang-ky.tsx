@@ -7,11 +7,11 @@
  * và các trang tra cứu công khai.
  */
 import { Form, Link, redirect, useNavigation } from "react-router";
-
 import { KhaiXacMinh } from "../components/tai-khoan/KhaiXacMinh";
 import { Button } from "../components/ui/Button";
 import { Card } from "../components/ui/Card";
 import { Label, Notice } from "../components/ui/Field";
+import { KhungTrang, TieuDeTrang } from "../components/ui/KhungTrang";
 import { LogoHocTap } from "../components/ui/LogoHocTap";
 import { OCoIcon } from "../components/ui/OCoIcon";
 import {
@@ -77,7 +77,7 @@ export default function DangKy({ loaderData, actionData }: Route.ComponentProps)
   const sauTiep = tiep === "/" ? "" : `?tiep=${encodeURIComponent(tiep)}`;
 
   return (
-    <div className="wrap flex max-w-md flex-col items-center py-12">
+    <KhungTrang variant="auth" className="wrap flex max-w-md flex-col items-center py-12">
       {/* Như trang đăng nhập: không có thanh đầu trang, logo đứng trên, tên căn giữa bên dưới. */}
       <Link to="/" className="flex flex-col items-center gap-3 text-center">
         <LogoHocTap className="h-20 w-auto" />
@@ -90,7 +90,9 @@ export default function DangKy({ loaderData, actionData }: Route.ComponentProps)
       </Link>
 
       <Card className="mt-8 w-full">
-        <h1 className="text-2xl font-semibold">Đăng ký tài khoản</h1>
+        <TieuDeTrang variant="status" icon="user" className="">
+          Đăng ký tài khoản
+        </TieuDeTrang>
         <p className="mt-2 text-sm leading-relaxed text-ink-2">
           Tạo tài khoản để học, luyện tập và thi. Tra cứu văn bản không cần đăng nhập.
         </p>
@@ -202,6 +204,6 @@ export default function DangKy({ loaderData, actionData }: Route.ComponentProps)
           </Link>
         </p>
       </Card>
-    </div>
+    </KhungTrang>
   );
 }

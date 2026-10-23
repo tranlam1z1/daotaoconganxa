@@ -3,10 +3,10 @@
  * giải thích, nút "Luyện lại câu sai".
  */
 import { Form, Link, redirect, useNavigation } from "react-router";
-
 import { PhanHoiCauTraLoi } from "../components/luyen-tap/PhanHoiCauTraLoi";
 import { Button, ButtonLink } from "../components/ui/Button";
 import { Notice } from "../components/ui/Field";
+import { KhungTrang, TieuDeTrang } from "../components/ui/KhungTrang";
 import { cn } from "../lib/cn";
 import { layPhien, taoPhien } from "../lib/luyen-tap.server";
 import type { DapAnCauHoi, DeCauHoi } from "../lib/ngan-hang";
@@ -69,8 +69,10 @@ export default function KetQuaLuyenTap({ loaderData, actionData }: Route.Compone
   const boQua = phien.cau.filter((c) => !c.ket_qua).length;
 
   return (
-    <div className="wrap max-w-xl py-8">
-      <h1 className="text-3xl font-semibold">Kết quả</h1>
+    <KhungTrang className="wrap max-w-xl py-8">
+      <TieuDeTrang icon="cap" className="">
+        Kết quả
+      </TieuDeTrang>
       <p className="mt-1 text-sm text-ink-2">{tenPhienLuyenTap(phien)}</p>
 
       <div className="mt-6 rounded-xl border border-line bg-surface p-6 text-center">
@@ -144,6 +146,6 @@ export default function KetQuaLuyenTap({ loaderData, actionData }: Route.Compone
           Xem lịch sử luyện tập
         </Link>
       </p>
-    </div>
+    </KhungTrang>
   );
 }

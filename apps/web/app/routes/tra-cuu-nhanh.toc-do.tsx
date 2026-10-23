@@ -6,11 +6,10 @@
  * nhập tốc độ cho phép. Chưa có dòng nào được duyệt thì ô này không hiện.
  */
 import { Form, Link, useNavigation } from "react-router";
-
 import { ChonNgayApDung } from "../components/tra-cuu/ChonNgayApDung";
+import { KhungTraCuu } from "../components/tra-cuu/KhungTraCuu";
 import { TheMucPhat } from "../components/tra-cuu/TheMucPhat";
 import { Notice } from "../components/ui/Field";
-import { Icon } from "../components/ui/Icon";
 import { cn } from "../lib/cn";
 import { isIsoDate, todayIso } from "../lib/format";
 import { pageMeta } from "../lib/site";
@@ -79,19 +78,11 @@ export default function TocDoPage({ loaderData }: Route.ComponentProps) {
   const busy = useNavigation().state !== "idle";
 
   return (
-    <div className="wrap max-w-xl py-8">
-      <p className="hidden md:block">
-        <Link
-          to="/tra-cuu-nhanh"
-          className="inline-flex min-h-11 items-center gap-1 text-sm text-ink-2 underline"
-        >
-          <Icon name="arrowLeft" className="size-4" />
-          Tra cứu nhanh
-        </Link>
-      </p>
-      <h1 className="text-3xl font-semibold leading-tight">Tra mức phạt theo tốc độ</h1>
-
-      <Form method="get" action="/tra-cuu-nhanh/toc-do" className="mt-5 grid gap-4">
+    <KhungTraCuu
+      title="Tra mức phạt theo tốc độ"
+      description="Chọn phương tiện và nhập tốc độ để tra cứu mức xử phạt."
+    >
+      <Form method="get" action="/tra-cuu-nhanh/toc-do" className="tra-cuu-form mt-5 grid gap-4">
         {ngay !== homNay ? <input type="hidden" name="ngay" value={ngay} /> : null}
         <fieldset>
           <legend className="mb-2 text-base font-medium">Loại xe</legend>
@@ -206,6 +197,6 @@ export default function TocDoPage({ loaderData }: Route.ComponentProps) {
           </>
         ) : null}
       </div>
-    </div>
+    </KhungTraCuu>
   );
 }

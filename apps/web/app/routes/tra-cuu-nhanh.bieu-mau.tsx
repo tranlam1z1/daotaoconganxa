@@ -4,10 +4,10 @@
  * ở thẻ mới để dùng trình xem PDF của máy. Word, Excel chỉ có nút tải về.
  */
 import { data, Link } from "react-router";
-
 import { Badge } from "../components/ui/Badge";
 import { buttonClass } from "../components/ui/Button";
 import { Icon } from "../components/ui/Icon";
+import { KhungTrang, TieuDeTrang } from "../components/ui/KhungTrang";
 import { pageMeta } from "../lib/site";
 import { dungLuongTep, hrefTepBieuMau, layBieuMau, tenLoaiTaiLieu } from "../lib/tai-lieu";
 import { KhongTimThay } from "../lib/tra-cuu-nhanh";
@@ -32,7 +32,7 @@ export default function BieuMauPage({ loaderData }: Route.ComponentProps) {
   const laPdf = tep?.duoi === "pdf";
 
   return (
-    <div className="wrap max-w-3xl py-8">
+    <KhungTrang className="wrap max-w-3xl py-8">
       <p className="hidden md:block">
         <Link
           to="/tra-cuu-nhanh/quy-trinh"
@@ -46,7 +46,9 @@ export default function BieuMauPage({ loaderData }: Route.ComponentProps) {
         {tenLoaiTaiLieu(b.loai)}
         {b.banNhap ? <Badge tone="warn">Bản nháp, chưa được duyệt</Badge> : null}
       </p>
-      <h1 className="mt-1 text-3xl font-semibold leading-tight break-words">{b.tieuDe}</h1>
+      <TieuDeTrang icon="search" className="mt-1 break-words">
+        {b.tieuDe}
+      </TieuDeTrang>
       {b.tomTat ? <p className="mt-2 text-base leading-relaxed text-ink-2">{b.tomTat}</p> : null}
       {b.tenXe || b.nhom ? (
         <dl className="mt-3 flex flex-wrap gap-x-6 gap-y-1 text-base">
@@ -119,6 +121,6 @@ export default function BieuMauPage({ loaderData }: Route.ComponentProps) {
           className="mt-4 hidden h-[80vh] w-full rounded-2xl border border-line bg-surface md:block"
         />
       ) : null}
-    </div>
+    </KhungTrang>
   );
 }

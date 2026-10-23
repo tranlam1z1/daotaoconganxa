@@ -20,6 +20,7 @@ import { SiteHeader } from "./components/layout/SiteHeader";
 import { ThanhTaiTrang } from "./components/layout/ThanhTaiTrang";
 import { TrangThaiMang } from "./components/layout/TrangThaiMang";
 import { ButtonLink } from "./components/ui/Button";
+import { KhungTrang, TieuDeTrang } from "./components/ui/KhungTrang";
 import { VungThongBaoNhanh } from "./components/ui/ThongBaoNhanh";
 import { nguoiDungHienTai } from "./lib/auth.server";
 import { cn } from "./lib/cn";
@@ -141,15 +142,17 @@ export function ErrorBoundary() {
 
   if (matMang) {
     return (
-      <main id="noi-dung-chinh" tabIndex={-1} className="wrap max-w-2xl py-20 focus:outline-none">
-        <h1 className="text-3xl font-semibold">Cần có mạng</h1>
-        <p className="mt-3 text-ink-2">
-          Trang này cần kết nối mạng. Trong lúc chờ, bạn vẫn luyện tập được các chủ đề đã tải về máy.
-        </p>
-        {/* reloadDocument: như liên kết ở TrangThaiMang, để service worker trả trang đã giữ. */}
-        <ButtonLink to="/luyen-tap/offline" reloadDocument className="mt-8 min-h-12">
-          Luyện tập không cần mạng
-        </ButtonLink>
+      <main id="noi-dung-chinh" tabIndex={-1} className="focus:outline-none">
+        <KhungTrang className="wrap max-w-2xl py-8">
+          <TieuDeTrang icon="alert">Cần có mạng</TieuDeTrang>
+          <p className="mt-3 text-ink-2">
+            Trang này cần kết nối mạng. Trong lúc chờ, bạn vẫn luyện tập được các chủ đề đã tải về máy.
+          </p>
+          {/* reloadDocument: như liên kết ở TrangThaiMang, để service worker trả trang đã giữ. */}
+          <ButtonLink to="/luyen-tap/offline" reloadDocument className="mt-8 min-h-12">
+            Luyện tập không cần mạng
+          </ButtonLink>
+        </KhungTrang>
       </main>
     );
   }
@@ -165,17 +168,19 @@ export function ErrorBoundary() {
   }
 
   return (
-    <main id="noi-dung-chinh" tabIndex={-1} className="wrap max-w-2xl py-20 focus:outline-none">
-      {/* Trang lỗi không chạy meta() của route nên tự đặt tiêu đề; React đưa thẻ này lên <head>. */}
-      <title>{`${title} | ${SITE_NAME_SHORT}`}</title>
-      <p className="text-xs font-semibold uppercase tracking-[0.12em] text-seal">
-        {isRouteErrorResponse(error) ? `Mã ${error.status}` : "Lỗi"}
-      </p>
-      <h1 className="mt-2 text-3xl font-semibold">{title}</h1>
-      <p className="mt-3 text-ink-2">{detail}</p>
-      <ButtonLink to="/" className="mt-8">
-        Về trang chủ
-      </ButtonLink>
+    <main id="noi-dung-chinh" tabIndex={-1} className="focus:outline-none">
+      <KhungTrang className="wrap max-w-2xl py-8">
+        {/* Trang lỗi không chạy meta() của route nên tự đặt tiêu đề; React đưa thẻ này lên <head>. */}
+        <title>{`${title} | ${SITE_NAME_SHORT}`}</title>
+        <p className="text-xs font-semibold uppercase tracking-[0.12em] text-seal">
+          {isRouteErrorResponse(error) ? `Mã ${error.status}` : "Lỗi"}
+        </p>
+        <TieuDeTrang icon="alert">{title}</TieuDeTrang>
+        <p className="mt-3 text-ink-2">{detail}</p>
+        <ButtonLink to="/" className="mt-8">
+          Về trang chủ
+        </ButtonLink>
+      </KhungTrang>
     </main>
   );
 }

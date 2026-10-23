@@ -10,11 +10,11 @@
  */
 import { useState } from "react";
 import { Link, useFetcher } from "react-router";
-
 import { BanDoViTri } from "../components/dia-gioi/BanDoViTri";
 import { BangDiaChi, DongDiaChi, DongDiaChiCu, OBieuTuong } from "../components/dia-gioi/ChungDiaGioi";
 import { Notice } from "../components/ui/Field";
 import { Icon, type IconName } from "../components/ui/Icon";
+import { KhungTrang, TieuDeTrang } from "../components/ui/KhungTrang";
 import { ThanhDinhDay } from "../components/ui/ThanhDinhDay";
 import { type DiaChiBanDo, DUONG_DIA_GIOI, LoiDiaGioi, viTriRaDiaChi } from "../lib/dia-gioi";
 import { pageMeta } from "../lib/site";
@@ -122,7 +122,7 @@ export default function LayViTriHienTai() {
   );
 
   return (
-    <div className="wrap max-w-2xl py-6 sm:py-10">
+    <KhungTrang className="wrap max-w-2xl py-6 sm:py-10">
       <p className="hidden md:block">
         <Link
           to={DUONG_DIA_GIOI}
@@ -132,7 +132,9 @@ export default function LayViTriHienTai() {
           Chuyển đổi địa giới hành chính
         </Link>
       </p>
-      <h1 className="text-2xl font-bold leading-tight sm:text-3xl">Lấy vị trí hiện tại</h1>
+      <TieuDeTrang icon="map" className="">
+        Lấy vị trí hiện tại
+      </TieuDeTrang>
 
       {kq ? (
         <div className="mt-5 grid gap-4">
@@ -262,7 +264,7 @@ export default function LayViTriHienTai() {
           Thông tin vị trí chỉ lấy khi bấm nút Lấy vị trí hiện tại và không được lưu.
         </p>
       </ThanhDinhDay>
-    </div>
+    </KhungTrang>
   );
 }
 

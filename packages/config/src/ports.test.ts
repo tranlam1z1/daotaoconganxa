@@ -9,6 +9,7 @@ import {
   PORTS,
   PortBusyError,
   portFor,
+  windowsListenerPids,
 } from "./ports.ts";
 
 /** Cổng cao, ít khả năng trùng với dịch vụ thật trên máy. */
@@ -115,6 +116,17 @@ describe("sơ đồ cổng", () => {
 });
 
 describe("phát hiện và giải phóng cổng", () => {
+  test("netstat Windows chỉ nhận đúng cổng LISTENING, loại kết nối khách và TIME_WAIT", () => {
+    const output = [
+      "  TCP    127.0.0.1:3030  0.0.0.0:0       LISTENING   123",
+      "  TCP    [::]:3030      [::]:0           LISTENING   123",
+      "  TCP    0.0.0.0:30300  0.0.0.0:0       LISTENING   456",
+      "  TCP    127.0.0.1:50100 127.0.0.1:3030 ESTABLISHED 789",
+      "  TCP    127.0.0.1:3030 127.0.0.1:50100 TIME_WAIT   0",
+      "  TCP    [::1]:3030     [::]:0           LISTENING   321",
+    ].join("\r\n");
+    expect(windowsListenerPids(output, 3030)).toEqual([123, 321]);
+  });
   test("cổng trống thì báo trống và không làm gì", async () => {
     expect(await isPortFree(TEST_PORT)).toBe(true);
     await ensurePortFree(TEST_PORT, { log: () => {} });

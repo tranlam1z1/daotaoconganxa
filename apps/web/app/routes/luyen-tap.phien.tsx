@@ -19,7 +19,6 @@ import {
   useSearchParams,
   useSubmit,
 } from "react-router";
-
 import { HienThiCauHoi } from "../components/cau-hoi/HienThiCauHoi";
 import { ThanhGiongNoiCauHoi } from "../components/giong-noi/ThanhGiongNoiCauHoi";
 import { ThanhTienDo } from "../components/luyen-tap/ThanhTienDo";
@@ -28,6 +27,7 @@ import { HopXacNhanNop } from "../components/thi/HopXacNhanNop";
 import { LuoiCauHoi } from "../components/thi/LuoiCauHoi";
 import { Button } from "../components/ui/Button";
 import { Notice } from "../components/ui/Field";
+import { KhungTrang } from "../components/ui/KhungTrang";
 import { cn } from "../lib/cn";
 import { ketThuc, layPhien } from "../lib/luyen-tap.server";
 import type { TraLoiCauHoi } from "../lib/ngan-hang";
@@ -142,7 +142,7 @@ export default function PhienLuyenTap({ loaderData, actionData }: Route.Componen
   const laCauCuoi = stt === phien.tong;
 
   return (
-    <div className="wrap max-w-xl py-6">
+    <KhungTrang variant="workspace" className="wrap max-w-xl py-6">
       <p className="text-sm text-ink-2">
         {tenPhienLuyenTap(phien)} · {TEN_MUC_DO[cau.muc_do]}
       </p>
@@ -254,6 +254,6 @@ export default function PhienLuyenTap({ loaderData, actionData }: Route.Componen
         onDong={() => datMoXacNhan(false)}
         onNop={() => void nop()}
       />
-    </div>
+    </KhungTrang>
   );
 }

@@ -9,14 +9,14 @@
  */
 import type { ReactNode } from "react";
 import { Form, Link, redirect, useNavigation } from "react-router";
-
 import { HoSoChuDe } from "../components/luyen-tap/HoSoChuDe";
 import { NhacHoc } from "../components/thong-bao/NhacHoc";
 import { AnhDaiDien } from "../components/ui/AnhDaiDien";
-import { Button, ButtonLink } from "../components/ui/Button";
+import { Button } from "../components/ui/Button";
 import { EmptyState } from "../components/ui/EmptyState";
 import { Notice } from "../components/ui/Field";
 import { Icon, type IconName } from "../components/ui/Icon";
+
 import { cn } from "../lib/cn";
 import { formatDate } from "../lib/format";
 import { hoSoChuDe } from "../lib/ho-so-chu-de";
@@ -66,19 +66,17 @@ function TheSoLieu({
   children: ReactNode;
 }) {
   return (
-    <div className="flex h-full flex-col rounded-card border border-line bg-surface p-4 shadow-card md:p-5">
-      <dt className="flex items-start justify-between gap-2 text-sm font-medium text-ink-2">
+    <div className="ho-so-so-lieu">
+      <dt className="text-sm font-medium text-ink-2">
         {nhan}
         <span
           aria-hidden="true"
-          className={cn("grid size-8 shrink-0 place-items-center rounded-full", mauIcon)}
+          className={cn("ho-so-so-lieu-icon grid size-11 shrink-0 place-items-center rounded-full", mauIcon)}
         >
           <Icon name={icon} className="size-4" />
         </span>
       </dt>
-      <dd className="mt-auto pt-2 text-[28px] font-bold leading-tight tabular-nums md:text-3xl">
-        {children}
-      </dd>
+      <dd className="mt-1 text-[28px] font-bold leading-tight tabular-nums">{children}</dd>
       {phu ? <dd className="mt-0.5 text-sm text-ink-2">{phu}</dd> : null}
     </div>
   );
@@ -96,73 +94,70 @@ export default function Toi({ loaderData, actionData }: Route.ComponentProps) {
     : null;
 
   return (
-    <div className="wrap py-6 md:py-10">
-      {/* A. Đầu trang. */}
-      <div className="flex flex-col gap-5 md:flex-row md:items-center md:justify-between">
-        <div className="flex min-w-0 items-center gap-4">
-          <Link
-            to="/tai-khoan#anh-dai-dien"
-            aria-label="Đổi ảnh đại diện"
-            title="Đổi ảnh đại diện"
-            className="shrink-0 rounded-full"
-          >
-            <AnhDaiDien nguoiDung={nguoiDung} className="size-14 text-2xl" />
-          </Link>
-          <div className="min-w-0">
-            <h1 className="truncate text-2xl font-bold md:text-3xl">{hoTen}</h1>
-            <p className="mt-1 text-[15px] text-ink-2">
-              {nguoiDung.don_vi ? nguoiDung.don_vi.ten : "Chưa gắn đơn vị"} · {nguoiDung.mo_ta_vai_tro}
-            </p>
+    <div className="ho-so-trang wrap max-w-5xl py-6">
+      <section className="ho-so-tong-quan">
+        {/* A. Đầu trang. */}
+        <div className="ho-so-banner flex flex-col gap-5 md:flex-row md:items-center md:justify-between">
+          <div className="flex min-w-0 items-center gap-4">
+            <Link
+              to="/tai-khoan#anh-dai-dien"
+              aria-label="Đổi ảnh đại diện"
+              title="Đổi ảnh đại diện"
+              className="shrink-0 rounded-full"
+            >
+              <AnhDaiDien nguoiDung={nguoiDung} className="size-16 text-2xl" />
+            </Link>
+            <div className="min-w-0">
+              <h1 className="break-words text-2xl font-bold">{hoTen}</h1>
+              <p className="mt-1 text-[15px] text-ink-2">
+                {nguoiDung.don_vi ? nguoiDung.don_vi.ten : "Chưa gắn đơn vị"} · {nguoiDung.mo_ta_vai_tro}
+              </p>
+            </div>
+          </div>
+          <div className="flex flex-col gap-3 sm:flex-row md:shrink-0">
+            {soCauSai > 0 ? (
+              <Form method="post" className="sm:flex">
+                <Button type="submit" size="lg" className="w-full" disabled={busy}>
+                  Luyện câu sai ({soCauSai})
+                </Button>
+              </Form>
+            ) : null}
           </div>
         </div>
-        <div className="flex flex-col gap-3 sm:flex-row md:shrink-0">
-          {soCauSai > 0 ? (
-            <Form method="post" className="sm:flex">
-              <Button type="submit" size="lg" className="w-full" disabled={busy}>
-                Luyện câu sai ({soCauSai})
-              </Button>
-            </Form>
-          ) : null}
-          <ButtonLink to="/luyen-tap" variant={soCauSai > 0 ? "secondary" : "primary"} size="lg">
-            Luyện tập theo chủ đề
-          </ButtonLink>
-        </div>
-      </div>
 
-      {actionData?.loi ? (
-        <Notice tone="danger" className="mt-4">
-          {actionData.loi}
-        </Notice>
-      ) : null}
+        {actionData?.loi ? (
+          <Notice tone="danger" className="mt-4">
+            {actionData.loi}
+          </Notice>
+        ) : null}
 
-      {/* B. Hàng thẻ số liệu. */}
-      <dl className="mt-6 grid grid-cols-2 gap-4 md:mt-8 lg:grid-cols-4 lg:gap-6">
-        <TheSoLieu nhan="Câu sai cần luyện" icon="list" mauIcon="bg-danger-soft text-danger">
-          {soCauSai.toLocaleString("vi-VN")}
-        </TheSoLieu>
-        <TheSoLieu nhan="Tỷ lệ đúng gần đây" icon="gauge" mauIcon="bg-ok-soft text-ok">
-          {tyLe === null ? "–" : `${tyLe}%`}
-        </TheSoLieu>
-        <TheSoLieu nhan="Số phiên đã luyện" icon="calendar" mauIcon="bg-warn-soft text-warn">
-          {daXong.length.toLocaleString("vi-VN")}
-        </TheSoLieu>
-        <TheSoLieu nhan="Chủ đề đã luyện" icon="layers">
-          {hoSo.tong_luot.toLocaleString("vi-VN")}
-        </TheSoLieu>
-      </dl>
-
-      {/* Dưới 1024px hai cột chung một track. */}
-      <div className="mt-6 grid grid-cols-1 gap-6 lg:grid-cols-12">
+        {/* B. Hàng thẻ số liệu. */}
+        <dl className="ho-so-thong-ke grid grid-cols-2 gap-4 lg:grid-cols-4">
+          <TheSoLieu nhan="Câu sai cần luyện" icon="list" mauIcon="bg-danger-soft text-danger">
+            {soCauSai.toLocaleString("vi-VN")}
+          </TheSoLieu>
+          <TheSoLieu nhan="Tỷ lệ đúng gần đây" icon="gauge" mauIcon="bg-ok-soft text-ok">
+            {tyLe === null ? "–" : `${tyLe}%`}
+          </TheSoLieu>
+          <TheSoLieu nhan="Số phiên đã luyện" icon="calendar" mauIcon="bg-warn-soft text-warn">
+            {daXong.length.toLocaleString("vi-VN")}
+          </TheSoLieu>
+          <TheSoLieu nhan="Chủ đề đã luyện" icon="layers">
+            {hoSo.tong_luot.toLocaleString("vi-VN")}
+          </TheSoLieu>
+        </dl>
+      </section>
+      <div className="ho-so-noi-dung">
         {/* C. Cột chính. */}
-        <div className="flex min-w-0 flex-col gap-8 lg:col-span-8">
+        <div className="ho-so-cac-khoi">
           <HoSoChuDe hoSo={hoSo} />
 
           {/* Nhắc học bằng thông báo đẩy (docs/PLAN.md GĐ15). */}
           <NhacHoc laQuanTri={nguoiDung.vai_tro === "quan_tri"} />
 
-          <section aria-labelledby="lich-su">
+          <section aria-labelledby="lich-su" className="ho-so-lich-su">
             <h2 id="lich-su" className="text-lg font-semibold">
-              Lịch sử luyện tập
+              <Icon name="calendar" className="size-6 text-primary" /> Lịch sử luyện tập
             </h2>
             {lichSu.length === 0 ? (
               <div className="mt-3">
@@ -204,17 +199,6 @@ export default function Toi({ loaderData, actionData }: Route.ComponentProps) {
             )}
           </section>
         </div>
-
-        {/* D. Cột phụ, dính khi cuộn trên máy tính. */}
-        <aside className="flex min-w-0 flex-col gap-6 lg:sticky lg:top-20 lg:col-span-4 lg:self-start">
-          <Link
-            to="/tai-khoan"
-            className="lun flex min-h-11 items-center justify-center gap-2 rounded-btn text-sm font-medium text-ink-2 hover:bg-surface-2 hover:text-ink"
-          >
-            <Icon name="user" className="size-4" />
-            Tài khoản và mật khẩu
-          </Link>
-        </aside>
       </div>
     </div>
   );

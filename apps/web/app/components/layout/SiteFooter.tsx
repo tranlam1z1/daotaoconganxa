@@ -6,7 +6,7 @@ export function SiteFooter() {
   return (
     // Dưới 768px ẩn: liên kết đã có ở thanh dưới cùng và ngăn tiện ích ở trang chủ.
     // Khu quản trị: lùi vào bằng bề rộng cột điều hướng cố định (--cot-trai, styles/app.css).
-    <footer className="no-print mt-20 hidden border-t border-line pl-[var(--cot-trai)] md:block">
+    <footer className="no-print mt-20 hidden border-t border-line bg-canvas/90 pl-[var(--cot-trai)] backdrop-blur-md md:block">
       <div className="wrap grid gap-8 py-10 text-sm text-ink-2 md:grid-cols-[1.4fr_1fr]">
         <div>
           <p className="font-display text-base font-semibold text-ink">{SITE_NAME}</p>

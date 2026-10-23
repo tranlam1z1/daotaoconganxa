@@ -3,10 +3,10 @@
  * thứ tự, phần trăm đã học của từng bài, và một nút to "Học tiếp" dẫn tới bài chưa xong đầu tiên.
  */
 import { Link } from "react-router";
-
 import { TheBaiHoc } from "../components/bai-giang/TheBaiHoc";
 import { ButtonLink } from "../components/ui/Button";
 import { EmptyState } from "../components/ui/EmptyState";
+import { KhungTrang, TieuDeTrang } from "../components/ui/KhungTrang";
 import { iconChoBai } from "../lib/bai-giang";
 import { chuyenDeHoc } from "../lib/bai-giang.server";
 import { yeuCauDangNhap } from "../lib/session.server";
@@ -29,14 +29,16 @@ export default function TrainingCourse({ loaderData }: Route.ComponentProps) {
   const soXong = loTrinh.filter((b) => b.trangThai === "xong").length;
 
   return (
-    <div className="wrap max-w-3xl py-8 lg:max-w-7xl">
+    <KhungTrang className="wrap max-w-3xl py-8 lg:max-w-7xl">
       <p className="hidden text-sm md:block">
         <Link to="/hoc" className="inline-flex min-h-11 items-center text-primary hover:underline">
           Bài giảng
         </Link>
         {chuyenDe.linhVuc ? <span className="text-ink-3"> · {chuyenDe.linhVuc.name}</span> : null}
       </p>
-      <h1 className="mt-2 text-3xl font-semibold lg:text-4xl">{chuyenDe.title}</h1>
+      <TieuDeTrang icon="book" className="mt-2">
+        {chuyenDe.title}
+      </TieuDeTrang>
       {chuyenDe.summary ? (
         <p className="mt-2 text-[15px] leading-relaxed text-ink-2 lg:max-w-3xl">{chuyenDe.summary}</p>
       ) : null}
@@ -74,6 +76,6 @@ export default function TrainingCourse({ loaderData }: Route.ComponentProps) {
           ))}
         </ol>
       )}
-    </div>
+    </KhungTrang>
   );
 }

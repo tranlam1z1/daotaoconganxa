@@ -7,7 +7,7 @@
 import { useEffect, useRef, useState } from "react";
 import { NavLink, Outlet, useLocation } from "react-router";
 
-import { Icon } from "../components/ui/Icon";
+import { Icon, type IconName } from "../components/ui/Icon";
 import { cn } from "../lib/cn";
 import { duVaiTro, type VaiTro, yeuCauVaiTro } from "../lib/session.server";
 import { pageMeta } from "../lib/site";
@@ -23,12 +23,14 @@ export function meta(_: Route.MetaArgs) {
  */
 const GROUPS: Array<{
   label: string;
+  icon: IconName;
   vaiTro: VaiTro;
   items: Array<{ to: string; label: string; end?: boolean }>;
 }> = [
   {
     // Trang đầu và báo cáo lấy cán bộ làm trung tâm: tổng quan, danh sách cán bộ, hồ sơ từng người.
     label: "Thống kê",
+    icon: "chart",
     vaiTro: "lanh_dao",
     items: [
       { to: "/quan-tri", label: "Tổng quan", end: true },
@@ -37,6 +39,7 @@ const GROUPS: Array<{
   },
   {
     label: "Tổ chức",
+    icon: "nhom",
     vaiTro: "lanh_dao",
     items: [
       { to: "/quan-tri/don-vi", label: "Đơn vị" },
@@ -47,6 +50,7 @@ const GROUPS: Array<{
     // Lãnh đạo UBND xã xem đề đang mở và giao bài; tạo, sửa đề chỉ Admin quản trị (API kiểm quyền).
     // Nhóm học cùng (docs/PLAN.md GĐ16c): quản lý xem tiến độ nhóm trong phạm vi.
     label: "Thi",
+    icon: "cap",
     vaiTro: "lanh_dao",
     items: [
       { to: "/quan-tri/de-thi", label: "Đề thi" },
@@ -57,11 +61,13 @@ const GROUPS: Array<{
   {
     // Thêm, sửa, xóa văn bản trong kho; xóa cần Admin quản trị (API kiểm quyền).
     label: "Kho văn bản",
+    icon: "file",
     vaiTro: "quan_ly",
     items: [{ to: "/quan-tri/van-ban", label: "Văn bản" }],
   },
   {
     label: "Đào tạo",
+    icon: "book",
     vaiTro: "quan_ly",
     items: [
       { to: "/quan-tri/cau-hoi", label: "Ngân hàng câu hỏi" },
@@ -74,8 +80,9 @@ const GROUPS: Array<{
 
 export async function loader({ request }: Route.LoaderArgs) {
   const { nguoiDung } = await yeuCauVaiTro(request, "lanh_dao");
-  const nhom = GROUPS.filter((g) => duVaiTro(nguoiDung, g.vaiTro)).map(({ label, items }) => ({
+  const nhom = GROUPS.filter((g) => duVaiTro(nguoiDung, g.vaiTro)).map(({ label, icon, items }) => ({
     label,
+    icon,
     items,
   }));
   return { nguoiDung, nhom };
@@ -107,7 +114,7 @@ export default function QuanTriLayout({ loaderData }: Route.ComponentProps) {
       {/* Màu riêng của cột (nền trắng, viền phải): lớp .cot-quan-tri trong styles/app.css. */}
       <aside className="cot-quan-tri khong-thanh-cuon no-print px-4 pt-8 md:px-6 lg:fixed lg:bottom-0 lg:left-0 lg:top-[calc(4rem+2px)] lg:z-30 lg:w-[var(--cot-trai)] lg:overflow-y-auto lg:overscroll-contain lg:bg-canvas lg:px-3 lg:py-4">
         <div className="flex flex-wrap items-baseline justify-between gap-2 border-b border-line pb-4 lg:block lg:px-3">
-          <h1 className="text-2xl font-semibold lg:text-xl">Quản trị</h1>
+          <h1 className="text-2xl font-semibold lg:text-xl"><span className="flex items-center gap-3"><Icon name="caiDat" className="size-7" />Quản trị</span></h1>
           <p className="text-sm text-ink-3 lg:mt-1 lg:break-words">
             {nguoiDung.ten ?? nguoiDung.email} · {nguoiDung.mo_ta_vai_tro}
           </p>
@@ -123,7 +130,8 @@ export default function QuanTriLayout({ loaderData }: Route.ComponentProps) {
               const dangMo = mo === g.label;
               return (
                 <div key={g.label} className="shrink-0">
-                  <p className="mb-1 px-3 text-xs font-semibold uppercase tracking-[0.12em] text-ink-3 lg:hidden">
+                  <p className="mb-1 flex items-center gap-3 px-3 text-xs font-semibold uppercase tracking-[0.12em] text-ink-3 lg:hidden">
+                    <Icon name={g.icon} sac="chinh" className="size-5 shrink-0" />
                     {g.label}
                   </p>
                   {/* Từ 1024px tên nhóm là nút gập mở; dưới đó hàng cuộn ngang luôn hiện đủ mục. */}
@@ -133,7 +141,10 @@ export default function QuanTriLayout({ loaderData }: Route.ComponentProps) {
                     onClick={() => setMo(dangMo ? undefined : g.label)}
                     className="lun hidden min-h-10 w-full items-center justify-between rounded-lg px-3 text-sm font-semibold text-ink hover:bg-surface-2 lg:flex"
                   >
-                    {g.label}
+                    <span className="flex items-center gap-3">
+                      <Icon name={g.icon} sac="chinh" className="size-5 shrink-0" />
+                      {g.label}
+                    </span>
                     <Icon name="chevronDown" className={cn("size-4 text-ink-3", dangMo && "rotate-180")} />
                   </button>
                   {/* Mục con thụt vào sau đường kẻ dọc để tách bậc với tên nhóm. */}
@@ -157,7 +168,7 @@ export default function QuanTriLayout({ loaderData }: Route.ComponentProps) {
                             )
                           }
                         >
-                          {m.label}
+                          <Icon name={m.end ? "luoi" : "file"} className="mr-3 size-5" />{m.label}
                         </NavLink>
                       </li>
                     ))}
@@ -170,7 +181,9 @@ export default function QuanTriLayout({ loaderData }: Route.ComponentProps) {
       </aside>
 
       <div className="min-w-0 px-4 py-8 md:px-6 lg:p-8">
-        <Outlet />
+        <div className={pathname === "/quan-tri/bao-cao" ? "min-w-0" : "khung-trang min-w-0 rounded-2xl border border-line bg-surface p-4 shadow-card sm:p-6"}>
+          <Outlet />
+        </div>
       </div>
     </div>
   );

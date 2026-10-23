@@ -8,11 +8,12 @@
  */
 import type { ReactNode } from "react";
 import { Form, Link, useNavigation, useSearchParams } from "react-router";
-
 import { DINH, KhungBang, SO, TD, TH, TomTat, Trong } from "../components/quan-tri/BangBaoCao";
 import { Badge } from "../components/ui/Badge";
 import { Button, buttonClass } from "../components/ui/Button";
 import { Input, inputClass, Label, Notice } from "../components/ui/Field";
+import { TieuDeTrang } from "../components/ui/KhungTrang";
+import { Icon } from "../components/ui/Icon";
 import {
   BAO_CAO_CAN_BO,
   BAO_CAO_TONG_HOP,
@@ -107,9 +108,11 @@ export default function QuanTriBaoCao({ loaderData }: Route.ComponentProps) {
   const laCanBo = tab === BAO_CAO_CAN_BO;
 
   return (
-    <section>
+    <section className="bao-cao-trang">
       <div className="flex flex-wrap items-center justify-between gap-3">
-        <h2 className="text-xl font-semibold">Báo cáo</h2>
+        <TieuDeTrang as="h2" icon="shield" className="text-xl font-semibold">
+          Báo cáo
+        </TieuDeTrang>
         {coDuLieu ? (
           <div className="flex flex-wrap gap-2">
             <a href={`/quan-tri/bao-cao/tai/${tab}?${qsTai("xlsx")}`} className={buttonClass()}>
@@ -157,6 +160,7 @@ export default function QuanTriBaoCao({ loaderData }: Route.ComponentProps) {
         </nav>
       )}
 
+      <div className="bao-cao-noi-dung">
       <BoLoc tab={tab} boLoc={boLoc} nhomLoc={nhomLoc} loc={loc} busy={busy} />
 
       {loi ? (
@@ -170,6 +174,7 @@ export default function QuanTriBaoCao({ loaderData }: Route.ComponentProps) {
       {duLieu?.loai === "luyen-tap" ? <BangLuyenTap d={duLieu.data} /> : null}
       {duLieu?.loai === "cau-hoi-kho" ? <BangCauHoiKho d={duLieu.data} /> : null}
       {duLieu?.loai === "tien-do-hoc" ? <BangCanBo d={duLieu.data} loc={loc} /> : null}
+      </div>
     </section>
   );
 }
@@ -204,11 +209,14 @@ function BoLoc({
 }) {
   const oChon = cn(inputClass, "pr-8");
   return (
-    <Form method="get" className="mt-4 grid gap-3 sm:grid-cols-2 lg:grid-cols-4">
+    <Form method="get" className="bao-cao-bo-loc grid gap-3 sm:grid-cols-2 lg:grid-cols-4">
+      <h3 className="bao-cao-bo-loc-ten"><span><Icon name="loc" sac="chinh" className="size-6" /></span>Tìm kiếm và lọc báo cáo</h3>
       <input type="hidden" name="tab" value={tab} />
       {tab === "tien-do-hoc" ? (
         <div className="sm:col-span-2">
           <Label htmlFor="bc-q">Tìm cán bộ</Label>
+          <div className="bao-cao-tim">
+          <Icon name="search" sac="trung" className="size-5" />
           <Input
             id="bc-q"
             name="q"
@@ -217,6 +225,7 @@ function BoLoc({
             defaultValue={loc.q ?? ""}
             placeholder="Họ tên, tên đăng nhập hoặc số hiệu"
           />
+          </div>
         </div>
       ) : null}
       {tab === "tien-do-hoc" ? (
@@ -294,7 +303,7 @@ function BoLoc({
         </div>
       ) : null}
       <div className="flex items-end">
-        <Button type="submit" variant="secondary" className="w-full" disabled={busy}>
+        <Button type="submit" icon="chart" className="bao-cao-xem w-full" disabled={busy}>
           {busy ? "Đang tải" : "Xem báo cáo"}
         </Button>
       </div>
@@ -554,10 +563,11 @@ function BangCanBo({ d, loc }: { d: BaoCaoTienDoHoc; loc: Record<string, string>
     <>
       <TomTat
         muc={[
-          { nhan: "Số cán bộ", giaTri: soVn(d.dong.length) },
-          { nhan: "Chưa học lần nào", giaTri: soVn(d.dong.filter((r) => !r.lan_hoc_gan_nhat).length) },
-          { nhan: "Còn đề chưa nộp", giaTri: soVn(d.dong.filter((r) => chuaNop(r) > 0).length) },
+          { icon: "nhom", nhan: "Số cán bộ", giaTri: soVn(d.dong.length) },
+          { icon: "cap", nhan: "Chưa học lần nào", giaTri: soVn(d.dong.filter((r) => !r.lan_hoc_gan_nhat).length) },
+          { icon: "taiLieu", nhan: "Còn đề chưa nộp", giaTri: soVn(d.dong.filter((r) => chuaNop(r) > 0).length) },
           {
+            icon: "alert",
             nhan: "Có đề chưa đạt",
             giaTri: soVn(d.dong.filter((r) => r.bai_thi_da_nop > r.bai_thi_dat).length),
           },

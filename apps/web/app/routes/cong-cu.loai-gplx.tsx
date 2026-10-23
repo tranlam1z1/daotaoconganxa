@@ -5,7 +5,6 @@
  */
 import { useState } from "react";
 import { Form, useNavigation } from "react-router";
-
 import { DauTrangCongCu, lopLuaChon, lopO, ONhapSo } from "../components/cong-cu/BieuMau";
 import { DongCanCu, LuuYDoiChieu, TheKhungPhat } from "../components/cong-cu/TheKhungPhat";
 import { Badge } from "../components/ui/Badge";
@@ -13,6 +12,7 @@ import { Button } from "../components/ui/Button";
 import { Card } from "../components/ui/Card";
 import { Notice } from "../components/ui/Field";
 import { Icon } from "../components/ui/Icon";
+import { KhungTrang } from "../components/ui/KhungTrang";
 import { docSoLe } from "../lib/doc-so";
 import {
   CAN_CU_GPLX,
@@ -163,7 +163,7 @@ export default function LoaiGplx({ loaderData }: Route.ComponentProps) {
   const coRoMooc = loai === "cho-nguoi" || loai === "tai";
 
   return (
-    <div className="wrap max-w-3xl py-6 sm:py-10">
+    <KhungTrang className="wrap max-w-3xl py-6 sm:py-10">
       <DauTrangCongCu tieuDe="Xác định loại GPLX theo phương tiện">
         Chọn loại xe và nhập thông số ghi trong giấy chứng nhận đăng ký, giấy chứng nhận kiểm định để biết
         hạng giấy phép lái xe cần có.
@@ -388,6 +388,6 @@ export default function LoaiGplx({ loaderData }: Route.ComponentProps) {
           <LuuYDoiChieu coKhungPhat={kq.khung !== null} />
         </section>
       ) : null}
-    </div>
+    </KhungTrang>
   );
 }

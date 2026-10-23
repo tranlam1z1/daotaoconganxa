@@ -7,12 +7,12 @@
  * trong routes.ts nên thắng route chung cong-cu/:ma.
  */
 import { type ChangeEvent, type MouseEvent, useEffect, useRef, useState } from "react";
-
 import { DauTrangCongCu } from "../components/cong-cu/BieuMau";
 import { Button } from "../components/ui/Button";
 import { Card } from "../components/ui/Card";
 import { inputClass, Notice } from "../components/ui/Field";
 import { Icon } from "../components/ui/Icon";
+import { KhungTrang } from "../components/ui/KhungTrang";
 import { cn } from "../lib/cn";
 import { pageMeta } from "../lib/site";
 import { DON_VI, type DonVi, GOI_Y_TEN, type SoDo, tenTepSoDo, veAnhSoDo } from "../lib/so-do";
@@ -120,7 +120,7 @@ export default function DoDacDienTu() {
   }
 
   return (
-    <div className="wrap max-w-3xl py-6 sm:py-10">
+    <KhungTrang className="wrap max-w-3xl py-6 sm:py-10">
       <DauTrangCongCu tieuDe="Đo đạc điện tử xe và hiện trường">
         Chụp ảnh xe hoặc hiện trường, chạm vào chỗ đã đo để ghim, nhập số đo bằng thước rồi tải về ảnh kèm
         bảng số đo để đưa vào hồ sơ.
@@ -304,6 +304,6 @@ export default function DoDacDienTu() {
         Ảnh và số đo chỉ nằm trên máy này, không gửi lên máy chủ và mất khi rời trang: hãy tải ảnh về trước
         khi thoát. Công cụ không tự đo trên ảnh, số đo là số cán bộ đo được bằng thước.
       </Notice>
-    </div>
+    </KhungTrang>
   );
 }

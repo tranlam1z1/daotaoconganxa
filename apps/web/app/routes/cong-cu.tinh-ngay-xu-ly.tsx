@@ -3,13 +3,13 @@
  * (lib/tinh-ngay-xu-ly.ts) và lịch đánh dấu hai ngày. Khai riêng trong routes.ts nên thắng route
  * chung cong-cu/:ma.
  */
-import { Form, Link, useNavigation } from "react-router";
-
+import { Form, useNavigation } from "react-router";
 import { LichNgayHen } from "../components/cong-cu/LichNgayHen";
 import { Button } from "../components/ui/Button";
 import { Card } from "../components/ui/Card";
 import { Notice } from "../components/ui/Field";
 import { Icon } from "../components/ui/Icon";
+import { KhungTrang } from "../components/ui/KhungTrang";
 import { formatDate, isIsoDate, todayIso } from "../lib/format";
 import { pageMeta } from "../lib/site";
 import { ngayDayDu, SO_NGAY_HEN, tinhNgayHen } from "../lib/tinh-ngay-xu-ly";
@@ -44,17 +44,21 @@ export default function TinhNgayXuLy({ loaderData }: Route.ComponentProps) {
   const busy = useNavigation().state !== "idle";
 
   return (
-    <div className="wrap max-w-3xl py-6 sm:py-10">
-      <p className="hidden md:block">
-        <Link to="/cong-cu" className="inline-flex min-h-11 items-center gap-1 text-sm text-ink-2 underline">
-          <Icon name="arrowLeft" className="size-4" />
-          Công cụ nghiệp vụ
-        </Link>
-      </p>
-      <h1 className="text-2xl font-bold leading-tight sm:text-3xl">Tính ngày xử lý vi phạm</h1>
-      <p className="mt-2 text-base text-ink-2">
-        Ngày hẹn lên làm việc là ngày làm việc thứ {SO_NGAY_HEN} kể từ ngày kế tiếp ngày lập biên bản.
-      </p>
+    <KhungTrang className="wrap max-w-3xl py-6 sm:py-10">
+      <header className="tieu-de-trang tieu-de-trang-banner relative isolate flex min-w-0 items-center gap-3">
+        <span
+          className="relative grid size-12 shrink-0 place-items-center rounded-xl bg-primary-soft text-primary"
+          aria-hidden="true"
+        >
+          <Icon name="shield" kieu="net" className="size-6" />
+        </span>
+        <div className="min-w-0 flex-1 sm:max-w-[60%]">
+          <h1 className="text-2xl font-bold leading-tight">Tính ngày xử lý vi phạm</h1>
+          <p className="mt-1 text-sm text-ink-2">
+            Ngày hẹn lên làm việc là ngày làm việc thứ {SO_NGAY_HEN} kể từ ngày kế tiếp ngày lập biên bản.
+          </p>
+        </div>
+      </header>
 
       <Form
         method="get"
@@ -132,6 +136,6 @@ export default function TinhNgayXuLy({ loaderData }: Route.ComponentProps) {
           </Notice>
         </section>
       ) : null}
-    </div>
+    </KhungTrang>
   );
 }

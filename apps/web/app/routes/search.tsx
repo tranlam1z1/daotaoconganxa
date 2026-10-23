@@ -6,6 +6,7 @@
  * - Có từ khóa: kết quả tìm kiếm (cấp điều, khoản) gộp theo văn bản; mỗi thẻ kèm các điều khoản khớp.
  */
 import { useNavigation } from "react-router";
+import { KhungTraCuu } from "../components/tra-cuu/KhungTraCuu";
 
 import { OTimVanBan } from "../components/tra-cuu/OTimVanBan";
 import { TabVanBanBieuMau } from "../components/tra-cuu/TabVanBanBieuMau";
@@ -54,14 +55,20 @@ export default function SearchPage({ loaderData }: Route.ComponentProps) {
   const hrefTrang = (n: number) => (n > 1 ? `/tim-kiem?page=${n}` : "/tim-kiem");
 
   return (
-    <div className="wrap max-w-3xl py-6 sm:py-10">
+    <KhungTraCuu
+      title="Tra cứu văn bản pháp luật"
+      description="Tìm kiếm văn bản, điều khoản và căn cứ pháp luật."
+    >
       <TabVanBanBieuMau chon="van-ban" />
       <div className="mt-4">
         <OTimVanBan q={q} />
       </div>
 
-      {/* Nút "Tra cứu văn bản" vắt qua mép dưới khung tìm nên phần dưới lùi xuống thêm nửa nút. */}
-      <section aria-labelledby="tk-danh-sach" className={cn("mt-12", busy && "opacity-60")} aria-busy={busy}>
+      <section
+        aria-labelledby="tk-danh-sach"
+        className={cn("mt-6 border-t border-line pt-4", busy && "opacity-60")}
+        aria-busy={busy}
+      >
         <h2 id="tk-danh-sach" className="font-sans text-xl font-semibold">
           Danh sách tra cứu
         </h2>
@@ -124,6 +131,6 @@ export default function SearchPage({ loaderData }: Route.ComponentProps) {
           </div>
         ) : null}
       </section>
-    </div>
+    </KhungTraCuu>
   );
 }

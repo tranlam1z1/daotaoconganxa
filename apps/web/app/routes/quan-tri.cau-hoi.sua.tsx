@@ -16,13 +16,13 @@ import {
   useFetcher,
   useNavigation,
 } from "react-router";
-
 import { HienThiCauHoi } from "../components/cau-hoi/HienThiCauHoi";
 import { SuaRubric } from "../components/cau-hoi/SuaRubric";
 import { Badge } from "../components/ui/Badge";
 import { Button, buttonClass } from "../components/ui/Button";
 import { Input, inputClass, Label, Notice } from "../components/ui/Field";
 import { Icon } from "../components/ui/Icon";
+import { TieuDeTrang } from "../components/ui/KhungTrang";
 import { ThanhLuuBieuMau } from "../components/ui/ThanhDinhDay";
 import { cn } from "../lib/cn";
 import { urlAnhBienBao } from "../lib/du-lieu-tra-cuu";
@@ -410,7 +410,9 @@ export default function SuaCauHoi({ loaderData, actionData }: Route.ComponentPro
         </Link>
       </p>
       <div className="mt-2 flex flex-wrap items-center gap-2">
-        <h2 className="text-xl font-semibold">{cauHoi ? `Câu hỏi ${cauHoi.code}` : "Thêm câu hỏi"}</h2>
+        <TieuDeTrang as="h2" icon="shield" className="text-xl font-semibold">
+          {cauHoi ? `Câu hỏi ${cauHoi.code}` : "Thêm câu hỏi"}
+        </TieuDeTrang>
         {cauHoi ? <Badge tone={TONE_TRANG_THAI[cauHoi.status]}>{TEN_TRANG_THAI[cauHoi.status]}</Badge> : null}
         {cauHoi && cauHoi.version > 1 ? (
           <span className="text-sm text-ink-2">phiên bản {cauHoi.version}</span>

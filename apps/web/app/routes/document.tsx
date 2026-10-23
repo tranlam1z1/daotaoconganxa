@@ -5,9 +5,9 @@
  * Các trang con dùng lại dữ liệu ở đây qua useRouteLoaderData("routes/document").
  */
 import { Link, Outlet, useLocation, useRouteLoaderData } from "react-router";
-
 import { StatusBadge } from "../components/ui/Badge";
 import { Icon } from "../components/ui/Icon";
+import { KhungTrang, TieuDeTrang } from "../components/ui/KhungTrang";
 import { ApiKhongTimThay, getDocument, getDocumentUrnBySlug } from "../lib/api";
 import { docTypeLabel, formatDate, isIsoDate } from "../lib/format";
 import { pageMeta } from "../lib/site";
@@ -59,7 +59,7 @@ export default function DocumentLayout({ loaderData }: Route.ComponentProps) {
   const oTrangCon = pathname.replace(/\/+$/, "") !== loaderData.basePath;
 
   return (
-    <div className="wrap max-w-3xl py-6">
+    <KhungTrang variant="reader" className="wrap max-w-3xl py-6">
       <header className="border-b border-line pb-4">
         {oTrangCon ? (
           <Link
@@ -73,7 +73,9 @@ export default function DocumentLayout({ loaderData }: Route.ComponentProps) {
         <p className="text-sm font-semibold text-ink-2">
           {docTypeLabel(meta.docType)} số {meta.soKyHieu}
         </p>
-        <h1 className="mt-1 text-xl font-semibold leading-snug sm:text-2xl">{meta.title}</h1>
+        <TieuDeTrang icon="file" className="mt-1">
+          {meta.title}
+        </TieuDeTrang>
         <div className="mt-3 flex flex-wrap items-center gap-x-3 gap-y-2 text-sm text-ink-2">
           <StatusBadge status={status} />
           <span>
@@ -126,6 +128,6 @@ export default function DocumentLayout({ loaderData }: Route.ComponentProps) {
       <div className="mt-6">
         <Outlet />
       </div>
-    </div>
+    </KhungTrang>
   );
 }

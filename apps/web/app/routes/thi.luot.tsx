@@ -9,13 +9,13 @@
  */
 import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import { Form, redirect, useNavigate, useNavigation, useSearchParams, useSubmit } from "react-router";
-
 import { HienThiCauHoi } from "../components/cau-hoi/HienThiCauHoi";
 import { DongHo } from "../components/thi/DongHo";
 import { HopXacNhanNop } from "../components/thi/HopXacNhanNop";
 import { LuoiCauHoi } from "../components/thi/LuoiCauHoi";
 import { Button } from "../components/ui/Button";
 import { Notice } from "../components/ui/Field";
+import { KhungTrang } from "../components/ui/KhungTrang";
 import { cn } from "../lib/cn";
 import type { TraLoiCauHoi } from "../lib/ngan-hang";
 import { goiApiQuanTri, khongTimThay, LoiApi } from "../lib/quan-tri.server";
@@ -189,7 +189,7 @@ export default function LamBai({ loaderData, actionData }: Route.ComponentProps)
   );
 
   return (
-    <div className="wrap max-w-3xl pb-28">
+    <KhungTrang variant="workspace" className="wrap max-w-3xl pb-28">
       <div className="sticky top-16 z-30 -mx-4 border-b border-line bg-canvas/95 px-4 py-2 backdrop-blur-md sm:-mx-6 sm:px-6">
         <div className="flex items-center gap-2">
           <DongHo giayConLai={luot.giay_con_lai} onHetGio={hetGio} />
@@ -296,6 +296,6 @@ export default function LamBai({ loaderData, actionData }: Route.ComponentProps)
         onDong={() => setMoXacNhan(false)}
         onNop={() => void nop()}
       />
-    </div>
+    </KhungTrang>
   );
 }

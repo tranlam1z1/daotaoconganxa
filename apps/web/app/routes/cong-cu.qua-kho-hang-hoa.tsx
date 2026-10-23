@@ -5,7 +5,6 @@
  */
 import { useState } from "react";
 import { Form, useNavigation } from "react-router";
-
 import { DauTrangCongCu, lopLuaChon, ONhapSo } from "../components/cong-cu/BieuMau";
 import { DongCanCu, LuuYDoiChieu, TheKhungPhat } from "../components/cong-cu/TheKhungPhat";
 import { Badge } from "../components/ui/Badge";
@@ -13,6 +12,7 @@ import { Button } from "../components/ui/Button";
 import { Card } from "../components/ui/Card";
 import { Notice } from "../components/ui/Field";
 import { Icon } from "../components/ui/Icon";
+import { KhungTrang } from "../components/ui/KhungTrang";
 import { docSoLe } from "../lib/doc-so";
 import {
   LOAI_THUNG,
@@ -147,7 +147,7 @@ export default function QuaKhoHangHoa({ loaderData }: Route.ComponentProps) {
   }
 
   return (
-    <div className="wrap max-w-3xl py-6 sm:py-10">
+    <KhungTrang className="wrap max-w-3xl py-6 sm:py-10">
       <DauTrangCongCu tieuDe="Tính quá khổ hàng hóa">
         Nhập kích thước xếp hàng đo được theo mét. Chiều nào không đo thì để trống cả hai ô của chiều đó.
       </DauTrangCongCu>
@@ -265,6 +265,6 @@ export default function QuaKhoHangHoa({ loaderData }: Route.ComponentProps) {
           <LuuYDoiChieu coKhungPhat={kq.khung.length > 0} />
         </section>
       ) : null}
-    </div>
+    </KhungTrang>
   );
 }

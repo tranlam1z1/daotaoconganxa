@@ -1,11 +1,11 @@
 import { type ChangeEvent, useEffect, useRef, useState } from "react";
 import { Form, useNavigation, useSearchParams } from "react-router";
-
 import { KhaiXacMinh } from "../components/tai-khoan/KhaiXacMinh";
 import { AnhDaiDien } from "../components/ui/AnhDaiDien";
 import { Button, ButtonLink } from "../components/ui/Button";
 import { Card } from "../components/ui/Card";
 import { Notice } from "../components/ui/Field";
+import { KhungTrang } from "../components/ui/KhungTrang";
 import { PageHeader } from "../components/ui/PageHeader";
 import {
   danhSachDonViChon,
@@ -273,7 +273,7 @@ export default function TaiKhoan({ loaderData, actionData }: Route.ComponentProp
   const ketQuaAnh = actionData?.xacMinh ? undefined : actionData;
 
   return (
-    <div className="wrap max-w-3xl py-10">
+    <KhungTrang className="wrap max-w-3xl py-10">
       <PageHeader
         eyebrow="Tài khoản"
         title={nguoiDung.ten ?? nguoiDung.email}
@@ -351,6 +351,6 @@ export default function TaiKhoan({ loaderData, actionData }: Route.ComponentProp
       ) : null}
 
       <DoiAnhDaiDien nguoiDung={nguoiDung} ketQua={ketQuaAnh} />
-    </div>
+    </KhungTrang>
   );
 }

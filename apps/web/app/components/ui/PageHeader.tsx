@@ -1,4 +1,5 @@
 import type { ReactNode } from "react";
+import { TieuDeTrang } from "./KhungTrang";
 
 /** Đầu trang nội dung: nhãn nhóm, tiêu đề, mô tả và vùng nút thao tác. */
 export function PageHeader({
@@ -18,7 +19,7 @@ export function PageHeader({
         {eyebrow ? (
           <p className="mb-2 text-xs font-semibold uppercase tracking-[0.12em] text-ink-3">{eyebrow}</p>
         ) : null}
-        <h1 className="text-3xl font-semibold leading-tight sm:text-4xl">{title}</h1>
+        <TieuDeTrang>{title}</TieuDeTrang>
         {description ? (
           <p className="mt-3 max-w-2xl text-[15px] leading-relaxed text-ink-2">{description}</p>
         ) : null}

@@ -3,11 +3,11 @@
  * bản mới bằng tệp PDF hoặc Markdown; nạp hàng loạt từ nguồn vẫn đi qua pipeline (LENH.md mục 3).
  */
 import { Form, Link } from "react-router";
-
 import { Badge, StatusBadge } from "../components/ui/Badge";
 import { ButtonLink } from "../components/ui/Button";
 import { EmptyState } from "../components/ui/EmptyState";
 import { Input, inputClass, Label, Notice } from "../components/ui/Field";
+import { TieuDeTrang } from "../components/ui/KhungTrang";
 import { docHrefFromUrn } from "../lib/citation";
 import { cn } from "../lib/cn";
 import { formatDate } from "../lib/format";
@@ -53,7 +53,9 @@ export default function QuanTriVanBan({ loaderData }: Route.ComponentProps) {
     <section>
       <div className="flex flex-wrap items-center justify-between gap-3">
         <div>
-          <h2 className="text-xl font-semibold">Văn bản</h2>
+          <TieuDeTrang as="h2" icon="shield" className="text-xl font-semibold">
+            Văn bản
+          </TieuDeTrang>
           <p className="mt-1 text-sm text-ink-2">
             Sửa nội dung để chữa lỗi số hóa. Khi quy định thay đổi, hãy thêm văn bản sửa đổi thay vì sửa văn
             bản gốc. Thêm văn bản mới nhận tệp PDF có lớp chữ.

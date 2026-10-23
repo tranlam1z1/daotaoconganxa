@@ -4,7 +4,6 @@
  * (lib/coi-noi-thung.ts). Khai riêng trong routes.ts nên thắng route chung cong-cu/:ma.
  */
 import { Form, useNavigation } from "react-router";
-
 import { DauTrangCongCu, ONhapSo } from "../components/cong-cu/BieuMau";
 import { LuuYDoiChieu, TheKhungPhat } from "../components/cong-cu/TheKhungPhat";
 import { Badge } from "../components/ui/Badge";
@@ -12,6 +11,7 @@ import { Button } from "../components/ui/Button";
 import { Card } from "../components/ui/Card";
 import { Notice } from "../components/ui/Field";
 import { Icon } from "../components/ui/Icon";
+import { KhungTrang } from "../components/ui/KhungTrang";
 import { CHIEU, type Chieu, type SoSanhChieu, tinhCoiNoi } from "../lib/coi-noi-thung";
 import { pageMeta } from "../lib/site";
 // Kích thước theo mm gõ như khối lượng theo kg: dấu chấm là phân cách hàng nghìn ("2.350" là 2350 mm).
@@ -93,7 +93,7 @@ export default function CoiNoiThanhThung({ loaderData }: Route.ComponentProps) {
   const busy = useNavigation().state !== "idle";
 
   return (
-    <div className="wrap max-w-3xl py-6 sm:py-10">
+    <KhungTrang className="wrap max-w-3xl py-6 sm:py-10">
       <DauTrangCongCu tieuDe="Tính cơi nới thành thùng xe">
         Nhập kích thước lòng thùng theo mm: số ghi trong giấy chứng nhận kiểm định và số đo thực tế. Chiều nào
         không đo thì để trống.
@@ -200,6 +200,6 @@ export default function CoiNoiThanhThung({ loaderData }: Route.ComponentProps) {
           )}
         </section>
       ) : null}
-    </div>
+    </KhungTrang>
   );
 }

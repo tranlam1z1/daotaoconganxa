@@ -3,10 +3,10 @@
  * đây từ mọi trang; đổi xong thì đi tiếp tới trang định mở, mặc định là trang chủ.
  */
 import { Form, redirect, useNavigation } from "react-router";
-
 import { Button } from "../components/ui/Button";
 import { Card } from "../components/ui/Card";
 import { Input, Label, Notice } from "../components/ui/Field";
+import { KhungTrang, TieuDeTrang } from "../components/ui/KhungTrang";
 import { doiMatKhau, LoiDangNhap } from "../lib/auth.server";
 import { yeuCauDangNhap } from "../lib/session.server";
 import { pageMeta } from "../lib/site";
@@ -49,9 +49,11 @@ export async function action({ request }: Route.ActionArgs) {
 export default function DoiMatKhau({ loaderData, actionData }: Route.ComponentProps) {
   const busy = useNavigation().state === "submitting";
   return (
-    <div className="wrap max-w-md py-12">
+    <KhungTrang className="wrap max-w-md py-12">
       <Card>
-        <h1 className="text-2xl font-semibold">Đổi mật khẩu</h1>
+        <TieuDeTrang icon="user" className="">
+          Đổi mật khẩu
+        </TieuDeTrang>
         {loaderData.batBuoc ? (
           <Notice className="mt-4">
             Tài khoản đang dùng mật khẩu tạm do quản trị viên cấp. Đặt mật khẩu mới để tiếp tục sử dụng hệ
@@ -92,6 +94,6 @@ export default function DoiMatKhau({ loaderData, actionData }: Route.ComponentPr
           </Button>
         </Form>
       </Card>
-    </div>
+    </KhungTrang>
   );
 }

@@ -7,7 +7,6 @@
  */
 import { useState } from "react";
 import { Form, Link, redirect, useNavigation } from "react-router";
-
 import { KhoiNoiDung } from "../components/bai-giang/KhoiNoiDung";
 import { NutTrangThai } from "../components/quan-tri/NutTrangThai";
 import { SuaKhoi, ThongBaoLoiBangKiem } from "../components/quan-tri/SuaKhoi";
@@ -15,6 +14,7 @@ import { Badge } from "../components/ui/Badge";
 import { Button } from "../components/ui/Button";
 import { EmptyState } from "../components/ui/EmptyState";
 import { Input, inputClass, Label, Notice } from "../components/ui/Field";
+import { TieuDeTrang } from "../components/ui/KhungTrang";
 import { ThanhLuuBieuMau } from "../components/ui/ThanhDinhDay";
 import { cn } from "../lib/cn";
 import { goiApiQuanTri, LoiApi } from "../lib/quan-tri.server";
@@ -262,7 +262,9 @@ export default function SoanBai({ loaderData, actionData }: Route.ComponentProps
         Về chuyên đề: {cd.title}
       </Link>
       <div className="flex flex-wrap items-center gap-3">
-        <h2 className="text-xl font-semibold">{bai ? bai.title : "Thêm bài học"}</h2>
+        <TieuDeTrang as="h2" icon="shield" className="text-xl font-semibold">
+          {bai ? bai.title : "Thêm bài học"}
+        </TieuDeTrang>
         {bai ? (
           <Badge tone={TONE_TRANG_THAI[bai.status] ?? "muted"}>
             {TEN_TRANG_THAI[bai.status] ?? bai.status}

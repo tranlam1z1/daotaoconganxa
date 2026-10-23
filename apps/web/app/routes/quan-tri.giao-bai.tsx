@@ -5,11 +5,11 @@
  */
 import { useState } from "react";
 import { Form, useNavigation, useSearchParams } from "react-router";
-
 import { Badge } from "../components/ui/Badge";
 import { Button } from "../components/ui/Button";
 import { EmptyState } from "../components/ui/EmptyState";
 import { Input, inputClass, Label, Notice } from "../components/ui/Field";
+import { TieuDeTrang } from "../components/ui/KhungTrang";
 import { ThanhLuuBieuMau } from "../components/ui/ThanhDinhDay";
 import { formatNgayGio, gioVietNamSangIso, isoSangGioVietNam } from "../lib/format";
 import { goiApiQuanTri, LoiApi } from "../lib/quan-tri.server";
@@ -96,7 +96,9 @@ export default function GiaoBaiPage({ loaderData, actionData }: Route.ComponentP
 
   return (
     <section>
-      <h2 className="text-xl font-semibold">Giao bài thi</h2>
+      <TieuDeTrang as="h2" icon="shield" className="text-xl font-semibold">
+        Giao bài thi
+      </TieuDeTrang>
       <p className="mt-1 text-sm text-ink-2">
         Giao đề đang mở cho một đơn vị hoặc một người trong phạm vi quản lý, kèm hạn làm bài.
       </p>

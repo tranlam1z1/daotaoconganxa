@@ -9,7 +9,6 @@
  */
 import { type ChangeEvent, type ReactNode, useEffect } from "react";
 import { Form, Link, useNavigation, useSubmit } from "react-router";
-
 import {
   BangDiaChi,
   DongDiaChi,
@@ -19,6 +18,7 @@ import {
 } from "../components/dia-gioi/ChungDiaGioi";
 import { Notice } from "../components/ui/Field";
 import { Icon, type IconName } from "../components/ui/Icon";
+import { KhungTrang, TieuDeTrang } from "../components/ui/KhungTrang";
 import { cn } from "../lib/cn";
 import {
   chuyenDoi,
@@ -144,7 +144,7 @@ export default function ChuyenDoiThuCong({ loaderData }: Route.ComponentProps) {
   const huyenKhongXa = !!huyenDangChon && dsXa.length === 0;
 
   return (
-    <div className="wrap max-w-2xl py-6 sm:py-10">
+    <KhungTrang className="wrap max-w-2xl py-6 sm:py-10">
       <p className="hidden md:block">
         <Link
           to={DUONG_DIA_GIOI}
@@ -157,7 +157,9 @@ export default function ChuyenDoiThuCong({ loaderData }: Route.ComponentProps) {
       <div className="flex items-center gap-4">
         <OBieuTuong icon="map" className="size-16 sm:size-16" />
         <div className="min-w-0">
-          <h1 className="text-2xl font-bold leading-tight sm:text-3xl">Chuyển đổi thủ công</h1>
+          <TieuDeTrang icon="map" className="">
+            Chuyển đổi thủ công
+          </TieuDeTrang>
           <p className="mt-1 text-base text-ink-2">
             Nhập thông tin hành chính cũ để chuyển sang địa giới mới.
           </p>
@@ -277,7 +279,7 @@ export default function ChuyenDoiThuCong({ loaderData }: Route.ComponentProps) {
         {kq ? <KetQua kq={kq} thon={form.thon} chiTiet={form.chiTiet} /> : null}
         {kq ? <GhiChuNguon nguon={nguon} /> : null}
       </div>
-    </div>
+    </KhungTrang>
   );
 }
 

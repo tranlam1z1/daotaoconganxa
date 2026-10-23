@@ -6,11 +6,11 @@
  * ngoài phạm vi không có tên. Trang chỉ hiện đơn vị API cho phép chọn.
  */
 import { Form, Link, useNavigation } from "react-router";
-
 import { Badge } from "../components/ui/Badge";
 import { Button } from "../components/ui/Button";
 import { EmptyState } from "../components/ui/EmptyState";
 import { Input, inputClass, Label, Notice } from "../components/ui/Field";
+import { TieuDeTrang } from "../components/ui/KhungTrang";
 import { type BoLocBaoCao, soVn } from "../lib/bao-cao";
 import { cn } from "../lib/cn";
 import { goiApiQuanTri } from "../lib/quan-tri.server";
@@ -67,7 +67,9 @@ export default function QuanTriNhom({ loaderData }: Route.ComponentProps) {
 
   return (
     <section>
-      <h2 className="text-xl font-semibold">Nhóm học cùng</h2>
+      <TieuDeTrang as="h2" icon="shield" className="text-xl font-semibold">
+        Nhóm học cùng
+      </TieuDeTrang>
       <p className="mt-1 text-sm text-ink-2">
         Nhóm do cán bộ tự lập. Danh sách gồm nhóm có ít nhất một thành viên thuộc đơn vị trong phạm vi quản
         lý. Thành viên thuộc đơn vị khác chỉ hiện số lượng, không hiện họ tên.

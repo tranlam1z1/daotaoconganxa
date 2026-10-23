@@ -8,6 +8,7 @@
 import { ChamTheoRubric, docDiemTieuChi, NguonChamTuLuan } from "../components/quan-tri/ChamTheoRubric";
 import { EmptyState } from "../components/ui/EmptyState";
 import { Notice } from "../components/ui/Field";
+import { TieuDeTrang } from "../components/ui/KhungTrang";
 import type { DiemTieuChiHoc } from "../lib/bai-giang";
 import { formatNgayGio } from "../lib/format";
 import { laRubric, type Rubric } from "../lib/ngan-hang";
@@ -72,7 +73,9 @@ export default function ChamTuLuanBaiHoc({ loaderData, actionData }: Route.Compo
   const { items } = loaderData;
   return (
     <section>
-      <h2 className="text-xl font-semibold">Chấm tự luận</h2>
+      <TieuDeTrang as="h2" icon="shield" className="text-xl font-semibold">
+        Chấm tự luận
+      </TieuDeTrang>
       <NguonChamTuLuan dangXem="bai-giang" />
       <p className="mt-4 max-w-3xl text-sm text-ink-2">
         Câu tự luận trong bài giảng được AI chấm ngay khi học viên nộp. Hàng này gồm bài AI chưa chấm được,

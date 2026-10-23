@@ -7,12 +7,12 @@
  */
 import type { ReactNode } from "react";
 import { Form, Link, useNavigation } from "react-router";
-
 import { DINH, KhungBang, SO, TD, TH, TomTat, Trong } from "../components/quan-tri/BangBaoCao";
 import { Badge } from "../components/ui/Badge";
 import { Button, buttonClass } from "../components/ui/Button";
 import { Input, Label, Notice } from "../components/ui/Field";
 import { Icon } from "../components/ui/Icon";
+import { TieuDeTrang } from "../components/ui/KhungTrang";
 import { type ChuDeManhYeu, type HoSoCanBo, soVn, TONE_TRANG_THAI_BAI_THI } from "../lib/bao-cao";
 import { cn } from "../lib/cn";
 import { formatNgayGio } from "../lib/format";
@@ -76,7 +76,9 @@ export default function HoSoCanBoTrang({ loaderData, params }: Route.ComponentPr
       {hoSo ? (
         <div className="mt-2 flex flex-wrap items-start justify-between gap-3">
           <div className="min-w-0">
-            <h2 className="text-xl font-semibold">{hoSo.nguoi.ho_ten}</h2>
+            <TieuDeTrang as="h2" icon="shield" className="text-xl font-semibold">
+              {hoSo.nguoi.ho_ten}
+            </TieuDeTrang>
             <p className="mt-1 text-sm text-ink-2">
               {[
                 hoSo.nguoi.cap_bac,

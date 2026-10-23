@@ -63,7 +63,7 @@ function TheChuDe({
   goiY: string;
 }) {
   return (
-    <div className="flex flex-col rounded-card border border-line bg-surface p-5 shadow-card">
+    <div className="ho-so-chu-de-the flex flex-col rounded-card border border-line p-4">
       <h3 className="flex items-center gap-2 text-base font-semibold">
         <span aria-hidden="true" className={cn("grid size-8 place-items-center rounded-full", mauIcon)}>
           <Icon name={icon} className="size-4" />
@@ -77,7 +77,7 @@ function TheChuDe({
           ))}
         </ul>
       ) : (
-        <div className="flex flex-1 flex-col items-center justify-center py-6 text-center">
+        <div className="flex flex-1 flex-col items-center justify-center py-0 text-center">
           <span
             aria-hidden="true"
             className="grid size-10 place-items-center rounded-full bg-surface-2 text-ink-3"
@@ -88,9 +88,10 @@ function TheChuDe({
           <p className="mt-1 max-w-xs text-sm text-ink-2">{goiY}</p>
           <Link
             to="/luyen-tap"
-            className="mt-2 inline-flex min-h-11 items-center text-sm font-semibold text-primary underline-offset-2 hover:underline"
+            className="mt-3 inline-flex min-h-10 items-center gap-3 rounded-xl border border-line bg-primary-soft px-4 text-sm font-semibold text-primary hover:bg-surface-2"
           >
-            Luyện tập theo chủ đề
+            <Icon name="book" className="size-4" /> Luyện tập theo chủ đề{" "}
+            <Icon name="arrowRight" className="size-4" />
           </Link>
         </div>
       )}
@@ -101,16 +102,16 @@ function TheChuDe({
 export function HoSoChuDe({ hoSo }: { hoSo: HoSoChuDeWeb }) {
   const coDuLieu = hoSo.manh.length > 0 || hoSo.yeu.length > 0;
   return (
-    <section aria-labelledby="ho-so-chu-de">
+    <section aria-labelledby="ho-so-chu-de" className="ho-so-diem">
       <h2 id="ho-so-chu-de" className="text-lg font-semibold">
-        Điểm mạnh, điểm yếu
+        <Icon name="chart" className="size-6 text-primary" /> Điểm mạnh, điểm yếu
       </h2>
       {!coDuLieu ? (
         <p className="mt-1 text-[15px] text-ink-2">
           Chưa đủ dữ liệu. Mỗi chủ đề cần ít nhất 5 câu trả lời trong luyện tập hoặc thi.
         </p>
       ) : null}
-      <div className="mt-3 grid gap-4 md:grid-cols-2 md:gap-6">
+      <div className="mt-3 grid gap-3 md:grid-cols-2">
         <TheChuDe
           tieuDe="Cần luyện thêm"
           icon="gauge"

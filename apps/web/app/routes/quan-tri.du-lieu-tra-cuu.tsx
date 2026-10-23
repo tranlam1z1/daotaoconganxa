@@ -16,7 +16,6 @@
  */
 import { useState } from "react";
 import { Form, Link, redirect, useNavigation } from "react-router";
-
 import { SuaBuocQuyTrinh } from "../components/quan-tri/SuaBuocQuyTrinh";
 import {
   Truong,
@@ -32,6 +31,7 @@ import { Button, ButtonLink, buttonClass } from "../components/ui/Button";
 import { EmptyState } from "../components/ui/EmptyState";
 import { Input, inputClass, Label, Notice } from "../components/ui/Field";
 import { Icon } from "../components/ui/Icon";
+import { TieuDeTrang } from "../components/ui/KhungTrang";
 import { ThanhLuuBieuMau } from "../components/ui/ThanhDinhDay";
 import { nhanVienDan } from "../lib/citation";
 import { cn } from "../lib/cn";
@@ -809,7 +809,9 @@ export default function DuLieuTraCuu({ loaderData, actionData }: Route.Component
   return (
     <div>
       <div className="flex flex-wrap items-center justify-between gap-3">
-        <h1 className="text-2xl font-semibold">Duyệt dữ liệu tra cứu</h1>
+        <TieuDeTrang icon="search" className="">
+          Duyệt dữ liệu tra cứu
+        </TieuDeTrang>
         <ButtonLink to={`/quan-tri/du-lieu-tra-cuu/moi${laLoaiSoan(loai) ? `?loai=${loai}` : ""}`}>
           Soạn nội dung tra cứu
         </ButtonLink>

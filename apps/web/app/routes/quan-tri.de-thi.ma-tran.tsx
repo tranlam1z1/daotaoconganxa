@@ -11,9 +11,9 @@
  */
 import { useMemo, useState } from "react";
 import { Form, Link, redirect, useNavigation } from "react-router";
-
 import { Button } from "../components/ui/Button";
 import { Input, inputClass, Label, Notice } from "../components/ui/Field";
+import { TieuDeTrang } from "../components/ui/KhungTrang";
 import { ThanhLuuBieuMau } from "../components/ui/ThanhDinhDay";
 import { cn } from "../lib/cn";
 import type { MucDoCauHoi } from "../lib/ngan-hang";
@@ -213,7 +213,9 @@ export default function MaTranDe({ loaderData, actionData }: Route.ComponentProp
       >
         {de ? "Về đề thi" : "Về bước thông tin đề"}
       </Link>
-      <h2 className="text-xl font-semibold">Ma trận đề</h2>
+      <TieuDeTrang as="h2" icon="shield" className="text-xl font-semibold">
+        Ma trận đề
+      </TieuDeTrang>
       <p className="mt-1 text-sm text-ink-2">
         {tenDe}
         {de ? <span className="ml-2 font-mono text-ink-3">{de.code}</span> : null}

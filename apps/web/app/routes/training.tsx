@@ -3,10 +3,9 @@
  * và cấp độ của danh mục cũ; chỉ hiện chuyên đề đã mở được. Mỗi chuyên đề là một thẻ trong lưới,
  * cùng kiểu với thẻ bài ở `/hoc/:course`.
  */
-import { Link } from "react-router";
-
 import { TheBaiHoc } from "../components/bai-giang/TheBaiHoc";
 import { EmptyState } from "../components/ui/EmptyState";
+import { DauTrangAnh, KhungTrang } from "../components/ui/KhungTrang";
 import { iconChoChuyenDe } from "../lib/bai-giang";
 import { danhMucHoc } from "../lib/bai-giang.server";
 import { yeuCauDangNhap } from "../lib/session.server";
@@ -28,17 +27,11 @@ export async function loader({ request }: Route.LoaderArgs) {
 export default function Training({ loaderData }: Route.ComponentProps) {
   const { linhVuc } = loaderData;
   return (
-    <div className="wrap max-w-3xl py-8 lg:max-w-7xl">
-      <p className="hidden text-sm md:block">
-        <Link to="/luyen-tap" className="inline-flex min-h-11 items-center text-primary hover:underline">
-          Học & luyện tập
-        </Link>
-      </p>
-      <h1 className="mt-2 text-3xl font-semibold lg:text-4xl">Bài giảng</h1>
-      <p className="mt-2 text-[15px] leading-relaxed text-ink-2 lg:max-w-3xl">
+    <KhungTrang className="wrap max-w-3xl py-8 lg:max-w-7xl">
+      <DauTrangAnh icon="book" tieuDe="Bài giảng">
         Chọn một chuyên đề để học. Mỗi bài đọc được theo hai cách: cuộn từ trên xuống, hoặc xem từng trang như
         trình chiếu. Cuối bài có câu kiểm tra nhanh.
-      </p>
+      </DauTrangAnh>
 
       {linhVuc.length === 0 ? (
         <div className="mt-8">
@@ -73,6 +66,6 @@ export default function Training({ loaderData }: Route.ComponentProps) {
           </section>
         ))
       )}
-    </div>
+    </KhungTrang>
   );
 }

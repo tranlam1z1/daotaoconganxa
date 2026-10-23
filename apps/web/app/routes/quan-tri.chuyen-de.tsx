@@ -4,10 +4,10 @@
  * soạn khối nội dung.
  */
 import { Link } from "react-router";
-
 import { Badge } from "../components/ui/Badge";
 import { ButtonLink } from "../components/ui/Button";
 import { EmptyState } from "../components/ui/EmptyState";
+import { TieuDeTrang } from "../components/ui/KhungTrang";
 import { goiApiQuanTri } from "../lib/quan-tri.server";
 import { yeuCauVaiTro } from "../lib/session.server";
 import { pageMeta } from "../lib/site";
@@ -33,7 +33,9 @@ export default function QuanTriChuyenDe({ loaderData }: Route.ComponentProps) {
     <section>
       <div className="flex flex-wrap items-center justify-between gap-3">
         <div>
-          <h2 className="text-xl font-semibold">Chuyên đề</h2>
+          <TieuDeTrang as="h2" icon="shield" className="text-xl font-semibold">
+            Chuyên đề
+          </TieuDeTrang>
           <p className="mt-1 text-sm text-ink-2">
             Học viên chỉ thấy chuyên đề đã xuất bản, có lĩnh vực và có ít nhất một bài đã xuất bản.
           </p>

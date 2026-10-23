@@ -7,7 +7,6 @@
  * Nhân vật đồng hành tắt (giả định A8).
  */
 import { Link, redirect, useNavigation } from "react-router";
-
 import { BaiTapTrongBai, type KetQuaThaoTacBaiTap } from "../components/bai-giang/BaiTapTrongBai";
 import { CheDoSlide } from "../components/bai-giang/CheDoSlide";
 import { KhoiNoiDung, laKhoiHoTro } from "../components/bai-giang/KhoiNoiDung";
@@ -17,6 +16,7 @@ import { HopChiaSeBai } from "../components/nhom/HopChiaSeBai";
 import { Button } from "../components/ui/Button";
 import { useHop } from "../components/ui/HopThoai";
 import { Icon } from "../components/ui/Icon";
+import { KhungTrang, TieuDeTrang } from "../components/ui/KhungTrang";
 import type { CheDoXem, KetQuaBaiTap } from "../lib/bai-giang";
 import { baiGiang, chuyenDeHoc } from "../lib/bai-giang.server";
 import { cn } from "../lib/cn";
@@ -220,7 +220,10 @@ export default function TrainingLesson({ loaderData, actionData }: Route.Compone
   );
 
   return (
-    <article className={cn("wrap py-4 md:py-6", cheDo === "slide" ? "max-w-4xl" : "max-w-3xl")}>
+    <KhungTrang
+      variant="reader"
+      className={cn("wrap py-4 md:py-6", cheDo === "slide" ? "max-w-4xl" : "max-w-3xl")}
+    >
       <p className="text-sm">
         <Link
           to={`/hoc/${chuyenDe.slug}`}
@@ -234,7 +237,9 @@ export default function TrainingLesson({ loaderData, actionData }: Route.Compone
           khoảng {bai.bai.estimatedMinutes} phút
         </span>
       </p>
-      <h1 className="mt-1 text-xl font-semibold leading-tight sm:text-3xl md:mt-2">{bai.bai.title}</h1>
+      <TieuDeTrang icon="book" className="mt-1 md:mt-2">
+        {bai.bai.title}
+      </TieuDeTrang>
 
       {/* Nhóm học cùng (docs/PLAN.md GĐ16b): chỉ hiện khi có ít nhất một nhóm. */}
       {nhomChiaSe.length ? (
@@ -293,6 +298,6 @@ export default function TrainingLesson({ loaderData, actionData }: Route.Compone
           </div>
         )}
       </div>
-    </article>
+    </KhungTrang>
   );
 }

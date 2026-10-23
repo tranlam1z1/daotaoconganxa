@@ -14,11 +14,11 @@
  */
 import { useEffect, useRef, useState } from "react";
 import { Form, Link, redirect, useFetcher, useNavigation } from "react-router";
-
 import { StatusBadge } from "../components/ui/Badge";
 import { Button, buttonClass } from "../components/ui/Button";
 import { Input, inputClass, Label, Notice } from "../components/ui/Field";
 import { HopThoai, useHop } from "../components/ui/HopThoai";
+import { TieuDeTrang } from "../components/ui/KhungTrang";
 import { ThanhLuuBieuMau } from "../components/ui/ThanhDinhDay";
 import { docHrefFromUrn } from "../lib/citation";
 import { cn } from "../lib/cn";
@@ -325,7 +325,9 @@ function BieuMauVanBan({ loaderData, actionData }: Pick<Route.ComponentProps, "l
         Về danh sách văn bản
       </Link>
       <div className="flex flex-wrap items-center gap-3">
-        <h2 className="text-xl font-semibold">{d ? `${d.docTypeName} số ${d.soKyHieu}` : "Thêm văn bản"}</h2>
+        <TieuDeTrang as="h2" icon="file">
+          {d ? `${d.docTypeName} số ${d.soKyHieu}` : "Thêm văn bản"}
+        </TieuDeTrang>
         {d ? <StatusBadge status={d.status} /> : null}
         {d && (chiTiet?.markdown || chiTiet?.coTepGoc) ? (
           <Link

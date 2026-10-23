@@ -15,7 +15,6 @@
  */
 import { useCallback, useEffect, useRef, useState } from "react";
 import { Link } from "react-router";
-
 import { HienThiCauHoi } from "../components/cau-hoi/HienThiCauHoi";
 import { ThanhTienDo } from "../components/luyen-tap/ThanhTienDo";
 import { coTraLoi } from "../components/luyen-tap/useLuuTam";
@@ -25,6 +24,7 @@ import { EmptyState } from "../components/ui/EmptyState";
 import { Notice } from "../components/ui/Field";
 import { Icon } from "../components/ui/Icon";
 import { KhungCho } from "../components/ui/KhungCho";
+import { DauTrangAnh, KhungTrang, TieuDeTrang } from "../components/ui/KhungTrang";
 import { nhanVienDan } from "../lib/citation";
 import { cn } from "../lib/cn";
 import { TEN_MUC_DO } from "../lib/ngan-hang";
@@ -76,9 +76,9 @@ export async function clientLoader() {
 
 export function HydrateFallback() {
   return (
-    <div className="wrap max-w-xl py-8">
+    <KhungTrang className="wrap max-w-xl py-8">
       <p className="text-base text-ink-2">Đang mở dữ liệu luyện tập trên máy…</p>
-    </div>
+    </KhungTrang>
   );
 }
 
@@ -201,17 +201,11 @@ export default function LuyenTapOffline({ loaderData }: Route.ComponentProps) {
   }
 
   return (
-    <div className="wrap max-w-3xl py-8">
-      <p className="hidden text-sm md:block">
-        <Link to="/luyen-tap" className="inline-flex min-h-11 items-center text-primary hover:underline">
-          Học & luyện tập
-        </Link>
-      </p>
-      <h1 className="mt-2 text-3xl font-semibold">Luyện tập không cần mạng</h1>
-      <p className="mt-2 text-[15px] leading-relaxed text-ink-2">
+    <KhungTrang className="wrap max-w-3xl py-8">
+      <DauTrangAnh icon="cap" tieuDe="Luyện tập không cần mạng">
         Tải câu hỏi của chủ đề về máy khi có mạng. Sau đó luyện được cả khi mất mạng; kết quả tự gửi lên khi
         có mạng trở lại.
-      </p>
+      </DauTrangAnh>
 
       {!coMang ? (
         <Notice className="mt-4">Đang không có mạng. Bạn vẫn luyện được các chủ đề đã tải về máy.</Notice>
@@ -278,7 +272,7 @@ export default function LuyenTapOffline({ loaderData }: Route.ComponentProps) {
       {coMang ? (
         <TaiThemChuDe daTai={new Set(goi.map((g) => g.code))} xong={revalidate} matMang={baoMatKetNoi} />
       ) : null}
-    </div>
+    </KhungTrang>
   );
 }
 
@@ -484,7 +478,7 @@ function PhienLam({
   };
 
   return (
-    <div className="wrap max-w-xl py-6">
+    <KhungTrang className="wrap max-w-xl py-6">
       <p className="text-sm text-ink-2">
         {phien.chu_de.name} · {TEN_MUC_DO[cau.level]}
         {!coMang ? " · đang không có mạng" : ""}
@@ -549,7 +543,7 @@ function PhienLam({
         onDong={() => datMoXacNhan(false)}
         onNop={() => void nop()}
       />
-    </div>
+    </KhungTrang>
   );
 }
 
@@ -566,11 +560,11 @@ function KetQuaOffline({
   const daLam = new Map(phien.cau_tra_loi.map((a) => [a.question_id, a]));
   const dung = phien.cau_tra_loi.filter((a) => a.dung).length;
   return (
-    <div className="wrap max-w-xl py-8">
+    <KhungTrang className="wrap max-w-xl py-8">
       <p className="text-sm text-ink-2">{phien.chu_de.name}</p>
-      <h1 className="mt-2 text-3xl font-semibold">
+      <TieuDeTrang icon="cap" className="mt-2">
         Đúng {dung}/{phien.items.length} câu
-      </h1>
+      </TieuDeTrang>
       <p className="mt-2 text-base text-ink-2">
         {phien.da_dong_bo
           ? "Kết quả đã gửi lên máy chủ."
@@ -612,7 +606,7 @@ function KetQuaOffline({
           })}
         </ol>
       </section>
-    </div>
+    </KhungTrang>
   );
 }
 

@@ -3,9 +3,9 @@
  * sang đăng nhập rồi quay lại đây. Đã ở trong nhóm thì mở thẳng nhóm.
  */
 import { Form, Link, redirect, useNavigation } from "react-router";
-
 import { Button, buttonClass } from "../components/ui/Button";
 import { Notice } from "../components/ui/Field";
+import { KhungTrang, TieuDeTrang } from "../components/ui/KhungTrang";
 import { CAU_QUYEN_RIENG_TU } from "../lib/nhom";
 import { thamGiaNhom, xemTruocNhom } from "../lib/nhom.server";
 import { LoiApi } from "../lib/quan-tri.server";
@@ -46,8 +46,10 @@ export default function ThamGiaNhom({ loaderData, actionData }: Route.ComponentP
   const dangGui = useNavigation().state !== "idle";
 
   return (
-    <div className="wrap max-w-xl py-8" data-nhom="">
-      <h1 className="text-3xl font-semibold">Tham gia nhóm học cùng</h1>
+    <KhungTrang className="wrap max-w-xl py-8" data-nhom="">
+      <TieuDeTrang icon="nhom" className="">
+        Tham gia nhóm học cùng
+      </TieuDeTrang>
       {loi ? (
         <Notice tone="danger" className="mt-4">
           {loi}
@@ -78,6 +80,6 @@ export default function ThamGiaNhom({ loaderData, actionData }: Route.ComponentP
           Về danh sách nhóm của tôi
         </Link>
       </p>
-    </div>
+    </KhungTrang>
   );
 }

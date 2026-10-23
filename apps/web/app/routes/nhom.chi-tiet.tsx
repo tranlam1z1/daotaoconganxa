@@ -6,7 +6,6 @@
  * bằng fetcher nên lỗi hiện ngay trong hộp. Nhóm đã lưu trữ chỉ còn xem được.
  */
 import { Link, redirect } from "react-router";
-
 import { DanhSachMuc, NutHocMuc } from "../components/nhom/DanhSachMuc";
 import { DanhSachThanhVien } from "../components/nhom/DanhSachThanhVien";
 import { HopChiaSe } from "../components/nhom/HopChiaSe";
@@ -21,6 +20,7 @@ import { Button } from "../components/ui/Button";
 import { EmptyState } from "../components/ui/EmptyState";
 import { Notice } from "../components/ui/Field";
 import { useHop } from "../components/ui/HopThoai";
+import { KhungTrang, TieuDeTrang } from "../components/ui/KhungTrang";
 import type { ChiTietNhom as DuLieuNhom, KetQuaThaoTacNhom, MucNhom, ThanhVienNhom } from "../lib/nhom";
 import {
   batDauMuc,
@@ -153,13 +153,15 @@ export default function ChiTietNhom({ loaderData }: Route.ComponentProps) {
   const xacNhan = (x: XacNhanNhom) => hop.mo("xac-nhan", { xacNhan: x });
 
   return (
-    <div className="wrap max-w-3xl py-6" data-nhom="">
+    <KhungTrang className="wrap max-w-3xl py-6" data-nhom="">
       <p className="hidden text-sm md:block">
         <Link to="/nhom" className="inline-flex min-h-12 items-center text-primary hover:underline">
           Nhóm học cùng
         </Link>
       </p>
-      <h1 className="break-words text-2xl font-semibold leading-tight sm:text-3xl">{nhom.ten}</h1>
+      <TieuDeTrang icon="nhom" className="break-words">
+        {nhom.ten}
+      </TieuDeTrang>
       {nhom.mo_ta ? (
         <p className="mt-2 whitespace-pre-line break-words text-base leading-relaxed text-ink-2">
           {nhom.mo_ta}
@@ -362,6 +364,6 @@ export default function ChiTietNhom({ loaderData }: Route.ComponentProps) {
         onDong={hop.dong}
         xacNhan={hop.duLieu?.xacNhan ?? null}
       />
-    </div>
+    </KhungTrang>
   );
 }

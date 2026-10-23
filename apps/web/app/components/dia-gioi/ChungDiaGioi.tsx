@@ -49,7 +49,7 @@ export function TheLuaChon({
   return (
     <Link
       to={to}
-      className="lun [--lun:0.985] flex items-center gap-4 rounded-2xl border border-line bg-surface p-4 shadow-card hover:border-primary sm:p-5"
+      className="lun [--lun:0.985] flex h-full items-center gap-3 rounded-2xl border border-line bg-surface p-3 shadow-card hover:border-primary sm:gap-4 sm:p-5"
     >
       <OBieuTuong icon={icon} />
       <span className="min-w-0 flex-1">

@@ -1,9 +1,8 @@
 /**
- * Mảnh biểu mẫu dùng chung của các công cụ nghiệp vụ: đầu trang (lối về, tiêu đề, lời dẫn), ô nhập
+ * Mảnh biểu mẫu dùng chung của các công cụ nghiệp vụ: đầu trang (tiêu đề, lời dẫn), ô nhập
  * số và lớp CSS của ô, của lựa chọn radio.
  */
 import type { ReactNode } from "react";
-import { Link } from "react-router";
 
 import { cn } from "../../lib/cn";
 import { Icon } from "../ui/Icon";
@@ -15,16 +14,18 @@ export const lopLuaChon =
 
 export function DauTrangCongCu({ tieuDe, children }: { tieuDe: string; children?: ReactNode }) {
   return (
-    <>
-      <p className="hidden md:block">
-        <Link to="/cong-cu" className="inline-flex min-h-11 items-center gap-1 text-sm text-ink-2 underline">
-          <Icon name="arrowLeft" className="size-4" />
-          Công cụ nghiệp vụ
-        </Link>
-      </p>
-      <h1 className="text-2xl font-bold leading-tight sm:text-3xl">{tieuDe}</h1>
-      {children ? <p className="mt-2 text-base text-ink-2">{children}</p> : null}
-    </>
+    <header className="tieu-de-trang tieu-de-trang-banner relative isolate flex min-w-0 items-center gap-3">
+      <span
+        className="relative grid size-12 shrink-0 place-items-center rounded-xl bg-primary-soft text-primary"
+        aria-hidden="true"
+      >
+        <Icon name="shield" kieu="net" className="size-6" />
+      </span>
+      <div className="min-w-0 flex-1 sm:max-w-[60%]">
+        <h1 className="text-2xl font-bold leading-tight">{tieuDe}</h1>
+        {children ? <p className="mt-1 text-sm text-ink-2">{children}</p> : null}
+      </div>
+    </header>
   );
 }
 

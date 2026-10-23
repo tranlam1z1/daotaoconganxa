@@ -3,10 +3,10 @@
  * chỉ thấy đề đang mở, kèm lối tắt sang giao bài.
  */
 import { Link } from "react-router";
-
 import { Badge } from "../components/ui/Badge";
 import { ButtonLink } from "../components/ui/Button";
 import { EmptyState } from "../components/ui/EmptyState";
+import { TieuDeTrang } from "../components/ui/KhungTrang";
 import { goiApiQuanTri } from "../lib/quan-tri.server";
 import { duVaiTro, yeuCauVaiTro } from "../lib/session.server";
 import { pageMeta } from "../lib/site";
@@ -29,7 +29,9 @@ export default function QuanTriDeThi({ loaderData }: Route.ComponentProps) {
     <section>
       <div className="flex flex-wrap items-center justify-between gap-3">
         <div>
-          <h2 className="text-xl font-semibold">Đề thi</h2>
+          <TieuDeTrang as="h2" icon="shield" className="text-xl font-semibold">
+            Đề thi
+          </TieuDeTrang>
           <p className="mt-1 text-sm text-ink-2">
             {laQuanTri
               ? "Mỗi đề là một ma trận chủ đề × mức độ × dạng câu (trắc nghiệm, tự luận), 1 đến 60 câu. Mỗi lượt thi rút câu và đảo thứ tự riêng."

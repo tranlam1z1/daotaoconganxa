@@ -10,12 +10,12 @@
  */
 import { useEffect, useState } from "react";
 import { Form, Link, redirect, useNavigation, useRevalidator } from "react-router";
-
 import { NutTrangThai } from "../components/quan-tri/NutTrangThai";
 import { Badge } from "../components/ui/Badge";
 import { Button, ButtonLink } from "../components/ui/Button";
 import { EmptyState } from "../components/ui/EmptyState";
 import { Input, inputClass, Label, Notice } from "../components/ui/Field";
+import { TieuDeTrang } from "../components/ui/KhungTrang";
 import { ThanhLuuBieuMau } from "../components/ui/ThanhDinhDay";
 import { cn } from "../lib/cn";
 import { goiApiQuanTri, LoiApi } from "../lib/quan-tri.server";
@@ -272,7 +272,9 @@ export default function SuaChuyenDe({ loaderData, actionData }: Route.ComponentP
         Về danh sách chuyên đề
       </Link>
       <div className="flex flex-wrap items-center gap-3">
-        <h2 className="text-xl font-semibold">{cd ? cd.title : "Tạo chuyên đề"}</h2>
+        <TieuDeTrang as="h2" icon="shield" className="text-xl font-semibold">
+          {cd ? cd.title : "Tạo chuyên đề"}
+        </TieuDeTrang>
         {cd ? (
           <Badge tone={TONE_TRANG_THAI[cd.status] ?? "muted"}>{TEN_TRANG_THAI[cd.status] ?? cd.status}</Badge>
         ) : null}
@@ -311,8 +313,8 @@ export default function SuaChuyenDe({ loaderData, actionData }: Route.ComponentP
       {cd ? (
         <div className="mt-4 space-y-2">
           <p className="text-sm text-ink-2">
-            Thứ tự duyệt: Bản nháp → Đang biên tập → Chờ duyệt → Đã xuất bản. Xuất bản cần vai trò
-            Admin quản lý trở lên.
+            Thứ tự duyệt: Bản nháp → Đang biên tập → Chờ duyệt → Đã xuất bản. Xuất bản cần vai trò Admin quản
+            lý trở lên.
           </p>
           <NutTrangThai datDuoc={datDuoc} ban={busy} an={{ id: cd.id }} />
         </div>

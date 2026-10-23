@@ -3,10 +3,11 @@
  * ý (chưa học lần nào, còn đề chưa nộp, có đề chưa đạt). Bấm tên để mở hồ sơ của người đó; danh
  * sách đầy đủ nằm ở trang Báo cáo. Số liệu do API tính trên báo cáo tiến độ học, không lọc ngày.
  */
+import { Icon } from "../components/ui/Icon";
 import { Link } from "react-router";
-
 import { TomTat } from "../components/quan-tri/BangBaoCao";
 import { Notice } from "../components/ui/Field";
+import { TieuDeTrang } from "../components/ui/KhungTrang";
 import { duongHoSoCanBo, type NhomCanChuY, soVn, type TongQuanCanBo } from "../lib/bao-cao";
 import { goiApiQuanTri, LoiApi } from "../lib/quan-tri.server";
 import { yeuCauVaiTro } from "../lib/session.server";
@@ -28,9 +29,11 @@ export async function loader({ request }: Route.LoaderArgs) {
 export default function QuanTriIndex({ loaderData }: Route.ComponentProps) {
   const { tongQuan: t, loi } = loaderData;
   return (
-    <section>
+    <section className="tong-quan">
       <div className="flex flex-wrap items-baseline justify-between gap-2">
-        <h2 className="text-xl font-semibold">Tổng quan</h2>
+        <TieuDeTrang as="h2" icon="shield" className="text-xl font-semibold">
+          Tổng quan
+        </TieuDeTrang>
         {t ? <p className="text-sm text-ink-3">Phạm vi: {t.don_vi}</p> : null}
       </div>
 
@@ -40,18 +43,18 @@ export default function QuanTriIndex({ loaderData }: Route.ComponentProps) {
         <>
           <TomTat
             muc={[
-              { nhan: "Cán bộ", giaTri: soVn(t.so_can_bo), phu: "xem danh sách", to: "/quan-tri/bao-cao" },
+              { icon: "caNhan", nhan: "Cán bộ", giaTri: soVn(t.so_can_bo), phu: "xem danh sách", to: "/quan-tri/bao-cao" },
               {
-                nhan: "Có học trong 7 ngày",
+                icon: "book", nhan: "Có học trong 7 ngày",
                 giaTri: `${soVn(t.hoc_7_ngay)}/${soVn(t.so_can_bo)}`,
               },
               {
-                nhan: "Tỷ lệ đạt bài thi",
+                icon: "file", nhan: "Tỷ lệ đạt bài thi",
                 giaTri: soVn(t.bai_thi.ty_le_dat, "%"),
                 phu: `đã nộp ${soVn(t.bai_thi.da_nop)}/${soVn(t.bai_thi.duoc_giao)} lượt giao`,
               },
               {
-                nhan: "Chờ xác minh",
+                icon: "shield", nhan: "Chờ xác minh",
                 giaTri: soVn(t.cho_xac_minh),
                 phu: "tài khoản tự đăng ký",
                 to: "/quan-tri/nguoi-dung?xac_minh=cho_duyet",
@@ -60,7 +63,7 @@ export default function QuanTriIndex({ loaderData }: Route.ComponentProps) {
             ]}
           />
 
-          <h3 className="mt-8 font-sans text-lg font-semibold">Cán bộ cần chú ý</h3>
+          <h3 className="tong-quan-chu-y"><Icon name="alert" sac="cam" className="size-8" />Cán bộ cần chú ý</h3>
           <div className="mt-3 grid gap-3 lg:grid-cols-3">
             <TheCanChuY tieuDe="Chưa học lần nào" nhom={t.can_chu_y.chua_hoc} />
             <TheCanChuY tieuDe="Còn đề chưa nộp" nhom={t.can_chu_y.chua_lam_bai} donVi="đề" />
@@ -74,7 +77,8 @@ export default function QuanTriIndex({ loaderData }: Route.ComponentProps) {
 
 function TheCanChuY({ tieuDe, nhom, donVi }: { tieuDe: string; nhom: NhomCanChuY; donVi?: string }) {
   return (
-    <div className="rounded-xl border border-line bg-surface p-4">
+    <div className="tong-quan-can-chu-y rounded-xl border border-line bg-surface p-4">
+      <span className="tong-quan-icon"><Icon name={donVi ? "file" : "caNhan"} className="size-7" /></span>
       <h4 className="flex items-baseline justify-between gap-2 font-sans text-base font-semibold">
         {tieuDe}
         <span className="tabular-nums text-ink-2">{soVn(nhom.tong)}</span>

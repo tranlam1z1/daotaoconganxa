@@ -15,9 +15,9 @@ export function meta(_: Route.MetaArgs) {
 
 export default function CongCuNghiepVu() {
   return (
-    <div className="wrap max-w-3xl py-6 sm:py-10 lg:max-w-7xl">
-      <h1 className="text-2xl font-bold leading-tight sm:text-3xl">Công cụ nghiệp vụ</h1>
-      <div className="mt-6 grid gap-4 lg:grid-cols-2 lg:items-start">
+    <div className="wrap max-w-3xl py-4 sm:py-6 lg:max-w-7xl">
+      <h1 className="sr-only">Công cụ nghiệp vụ</h1>
+      <div className="grid gap-4 lg:grid-cols-2 lg:items-start">
         <LuoiLoiTat id="cong-cu-tieu-de" tieuDe="Bộ công cụ nghiệp vụ" icon="shield" items={O_CONG_CU} />
         <LuoiLoiTat
           id="nghiep-vu-nhanh-tieu-de"

@@ -6,13 +6,16 @@ import { Form, Link, useNavigation, useSearchParams } from "react-router";
 import { ChonNgayApDung } from "../components/tra-cuu/ChonNgayApDung";
 import { KhungTraCuu } from "../components/tra-cuu/KhungTraCuu";
 import { TheMucPhat } from "../components/tra-cuu/TheMucPhat";
+import { TraCuuControls, useTraCuuDebounce } from "../components/tra-cuu/TraCuuControls";
 import { EmptyState } from "../components/ui/EmptyState";
 import { Icon } from "../components/ui/Icon";
 import { cn } from "../lib/cn";
 import { isIsoDate, todayIso } from "../lib/format";
 import { pageMeta } from "../lib/site";
-import { LOAI_XE, laLoaiXe, timMucPhat } from "../lib/tra-cuu-nhanh";
+import { LOAI_XE, laLoaiXe, layChuDeMucPhat, timMucPhat } from "../lib/tra-cuu-nhanh";
 import type { Route } from "./+types/tra-cuu-nhanh.muc-phat";
+
+export { TraCuuError as ErrorBoundary } from "../components/tra-cuu/TraCuuControls";
 
 export function meta({ location }: Route.MetaArgs) {
   const q = new URLSearchParams(location.search).get("q")?.trim();
@@ -25,20 +28,31 @@ const GOI_Y = ["nồng độ cồn", "vượt đèn đỏ", "quá tốc độ", 
 export async function loader({ request }: Route.LoaderArgs) {
   const p = new URL(request.url).searchParams;
   const q = (p.get("q") ?? "").trim().slice(0, 200);
+  const nhom = (p.get("nhom") ?? "").trim().slice(0, 200);
+  const topics = (await layChuDeMucPhat()).items;
   const xeRaw = p.get("xe");
   const xe = laLoaiXe(xeRaw) ? xeRaw : "";
   const homNay = todayIso();
   const ngayRaw = p.get("ngay");
   const ngay = isIsoDate(ngayRaw) ? ngayRaw : homNay;
+  const page = Math.min(10000, Math.max(1, Math.floor(Number(p.get("page")) || 1)));
 
   // Chưa gõ gì và chưa chọn xe thì chỉ hiện gợi ý, không gọi API.
-  if (!q && !xe) return { q, xe, ngay, homNay, items: [], daTra: false };
-  const kq = await timMucPhat({ q: q || undefined, xe: xe || undefined, ngay });
-  return { q, xe, ngay, homNay, items: kq.items, daTra: true };
+  if (!q && !xe && !nhom)
+    return { q, nhom, topics, xe, ngay, homNay, items: [], daTra: false, page, total: 0 };
+  const kq = await timMucPhat({
+    q: q || undefined,
+    nhom: nhom || undefined,
+    xe: xe || undefined,
+    ngay,
+    page,
+  });
+  return { q, nhom, topics, xe, ngay, homNay, items: kq.items, daTra: true, page, total: kq.total };
 }
 
 export default function MucPhatPage({ loaderData }: Route.ComponentProps) {
-  const { q, xe, ngay, homNay, items, daTra } = loaderData;
+  const { q, xe, ngay, homNay, items, daTra, page, total } = loaderData;
+  const debounce = useTraCuuDebounce();
   const [params] = useSearchParams();
   const busy = useNavigation().state === "loading";
 
@@ -58,10 +72,27 @@ export default function MucPhatPage({ loaderData }: Route.ComponentProps) {
         method="get"
         action="/tra-cuu-nhanh/muc-phat"
         role="search"
+        onChange={(e) => debounce(e.currentTarget)}
         className="tra-cuu-form mt-4 grid gap-2"
       >
         {xe ? <input type="hidden" name="xe" value={xe} /> : null}
         {ngay !== homNay ? <input type="hidden" name="ngay" value={ngay} /> : null}
+        <label htmlFor="mp-topic" className="sr-only">
+          Chủ đề vi phạm
+        </label>
+        <select
+          id="mp-topic"
+          name="nhom"
+          defaultValue={loaderData.nhom}
+          className="min-h-12 rounded-lg border border-line-strong bg-surface px-3"
+        >
+          <option value="">Mọi chủ đề</option>
+          {loaderData.topics.map((t) => (
+            <option key={t.name} value={t.name}>
+              {t.name}
+            </option>
+          ))}
+        </select>
         <label htmlFor="mp-q" className="sr-only">
           Hành vi vi phạm
         </label>
@@ -89,7 +120,7 @@ export default function MucPhatPage({ loaderData }: Route.ComponentProps) {
             return (
               <li key={l.label}>
                 <Link
-                  to={hrefVoi({ xe: l.value || null })}
+                  to={hrefVoi({ xe: l.value || null, page: null })}
                   aria-current={chon ? "true" : undefined}
                   className={cn(
                     "flex min-h-12 items-center rounded-full border px-4 text-base",
@@ -106,7 +137,13 @@ export default function MucPhatPage({ loaderData }: Route.ComponentProps) {
         </ul>
       </nav>
 
-      <ChonNgayApDung action="/tra-cuu-nhanh/muc-phat" ngay={ngay} homNay={homNay} giu={{ q, xe }} />
+      <ChonNgayApDung
+        action="/tra-cuu-nhanh/muc-phat"
+        ngay={ngay}
+        homNay={homNay}
+        giu={{ q, xe, nhom: loaderData.nhom }}
+      />
+      {daTra ? <TraCuuControls q={q} kind="violations" page={page} total={total} /> : null}
 
       <div className={cn("mt-6", busy && "opacity-60")} aria-busy={busy}>
         {!daTra ? (

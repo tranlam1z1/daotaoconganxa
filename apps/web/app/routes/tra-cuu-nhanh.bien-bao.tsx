@@ -8,13 +8,16 @@
 import { Form, Link, useSearchParams } from "react-router";
 import { CanCuBienBao } from "../components/tra-cuu/CanCuBienBao";
 import { KhungTraCuu } from "../components/tra-cuu/KhungTraCuu";
+import { TraCuuControls, useTraCuuDebounce } from "../components/tra-cuu/TraCuuControls";
 import { Badge } from "../components/ui/Badge";
 import { EmptyState } from "../components/ui/EmptyState";
 import { Icon } from "../components/ui/Icon";
-import { type BienBao, laNhomBienBao, NHOM_BIEN_BAO, timBienBao } from "../lib/bien-bao";
+import { type BienBao, laNhomBienBao, layNhomBienBao, NHOM_BIEN_BAO, timBienBao } from "../lib/bien-bao";
 import { cn } from "../lib/cn";
 import { pageMeta } from "../lib/site";
 import type { Route } from "./+types/tra-cuu-nhanh.bien-bao";
+
+export { TraCuuError as ErrorBoundary } from "../components/tra-cuu/TraCuuControls";
 
 export function meta(_: Route.MetaArgs) {
   return pageMeta("Biển báo đường bộ", {
@@ -27,10 +30,15 @@ export async function loader({ request }: Route.LoaderArgs) {
   const q = (p.get("q") ?? "").trim().slice(0, 100);
   const nhomRaw = p.get("nhom");
   const nhom = laNhomBienBao(nhomRaw) ? nhomRaw : undefined;
-  const { items, ban_nhap } = await timBienBao({ q: q || undefined, nhom });
+  const page = Math.min(10000, Math.max(1, Math.floor(Number(p.get("page")) || 1)));
+  const { items, ban_nhap, total } = await timBienBao({ q: q || undefined, nhom, page });
+  const nhomApi = await layNhomBienBao();
   const ma = p.get("ma");
   return {
     q,
+    nhomApi: nhomApi.items,
+    page,
+    total,
     nhom: nhom ?? "",
     items,
     xemBanNhap: ban_nhap,
@@ -41,7 +49,8 @@ export async function loader({ request }: Route.LoaderArgs) {
 const TEN_NHOM = Object.fromEntries(NHOM_BIEN_BAO.map((n) => [n.value, n.label]));
 
 export default function BienBaoPage({ loaderData }: Route.ComponentProps) {
-  const { q, nhom, items, xemBanNhap, chon } = loaderData;
+  const { q, nhom, items, xemBanNhap, chon, page, total } = loaderData;
+  const debounce = useTraCuuDebounce();
   const [params] = useSearchParams();
   const hrefVoi = (patch: Record<string, string | null>) => {
     const next = new URLSearchParams(params);
@@ -61,7 +70,12 @@ export default function BienBaoPage({ loaderData }: Route.ComponentProps) {
         </p>
       ) : null}
 
-      <Form method="get" className="tra-cuu-form mt-4 grid gap-2" role="search">
+      <Form
+        method="get"
+        className="tra-cuu-form mt-4 grid gap-2"
+        role="search"
+        onChange={(e) => debounce(e.currentTarget)}
+      >
         {nhom ? <input type="hidden" name="nhom" value={nhom} /> : null}
         <label htmlFor="tim-bien-bao" className="sr-only">
           Tên hoặc mã biển
@@ -85,10 +99,10 @@ export default function BienBaoPage({ loaderData }: Route.ComponentProps) {
 
       <nav aria-label="Nhóm biển báo" className="mt-4 border-t border-line pt-4">
         <ul className="flex flex-wrap gap-2 pb-1">
-          {[{ value: "", label: "Tất cả" }, ...NHOM_BIEN_BAO].map((n) => (
+          {[{ value: "", label: "Tất cả" }, ...loaderData.nhomApi].map((n) => (
             <li key={n.value} className="shrink-0">
               <Link
-                to={hrefVoi({ nhom: n.value || null, ma: null })}
+                to={hrefVoi({ nhom: n.value || null, ma: null, page: null })}
                 aria-current={nhom === n.value ? "page" : undefined}
                 className={cn(
                   "inline-flex min-h-11 items-center rounded-full border px-4 text-sm",
@@ -105,6 +119,7 @@ export default function BienBaoPage({ loaderData }: Route.ComponentProps) {
       </nav>
 
       {chon ? <ChiTiet b={chon} dong={hrefVoi({ ma: null })} /> : null}
+      <TraCuuControls q={q} kind="signs" page={page} total={total} />
 
       {items.length === 0 ? (
         <div className="mt-6">

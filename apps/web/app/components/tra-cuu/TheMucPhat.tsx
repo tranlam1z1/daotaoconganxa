@@ -26,6 +26,34 @@ export function ChiTietMucPhat({ muc }: { muc: MucPhat }) {
   return (
     <>
       <p className="mt-3 text-xl font-bold leading-snug text-danger">{khoangTien(muc.phatTu, muc.phatDen)}</p>
+      {muc.khungPhat?.length ? (
+        <div className="mt-3 space-y-3">
+          <p className="text-sm text-ink-2">Đối chiếu tình tiết để xác định khung áp dụng:</p>
+          {muc.khungPhat.map((k) => (
+            <section key={k.id} className="rounded-lg border border-line p-3">
+              <p className="font-semibold">{khoangTien(Number(k.fine_min), Number(k.fine_max))}</p>
+              <p>{k.conditions.join("; ")}</p>
+              {k.required_facts.length ? <p>Cần bổ sung: {k.required_facts.join("; ")}</p> : null}
+              {k.point_deduction !== null ? <p>Trừ {k.point_deduction} điểm GPLX</p> : null}
+              {k.suspension_months_min !== null ? (
+                <p>
+                  Tước GPLX: {k.suspension_months_min} – {k.suspension_months_max} tháng
+                </p>
+              ) : null}
+              {k.additional_penalties.map((t) => (
+                <p key={t}>{t}</p>
+              ))}
+              {k.remedies.map((t) => (
+                <p key={t}>Khắc phục: {t}</p>
+              ))}
+              <p className="mt-2 text-sm text-ink-3">
+                {nhanVienDan(k.citation_urn)} · Từ {k.effective_from.slice(0, 10)}
+                {k.effective_to ? ` đến trước ${k.effective_to.slice(0, 10)}` : ""}
+              </p>
+            </section>
+          ))}
+        </div>
+      ) : null}
 
       {muc.truDiem || muc.hinhThucBoSung.length ? (
         <ul className="mt-2 grid gap-1 text-base leading-relaxed text-ink-2">

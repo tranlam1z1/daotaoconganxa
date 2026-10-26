@@ -73,11 +73,11 @@ export default function ChamTuLuanBaiHoc({ loaderData, actionData }: Route.Compo
   const { items } = loaderData;
   return (
     <section>
-      <TieuDeTrang as="h2" icon="shield" className="text-xl font-semibold">
+      <TieuDeTrang as="h2" icon="shield" className="text-2xl font-bold sm:text-[28px]">
         Chấm tự luận
       </TieuDeTrang>
       <NguonChamTuLuan dangXem="bai-giang" />
-      <p className="mt-4 max-w-3xl text-sm text-ink-2">
+      <p className="mt-4 max-w-[84ch] text-base leading-relaxed text-ink-2">
         Câu tự luận trong bài giảng được AI chấm ngay khi học viên nộp. Hàng này gồm bài AI chưa chấm được,
         bài học viên đề nghị phúc khảo và bài lấy mẫu để đối chiếu. Điểm bạn chấm là điểm cuối cùng của học
         viên.
@@ -92,7 +92,11 @@ export default function ChamTuLuanBaiHoc({ loaderData, actionData }: Route.Compo
 
       {items.length === 0 ? (
         <div className="mt-6">
-          <EmptyState icon="check" title="Không có bài nào chờ chấm" />
+          <EmptyState
+            icon="cap"
+            title="Không có bài nào chờ chấm"
+            className="min-h-[248px] justify-center text-xl [&>span]:size-[68px] [&>span]:bg-primary-soft [&>span>svg]:size-9"
+          />
         </div>
       ) : (
         <ul className="mt-4 space-y-6">

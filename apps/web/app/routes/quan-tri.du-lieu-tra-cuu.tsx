@@ -807,15 +807,17 @@ export default function DuLieuTraCuu({ loaderData, actionData }: Route.Component
   const coDongChoDuyet = duocDuyet && items.some((d) => d.trang_thai === "cho_duyet");
 
   return (
-    <div>
-      <div className="flex flex-wrap items-center justify-between gap-3">
+    <div className="duyet-tra-cuu">
+      <div className="duyet-tra-cuu-dau flex flex-wrap items-center justify-between gap-3">
         <TieuDeTrang icon="search" className="">
           Duyệt dữ liệu tra cứu
         </TieuDeTrang>
-        <ButtonLink to={`/quan-tri/du-lieu-tra-cuu/moi${laLoaiSoan(loai) ? `?loai=${loai}` : ""}`}>
-          Soạn nội dung tra cứu
-        </ButtonLink>
-        <ButtonLink to="/quan-tri/giao-thong">Nhập tài liệu, khung phạt</ButtonLink>
+        <div className="flex flex-wrap gap-3">
+          <ButtonLink to={`/quan-tri/du-lieu-tra-cuu/moi${laLoaiSoan(loai) ? `?loai=${loai}` : ""}`}>
+            Soạn nội dung tra cứu
+          </ButtonLink>
+          <ButtonLink to="/quan-tri/giao-thong">Nhập tài liệu, khung phạt</ButtonLink>
+        </div>
       </div>
       <p className="mt-2 max-w-2xl text-[15px] leading-relaxed text-ink-2">
         Người học chỉ thấy dòng đã duyệt. Sửa dòng đã duyệt thì dòng về chờ duyệt, tăng phiên bản, và tạm rời
@@ -829,7 +831,7 @@ export default function DuLieuTraCuu({ loaderData, actionData }: Route.Component
       ) : null}
       {ok ? <Notice className="mt-4">{ok}</Notice> : null}
 
-      <nav aria-label="Loại dữ liệu" className="mt-6 flex flex-wrap gap-2">
+      <nav aria-label="Loại dữ liệu" className="duyet-tra-cuu-loai mt-4 flex flex-wrap gap-2">
         {LOAI.map((l) => (
           <Link
             key={l.id}
@@ -868,11 +870,12 @@ export default function DuLieuTraCuu({ loaderData, actionData }: Route.Component
           ))}
         </nav>
       ) : null}
-      <nav aria-label="Trạng thái" className="mt-3 flex flex-wrap gap-2 text-sm">
+      <nav aria-label="Trạng thái" className="duyet-tra-cuu-trang-thai mt-3 flex flex-wrap gap-2 text-sm">
         {LOC_TRANG_THAI.map((t) => (
           <Link
             key={t}
             to={`?${new URLSearchParams({ loai, ...(loc.nhom ? { nhom: loc.nhom } : {}), trang_thai: t })}`}
+            aria-current={loc.trang_thai === t ? "page" : undefined}
             className={cn(
               "inline-flex min-h-11 items-center rounded-lg px-3",
               loc.trang_thai === t ? "bg-surface-2 font-semibold" : "text-ink-2",
@@ -884,29 +887,32 @@ export default function DuLieuTraCuu({ loaderData, actionData }: Route.Component
         ))}
       </nav>
 
-      <Form method="get" role="search" className="mt-4 flex max-w-xl gap-2">
+      <Form method="get" role="search" className="duyet-tra-cuu-tim mt-3 flex gap-2">
         <input type="hidden" name="loai" value={loai} />
         {loc.nhom ? <input type="hidden" name="nhom" value={loc.nhom} /> : null}
         <input type="hidden" name="trang_thai" value={loc.trang_thai} />
         <Label htmlFor="tim-du-lieu" className="sr-only">
           Tìm theo mã hoặc tên
         </Label>
-        <input
-          id="tim-du-lieu"
-          name="q"
-          type="search"
-          defaultValue={loc.q}
-          placeholder="Tìm theo mã hoặc tên"
-          className={cn(inputClass, "min-w-0 flex-1")}
-        />
+        <div className="duyet-tra-cuu-o-tim min-w-0 flex-1">
+          <Icon name="search" className="size-5 text-ink-3" />
+          <input
+            id="tim-du-lieu"
+            name="q"
+            type="search"
+            defaultValue={loc.q}
+            placeholder="Tìm theo mã hoặc tên"
+            className={cn(inputClass, "w-full")}
+          />
+        </div>
         <Button type="submit" variant="secondary" disabled={busy}>
           Tìm
         </Button>
       </Form>
 
       {/* Điện thoại: dòng đang chọn hiện khung sửa ở trên danh sách; từ 1024px: hai cột cạnh nhau. */}
-      <div className="mt-4 grid gap-6 lg:grid-cols-[minmax(0,1fr)_minmax(0,1.2fr)]">
-        <div>
+      <div className="duyet-tra-cuu-cot mt-4 grid gap-3 lg:grid-cols-[minmax(0,1.6fr)_minmax(0,1fr)]">
+        <div className="min-w-0">
           {items.length === 0 ? (
             <EmptyState
               icon="list"
@@ -954,7 +960,7 @@ export default function DuLieuTraCuu({ loaderData, actionData }: Route.Component
                     <li
                       key={d.code}
                       className={cn(
-                        "flex rounded-lg border bg-surface",
+                        "duyet-tra-cuu-the flex rounded-lg border bg-surface",
                         dangMo ? "border-primary" : "border-line",
                       )}
                     >
@@ -974,13 +980,18 @@ export default function DuLieuTraCuu({ loaderData, actionData }: Route.Component
                         <Link
                           to={qs({ ma: d.code })}
                           aria-current={dangMo ? "true" : undefined}
-                          className="block rounded-lg p-3 dong-bam"
+                          className="duyet-tra-cuu-dong block rounded-lg p-3 dong-bam"
                         >
+                          <span className="duyet-tra-cuu-icon" aria-hidden="true">
+                            <Icon name="file" kieu="net" className="size-7" />
+                          </span>
                           <span className="flex items-center justify-between gap-2">
-                            <span className="break-all font-mono text-xs text-ink-3">{d.code}</span>
+                            <span className="break-all text-xs text-ink-3">{d.code}</span>
                             <Badge tone={TONE_TRANG_THAI[d.trang_thai]}>{TEN_TRANG_THAI[d.trang_thai]}</Badge>
                           </span>
-                          <span className="mt-1 block text-[15px]">{d.ten}</span>
+                          <span className="duyet-tra-cuu-ten mt-1 block text-[15px] font-semibold">
+                            {d.ten}
+                          </span>
                           <span className="mt-1 line-clamp-2 text-sm text-ink-2">{tomTatDong(loai, d)}</span>
                           {d.citation_urn ? (
                             <span className="mt-0.5 block text-sm text-ink-3">
@@ -1078,7 +1089,12 @@ export default function DuLieuTraCuu({ loaderData, actionData }: Route.Component
             ok={ok}
           />
         ) : (
-          <p className="text-[15px] text-ink-2">Chọn một dòng để xem và sửa.</p>
+          <div className="duyet-tra-cuu-trong rounded-xl border border-line text-center text-[15px] text-ink-2">
+            <span className="duyet-tra-cuu-icon" aria-hidden="true">
+              <Icon name="file" kieu="net" className="size-7" />
+            </span>
+            <p>Chọn một dòng để xem và sửa.</p>
+          </div>
         )}
       </div>
     </div>

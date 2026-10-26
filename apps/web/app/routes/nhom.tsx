@@ -66,7 +66,7 @@ export default function NhomCuaToi({ loaderData }: Route.ComponentProps) {
   const hop = useHop<"tao" | "tham-gia">();
 
   const nutChinh = (
-    <div className="grid gap-2 sm:flex">
+    <div className={`grid gap-2 sm:flex${nhom.length === 0 ? " sm:justify-center" : ""}`}>
       <Button size="lg" onClick={() => hop.mo("tao")} aria-haspopup="dialog">
         Tạo nhóm
       </Button>

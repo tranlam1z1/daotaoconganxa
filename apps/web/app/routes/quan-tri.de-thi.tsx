@@ -26,19 +26,17 @@ export async function loader({ request }: Route.LoaderArgs) {
 export default function QuanTriDeThi({ loaderData }: Route.ComponentProps) {
   const { items, laQuanTri, coTheCham } = loaderData;
   return (
-    <section>
-      <div className="flex flex-wrap items-center justify-between gap-3">
-        <div>
-          <TieuDeTrang as="h2" icon="shield" className="text-xl font-semibold">
-            Đề thi
-          </TieuDeTrang>
-          <p className="mt-1 text-sm text-ink-2">
-            {laQuanTri
-              ? "Mỗi đề là một ma trận chủ đề × mức độ × dạng câu (trắc nghiệm, tự luận), 1 đến 60 câu. Mỗi lượt thi rút câu và đảo thứ tự riêng."
-              : "Các đề đang mở. Chọn đề để giao cho đơn vị hoặc cán bộ."}
-          </p>
-        </div>
-        <div className="flex flex-wrap gap-2">
+    <section className="de-thi-trang">
+      <header className="de-thi-dau khung-trang rounded-2xl border border-line bg-surface shadow-card">
+        <TieuDeTrang as="h2" icon="shield" className="text-3xl font-bold">
+          Đề thi
+        </TieuDeTrang>
+        <p className="de-thi-mo-ta text-sm text-ink-2">
+          {laQuanTri
+            ? "Mỗi đề là một ma trận chủ đề × mức độ × dạng câu (trắc nghiệm, tự luận), 1 đến 60 câu. Mỗi lượt thi rút câu và đảo thứ tự riêng."
+            : "Các đề đang mở. Chọn đề để giao cho đơn vị hoặc cán bộ."}
+        </p>
+        <div className="de-thi-thao-tac flex flex-wrap gap-2">
           {coTheCham ? (
             <ButtonLink to="/quan-tri/cham-tu-luan/de-thi" variant="secondary">
               Chấm tự luận
@@ -53,39 +51,42 @@ export default function QuanTriDeThi({ loaderData }: Route.ComponentProps) {
             </>
           ) : null}
         </div>
-      </div>
+      </header>
 
       {items.length === 0 ? (
-        <div className="mt-6">
+        <div className="mt-5 rounded-2xl border border-line bg-surface p-6 shadow-card">
           <EmptyState icon="cap" title={laQuanTri ? "Chưa có đề thi nào" : "Chưa có đề thi đang mở"} />
         </div>
       ) : (
-        <ul className="mt-4 divide-y divide-line rounded-xl border border-line bg-surface">
+        <ul className="mt-5 grid gap-4">
           {items.map((d) => (
-            <li key={d.id} className="px-4 py-3">
-              <div className="flex flex-wrap items-center gap-x-3 gap-y-1">
+            <li
+              key={d.id}
+              className="de-thi-the khung-trang rounded-2xl border border-line bg-surface shadow-card"
+            >
+              <div className="de-thi-thong-tin flex flex-wrap items-center gap-x-5 gap-y-1">
                 {laQuanTri ? (
                   <Link
                     to={`/quan-tri/de-thi/${d.id}`}
-                    className="flex min-h-11 items-center font-semibold hover:text-primary hover:underline"
+                    className="de-thi-ten font-semibold hover:text-primary hover:underline"
                   >
                     {d.title}
                   </Link>
                 ) : (
-                  <span className="font-semibold">{d.title}</span>
+                  <span className="de-thi-ten font-semibold">{d.title}</span>
                 )}
-                <span className="font-mono text-sm text-ink-3">{d.code}</span>
+                <span className="text-base font-medium text-ink-3">{d.code}</span>
                 <Badge tone={TONE_TRANG_THAI_DE[d.status]}>{TEN_TRANG_THAI_DE[d.status]}</Badge>
                 {d.status === "xuat_ban" ? (
                   <Link
                     to={`/quan-tri/giao-bai?de=${d.id}`}
-                    className="ml-auto flex min-h-11 items-center text-sm font-medium text-primary hover:underline"
+                    className="de-thi-giao flex min-h-12 items-center justify-center text-sm font-semibold text-primary hover:bg-primary-soft hover:underline"
                   >
                     Giao bài
                   </Link>
                 ) : null}
               </div>
-              <p className="text-sm text-ink-2">
+              <p className="de-thi-thong-ke text-base text-ink-2">
                 {d.question_count} câu · {d.duration_minutes} phút · đạt từ {d.pass_score} điểm ·{" "}
                 {d.max_attempts} lần làm
                 {laQuanTri ? ` · ${d.so_bai_giao ?? 0} lần giao · ${d.so_luot_nop ?? 0} lượt đã nộp` : ""}

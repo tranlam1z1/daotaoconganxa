@@ -21,20 +21,16 @@ import { LogoHocTap } from "../ui/LogoHocTap";
 import { NganTienIch } from "./NganTienIch";
 
 export function BrandMark() {
-  // Điện thoại: tên được co lại (cắt bằng "…") khi chip điểm, chuông, ảnh đại diện hết chỗ.
+  // Điện thoại: tên tự xuống dòng để nhường chỗ cho logo và các nút tài khoản.
   return (
-    <Link to="/" className="flex min-h-11 min-w-0 items-center gap-2.5 md:shrink-0">
-      <LogoHocTap className="h-10 w-auto shrink-0 min-[400px]:h-11" />
+    <Link to="/" className="flex min-h-11 min-w-0 items-center gap-2 font-sans md:shrink-0 md:gap-4">
+      <LogoHocTap className="h-10 w-auto shrink-0 sm:h-14 lg:h-16" />
       {/* 768–1023px: menu ngang, chip điểm và các nút hết chỗ, chỉ giữ logo (tên vẫn đọc được). */}
-      <span className="flex min-w-0 flex-col py-1 md:max-lg:sr-only">
-        <span className="font-sans text-[11px] font-bold uppercase leading-snug tracking-wide text-primary min-[400px]:text-[13px]">
-          Học tập pháp luật &amp;
-          <br />
-          Bồi dưỡng nghiệp vụ
+      <span className="flex min-w-0 flex-col gap-0.5 py-1 sm:py-2 md:max-lg:sr-only">
+        <span className="text-[0.75rem] font-bold uppercase leading-[1.4] text-primary sm:text-caption lg:whitespace-nowrap">
+          {SITE_NAME}
         </span>
-        <span className="truncate text-[10px] uppercase leading-tight tracking-[0.14em] text-ink-2 min-[400px]:text-[11px]">
-          {SITE_TAGLINE}
-        </span>
+        <span className="text-[0.75rem] leading-relaxed text-ink-2 sm:text-caption">{SITE_TAGLINE}</span>
       </span>
     </Link>
   );
@@ -172,7 +168,7 @@ export function SiteHeader({ nguoiDung }: { nguoiDung: NguoiDung | null }) {
         anDauTrangDienThoai(pathname) && "max-md:hidden",
       )}
     >
-      <div className="wrap flex h-16 items-center gap-3">
+      <div className="wrap flex min-h-16 items-center gap-2 py-2 sm:min-h-20 sm:gap-3">
         {goc ? (
           <BrandMark />
         ) : (

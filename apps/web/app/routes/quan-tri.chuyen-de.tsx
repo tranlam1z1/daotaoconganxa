@@ -30,55 +30,57 @@ export async function loader({ request }: Route.LoaderArgs) {
 export default function QuanTriChuyenDe({ loaderData }: Route.ComponentProps) {
   const { items } = loaderData;
   return (
-    <section>
-      <div className="flex flex-wrap items-center justify-between gap-3">
-        <div>
-          <TieuDeTrang as="h2" icon="shield" className="text-xl font-semibold">
+    <section className="chuyen-de-trang">
+      <header className="chuyen-de-dau khung-trang rounded-2xl border border-line bg-surface shadow-card">
+        <div className="min-w-0">
+          <TieuDeTrang as="h2" icon="shield" className="text-3xl font-bold">
             Chuyên đề
           </TieuDeTrang>
-          <p className="mt-1 text-sm text-ink-2">
+          <p className="chuyen-de-mo-ta text-sm text-ink-2">
             Học viên chỉ thấy chuyên đề đã xuất bản, có lĩnh vực và có ít nhất một bài đã xuất bản.
           </p>
         </div>
-        <div className="flex flex-wrap gap-2">
-          <ButtonLink to="/quan-tri/chuyen-de/tu-pdf">Tạo từ tệp PDF</ButtonLink>
-          <ButtonLink to="/quan-tri/chuyen-de/moi" variant="secondary">
+        <div className="chuyen-de-thao-tac flex flex-wrap gap-3">
+          <ButtonLink to="/quan-tri/chuyen-de/tu-pdf" icon="file">
+            Tạo từ tệp PDF
+          </ButtonLink>
+          <ButtonLink to="/quan-tri/chuyen-de/moi" variant="secondary" icon="plus">
             Tạo thủ công
           </ButtonLink>
-          <ButtonLink to="/quan-tri/cham-tu-luan" variant="secondary">
+          <ButtonLink to="/quan-tri/cham-tu-luan" variant="secondary" icon="cap">
             Chấm tự luận
           </ButtonLink>
         </div>
-      </div>
+      </header>
 
-      {items.length === 0 ? (
-        <div className="mt-6">
-          <EmptyState icon="cap" title="Chưa có chuyên đề nào" />
-        </div>
-      ) : (
-        <ul className="mt-4 divide-y divide-line rounded-xl border border-line bg-surface">
-          {items.map((c) => (
-            <li key={c.id} className="px-4 py-3">
-              <div className="flex flex-wrap items-center gap-x-3 gap-y-1">
-                <Link
-                  to={`/quan-tri/chuyen-de/${c.slug}`}
-                  className="flex min-h-11 items-center font-semibold hover:text-primary hover:underline"
-                >
-                  {c.title}
-                </Link>
-                <Badge tone={TONE_TRANG_THAI[c.status] ?? "muted"}>
-                  {TEN_TRANG_THAI[c.status] ?? c.status}
-                </Badge>
-              </div>
-              <p className="text-sm text-ink-2">
-                {c.linhVuc ? c.linhVuc.name : "Chưa gắn lĩnh vực"} · {c.lessonCount} bài ·{" "}
-                {TEN_CAP_DO[c.level] ?? c.level}
-                {c.asOf ? ` · dữ liệu tính đến ${c.asOf.split("-").reverse().join("/")}` : ""}
-              </p>
-            </li>
-          ))}
-        </ul>
-      )}
+      <div className="chuyen-de-noi-dung khung-trang mt-3 rounded-2xl border border-line bg-surface p-6 shadow-card">
+        {items.length === 0 ? (
+          <EmptyState icon="cap" title="Chưa có chuyên đề nào" className="chuyen-de-trong" />
+        ) : (
+          <ul className="divide-y divide-line rounded-xl border border-line bg-surface">
+            {items.map((c) => (
+              <li key={c.id} className="px-4 py-3">
+                <div className="flex flex-wrap items-center gap-x-3 gap-y-1">
+                  <Link
+                    to={`/quan-tri/chuyen-de/${c.slug}`}
+                    className="flex min-h-11 items-center font-semibold hover:text-primary hover:underline"
+                  >
+                    {c.title}
+                  </Link>
+                  <Badge tone={TONE_TRANG_THAI[c.status] ?? "muted"}>
+                    {TEN_TRANG_THAI[c.status] ?? c.status}
+                  </Badge>
+                </div>
+                <p className="text-sm text-ink-2">
+                  {c.linhVuc ? c.linhVuc.name : "Chưa gắn lĩnh vực"} · {c.lessonCount} bài ·{" "}
+                  {TEN_CAP_DO[c.level] ?? c.level}
+                  {c.asOf ? ` · dữ liệu tính đến ${c.asOf.split("-").reverse().join("/")}` : ""}
+                </p>
+              </li>
+            ))}
+          </ul>
+        )}
+      </div>
     </section>
   );
 }

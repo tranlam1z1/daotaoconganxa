@@ -15,6 +15,7 @@ import { Badge } from "../components/ui/Badge";
 import { Button, ButtonLink, buttonClass } from "../components/ui/Button";
 import { EmptyState } from "../components/ui/EmptyState";
 import { Input, inputClass, Label, Notice } from "../components/ui/Field";
+import { Icon } from "../components/ui/Icon";
 import { TieuDeTrang } from "../components/ui/KhungTrang";
 import { cn } from "../lib/cn";
 import { formatNgayGio } from "../lib/format";
@@ -223,7 +224,7 @@ export default function QuanTriCauHoi({ loaderData, actionData }: Route.Componen
   return (
     <section>
       <div className="flex flex-wrap items-center justify-between gap-3">
-        <TieuDeTrang as="h2" icon="shield" className="text-xl font-semibold">
+        <TieuDeTrang as="h2" icon="shield" className="text-2xl font-bold sm:text-[28px]">
           Ngân hàng câu hỏi
         </TieuDeTrang>
         <div className="flex flex-wrap gap-2">
@@ -243,7 +244,7 @@ export default function QuanTriCauHoi({ loaderData, actionData }: Route.Componen
       </div>
 
       {/* Bộ đếm theo mục tiêu của khách hàng */}
-      <div className="mt-4 rounded-xl border border-line bg-surface p-4">
+      <div className="mt-3 rounded-xl border border-line bg-surface px-4 py-3">
         <p className="flex flex-wrap items-baseline justify-between gap-2">
           <span className="font-semibold">
             Đã duyệt: {dem.da_duyet.toLocaleString("vi-VN")} / mục tiêu {muc_tieu.toLocaleString("vi-VN")}
@@ -253,7 +254,7 @@ export default function QuanTriCauHoi({ loaderData, actionData }: Route.Componen
           </span>
         </p>
         <div
-          className="mt-2 h-2 overflow-hidden rounded-full bg-surface-2"
+          className="mt-2 h-3 overflow-hidden rounded-full bg-primary-soft"
           role="progressbar"
           aria-valuenow={tyLe}
           aria-valuemin={0}
@@ -278,7 +279,7 @@ export default function QuanTriCauHoi({ loaderData, actionData }: Route.Componen
       />
 
       {/* Tab */}
-      <nav aria-label="Nhóm câu hỏi" className="mt-6 flex gap-1 border-b border-line">
+      <nav aria-label="Nhóm câu hỏi" className="mt-3 flex gap-1 border-b border-line">
         {[
           { to: lienKet({ tab: null, trang: null }), label: "Tất cả", on: !choDuyet },
           {
@@ -314,7 +315,7 @@ export default function QuanTriCauHoi({ loaderData, actionData }: Route.Componen
         </Notice>
       ) : null}
 
-      <p className="mt-4 text-sm text-ink-2">{tong.toLocaleString("vi-VN")} câu</p>
+      <p className="mt-2 text-sm text-ink-2">{tong.toLocaleString("vi-VN")} câu</p>
 
       {items.length === 0 ? (
         <div className="mt-3">
@@ -350,10 +351,16 @@ export default function QuanTriCauHoi({ loaderData, actionData }: Route.Componen
             </Form>
           ) : null}
 
-          <ul className="mt-3 grid gap-3">
+          <ul className="mt-2 grid gap-2">
             {items.map((q) => (
-              <li key={q.id} className="rounded-xl border border-line bg-surface p-4">
-                <div className="flex gap-3">
+              <li key={q.id} className="rounded-xl border border-line bg-surface px-4 py-3">
+                <div className="flex gap-4 sm:gap-6">
+                  <span
+                    className="grid size-11 shrink-0 place-items-center rounded-xl bg-primary-soft text-primary sm:size-14"
+                    aria-hidden="true"
+                  >
+                    <Icon name="file" kieu="net" className="size-7" />
+                  </span>
                   {choDuyet && coTheDuyet ? (
                     <input
                       type="checkbox"
@@ -368,7 +375,7 @@ export default function QuanTriCauHoi({ loaderData, actionData }: Route.Componen
                     <p className="flex flex-wrap items-center gap-2 text-sm">
                       <span className="font-mono font-semibold">{q.code}</span>
                       <Badge tone={TONE_TRANG_THAI[q.status]}>{TEN_TRANG_THAI[q.status]}</Badge>
-                      <span className="text-ink-2">
+                      <span className="border-l border-line-strong pl-3 text-ink-2">
                         {TEN_LOAI[q.kind]} · {TEN_MUC_DO[q.level]} · {q.topic_name ?? "Chưa có chủ đề"} ·{" "}
                         {TEN_NGUON[q.source]}
                         {q.version > 1 ? ` · phiên bản ${q.version}` : ""}
@@ -382,7 +389,7 @@ export default function QuanTriCauHoi({ loaderData, actionData }: Route.Componen
                     </p>
                     <Link
                       to={`/quan-tri/cau-hoi/${q.id}`}
-                      className="mt-0.5 line-clamp-3 block py-2.5 text-base leading-relaxed hover:text-primary"
+                      className="mt-1 line-clamp-3 block text-base leading-snug text-ink-2 hover:text-primary"
                     >
                       {q.stem}
                     </Link>
@@ -434,11 +441,28 @@ function BoLoc({
 }) {
   const oChon = cn(inputClass, "pr-8");
   return (
-    <Form method="get" className="mt-4 grid gap-3 sm:grid-cols-2 lg:grid-cols-3">
+    <Form
+      method="get"
+      className="mt-3 grid gap-x-6 gap-y-3 rounded-xl border border-line bg-primary-soft/30 px-4 py-3 sm:grid-cols-2 lg:grid-cols-3"
+    >
       {choDuyet ? <input type="hidden" name="tab" value="cho-duyet" /> : null}
       <div className="sm:col-span-2 lg:col-span-3">
         <Label htmlFor="loc-q">Tìm trong đề, mã câu, giải thích</Label>
-        <Input id="loc-q" name="q" type="search" defaultValue={loc.q} placeholder="Ví dụ: nồng độ cồn" />
+        <div className="relative">
+          <Icon
+            name="search"
+            kieu="net"
+            className="pointer-events-none absolute left-4 top-3 size-5 text-ink-2"
+          />
+          <Input
+            id="loc-q"
+            name="q"
+            type="search"
+            defaultValue={loc.q}
+            placeholder="Ví dụ: nồng độ cồn"
+            className="pl-12"
+          />
+        </div>
       </div>
       <div>
         <Label htmlFor="loc-chu-de">Chủ đề</Label>
@@ -500,7 +524,7 @@ function BoLoc({
       </div>
       <div className="flex items-end">
         {loc.viec ? <input type="hidden" name="viec" value={loc.viec} /> : null}
-        <Button type="submit" variant="secondary" className="w-full">
+        <Button type="submit" variant="secondary" icon="loc" className="w-full text-primary">
           Lọc
         </Button>
       </div>
@@ -548,8 +572,23 @@ function NutDuyet({ q, busy }: { q: CauHoi; busy: boolean }) {
 
 function NhapExcel({ busy }: { busy: boolean }) {
   return (
-    <details className="mt-4 rounded-xl border border-line bg-surface p-4">
-      <summary className="flex min-h-11 cursor-pointer items-center font-semibold">
+    <details className="mt-3 rounded-xl border border-line bg-surface px-5 py-3">
+      <summary className="flex min-h-12 cursor-pointer list-none items-center gap-5 text-lg font-semibold [&::-webkit-details-marker]:hidden">
+        <span
+          className="grid size-11 shrink-0 place-items-center rounded-xl bg-primary-soft text-ok"
+          aria-hidden="true"
+        >
+          <svg viewBox="0 0 24 24" fill="none" className="size-7">
+            <path
+              d="M14 4h7v16h-7M17 8h2m-2 4h2m-2 4h2"
+              stroke="currentColor"
+              strokeWidth="2"
+              strokeLinejoin="round"
+            />
+            <path d="m3 4 12-2v20L3 20Z" fill="currentColor" />
+            <path d="m6 8 5 8m0-8-5 8" stroke="var(--surface)" strokeWidth="1.8" />
+          </svg>
+        </span>
         Nhập câu hỏi từ Excel
       </summary>
       <p className="mt-2 text-sm leading-relaxed text-ink-2">
@@ -671,8 +710,18 @@ function SinhBangAi({
     return () => clearInterval(hen);
   }, [dangSinh, revalidator]);
   return (
-    <details id="sinh-ai" open={mo || dangSinh} className="mt-4 rounded-xl border border-line bg-surface p-4">
-      <summary className="flex min-h-11 cursor-pointer items-center font-semibold">
+    <details
+      id="sinh-ai"
+      open={mo || dangSinh}
+      className="mt-3 rounded-xl border border-line bg-surface px-5 py-3"
+    >
+      <summary className="flex min-h-12 cursor-pointer list-none items-center gap-5 text-lg font-semibold [&::-webkit-details-marker]:hidden">
+        <span
+          className="grid size-11 shrink-0 place-items-center rounded-xl bg-primary-soft text-primary"
+          aria-hidden="true"
+        >
+          <Icon name="ai" kieu="net" className="size-7" />
+        </span>
         Sinh câu hỏi bằng AI
       </summary>
       <p className="mt-2 text-sm leading-relaxed text-ink-2">

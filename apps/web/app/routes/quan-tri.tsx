@@ -25,7 +25,7 @@ const GROUPS: Array<{
   label: string;
   icon: IconName;
   vaiTro: VaiTro;
-  items: Array<{ to: string; label: string; end?: boolean }>;
+  items: Array<{ to: string; label: string; icon: IconName; end?: boolean }>;
 }> = [
   {
     // Trang đầu và báo cáo lấy cán bộ làm trung tâm: tổng quan, danh sách cán bộ, hồ sơ từng người.
@@ -33,8 +33,8 @@ const GROUPS: Array<{
     icon: "chart",
     vaiTro: "lanh_dao",
     items: [
-      { to: "/quan-tri", label: "Tổng quan", end: true },
-      { to: "/quan-tri/bao-cao", label: "Báo cáo" },
+      { to: "/quan-tri", label: "Tổng quan", icon: "luoi", end: true },
+      { to: "/quan-tri/bao-cao", label: "Báo cáo", icon: "chart" },
     ],
   },
   {
@@ -42,8 +42,8 @@ const GROUPS: Array<{
     icon: "nhom",
     vaiTro: "lanh_dao",
     items: [
-      { to: "/quan-tri/don-vi", label: "Đơn vị" },
-      { to: "/quan-tri/nguoi-dung", label: "Người dùng" },
+      { to: "/quan-tri/don-vi", label: "Đơn vị", icon: "donVi" },
+      { to: "/quan-tri/nguoi-dung", label: "Người dùng", icon: "user" },
     ],
   },
   {
@@ -53,27 +53,27 @@ const GROUPS: Array<{
     icon: "cap",
     vaiTro: "lanh_dao",
     items: [
-      { to: "/quan-tri/de-thi", label: "Đề thi" },
-      { to: "/quan-tri/giao-bai", label: "Giao bài" },
-      { to: "/quan-tri/nhom", label: "Nhóm học cùng" },
+      { to: "/quan-tri/de-thi", label: "Đề thi", icon: "steps" },
+      { to: "/quan-tri/giao-bai", label: "Giao bài", icon: "chiaSe" },
+      { to: "/quan-tri/nhom", label: "Nhóm học cùng", icon: "nhom" },
     ],
   },
   {
     // Thêm, sửa, xóa văn bản trong kho; xóa cần Admin quản trị (API kiểm quyền).
     label: "Kho văn bản",
-    icon: "file",
+    icon: "thuMuc",
     vaiTro: "quan_ly",
-    items: [{ to: "/quan-tri/van-ban", label: "Văn bản" }],
+    items: [{ to: "/quan-tri/van-ban", label: "Văn bản", icon: "vanBan" }],
   },
   {
     label: "Đào tạo",
     icon: "book",
     vaiTro: "quan_ly",
     items: [
-      { to: "/quan-tri/cau-hoi", label: "Ngân hàng câu hỏi" },
-      { to: "/quan-tri/du-lieu-tra-cuu", label: "Duyệt dữ liệu tra cứu" },
-      { to: "/quan-tri/chuyen-de", label: "Chuyên đề" },
-      { to: "/quan-tri/cham-tu-luan", label: "Chấm tự luận" },
+      { to: "/quan-tri/cau-hoi", label: "Ngân hàng câu hỏi", icon: "help" },
+      { to: "/quan-tri/du-lieu-tra-cuu", label: "Duyệt dữ liệu tra cứu", icon: "search" },
+      { to: "/quan-tri/chuyen-de", label: "Chuyên đề", icon: "book" },
+      { to: "/quan-tri/cham-tu-luan", label: "Chấm tự luận", icon: "pencil" },
     ],
   },
 ];
@@ -173,7 +173,7 @@ export default function QuanTriLayout({ loaderData }: Route.ComponentProps) {
                             )
                           }
                         >
-                          <Icon name={m.end ? "luoi" : "file"} className="mr-3 size-5" />
+                          <Icon name={m.icon} className="mr-3 size-5 shrink-0" />
                           {m.label}
                         </NavLink>
                       </li>
@@ -189,7 +189,9 @@ export default function QuanTriLayout({ loaderData }: Route.ComponentProps) {
       <div className="min-w-0 px-4 py-8 md:px-6 lg:p-8">
         <div
           className={
-            pathname === "/quan-tri/bao-cao"
+            ["/quan-tri/de-thi", "/quan-tri/giao-bai", "/quan-tri/nhom", "/quan-tri/chuyen-de"].includes(
+              pathname,
+            )
               ? "min-w-0"
               : "khung-trang min-w-0 rounded-2xl border border-line bg-surface p-4 shadow-card sm:p-6"
           }

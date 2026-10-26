@@ -8,7 +8,6 @@ import {
   Scripts,
   ScrollRestoration,
   useLocation,
-  useRouteError,
 } from "react-router";
 
 import "./styles/app.css";
@@ -19,7 +18,7 @@ import { SiteFooter } from "./components/layout/SiteFooter";
 import { SiteHeader } from "./components/layout/SiteHeader";
 import { ThanhTaiTrang } from "./components/layout/ThanhTaiTrang";
 import { TrangThaiMang } from "./components/layout/TrangThaiMang";
-import { ButtonLink } from "./components/ui/Button";
+import { buttonClass } from "./components/ui/Button";
 import { KhungTrang, TieuDeTrang } from "./components/ui/KhungTrang";
 import { VungThongBaoNhanh } from "./components/ui/ThongBaoNhanh";
 import { nguoiDungHienTai } from "./lib/auth.server";
@@ -130,8 +129,7 @@ export default function App({ loaderData }: Route.ComponentProps) {
   );
 }
 
-export function ErrorBoundary() {
-  const error = useRouteError();
+export function ErrorBoundary({ error }: Route.ErrorBoundaryProps) {
   // Không có dữ liệu mẫu thay thế: báo lỗi còn hơn để người đọc tưởng nội dung minh hoạ là quy
   // định pháp luật. Chỉ nói vấn đề, không lộ thông báo thô của máy chủ (trừ khi đang phát triển).
   let title = "Không tải được dữ liệu";
@@ -148,10 +146,10 @@ export function ErrorBoundary() {
           <p className="mt-3 text-ink-2">
             Trang này cần kết nối mạng. Trong lúc chờ, bạn vẫn luyện tập được các chủ đề đã tải về máy.
           </p>
-          {/* reloadDocument: như liên kết ở TrangThaiMang, để service worker trả trang đã giữ. */}
-          <ButtonLink to="/luyen-tap/offline" reloadDocument className="mt-8 min-h-12">
+          {/* Liên kết HTML vẫn hoạt động khi router hoặc module phía client gặp lỗi. */}
+          <a href="/luyen-tap/offline" className={buttonClass({ className: "mt-8 min-h-12" })}>
             Luyện tập không cần mạng
-          </ButtonLink>
+          </a>
         </KhungTrang>
       </main>
     );
@@ -177,9 +175,16 @@ export function ErrorBoundary() {
         </p>
         <TieuDeTrang icon="alert">{title}</TieuDeTrang>
         <p className="mt-3 text-ink-2">{detail}</p>
-        <ButtonLink to="/" className="mt-8">
+        <a href="/" className={buttonClass({ className: "mt-8" })}>
           Về trang chủ
-        </ButtonLink>
+        </a>
+        <button
+          type="button"
+          onClick={() => window.location.reload()}
+          className={buttonClass({ variant: "secondary", className: "mt-8 ml-3" })}
+        >
+          Tải lại trang
+        </button>
       </KhungTrang>
     </main>
   );

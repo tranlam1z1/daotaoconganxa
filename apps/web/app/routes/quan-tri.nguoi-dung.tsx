@@ -11,8 +11,10 @@
  *
  * Bấm một dòng mở hộp thông tin chi tiết; quản trị viên sửa, khóa, đặt lại mật khẩu ngay trong hộp đó.
  */
+
 import { type ReactNode, useEffect, useRef, useState } from "react";
 import { Form, Link, useFetcher, useNavigation, useSearchParams } from "react-router";
+import { NHOM_HOC_TAP, TEN_NHOM_HOC_TAP } from "../../../../packages/dao-tao/src/nhom-doi-tuong";
 import { Badge } from "../components/ui/Badge";
 import { Button, ButtonLink } from "../components/ui/Button";
 import { EmptyState } from "../components/ui/EmptyState";
@@ -36,6 +38,7 @@ interface NguoiDungHang {
   email: string | null;
   name: string | null;
   role: string;
+  nhom_doi_tuong: string[];
   enabled: boolean;
   unit_id: string | null;
   unit_code: string | null;
@@ -146,6 +149,7 @@ export async function action({ request }: Route.ActionArgs): Promise<KetQuaThaoT
             username: chuoi("username"),
             name: chuoi("name"),
             role: chuoi("role") || "can_bo",
+            nhomDoiTuong: f.getAll("nhomDoiTuong").map(String),
             unitId: chuoi("unitId") || null,
             rankTitle: chuoi("rankTitle") || null,
             email: chuoi("email") || null,
@@ -187,6 +191,7 @@ export async function action({ request }: Route.ActionArgs): Promise<KetQuaThaoT
         body: {
           name: chuoi("name") || undefined,
           role: chuoi("role"),
+          nhomDoiTuong: f.getAll("nhomDoiTuong").map(String),
           unitId: chuoi("unitId") || null,
           rankTitle: chuoi("rankTitle") || null,
         },
@@ -417,6 +422,25 @@ function TruongNguoiDung({ u, donVi }: { u?: NguoiDungHang; donVi: DonVi[] }) {
         <Label htmlFor={`vt-${id}`}>Vai trò</Label>
         <ChonVaiTro id={`vt-${id}`} macDinh={u?.role} />
       </div>
+      <fieldset className="sm:col-span-2">
+        <legend className="mb-2 text-sm font-medium">Nhóm đối tượng học tập</legend>
+        <div className="flex flex-wrap gap-4">
+          {NHOM_HOC_TAP.map((nhom) => (
+            <label key={nhom} className="flex items-center gap-2 text-sm">
+              <input
+                type="checkbox"
+                name="nhomDoiTuong"
+                value={nhom}
+                defaultChecked={u?.nhom_doi_tuong?.includes(nhom) ?? false}
+              />
+              {TEN_NHOM_HOC_TAP[nhom]}
+            </label>
+          ))}
+        </div>
+        <p className="mt-2 text-sm text-ink-3">
+          Có thể chọn nhiều nhóm. Nhóm học tập không thay đổi quyền quản lý.
+        </p>
+      </fieldset>
       <div>
         <Label htmlFor={`cb-${id}`}>Cấp bậc, chức vụ</Label>
         <Input id={`cb-${id}`} name="rankTitle" defaultValue={u?.rank_title ?? ""} />
@@ -514,6 +538,11 @@ function ChiTietNguoiDung({
         </Dong>
         {u.email ? <Dong nhan="Email">{u.email}</Dong> : null}
         <Dong nhan="Vai trò">{TEN_VAI_TRO[u.role] ?? u.role}</Dong>
+        <Dong nhan="Nhóm đối tượng">
+          {(u.nhom_doi_tuong ?? [])
+            .map((nhom) => TEN_NHOM_HOC_TAP[nhom as keyof typeof TEN_NHOM_HOC_TAP] ?? nhom)
+            .join(", ") || "Chưa gắn nhóm"}
+        </Dong>
         <Dong nhan="Đơn vị">
           {u.unit_name ? `${u.unit_name}${u.unit_code ? ` (${u.unit_code})` : ""}` : "Chưa gắn đơn vị"}
         </Dong>

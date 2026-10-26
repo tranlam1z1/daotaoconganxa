@@ -1,0 +1,37 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="480" height="160" viewBox="0 0 480 160" fill="none">
+  <defs>
+    <linearGradient id="wash" x1="65" y1="80" x2="480" y2="80" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#eff6ff" stop-opacity="0"/>
+      <stop offset="1" stop-color="#dbeafe"/>
+    </linearGradient>
+  </defs>
+  <path fill="url(#wash)" d="M0 0h480v160H0z"/>
+  <circle cx="339" cy="80" r="94" fill="#eff6ff"/>
+  <g stroke="#bfdbfe" stroke-width="2" stroke-dasharray="4 6">
+    <path d="M158 94h45m143-44h42v43m-57 31h65"/>
+    <circle cx="421" cy="101" r="27"/>
+  </g>
+  <g transform="translate(213 24)">
+    <rect width="143" height="99" rx="10" fill="#fff" stroke="#93c5fd" stroke-width="2"/>
+    <path d="M1 24h141" stroke="#bfdbfe" stroke-width="2"/>
+    <circle cx="12" cy="12" r="3" fill="#60a5fa"/>
+    <circle cx="23" cy="12" r="3" fill="#bfdbfe"/>
+    <circle cx="34" cy="12" r="3" fill="#bfdbfe"/>
+    <path d="m72 34-25 12h50L72 34Z" fill="#60a5fa"/>
+    <path d="M52 51v20m13-20v20m14-20v20m13-20v20M47 76h50" stroke="#60a5fa" stroke-width="5"/>
+    <path d="M61 101v12m22-12v12m-36 1h50" stroke="#93c5fd" stroke-width="4" stroke-linecap="round"/>
+  </g>
+  <g transform="translate(160 56) rotate(-8)">
+    <rect width="61" height="78" rx="7" fill="#fff" stroke="#93c5fd" stroke-width="2"/>
+    <rect x="12" y="14" width="22" height="8" rx="3" fill="#bfdbfe"/>
+    <path d="M12 34h37M12 45h30M12 56h19" stroke="#bfdbfe" stroke-width="4" stroke-linecap="round"/>
+    <circle cx="48" cy="69" r="13" fill="#dcfce7" stroke="#86efac" stroke-width="2"/>
+    <path d="m42 69 4 4 8-9" stroke="#16a34a" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
+  </g>
+  <g transform="translate(339 71) rotate(8)">
+    <rect width="43" height="66" rx="7" fill="#fff" stroke="#93c5fd" stroke-width="2"/>
+    <path d="M15 8h13M18 58h7" stroke="#93c5fd" stroke-width="3" stroke-linecap="round"/>
+    <path d="m22 20-11 4v9c0 9 11 14 11 14s11-5 11-14v-9l-11-4Z" fill="#dbeafe"/>
+    <path d="m16 33 4 4 8-9" stroke="#3b82f6" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
+  </g>
+</svg>

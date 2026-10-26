@@ -746,11 +746,8 @@
   --thanh-duoi: 0px;
   --thanh-duoi-noi: 0px;
 }
-/* Ứng dụng cài trên máy (PWA) khi chưa đăng nhập: ẩn menu (thanh dưới cùng, menu ngang đầu trang). */
+/* Ứng dụng cài trên máy (PWA): menu dùng cùng điều kiện hiển thị với trình duyệt. */
 @media (display-mode: standalone) {
-  .chua-dang-nhap .menu-chinh {
-    display: none;
-  }
   /*
    * PWA: chỉ phần nội dung cuộn. Đầu trang dính sẵn (sticky), thanh dưới cùng cố định và không ẩn khi
    * cuộn (BottomNav.tsx); bỏ hiệu ứng nảy để kéo quá đầu/cuối trang không lôi theo đầu trang và menu.
@@ -779,14 +776,6 @@
   }
   :root[data-an-thanh-duoi] .co-thanh-duoi {
     --thanh-duoi-noi: 0px;
-  }
-  /* Ứng dụng cài trên máy (PWA), chưa đăng nhập: không có thanh dưới cùng nên bỏ luôn chỗ chừa cho nó. */
-  @media (display-mode: standalone) {
-    .chua-dang-nhap.co-thanh-duoi {
-      --thanh-duoi: 0px;
-      --thanh-duoi-noi: 0px;
-      padding-bottom: 0;
-    }
   }
 
   /* Chữ tối thiểu 14px: nâng text-xs (12px) của Tailwind. */
@@ -1516,3 +1505,25 @@
 .giao-bai-trong { padding-top: 8px; padding-bottom: 12px; }
 .giao-bai-trong > span { background: var(--primary-soft); }
 .giao-bai-trong > p { margin-top: 4px; }
+
+/* Hai lối vào dịch vụ và tra cứu trên trang chủ. */
+.loi-vao-dich-vu { position: relative; isolation: isolate; overflow: hidden; }
+.loi-vao-dich-vu::before,
+.tra-vi-pham-trang-chu::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background: linear-gradient(90deg, var(--surface) 30%, transparent 75%), url("/images/dich-vu-cong.svg") right center / auto 100% no-repeat;
+  opacity: 0.65;
+}
+.tra-vi-pham-trang-chu::before {
+  background: linear-gradient(90deg, var(--surface) 55%, transparent), url("/images/trong-dong.svg") right center / auto 160% no-repeat;
+  opacity: 0.12;
+}
+@media (max-width: 639px) {
+  .loi-vao-dich-vu::before {
+    background: linear-gradient(90deg, var(--surface) 55%, transparent), url("/images/dich-vu-cong.svg") right -60px center / auto 100% no-repeat;
+    opacity: 0.12;
+  }
+}

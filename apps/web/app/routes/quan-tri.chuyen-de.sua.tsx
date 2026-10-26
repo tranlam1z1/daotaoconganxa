@@ -8,8 +8,10 @@
  * Chuyên đề do AI soạn (tạo từ tệp PDF) có thêm khung tiến độ, tự tải lại mỗi 4 giây khi còn việc
  * đang chạy, và một nút đưa mọi bài đạt bảng kiểm tới duyệt hoặc xuất bản trong một lần bấm.
  */
+
 import { useEffect, useState } from "react";
 import { Form, Link, redirect, useNavigation, useRevalidator } from "react-router";
+import { NHOM_HOC_TAP, TEN_NHOM_HOC_TAP } from "../../../../packages/dao-tao/src/nhom-doi-tuong";
 import { NutTrangThai } from "../components/quan-tri/NutTrangThai";
 import { Badge } from "../components/ui/Badge";
 import { Button, ButtonLink } from "../components/ui/Button";
@@ -26,7 +28,6 @@ import {
   type ChiTietChuyenDe,
   homNay,
   type KetQuaChuyenNhieuBai,
-  type LinhVucQuanTri,
   TEN_CAP_DO,
   TEN_NHOM_DOI_TUONG,
   TEN_TRANG_THAI,
@@ -44,13 +45,8 @@ export function meta({ data }: Route.MetaArgs) {
 
 export async function loader({ request, params }: Route.LoaderArgs) {
   const { token, nguoiDung } = await yeuCauVaiTro(request, "quan_ly");
-  const { items: linhVuc } = await goiApiQuanTri<{ items: LinhVucQuanTri[] }>(
-    token,
-    "/v1/quan-tri/dao-tao/linh-vuc",
-  );
   if (!params.slug) {
     return {
-      linhVuc,
       chiTiet: null,
       bangKiem: null,
       datDuoc: [],
@@ -76,11 +72,12 @@ export async function loader({ request, params }: Route.LoaderArgs) {
       `/v1/quan-tri/dao-tao/chuyen-de/${chiTiet.chuyenDe.id}/soan`,
     ),
   ]);
-  const datDuoc = trangThaiDatDuoc(chiTiet.chuyenDe.status, (v) => duVaiTro(nguoiDung, v));
+  const datDuoc = trangThaiDatDuoc(chiTiet.chuyenDe.status, (v) => duVaiTro(nguoiDung, v)).filter(
+    (trangThai) => trangThai !== "xuat_ban" || chiTiet.chuyenDe.nhomHocTap.length > 0,
+  );
   // `?deThi=`: đề thi vừa tạo kèm chuyên đề này từ cùng một tệp PDF.
   const deThi = new URL(request.url).searchParams.get("deThi") ?? "";
   return {
-    linhVuc,
     chiTiet,
     bangKiem,
     datDuoc,
@@ -150,13 +147,12 @@ export async function action({ request, params }: Route.ActionArgs): Promise<Ket
       );
       if (trung) return { loi: `Đường dẫn "${slug}" đã có chuyên đề khác dùng. Hãy đặt đường dẫn khác.` };
     }
-    const fieldId = String(f.get("fieldId") ?? "");
     const body = {
       slug,
       title: String(f.get("title") ?? "").trim(),
       summary: String(f.get("summary") ?? "").trim() || null,
-      fieldId: fieldId || null,
       audienceGroup: String(f.get("audienceGroup") ?? "khach_hang"),
+      nhomHocTap: f.getAll("nhomHocTap").map(String),
       level: String(f.get("level") ?? "co_ban"),
       asOf: String(f.get("asOf") ?? ""),
       ordinal: Number(f.get("ordinal") ?? 0) || 0,
@@ -244,7 +240,7 @@ function KhungTienDo({ tienDo, id, ban }: { tienDo: TienDoSoan; id: string; ban:
 }
 
 export default function SuaChuyenDe({ loaderData, actionData }: Route.ComponentProps) {
-  const { linhVuc, chiTiet, bangKiem, datDuoc, tienDo, coTheXuatBan, deThiKem } = loaderData;
+  const { chiTiet, bangKiem, datDuoc, tienDo, coTheXuatBan, deThiKem } = loaderData;
   const busy = useNavigation().state !== "idle";
   const revalidator = useRevalidator();
   const dangSoan = Boolean(tienDo?.dang_chay);
@@ -304,18 +300,15 @@ export default function SuaChuyenDe({ loaderData, actionData }: Route.ComponentP
         </Notice>
       ) : null}
 
-      {cd && !cd.fieldId ? (
-        <Notice tone="danger" className="mt-4">
-          Chuyên đề chưa gắn lĩnh vực nên không hiện ở trang Học, kể cả khi đã xuất bản.
-        </Notice>
-      ) : null}
-
       {cd ? (
         <div className="mt-4 space-y-2">
           <p className="text-sm text-ink-2">
             Thứ tự duyệt: Bản nháp → Đang biên tập → Chờ duyệt → Đã xuất bản. Xuất bản cần vai trò Admin quản
             lý trở lên.
           </p>
+          {!cd.nhomHocTap.length ? (
+            <Notice tone="danger">Chọn và lưu ít nhất một nhóm đối tượng học tập trước khi xuất bản.</Notice>
+          ) : null}
           <NutTrangThai datDuoc={datDuoc} ban={busy} an={{ id: cd.id }} />
         </div>
       ) : null}
@@ -339,7 +332,7 @@ export default function SuaChuyenDe({ loaderData, actionData }: Route.ComponentP
                     type="submit"
                     name="intent"
                     value={coTheXuatBan ? "xuat_ban_tat_ca" : "gui_phap_che_tat_ca"}
-                    disabled={busy}
+                    disabled={busy || (coTheXuatBan && !cd.nhomHocTap.length)}
                   >
                     {coTheXuatBan ? "Xuất bản cả chuyên đề" : "Gửi duyệt tất cả"}
                   </Button>
@@ -442,17 +435,26 @@ export default function SuaChuyenDe({ loaderData, actionData }: Route.ComponentP
               className={cn(inputClass, "py-2")}
             />
           </div>
-          <div>
-            <Label htmlFor="cd-linh-vuc">Lĩnh vực</Label>
-            <select id="cd-linh-vuc" name="fieldId" defaultValue={cd?.fieldId ?? ""} className={inputClass}>
-              <option value="">Chưa gắn</option>
-              {linhVuc.map((l) => (
-                <option key={l.id} value={l.id}>
-                  {l.name}
-                </option>
+          <fieldset>
+            <legend className="mb-2 text-sm font-medium">Nhóm đối tượng học tập</legend>
+            <div className="flex flex-wrap gap-4">
+              {NHOM_HOC_TAP.map((nhom) => (
+                <label key={nhom} className="flex items-center gap-2 text-sm">
+                  <input
+                    type="checkbox"
+                    name="nhomHocTap"
+                    value={nhom}
+                    defaultChecked={cd?.nhomHocTap?.includes(nhom) ?? false}
+                  />
+                  {TEN_NHOM_HOC_TAP[nhom]}
+                </label>
               ))}
-            </select>
-          </div>
+            </div>
+            <p className="mt-2 text-sm text-ink-3">
+              Bắt buộc chọn ít nhất một nhóm trước khi xuất bản. Có thể chọn nhiều nhóm; chọn cả bốn nếu
+              chuyên đề dùng chung.
+            </p>
+          </fieldset>
           <div>
             <Label htmlFor="cd-nhom">Nhóm người học</Label>
             <select
@@ -468,6 +470,7 @@ export default function SuaChuyenDe({ loaderData, actionData }: Route.ComponentP
               ))}
             </select>
           </div>
+
           <div>
             <Label htmlFor="cd-cap">Cấp độ</Label>
             <select id="cd-cap" name="level" defaultValue={cd?.level ?? "co_ban"} className={inputClass}>
@@ -483,7 +486,7 @@ export default function SuaChuyenDe({ loaderData, actionData }: Route.ComponentP
             <Input id="cd-as-of" name="asOf" type="date" required defaultValue={cd?.asOf || homNay()} />
           </div>
           <div>
-            <Label htmlFor="cd-thu-tu">Thứ tự trong lĩnh vực</Label>
+            <Label htmlFor="cd-thu-tu">Thứ tự hiển thị</Label>
             <Input
               id="cd-thu-tu"
               name="ordinal"

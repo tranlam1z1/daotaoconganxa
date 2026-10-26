@@ -14,6 +14,7 @@ export interface NguoiDungHang {
   email: string | null;
   name: string | null;
   role: string;
+  nhom_doi_tuong: string[];
   enabled: boolean;
   unit_id: string | null;
   unit_code: string | null;
@@ -47,7 +48,7 @@ const TU = sql`accounts a LEFT JOIN units u ON u.id = a.unit_id LEFT JOIN units 
 const PHAM_VI = sql`COALESCE(u.path, CASE WHEN a.xac_minh <> 'da_xac_minh' THEN k.path END)`;
 
 const COT = sql`
-  a.id, a.username, a.email, a.name, a.role, a.enabled, a.unit_id,
+  a.id, a.username, a.email, a.name, a.role, a.nhom_doi_tuong, a.enabled, a.unit_id,
   u.code AS unit_code, u.name AS unit_name, u.path::text AS unit_path,
   a.rank_title, a.must_change_password, a.last_login_at, a.created_at,
   a.xac_minh, a.so_hieu, a.phone, a.self_registered, a.don_vi_khai, k.name AS don_vi_khai_name,
@@ -146,6 +147,7 @@ export interface DuLieuNguoiDung {
   rankTitle?: string | null;
   email?: string | null;
   passwordHash: string;
+  nhomDoiTuong?: string[];
 }
 
 /** Tạo tài khoản cán bộ; mật khẩu ban đầu luôn là mật khẩu tạm, bắt đổi ở lần đăng nhập đầu. */
@@ -160,16 +162,17 @@ export async function taoNguoiDung(d: DuLieuNguoiDung, actor: string): Promise<N
     );
   }
   const [row] = (await sql`
-    INSERT INTO accounts (username, name, role, unit_id, rank_title, email, password_hash, must_change_password)
+    INSERT INTO accounts (username, name, role, unit_id, rank_title, email, password_hash, must_change_password, nhom_doi_tuong)
     VALUES (${d.username}, ${d.name}, ${d.role}, ${d.unitId}, ${d.rankTitle ?? null}, ${d.email ?? null},
-            ${d.passwordHash}, true)
+            ${d.passwordHash}, true, ${d.nhomDoiTuong ?? []}::text[])
     RETURNING id`) as any[];
   await sql`INSERT INTO audit_log (actor, action, target, detail)
-            VALUES (${actor}, 'nguoi_dung:tao', ${d.username}, ${sql.json({ role: d.role, unitId: d.unitId } as never)})`;
+            VALUES (${actor}, 'nguoi_dung:tao', ${d.username}, ${sql.json({ role: d.role, unitId: d.unitId, nhomDoiTuong: d.nhomDoiTuong ?? [] } as never)})`;
   return (await layNguoiDung(row.id)) as NguoiDungHang;
 }
 
 export interface SuaNguoiDung {
+  nhomDoiTuong?: string[];
   name?: string;
   role?: string;
   /** null: bỏ gắn đơn vị. */
@@ -184,6 +187,7 @@ export async function suaNguoiDung(id: string, s: SuaNguoiDung, actor: string): 
     UPDATE accounts SET
       name = COALESCE(${s.name?.trim() || null}, name),
       role = COALESCE(${s.role ?? null}, role),
+      nhom_doi_tuong = CASE WHEN ${s.nhomDoiTuong !== undefined} THEN ${s.nhomDoiTuong ?? []}::text[] ELSE nhom_doi_tuong END,
       unit_id = CASE WHEN ${s.unitId !== undefined} THEN ${s.unitId ?? null}::uuid ELSE unit_id END,
       rank_title = CASE WHEN ${s.rankTitle !== undefined} THEN ${s.rankTitle?.trim() || null} ELSE rank_title END,
       enabled = COALESCE(${s.enabled ?? null}, enabled)

@@ -119,6 +119,7 @@ export interface ChiTietChuyenDe {
     asOf: string;
     fieldId: string | null;
     audienceGroup: string;
+    nhomHocTap: string[];
     ordinal: number;
     defaultMode: string;
   };

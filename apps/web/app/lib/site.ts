@@ -30,6 +30,7 @@ export const MAIN_NAV: NavItem[] = [
   // (GĐ16b) cũng thuộc mục này; trên điện thoại có thêm một dòng trong ngăn "Thêm" (câu N1).
   { to: "/luyen-tap", label: "Học & luyện tập", khop: ["/hoc", "/dao-tao", "/nhom"] },
   { to: "/thi", label: "Thi" },
+  { to: "/dich-vu-cong", label: "Dịch vụ công" },
 ];
 
 /* ------------------------------------------------------------------ */
@@ -62,6 +63,7 @@ export const BOTTOM_NAV: MobileNavItem[] = [
  * quản lý trở lên.
  */
 export const MORE_NAV: Array<MobileNavItem & { quanLy?: boolean }> = [
+  { to: "/dich-vu-cong", label: "Dịch vụ công", icon: "file" },
   { to: "/hoi-dap", label: "Hỏi trợ lý AI", icon: "chat" },
   { to: "/nhom", label: "Nhóm học cùng", icon: "nhom" },
   { to: "/huong-dan", label: "Hướng dẫn sử dụng", icon: "help" },

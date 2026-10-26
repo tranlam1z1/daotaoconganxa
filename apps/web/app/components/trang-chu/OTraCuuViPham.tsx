@@ -27,23 +27,36 @@ export function OTraCuuViPham() {
   return (
     <section
       aria-labelledby="tra-vi-pham-tieu-de"
-      className="rounded-2xl border border-line bg-surface p-4 shadow-card sm:p-5"
+      className="tra-vi-pham-trang-chu relative overflow-hidden rounded-xl border border-line bg-surface p-4 shadow-card sm:px-5 sm:py-3"
     >
-      <h2 id="tra-vi-pham-tieu-de" className="flex items-center gap-2 text-lg font-semibold text-primary">
-        <Icon name="search" kieu="net" className="size-6" />
-        Tra cứu vi phạm
-      </h2>
+      <div className="relative flex items-center gap-3">
+        <span className="grid size-10 shrink-0 place-items-center rounded-xl bg-primary-soft text-primary">
+          <Icon name="search" kieu="net" className="size-6" />
+        </span>
+        <div>
+          <h2 id="tra-vi-pham-tieu-de" className="text-lg font-semibold">
+            Tra cứu vi phạm
+          </h2>
+          <p className="mt-0.5 text-sm text-ink-2">Tra cứu mức xử phạt theo hành vi và loại phương tiện.</p>
+        </div>
+      </div>
 
-      <Form method="get" action="/tra-cuu" role="search" className="mt-3">
+      <Form method="get" action="/tra-cuu" role="search" className="relative mt-3">
         <input type="hidden" name="tab" value="hanh-vi" />
         <fieldset>
           <legend className="sr-only">Loại xe</legend>
-          <div className="flex flex-wrap gap-2">
+          <div className="grid grid-cols-3 gap-2 sm:flex sm:flex-wrap">
             {CHIP_XE.map((c) => (
-              <label key={c.value} className="shrink-0">
-                <input type="radio" name="xe" value={c.value} className="peer sr-only" />
-                <span className="lun inline-flex min-h-11 cursor-pointer items-center gap-2 rounded-2xl border border-line-strong bg-surface px-4 text-base text-ink-2 peer-checked:border-2 peer-checked:border-primary peer-checked:bg-primary-soft peer-checked:font-semibold peer-checked:text-primary peer-focus-visible:ring-2 peer-focus-visible:ring-primary">
-                  <Icon name={c.icon} kieu="net" className="size-5" />
+              <label key={c.value} className="min-w-0 sm:shrink-0">
+                <input
+                  type="radio"
+                  name="xe"
+                  value={c.value}
+                  defaultChecked={c.value === "mo_to"}
+                  className="peer sr-only"
+                />
+                <span className="lun flex min-h-11 cursor-pointer items-center justify-center gap-1.5 whitespace-nowrap rounded-lg border border-transparent bg-surface-2 px-1.5 text-sm text-ink-2 peer-checked:bg-primary peer-checked:font-semibold peer-checked:text-white peer-focus-visible:ring-2 peer-focus-visible:ring-primary sm:px-4">
+                  <Icon name={c.icon} kieu="net" className="size-4 shrink-0 sm:size-5" />
                   {c.label}
                 </span>
               </label>
@@ -51,11 +64,12 @@ export function OTraCuuViPham() {
             <Link
               to="/tra-cuu?tab=hanh-vi"
               aria-label="Tra cứu theo chủ đề"
-              className="lun inline-flex min-h-11 shrink-0 items-center rounded-2xl border border-line-strong bg-surface px-4 text-ink-2 dong-bam"
+              className="lun inline-flex min-h-11 min-w-0 items-center justify-center gap-1.5 rounded-lg bg-surface-2 px-1.5 text-sm text-ink-2 dong-bam sm:shrink-0 sm:px-4"
             >
               <span aria-hidden="true" className="text-xl leading-none font-bold tracking-widest">
                 •••
               </span>
+              Khác
             </Link>
           </div>
         </fieldset>
@@ -63,43 +77,49 @@ export function OTraCuuViPham() {
         <label htmlFor="o-tim-vi-pham" className="sr-only">
           Hành vi vi phạm
         </label>
-        <div className="relative mt-3">
+        <div className="mt-3 flex flex-col gap-2 sm:flex-row sm:gap-0 sm:rounded-lg sm:border sm:border-line-strong sm:bg-surface sm:focus-within:border-primary">
+          <div className="relative flex min-w-0 flex-1 items-center rounded-lg border border-line-strong bg-surface focus-within:border-primary sm:rounded-r-none sm:border-0 sm:bg-transparent">
+            <Icon
+              name="search"
+              sac="trung"
+              className="pointer-events-none absolute left-4 top-3.5 size-5 text-ink-2"
+            />
+            <input
+              ref={inputRef}
+              id="o-tim-vi-pham"
+              name="q"
+              type="search"
+              placeholder="Tra cứu từ khóa vi phạm"
+              autoComplete="off"
+              enterKeyHint="search"
+              className={cn(
+                "min-h-12 w-full min-w-0 rounded-lg bg-transparent pl-11 pr-3 text-base text-ink placeholder:text-ink-3 focus:outline-none sm:rounded-r-none sm:text-sm",
+              )}
+            />
+            {g.hoTro ? (
+              <button
+                type="button"
+                aria-pressed={g.dangNghe}
+                aria-label={g.dangNghe ? "Đang nghe, bấm để dừng" : "Tìm bằng giọng nói"}
+                onClick={g.dangNghe ? g.dung : g.batDau}
+                className={cn(
+                  "lun mr-1 grid size-11 shrink-0 place-items-center rounded-lg",
+                  g.dangNghe
+                    ? "bg-danger-soft text-danger motion-safe:animate-pulse"
+                    : "text-ink-2 hover:bg-surface-2",
+                )}
+              >
+                <Icon name="mic" sac="trung" className="size-6" />
+              </button>
+            ) : null}
+          </div>
           <button
             type="submit"
-            aria-label="Tra cứu"
-            className="lun absolute inset-y-1.5 left-1.5 grid w-11 place-items-center rounded-xl text-ink-2 hover:bg-surface-2"
+            className="lun flex min-h-12 shrink-0 items-center justify-center gap-2 rounded-lg bg-primary px-4 text-sm font-semibold text-white sm:rounded-l-none sm:px-6"
           >
-            <Icon name="search" sac="trung" className="size-6" />
+            <Icon name="search" kieu="net" className="size-5" />
+            Tra cứu
           </button>
-          <input
-            ref={inputRef}
-            id="o-tim-vi-pham"
-            name="q"
-            type="search"
-            placeholder="Tra cứu từ khóa vi phạm"
-            autoComplete="off"
-            enterKeyHint="search"
-            className={cn(
-              "min-h-14 w-full rounded-2xl border border-line-strong bg-surface pl-14 text-base text-ink placeholder:text-ink-3 focus:border-primary focus:outline-none",
-              g.hoTro ? "pr-14" : "pr-4",
-            )}
-          />
-          {g.hoTro ? (
-            <button
-              type="button"
-              aria-pressed={g.dangNghe}
-              aria-label={g.dangNghe ? "Đang nghe, bấm để dừng" : "Tìm bằng giọng nói"}
-              onClick={g.dangNghe ? g.dung : g.batDau}
-              className={cn(
-                "lun absolute inset-y-1.5 right-1.5 grid w-11 place-items-center rounded-xl",
-                g.dangNghe
-                  ? "bg-danger-soft text-danger motion-safe:animate-pulse"
-                  : "text-ink-2 hover:bg-surface-2",
-              )}
-            >
-              <Icon name="mic" sac="trung" className="size-6" />
-            </button>
-          ) : null}
         </div>
       </Form>
       <p aria-live="polite" className="mt-1 text-sm text-ink-2 empty:hidden">

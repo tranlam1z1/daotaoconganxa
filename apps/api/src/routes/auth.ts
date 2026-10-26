@@ -155,6 +155,7 @@ async function moTa(principal: Principal) {
     phai_doi_mat_khau: Boolean(principal.mustChangePassword),
     ten: principal.name ?? null,
     vai_tro: principal.role,
+    nhom_doi_tuong: principal.nhomDoiTuong ?? [],
     mo_ta_vai_tro: ROLE_LABEL[principal.role],
     mien: principal.hostedDomain ?? null,
     la_quan_tri: principal.role === "quan_tri",

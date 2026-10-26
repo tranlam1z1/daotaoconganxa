@@ -18,6 +18,7 @@ import {
   laRubric,
   locTheoCheDo,
   mucThanhThao,
+  NHOM_HOC_TAP,
   onThe,
   phanTramBai,
   SO_CAU_KIEM_TRA_CUOI_BAI,
@@ -79,6 +80,16 @@ import { asDate, badRequest, conflict, notFound, parseBody, parseQuery, today } 
 
 export const daoTao = new Hono();
 
+const locNhomHocTapSchema = z.enum([...NHOM_HOC_TAP, "cua_toi", "tat_ca"]).default("tat_ca");
+
+/** Bộ lọc danh mục; không dùng làm quyết định cấp quyền đọc bài. */
+async function nhomLoc(c: Parameters<typeof danhTinh>[0]): Promise<string[] | undefined> {
+  const { nhom } = parseQuery(c, z.object({ nhom: locNhomHocTapSchema }));
+  if (nhom === "tat_ca") return undefined;
+  if (nhom === "cua_toi") return (await batBuocDangNhap(c)).nhomDoiTuong ?? [];
+  return [nhom];
+}
+
 /**
  * Chặn đọc, ghi dữ liệu học tập của người khác (docs/PLAN.md GĐ0 S3). Không có bản ghi thì 404;
  * có nhưng thuộc tài khoản khác thì 403. Id lấy từ URL hay từ body đều phải qua đây.
@@ -120,9 +131,10 @@ const TRANG_THAI_HIEN_DANH_MUC = new Set(["xuat_ban", "bien_tap", "cho_phap_che"
  */
 daoTao.get("/linh-vuc", async (c) => {
   const principal = await danhTinh(c);
+  const nhomHocTap = await nhomLoc(c);
   const [linhVuc, chuyenDe, xongTheoChuyenDe, hoanThanh] = await Promise.all([
     danhSachLinhVuc({ boTrangThai: ["nhap", "ai_soan", "luu_tru"] }),
-    danhSachChuyenDe({ chiXuatBan: false, demBaiXuatBan: true, limit: 500 }),
+    danhSachChuyenDe({ chiXuatBan: false, demBaiXuatBan: true, limit: 500, nhomHocTap }),
     principal?.accountId ? soBaiXongTheoChuyenDe(principal.accountId) : new Map<string, number>(),
     principal?.accountId ? chuyenDeDaHoanThanh(principal.accountId) : null,
   ]);
@@ -132,7 +144,7 @@ daoTao.get("/linh-vuc", async (c) => {
     return r.lesson_count ? Math.round((xong / r.lesson_count) * 100) : 0;
   };
 
-  const hien = chuyenDe.filter((r) => TRANG_THAI_HIEN_DANH_MUC.has(r.status));
+  const hien = chuyenDe.filter((r) => TRANG_THAI_HIEN_DANH_MUC.has(r.status) && r.nhom_hoc_tap.length > 0);
   const slugTheoId = new Map(hien.map((r) => [r.id, r.slug]));
 
   /** Bậc trong cây: chuyên đề cụ thể hoá nằm dưới chuyên đề cha, tối đa 5 bậc để chặn dữ liệu vòng. */
@@ -149,7 +161,22 @@ daoTao.get("/linh-vuc", async (c) => {
   };
 
   return c.json({
-    items: linhVuc.map((lv) => {
+    items: [
+      ...linhVuc,
+      // Biểu mẫu chuyên đề không còn yêu cầu lĩnh vực; vẫn hiển thị chuyên đề chưa gắn.
+      ...(hien.some((r) => r.field_id === null)
+        ? [
+            {
+              id: null,
+              slug: "chuyen-de-khac",
+              name: "Chuyên đề",
+              summary: null,
+              audience_note: null,
+              status: "xuat_ban",
+            },
+          ]
+        : []),
+    ].map((lv) => {
       const cua = hien.filter((r) => r.field_id === lv.id);
       const nhom = (["khach_hang", "tu_van"] as const)
         .map((ma) => ({
@@ -160,6 +187,7 @@ daoTao.get("/linh-vuc", async (c) => {
               slug: r.slug,
               title: r.title,
               summary: r.summary,
+              nhomHocTap: r.nhom_hoc_tap,
               level: r.level,
               lessonCount: r.lesson_count,
               durationMinutes: r.lesson_minutes || null,
@@ -201,7 +229,9 @@ daoTao.get("/chuyen-de", async (c) => {
       limit: z.coerce.number().int().min(1).max(100).default(50),
     }),
   );
+  const nhomHocTap = await nhomLoc(c);
   const rows = await danhSachChuyenDe({
+    nhomHocTap,
     chiXuatBan: true,
     ...(p.doiTuong ? { doiTuong: p.doiTuong } : {}),
     ...(p.q ? { tuKhoa: p.q } : {}),
@@ -214,6 +244,7 @@ daoTao.get("/chuyen-de", async (c) => {
       summary: r.summary,
       level: r.level,
       audience: r.audience,
+      nhomHocTap: r.nhom_hoc_tap,
       tags: r.tags,
       lessonCount: r.lesson_count,
       // Thời lượng của đúng số bài đang mở được, không phải thời lượng của cả lộ trình dự kiến.
@@ -239,7 +270,8 @@ function tomTatLienQuan(r: { slug: string; title: string; status: string } | und
 /** GET /v1/dao-tao/chuyen-de/:slug — chi tiết chuyên đề, lộ trình và tiến độ của người học. */
 daoTao.get("/chuyen-de/:slug", async (c) => {
   const course = await chuyenDeTheoSlug(c.req.param("slug"));
-  if (course?.status !== "xuat_ban") throw notFound("Không tìm thấy chuyên đề");
+  if (course?.status !== "xuat_ban" || !course.nhom_hoc_tap.length)
+    throw notFound("Không tìm thấy chuyên đề");
 
   const [bai, kyNang, lienQuan] = await Promise.all([
     baiHocCuaChuyenDe(course.id, true),
@@ -414,7 +446,8 @@ daoTao.patch("/ghi-danh/:id", async (c) => {
 daoTao.get("/chuyen-de/:slug/bai/:baiSlug", async (c) => {
   const principal = await batBuocDangNhap(c);
   const course = await chuyenDeTheoSlug(c.req.param("slug"));
-  if (course?.status !== "xuat_ban") throw notFound("Không tìm thấy chuyên đề");
+  if (course?.status !== "xuat_ban" || !course.nhom_hoc_tap.length)
+    throw notFound("Không tìm thấy chuyên đề");
   const bai = await baiHocTheoSlug(course.id, c.req.param("baiSlug"));
   if (bai?.status !== "xuat_ban") throw notFound("Bài học chưa xuất bản");
 
@@ -514,7 +547,8 @@ daoTao.get("/chuyen-de/:slug/bai/:baiSlug", async (c) => {
 daoTao.post("/chuyen-de/:slug/bai/:baiSlug/hoan-thanh", async (c) => {
   const principal = await batBuocDangNhap(c);
   const course = await chuyenDeTheoSlug(c.req.param("slug"));
-  if (course?.status !== "xuat_ban") throw notFound("Không tìm thấy chuyên đề");
+  if (course?.status !== "xuat_ban" || !course.nhom_hoc_tap.length)
+    throw notFound("Không tìm thấy chuyên đề");
   const bai = await baiHocTheoSlug(course.id, c.req.param("baiSlug"));
   if (bai?.status !== "xuat_ban") throw notFound("Bài học chưa xuất bản");
   const body = await parseBody(c, z.object({ themGiay: z.number().int().min(0).max(7200).default(0) }));
@@ -891,7 +925,8 @@ daoTao.get("/ghi-danh/:id/tien-do", async (c) => {
 daoTao.get("/chuyen-de/:slug/va-loi/:ma", async (c) => {
   await batBuocDangNhap(c);
   const course = await chuyenDeTheoSlug(c.req.param("slug"));
-  if (course?.status !== "xuat_ban") throw notFound("Không tìm thấy chuyên đề");
+  if (course?.status !== "xuat_ban" || !course.nhom_hoc_tap.length)
+    throw notFound("Không tìm thấy chuyên đề");
 
   const ma = c.req.param("ma");
   const loi = await maLoiTheoCode(ma);

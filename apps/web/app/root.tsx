@@ -111,7 +111,7 @@ export default function App({ loaderData }: Route.ComponentProps) {
         "flex min-h-screen flex-col",
         thanhDuoi && "co-thanh-duoi",
         coCotTrai(pathname) && "co-cot-trai",
-        // Ứng dụng cài trên máy (PWA) mà chưa đăng nhập thì ẩn menu (app.css, .menu-chinh).
+        // Đánh dấu trạng thái đăng nhập cho các thành phần giao diện.
         !nguoiDung && "chua-dang-nhap",
       )}
     >

@@ -12,15 +12,19 @@ const port = Number(process.env.WEB_PORT ?? 3030);
 
 export default defineConfig({
   plugins: [tailwindcss(), reactRouter(), tsconfigPaths()],
+  // React và router phải dùng chung một bản trong workspace, kể cả sau khi Vite tối ưu lại module.
+  resolve: {
+    dedupe: ["react", "react-dom", "react-router", "react-router-dom"],
+  },
+  optimizeDeps: {
+    include: ["react", "react-dom/client", "react/jsx-runtime", "react/jsx-dev-runtime", "react-router"],
+  },
   server: {
     port,
     // Không tự nhảy sang cổng khác: scripts/serve.ts đã giải phóng cổng trước khi chạy,
     // nếu vẫn bận thì phải báo lỗi để biết, chứ không im lặng đổi cổng.
     strictPort: true,
-    allowedHosts: [
-      "resort-nail-deserving.ngrok-free.dev",
-      "66d0-113-160-183-253.ngrok-free.app",
-    ],
+    allowedHosts: ["resort-nail-deserving.ngrok-free.dev", "66d0-113-160-183-253.ngrok-free.app"],
   },
   preview: { port, strictPort: true },
 });

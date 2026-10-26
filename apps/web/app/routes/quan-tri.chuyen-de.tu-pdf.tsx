@@ -128,9 +128,6 @@ export default function TaoChuyenDeTuPdf({ loaderData, actionData }: Route.Compo
               </option>
             ))}
           </select>
-          <p className="mt-1 text-xs text-ink-3">
-            Chuyên đề chưa gắn lĩnh vực thì không hiện ở trang Học, kể cả khi đã xuất bản.
-          </p>
         </div>
 
         <fieldset className="space-y-1">

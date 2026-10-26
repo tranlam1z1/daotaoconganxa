@@ -27,6 +27,8 @@ export default [
 
   // Mục Tra cứu trên header: chọn giữa văn bản và tra cứu nhanh (docs/PLAN.md GĐ5).
   route("tra-cuu", "routes/tra-cuu.tsx"),
+  route("tra-cuu/thu-tuc-hanh-chinh", "routes/thu-tuc-hanh-chinh.tsx"),
+  route("dich-vu-cong", "routes/dich-vu-cong.tsx"),
   route("tra-cuu-nhanh", "routes/tra-cuu-nhanh._index.tsx"),
   route("tra-cuu-nhanh/muc-phat", "routes/tra-cuu-nhanh.muc-phat.tsx"),
   route("tra-cuu-nhanh/toc-do", "routes/tra-cuu-nhanh.toc-do.tsx"),

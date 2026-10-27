@@ -451,8 +451,8 @@ export default function SuaChuyenDe({ loaderData, actionData }: Route.ComponentP
               ))}
             </div>
             <p className="mt-2 text-sm text-ink-3">
-              Bắt buộc chọn ít nhất một nhóm trước khi xuất bản. Có thể chọn nhiều nhóm; chọn cả bốn nếu
-              chuyên đề dùng chung.
+              Bắt buộc chọn ít nhất một nhóm trước khi xuất bản. Có thể chọn nhiều nhóm; chọn cả ba nếu chuyên
+              đề dùng chung.
             </p>
           </fieldset>
           <div>

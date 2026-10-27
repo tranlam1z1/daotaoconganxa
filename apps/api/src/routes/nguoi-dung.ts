@@ -1,3 +1,4 @@
+import { danhSachNhomHocTapSchema } from "../nhom-hoc-tap.ts";
 /**
  * Quản lý đơn vị và người dùng (docs/PLAN.md GĐ2).
  *
@@ -19,7 +20,6 @@ import {
   taoMatKhauTam,
   trongPhamVi,
 } from "@qdpl/auth";
-import { NHOM_HOC_TAP } from "@qdpl/dao-tao";
 import {
   COT_NHAP_NGUOI_DUNG,
   danhSachDonVi,
@@ -116,6 +116,7 @@ export const nguoiDungRoute = new Hono();
 
 const locSchema = z.object({
   don_vi: uuid.optional(),
+  chua_phan_nhom: z.enum(["1", ""]).optional(),
   q: z.string().trim().max(100).optional(),
   xac_minh: z.enum(["cho_duyet", "tu_choi", "chua_xac_minh"]).optional(),
   trang: z.coerce.number().int().min(1).max(10_000).default(1),
@@ -145,6 +146,7 @@ nguoiDungRoute.get("/", async (c) => {
       donViPath,
       q: q.q,
       xacMinh: q.xac_minh,
+      chuaPhanNhom: q.chua_phan_nhom === "1",
       trang: q.trang,
       gioiHan: q.gioi_han,
     }),
@@ -196,10 +198,7 @@ nguoiDungRoute.post("/nhap", async (c) => {
   }
 });
 
-const nhomDoiTuongSchema = z
-  .array(z.enum(NHOM_HOC_TAP))
-  .max(4)
-  .transform((nhom) => [...new Set(nhom)]);
+const nhomDoiTuongSchema = danhSachNhomHocTapSchema;
 
 const taoNguoiDungSchema = z.object({
   nhomDoiTuong: nhomDoiTuongSchema.default([]),

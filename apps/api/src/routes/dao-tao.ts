@@ -1,3 +1,4 @@
+import { maNhomHocTapSchema } from "../nhom-hoc-tap.ts";
 /**
  * API cho người học (ke-hoach/09-a).
  *
@@ -18,7 +19,7 @@ import {
   laRubric,
   locTheoCheDo,
   mucThanhThao,
-  NHOM_HOC_TAP,
+  nhomHocTapHienHanh,
   onThe,
   phanTramBai,
   SO_CAU_KIEM_TRA_CUOI_BAI,
@@ -80,13 +81,13 @@ import { asDate, badRequest, conflict, notFound, parseBody, parseQuery, today } 
 
 export const daoTao = new Hono();
 
-const locNhomHocTapSchema = z.enum([...NHOM_HOC_TAP, "cua_toi", "tat_ca"]).default("tat_ca");
+const locNhomHocTapSchema = z.union([z.enum(["cua_toi", "tat_ca"]), maNhomHocTapSchema]).default("tat_ca");
 
 /** Bộ lọc danh mục; không dùng làm quyết định cấp quyền đọc bài. */
 async function nhomLoc(c: Parameters<typeof danhTinh>[0]): Promise<string[] | undefined> {
   const { nhom } = parseQuery(c, z.object({ nhom: locNhomHocTapSchema }));
   if (nhom === "tat_ca") return undefined;
-  if (nhom === "cua_toi") return (await batBuocDangNhap(c)).nhomDoiTuong ?? [];
+  if (nhom === "cua_toi") return nhomHocTapHienHanh((await batBuocDangNhap(c)).nhomDoiTuong ?? []);
   return [nhom];
 }
 

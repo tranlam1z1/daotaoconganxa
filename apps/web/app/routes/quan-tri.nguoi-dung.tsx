@@ -92,6 +92,7 @@ export async function loader({ request }: Route.LoaderArgs) {
   const qs = new URLSearchParams({ gioi_han: String(MOI_TRANG), trang: p.get("trang") ?? "1" });
   if (p.get("don_vi")) qs.set("don_vi", p.get("don_vi") as string);
   if (p.get("q")) qs.set("q", p.get("q") as string);
+  if (p.get("chua_phan_nhom") === "1") qs.set("chua_phan_nhom", "1");
   if (p.get("xac_minh")) qs.set("xac_minh", p.get("xac_minh") as string);
   const [ds, dv] = await Promise.all([
     goiApiQuanTri<{ items: NguoiDungHang[]; total: number; trang: number; so_cho_xac_minh: number }>(
@@ -759,6 +760,16 @@ export default function QuanTriNguoiDung({ loaderData, actionData }: Route.Compo
             <option value="chua_xac_minh">Chưa được xác minh (cả hai)</option>
           </select>
         </div>
+        <label className="flex min-h-11 items-center gap-2 text-sm">
+          <input
+            key={params.get("chua_phan_nhom")}
+            type="checkbox"
+            name="chua_phan_nhom"
+            value="1"
+            defaultChecked={params.get("chua_phan_nhom") === "1"}
+          />
+          Chưa phân nhóm học tập
+        </label>
         <Button type="submit" variant="secondary" icon="loc">
           Lọc danh sách
         </Button>

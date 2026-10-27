@@ -4,7 +4,12 @@
  * cùng kiểu với thẻ bài ở `/hoc/:course`.
  */
 import { Form } from "react-router";
-import { NHOM_HOC_TAP, TEN_NHOM_HOC_TAP } from "../../../../packages/dao-tao/src/nhom-doi-tuong";
+import {
+  chuanHoaMaNhom,
+  NHOM_HOC_TAP,
+  nhomHocTapHienHanh,
+  TEN_NHOM_HOC_TAP,
+} from "../../../../packages/dao-tao/src/nhom-doi-tuong";
 import { TheBaiHoc } from "../components/bai-giang/TheBaiHoc";
 import { Button } from "../components/ui/Button";
 import { EmptyState } from "../components/ui/EmptyState";
@@ -24,8 +29,10 @@ export function meta(_: Route.MetaArgs) {
 
 export async function loader({ request }: Route.LoaderArgs) {
   const { nguoiDung } = await yeuCauDangNhap(request);
-  const nhomCuaToi = nguoiDung.nhom_doi_tuong ?? [];
-  const nhom = new URL(request.url).searchParams.get("nhom") ?? (nhomCuaToi.length ? "cua_toi" : "tat_ca");
+  const nhomCuaToi = nhomHocTapHienHanh(nguoiDung.nhom_doi_tuong ?? []);
+  const nhom = chuanHoaMaNhom(
+    new URL(request.url).searchParams.get("nhom") ?? (nhomCuaToi.length ? "cua_toi" : "tat_ca"),
+  );
   if (![...NHOM_HOC_TAP, "cua_toi", "tat_ca"].includes(nhom)) {
     throw new Response("Nhóm học tập không hợp lệ.", { status: 400 });
   }
@@ -47,7 +54,7 @@ export default function Training({ loaderData }: Route.ComponentProps) {
           <select key={nhom} id="loc-nhom-hoc" name="nhom" defaultValue={nhom} className={inputClass}>
             <option value="tat_ca">Tất cả chuyên đề</option>
             {nhomCuaToi.length > 0 ? <option value="cua_toi">Theo nhóm của tôi</option> : null}
-            {NHOM_HOC_TAP.filter((ma) => ma !== "cong_an_cap_xa").map((ma) => (
+            {NHOM_HOC_TAP.map((ma) => (
               <option key={ma} value={ma}>
                 {TEN_NHOM_HOC_TAP[ma]}
               </option>

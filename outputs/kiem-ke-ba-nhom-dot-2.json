@@ -1,0 +1,94 @@
+{
+  "database": "quydinhphapluat_test",
+  "generated_at": "2026-10-27T10:00:22.366Z",
+  "tai_khoan_theo_nhom": [
+    {
+      "nhom": [],
+      "so_luong": 4
+    },
+    {
+      "nhom": [
+        "cong_chuc",
+        "dang_vien"
+      ],
+      "so_luong": 2
+    }
+  ],
+  "linh_vuc": [
+    {
+      "slug": "cong-vu-hanh-chinh",
+      "name": "Công vụ và hành chính",
+      "status": "nhap"
+    },
+    {
+      "slug": "nghiep-vu-vien-chuc",
+      "name": "Nghiệp vụ viên chức",
+      "status": "nhap"
+    },
+    {
+      "slug": "cong-tac-dang",
+      "name": "Công tác Đảng",
+      "status": "nhap"
+    }
+  ],
+  "chuyen_de": [
+    {
+      "slug": "cong-chuc-cong-vu-va-xu-ly-cong-viec",
+      "title": "Công vụ và xử lý công việc hành chính",
+      "status": "nhap",
+      "nhom": [
+        "cong_chuc"
+      ],
+      "linh_vuc": "cong-vu-hanh-chinh",
+      "as_of": "2026-10-27T00:00:00.000Z",
+      "so_bai": 0,
+      "ly_do_ra_soat": [
+        "Chưa có bài học"
+      ]
+    },
+    {
+      "slug": "dang-vien-sinh-hoat-va-cong-tac-dang",
+      "title": "Sinh hoạt chi bộ và công tác đảng viên",
+      "status": "nhap",
+      "nhom": [
+        "dang_vien"
+      ],
+      "linh_vuc": "cong-tac-dang",
+      "as_of": "2026-10-27T00:00:00.000Z",
+      "so_bai": 0,
+      "ly_do_ra_soat": [
+        "Chưa có bài học"
+      ]
+    },
+    {
+      "slug": "thong-tu-13-2025-tt-bca-sua-doi-bo-sung-mot-so-dieu-cua-cac-thong-tu-q",
+      "title": "Thông tư 13/2025/TT-BCA: Sửa đổi, bổ sung một số điều của các thông tư quy định về trật tự, an toàn giao thông đường bộ, đường sắt và đường thủy nội địa",
+      "status": "luu_tru",
+      "nhom": [
+        "cong_chuc"
+      ],
+      "linh_vuc": null,
+      "as_of": "2026-10-26T00:00:00.000Z",
+      "so_bai": 4,
+      "ly_do_ra_soat": [
+        "Chưa gắn lĩnh vực",
+        "Tiêu đề có dấu hiệu chuyên ngành giao thông; cần người biên tập xác định phạm vi"
+      ]
+    },
+    {
+      "slug": "vien-chuc-vi-tri-va-dao-duc-nghe-nghiep",
+      "title": "Vị trí việc làm và đạo đức nghề nghiệp của viên chức",
+      "status": "nhap",
+      "nhom": [
+        "vien_chuc"
+      ],
+      "linh_vuc": "nghiep-vu-vien-chuc",
+      "as_of": "2026-10-27T00:00:00.000Z",
+      "so_bai": 0,
+      "ly_do_ra_soat": [
+        "Chưa có bài học"
+      ]
+    }
+  ],
+  "luu_y": "Dấu hiệu từ tiêu đề chỉ phục vụ rà soát; báo cáo không thay thế việc duyệt nội dung và căn cứ."
+}

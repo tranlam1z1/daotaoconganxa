@@ -31,9 +31,9 @@ export default function Home() {
         <div className="mt-3 grid gap-3 sm:grid-cols-3">
           {[
             {
-              ma: "cong_chuc_cap_xa",
+              ma: "cong_chuc",
               ten: "Công chức",
-              moTa: "Chuyên đề dành cho công chức cấp xã trong danh mục hiện có.",
+              moTa: "Chuyên đề dành cho công chức.",
             },
             { ma: "vien_chuc", ten: "Viên chức", moTa: "Chuyên đề dành cho viên chức." },
             { ma: "dang_vien", ten: "Đảng viên", moTa: "Chuyên đề dành cho đảng viên." },

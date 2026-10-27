@@ -104,6 +104,15 @@ describe("đăng ký tài khoản", () => {
     expect(await principalFromToken(phien.token)).toMatchObject({ role: "khach", choXacMinh: true });
   });
 
+  test("đăng ký không có mã cán bộ vẫn lưu đơn vị và chờ xác minh", async () => {
+    const tk = await dangKyTaiKhoan(duLieu("khong-ma", { soHieu: "", capBacChucVu: "Giáo viên" }));
+    expect(await thongTinXacMinh(tk.id)).toMatchObject({
+      trangThai: "cho_duyet",
+      soHieu: null,
+      donVi: { id: DON_VI },
+      capBacChucVu: "Giáo viên",
+    });
+  });
   test("khai lại thông tin sau khi bị từ chối thì vào lại hàng chờ; đã xác minh thì không khai được", async () => {
     const tk = await dangKyTaiKhoan(duLieu("khai-lai"));
     await sql`UPDATE accounts SET xac_minh = 'tu_choi', xac_minh_ly_do = 'Sai số hiệu' WHERE id = ${tk.id}`;

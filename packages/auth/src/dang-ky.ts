@@ -2,7 +2,7 @@
  * Người dùng tự đăng ký tài khoản ở /dang-ky, và khai báo thông tin để được xác minh cán bộ
  * (migration 0064).
  *
- * - Người đăng ký khai số hiệu CAND, đơn vị công tác, cấp bậc/chức vụ. Tài khoản mới ở trạng thái
+ * - Người đăng ký khai mã cán bộ (nếu có), cơ quan hoặc tổ chức Đảng, chức danh/chức vụ. Tài khoản mới ở trạng thái
  *   chờ xác minh, vai trò `khach`: đăng nhập được nhưng chỉ vào trang Tài khoản (xem trạng thái xét
  *   duyệt, sửa thông tin đã khai, đổi mật khẩu); học, luyện tập và thi đều chờ duyệt.
  *   Quản trị viên hoặc cán bộ quản lý của đơn vị đã khai duyệt thì thành cán bộ (`duyetTaiKhoan`
@@ -73,9 +73,12 @@ export interface KhaiBaoXacMinh {
 const UUID = /^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/i;
 
 /** Kiểm và chuẩn hóa thông tin khai báo; đơn vị phải có thật và đang hoạt động. Ném LoiDangKy. */
-async function kiemKhaiBao(kb: KhaiBaoXacMinh): Promise<Required<KhaiBaoXacMinh>> {
-  const soHieu = chuanHoaSoHieu(kb.soHieu);
-  if (!soHieu) throw new LoiDangKy("Số hiệu CAND không hợp lệ.");
+async function kiemKhaiBao(
+  kb: KhaiBaoXacMinh,
+): Promise<Omit<Required<KhaiBaoXacMinh>, "soHieu"> & { soHieu: string | null }> {
+  const soHieu = kb.soHieu.trim() ? chuanHoaSoHieu(kb.soHieu) : null;
+  if (kb.soHieu.trim() && !soHieu)
+    throw new LoiDangKy("Mã cán bộ cần có 4–12 chữ cái hoặc chữ số; để trống nếu không có.");
   const soDienThoai = chuanHoaSoDienThoai(kb.soDienThoai);
   if (!soDienThoai) throw new LoiDangKy("Số điện thoại không hợp lệ.");
   const capBacChucVu = kb.capBacChucVu?.trim().replace(/\s+/g, " ") || null;

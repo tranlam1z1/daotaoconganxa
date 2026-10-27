@@ -260,13 +260,13 @@ function XetXacMinh({
   return (
     <div className="mt-2 rounded-lg border border-line bg-surface-2 p-3">
       <dl className="grid gap-x-4 gap-y-1 text-sm [overflow-wrap:anywhere] sm:grid-cols-[9rem_1fr]">
-        <dt className="text-ink-3">Số hiệu CAND</dt>
+        <dt className="text-ink-3">Mã cán bộ</dt>
         <dd className="font-mono font-medium">{u.so_hieu ?? "Chưa khai"}</dd>
         <dt className="text-ink-3">Đơn vị đã khai</dt>
         <dd className="font-medium">{u.don_vi_khai_name ?? "Chưa khai"}</dd>
         {u.rank_title ? (
           <>
-            <dt className="text-ink-3">Cấp bậc, chức vụ</dt>
+            <dt className="text-ink-3">Chức vụ, chức danh</dt>
             <dd>{u.rank_title}</dd>
           </>
         ) : null}
@@ -290,8 +290,8 @@ function XetXacMinh({
         ) : null}
       </dl>
       <p className="mt-2 text-xs text-ink-3">
-        Đối chiếu họ tên, số hiệu và đơn vị với danh sách cán bộ của đơn vị (hoặc gọi điện xác nhận) trước khi
-        duyệt.
+        Đối chiếu họ tên, mã cán bộ (nếu có) và đơn vị với danh sách của cơ quan hoặc tổ chức Đảng (hoặc gọi
+        điện xác nhận) trước khi duyệt.
       </p>
       <div className="mt-3 grid gap-3 md:grid-cols-2">
         <Form method="post" className="flex flex-col gap-2">
@@ -442,7 +442,7 @@ function TruongNguoiDung({ u, donVi }: { u?: NguoiDungHang; donVi: DonVi[] }) {
         </p>
       </fieldset>
       <div>
-        <Label htmlFor={`cb-${id}`}>Cấp bậc, chức vụ</Label>
+        <Label htmlFor={`cb-${id}`}>Chức vụ, chức danh</Label>
         <Input id={`cb-${id}`} name="rankTitle" defaultValue={u?.rank_title ?? ""} />
       </div>
       {u ? null : (
@@ -546,9 +546,9 @@ function ChiTietNguoiDung({
         <Dong nhan="Đơn vị">
           {u.unit_name ? `${u.unit_name}${u.unit_code ? ` (${u.unit_code})` : ""}` : "Chưa gắn đơn vị"}
         </Dong>
-        {u.rank_title ? <Dong nhan="Cấp bậc, chức vụ">{u.rank_title}</Dong> : null}
+        {u.rank_title ? <Dong nhan="Chức vụ, chức danh">{u.rank_title}</Dong> : null}
         {u.so_hieu ? (
-          <Dong nhan="Số hiệu CAND">
+          <Dong nhan="Mã cán bộ">
             <span className="font-mono">{u.so_hieu}</span>
           </Dong>
         ) : null}

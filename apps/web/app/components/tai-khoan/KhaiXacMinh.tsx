@@ -5,7 +5,7 @@ import { Icon } from "../ui/Icon";
 import { OCoIcon } from "../ui/OCoIcon";
 
 /**
- * Các ô khai báo để được xác minh cán bộ (migration 0064): số hiệu CAND, đơn vị công tác, cấp bậc
+ * Các ô khai báo để được xác minh cán bộ (migration 0064): mã cán bộ (nếu có), cơ quan hoặc tổ chức Đảng, chức danh
  * và chức vụ, và (khi `coSoDienThoai`) số điện thoại. Dùng ở trang đăng ký và trang Tài khoản; tên
  * ô khớp với API (`so_hieu`, `don_vi_id`, `cap_bac_chuc_vu`, `so_dien_thoai`).
  */
@@ -22,22 +22,21 @@ export function KhaiXacMinh({
   return (
     <>
       <Label htmlFor="so-hieu" className="mt-5">
-        Số hiệu CAND
+        Mã cán bộ (không bắt buộc)
       </Label>
       <OCoIcon
         id="so-hieu"
         name="so_hieu"
         icon="shield"
-        required
         maxLength={30}
         autoCapitalize="characters"
         spellCheck={false}
         defaultValue={macDinh?.so_hieu ?? undefined}
-        placeholder="Số hiệu trên thẻ CAND"
+        placeholder="Mã do đơn vị cấp, để trống nếu không có"
       />
 
       <Label htmlFor="don-vi" className="mt-5">
-        Đơn vị công tác
+        Cơ quan, đơn vị hoặc tổ chức Đảng
       </Label>
       <div className="relative">
         <span className="pointer-events-none absolute inset-y-0 left-3 flex items-center text-ink-2">
@@ -52,7 +51,7 @@ export function KhaiXacMinh({
           aria-describedby="don-vi-goi-y"
         >
           <option value="" disabled>
-            {donVi.length ? "Chọn đơn vị của bạn" : "Chưa tải được danh sách đơn vị"}
+            {donVi.length ? "Chọn nơi công tác hoặc sinh hoạt Đảng" : "Chưa tải được danh sách đơn vị"}
           </option>
           {donVi.map((d) => (
             <option key={d.id} value={d.id}>
@@ -63,11 +62,12 @@ export function KhaiXacMinh({
         </select>
       </div>
       <p id="don-vi-goi-y" className="mt-1.5 text-xs text-ink-3">
-        Cán bộ quản lý của đơn vị này đối chiếu thông tin và duyệt tài khoản.
+        Chọn nơi công tác hoặc sinh hoạt Đảng để người quản lý duyệt tài khoản. Nếu chưa có trong danh sách,
+        liên hệ quản trị viên để bổ sung.
       </p>
 
       <Label htmlFor="cap-bac" className="mt-5">
-        Cấp bậc, chức vụ (không bắt buộc)
+        Chức vụ, chức danh (không bắt buộc)
       </Label>
       <OCoIcon
         id="cap-bac"
@@ -75,7 +75,7 @@ export function KhaiXacMinh({
         icon="star"
         maxLength={200}
         defaultValue={macDinh?.cap_bac_chuc_vu ?? undefined}
-        placeholder="Ví dụ: Thượng úy, Cán bộ Đội CSGT"
+        placeholder="Ví dụ: Chuyên viên, Giáo viên, Bí thư chi bộ"
       />
 
       {coSoDienThoai ? (

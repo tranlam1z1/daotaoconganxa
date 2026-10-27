@@ -2,7 +2,7 @@
  * Tự đăng ký tài khoản. Đăng ký xong là đăng nhập luôn (không gửi email kích hoạt) và tới trang Tài
  * khoản xem trạng thái xác minh. Sau này đăng nhập bằng email và mật khẩu ở /dang-nhap.
  *
- * Người đăng ký khai số hiệu CAND, đơn vị công tác, cấp bậc và chức vụ. Tài khoản chờ quản trị viên
+ * Người đăng ký khai mã cán bộ (nếu có), cơ quan hoặc tổ chức Đảng, chức danh và chức vụ. Tài khoản chờ quản trị viên
  * hoặc cán bộ quản lý đơn vị xác minh (migration 0064); trong lúc chờ chỉ dùng được trang Tài khoản
  * và các trang tra cứu công khai.
  */
@@ -94,7 +94,8 @@ export default function DangKy({ loaderData, actionData }: Route.ComponentProps)
           Đăng ký tài khoản
         </TieuDeTrang>
         <p className="mt-2 text-sm leading-relaxed text-ink-2">
-          Tạo tài khoản để học, luyện tập và thi. Tra cứu văn bản không cần đăng nhập.
+          Dành cho cán bộ, công chức, viên chức và đảng viên đăng ký học tập, luyện tập và thi. Tra cứu văn
+          bản không cần đăng nhập.
         </p>
         <p className="mt-2 text-sm leading-relaxed text-ink-2">
           Tài khoản cần được cán bộ quản lý đơn vị hoặc quản trị viên xác minh. Học, luyện tập và thi mở sau

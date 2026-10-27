@@ -27,7 +27,7 @@ export default function TraCuu({ loaderData }: Route.ComponentProps) {
         {[
           {
             to: "/tim-kiem",
-            ten: "Văn bản",
+            ten: "Tất cả văn bản",
             moTa: "Tìm trong kho văn bản hiện có và mở điều, khoản khớp từ khóa.",
           },
           {
@@ -44,6 +44,11 @@ export default function TraCuu({ loaderData }: Route.ComponentProps) {
             to: "/tra-cuu-nhanh/quy-trinh?loai=huong_dan",
             ten: "Tài liệu hướng dẫn",
             moTa: "Tìm tài liệu hướng dẫn nghiệp vụ đã xuất bản.",
+          },
+          {
+            to: "/tim-kiem?family=dang",
+            ten: "Văn bản Đảng",
+            moTa: "Tìm các văn bản đã được phân loại là văn bản Đảng trong kho.",
           },
         ].map((muc) => (
           <Link key={muc.to} to={muc.to} className="rounded-xl border border-line bg-surface p-4 the-bam">

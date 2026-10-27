@@ -184,3 +184,8 @@ Các nguồn này là tham khảo cách tổ chức chức năng; nội dung tri
 - Hướng dẫn áp dụng, sao lưu và phục hồi: docs/nhom-doi-tuong-hoc-tap.md. Chưa chạy migration hoặc triển khai lên môi trường thật.
 
 Kiểm chứng đợt 2: 115 kiểm thử nhóm/người dùng/migration/web và 403 kiểm thử đào tạo/xác thực/thư viện đều đạt (518 tổng cộng); typecheck toàn workspace, build web và kiểm tra định dạng các tệp thay đổi đều qua. API thực tế trả 200 cho ba nhóm và mã công chức cũ, 400 cho nhóm công an. Bản xem thử đợt 2: http://localhost:4189/ (API kiểm tra 4188).
+
+
+## 13. Bàn giao đợt 3 — 27/10/2026
+
+Hoàn thành tra cứu gom theo văn bản, bộ lọc/ngày, tổng kết quả và phân trang đầy đủ; nhánh văn bản Đảng; nguồn và thuộc tính; phiên bản, quan hệ, so sánh; phân trang quy trình/biểu mẫu và loại quy trình ba nhóm. Chi tiết giới hạn, migration 0083–0085 và kiểm chứng: docs/tra-cuu-dot-3.md. 277 kiểm thử đạt trên CSDL riêng; chưa áp dụng môi trường thật. Xem thử http://localhost:4190/tim-kiem.

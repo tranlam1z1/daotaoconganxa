@@ -20,7 +20,7 @@ import {
   type TaiLieuRow,
   tangLuotXem,
   timMucPhat,
-  timTaiLieu,
+  timTaiLieuPage,
   tocDoToiDa,
   trafficPenaltyFrames,
 } from "@qdpl/db";
@@ -237,17 +237,24 @@ traCuuNhanh.get("/tai-lieu", async (c) => {
       xe: xeSchema.optional(),
       nhom: z.enum(CHU_DE_MUC_PHAT, { message: "Loại vi phạm không có trong danh sách." }).optional(),
       gioi_han: z.coerce.number().int().min(1).max(200).default(200),
+      page: z.coerce.number().int().min(1).max(10000).default(1),
     }),
   );
-  const rows = await timTaiLieu({
+  const result = await timTaiLieuPage({
     q: p.q,
     loai: p.loai,
     xe: p.xe,
     nhom: p.nhom,
     limit: p.gioi_han,
+    offset: (p.page - 1) * p.gioi_han,
     gomBanNhap: gomBanNhap(),
   });
-  return c.json({ total: rows.length, items: rows.map(shapeTaiLieu) });
+  return c.json({
+    total: result.total,
+    page: p.page,
+    pages: Math.max(1, Math.ceil(result.total / p.gioi_han)),
+    items: result.items.map(shapeTaiLieu),
+  });
 });
 
 traCuuNhanh.get("/bieu-mau/:ma", async (c) => {

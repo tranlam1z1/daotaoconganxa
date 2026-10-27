@@ -61,9 +61,9 @@ export async function loader({ request }: Route.LoaderArgs) {
 }
 
 const GOI_Y = [
-  "Người điều khiển xe mô tô có nồng độ cồn trong hơi thở bị xử phạt thế nào?",
-  "Ô tô chạy quá tốc độ quy định từ 10 km/h đến 20 km/h bị phạt bao nhiêu tiền?",
-  "Không mang theo giấy phép lái xe khi điều khiển xe máy bị xử phạt ra sao?",
+  "Tìm căn cứ về đánh giá, xếp loại công chức.",
+  "Quy định về hợp đồng làm việc của viên chức nằm trong văn bản nào?",
+  "Tìm văn bản hướng dẫn sinh hoạt chi bộ.",
 ];
 
 export default function AskPage({ loaderData }: Route.ComponentProps) {

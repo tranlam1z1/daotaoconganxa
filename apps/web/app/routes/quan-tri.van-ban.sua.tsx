@@ -136,6 +136,8 @@ export async function action({ request }: Route.ActionArgs): Promise<KetQua> {
       issuedDate: chuHoacNull(f.get("issuedDate")),
       effectiveFrom: chuHoacNull(f.get("effectiveFrom")),
       effectiveTo: chuHoacNull(f.get("effectiveTo")),
+      documentGroup: chu(f.get("documentGroup")) || undefined,
+      sourceUrl: chuHoacNull(f.get("sourceUrl")),
       status: chuHoacNull(f.get("status")),
       summary: chuHoacNull(f.get("summary")),
       fields: chu(f.get("fields"))
@@ -425,6 +427,30 @@ function BieuMauVanBan({ loaderData, actionData }: Pick<Route.ComponentProps, "l
         <input type="hidden" name="intent" value="luu" />
         {tepGoc ? <input type="hidden" name="tepGoc" value={tepGoc} /> : null}
         <div className="grid gap-4 sm:grid-cols-2">
+          <div>
+            <Label htmlFor="vb-nhom">Nhóm văn bản</Label>
+            <select
+              id="vb-nhom"
+              name="documentGroup"
+              defaultValue={d?.documentGroup ?? "chua_phan_loai"}
+              className={inputClass}
+            >
+              <option value="chua_phan_loai">Chưa phân loại</option>
+              <option value="phap_luat">Văn bản pháp luật</option>
+              <option value="dang">Văn bản Đảng</option>
+              <option value="khac">Tài liệu khác</option>
+            </select>
+          </div>
+          <div>
+            <Label htmlFor="vb-nguon">Đường dẫn nguồn (không bắt buộc)</Label>
+            <Input
+              id="vb-nguon"
+              name="sourceUrl"
+              type="url"
+              defaultValue={d?.primarySource?.startsWith("http") ? d.primarySource : ""}
+              placeholder="https://..."
+            />
+          </div>
           {d ? null : (
             <>
               <div>

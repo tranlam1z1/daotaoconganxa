@@ -47,6 +47,7 @@ export async function loader({ params, request }: Route.LoaderArgs) {
   const p = new URL(request.url).searchParams;
   const homNay = todayIso();
   const asOfRaw = p.get("asOf");
+  if (asOfRaw && !isIsoDate(asOfRaw)) throw new Response("Ngày tra cứu không hợp lệ.", { status: 400 });
   const asOf = isIsoDate(asOfRaw) ? asOfRaw : homNay;
   const dieuRaw = (p.get("dieu") ?? "").trim();
   // Liên kết của trang ghi "dieu-15"; người gõ tay "15" hay "3a" cũng hiểu là Điều đó.
@@ -310,9 +311,11 @@ export default function DocumentRead({ loaderData: data, actionData }: Route.Com
       >
         <summary className="flex min-h-11 cursor-pointer items-center gap-2 text-sm text-ink-2">
           <Icon name="calendar" className="size-4" />
-          {data.asOf === data.homNay
-            ? `Nội dung áp dụng hôm nay, ${formatDate(data.asOf)}`
-            : `Nội dung áp dụng ngày ${formatDate(data.asOf)}`}
+          {meta.documentGroup === "dang"
+            ? `Nội dung trong kho tại ngày ${formatDate(data.asOf)}`
+            : data.asOf === data.homNay
+              ? `Nội dung áp dụng hôm nay, ${formatDate(data.asOf)}`
+              : `Nội dung áp dụng ngày ${formatDate(data.asOf)}`}
           <span className="ml-auto font-medium text-primary">Xem theo ngày khác</span>
         </summary>
         <Form method="get" action={base} className="flex flex-wrap items-end gap-3 pb-4">

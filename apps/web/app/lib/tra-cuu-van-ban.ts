@@ -11,6 +11,7 @@ export const TU_KHOA_TOI_DA = 500;
 
 /** Một điều, khoản khớp từ khóa trong văn bản. */
 export interface DieuKhop {
+  trangThai?: string;
   path: string;
   nhan: string;
   snippet: string;
@@ -18,6 +19,13 @@ export interface DieuKhop {
 }
 
 export interface VanBanTraCuu {
+  issuer?: string;
+  primarySource?: string;
+  documentGroup?: string;
+  effectiveFrom?: string;
+  coTepGoc?: boolean;
+  asOf?: string;
+  matchCount?: number;
   urn: string;
   docType: string;
   soKyHieu: string;
@@ -31,6 +39,11 @@ export interface VanBanTraCuu {
 
 export function tuVanBan(d: DocumentListItem): VanBanTraCuu {
   return {
+    issuer: d.issuer,
+    primarySource: d.primarySource,
+    documentGroup: d.documentGroup,
+    effectiveFrom: d.effectiveFrom,
+    coTepGoc: d.coTepGoc,
     urn: d.urn,
     docType: d.docType,
     soKyHieu: d.soKyHieu,
@@ -83,4 +96,22 @@ export function gopTheoVanBan(hits: SearchHit[]): VanBanTraCuu[] {
     });
   }
   return [...theoUrn.values()];
+}
+
+export function tuKetQuaVanBan(d: import("./api").GroupedDocumentItem, asOf: string): VanBanTraCuu {
+  const vb = tuVanBan(d);
+  vb.asOf = asOf;
+  vb.matchCount = d.matchCount;
+  vb.khop = d.matches.map((m) => ({
+    trangThai: m.nodeStatus,
+    path: m.path,
+    nhan: m.path.includes(".")
+      ? pathToCitationPhrase(m.path)
+      : m.heading
+        ? `${m.label}. ${m.heading}`
+        : m.label,
+    snippet: m.snippet,
+    href: dieuHrefFromUrn(d.urn, m.path),
+  }));
+  return vb;
 }

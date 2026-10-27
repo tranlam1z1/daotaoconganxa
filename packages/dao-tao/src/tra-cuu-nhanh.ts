@@ -87,7 +87,7 @@ export interface BuocQuyTrinh {
 /** Một quy trình, đúng hình dạng trong data/tra-cuu/quy-trinh.json. */
 export interface QuyTrinh {
   ma: string;
-  loai: "vi_pham" | "tai_nan";
+  loai: "vi_pham" | "tai_nan" | "hanh_chinh" | "nghiep_vu" | "cong_tac_dang";
   tieu_de: string;
   tom_tat?: string;
   cac_buoc: BuocQuyTrinh[];
@@ -260,7 +260,8 @@ export function kiemTraQuyTrinh(ds: QuyTrinh[]): LoiDuLieu[] {
     if (!q.ma?.trim()) bao("Thiếu mã quy trình");
     else if (daGap.has(q.ma)) bao("Trùng mã với quy trình khác");
     else daGap.add(q.ma);
-    if (q.loai !== "vi_pham" && q.loai !== "tai_nan") bao(`Loại quy trình không hợp lệ: ${q.loai}`);
+    if (!["vi_pham", "tai_nan", "hanh_chinh", "nghiep_vu", "cong_tac_dang"].includes(q.loai))
+      bao(`Loại quy trình không hợp lệ: ${q.loai}`);
     if (!q.tieu_de?.trim()) bao("Thiếu tiêu đề");
     if (!TRANG_THAI_TRA_CUU.includes(q.trang_thai)) bao(`Trạng thái không hợp lệ: ${q.trang_thai}`);
     if (!q.cac_buoc?.length) bao("Quy trình chưa có bước nào");

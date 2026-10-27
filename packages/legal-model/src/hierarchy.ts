@@ -14,6 +14,14 @@ export interface DocTypeDef {
 }
 
 export const DOC_TYPES: DocTypeDef[] = [
+  {
+    code: "vb-dang",
+    name: "Văn bản của Đảng",
+    rank: 999,
+    issuerKind: "Cơ quan Đảng",
+    suffixes: [],
+    isNormative: false,
+  },
   { code: "hp", name: "Hiến pháp", rank: 10, issuerKind: "Quốc hội", suffixes: [], isNormative: true },
   { code: "bl", name: "Bộ luật", rank: 20, issuerKind: "Quốc hội", suffixes: [], isNormative: true },
   {

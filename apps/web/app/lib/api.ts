@@ -89,6 +89,9 @@ async function optionalList<T>(path: string): Promise<T[]> {
 /* ------------------------------------------------------------------ */
 
 export interface DocumentQuery {
+  asOf?: string;
+  issuer?: string;
+  locality?: string;
   q?: string;
   docType?: string;
   status?: string;
@@ -111,8 +114,8 @@ export async function getDocumentUrnBySlug(docType: string, slug: string): Promi
   return (await fetchJson<{ urn: string }>(path)).urn;
 }
 
-export async function getDocument(urn: string): Promise<DocumentDetail> {
-  return toDetail(await fetchJson(`/v1/documents/${encodeURIComponent(urn)}`));
+export async function getDocument(urn: string, asOf?: string): Promise<DocumentDetail> {
+  return toDetail(await fetchJson(`/v1/documents/${encodeURIComponent(urn)}${buildQuery({ asOf })}`));
 }
 
 export async function getDocumentContent(urn: string, asOf?: string): Promise<DocumentContent> {
@@ -131,9 +134,42 @@ export async function getVersions(urn: string): Promise<DocumentVersion[]> {
 
 export async function getDiff(urn: string, from: string, to: string): Promise<DiffResponse> {
   const path = `/v1/documents/${encodeURIComponent(urn)}/diff${buildQuery({ from, to })}`;
-  const r = await fetchJson<DiffResponse>(path);
-  if (!r || !Array.isArray(r.nodes)) throw new Error("Dữ liệu so sánh không hợp lệ");
-  return { ...r, stats: r.stats ?? { added: 0, removed: 0, changed: 0 } };
+  const r = await fetchJson<{
+    from: string;
+    to: string;
+    summary: { added: number; removed: number; modified: number };
+    diffs: Array<{
+      path: string;
+      label: string;
+      change: "added" | "removed" | "modified" | "unchanged";
+      before?: string;
+      after?: string;
+      statusBefore?: string;
+      statusAfter?: string;
+      words?: Array<{ type: "same" | "add" | "del"; text: string }>;
+    }>;
+  }>(path);
+  if (!r || !Array.isArray(r.diffs)) throw new Error("Dữ liệu so sánh không hợp lệ");
+  return {
+    from: r.from,
+    to: r.to,
+    stats: { added: r.summary.added, removed: r.summary.removed, changed: r.summary.modified },
+    nodes: r.diffs.map((n) => ({
+      path: n.path,
+      label: n.label,
+      changeKind: n.change === "modified" ? "changed" : n.change,
+      statusBefore: n.statusBefore,
+      statusAfter: n.statusAfter,
+      tokens: n.words?.length
+        ? n.words.map((w) => ({ kind: w.type === "same" ? "equal" : w.type, text: w.text }))
+        : [
+            {
+              kind: n.change === "removed" ? "del" : n.change === "added" ? "add" : "equal",
+              text: n.after ?? n.before ?? "",
+            },
+          ],
+    })),
+  };
 }
 
 /* ------------------------------------------------------------------ */
@@ -218,4 +254,32 @@ export async function getTopics(): Promise<TopicItem[]> {
 /** Tra cứu nhanh một văn bản theo URN (dùng cho thẻ căn cứ ở trang hỏi đáp). */
 export async function getDocumentByUrn(urn: string): Promise<DocumentDetail> {
   return getDocument(urn);
+}
+
+export type GroupedDocumentItem = import("./types").DocumentListItem & {
+  matchCount: number;
+  matches: Array<{ path: string; label: string; heading?: string; snippet: string; nodeStatus: string }>;
+};
+export async function traVanBan(query: Record<string, string | number | undefined>): Promise<{
+  items: GroupedDocumentItem[];
+  total: number;
+  asOf: string;
+  facets: import("./bo-loc-van-ban").DanhMucLoc;
+}> {
+  const raw = await fetchJson<{
+    items: unknown[];
+    total: number;
+    asOf: string;
+    facets: import("./bo-loc-van-ban").DanhMucLoc;
+  }>(`/v1/search/documents${buildQuery(query)}`);
+  const base = toDocumentList(raw);
+  return {
+    ...base,
+    asOf: raw.asOf,
+    facets: raw.facets,
+    items: base.items.map((d, i) => {
+      const r = raw.items[i] as { matchCount: number; matches: GroupedDocumentItem["matches"] };
+      return { ...d, matchCount: r.matchCount, matches: r.matches };
+    }),
+  };
 }

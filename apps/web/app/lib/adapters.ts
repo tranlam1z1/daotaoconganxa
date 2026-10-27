@@ -93,6 +93,8 @@ export function toMeta(raw: unknown): DocumentMeta {
     title: str(d.title) ?? soKyHieu,
     shortTitle: str(d.shortTitle) ?? str(d.title) ?? soKyHieu,
     issuer: str(d.issuer) ?? "Không rõ cơ quan ban hành",
+    documentGroup: str(d.documentGroup),
+    primarySource: str(d.primarySource),
     ...(str(d.signer) ? { signer: str(d.signer) as string } : {}),
     issuedDate: str(d.issuedDate) ?? "",
     ...(str(d.effectiveFrom) ? { effectiveFrom: str(d.effectiveFrom) as string } : {}),
@@ -173,7 +175,9 @@ export function toDetail(raw: unknown): DocumentDetail {
           note: str(item.note) ?? "",
           ...(str(item.sourceUrn) ? { sourceUrn: str(item.sourceUrn) as string } : {}),
         }))
-    : deriveTimeline(meta);
+    : meta.documentGroup === "dang"
+      ? []
+      : deriveTimeline(meta);
   return {
     meta,
     versions,
@@ -328,6 +332,9 @@ export function toDocumentList(raw: unknown): DocumentListResponse {
         shortTitle: meta.shortTitle,
         title: meta.title,
         issuer: meta.issuer,
+        documentGroup: meta.documentGroup,
+        primarySource: meta.primarySource,
+        coTepGoc: item.coTepGoc === true,
         issuedDate: meta.issuedDate,
         ...(meta.effectiveFrom ? { effectiveFrom: meta.effectiveFrom } : {}),
         status: meta.status,

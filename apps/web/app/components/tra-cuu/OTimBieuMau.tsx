@@ -85,6 +85,7 @@ export function OTimBieuMau({ q, loai, xe, nhom }: { q: string; loai: string; xe
               id="o-tim-bieu-mau"
               name="q"
               type="search"
+              maxLength={200}
               defaultValue={q}
               placeholder="Nhập từ khóa"
               autoComplete="off"

@@ -230,7 +230,7 @@ export interface SuaTaiTrong {
   topic_id: string | null;
 }
 export interface SuaQuyTrinh {
-  kind: "vi_pham" | "tai_nan";
+  kind: "vi_pham" | "tai_nan" | "hanh_chinh" | "nghiep_vu" | "cong_tac_dang";
   title: string;
   summary: string | null;
   steps: Array<{ tieu_de: string; mo_ta: string; can_cu?: string | null }>;

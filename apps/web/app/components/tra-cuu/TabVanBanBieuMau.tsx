@@ -1,34 +1,39 @@
-import { Link } from "react-router";
-
+import { Link, useSearchParams } from "react-router";
 import { cn } from "../../lib/cn";
-import { Icon, type IconName } from "../ui/Icon";
-
-const TAB: Array<{ value: "van-ban" | "bieu-mau"; to: string; label: string; icon: IconName }> = [
-  { value: "van-ban", to: "/tim-kiem", label: "Tra cứu văn bản", icon: "search" },
-  { value: "bieu-mau", to: "/tra-cuu-nhanh/quy-trinh", label: "Quy trình, Biểu mẫu", icon: "file" },
-];
-
-/** Hai tab đầu trang nối trang Tra cứu văn bản (/tim-kiem) với trang Quy trình, Biểu mẫu. */
 export function TabVanBanBieuMau({ chon }: { chon: "van-ban" | "bieu-mau" }) {
+  const [p] = useSearchParams();
+  const q = p.get("q");
+  const family = p.get("family");
+  const loai = p.get("loai");
+  const items = [
+    { id: "all", path: "/tim-kiem", label: "Tất cả văn bản" },
+    { id: "phap_luat", path: "/tim-kiem?family=phap_luat", label: "Pháp luật" },
+    { id: "dang", path: "/tim-kiem?family=dang", label: "Văn bản Đảng" },
+    { id: "quy_trinh", path: "/tra-cuu-nhanh/quy-trinh?loai=quy_trinh", label: "Quy trình" },
+    { id: "bieu_mau", path: "/tra-cuu-nhanh/quy-trinh?loai=bieu_mau", label: "Biểu mẫu" },
+  ];
+  const active = chon === "van-ban" ? family || "all" : loai || "";
   return (
-    <nav aria-label="Loại tra cứu" className="rounded-2xl border border-line bg-surface p-1 shadow-card">
-      {/* Hai nhãn dài không đều: chia chỗ theo độ dài chữ; màn hình dưới 380px bỏ biểu tượng cho đủ chữ. */}
-      <ul className="flex gap-1">
-        {TAB.map((t) => (
-          <li key={t.value} className="flex-auto">
-            <Link
-              to={t.to}
-              aria-current={t.value === chon ? "page" : undefined}
-              className={cn(
-                "lun flex min-h-12 items-center justify-center gap-1.5 rounded-xl px-2 text-sm font-semibold whitespace-nowrap min-[380px]:text-[15px] sm:gap-2 sm:text-base",
-                t.value === chon ? "bg-primary text-on-primary shadow-card" : "text-ink-2 hover:text-ink",
-              )}
-            >
-              <Icon name={t.icon} kieu="net" className="hidden size-5 min-[380px]:block sm:size-6" />
-              {t.label}
-            </Link>
-          </li>
-        ))}
+    <nav aria-label="Loại tra cứu" className="rounded-xl border border-line bg-surface p-1">
+      <ul className="flex flex-wrap gap-1">
+        {items.map((t) => {
+          const url = new URL(t.path, "http://local");
+          if (q) url.searchParams.set("q", q);
+          return (
+            <li key={t.id} className="min-w-0 flex-auto">
+              <Link
+                to={url.pathname + url.search}
+                aria-current={active === t.id ? "page" : undefined}
+                className={cn(
+                  "flex min-h-11 items-center justify-center rounded-lg px-3 py-2 text-sm font-semibold",
+                  active === t.id ? "bg-primary text-on-primary" : "text-ink-2 hover:bg-surface-2",
+                )}
+              >
+                {t.label}
+              </Link>
+            </li>
+          );
+        })}
       </ul>
     </nav>
   );

@@ -93,3 +93,17 @@ export function dungLuongTep(byte: number): string {
   if (byte < 1024 * 1024) return `${Math.max(1, Math.round(byte / 1024))} KB`;
   return `${(byte / 1024 / 1024).toLocaleString("vi-VN", { maximumFractionDigits: 1 })} MB`;
 }
+
+export async function timTaiLieuPage(loc: {
+  q?: string;
+  loai?: LoaiTaiLieu;
+  gioiHan?: number;
+  page?: number;
+}) {
+  const qs = new URLSearchParams();
+  if (loc.q) qs.set("q", loc.q);
+  if (loc.loai) qs.set("loai", loc.loai);
+  qs.set("gioi_han", String(loc.gioiHan ?? 20));
+  qs.set("page", String(loc.page ?? 1));
+  return goi<{ items: TaiLieu[]; total: number; pages: number }>("/v1/tra-cuu/tai-lieu", qs);
+}

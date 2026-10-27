@@ -92,7 +92,7 @@ const phatTuNhoHon = [
   "Mức phạt từ phải nhỏ hơn hoặc bằng mức phạt đến.",
 ] as const;
 const bienKhoang = z.enum(["[)", "[]", "(]", "()"]);
-const LOAI_QUY_TRINH = z.enum(["vi_pham", "tai_nan"]);
+const LOAI_QUY_TRINH = z.enum(["vi_pham", "tai_nan", "hanh_chinh", "nghiep_vu", "cong_tac_dang"]);
 /**
  * Trường của mức phạt ngoài nhóm sửa ban đầu: loại xe, từ khóa, khoảng tốc độ vượt, khung phần trăm quá
  * tải, hiệu lực. Ràng buộc giữa các trường kiểm ở `kiemDong`.

@@ -72,7 +72,7 @@ function toTaiLieu(r: any): TaiLieuRow {
  * Lọc phương tiện giữ cả mục không gắn phương tiện (áp dụng chung); lọc loại vi phạm thì chỉ lấy mục
  * đã gắn đúng loại đó.
  */
-export async function timTaiLieu(
+export async function timTaiLieuPage(
   opts: {
     q?: string;
     loai?: LoaiTaiLieu;
@@ -80,11 +80,12 @@ export async function timTaiLieu(
     nhom?: string;
     gomBanNhap?: boolean;
     limit?: number;
+    offset?: number;
   } = {},
-): Promise<TaiLieuRow[]> {
-  const tu = (opts.q ?? "").trim().split(/\s+/).filter(Boolean).slice(0, 12);
+): Promise<{ items: TaiLieuRow[]; total: number }> {
+  const tu = (opts.q ?? "").trim().split(/\s+/).filter(Boolean);
   const q = tu.join(" ");
-  const rows = await sql`
+  const [result] = await sql`WITH filtered AS (
     SELECT * FROM (
       SELECT 'quy_trinh' AS loai, code, title, summary, vehicle, group_name, pinned, view_count, status,
         jsonb_array_length(steps) AS so_buoc,
@@ -101,11 +102,17 @@ export async function timTaiLieu(
       ${opts.loai ? sql`AND loai = ${opts.loai}` : sql``}
       ${opts.xe ? sql`AND (vehicle = ${opts.xe} OR vehicle IS NULL)` : sql``}
       ${opts.nhom ? sql`AND group_name = ${opts.nhom}` : sql``}
-      ${tu.reduce((acc, t) => sql`${acc} AND tim LIKE '%' || unaccent(lower(${t})) || '%'`, sql``)}
+      ${tu.reduce((acc, t) => sql`${acc} AND tim LIKE '%' || unaccent(lower(${t.replace(/[\\%_]/g, "\\$&")})) || '%'`, sql``)}
+    ) SELECT (SELECT count(*)::int FROM filtered) AS total,
+    coalesce((SELECT jsonb_agg(p) FROM (SELECT * FROM filtered
     ORDER BY ${q ? sql`word_similarity(unaccent(lower(${q})), tim) DESC,` : sql``}
-      pinned DESC, view_count DESC, title, code
-    LIMIT ${opts.limit ?? 200}`;
-  return rows.map(toTaiLieu);
+      pinned DESC, view_count DESC, title, code, loai
+    LIMIT ${opts.limit ?? 200} OFFSET ${opts.offset ?? 0}) p),'[]'::jsonb) AS items`;
+  return { items: (result!.items as unknown[]).map(toTaiLieu), total: Number(result!.total) };
+}
+
+export async function timTaiLieu(opts: Parameters<typeof timTaiLieuPage>[0] = {}): Promise<TaiLieuRow[]> {
+  return (await timTaiLieuPage(opts)).items;
 }
 
 /** Một biểu mẫu (hoặc hướng dẫn) theo mã, kèm tệp. */

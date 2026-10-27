@@ -36,7 +36,7 @@ export interface MucPhatRow {
 
 export interface QuyTrinhRow {
   ma: string;
-  loai: "vi_pham" | "tai_nan";
+  loai: "vi_pham" | "tai_nan" | "hanh_chinh" | "nghiep_vu" | "cong_tac_dang";
   tieuDe: string;
   tomTat: string | null;
   cacBuoc: BuocQuyTrinh[];

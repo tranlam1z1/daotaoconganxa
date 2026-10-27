@@ -1,3 +1,4 @@
+import { ngayTraCuuSchema } from "../ngay-tra-cuu.ts";
 /** Endpoint tra cứu văn bản: danh sách, metadata, nội dung theo thời điểm, quan hệ, phiên bản, diff. */
 
 import { getDocumentBySlug, getRelations, getStatusAsOf, sql } from "@qdpl/db";
@@ -17,7 +18,7 @@ import {
 } from "../labels.ts";
 import { traTepTaiLieu } from "../tep-tai-lieu.ts";
 
-const dateSchema = z.string().regex(/^\d{4}-\d{2}-\d{2}$/, "Ngày phải theo định dạng YYYY-MM-DD");
+const dateSchema = ngayTraCuuSchema;
 
 const listSchema = z.object({
   q: z.string().trim().optional(),
@@ -86,18 +87,13 @@ documents.get("/", async (c) => {
       LIMIT 1
     ) vs ON true`;
 
-  const statusAsOf = sql`
-    CASE
-      WHEN vs.status IS NULL THEN
-        CASE WHEN d.effective_from IS NOT NULL AND d.effective_from > ${asOf}::date
-             THEN 'chua_hieu_luc' ELSE 'khong_xac_dinh' END
-      WHEN d.effective_to IS NOT NULL AND d.effective_to <= ${asOf}::date THEN 'het_hieu_luc'
-      WHEN d.effective_from IS NOT NULL AND d.effective_from > ${asOf}::date THEN 'chua_hieu_luc'
-      ELSE vs.status
-    END`;
+  const statusAsOf = sql`CASE WHEN d.document_group='dang' THEN d.status
+   WHEN d.effective_to IS NOT NULL AND d.effective_to<=${asOf}::date THEN 'het_hieu_luc'
+   WHEN d.effective_from IS NOT NULL AND d.effective_from>${asOf}::date THEN 'chua_hieu_luc'
+   WHEN vs.status IS NULL THEN 'khong_xac_dinh' ELSE vs.status END`;
 
   const where = sql`
-        (${q}::text IS NULL
+        NOT d.is_draft AND (${q}::text IS NULL
          OR d.title ILIKE '%' || ${q}::text || '%'
          OR d.short_title ILIKE '%' || ${q}::text || '%'
          OR d.so_ky_hieu ILIKE '%' || ${q}::text || '%'
@@ -115,7 +111,7 @@ documents.get("/", async (c) => {
 
   const [rows, [totalRow], byType, byStatus, byField] = await Promise.all([
     sql`SELECT d.id, d.urn, d.doc_type, d.rank, d.so_ky_hieu, d.title, d.short_title, d.issuer_name,
-               d.locality, d.issued_date, d.effective_from, d.effective_to, d.fields, d.status, d.summary,
+               d.locality, d.issued_date, d.effective_from, d.effective_to, d.fields, d.status, d.summary, d.document_group, d.primary_source, d.original_file_uri,
                ${statusAsOf} AS status_as_of
         FROM ${from} WHERE ${where}
         ORDER BY ${orderBy}
@@ -149,7 +145,7 @@ documents.get("/", async (c) => {
 /** URN của văn bản ở đường dẫn web /van-ban/:docType/:slug: slug không đảo ngược được thành URN. */
 documents.get("/by-slug/:docType/:slug", async (c) => {
   const doc = await getDocumentBySlug(c.req.param("docType"), c.req.param("slug").toLowerCase());
-  if (!doc) throw notFound("Không tìm thấy văn bản ở đường dẫn này");
+  if (!doc || doc.is_draft) throw notFound("Không tìm thấy văn bản ở đường dẫn này");
   return c.json({ urn: doc.urn });
 });
 
@@ -159,7 +155,7 @@ documents.get("/:urn", async (c) => {
   const p = parseQuery(c, asOfSchema);
   const asOf = p.asOf ?? today();
   const doc = await requireDocument(urn);
-  const statusAsOf = await getStatusAsOf(doc.id, asOf);
+  const statusAsOf = doc.document_group === "dang" ? doc.status : await getStatusAsOf(doc.id, asOf);
   const versions = await listVersionRows(doc.id);
   const [opCounts] = await sql`
     SELECT count(*) FILTER (WHERE review_status = 'approved')::int AS approved,
@@ -408,6 +404,9 @@ export function shapeDocument(r: Record<string, unknown>, statusAsOf?: string) {
     shortTitle: r.short_title,
     issuer: r.issuer_name ?? null,
     signer: r.signer ?? null,
+    documentGroup: r.document_group ?? "chua_phan_loai",
+    primarySource: r.primary_source ?? null,
+    coTepGoc: Boolean(r.original_file_uri),
     locality: r.locality ?? null,
     issuedDate: asDate(r.issued_date),
     effectiveFrom: asDate(r.effective_from),

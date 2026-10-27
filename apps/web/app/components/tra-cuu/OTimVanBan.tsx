@@ -40,7 +40,7 @@ export function OTimVanBan({ q }: { q: string }) {
             type="search"
             defaultValue={q}
             maxLength={TU_KHOA_TOI_DA}
-            placeholder="Nhập từ khóa (Điều, khoản,...)"
+            placeholder="Số hiệu, tên văn bản hoặc từ khóa"
             autoComplete="off"
             enterKeyHint="search"
             className={cn(

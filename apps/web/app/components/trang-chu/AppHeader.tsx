@@ -17,10 +17,10 @@ export function AppHeader({ nguoiDung }: { nguoiDung: NguoiDung | null }) {
         <div className="bang-chao relative min-w-0 px-5 py-5 sm:px-8">
           <div className="relative z-10 lg:max-w-[62%]">
             <p className="text-[11px] font-bold uppercase leading-4 text-primary">
-              Dành cho cán bộ công an xã, cán bộ công chức
+              Dành cho công chức, viên chức, đảng viên
             </p>
             <h1 className="mt-2 text-2xl font-bold leading-tight sm:text-[28px]">
-              {hoTen ? `Xin chào, ${hoTen}` : "Học vững pháp luật, nâng cao nghiệp vụ"}
+              {hoTen ? `Xin chào, ${hoTen}` : "Học tập và tra cứu phục vụ công tác"}
             </h1>
             {nguoiDung?.cho_xac_minh ? (
               <p className="mt-1 text-sm leading-relaxed text-ink-2">
@@ -34,7 +34,7 @@ export function AppHeader({ nguoiDung }: { nguoiDung: NguoiDung | null }) {
               <p className="mt-1 text-sm leading-relaxed text-ink-2">
                 Cổng hỗ trợ học tập pháp luật, tra cứu nghiệp vụ và công cụ phục vụ công tác hằng ngày.
                 <br />
-                Đồng hành cùng cán bộ, công chức trong xây dựng chính quyền cơ sở vững mạnh, chuyên nghiệp.
+                Nội dung học tập dành cho công chức, viên chức và đảng viên.
               </p>
             ) : (
               <p className="mt-2 max-w-2xl text-base leading-relaxed text-ink-2">
@@ -45,13 +45,13 @@ export function AppHeader({ nguoiDung }: { nguoiDung: NguoiDung | null }) {
             <div className="mt-4 flex flex-wrap gap-3">
               {" "}
               <ButtonLink
-                to={nguoiDung?.cho_xac_minh ? "/tai-khoan" : nguoiDung ? "/luyen-tap" : "/dang-nhap"}
+                to={nguoiDung?.cho_xac_minh ? "/tai-khoan" : nguoiDung ? "/hoc" : "/dang-nhap"}
                 icon="book"
               >
                 {nguoiDung?.cho_xac_minh
                   ? "Xem trạng thái tài khoản"
                   : nguoiDung
-                    ? "Tiếp tục học tập"
+                    ? "Xem bài học"
                     : "Đăng nhập để học tập"}
                 <Icon name="chevronRight" kieu="net" className="ml-2 size-4" />
               </ButtonLink>

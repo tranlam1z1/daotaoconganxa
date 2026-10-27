@@ -89,14 +89,7 @@ function DauTrangCon({ pathname }: { pathname: string }) {
   );
 }
 
-/**
- * Menu cán bộ gồm đúng 4 mục: Tra cứu · Luyện tập · Thi · Tôi (docs/PLAN.md §0.4).
- * Mục "Tôi" dẫn tới trang học tập của tôi (GĐ4, có liên kết sang tài khoản), hoặc tới trang đăng
- * nhập khi chưa đăng nhập.
- *
- * Dưới 768px menu nằm ở thanh dưới cùng (BottomNav, chỉ ở trang chủ); đầu trang chỉ còn tên trang web (trang chủ)
- * hoặc nút quay lại + tiêu đề (các trang khác), cùng chip điểm và chuông thông báo.
- */
+/** Điều hướng chính trên máy tính; tài khoản theo trạng thái đăng nhập và xác minh. */
 export function SiteHeader({ nguoiDung }: { nguoiDung: NguoiDung | null }) {
   const { pathname } = useLocation();
   const goc = laTrangGoc(pathname);
@@ -233,7 +226,7 @@ export function SiteHeader({ nguoiDung }: { nguoiDung: NguoiDung | null }) {
           {/* Ảnh đại diện dẫn tới trang cá nhân; từ 768px đã có trong mục "Tôi" ở trên. */}
           {nguoiDung ? (
             <Link
-              to="/toi"
+              to={toi.to}
               aria-label="Trang cá nhân"
               className="grid size-11 shrink-0 place-items-center rounded-full md:hidden"
             >

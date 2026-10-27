@@ -107,9 +107,13 @@ export const CONG_CU: ReadonlyArray<{
 export const NGHIEP_VU_NHANH: ReadonlyArray<{ to: string; ten: string; icon: IconName }> = [
   { to: "/tim-kiem", ten: "Tra cứu văn bản", icon: "book" },
   { to: "/tra-cuu-nhanh/quy-trinh", ten: "Quy trình biểu mẫu", icon: "file" },
-  { to: "/tra-cuu", ten: "Tra cứu biển báo", icon: "sign" },
+  { to: "/hoc", ten: "Danh mục bài học", icon: "cap" },
   { to: "/hoi-dap", ten: "Hỏi đáp", icon: "chat" },
 ];
 
 /** Hai nhóm trên dạng ô lối tắt (LuoiLoiTat), dùng chung cho trang chủ và trang /cong-cu. */
-export const O_CONG_CU = CONG_CU.map((c) => ({ to: `/cong-cu/${c.ma}`, ten: c.ten, icon: c.icon }));
+export const O_CONG_CU = CONG_CU.filter((c) => c.ma === "dia-gioi-hanh-chinh").map((c) => ({
+  to: `/cong-cu/${c.ma}`,
+  ten: c.ten,
+  icon: c.icon,
+}));

@@ -19,18 +19,16 @@ export interface NavItem {
   khop?: string[];
 }
 
-/**
- * Menu của cán bộ tối đa 4 mục (docs/PLAN.md §0.4): ba mục dưới đây cộng mục "Tôi" do
- * SiteHeader dựng theo trạng thái đăng nhập. Hỏi đáp, đọc văn bản nằm trong mục Tra cứu.
- * Các trang ngoài phạm vi (trường hợp ứng dụng, so sánh, đào tạo cũ) vẫn giữ route, chỉ ẩn khỏi menu.
- */
+/** Menu chính cho công chức, viên chức, đảng viên; tài khoản hiển thị riêng ở đầu trang. */
 export const MAIN_NAV: NavItem[] = [
-  { to: "/tra-cuu", label: "Tra cứu", khop: ["/tim-kiem", "/van-ban", "/hoi-dap", "/tra-cuu-nhanh"] },
-  // Bài giảng gộp vào mục này (docs/PLAN.md GĐ11) để menu vẫn chỉ có 4 mục. Nhóm học cùng
-  // (GĐ16b) cũng thuộc mục này; trên điện thoại có thêm một dòng trong ngăn "Thêm" (câu N1).
-  { to: "/luyen-tap", label: "Học & luyện tập", khop: ["/hoc", "/dao-tao", "/nhom"] },
-  { to: "/thi", label: "Thi" },
-  { to: "/dich-vu-cong", label: "Dịch vụ công" },
+  { to: "/", label: "Trang chủ" },
+  {
+    to: "/tra-cuu",
+    label: "Tra cứu",
+    khop: ["/tim-kiem", "/van-ban", "/hoi-dap", "/tra-cuu-nhanh", "/cong-cu"],
+  },
+  { to: "/hoc", label: "Học tập", khop: ["/dao-tao", "/nhom"] },
+  { to: "/luyen-tap", label: "Luyện tập", khop: ["/thi"] },
 ];
 
 /* ------------------------------------------------------------------ */
@@ -42,14 +40,14 @@ export interface MobileNavItem extends NavItem {
 }
 
 /**
- * Thanh dưới cùng: Tra cứu · Học · Trang chủ · Thi · Tôi. Trang chủ đứng giữa, hiện dạng nút tròn
+ * Thanh dưới cùng: Tra cứu · Học · Trang chủ · Luyện tập · Tôi. Trang chủ đứng giữa, hiện dạng nút tròn
  * nổi có logo (BottomNav). "Tôi" luôn dẫn tới /toi; chưa đăng nhập thì trang đó chuyển sang /dang-nhap.
  */
 export const BOTTOM_NAV: MobileNavItem[] = [
-  { ...MAIN_NAV[0]!, icon: "search" },
-  { ...MAIN_NAV[1]!, label: "Học", icon: "cap" },
+  { ...MAIN_NAV[1]!, icon: "search" },
+  { ...MAIN_NAV[2]!, label: "Học", icon: "cap" },
   { to: "/", label: "Trang chủ", icon: "home" },
-  { ...MAIN_NAV[2]!, icon: "steps" },
+  { ...MAIN_NAV[3]!, label: "Luyện tập", icon: "steps" },
   {
     to: "/toi",
     label: "Tôi",
@@ -63,7 +61,7 @@ export const BOTTOM_NAV: MobileNavItem[] = [
  * quản lý trở lên.
  */
 export const MORE_NAV: Array<MobileNavItem & { quanLy?: boolean }> = [
-  { to: "/dich-vu-cong", label: "Dịch vụ công", icon: "file" },
+  { to: "/thi", label: "Thi và kiểm tra", icon: "steps" },
   { to: "/hoi-dap", label: "Hỏi trợ lý AI", icon: "chat" },
   { to: "/nhom", label: "Nhóm học cùng", icon: "nhom" },
   { to: "/huong-dan", label: "Hướng dẫn sử dụng", icon: "help" },

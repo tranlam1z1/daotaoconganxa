@@ -1,16 +1,9 @@
-/**
- * Khung tìm của trang Quy trình, Biểu mẫu: ô từ khóa (kính lúp bên trái, micro bên phải), ô chọn loại
- * tài liệu, liên kết "Tra cứu nâng cao" mở thêm hai ô lọc phương tiện và loại vi phạm, và nút "Tra cứu
- * biểu mẫu" rộng hết khung như ở trang Tra cứu văn bản (OTimVanBan).
- * Mọi ô cùng một cỡ: rộng hết khung, cao bằng ô từ khóa.
- * Thu gọn phần nâng cao là bỏ hai bộ lọc đó ở lần tra kế tiếp.
- */
-import { type ReactNode, useRef, useState } from "react";
+/** Tìm tài liệu theo từ khóa và loại tài liệu. */
+import { type ReactNode, useRef } from "react";
 import { Form, useNavigation } from "react-router";
 
 import { cn } from "../../lib/cn";
 import { LOAI_TAI_LIEU } from "../../lib/tai-lieu";
-import { CHU_DE_MUC_PHAT, LOAI_XE } from "../../lib/tra-cuu-nhanh";
 import { useNhanDangGiong } from "../giong-noi/useNhanDangGiong";
 import { Icon } from "../ui/Icon";
 
@@ -68,7 +61,6 @@ export function OTimBieuMau({ q, loai, xe, nhom }: { q: string; loai: string; xe
   });
   const nav = useNavigation();
   const dangTra = nav.state !== "idle" && nav.location?.pathname === DUONG_DAN;
-  const [nangCao, setNangCao] = useState(Boolean(xe || nhom));
 
   return (
     <div className="tra-cuu-form">
@@ -136,46 +128,13 @@ export function OTimBieuMau({ q, loai, xe, nhom }: { q: string; loai: string; xe
           ))}
         </OChon>
 
-        {nangCao ? (
-          <div id="bm-nang-cao" className="grid gap-3">
-            <OChon id="bm-xe" name="xe" nhan="Phương tiện" giaTri={xe}>
-              <option value="">Mọi phương tiện</option>
-              {LOAI_XE.map((x) => (
-                <option key={x.value} value={x.value}>
-                  {x.label}
-                </option>
-              ))}
-            </OChon>
-            <OChon id="bm-nhom" name="nhom" nhan="Loại vi phạm" giaTri={nhom}>
-              <option value="">Mọi loại vi phạm</option>
-              {CHU_DE_MUC_PHAT.map((c) => (
-                <option key={c.ma} value={c.ma}>
-                  {c.ten}
-                </option>
-              ))}
-            </OChon>
-          </div>
-        ) : null}
-
-        <p className="text-center">
-          <button
-            type="button"
-            aria-expanded={nangCao}
-            aria-controls="bm-nang-cao"
-            onClick={() => setNangCao((v) => !v)}
-            className="inline-flex min-h-11 items-center px-2 text-base font-medium text-primary underline"
-          >
-            {nangCao ? "Thu gọn tra cứu nâng cao" : "Tra cứu nâng cao"}
-          </button>
-        </p>
-
         <button
           type="submit"
           disabled={dangTra}
           className="lun mt-2 flex min-h-12 w-full items-center justify-center gap-2 rounded-2xl bg-primary px-4 text-base font-semibold text-on-primary shadow-card hover:bg-primary-hover disabled:opacity-70"
         >
           <Icon name="search" kieu="net" className="size-5" />
-          {dangTra ? "Đang tra…" : "Tra cứu biểu mẫu"}
+          {dangTra ? "Đang tra…" : "Tra cứu tài liệu"}
         </button>
       </Form>
     </div>

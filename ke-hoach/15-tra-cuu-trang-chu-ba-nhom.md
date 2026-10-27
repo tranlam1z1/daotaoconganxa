@@ -1,6 +1,6 @@
 # Kế hoạch tra cứu và trang chủ cho ba nhóm
 
-Ngày lập: 27/10/2026. Trạng thái: kế hoạch triển khai, chưa thay đổi mã ứng dụng.
+Ngày lập: 27/10/2026. Trạng thái: đã triển khai giao diện đợt 1 trong mã nguồn; chưa triển khai môi trường thật.
 
 ## 1. Phạm vi và nguyên tắc
 
@@ -160,3 +160,15 @@ Thực hiện đợt 1 trước: kiểm kê các lối vào → dựng /tra-cuu 
 - Hội thi trực tuyến: https://pbgdpl.quangngai.gov.vn/danh-muc/hoi-thi-truc-tuyen — kết nối phổ biến pháp luật với kiểm tra kiến thức.
 
 Các nguồn này là tham khảo cách tổ chức chức năng; nội dung triển khai phải được kiểm tra nguồn và quyền sử dụng riêng.
+
+## 11. Bàn giao đợt 1 — 27/10/2026
+
+- Trang chủ: ô tìm văn bản, ba lối vào học theo nhóm, học/luyện tập và tài liệu/tra cứu; không hiển thị tiến độ hoặc bản tin giả.
+- /tra-cuu: cửa vào văn bản, quy trình, biểu mẫu và hướng dẫn. Chưa tạo nhánh Văn bản Đảng riêng vì chưa có bộ lọc tương ứng.
+- Menu máy tính/điện thoại tách Học tập và Luyện tập; thi nằm trong khối luyện tập và ngăn tiện ích.
+- Các URL công cụ công an/giao thông, dịch vụ Bộ Công an và tra cứu biển báo/mức phạt trả trang thông báo HTTP 410. /tra-cuu có tham số giao thông cũ hiện thông báo trên cửa vào mới; /tra-cuu-nhanh chuyển tới /tra-cuu.
+- Công cụ dùng chung công khai giữ đối chiếu địa giới; loại bộ lọc phương tiện/vi phạm khỏi biểu mẫu. Không đổi nhóm tài khoản, phân quyền hoặc xóa dữ liệu.
+- Nhóm Công chức tạm dùng danh mục công chức cấp xã đang có; mở rộng phạm vi và rà dữ liệu thuộc đợt 2. Lựa chọn công an không còn xuất hiện trong bộ lọc học công khai.
+- Kiểm tra trình duyệt: trang chủ ở 320/390/768/1024 px và Tra cứu ở 390 px không tràn ngang; URL cũ trả thông báo đúng; khách mở nhóm học được dẫn tới đăng nhập kèm URL quay lại.
+- Kiểm tra dữ liệu thật: tìm văn bản và hai loại quy trình/biểu mẫu trả HTTP 200 sau khi khởi chạy API cục bộ. Kho biểu mẫu/quy trình hiện chưa có kết quả phù hợp; tìm văn bản vẫn còn nội dung giao thông trong kho cũ. Cần rà danh mục và dữ liệu ở đợt 2, chưa tuyên bố kho đã chuyển hoàn toàn sang ba nhóm.
+- Kiểm thử web đã qua 81 trường hợp, thêm 3 trường hợp render trang chủ cho khách/chờ xác minh/đã xác minh đều qua; typecheck web đã qua. Build sản xuất được kiểm tra sau thay đổi.

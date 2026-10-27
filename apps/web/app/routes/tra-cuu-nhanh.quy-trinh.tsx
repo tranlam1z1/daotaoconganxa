@@ -1,8 +1,7 @@
 /**
  * Quy trình, Biểu mẫu. Một tệp phục vụ hai route:
  * - `/tra-cuu-nhanh/quy-trinh`: tra chung quy trình (các bước) và biểu mẫu, hướng dẫn dạng tệp. Trên
- *   cùng là hai tab nối với trang Tra cứu văn bản; khung tìm có từ khóa, loại tài liệu và phần nâng cao
- *   (phương tiện, loại vi phạm). Chưa tra thì hiện mục phổ biến: mục ghim trước, rồi theo lượt mở.
+ *   cùng là hai tab nối với trang Tra cứu văn bản; khung tìm có từ khóa và loại tài liệu. Chưa tra thì hiện mục phổ biến: mục ghim trước, rồi theo lượt mở.
  * - `/tra-cuu-nhanh/quy-trinh/:ma`: các bước đánh số của một quy trình (docs/PLAN.md GĐ5).
  * Biểu mẫu mở ở `/tra-cuu-nhanh/bieu-mau/:ma` (tra-cuu-nhanh.bieu-mau.tsx).
  */
@@ -156,7 +155,7 @@ export default function QuyTrinhPage({ loaderData }: Route.ComponentProps) {
         {items.length === 0 ? (
           coLoc ? (
             <EmptyState icon="search" title="Không có quy trình, biểu mẫu nào khớp" className="mt-3">
-              <p>Thử từ khóa ngắn hơn, hoặc bỏ bớt loại tài liệu, phương tiện, loại vi phạm đang chọn.</p>
+              <p>Thử từ khóa ngắn hơn hoặc chọn loại tài liệu khác.</p>
             </EmptyState>
           ) : (
             <EmptyState icon="file" title="Chưa có quy trình, biểu mẫu được duyệt" className="mt-3">

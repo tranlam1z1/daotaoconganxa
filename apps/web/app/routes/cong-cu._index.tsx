@@ -9,7 +9,7 @@ import type { Route } from "./+types/cong-cu._index";
 
 export function meta(_: Route.MetaArgs) {
   return pageMeta("Công cụ nghiệp vụ", {
-    description: "Bộ công cụ tính toán nghiệp vụ và lối tắt tra cứu văn bản, quy trình, biển báo, hỏi đáp.",
+    description: "Công cụ địa giới hành chính và lối tắt tra cứu văn bản, quy trình, bài học, hỏi đáp.",
   });
 }
 

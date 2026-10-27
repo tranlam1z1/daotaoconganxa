@@ -18,8 +18,7 @@ import type { Route } from "./+types/training";
 
 export function meta(_: Route.MetaArgs) {
   return pageMeta("Bài giảng", {
-    description:
-      "Bài giảng pháp luật giao thông ngắn gọn, đọc cuộn hoặc xem từng trang, có kiểm tra cuối bài.",
+    description: "Chuyên đề học tập dành cho công chức, viên chức và đảng viên, có kiểm tra cuối bài.",
   });
 }
 
@@ -48,7 +47,7 @@ export default function Training({ loaderData }: Route.ComponentProps) {
           <select key={nhom} id="loc-nhom-hoc" name="nhom" defaultValue={nhom} className={inputClass}>
             <option value="tat_ca">Tất cả chuyên đề</option>
             {nhomCuaToi.length > 0 ? <option value="cua_toi">Theo nhóm của tôi</option> : null}
-            {NHOM_HOC_TAP.map((ma) => (
+            {NHOM_HOC_TAP.filter((ma) => ma !== "cong_an_cap_xa").map((ma) => (
               <option key={ma} value={ma}>
                 {TEN_NHOM_HOC_TAP[ma]}
               </option>

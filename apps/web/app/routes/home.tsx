@@ -1,73 +1,76 @@
 import { Link, useRouteLoaderData } from "react-router";
 import { AppHeader } from "../components/trang-chu/AppHeader";
 import { LuoiLoiTat } from "../components/trang-chu/LuoiLoiTat";
-import { OTraCuuViPham } from "../components/trang-chu/OTraCuuViPham";
-import { Icon } from "../components/ui/Icon";
-import { NGHIEP_VU_NHANH, O_CONG_CU } from "../lib/cong-cu";
+import { TraCuuChung } from "../components/trang-chu/TraCuuChung";
 import { pageMeta } from "../lib/site";
 import type { loader as rootLoader } from "../root";
 import type { Route } from "./+types/home";
 
-/** Mỗi khung lối tắt ở trang chủ hiện tối đa bấy nhiêu ô; đủ danh sách xem ở /cong-cu (Xem tất cả). */
-const SO_O_TRANG_CHU = 4;
-
 export function meta(_: Route.MetaArgs) {
-  return pageMeta("Học tập pháp luật & Bồi dưỡng nghiệp vụ", {
-    description:
-      "Tìm quy định đến từng điều, khoản; đọc nguyên văn điều khoản đang áp dụng; hỏi trợ lý AI và nhận câu trả lời kèm căn cứ.",
+  return pageMeta("Học tập và tra cứu", {
+    description: "Học tập, tra cứu văn bản, quy trình và biểu mẫu dành cho công chức, viên chức, đảng viên.",
   });
 }
-
-/**
- * Trang chủ: lời chào, ô tra cứu vi phạm, bộ công cụ nghiệp vụ và nghiệp vụ nhanh.
- */
 export default function Home() {
   const nguoiDung = useRouteLoaderData<typeof rootLoader>("root")?.nguoiDung ?? null;
-
+  const choXacMinh = nguoiDung?.cho_xac_minh;
+  const hoc = choXacMinh ? "/tai-khoan" : "/hoc";
   return (
     <div className="wrap max-w-3xl py-6 sm:py-10 lg:max-w-7xl">
       <AppHeader nguoiDung={nguoiDung} />
-
-      <Link
-        to="/dich-vu-cong"
-        className="loi-vao-dich-vu mt-4 flex items-center gap-3 rounded-xl border border-line bg-surface px-3 py-4 shadow-card the-bam sm:gap-4 sm:px-5 sm:py-3"
-      >
-        <span className="relative grid size-12 shrink-0 place-items-center rounded-xl bg-danger-soft text-danger">
-          <svg viewBox="0 0 24 24" className="size-8" fill="currentColor" aria-hidden="true">
-            <path d="M12 2 2 7v2h20V7L12 2ZM4 10h3v9H4zm6.5 0h3v9h-3zm6.5 0h3v9h-3zM2 20h20v2H2z" />
-          </svg>
-        </span>
-        <span className="relative min-w-0 flex-1">
-          <span className="block text-base font-semibold leading-snug sm:text-lg">
-            Dịch vụ công trực tuyến
-          </span>
-          <span className="mt-1 block text-[13px] leading-relaxed text-ink-2 sm:text-sm">
-            Tìm thủ tục và mở dịch vụ trực tuyến trên Cổng Bộ Công an.
-          </span>
-        </span>
-        <span className="relative grid size-8 shrink-0 place-items-center rounded-full border border-line bg-surface text-primary sm:size-9">
-          <Icon name="chevronRight" className="size-5" />
-        </span>
-      </Link>
-
-      <div className="mt-3">
-        <OTraCuuViPham />
+      <div className="mt-4">
+        <TraCuuChung />
       </div>
-
-      <div className="mt-4 grid gap-4 lg:grid-cols-2 lg:items-start">
+      <section aria-labelledby="nhom-noi-dung" className="mt-6">
+        <h2 id="nhom-noi-dung" className="text-xl font-semibold">
+          Học tập theo nhóm
+        </h2>
+        <p className="mt-2 text-sm text-ink-2">
+          Chọn nhóm để xem chuyên đề. Có thể lần lượt xem các nhóm phù hợp với công việc của bạn.
+        </p>
+        <div className="mt-3 grid gap-3 sm:grid-cols-3">
+          {[
+            {
+              ma: "cong_chuc_cap_xa",
+              ten: "Công chức",
+              moTa: "Chuyên đề dành cho công chức cấp xã trong danh mục hiện có.",
+            },
+            { ma: "vien_chuc", ten: "Viên chức", moTa: "Chuyên đề dành cho viên chức." },
+            { ma: "dang_vien", ten: "Đảng viên", moTa: "Chuyên đề dành cho đảng viên." },
+          ].map((nhom) => (
+            <Link
+              key={nhom.ma}
+              to={choXacMinh ? hoc : `/hoc?nhom=${nhom.ma}`}
+              className="rounded-2xl border border-line bg-surface p-4 shadow-card the-bam"
+            >
+              <span className="block text-lg font-semibold text-primary">{nhom.ten}</span>
+              <span className="mt-2 block text-sm leading-relaxed text-ink-2">{nhom.moTa}</span>
+            </Link>
+          ))}
+        </div>
+      </section>
+      <div className="mt-6 grid gap-4 lg:grid-cols-2">
         <LuoiLoiTat
-          id="cong-cu-tieu-de"
-          tieuDe="Bộ công cụ nghiệp vụ"
-          icon="shield"
-          items={O_CONG_CU.slice(0, SO_O_TRANG_CHU)}
-          xemTatCa="/cong-cu"
+          id="hoc-tap"
+          tieuDe="Học tập và luyện tập"
+          icon="cap"
+          items={[
+            { to: hoc, ten: "Danh mục bài học", icon: "book" },
+            { to: choXacMinh ? hoc : "/luyen-tap", ten: "Luyện tập kiến thức", icon: "cap" },
+            { to: choXacMinh ? hoc : "/thi", ten: "Thi và kiểm tra", icon: "steps" },
+            { to: choXacMinh ? hoc : "/toi", ten: "Tiến độ và câu sai", icon: "user" },
+          ]}
         />
         <LuoiLoiTat
-          id="nghiep-vu-nhanh-tieu-de"
-          tieuDe="Nghiệp vụ nhanh"
-          icon="bolt"
-          items={NGHIEP_VU_NHANH.slice(0, SO_O_TRANG_CHU)}
-          xemTatCa="/cong-cu"
+          id="tai-lieu"
+          tieuDe="Tài liệu và tra cứu"
+          icon="file"
+          items={[
+            { to: "/tra-cuu-nhanh/quy-trinh?loai=quy_trinh", ten: "Quy trình, thủ tục", icon: "steps" },
+            { to: "/tra-cuu-nhanh/quy-trinh?loai=bieu_mau", ten: "Biểu mẫu", icon: "file" },
+            { to: "/cong-cu", ten: "Công cụ dùng chung", icon: "map" },
+            { to: "/hoi-dap", ten: "Hỏi trợ lý AI", icon: "chat" },
+          ]}
         />
       </div>
     </div>

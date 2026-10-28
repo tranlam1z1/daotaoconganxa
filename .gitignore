@@ -27,3 +27,6 @@ backups/
 
 # Ảnh chụp của kịch bản E2E (bun run e2e), chỉ để soát tay.
 scripts/e2e/.anh/
+
+# Ảnh kiểm tra UI sinh cục bộ, không đưa vào mã nguồn.
+outputs/ui-review/*.png

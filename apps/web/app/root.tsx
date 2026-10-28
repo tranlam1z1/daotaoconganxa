@@ -51,7 +51,7 @@ export function Layout({ children }: { children: React.ReactNode }) {
       <head>
         <meta charSet="utf-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
-        <meta name="theme-color" content="#0052CC" />
+        <meta name="theme-color" content="#A61C30" />
         {/* Cài lên màn hình chính (docs/PLAN.md GĐ13). */}
         <link rel="manifest" href="/manifest.webmanifest" />
         <link rel="icon" type="image/svg+xml" href="/logo.svg?v=4" />

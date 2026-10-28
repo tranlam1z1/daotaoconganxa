@@ -40,7 +40,7 @@ function navClass(active: boolean, compact = false) {
   return cn(
     "lun flex min-h-11 items-center whitespace-nowrap rounded-lg px-3 font-medium",
     compact ? "text-[13px]" : "text-[15px]",
-    active ? "bg-primary-soft text-primary" : "text-ink-2 hover:bg-surface-2 hover:text-ink",
+    active ? "bg-secondary-soft text-secondary" : "text-secondary hover:bg-secondary-soft",
   );
 }
 
@@ -80,7 +80,7 @@ function DauTrangCon({ pathname }: { pathname: string }) {
         // Về mục cha trong một lần bấm; không thêm trang con vào lịch sử khi quay lại.
         replace
         aria-label="Quay lại"
-        className="lun -ml-2 grid size-11 shrink-0 place-items-center rounded-lg text-ink-2 hover:bg-surface-2 hover:text-ink"
+        className="lun -ml-2 grid size-11 shrink-0 place-items-center rounded-lg text-secondary hover:bg-secondary-soft"
       >
         <Icon name="arrowLeft" className="size-6" />
       </Link>
@@ -154,10 +154,10 @@ export function SiteHeader({ nguoiDung }: { nguoiDung: NguoiDung | null }) {
   };
 
   return (
-    // Vạch màu dưới đầu trang lấy theo thứ tự màu trong logo: xanh dương → xanh lá → vàng.
+    // Nhận diện đỏ đô trên nền trắng, điều hướng xanh công vụ.
     <header
       className={cn(
-        "no-print sticky top-0 z-40 border-b border-line bg-canvas/90 backdrop-blur-md",
+        "site-header no-print sticky top-0 z-40 border-b border-line",
         anDauTrangDienThoai(pathname) && "max-md:hidden",
       )}
     >
@@ -237,8 +237,6 @@ export function SiteHeader({ nguoiDung }: { nguoiDung: NguoiDung | null }) {
           {nguoiDung && pathname === "/" ? <NganTienIch nguoiDung={nguoiDung} /> : null}
         </div>
       </div>
-      {/* Vạch màu thương hiệu ngay dưới thanh đầu trang. */}
-      <div aria-hidden="true" className="h-[3px] bg-linear-to-r from-primary via-[#1E9E4A] to-[#FFC107]" />
     </header>
   );
 }

@@ -1,0 +1,1442 @@
+[
+  {
+    "width": 375,
+    "route": "/",
+    "finalPath": "/",
+    "status": 200,
+    "overflow": false,
+    "heading": "Học tập và tra cứu phục vụ công tác",
+    "font": "\"Be Vietnam Pro\", Roboto, \"Segoe UI\", sans-serif",
+    "primary": "#a61c30"
+  },
+  {
+    "width": 375,
+    "route": "/tra-cuu",
+    "finalPath": "/tra-cuu",
+    "status": 200,
+    "overflow": false,
+    "heading": "Tra cứu",
+    "font": "\"Be Vietnam Pro\", Roboto, \"Segoe UI\", sans-serif",
+    "primary": "#a61c30"
+  },
+  {
+    "width": 375,
+    "route": "/tim-kiem",
+    "finalPath": "/tim-kiem",
+    "status": 200,
+    "overflow": false,
+    "heading": "Tra cứu văn bản",
+    "font": "\"Be Vietnam Pro\", Roboto, \"Segoe UI\", sans-serif",
+    "primary": "#a61c30"
+  },
+  {
+    "width": 375,
+    "route": "/dich-vu-cong",
+    "finalPath": "/dich-vu-cong",
+    "status": 200,
+    "overflow": false,
+    "heading": "Dịch vụ công trực tuyến",
+    "font": "\"Be Vietnam Pro\", Roboto, \"Segoe UI\", sans-serif",
+    "primary": "#a61c30"
+  },
+  {
+    "width": 375,
+    "route": "/cong-cu",
+    "finalPath": "/cong-cu",
+    "status": 200,
+    "overflow": false,
+    "heading": "Công cụ nghiệp vụ",
+    "font": "\"Be Vietnam Pro\", Roboto, \"Segoe UI\", sans-serif",
+    "primary": "#a61c30"
+  },
+  {
+    "width": 375,
+    "route": "/cong-cu/xac-dinh-tuoi",
+    "finalPath": "/cong-cu/xac-dinh-tuoi",
+    "status": 410,
+    "overflow": false,
+    "heading": "Chức năng đã ngừng cung cấp",
+    "font": "\"Be Vietnam Pro\", Roboto, \"Segoe UI\", sans-serif",
+    "primary": "#a61c30"
+  },
+  {
+    "width": 375,
+    "route": "/cong-cu/nong-do-con",
+    "finalPath": "/cong-cu/nong-do-con",
+    "status": 410,
+    "overflow": false,
+    "heading": "Chức năng đã ngừng cung cấp",
+    "font": "\"Be Vietnam Pro\", Roboto, \"Segoe UI\", sans-serif",
+    "primary": "#a61c30"
+  },
+  {
+    "width": 375,
+    "route": "/cong-cu/tinh-qua-tai",
+    "finalPath": "/cong-cu/tinh-qua-tai",
+    "status": 410,
+    "overflow": false,
+    "heading": "Chức năng đã ngừng cung cấp",
+    "font": "\"Be Vietnam Pro\", Roboto, \"Segoe UI\", sans-serif",
+    "primary": "#a61c30"
+  },
+  {
+    "width": 375,
+    "route": "/cong-cu/loai-gplx",
+    "finalPath": "/cong-cu/loai-gplx",
+    "status": 410,
+    "overflow": false,
+    "heading": "Chức năng đã ngừng cung cấp",
+    "font": "\"Be Vietnam Pro\", Roboto, \"Segoe UI\", sans-serif",
+    "primary": "#a61c30"
+  },
+  {
+    "width": 375,
+    "route": "/cong-cu/qua-kho-hang-hoa",
+    "finalPath": "/cong-cu/qua-kho-hang-hoa",
+    "status": 410,
+    "overflow": false,
+    "heading": "Chức năng đã ngừng cung cấp",
+    "font": "\"Be Vietnam Pro\", Roboto, \"Segoe UI\", sans-serif",
+    "primary": "#a61c30"
+  },
+  {
+    "width": 375,
+    "route": "/cong-cu/coi-noi-thanh-thung",
+    "finalPath": "/cong-cu/coi-noi-thanh-thung",
+    "status": 410,
+    "overflow": false,
+    "heading": "Chức năng đã ngừng cung cấp",
+    "font": "\"Be Vietnam Pro\", Roboto, \"Segoe UI\", sans-serif",
+    "primary": "#a61c30"
+  },
+  {
+    "width": 375,
+    "route": "/cong-cu/tinh-ngay-xu-ly",
+    "finalPath": "/cong-cu/tinh-ngay-xu-ly",
+    "status": 410,
+    "overflow": false,
+    "heading": "Chức năng đã ngừng cung cấp",
+    "font": "\"Be Vietnam Pro\", Roboto, \"Segoe UI\", sans-serif",
+    "primary": "#a61c30"
+  },
+  {
+    "width": 375,
+    "route": "/cong-cu/do-dac-dien-tu",
+    "finalPath": "/cong-cu/do-dac-dien-tu",
+    "status": 410,
+    "overflow": false,
+    "heading": "Chức năng đã ngừng cung cấp",
+    "font": "\"Be Vietnam Pro\", Roboto, \"Segoe UI\", sans-serif",
+    "primary": "#a61c30"
+  },
+  {
+    "width": 375,
+    "route": "/cong-cu/dia-gioi",
+    "finalPath": "/cong-cu/dia-gioi",
+    "status": 404,
+    "overflow": false,
+    "heading": "Không tìm thấy trang",
+    "font": "\"Be Vietnam Pro\", Roboto, \"Segoe UI\", sans-serif",
+    "primary": "#a61c30"
+  },
+  {
+    "width": 375,
+    "route": "/hoc",
+    "finalPath": "/dang-nhap",
+    "status": 200,
+    "overflow": false,
+    "heading": "Đăng nhập",
+    "font": "\"Be Vietnam Pro\", Roboto, \"Segoe UI\", sans-serif",
+    "primary": "#a61c30"
+  },
+  {
+    "width": 375,
+    "route": "/luyen-tap",
+    "finalPath": "/dang-nhap",
+    "status": 200,
+    "overflow": false,
+    "heading": "Đăng nhập",
+    "font": "\"Be Vietnam Pro\", Roboto, \"Segoe UI\", sans-serif",
+    "primary": "#a61c30"
+  },
+  {
+    "width": 375,
+    "route": "/thi",
+    "finalPath": "/dang-nhap",
+    "status": 200,
+    "overflow": false,
+    "heading": "Đăng nhập",
+    "font": "\"Be Vietnam Pro\", Roboto, \"Segoe UI\", sans-serif",
+    "primary": "#a61c30"
+  },
+  {
+    "width": 375,
+    "route": "/nhom",
+    "finalPath": "/dang-nhap",
+    "status": 200,
+    "overflow": false,
+    "heading": "Đăng nhập",
+    "font": "\"Be Vietnam Pro\", Roboto, \"Segoe UI\", sans-serif",
+    "primary": "#a61c30"
+  },
+  {
+    "width": 375,
+    "route": "/huong-dan",
+    "finalPath": "/huong-dan",
+    "status": 200,
+    "overflow": false,
+    "heading": "Hướng dẫn sử dụng",
+    "font": "\"Be Vietnam Pro\", Roboto, \"Segoe UI\", sans-serif",
+    "primary": "#a61c30"
+  },
+  {
+    "width": 375,
+    "route": "/dang-nhap",
+    "finalPath": "/dang-nhap",
+    "status": 200,
+    "overflow": false,
+    "heading": "Đăng nhập",
+    "font": "\"Be Vietnam Pro\", Roboto, \"Segoe UI\", sans-serif",
+    "primary": "#a61c30"
+  },
+  {
+    "width": 375,
+    "route": "/dang-ky",
+    "finalPath": "/dang-ky",
+    "status": 200,
+    "overflow": false,
+    "heading": "Đăng ký tài khoản",
+    "font": "\"Be Vietnam Pro\", Roboto, \"Segoe UI\", sans-serif",
+    "primary": "#a61c30"
+  },
+  {
+    "width": 375,
+    "route": "/tai-khoan",
+    "finalPath": "/dang-nhap",
+    "status": 200,
+    "overflow": false,
+    "heading": "Đăng nhập",
+    "font": "\"Be Vietnam Pro\", Roboto, \"Segoe UI\", sans-serif",
+    "primary": "#a61c30"
+  },
+  {
+    "width": 375,
+    "route": "/quan-tri",
+    "finalPath": "/dang-nhap",
+    "status": 200,
+    "overflow": false,
+    "heading": "Đăng nhập",
+    "font": "\"Be Vietnam Pro\", Roboto, \"Segoe UI\", sans-serif",
+    "primary": "#a61c30"
+  },
+  {
+    "width": 375,
+    "route": "/khong-co-trang-nay",
+    "finalPath": "/khong-co-trang-nay",
+    "status": 404,
+    "overflow": false,
+    "heading": "Không tìm thấy trang",
+    "font": "\"Be Vietnam Pro\", Roboto, \"Segoe UI\", sans-serif",
+    "primary": "#a61c30"
+  },
+  {
+    "width": 390,
+    "route": "/",
+    "finalPath": "/",
+    "status": 200,
+    "overflow": false,
+    "heading": "Học tập và tra cứu phục vụ công tác",
+    "font": "\"Be Vietnam Pro\", Roboto, \"Segoe UI\", sans-serif",
+    "primary": "#a61c30"
+  },
+  {
+    "width": 390,
+    "route": "/tra-cuu",
+    "finalPath": "/tra-cuu",
+    "status": 200,
+    "overflow": false,
+    "heading": "Tra cứu",
+    "font": "\"Be Vietnam Pro\", Roboto, \"Segoe UI\", sans-serif",
+    "primary": "#a61c30"
+  },
+  {
+    "width": 390,
+    "route": "/tim-kiem",
+    "finalPath": "/tim-kiem",
+    "status": 200,
+    "overflow": false,
+    "heading": "Tra cứu văn bản",
+    "font": "\"Be Vietnam Pro\", Roboto, \"Segoe UI\", sans-serif",
+    "primary": "#a61c30"
+  },
+  {
+    "width": 390,
+    "route": "/dich-vu-cong",
+    "finalPath": "/dich-vu-cong",
+    "status": 200,
+    "overflow": false,
+    "heading": "Dịch vụ công trực tuyến",
+    "font": "\"Be Vietnam Pro\", Roboto, \"Segoe UI\", sans-serif",
+    "primary": "#a61c30"
+  },
+  {
+    "width": 390,
+    "route": "/cong-cu",
+    "finalPath": "/cong-cu",
+    "status": 200,
+    "overflow": false,
+    "heading": "Công cụ nghiệp vụ",
+    "font": "\"Be Vietnam Pro\", Roboto, \"Segoe UI\", sans-serif",
+    "primary": "#a61c30"
+  },
+  {
+    "width": 390,
+    "route": "/cong-cu/xac-dinh-tuoi",
+    "finalPath": "/cong-cu/xac-dinh-tuoi",
+    "status": 410,
+    "overflow": false,
+    "heading": "Chức năng đã ngừng cung cấp",
+    "font": "\"Be Vietnam Pro\", Roboto, \"Segoe UI\", sans-serif",
+    "primary": "#a61c30"
+  },
+  {
+    "width": 390,
+    "route": "/cong-cu/nong-do-con",
+    "finalPath": "/cong-cu/nong-do-con",
+    "status": 410,
+    "overflow": false,
+    "heading": "Chức năng đã ngừng cung cấp",
+    "font": "\"Be Vietnam Pro\", Roboto, \"Segoe UI\", sans-serif",
+    "primary": "#a61c30"
+  },
+  {
+    "width": 390,
+    "route": "/cong-cu/tinh-qua-tai",
+    "finalPath": "/cong-cu/tinh-qua-tai",
+    "status": 410,
+    "overflow": false,
+    "heading": "Chức năng đã ngừng cung cấp",
+    "font": "\"Be Vietnam Pro\", Roboto, \"Segoe UI\", sans-serif",
+    "primary": "#a61c30"
+  },
+  {
+    "width": 390,
+    "route": "/cong-cu/loai-gplx",
+    "finalPath": "/cong-cu/loai-gplx",
+    "status": 410,
+    "overflow": false,
+    "heading": "Chức năng đã ngừng cung cấp",
+    "font": "\"Be Vietnam Pro\", Roboto, \"Segoe UI\", sans-serif",
+    "primary": "#a61c30"
+  },
+  {
+    "width": 390,
+    "route": "/cong-cu/qua-kho-hang-hoa",
+    "finalPath": "/cong-cu/qua-kho-hang-hoa",
+    "status": 410,
+    "overflow": false,
+    "heading": "Chức năng đã ngừng cung cấp",
+    "font": "\"Be Vietnam Pro\", Roboto, \"Segoe UI\", sans-serif",
+    "primary": "#a61c30"
+  },
+  {
+    "width": 390,
+    "route": "/cong-cu/coi-noi-thanh-thung",
+    "finalPath": "/cong-cu/coi-noi-thanh-thung",
+    "status": 410,
+    "overflow": false,
+    "heading": "Chức năng đã ngừng cung cấp",
+    "font": "\"Be Vietnam Pro\", Roboto, \"Segoe UI\", sans-serif",
+    "primary": "#a61c30"
+  },
+  {
+    "width": 390,
+    "route": "/cong-cu/tinh-ngay-xu-ly",
+    "finalPath": "/cong-cu/tinh-ngay-xu-ly",
+    "status": 410,
+    "overflow": false,
+    "heading": "Chức năng đã ngừng cung cấp",
+    "font": "\"Be Vietnam Pro\", Roboto, \"Segoe UI\", sans-serif",
+    "primary": "#a61c30"
+  },
+  {
+    "width": 390,
+    "route": "/cong-cu/do-dac-dien-tu",
+    "finalPath": "/cong-cu/do-dac-dien-tu",
+    "status": 410,
+    "overflow": false,
+    "heading": "Chức năng đã ngừng cung cấp",
+    "font": "\"Be Vietnam Pro\", Roboto, \"Segoe UI\", sans-serif",
+    "primary": "#a61c30"
+  },
+  {
+    "width": 390,
+    "route": "/cong-cu/dia-gioi",
+    "finalPath": "/cong-cu/dia-gioi",
+    "status": 404,
+    "overflow": false,
+    "heading": "Không tìm thấy trang",
+    "font": "\"Be Vietnam Pro\", Roboto, \"Segoe UI\", sans-serif",
+    "primary": "#a61c30"
+  },
+  {
+    "width": 390,
+    "route": "/hoc",
+    "finalPath": "/dang-nhap",
+    "status": 200,
+    "overflow": false,
+    "heading": "Đăng nhập",
+    "font": "\"Be Vietnam Pro\", Roboto, \"Segoe UI\", sans-serif",
+    "primary": "#a61c30"
+  },
+  {
+    "width": 390,
+    "route": "/luyen-tap",
+    "finalPath": "/dang-nhap",
+    "status": 200,
+    "overflow": false,
+    "heading": "Đăng nhập",
+    "font": "\"Be Vietnam Pro\", Roboto, \"Segoe UI\", sans-serif",
+    "primary": "#a61c30"
+  },
+  {
+    "width": 390,
+    "route": "/thi",
+    "finalPath": "/dang-nhap",
+    "status": 200,
+    "overflow": false,
+    "heading": "Đăng nhập",
+    "font": "\"Be Vietnam Pro\", Roboto, \"Segoe UI\", sans-serif",
+    "primary": "#a61c30"
+  },
+  {
+    "width": 390,
+    "route": "/nhom",
+    "finalPath": "/dang-nhap",
+    "status": 200,
+    "overflow": false,
+    "heading": "Đăng nhập",
+    "font": "\"Be Vietnam Pro\", Roboto, \"Segoe UI\", sans-serif",
+    "primary": "#a61c30"
+  },
+  {
+    "width": 390,
+    "route": "/huong-dan",
+    "finalPath": "/huong-dan",
+    "status": 200,
+    "overflow": false,
+    "heading": "Hướng dẫn sử dụng",
+    "font": "\"Be Vietnam Pro\", Roboto, \"Segoe UI\", sans-serif",
+    "primary": "#a61c30"
+  },
+  {
+    "width": 390,
+    "route": "/dang-nhap",
+    "finalPath": "/dang-nhap",
+    "status": 200,
+    "overflow": false,
+    "heading": "Đăng nhập",
+    "font": "\"Be Vietnam Pro\", Roboto, \"Segoe UI\", sans-serif",
+    "primary": "#a61c30"
+  },
+  {
+    "width": 390,
+    "route": "/dang-ky",
+    "finalPath": "/dang-ky",
+    "status": 200,
+    "overflow": false,
+    "heading": "Đăng ký tài khoản",
+    "font": "\"Be Vietnam Pro\", Roboto, \"Segoe UI\", sans-serif",
+    "primary": "#a61c30"
+  },
+  {
+    "width": 390,
+    "route": "/tai-khoan",
+    "finalPath": "/dang-nhap",
+    "status": 200,
+    "overflow": false,
+    "heading": "Đăng nhập",
+    "font": "\"Be Vietnam Pro\", Roboto, \"Segoe UI\", sans-serif",
+    "primary": "#a61c30"
+  },
+  {
+    "width": 390,
+    "route": "/quan-tri",
+    "finalPath": "/dang-nhap",
+    "status": 200,
+    "overflow": false,
+    "heading": "Đăng nhập",
+    "font": "\"Be Vietnam Pro\", Roboto, \"Segoe UI\", sans-serif",
+    "primary": "#a61c30"
+  },
+  {
+    "width": 390,
+    "route": "/khong-co-trang-nay",
+    "finalPath": "/khong-co-trang-nay",
+    "status": 404,
+    "overflow": false,
+    "heading": "Không tìm thấy trang",
+    "font": "\"Be Vietnam Pro\", Roboto, \"Segoe UI\", sans-serif",
+    "primary": "#a61c30"
+  },
+  {
+    "width": 768,
+    "route": "/",
+    "finalPath": "/",
+    "status": 200,
+    "overflow": false,
+    "heading": "Học tập và tra cứu phục vụ công tác",
+    "font": "\"Be Vietnam Pro\", Roboto, \"Segoe UI\", sans-serif",
+    "primary": "#a61c30"
+  },
+  {
+    "width": 768,
+    "route": "/tra-cuu",
+    "finalPath": "/tra-cuu",
+    "status": 200,
+    "overflow": false,
+    "heading": "Tra cứu",
+    "font": "\"Be Vietnam Pro\", Roboto, \"Segoe UI\", sans-serif",
+    "primary": "#a61c30"
+  },
+  {
+    "width": 768,
+    "route": "/tim-kiem",
+    "finalPath": "/tim-kiem",
+    "status": 200,
+    "overflow": false,
+    "heading": "Tra cứu văn bản",
+    "font": "\"Be Vietnam Pro\", Roboto, \"Segoe UI\", sans-serif",
+    "primary": "#a61c30"
+  },
+  {
+    "width": 768,
+    "route": "/dich-vu-cong",
+    "finalPath": "/dich-vu-cong",
+    "status": 200,
+    "overflow": false,
+    "heading": "Dịch vụ công trực tuyến",
+    "font": "\"Be Vietnam Pro\", Roboto, \"Segoe UI\", sans-serif",
+    "primary": "#a61c30"
+  },
+  {
+    "width": 768,
+    "route": "/cong-cu",
+    "finalPath": "/cong-cu",
+    "status": 200,
+    "overflow": false,
+    "heading": "Công cụ nghiệp vụ",
+    "font": "\"Be Vietnam Pro\", Roboto, \"Segoe UI\", sans-serif",
+    "primary": "#a61c30"
+  },
+  {
+    "width": 768,
+    "route": "/cong-cu/xac-dinh-tuoi",
+    "finalPath": "/cong-cu/xac-dinh-tuoi",
+    "status": 410,
+    "overflow": false,
+    "heading": "Chức năng đã ngừng cung cấp",
+    "font": "\"Be Vietnam Pro\", Roboto, \"Segoe UI\", sans-serif",
+    "primary": "#a61c30"
+  },
+  {
+    "width": 768,
+    "route": "/cong-cu/nong-do-con",
+    "finalPath": "/cong-cu/nong-do-con",
+    "status": 410,
+    "overflow": false,
+    "heading": "Chức năng đã ngừng cung cấp",
+    "font": "\"Be Vietnam Pro\", Roboto, \"Segoe UI\", sans-serif",
+    "primary": "#a61c30"
+  },
+  {
+    "width": 768,
+    "route": "/cong-cu/tinh-qua-tai",
+    "finalPath": "/cong-cu/tinh-qua-tai",
+    "status": 410,
+    "overflow": false,
+    "heading": "Chức năng đã ngừng cung cấp",
+    "font": "\"Be Vietnam Pro\", Roboto, \"Segoe UI\", sans-serif",
+    "primary": "#a61c30"
+  },
+  {
+    "width": 768,
+    "route": "/cong-cu/loai-gplx",
+    "finalPath": "/cong-cu/loai-gplx",
+    "status": 410,
+    "overflow": false,
+    "heading": "Chức năng đã ngừng cung cấp",
+    "font": "\"Be Vietnam Pro\", Roboto, \"Segoe UI\", sans-serif",
+    "primary": "#a61c30"
+  },
+  {
+    "width": 768,
+    "route": "/cong-cu/qua-kho-hang-hoa",
+    "finalPath": "/cong-cu/qua-kho-hang-hoa",
+    "status": 410,
+    "overflow": false,
+    "heading": "Chức năng đã ngừng cung cấp",
+    "font": "\"Be Vietnam Pro\", Roboto, \"Segoe UI\", sans-serif",
+    "primary": "#a61c30"
+  },
+  {
+    "width": 768,
+    "route": "/cong-cu/coi-noi-thanh-thung",
+    "finalPath": "/cong-cu/coi-noi-thanh-thung",
+    "status": 410,
+    "overflow": false,
+    "heading": "Chức năng đã ngừng cung cấp",
+    "font": "\"Be Vietnam Pro\", Roboto, \"Segoe UI\", sans-serif",
+    "primary": "#a61c30"
+  },
+  {
+    "width": 768,
+    "route": "/cong-cu/tinh-ngay-xu-ly",
+    "finalPath": "/cong-cu/tinh-ngay-xu-ly",
+    "status": 410,
+    "overflow": false,
+    "heading": "Chức năng đã ngừng cung cấp",
+    "font": "\"Be Vietnam Pro\", Roboto, \"Segoe UI\", sans-serif",
+    "primary": "#a61c30"
+  },
+  {
+    "width": 768,
+    "route": "/cong-cu/do-dac-dien-tu",
+    "finalPath": "/cong-cu/do-dac-dien-tu",
+    "status": 410,
+    "overflow": false,
+    "heading": "Chức năng đã ngừng cung cấp",
+    "font": "\"Be Vietnam Pro\", Roboto, \"Segoe UI\", sans-serif",
+    "primary": "#a61c30"
+  },
+  {
+    "width": 768,
+    "route": "/cong-cu/dia-gioi",
+    "finalPath": "/cong-cu/dia-gioi",
+    "status": 404,
+    "overflow": false,
+    "heading": "Không tìm thấy trang",
+    "font": "\"Be Vietnam Pro\", Roboto, \"Segoe UI\", sans-serif",
+    "primary": "#a61c30"
+  },
+  {
+    "width": 768,
+    "route": "/hoc",
+    "finalPath": "/dang-nhap",
+    "status": 200,
+    "overflow": false,
+    "heading": "Đăng nhập",
+    "font": "\"Be Vietnam Pro\", Roboto, \"Segoe UI\", sans-serif",
+    "primary": "#a61c30"
+  },
+  {
+    "width": 768,
+    "route": "/luyen-tap",
+    "finalPath": "/dang-nhap",
+    "status": 200,
+    "overflow": false,
+    "heading": "Đăng nhập",
+    "font": "\"Be Vietnam Pro\", Roboto, \"Segoe UI\", sans-serif",
+    "primary": "#a61c30"
+  },
+  {
+    "width": 768,
+    "route": "/thi",
+    "finalPath": "/dang-nhap",
+    "status": 200,
+    "overflow": false,
+    "heading": "Đăng nhập",
+    "font": "\"Be Vietnam Pro\", Roboto, \"Segoe UI\", sans-serif",
+    "primary": "#a61c30"
+  },
+  {
+    "width": 768,
+    "route": "/nhom",
+    "finalPath": "/dang-nhap",
+    "status": 200,
+    "overflow": false,
+    "heading": "Đăng nhập",
+    "font": "\"Be Vietnam Pro\", Roboto, \"Segoe UI\", sans-serif",
+    "primary": "#a61c30"
+  },
+  {
+    "width": 768,
+    "route": "/huong-dan",
+    "finalPath": "/huong-dan",
+    "status": 200,
+    "overflow": false,
+    "heading": "Hướng dẫn sử dụng",
+    "font": "\"Be Vietnam Pro\", Roboto, \"Segoe UI\", sans-serif",
+    "primary": "#a61c30"
+  },
+  {
+    "width": 768,
+    "route": "/dang-nhap",
+    "finalPath": "/dang-nhap",
+    "status": 200,
+    "overflow": false,
+    "heading": "Đăng nhập",
+    "font": "\"Be Vietnam Pro\", Roboto, \"Segoe UI\", sans-serif",
+    "primary": "#a61c30"
+  },
+  {
+    "width": 768,
+    "route": "/dang-ky",
+    "finalPath": "/dang-ky",
+    "status": 200,
+    "overflow": false,
+    "heading": "Đăng ký tài khoản",
+    "font": "\"Be Vietnam Pro\", Roboto, \"Segoe UI\", sans-serif",
+    "primary": "#a61c30"
+  },
+  {
+    "width": 768,
+    "route": "/tai-khoan",
+    "finalPath": "/dang-nhap",
+    "status": 200,
+    "overflow": false,
+    "heading": "Đăng nhập",
+    "font": "\"Be Vietnam Pro\", Roboto, \"Segoe UI\", sans-serif",
+    "primary": "#a61c30"
+  },
+  {
+    "width": 768,
+    "route": "/quan-tri",
+    "finalPath": "/dang-nhap",
+    "status": 200,
+    "overflow": false,
+    "heading": "Đăng nhập",
+    "font": "\"Be Vietnam Pro\", Roboto, \"Segoe UI\", sans-serif",
+    "primary": "#a61c30"
+  },
+  {
+    "width": 768,
+    "route": "/khong-co-trang-nay",
+    "finalPath": "/khong-co-trang-nay",
+    "status": 404,
+    "overflow": false,
+    "heading": "Không tìm thấy trang",
+    "font": "\"Be Vietnam Pro\", Roboto, \"Segoe UI\", sans-serif",
+    "primary": "#a61c30"
+  },
+  {
+    "width": 1366,
+    "route": "/",
+    "finalPath": "/",
+    "status": 200,
+    "overflow": false,
+    "heading": "Học tập và tra cứu phục vụ công tác",
+    "font": "\"Be Vietnam Pro\", Roboto, \"Segoe UI\", sans-serif",
+    "primary": "#a61c30"
+  },
+  {
+    "width": 1366,
+    "route": "/tra-cuu",
+    "finalPath": "/tra-cuu",
+    "status": 200,
+    "overflow": false,
+    "heading": "Tra cứu",
+    "font": "\"Be Vietnam Pro\", Roboto, \"Segoe UI\", sans-serif",
+    "primary": "#a61c30"
+  },
+  {
+    "width": 1366,
+    "route": "/tim-kiem",
+    "finalPath": "/tim-kiem",
+    "status": 200,
+    "overflow": false,
+    "heading": "Tra cứu văn bản",
+    "font": "\"Be Vietnam Pro\", Roboto, \"Segoe UI\", sans-serif",
+    "primary": "#a61c30"
+  },
+  {
+    "width": 1366,
+    "route": "/dich-vu-cong",
+    "finalPath": "/dich-vu-cong",
+    "status": 200,
+    "overflow": false,
+    "heading": "Dịch vụ công trực tuyến",
+    "font": "\"Be Vietnam Pro\", Roboto, \"Segoe UI\", sans-serif",
+    "primary": "#a61c30"
+  },
+  {
+    "width": 1366,
+    "route": "/cong-cu",
+    "finalPath": "/cong-cu",
+    "status": 200,
+    "overflow": false,
+    "heading": "Công cụ nghiệp vụ",
+    "font": "\"Be Vietnam Pro\", Roboto, \"Segoe UI\", sans-serif",
+    "primary": "#a61c30"
+  },
+  {
+    "width": 1366,
+    "route": "/cong-cu/xac-dinh-tuoi",
+    "finalPath": "/cong-cu/xac-dinh-tuoi",
+    "status": 410,
+    "overflow": false,
+    "heading": "Chức năng đã ngừng cung cấp",
+    "font": "\"Be Vietnam Pro\", Roboto, \"Segoe UI\", sans-serif",
+    "primary": "#a61c30"
+  },
+  {
+    "width": 1366,
+    "route": "/cong-cu/nong-do-con",
+    "finalPath": "/cong-cu/nong-do-con",
+    "status": 410,
+    "overflow": false,
+    "heading": "Chức năng đã ngừng cung cấp",
+    "font": "\"Be Vietnam Pro\", Roboto, \"Segoe UI\", sans-serif",
+    "primary": "#a61c30"
+  },
+  {
+    "width": 1366,
+    "route": "/cong-cu/tinh-qua-tai",
+    "finalPath": "/cong-cu/tinh-qua-tai",
+    "status": 410,
+    "overflow": false,
+    "heading": "Chức năng đã ngừng cung cấp",
+    "font": "\"Be Vietnam Pro\", Roboto, \"Segoe UI\", sans-serif",
+    "primary": "#a61c30"
+  },
+  {
+    "width": 1366,
+    "route": "/cong-cu/loai-gplx",
+    "finalPath": "/cong-cu/loai-gplx",
+    "status": 410,
+    "overflow": false,
+    "heading": "Chức năng đã ngừng cung cấp",
+    "font": "\"Be Vietnam Pro\", Roboto, \"Segoe UI\", sans-serif",
+    "primary": "#a61c30"
+  },
+  {
+    "width": 1366,
+    "route": "/cong-cu/qua-kho-hang-hoa",
+    "finalPath": "/cong-cu/qua-kho-hang-hoa",
+    "status": 410,
+    "overflow": false,
+    "heading": "Chức năng đã ngừng cung cấp",
+    "font": "\"Be Vietnam Pro\", Roboto, \"Segoe UI\", sans-serif",
+    "primary": "#a61c30"
+  },
+  {
+    "width": 1366,
+    "route": "/cong-cu/coi-noi-thanh-thung",
+    "finalPath": "/cong-cu/coi-noi-thanh-thung",
+    "status": 410,
+    "overflow": false,
+    "heading": "Chức năng đã ngừng cung cấp",
+    "font": "\"Be Vietnam Pro\", Roboto, \"Segoe UI\", sans-serif",
+    "primary": "#a61c30"
+  },
+  {
+    "width": 1366,
+    "route": "/cong-cu/tinh-ngay-xu-ly",
+    "finalPath": "/cong-cu/tinh-ngay-xu-ly",
+    "status": 410,
+    "overflow": false,
+    "heading": "Chức năng đã ngừng cung cấp",
+    "font": "\"Be Vietnam Pro\", Roboto, \"Segoe UI\", sans-serif",
+    "primary": "#a61c30"
+  },
+  {
+    "width": 1366,
+    "route": "/cong-cu/do-dac-dien-tu",
+    "finalPath": "/cong-cu/do-dac-dien-tu",
+    "status": 410,
+    "overflow": false,
+    "heading": "Chức năng đã ngừng cung cấp",
+    "font": "\"Be Vietnam Pro\", Roboto, \"Segoe UI\", sans-serif",
+    "primary": "#a61c30"
+  },
+  {
+    "width": 1366,
+    "route": "/cong-cu/dia-gioi",
+    "finalPath": "/cong-cu/dia-gioi",
+    "status": 404,
+    "overflow": false,
+    "heading": "Không tìm thấy trang",
+    "font": "\"Be Vietnam Pro\", Roboto, \"Segoe UI\", sans-serif",
+    "primary": "#a61c30"
+  },
+  {
+    "width": 1366,
+    "route": "/hoc",
+    "finalPath": "/dang-nhap",
+    "status": 200,
+    "overflow": false,
+    "heading": "Đăng nhập",
+    "font": "\"Be Vietnam Pro\", Roboto, \"Segoe UI\", sans-serif",
+    "primary": "#a61c30"
+  },
+  {
+    "width": 1366,
+    "route": "/luyen-tap",
+    "finalPath": "/dang-nhap",
+    "status": 200,
+    "overflow": false,
+    "heading": "Đăng nhập",
+    "font": "\"Be Vietnam Pro\", Roboto, \"Segoe UI\", sans-serif",
+    "primary": "#a61c30"
+  },
+  {
+    "width": 1366,
+    "route": "/thi",
+    "finalPath": "/dang-nhap",
+    "status": 200,
+    "overflow": false,
+    "heading": "Đăng nhập",
+    "font": "\"Be Vietnam Pro\", Roboto, \"Segoe UI\", sans-serif",
+    "primary": "#a61c30"
+  },
+  {
+    "width": 1366,
+    "route": "/nhom",
+    "finalPath": "/dang-nhap",
+    "status": 200,
+    "overflow": false,
+    "heading": "Đăng nhập",
+    "font": "\"Be Vietnam Pro\", Roboto, \"Segoe UI\", sans-serif",
+    "primary": "#a61c30"
+  },
+  {
+    "width": 1366,
+    "route": "/huong-dan",
+    "finalPath": "/huong-dan",
+    "status": 200,
+    "overflow": false,
+    "heading": "Hướng dẫn sử dụng",
+    "font": "\"Be Vietnam Pro\", Roboto, \"Segoe UI\", sans-serif",
+    "primary": "#a61c30"
+  },
+  {
+    "width": 1366,
+    "route": "/dang-nhap",
+    "finalPath": "/dang-nhap",
+    "status": 200,
+    "overflow": false,
+    "heading": "Đăng nhập",
+    "font": "\"Be Vietnam Pro\", Roboto, \"Segoe UI\", sans-serif",
+    "primary": "#a61c30"
+  },
+  {
+    "width": 1366,
+    "route": "/dang-ky",
+    "finalPath": "/dang-ky",
+    "status": 200,
+    "overflow": false,
+    "heading": "Đăng ký tài khoản",
+    "font": "\"Be Vietnam Pro\", Roboto, \"Segoe UI\", sans-serif",
+    "primary": "#a61c30"
+  },
+  {
+    "width": 1366,
+    "route": "/tai-khoan",
+    "finalPath": "/dang-nhap",
+    "status": 200,
+    "overflow": false,
+    "heading": "Đăng nhập",
+    "font": "\"Be Vietnam Pro\", Roboto, \"Segoe UI\", sans-serif",
+    "primary": "#a61c30"
+  },
+  {
+    "width": 1366,
+    "route": "/quan-tri",
+    "finalPath": "/dang-nhap",
+    "status": 200,
+    "overflow": false,
+    "heading": "Đăng nhập",
+    "font": "\"Be Vietnam Pro\", Roboto, \"Segoe UI\", sans-serif",
+    "primary": "#a61c30"
+  },
+  {
+    "width": 1366,
+    "route": "/khong-co-trang-nay",
+    "finalPath": "/khong-co-trang-nay",
+    "status": 404,
+    "overflow": false,
+    "heading": "Không tìm thấy trang",
+    "font": "\"Be Vietnam Pro\", Roboto, \"Segoe UI\", sans-serif",
+    "primary": "#a61c30"
+  },
+  {
+    "width": 1440,
+    "route": "/",
+    "finalPath": "/",
+    "status": 200,
+    "overflow": false,
+    "heading": "Học tập và tra cứu phục vụ công tác",
+    "font": "\"Be Vietnam Pro\", Roboto, \"Segoe UI\", sans-serif",
+    "primary": "#a61c30"
+  },
+  {
+    "width": 1440,
+    "route": "/tra-cuu",
+    "finalPath": "/tra-cuu",
+    "status": 200,
+    "overflow": false,
+    "heading": "Tra cứu",
+    "font": "\"Be Vietnam Pro\", Roboto, \"Segoe UI\", sans-serif",
+    "primary": "#a61c30"
+  },
+  {
+    "width": 1440,
+    "route": "/tim-kiem",
+    "finalPath": "/tim-kiem",
+    "status": 200,
+    "overflow": false,
+    "heading": "Tra cứu văn bản",
+    "font": "\"Be Vietnam Pro\", Roboto, \"Segoe UI\", sans-serif",
+    "primary": "#a61c30"
+  },
+  {
+    "width": 1440,
+    "route": "/dich-vu-cong",
+    "finalPath": "/dich-vu-cong",
+    "status": 200,
+    "overflow": false,
+    "heading": "Dịch vụ công trực tuyến",
+    "font": "\"Be Vietnam Pro\", Roboto, \"Segoe UI\", sans-serif",
+    "primary": "#a61c30"
+  },
+  {
+    "width": 1440,
+    "route": "/cong-cu",
+    "finalPath": "/cong-cu",
+    "status": 200,
+    "overflow": false,
+    "heading": "Công cụ nghiệp vụ",
+    "font": "\"Be Vietnam Pro\", Roboto, \"Segoe UI\", sans-serif",
+    "primary": "#a61c30"
+  },
+  {
+    "width": 1440,
+    "route": "/cong-cu/xac-dinh-tuoi",
+    "finalPath": "/cong-cu/xac-dinh-tuoi",
+    "status": 410,
+    "overflow": false,
+    "heading": "Chức năng đã ngừng cung cấp",
+    "font": "\"Be Vietnam Pro\", Roboto, \"Segoe UI\", sans-serif",
+    "primary": "#a61c30"
+  },
+  {
+    "width": 1440,
+    "route": "/cong-cu/nong-do-con",
+    "finalPath": "/cong-cu/nong-do-con",
+    "status": 410,
+    "overflow": false,
+    "heading": "Chức năng đã ngừng cung cấp",
+    "font": "\"Be Vietnam Pro\", Roboto, \"Segoe UI\", sans-serif",
+    "primary": "#a61c30"
+  },
+  {
+    "width": 1440,
+    "route": "/cong-cu/tinh-qua-tai",
+    "finalPath": "/cong-cu/tinh-qua-tai",
+    "status": 410,
+    "overflow": false,
+    "heading": "Chức năng đã ngừng cung cấp",
+    "font": "\"Be Vietnam Pro\", Roboto, \"Segoe UI\", sans-serif",
+    "primary": "#a61c30"
+  },
+  {
+    "width": 1440,
+    "route": "/cong-cu/loai-gplx",
+    "finalPath": "/cong-cu/loai-gplx",
+    "status": 410,
+    "overflow": false,
+    "heading": "Chức năng đã ngừng cung cấp",
+    "font": "\"Be Vietnam Pro\", Roboto, \"Segoe UI\", sans-serif",
+    "primary": "#a61c30"
+  },
+  {
+    "width": 1440,
+    "route": "/cong-cu/qua-kho-hang-hoa",
+    "finalPath": "/cong-cu/qua-kho-hang-hoa",
+    "status": 410,
+    "overflow": false,
+    "heading": "Chức năng đã ngừng cung cấp",
+    "font": "\"Be Vietnam Pro\", Roboto, \"Segoe UI\", sans-serif",
+    "primary": "#a61c30"
+  },
+  {
+    "width": 1440,
+    "route": "/cong-cu/coi-noi-thanh-thung",
+    "finalPath": "/cong-cu/coi-noi-thanh-thung",
+    "status": 410,
+    "overflow": false,
+    "heading": "Chức năng đã ngừng cung cấp",
+    "font": "\"Be Vietnam Pro\", Roboto, \"Segoe UI\", sans-serif",
+    "primary": "#a61c30"
+  },
+  {
+    "width": 1440,
+    "route": "/cong-cu/tinh-ngay-xu-ly",
+    "finalPath": "/cong-cu/tinh-ngay-xu-ly",
+    "status": 410,
+    "overflow": false,
+    "heading": "Chức năng đã ngừng cung cấp",
+    "font": "\"Be Vietnam Pro\", Roboto, \"Segoe UI\", sans-serif",
+    "primary": "#a61c30"
+  },
+  {
+    "width": 1440,
+    "route": "/cong-cu/do-dac-dien-tu",
+    "finalPath": "/cong-cu/do-dac-dien-tu",
+    "status": 410,
+    "overflow": false,
+    "heading": "Chức năng đã ngừng cung cấp",
+    "font": "\"Be Vietnam Pro\", Roboto, \"Segoe UI\", sans-serif",
+    "primary": "#a61c30"
+  },
+  {
+    "width": 1440,
+    "route": "/cong-cu/dia-gioi",
+    "finalPath": "/cong-cu/dia-gioi",
+    "status": 404,
+    "overflow": false,
+    "heading": "Không tìm thấy trang",
+    "font": "\"Be Vietnam Pro\", Roboto, \"Segoe UI\", sans-serif",
+    "primary": "#a61c30"
+  },
+  {
+    "width": 1440,
+    "route": "/hoc",
+    "finalPath": "/dang-nhap",
+    "status": 200,
+    "overflow": false,
+    "heading": "Đăng nhập",
+    "font": "\"Be Vietnam Pro\", Roboto, \"Segoe UI\", sans-serif",
+    "primary": "#a61c30"
+  },
+  {
+    "width": 1440,
+    "route": "/luyen-tap",
+    "finalPath": "/dang-nhap",
+    "status": 200,
+    "overflow": false,
+    "heading": "Đăng nhập",
+    "font": "\"Be Vietnam Pro\", Roboto, \"Segoe UI\", sans-serif",
+    "primary": "#a61c30"
+  },
+  {
+    "width": 1440,
+    "route": "/thi",
+    "finalPath": "/dang-nhap",
+    "status": 200,
+    "overflow": false,
+    "heading": "Đăng nhập",
+    "font": "\"Be Vietnam Pro\", Roboto, \"Segoe UI\", sans-serif",
+    "primary": "#a61c30"
+  },
+  {
+    "width": 1440,
+    "route": "/nhom",
+    "finalPath": "/dang-nhap",
+    "status": 200,
+    "overflow": false,
+    "heading": "Đăng nhập",
+    "font": "\"Be Vietnam Pro\", Roboto, \"Segoe UI\", sans-serif",
+    "primary": "#a61c30"
+  },
+  {
+    "width": 1440,
+    "route": "/huong-dan",
+    "finalPath": "/huong-dan",
+    "status": 200,
+    "overflow": false,
+    "heading": "Hướng dẫn sử dụng",
+    "font": "\"Be Vietnam Pro\", Roboto, \"Segoe UI\", sans-serif",
+    "primary": "#a61c30"
+  },
+  {
+    "width": 1440,
+    "route": "/dang-nhap",
+    "finalPath": "/dang-nhap",
+    "status": 200,
+    "overflow": false,
+    "heading": "Đăng nhập",
+    "font": "\"Be Vietnam Pro\", Roboto, \"Segoe UI\", sans-serif",
+    "primary": "#a61c30"
+  },
+  {
+    "width": 1440,
+    "route": "/dang-ky",
+    "finalPath": "/dang-ky",
+    "status": 200,
+    "overflow": false,
+    "heading": "Đăng ký tài khoản",
+    "font": "\"Be Vietnam Pro\", Roboto, \"Segoe UI\", sans-serif",
+    "primary": "#a61c30"
+  },
+  {
+    "width": 1440,
+    "route": "/tai-khoan",
+    "finalPath": "/dang-nhap",
+    "status": 200,
+    "overflow": false,
+    "heading": "Đăng nhập",
+    "font": "\"Be Vietnam Pro\", Roboto, \"Segoe UI\", sans-serif",
+    "primary": "#a61c30"
+  },
+  {
+    "width": 1440,
+    "route": "/quan-tri",
+    "finalPath": "/dang-nhap",
+    "status": 200,
+    "overflow": false,
+    "heading": "Đăng nhập",
+    "font": "\"Be Vietnam Pro\", Roboto, \"Segoe UI\", sans-serif",
+    "primary": "#a61c30"
+  },
+  {
+    "width": 1440,
+    "route": "/khong-co-trang-nay",
+    "finalPath": "/khong-co-trang-nay",
+    "status": 404,
+    "overflow": false,
+    "heading": "Không tìm thấy trang",
+    "font": "\"Be Vietnam Pro\", Roboto, \"Segoe UI\", sans-serif",
+    "primary": "#a61c30"
+  },
+  {
+    "width": 1920,
+    "route": "/",
+    "finalPath": "/",
+    "status": 200,
+    "overflow": false,
+    "heading": "Học tập và tra cứu phục vụ công tác",
+    "font": "\"Be Vietnam Pro\", Roboto, \"Segoe UI\", sans-serif",
+    "primary": "#a61c30"
+  },
+  {
+    "width": 1920,
+    "route": "/tra-cuu",
+    "finalPath": "/tra-cuu",
+    "status": 200,
+    "overflow": false,
+    "heading": "Tra cứu",
+    "font": "\"Be Vietnam Pro\", Roboto, \"Segoe UI\", sans-serif",
+    "primary": "#a61c30"
+  },
+  {
+    "width": 1920,
+    "route": "/tim-kiem",
+    "finalPath": "/tim-kiem",
+    "status": 200,
+    "overflow": false,
+    "heading": "Tra cứu văn bản",
+    "font": "\"Be Vietnam Pro\", Roboto, \"Segoe UI\", sans-serif",
+    "primary": "#a61c30"
+  },
+  {
+    "width": 1920,
+    "route": "/dich-vu-cong",
+    "finalPath": "/dich-vu-cong",
+    "status": 200,
+    "overflow": false,
+    "heading": "Dịch vụ công trực tuyến",
+    "font": "\"Be Vietnam Pro\", Roboto, \"Segoe UI\", sans-serif",
+    "primary": "#a61c30"
+  },
+  {
+    "width": 1920,
+    "route": "/cong-cu",
+    "finalPath": "/cong-cu",
+    "status": 200,
+    "overflow": false,
+    "heading": "Công cụ nghiệp vụ",
+    "font": "\"Be Vietnam Pro\", Roboto, \"Segoe UI\", sans-serif",
+    "primary": "#a61c30"
+  },
+  {
+    "width": 1920,
+    "route": "/cong-cu/xac-dinh-tuoi",
+    "finalPath": "/cong-cu/xac-dinh-tuoi",
+    "status": 410,
+    "overflow": false,
+    "heading": "Chức năng đã ngừng cung cấp",
+    "font": "\"Be Vietnam Pro\", Roboto, \"Segoe UI\", sans-serif",
+    "primary": "#a61c30"
+  },
+  {
+    "width": 1920,
+    "route": "/cong-cu/nong-do-con",
+    "finalPath": "/cong-cu/nong-do-con",
+    "status": 410,
+    "overflow": false,
+    "heading": "Chức năng đã ngừng cung cấp",
+    "font": "\"Be Vietnam Pro\", Roboto, \"Segoe UI\", sans-serif",
+    "primary": "#a61c30"
+  },
+  {
+    "width": 1920,
+    "route": "/cong-cu/tinh-qua-tai",
+    "finalPath": "/cong-cu/tinh-qua-tai",
+    "status": 410,
+    "overflow": false,
+    "heading": "Chức năng đã ngừng cung cấp",
+    "font": "\"Be Vietnam Pro\", Roboto, \"Segoe UI\", sans-serif",
+    "primary": "#a61c30"
+  },
+  {
+    "width": 1920,
+    "route": "/cong-cu/loai-gplx",
+    "finalPath": "/cong-cu/loai-gplx",
+    "status": 410,
+    "overflow": false,
+    "heading": "Chức năng đã ngừng cung cấp",
+    "font": "\"Be Vietnam Pro\", Roboto, \"Segoe UI\", sans-serif",
+    "primary": "#a61c30"
+  },
+  {
+    "width": 1920,
+    "route": "/cong-cu/qua-kho-hang-hoa",
+    "finalPath": "/cong-cu/qua-kho-hang-hoa",
+    "status": 410,
+    "overflow": false,
+    "heading": "Chức năng đã ngừng cung cấp",
+    "font": "\"Be Vietnam Pro\", Roboto, \"Segoe UI\", sans-serif",
+    "primary": "#a61c30"
+  },
+  {
+    "width": 1920,
+    "route": "/cong-cu/coi-noi-thanh-thung",
+    "finalPath": "/cong-cu/coi-noi-thanh-thung",
+    "status": 410,
+    "overflow": false,
+    "heading": "Chức năng đã ngừng cung cấp",
+    "font": "\"Be Vietnam Pro\", Roboto, \"Segoe UI\", sans-serif",
+    "primary": "#a61c30"
+  },
+  {
+    "width": 1920,
+    "route": "/cong-cu/tinh-ngay-xu-ly",
+    "finalPath": "/cong-cu/tinh-ngay-xu-ly",
+    "status": 410,
+    "overflow": false,
+    "heading": "Chức năng đã ngừng cung cấp",
+    "font": "\"Be Vietnam Pro\", Roboto, \"Segoe UI\", sans-serif",
+    "primary": "#a61c30"
+  },
+  {
+    "width": 1920,
+    "route": "/cong-cu/do-dac-dien-tu",
+    "finalPath": "/cong-cu/do-dac-dien-tu",
+    "status": 410,
+    "overflow": false,
+    "heading": "Chức năng đã ngừng cung cấp",
+    "font": "\"Be Vietnam Pro\", Roboto, \"Segoe UI\", sans-serif",
+    "primary": "#a61c30"
+  },
+  {
+    "width": 1920,
+    "route": "/cong-cu/dia-gioi",
+    "finalPath": "/cong-cu/dia-gioi",
+    "status": 404,
+    "overflow": false,
+    "heading": "Không tìm thấy trang",
+    "font": "\"Be Vietnam Pro\", Roboto, \"Segoe UI\", sans-serif",
+    "primary": "#a61c30"
+  },
+  {
+    "width": 1920,
+    "route": "/hoc",
+    "finalPath": "/dang-nhap",
+    "status": 200,
+    "overflow": false,
+    "heading": "Đăng nhập",
+    "font": "\"Be Vietnam Pro\", Roboto, \"Segoe UI\", sans-serif",
+    "primary": "#a61c30"
+  },
+  {
+    "width": 1920,
+    "route": "/luyen-tap",
+    "finalPath": "/dang-nhap",
+    "status": 200,
+    "overflow": false,
+    "heading": "Đăng nhập",
+    "font": "\"Be Vietnam Pro\", Roboto, \"Segoe UI\", sans-serif",
+    "primary": "#a61c30"
+  },
+  {
+    "width": 1920,
+    "route": "/thi",
+    "finalPath": "/dang-nhap",
+    "status": 200,
+    "overflow": false,
+    "heading": "Đăng nhập",
+    "font": "\"Be Vietnam Pro\", Roboto, \"Segoe UI\", sans-serif",
+    "primary": "#a61c30"
+  },
+  {
+    "width": 1920,
+    "route": "/nhom",
+    "finalPath": "/dang-nhap",
+    "status": 200,
+    "overflow": false,
+    "heading": "Đăng nhập",
+    "font": "\"Be Vietnam Pro\", Roboto, \"Segoe UI\", sans-serif",
+    "primary": "#a61c30"
+  },
+  {
+    "width": 1920,
+    "route": "/huong-dan",
+    "finalPath": "/huong-dan",
+    "status": 200,
+    "overflow": false,
+    "heading": "Hướng dẫn sử dụng",
+    "font": "\"Be Vietnam Pro\", Roboto, \"Segoe UI\", sans-serif",
+    "primary": "#a61c30"
+  },
+  {
+    "width": 1920,
+    "route": "/dang-nhap",
+    "finalPath": "/dang-nhap",
+    "status": 200,
+    "overflow": false,
+    "heading": "Đăng nhập",
+    "font": "\"Be Vietnam Pro\", Roboto, \"Segoe UI\", sans-serif",
+    "primary": "#a61c30"
+  },
+  {
+    "width": 1920,
+    "route": "/dang-ky",
+    "finalPath": "/dang-ky",
+    "status": 200,
+    "overflow": false,
+    "heading": "Đăng ký tài khoản",
+    "font": "\"Be Vietnam Pro\", Roboto, \"Segoe UI\", sans-serif",
+    "primary": "#a61c30"
+  },
+  {
+    "width": 1920,
+    "route": "/tai-khoan",
+    "finalPath": "/dang-nhap",
+    "status": 200,
+    "overflow": false,
+    "heading": "Đăng nhập",
+    "font": "\"Be Vietnam Pro\", Roboto, \"Segoe UI\", sans-serif",
+    "primary": "#a61c30"
+  },
+  {
+    "width": 1920,
+    "route": "/quan-tri",
+    "finalPath": "/dang-nhap",
+    "status": 200,
+    "overflow": false,
+    "heading": "Đăng nhập",
+    "font": "\"Be Vietnam Pro\", Roboto, \"Segoe UI\", sans-serif",
+    "primary": "#a61c30"
+  },
+  {
+    "width": 1920,
+    "route": "/khong-co-trang-nay",
+    "finalPath": "/khong-co-trang-nay",
+    "status": 404,
+    "overflow": false,
+    "heading": "Không tìm thấy trang",
+    "font": "\"Be Vietnam Pro\", Roboto, \"Segoe UI\", sans-serif",
+    "primary": "#a61c30"
+  }
+]

@@ -21,7 +21,7 @@ export function PageHeader({
         ) : null}
         <TieuDeTrang>{title}</TieuDeTrang>
         {description ? (
-          <p className="mt-3 max-w-2xl text-[15px] leading-relaxed text-ink-2">{description}</p>
+          <p className="mt-3 max-w-2xl text-base leading-relaxed text-ink-2">{description}</p>
         ) : null}
       </div>
       {actions ? <div className="flex shrink-0 flex-wrap gap-2">{actions}</div> : null}

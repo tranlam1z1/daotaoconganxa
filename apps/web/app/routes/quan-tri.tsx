@@ -109,10 +109,10 @@ export default function QuanTriLayout({ loaderData }: Route.ComponentProps) {
   }, [pathname]);
   return (
     <div className="lg:pl-[var(--cot-trai)]">
-      {/* Từ 1024px: cột cố định sát mép trái, ngay dưới đầu trang (cao 4rem + viền 2px). Menu gập theo */}
+      {/* Từ 1024px: cột cố định sát mép trái, ngay dưới đầu trang (cao 5rem + viền 5px). Menu gập theo */}
       {/* nhóm, mỗi lúc mở một nhóm nên vừa chiều cao màn hình; cửa sổ quá thấp vẫn cuộn được, không hiện thanh cuộn. */}
       {/* Màu riêng của cột (nền trắng, viền phải): lớp .cot-quan-tri trong styles/app.css. */}
-      <aside className="cot-quan-tri khong-thanh-cuon no-print px-4 pt-8 md:px-6 lg:fixed lg:bottom-0 lg:left-0 lg:top-[calc(4rem+2px)] lg:z-30 lg:w-[var(--cot-trai)] lg:overflow-y-auto lg:overscroll-contain lg:bg-canvas lg:px-3 lg:py-4">
+      <aside className="cot-quan-tri khong-thanh-cuon no-print px-4 pt-8 md:px-6 lg:fixed lg:bottom-0 lg:left-0 lg:top-[calc(5rem+5px)] lg:z-30 lg:w-[var(--cot-trai)] lg:overflow-y-auto lg:overscroll-contain lg:bg-canvas lg:px-3 lg:py-4">
         <div className="flex flex-wrap items-baseline justify-between gap-2 border-b border-line pb-4 lg:block lg:px-3">
           <h1 className="text-2xl font-semibold lg:text-xl">
             <span className="flex items-center gap-3">
@@ -193,7 +193,7 @@ export default function QuanTriLayout({ loaderData }: Route.ComponentProps) {
               pathname,
             )
               ? "min-w-0"
-              : "khung-trang min-w-0 rounded-2xl border border-line bg-surface p-4 shadow-card sm:p-6"
+              : "khung-trang min-w-0 rounded-card border border-line bg-surface p-4 shadow-card sm:p-6"
           }
         >
           <Outlet />

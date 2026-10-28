@@ -85,12 +85,26 @@ export function TraCuuControls({
         </div>
       ) : null}
       {total > 24 ? (
-        <nav aria-label="Phân trang" className="mt-3 flex items-center gap-4">
-          {page > 1 ? <Link to={href({ page: String(page - 1) })}>Trang trước</Link> : null}
+        <nav aria-label="Phân trang" className="mt-3 flex flex-wrap items-center gap-3">
+          {page > 1 ? (
+            <Link
+              className="inline-flex min-h-11 items-center rounded-btn border border-line-strong px-3 text-secondary hover:bg-secondary-soft"
+              to={href({ page: String(page - 1) })}
+            >
+              Trang trước
+            </Link>
+          ) : null}
           <span>
             Trang {page} / {Math.ceil(total / 24)}
           </span>
-          {page * 24 < total ? <Link to={href({ page: String(page + 1) })}>Trang sau</Link> : null}
+          {page * 24 < total ? (
+            <Link
+              className="inline-flex min-h-11 items-center rounded-btn border border-line-strong px-3 text-secondary hover:bg-secondary-soft"
+              to={href({ page: String(page + 1) })}
+            >
+              Trang sau
+            </Link>
+          ) : null}
         </nav>
       ) : null}
     </div>

@@ -23,17 +23,17 @@ export function LuoiLoiTat({
   return (
     <section
       aria-labelledby={id}
-      className="rounded-2xl border border-line bg-surface p-4 shadow-card sm:p-5"
+      className="rounded-card border border-line bg-surface p-4 shadow-card sm:p-5"
     >
       <div className="flex items-center justify-between gap-2">
-        <h2 id={id} className="flex items-center gap-2 text-lg font-semibold text-primary">
+        <h2 id={id} className="flex items-center gap-2 text-lg font-semibold text-secondary">
           <Icon name={icon} kieu="net" className="size-6" />
           {tieuDe}
         </h2>
         {xemTatCa ? (
           <Link
             to={xemTatCa}
-            className="group lun -mr-2 inline-flex min-h-11 shrink-0 items-center gap-1 px-2 text-sm font-medium text-primary underline-offset-4 hover:underline"
+            className="group lun -mr-2 inline-flex min-h-11 shrink-0 items-center gap-1 px-2 text-sm font-medium text-secondary underline-offset-4 hover:underline"
           >
             Xem tất cả
             <Icon

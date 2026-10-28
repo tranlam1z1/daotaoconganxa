@@ -8,7 +8,7 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
-    <meta name="theme-color" content="#0052CC" />
+    <meta name="theme-color" content="#A61C30" />
     <title>Cần có mạng | Học tập pháp luật</title>
     <link rel="manifest" href="/manifest.webmanifest" />
     <link rel="icon" type="image/svg+xml" href="/logo.svg?v=4" />
@@ -16,12 +16,12 @@
     <style>
       :root {
         color-scheme: light dark;
-        --canvas: #f3f7fd;
+        --canvas: #f5f7fa;
         --surface: #ffffff;
-        --ink: #14243d;
-        --ink-2: #3c5170;
-        --line: #dbe6f5;
-        --primary: #0052cc;
+        --ink: #243447;
+        --ink-2: #526277;
+        --line: #e2e8f0;
+        --primary: #a61c30;
         --on-primary: #ffffff;
         --seal: #e03131;
       }
@@ -32,8 +32,8 @@
           --ink: #e9f0fa;
           --ink-2: #b7c6dc;
           --line: #22334f;
-          --primary: #6aa6ff;
-          --on-primary: #06162e;
+          --primary: #ff9eac;
+          --on-primary: #331019;
           --seal: #ff8787;
         }
       }
@@ -42,7 +42,7 @@
         margin: 0;
         background: var(--canvas);
         color: var(--ink);
-        font: 16px/1.6 "Inter", system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+        font: 16px/1.6 "Be Vietnam Pro", system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
       }
       main { max-width: 34rem; margin: 0 auto; padding: 48px 16px; }
       .dau { display: block; width: 96px; height: 72px; }
@@ -50,9 +50,10 @@
       p { margin: 0 0 12px; color: var(--ink-2); }
       .nut {
         display: flex; align-items: center; justify-content: center; min-height: 48px; margin-top: 12px;
-        padding: 0 16px; border-radius: 10px; font-weight: 600; text-decoration: none; font-size: 16px;
+        padding: 0 16px; border-radius: 8px; font-weight: 600; text-decoration: none; font-size: 16px;
         border: 1px solid var(--line); background: var(--surface); color: var(--ink); width: 100%; cursor: pointer;
       }
+      :focus-visible { outline: 3px solid var(--primary); outline-offset: 3px; }
       .nut.chinh { background: var(--primary); color: var(--on-primary); border-color: var(--primary); }
     </style>
   </head>

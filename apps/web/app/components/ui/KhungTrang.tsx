@@ -18,7 +18,7 @@ export function KhungTrang({
         {...props}
         className={cn(
           "khung-trang min-w-0",
-          variant !== "auth" && "rounded-2xl border border-line bg-surface p-4 shadow-card sm:p-6",
+          variant !== "auth" && "rounded-card border border-line bg-surface p-4 shadow-card sm:p-6",
           variant === "reader" && "sm:p-8",
           variant === "workspace" && "pb-28",
           ...inside,
@@ -42,7 +42,7 @@ export function DauTrangAnh({
   return (
     <header className="tieu-de-trang tieu-de-trang-banner relative isolate flex min-w-0 items-center gap-3">
       <span
-        className="relative grid size-12 shrink-0 place-items-center rounded-xl bg-primary-soft text-primary"
+        className="relative grid size-12 shrink-0 place-items-center rounded-xl bg-secondary-soft text-secondary"
         aria-hidden="true"
       >
         <Icon name={icon} kieu="net" className="size-6" />
@@ -76,7 +76,7 @@ export function TieuDeTrang({
       {variant !== "status" ? (
         <span
           className={cn(
-            "relative grid shrink-0 place-items-center rounded-xl bg-primary-soft text-primary",
+            "relative grid shrink-0 place-items-center rounded-xl bg-secondary-soft text-secondary",
             variant === "banner" ? "size-12" : "size-10",
           )}
           aria-hidden="true"
@@ -86,7 +86,7 @@ export function TieuDeTrang({
       ) : null}
       <Heading
         {...props}
-        className={cn("relative min-w-0 break-words text-2xl font-bold leading-tight", className)}
+        className={cn("relative min-w-0 break-words text-page font-bold leading-tight", className)}
       >
         {children}
       </Heading>

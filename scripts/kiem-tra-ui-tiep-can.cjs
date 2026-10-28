@@ -30,7 +30,7 @@ async function main() {
       });
       return { theme, pairs };
     }, theme));
-    await page.screenshot({ path: `outputs/ui-review/390-login-${theme}.png`, fullPage: true });
+    await page.screenshot({ path: `outputs/ui-review/390-login-${theme}.png`, fullPage: true, animations: "disabled" });
   }
   await page.emulateMedia({ reducedMotion: 'reduce' });
   const reducedMotion = await page.evaluate(() => matchMedia('(prefers-reduced-motion: reduce)').matches);

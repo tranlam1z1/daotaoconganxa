@@ -51,4 +51,6 @@ Các trang tham khảo bên ngoài không cung cấp được nội dung đủ �
 
 Nhánh triển khai: `codex/government-ui-standardization`, tách từ nhánh làm việc ban đầu `codex/traffic-signs-data`. Tám tệp sửa dở được giữ ngoài commit: SiteFooter.tsx; lib/cong-cu.ts; lib/dich-vu-cong.ts; lib/site.ts; routes/dich-vu-cong.tsx; routes/home.tsx; routes/search.tsx; routes/tra-cuu.tsx.
 
-Commit triển khai dùng thông điệp `style(ui): standardize government design system and shared layouts`. Mã commit và kết quả push được ghi trong phản hồi bàn giao. Không tự merge khi vẫn còn giới hạn QA trên nội dung bảo vệ và các thay đổi riêng chưa commit.
+Commit triển khai: `4bc3b75` — `style(ui): standardize government design system and shared layouts`. Commit bàn giao tiếp theo lưu cập nhật báo cáo và cố định ảnh chụp theme sau khi chuyển màu.
+
+Push chưa thực hiện: bộ duyệt tự động chặn thao tác tới `https://github.com/tranlam1z1/hoctapconganxa.git` vì đích chưa được xác lập tin cậy cho mã nguồn/tài liệu dự án trong phiên. Cần người dùng xác nhận rõ payload và remote này trước khi thử lại. Không merge hoặc force push.

@@ -1,4 +1,3 @@
-import { danhSachNhomHocTapSchema, maNhomHocTapSchema } from "../nhom-hoc-tap.ts";
 /**
  * API quản trị mô-đun đào tạo và mascot (ke-hoach/09-c).
  *
@@ -17,6 +16,7 @@ import {
   LOAI_CAU_HOI,
   lechCham,
   MUC_DO_CAU_HOI,
+  NHOM_HOC_TAP,
   pheuHoanThanh,
   type TrangThaiNoiDung,
   timChuTrinh,
@@ -130,16 +130,7 @@ quanTri.get("/dao-tao/tong-quan", async (c) => {
 
 quanTri.get("/dao-tao/chuyen-de", async (c) => {
   await batBuocVaiTro(c, "quan_ly");
-  const { nhom } = parseQuery(
-    c,
-    z.object({ nhom: z.union([z.enum(["tat_ca", "chua_phan_nhom"]), maNhomHocTapSchema]).default("tat_ca") }),
-  );
-  const rows = await danhSachChuyenDe({
-    chiXuatBan: false,
-    limit: 200,
-    chuaPhanNhom: nhom === "chua_phan_nhom",
-    nhomHocTap: nhom === "tat_ca" || nhom === "chua_phan_nhom" ? undefined : [nhom],
-  });
+  const rows = await danhSachChuyenDe({ chiXuatBan: false, limit: 200 });
   return c.json({
     items: rows.map((r) => ({
       id: r.id,
@@ -148,7 +139,6 @@ quanTri.get("/dao-tao/chuyen-de", async (c) => {
       status: r.status,
       level: r.level,
       audience: r.audience,
-      nhomHocTap: r.nhom_hoc_tap,
       tags: r.tags,
       lessonCount: r.lesson_count,
       asOf: asDate(r.as_of) ?? "",
@@ -213,7 +203,11 @@ const chuyenDeSchema = z.object({
   title: z.string().trim().min(3).max(500),
   summary: z.string().trim().max(2000).nullable().optional(),
   audience: z.array(z.string().trim()).default([]),
-  nhomHocTap: danhSachNhomHocTapSchema.optional(),
+  nhomHocTap: z
+    .array(z.enum(NHOM_HOC_TAP))
+    .max(4)
+    .transform((nhom) => [...new Set(nhom)])
+    .optional(),
   level: z.enum(["co_ban", "nang_cao", "chuyen_sau"]).default("co_ban"),
   tags: z.array(z.string().trim()).default([]),
   taxonomyCodes: z.array(z.string().trim()).default([]),

@@ -62,7 +62,6 @@ export interface LocNguoiDung {
   q?: string;
   /** Chỉ lấy tài khoản ở trạng thái xác minh này; "chua_xac_minh" gồm cả chờ duyệt và bị từ chối. */
   xacMinh?: "cho_duyet" | "tu_choi" | "chua_xac_minh";
-  chuaPhanNhom?: boolean;
   gioiHan?: number;
   trang?: number;
 }
@@ -77,7 +76,6 @@ export async function danhSachNguoiDung(
   // Tài khoản khách (chỉ nhập tên, tự dọn sau 30 ngày) không phải người dùng cần quản trị.
   const where = sql`
         NOT a.la_khach
-    AND (NOT ${loc.chuaPhanNhom ?? false} OR cardinality(a.nhom_doi_tuong) = 0)
     AND (${loc.phamVi ?? null}::ltree IS NULL OR ${PHAM_VI} <@ ${loc.phamVi ?? null}::ltree)
     AND (${loc.donViPath ?? null}::ltree IS NULL OR ${PHAM_VI} <@ ${loc.donViPath ?? null}::ltree)
     AND (${xacMinh}::text IS NULL

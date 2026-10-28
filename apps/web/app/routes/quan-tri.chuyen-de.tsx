@@ -3,8 +3,7 @@
  * một tệp PDF văn bản (AI soạn sẵn bài), hoặc tạo thủ công rồi vào từng chuyên đề để thêm bài và
  * soạn khối nội dung.
  */
-import { Form, Link } from "react-router";
-import { NHOM_HOC_TAP, TEN_NHOM_HOC_TAP } from "../../../../packages/dao-tao/src/nhom-doi-tuong";
+import { Link } from "react-router";
 import { Badge } from "../components/ui/Badge";
 import { ButtonLink } from "../components/ui/Button";
 import { EmptyState } from "../components/ui/EmptyState";
@@ -21,16 +20,15 @@ export function meta(_: Route.MetaArgs) {
 
 export async function loader({ request }: Route.LoaderArgs) {
   const { token } = await yeuCauVaiTro(request, "quan_ly");
-  const nhom = new URL(request.url).searchParams.get("nhom") ?? "tat_ca";
   const { items } = await goiApiQuanTri<{ items: ChuyenDeQuanTri[] }>(
     token,
-    `/v1/quan-tri/dao-tao/chuyen-de?nhom=${encodeURIComponent(nhom)}`,
+    "/v1/quan-tri/dao-tao/chuyen-de",
   );
-  return { items, nhom };
+  return { items };
 }
 
 export default function QuanTriChuyenDe({ loaderData }: Route.ComponentProps) {
-  const { items, nhom } = loaderData;
+  const { items } = loaderData;
   return (
     <section className="chuyen-de-trang">
       <header className="chuyen-de-dau khung-trang rounded-2xl border border-line bg-surface shadow-card">
@@ -39,8 +37,7 @@ export default function QuanTriChuyenDe({ loaderData }: Route.ComponentProps) {
             Chuyên đề
           </TieuDeTrang>
           <p className="chuyen-de-mo-ta text-sm text-ink-2">
-            Học viên chỉ thấy chuyên đề đã xuất bản, đã phân nhóm và có bài đã xuất bản. Chuyên đề chưa phân
-            nhóm cần được rà soát trước khi công bố.
+            Học viên chỉ thấy chuyên đề đã xuất bản, có lĩnh vực và có ít nhất một bài đã xuất bản.
           </p>
         </div>
         <div className="chuyen-de-thao-tac flex flex-wrap gap-3">
@@ -56,34 +53,6 @@ export default function QuanTriChuyenDe({ loaderData }: Route.ComponentProps) {
         </div>
       </header>
 
-      <Form
-        method="get"
-        className="mt-3 flex flex-wrap items-end gap-3 rounded-xl border border-line bg-surface p-4"
-      >
-        <div className="min-w-0 flex-1">
-          <label htmlFor="loc-nhom-chuyen-de" className="mb-2 block text-sm font-medium">
-            Nhóm đối tượng học tập
-          </label>
-          <select
-            key={nhom}
-            id="loc-nhom-chuyen-de"
-            name="nhom"
-            defaultValue={nhom}
-            className="min-h-11 w-full rounded-lg border border-line-strong bg-surface px-3 text-ink"
-          >
-            <option value="tat_ca">Tất cả chuyên đề</option>
-            <option value="chua_phan_nhom">Chưa phân nhóm — cần rà soát</option>
-            {NHOM_HOC_TAP.map((ma) => (
-              <option key={ma} value={ma}>
-                {TEN_NHOM_HOC_TAP[ma]}
-              </option>
-            ))}
-          </select>
-        </div>
-        <button type="submit" className="min-h-11 rounded-lg bg-primary px-4 font-semibold text-on-primary">
-          Lọc chuyên đề
-        </button>
-      </Form>
       <div className="chuyen-de-noi-dung khung-trang mt-3 rounded-2xl border border-line bg-surface p-6 shadow-card">
         {items.length === 0 ? (
           <EmptyState icon="cap" title="Chưa có chuyên đề nào" className="chuyen-de-trong" />
@@ -102,13 +71,6 @@ export default function QuanTriChuyenDe({ loaderData }: Route.ComponentProps) {
                     {TEN_TRANG_THAI[c.status] ?? c.status}
                   </Badge>
                 </div>
-                <p className="text-sm text-ink-2">
-                  {c.nhomHocTap.length
-                    ? c.nhomHocTap
-                        .map((ma) => TEN_NHOM_HOC_TAP[ma as keyof typeof TEN_NHOM_HOC_TAP])
-                        .join(" · ")
-                    : "Chưa phân nhóm — chưa hiển thị cho người học"}
-                </p>
                 <p className="text-sm text-ink-2">
                   {c.linhVuc ? c.linhVuc.name : "Chưa gắn lĩnh vực"} · {c.lessonCount} bài ·{" "}
                   {TEN_CAP_DO[c.level] ?? c.level}

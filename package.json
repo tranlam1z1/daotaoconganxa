@@ -8,7 +8,6 @@
   ],
   "scripts": {
     "test:tra-cuu": "bun run scripts/kiem-thu-tra-cuu.ts",
-    "nhom:kiem-ke": "bun run scripts/ra-soat-ba-nhom.ts",
     "dev": "bun run scripts/serve.ts web api",
     "dev:web": "bun run scripts/serve.ts web",
     "dev:api": "bun run scripts/serve.ts api",

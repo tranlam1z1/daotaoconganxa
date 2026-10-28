@@ -96,7 +96,6 @@ export const TEN_NHOM_DOI_TUONG: Record<string, string> = {
 /* ------------------------------------------------------------------ */
 
 export interface ChuyenDeQuanTri {
-  nhomHocTap: string[];
   id: string;
   slug: string;
   title: string;

@@ -29,11 +29,11 @@ beforeAll(async () => {
   await clean();
   fieldId = (await luuLinhVuc({ slug: prefix, name: "Lĩnh vực kiểm thử nhóm", status: "xuat_ban" })).id;
   for (const [suffix, groups] of [
-    ["chung", ["cong_chuc", "vien_chuc", "dang_vien"]],
-    ["vc", ["vien_chuc"]],
+    ["chung", ["cong_an_cap_xa", "cong_chuc_cap_xa", "vien_chuc", "dang_vien"]],
+    ["ca", ["cong_an_cap_xa"]],
     ["dv", ["dang_vien"]],
-    ["cc", ["cong_chuc"]],
-    ["vc-dv", ["vien_chuc", "dang_vien"]],
+    ["cc", ["cong_chuc_cap_xa"]],
+    ["ca-dv", ["cong_an_cap_xa", "dang_vien"]],
   ] as const) {
     await luuChuyenDe({
       slug: `${prefix}-${suffix}`,
@@ -47,7 +47,7 @@ beforeAll(async () => {
   await sql`UPDATE courses SET status = 'xuat_ban' WHERE field_id = ${fieldId}`;
   for (const role of ["can_bo", "quan_tri"]) {
     const [row] = await sql`INSERT INTO accounts (username, role, nhom_doi_tuong)
-      VALUES (${`${prefix}-${role}`}, ${role}, ARRAY['vien_chuc', 'dang_vien']) RETURNING id`;
+      VALUES (${`${prefix}-${role}`}, ${role}, ARRAY['cong_an_cap_xa', 'dang_vien']) RETURNING id`;
     const session = await createSession(row!.id, "test");
     if (role === "can_bo") token = session.token;
     else admin = session.token;
@@ -119,11 +119,11 @@ test("lọc một nhóm kèm dùng chung, nhiều nhóm của tôi và bỏ lọ
   };
   // Lọc q theo tiêu đề, nên dùng tiêu đề có prefix trong các bản ghi kiểm thử.
   await sql`UPDATE courses SET title = slug WHERE field_id = ${fieldId}`;
-  expect(await list("vien_chuc")).toEqual(["chung", "vc", "vc-dv"]);
-  expect(await list("cua_toi", token)).toEqual(["chung", "dv", "vc", "vc-dv"]);
+  expect(await list("cong_an_cap_xa")).toEqual(["ca", "ca-dv", "chung"]);
+  expect(await list("cua_toi", token)).toEqual(["ca", "ca-dv", "chung", "dv"]);
   expect((await request("/v1/dao-tao/chuyen-de?nhom=dung_chung")).status).toBe(400);
-  expect(await list("cong_chuc")).toEqual(["cc", "chung"]);
-  expect(await list("tat_ca")).toEqual(["cc", "chung", "dv", "vc", "vc-dv"]);
+  expect(await list("vien_chuc")).toEqual(["chung"]);
+  expect(await list("tat_ca")).toEqual(["ca", "ca-dv", "cc", "chung", "dv"]);
   expect((await request("/v1/dao-tao/chuyen-de?nhom=cua_toi")).status).toBe(401);
   expect((await request("/v1/dao-tao/linh-vuc?nhom=sai")).status).toBe(400);
 });
@@ -133,14 +133,14 @@ test("cây lĩnh vực dùng cùng bộ lọc; bộ lọc không khóa đường
   expect(res.status).toBe(200);
   const field = res.body.items.find((f: any) => f.slug === prefix);
   expect(field.nhom.flatMap((n: any) => n.chuyenDe.map((c: any) => c.slug)).sort()).toEqual(
-    ["chung", "dv", "vc", "vc-dv"].map((s) => `${prefix}-${s}`),
+    ["ca", "ca-dv", "chung", "dv"].map((s) => `${prefix}-${s}`),
   );
   expect((await request(`/v1/dao-tao/chuyen-de/${prefix}-cc`, token)).status).toBe(200);
 });
 
 test("soạn chuyên đề lưu nhóm, giữ nhãn cũ, bỏ trường giữ nhóm và [] xóa nhóm", async () => {
   const path = "/v1/quan-tri/dao-tao/chuyen-de";
-  const base = { slug: `${prefix}-vc`, title: "Chuyên đề kiểm thử", asOf: "2026-10-26" };
+  const base = { slug: `${prefix}-ca`, title: "Chuyên đề kiểm thử", asOf: "2026-10-26" };
   expect((await request(path, token, { ...base, nhomHocTap: ["dang_vien"] })).status).toBe(403);
   expect((await request(path, admin, { ...base, nhomHocTap: ["sai"] })).status).toBe(400);
   const saved = await request(path, admin, { ...base, nhomHocTap: ["dang_vien", "dang_vien"] });
@@ -157,58 +157,4 @@ test("soạn chuyên đề lưu nhóm, giữ nhãn cũ, bỏ trường giữ nh�
   const draft = await request(path, admin, { ...base, nhomHocTap: [] });
   expect(draft.status).toBe(200);
   expect(draft.body.chuyenDe.nhom_hoc_tap).toEqual([]);
-});
-
-test("mã công chức cũ tương thích; nhóm công an bị từ chối ở đọc và ghi", async () => {
-  const old = await request("/v1/dao-tao/chuyen-de?nhom=cong_chuc_cap_xa", token);
-  const current = await request("/v1/dao-tao/chuyen-de?nhom=cong_chuc", token);
-  expect(old.status).toBe(200);
-  expect(old.body).toEqual(current.body);
-  expect((await request("/v1/dao-tao/chuyen-de?nhom=cong_an_cap_xa", token)).status).toBe(400);
-  expect(
-    (
-      await request("/v1/quan-tri/dao-tao/chuyen-de", admin, {
-        slug: `${prefix}-ngoai-pham-vi`,
-        title: "Nội dung ngoài phạm vi",
-        asOf: "2026-10-27",
-        nhomHocTap: ["cong_an_cap_xa"],
-      })
-    ).status,
-  ).toBe(400);
-  const saved = await request("/v1/quan-tri/dao-tao/chuyen-de", admin, {
-    slug: `${prefix}-tuong-thich`,
-    title: "Tương thích mã nhóm cũ",
-    asOf: "2026-10-27",
-    nhomHocTap: ["cong_chuc_cap_xa", "cong_chuc", "dang_vien"],
-  });
-  expect(saved.status).toBe(200);
-  expect(saved.body.chuyenDe.nhom_hoc_tap).toEqual(["cong_chuc", "dang_vien"]);
-});
-
-test("quản trị lọc chuyên đề chưa phân nhóm, người học không xem được", async () => {
-  const course = await luuChuyenDe({
-    slug: `${prefix}-can-ra-soat`,
-    title: "Chuyên đề cần rà soát",
-    asOf: "2026-10-27",
-  });
-  await sql`UPDATE courses SET status='xuat_ban' WHERE id=${course.id}`;
-  expect((await request("/v1/quan-tri/dao-tao/chuyen-de?nhom=chua_phan_nhom", token)).status).toBe(403);
-  const review = await request("/v1/quan-tri/dao-tao/chuyen-de?nhom=chua_phan_nhom", admin);
-  expect(review.status).toBe(200);
-  expect(review.body.items.some((c: any) => c.id === course.id)).toBe(true);
-  expect(review.body.items.every((c: any) => c.nhomHocTap.length === 0)).toBe(true);
-  expect((await request(`/v1/dao-tao/chuyen-de/${course.slug}`, token)).status).toBe(404);
-});
-
-test("khung ba nhóm là bản nháp và không xuất hiện trong danh mục người học", async () => {
-  const slugs = [
-    "cong-chuc-cong-vu-va-xu-ly-cong-viec",
-    "vien-chuc-vi-tri-va-dao-duc-nghe-nghiep",
-    "dang-vien-sinh-hoat-va-cong-tac-dang",
-  ];
-  const rows = await sql`SELECT slug,status,nhom_hoc_tap FROM courses WHERE slug=ANY(${slugs}::text[])`;
-  expect(rows).toHaveLength(3);
-  expect(rows.every((r) => r.status === "nhap" && r.nhom_hoc_tap.length === 1)).toBe(true);
-  const publicList = await request("/v1/dao-tao/chuyen-de?nhom=tat_ca", token);
-  expect(publicList.body.items.some((r: any) => slugs.includes(r.slug))).toBe(false);
 });

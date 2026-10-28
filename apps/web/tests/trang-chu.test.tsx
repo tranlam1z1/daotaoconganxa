@@ -36,7 +36,7 @@ async function render(nguoiDung: NguoiDung | null) {
 describe("trang chủ ba nhóm", () => {
   test("khách có ô tìm văn bản và ba lối vào học theo nhóm", async () => {
     const html = await render(null);
-    for (const nhom of ["cong_chuc", "vien_chuc", "dang_vien"])
+    for (const nhom of ["cong_chuc_cap_xa", "vien_chuc", "dang_vien"])
       expect(html).toContain(`href="/hoc?nhom=${nhom}"`);
     expect(html).toContain('action="/tim-kiem"');
     expect(html).toContain('href="/dang-nhap"');

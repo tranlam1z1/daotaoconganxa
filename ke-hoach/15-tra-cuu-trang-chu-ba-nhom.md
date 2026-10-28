@@ -1,6 +1,6 @@
 # Kế hoạch tra cứu và trang chủ cho ba nhóm
 
-Ngày lập: 27/10/2026. Trạng thái: đã triển khai đợt 1 và nền tảng đợt 2 trong mã nguồn; chưa triển khai môi trường thật.
+Ngày lập: 27/10/2026. Trạng thái: đã triển khai giao diện đợt 1 trong mã nguồn; chưa triển khai môi trường thật.
 
 ## 1. Phạm vi và nguyên tắc
 
@@ -172,20 +172,6 @@ Các nguồn này là tham khảo cách tổ chức chức năng; nội dung tri
 - Kiểm tra trình duyệt: trang chủ ở 320/390/768/1024 px và Tra cứu ở 390 px không tràn ngang; URL cũ trả thông báo đúng; khách mở nhóm học được dẫn tới đăng nhập kèm URL quay lại.
 - Kiểm tra dữ liệu thật: tìm văn bản và hai loại quy trình/biểu mẫu trả HTTP 200 sau khi khởi chạy API cục bộ. Kho biểu mẫu/quy trình hiện chưa có kết quả phù hợp; tìm văn bản vẫn còn nội dung giao thông trong kho cũ. Cần rà danh mục và dữ liệu ở đợt 2, chưa tuyên bố kho đã chuyển hoàn toàn sang ba nhóm.
 - Kiểm thử web đã qua 81 trường hợp, thêm 3 trường hợp render trang chủ cho khách/chờ xác minh/đã xác minh đều qua; typecheck web đã qua. Build sản xuất được kiểm tra sau thay đổi.
-
-## 12. Bàn giao nền tảng đợt 2 — 27/10/2026
-
-- Chuẩn hóa nhóm dùng chung thành cong_chuc/vien_chuc/dang_vien; giữ tương thích URL và yêu cầu cũ cong_chuc_cap_xa; từ chối nhóm công an ở API ghi mới.
-- Migration 0078–0080 tách mở rộng schema, chuyển dữ liệu có snapshot và chốt ràng buộc. Không đổi quyền/đơn vị hoặc xóa lịch sử học; mục chỉ có nhóm công an trở thành chưa phân nhóm.
-- Quản trị người dùng và chuyên đề có bộ lọc chưa phân nhóm để rà. Lựa chọn công an bị loại khỏi toàn bộ biểu mẫu dùng chung.
-- Migration 0081 tạo ba lĩnh vực và ba khung chuyên đề nháp, không giả lập bài pháp lý đã duyệt. Biên soạn/đối chiếu nguồn mới là việc tiếp theo trước khi xuất bản.
-- Migration 0082 lưu trữ riêng chuyên đề giao thông đã đối chiếu cả slug và tiêu đề, có nhật ký trạng thái trước đổi; không tự xử lý hàng loạt theo từ khóa.
-- Công cụ kiểm kê: bun run nhom:kiem-ke. Báo cáo ở outputs/kiem-ke-ba-nhom-dot-2.json chỉ phản ánh CSDL kiểm thử đang cấu hình.
-- Hướng dẫn áp dụng, sao lưu và phục hồi: docs/nhom-doi-tuong-hoc-tap.md. Chưa chạy migration hoặc triển khai lên môi trường thật.
-
-Kiểm chứng đợt 2: 115 kiểm thử nhóm/người dùng/migration/web và 403 kiểm thử đào tạo/xác thực/thư viện đều đạt (518 tổng cộng); typecheck toàn workspace, build web và kiểm tra định dạng các tệp thay đổi đều qua. API thực tế trả 200 cho ba nhóm và mã công chức cũ, 400 cho nhóm công an. Bản xem thử đợt 2: http://localhost:4189/ (API kiểm tra 4188).
-
-
 ## 13. Bàn giao đợt 3 — 27/10/2026
 
 Hoàn thành tra cứu gom theo văn bản, bộ lọc/ngày, tổng kết quả và phân trang đầy đủ; nhánh văn bản Đảng; nguồn và thuộc tính; phiên bản, quan hệ, so sánh; phân trang quy trình/biểu mẫu và loại quy trình ba nhóm. Chi tiết giới hạn, migration 0083–0085 và kiểm chứng: docs/tra-cuu-dot-3.md. 277 kiểm thử đạt trên CSDL riêng; chưa áp dụng môi trường thật. Xem thử http://localhost:4190/tim-kiem.

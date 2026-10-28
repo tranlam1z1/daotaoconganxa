@@ -422,21 +422,21 @@ describe("Nhóm học tập độc lập với vai trò", () => {
         name: "Người học nhiều nhóm",
         role: "can_bo",
         unitId: donVi.doiA,
-        nhomDoiTuong: ["cong_chuc", "dang_vien", "dang_vien"],
+        nhomDoiTuong: ["cong_an_cap_xa", "dang_vien", "dang_vien"],
       },
     });
     expect(tao.status).toBe(201);
     const id = tao.body.item.id;
-    expect(tao.body.item.nhom_doi_tuong).toEqual(["cong_chuc", "dang_vien"]);
+    expect(tao.body.item.nhom_doi_tuong).toEqual(["cong_an_cap_xa", "dang_vien"]);
     expect(tao.body.item.role).toBe("can_bo");
     const { token } = await createSession(id, "test");
-    expect((await principalFromToken(token))?.nhomDoiTuong).toEqual(["cong_chuc", "dang_vien"]);
+    expect((await principalFromToken(token))?.nhomDoiTuong).toEqual(["cong_an_cap_xa", "dang_vien"]);
     const sua = await goi("PATCH", `/v1/quan-tri/nguoi-dung/${id}`, {
       token: tk.quanTri,
       body: { name: "Tên mới" },
     });
     expect(sua.status).toBe(200);
-    expect(sua.body.item.nhom_doi_tuong).toEqual(["cong_chuc", "dang_vien"]);
+    expect(sua.body.item.nhom_doi_tuong).toEqual(["cong_an_cap_xa", "dang_vien"]);
     const cam = await goi("PATCH", `/v1/quan-tri/nguoi-dung/${id}`, {
       token: tk.quanLyA,
       body: { nhomDoiTuong: ["dang_vien"] },
@@ -455,46 +455,5 @@ describe("Nhóm học tập độc lập với vai trò", () => {
     expect(xoa.body.item.nhom_doi_tuong).toEqual([]);
     expect((await principalFromToken(token))?.nhomDoiTuong).toEqual([]);
     expect((await principalFromToken(token))?.role).toBe("can_bo");
-  });
-});
-
-describe("chuyển đổi ba nhóm và danh sách cần rà soát", () => {
-  test("chuẩn hóa mã cũ, loại trùng và từ chối nhóm công an", async () => {
-    const tao = await goi("POST", "/v1/quan-tri/nguoi-dung", {
-      token: tk.quanTri,
-      body: {
-        username: `${PREFIX}-nhom-cu`,
-        name: "Tương thích nhóm",
-        unitId: donVi.doiA,
-        nhomDoiTuong: ["cong_chuc_cap_xa", "cong_chuc", "dang_vien"],
-      },
-    });
-    expect(tao.status).toBe(201);
-    expect(tao.body.item.nhom_doi_tuong).toEqual(["cong_chuc", "dang_vien"]);
-    const cam = await goi("PATCH", `/v1/quan-tri/nguoi-dung/${tao.body.item.id}`, {
-      token: tk.quanTri,
-      body: { nhomDoiTuong: ["cong_an_cap_xa"] },
-    });
-    expect(cam.status).toBe(400);
-    const principal = await principalFromToken((await createSession(tao.body.item.id, "test")).token);
-    expect(principal?.nhomDoiTuong).toEqual(["cong_chuc", "dang_vien"]);
-    expect(principal?.role).toBe("can_bo");
-  });
-  test("lọc chưa phân nhóm vẫn giới hạn đơn vị và tổng số chính xác", async () => {
-    const res = await goi("GET", "/v1/quan-tri/nguoi-dung?chua_phan_nhom=1&gioi_han=200", {
-      token: tk.quanLyA,
-    });
-    expect(res.status).toBe(200);
-    expect(res.body.items.every((u: any) => u.nhom_doi_tuong.length === 0)).toBe(true);
-    const [scope] = await sql`SELECT path::text AS path FROM units WHERE id=${donVi.doiA}`;
-    expect(
-      res.body.items.every(
-        (u: any) => u.unit_path === scope!.path || u.unit_path?.startsWith(`${scope!.path}.`),
-      ),
-    ).toBe(true);
-    expect(res.body.total).toBe(res.body.items.length);
-    expect(res.body.items.some((u: any) => u.username === `${PREFIX}-nhom-cu`)).toBe(false);
-    const khongHopLe = await goi("GET", "/v1/quan-tri/nguoi-dung?chua_phan_nhom=sai", { token: tk.quanTri });
-    expect(khongHopLe.status).toBe(400);
   });
 });

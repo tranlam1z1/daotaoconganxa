@@ -134,7 +134,6 @@ export interface DanhSachChuyenDeOpts {
   doiTuong?: string;
   /** undefined: tất cả; []: không khớp; nhiều nhóm: khớp ít nhất một nhóm. */
   nhomHocTap?: string[];
-  chuaPhanNhom?: boolean;
   /**
    * Đếm bài đã xuất bản thay vì đếm mọi bài. Mặc định theo `chiXuatBan`; tách riêng để danh
    * mục công khai vừa hiện được chuyên đề đang biên soạn, vừa nói đúng số bài học được.
@@ -176,7 +175,6 @@ export async function danhSachChuyenDe(o: DanhSachChuyenDeOpts = {}) {
     FROM courses c
     LEFT JOIN fields f ON f.id = c.field_id
     WHERE (NOT ${chiXuatBan} OR (c.status = 'xuat_ban' AND cardinality(c.nhom_hoc_tap) > 0))
-      AND (NOT ${o.chuaPhanNhom ?? false} OR cardinality(c.nhom_hoc_tap) = 0)
       AND (${doiTuong}::text IS NULL OR ${doiTuong}::text = ANY(c.audience))
       AND (${o.nhomHocTap === undefined} OR c.nhom_hoc_tap && ${o.nhomHocTap ?? []}::text[])
       AND (${linhVuc}::text IS NULL OR f.slug = ${linhVuc}::text)

@@ -19,7 +19,17 @@ async function render(nguoiDung: NguoiDung | null) {
       path: "/",
       loader: () => ({ nguoiDung }),
       Component: Outlet,
-      children: [{ index: true, Component: Home }],
+      children: [
+        {
+          index: true,
+          Component: Home,
+          loader: () => ({
+            now: 0,
+            vanBan: { items: [] },
+            caNhan: nguoiDung && !nguoiDung.cho_xac_minh ? { hoc: null, thi: null, sai: 0, giao: [] } : null,
+          }),
+        },
+      ],
     },
   ];
   const handler = createStaticHandler(routes);
@@ -33,21 +43,23 @@ async function render(nguoiDung: NguoiDung | null) {
     />,
   );
 }
-describe("trang chủ ba nhóm", () => {
-  test("khách có ô tìm văn bản và ba lối vào học theo nhóm", async () => {
+describe("trang chủ cá nhân", () => {
+  test("khách có tìm kiếm, nhiệm vụ và công cụ", async () => {
     const html = await render(null);
     for (const nhom of ["cong_chuc_cap_xa", "vien_chuc", "dang_vien"])
-      expect(html).toContain(`href="/hoc?nhom=${nhom}"`);
+      expect(html).not.toContain(`href="/hoc?nhom=${nhom}"`);
     expect(html).toContain('action="/tim-kiem"');
     expect(html).toContain('href="/dang-nhap"');
-    expect(html).toContain('href="/dich-vu-cong"');
+    expect(html).toContain("Việc của tôi");
+    expect(html).toContain("Văn bản mới có hiệu lực");
+    expect(html).toContain("Công cụ và biểu mẫu");
     expect(html).not.toContain("Tra cứu vi phạm");
   });
   test("tài khoản chờ xác minh có đường tới trạng thái thay vì nhiệm vụ không thể mở", async () => {
     const html = await render({ ...taiKhoan, cho_xac_minh: true });
     expect(html).toContain('href="/tai-khoan"');
     for (const url of ["/hoc", "/luyen-tap", "/thi", "/toi"]) expect(html).not.toContain(`href="${url}"`);
-    expect(html).toContain("Xem trạng thái tài khoản");
+    expect(html).toContain("Xác minh tài khoản");
     expect(html).toContain('action="/tim-kiem"');
   });
   test("người đã xác minh mở danh mục học thay vì nút tiếp tục giả", async () => {

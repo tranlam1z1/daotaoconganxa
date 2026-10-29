@@ -29,7 +29,7 @@ const listSchema = z.object({
   locality: z.string().trim().optional(),
   asOf: dateSchema.optional(),
   // "thu_bac": theo thứ bậc hiệu lực pháp lý; "moi_nhat": văn bản ban hành gần đây lên đầu.
-  sort: z.enum(["thu_bac", "moi_nhat"]).default("thu_bac"),
+  sort: z.enum(["thu_bac", "moi_nhat", "hieu_luc_moi"]).default("thu_bac"),
   page: z.coerce.number().int().min(1).max(10_000).default(1),
   limit: z.coerce.number().int().min(1).max(100).default(20),
 });
@@ -105,9 +105,11 @@ documents.get("/", async (c) => {
     AND (${locality}::text IS NULL OR d.locality = ${locality}::text)`;
 
   const orderBy =
-    p.sort === "moi_nhat"
-      ? sql`d.issued_date DESC NULLS LAST, d.rank ASC, d.so_ky_hieu ASC`
-      : sql`d.rank ASC, d.issued_date DESC NULLS LAST, d.so_ky_hieu ASC`;
+    p.sort === "hieu_luc_moi"
+      ? sql`d.effective_from DESC NULLS LAST, d.issued_date DESC NULLS LAST, d.id ASC`
+      : p.sort === "moi_nhat"
+        ? sql`d.issued_date DESC NULLS LAST, d.rank ASC, d.so_ky_hieu ASC`
+        : sql`d.rank ASC, d.issued_date DESC NULLS LAST, d.so_ky_hieu ASC`;
 
   const [rows, [totalRow], byType, byStatus, byField] = await Promise.all([
     sql`SELECT d.id, d.urn, d.doc_type, d.rank, d.so_ky_hieu, d.title, d.short_title, d.issuer_name,

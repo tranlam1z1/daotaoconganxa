@@ -129,3 +129,28 @@
   .home-page::after { height: 46px; }
   .home-lotus { width: 120px; bottom: 5px; }
 }
+
+.home-dashboard { display: grid; grid-template-columns: minmax(0, 1.65fr) minmax(0, 1fr); gap: 16px; margin-top: 16px; align-items: start; }
+.home-panel { min-width: 0; padding: 20px; background: #fff; border: 1px solid var(--line); border-radius: 14px; box-shadow: var(--shadow-card); }
+.home-panel-intro { color: var(--ink-2); font-size: 13px; margin-top: 6px; margin-bottom: 16px; }
+.home-tasks { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 12px; }
+.home-task { display: flex; flex-direction: column; align-items: start; gap: 9px; min-width: 0; padding: 16px; border: 1px solid var(--line); border-radius: 12px; background: #f8fafc; }
+.home-task-primary { background: #fff5f2; border-color: #f0d3cf; }
+.home-task h3 { font-size: 15px; font-weight: 700; }
+.home-task p, .home-task small { font-size: 13px; color: var(--ink-2); }
+.home-task > a { margin-top: auto; padding-top: 5px; font-size: 13px; font-weight: 700; color: var(--primary); min-height: 34px; }
+.home-task small { display: block; }
+.home-task ul { display: grid; gap: 10px; font-size: 13px; }
+.home-task li a { font-weight: 600; }
+.home-task-badge { border-radius: 6px; background: #eaf0f7; padding: 5px 8px; font-size: 12px; font-weight: 600; font-variant-numeric: tabular-nums; }
+.home-wrong-count { font-size: 30px; color: var(--primary); }
+.home-new-documents .home-section-heading h2 { flex-shrink: 1; }
+.home-new-documents ul { margin-bottom: 14px; }
+.home-new-documents li { padding: 12px 0; border-top: 1px solid var(--line); }
+.home-document-number { font-size: 12px; font-weight: 700; color: var(--primary); }
+.home-new-documents h3 { font-weight: 600; font-size: 14px; margin-top: 3px; }
+.home-new-documents li p { color: var(--ink-2); font-size: 12px; margin-top: 5px; }
+.home-resources { margin-top: 16px; }
+.home-resources ul { grid-template-columns: repeat(4, minmax(0, 1fr)); }
+@media (max-width: 1100px) { .home-dashboard { grid-template-columns: 1fr; } .home-resources ul { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+@media (max-width: 600px) { .home-panel { padding: 16px; } .home-tasks, .home-resources ul { grid-template-columns: 1fr; } .home-section-heading { flex-wrap: wrap; gap: 8px; } }

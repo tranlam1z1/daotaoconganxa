@@ -97,7 +97,7 @@ export interface DocumentQuery {
   status?: string;
   field?: string;
   /** Mặc định theo thứ bậc hiệu lực pháp lý; "moi_nhat" đưa văn bản ban hành gần đây lên đầu. */
-  sort?: "thu_bac" | "moi_nhat";
+  sort?: "thu_bac" | "moi_nhat" | "hieu_luc_moi";
   page?: number;
   limit?: number;
 }

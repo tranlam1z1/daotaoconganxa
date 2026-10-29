@@ -30,3 +30,6 @@ scripts/e2e/.anh/
 
 # Ảnh kiểm tra UI sinh cục bộ, không đưa vào mã nguồn.
 outputs/ui-review/*.png
+
+# Sao luu phuc hoi Docker/CSDL cuc bo, khong dua vao Git.
+outputs/recovery/

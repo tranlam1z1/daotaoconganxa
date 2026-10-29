@@ -20,7 +20,7 @@ export function KhungNoiDung({
           <span className="grid size-12 shrink-0 place-items-center rounded-xl bg-secondary-soft text-secondary">
             <Icon name={icon} kieu="net" className="size-6" />
           </span>
-          <div className="min-w-0 flex-1 sm:max-w-[60%]">
+          <div className="min-w-0 flex-1">
             <h1 className="text-page font-bold leading-tight">{title}</h1>
             <p className="mt-1 text-sm text-ink-2">{description}</p>
           </div>

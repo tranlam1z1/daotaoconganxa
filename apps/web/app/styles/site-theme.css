@@ -1,0 +1,115 @@
+/* Nhận diện trang chủ áp dụng ở lớp giao diện dùng chung của mọi route. */
+.site-main { min-width: 0; }
+.site-content-page {
+  background: linear-gradient(rgb(255 249 238 / 30%), rgb(255 249 238 / 45%)), url('/assets/dong-son-background.png') center top / max(100%, 1450px) auto repeat-y #fff9ee;
+  padding-bottom: 28px;
+}
+.site-content-page > .wrap { padding-top: 24px; }
+.site-content-page .khung-trang:not(.khung-trang-auth),
+.site-content-page .ui-card,
+.site-content-page .hop-thoai {
+  border-color: var(--line); border-radius: 14px; box-shadow: var(--shadow-card);
+}
+/* Watermark nằm sau tiêu đề; nội dung nghiệp vụ giữ bề mặt trắng. */
+.site-content-page :is(.tieu-de-trang-banner, .tra-cuu-tieu-de, .site-page-header) {
+  position: relative; isolation: isolate; border: 1px solid #eeddbd; border-radius: 12px;
+  background: #fff9ee; padding: 20px; min-height: 112px; margin-bottom: 24px;
+}
+.site-content-page :is(.tieu-de-trang-banner, .tra-cuu-tieu-de, .site-page-header)::before {
+  content: ""; position: absolute; inset: 0; width: auto; border-radius: inherit; z-index: -1; pointer-events: none;
+  background: url('/assets/dong-son-watermark.png') right center / 600px auto no-repeat;
+  opacity: .25;
+}
+.site-content-page :is(.tieu-de-trang-banner, .tra-cuu-tieu-de, .site-page-header) > div { background: transparent; }
+.site-content-page .tieu-de-trang-banner > :is(h1, h2) { max-width: 100%; }
+.site-content-page :is(.tieu-de-trang, .tra-cuu-tieu-de) > span { background: var(--primary-soft); color: var(--primary); }
+.site-content-page .khung-trang-reader { background: var(--surface); }
+.site-content-page .khung-trang-reader :is(article, .prose) { line-height: 1.8; }
+.site-content-page .khung-trang-auth { width: 100%; }
+.site-content-page .khung-trang-auth > .ui-card { border-top: 3px solid var(--primary); }
+.site-content-page .khung-trang-auth > a { padding: 16px 0; }
+.site-content-page .khung-trang-auth :is(input, select, textarea) { background: var(--surface); }
+.site-content-page :is(input, select, textarea):focus-visible { outline: 3px solid #2579ce; outline-offset: 2px; }
+.site-content-page a.the-bam { border-color: var(--line); border-radius: 12px; }
+.site-content-page :where(thead th) { color: var(--secondary); background: var(--secondary-soft); }
+.site-content-page :where(tbody tr):hover { background: var(--surface-2); }
+.site-content-page :where(button, a)[aria-current="page"] { font-weight: 700; }
+.cot-quan-tri { --primary: var(--seal); --primary-soft: color-mix(in srgb, var(--seal) 10%, var(--surface)); background: var(--surface); border-color: var(--line); }
+.cot-quan-tri a[aria-current="page"] { background: var(--primary); color: var(--on-primary); border-radius: 8px; }
+.cot-quan-tri a[aria-current="page"] svg { color: inherit; }
+@media (min-width: 1024px) { .cot-quan-tri { top: 69px; box-shadow: 2px 0 12px rgb(37 55 79 / 4%); } }
+/* TraCuuChung dùng ở trang chủ và cả trang /tra-cuu mở trực tiếp. */
+.home-search { display: grid; grid-template-columns: 80px minmax(0, 1fr); gap: 8px 20px; border-radius: 14px; padding: 16px; box-shadow: 0 3px 12px #754d1517; }
+.home-search-icon { display: grid; place-items: center; width: 80px; height: 80px; border-radius: 14px; background: #fce8eb; color: #b8081c; }
+.shortcut-icon {
+  --shortcut-tone: var(--secondary);
+  color: var(--shortcut-tone);
+  background: color-mix(in srgb, var(--shortcut-tone) 9%, var(--surface));
+  border: 1px solid color-mix(in srgb, var(--shortcut-tone) 16%, var(--surface));
+}
+.shortcut-icon[data-sac="do"] { --shortcut-tone: var(--seal); }
+.shortcut-icon:is([data-sac="luc"], [data-sac="ngoc"]) { --shortcut-tone: var(--ok); }
+.shortcut-icon:is([data-sac="vang"], [data-sac="cam"]) { --shortcut-tone: var(--warn); }
+.shortcut-icon[data-sac="tim"] { --shortcut-tone: var(--info); }
+.shortcut-icon[data-sac="trung"] { --shortcut-tone: var(--ink-2); }
+.home-search h2 { font-size: 19px; line-height: 1.3; font-weight: 700; }
+.home-search h2 + p { margin-top: 2px; font-size: 13px; }
+.home-search .tra-cuu-form form { display: grid; grid-template-columns: minmax(0, 1fr) 265px; gap: 0 12px; margin-top: 6px; }
+.home-search .tra-cuu-form form > p { grid-column: 1 / -1; grid-row: 2; }
+.home-search .tra-cuu-form button[type='submit'] { grid-column: 2; grid-row: 1; margin-top: 0; border-radius: 8px; min-height: 44px; font-size: 14px; }
+.home-search .tra-cuu-form input { min-height: 44px; border-radius: 8px; font-size: 14px; }
+.home-search .tra-cuu-form input::placeholder { font-size: 13px; }
+.home-keywords { grid-column: 1 / -1; display: flex; align-items: center; flex-wrap: wrap; gap: 7px; font-size: 12px; }
+.home-keywords > span { color: #526782; }
+.home-keywords a { background: #eaf2fc; color: #103866; border-radius: 8px; padding: 5px 12px; }
+.home-keywords a:hover { background: #dbe9fc; }
+@media (max-width: 767px) {
+  .site-content-page { padding-bottom: 20px; }
+  .site-content-page > .wrap { padding-top: 16px; }
+  .site-content-page :is(.tieu-de-trang-banner, .tra-cuu-tieu-de, .site-page-header) { padding: 16px; margin-bottom: 20px; min-height: 96px; }
+  .site-content-page .tieu-de-trang-banner h1 { font-size: 24px; }
+  .home-search { grid-template-columns: 1fr; padding: 18px 14px; }
+  .home-search-icon { display: none; }
+  .home-search .tra-cuu-form form { grid-template-columns: 1fr; gap: 8px; }
+  .home-search .tra-cuu-form button[type='submit'] { grid-column: 1; grid-row: 3; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .site-content-page .the-bam { transition: none; }
+}
+[data-theme="dark"] .site-content-page { background: var(--canvas); }
+[data-theme="dark"] .site-content-page :is(.tieu-de-trang-banner, .tra-cuu-tieu-de, .site-page-header) { background: var(--surface-2); border-color: var(--line); }
+[data-theme="dark"] .site-content-page :is(.tieu-de-trang-banner, .tra-cuu-tieu-de, .site-page-header)::before { opacity: .08; }
+@media print {
+  .site-content-page { background: white; padding: 0; }
+  .site-content-page :is(.tieu-de-trang-banner, .tra-cuu-tieu-de, .site-page-header)::before { content: none; }
+  .site-content-page .khung-trang { box-shadow: none; }
+}
+/* Hai cụm sen phía trên footer dùng chung, không nằm trong CSS riêng trang chủ. */
+.site-content-page { position: relative; isolation: isolate; padding-bottom: 64px; }
+.site-content-page::before,
+.site-content-page::after {
+  content: "";
+  position: absolute;
+  bottom: 0;
+  width: clamp(220px, 28vw, 480px);
+  aspect-ratio: 855 / 270;
+  background-image: url('/assets/vietnam-banner-resources.png');
+  background-repeat: no-repeat;
+  background-size: 202.924% 335.556%;
+  pointer-events: none;
+  z-index: -1;
+}
+.site-content-page::before { left: 0; background-position: 1.364% 92.453%; }
+.site-content-page::after { right: 0; background-position: 99% 92.453%; }
+@media (max-width: 767px) {
+  .site-content-page { padding-bottom: 58px; }
+  .site-content-page::before,
+  .site-content-page::after { width: min(48%, 190px); }
+}
+@media print {
+  .site-content-page { padding-bottom: 0; }
+  .site-content-page::before,
+  .site-content-page::after { content: none; }
+}
+.site-content-page::before,
+.site-content-page::after { mask-image: linear-gradient(to right, transparent, #000 4%, #000 96%, transparent); }

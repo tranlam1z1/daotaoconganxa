@@ -12,26 +12,24 @@ import {
   type NavItem,
   SITE_NAME,
   SITE_NAME_SHORT,
-  SITE_TAGLINE,
 } from "../../lib/site";
 import type { NguoiDung } from "../../lib/types";
 import { AnhDaiDien } from "../ui/AnhDaiDien";
+import { BrandName } from "../ui/BrandName";
 import { Icon } from "../ui/Icon";
 import { LogoHocTap } from "../ui/LogoHocTap";
 import { NganTienIch } from "./NganTienIch";
 
 export function BrandMark() {
-  // Điện thoại: tên tự xuống dòng để nhường chỗ cho logo và các nút tài khoản.
+  // Tên hai dòng tự xuống hàng để nhường chỗ cho các nút tài khoản.
   return (
-    <Link to="/" className="flex min-h-11 min-w-0 items-center gap-2 font-sans md:shrink-0 md:gap-4">
+    <Link
+      to="/"
+      className="site-brand flex min-h-11 min-w-0 items-center gap-2 font-sans xl:shrink-0 xl:gap-4"
+    >
       <LogoHocTap className="h-10 w-auto shrink-0 sm:h-14 lg:h-16" />
-      {/* 768–1023px: menu ngang, chip điểm và các nút hết chỗ, chỉ giữ logo (tên vẫn đọc được). */}
-      <span className="flex min-w-0 flex-col gap-0.5 py-1 sm:py-2 md:max-lg:sr-only">
-        <span className="text-[0.75rem] font-bold uppercase leading-[1.4] text-primary sm:text-caption lg:whitespace-nowrap">
-          {SITE_NAME}
-        </span>
-        <span className="text-[0.75rem] leading-relaxed text-ink-2 sm:text-caption">{SITE_TAGLINE}</span>
-      </span>
+
+      <BrandName />
     </Link>
   );
 }
@@ -40,7 +38,7 @@ function navClass(active: boolean, compact = false) {
   return cn(
     "lun flex min-h-11 items-center whitespace-nowrap rounded-lg px-3 font-medium",
     compact ? "text-[13px]" : "text-[15px]",
-    active ? "bg-secondary-soft text-secondary" : "text-secondary hover:bg-secondary-soft",
+    active ? "bg-primary text-on-primary" : "text-secondary hover:bg-secondary-soft",
   );
 }
 
@@ -73,7 +71,7 @@ function DauTrangCon({ pathname }: { pathname: string }) {
   }, [pathname]);
 
   return (
-    <div className="flex min-w-0 items-center gap-1 md:hidden">
+    <div className="flex min-w-0 items-center gap-1 xl:hidden">
       <Link
         // Đang ở chính trang mục (vd /tra-cuu) thì đích quay lại là trang chủ.
         to={cha.to === pathname ? "/" : cha.to}
@@ -90,7 +88,13 @@ function DauTrangCon({ pathname }: { pathname: string }) {
 }
 
 /** Điều hướng chính trên máy tính; tài khoản theo trạng thái đăng nhập và xác minh. */
-export function SiteHeader({ nguoiDung }: { nguoiDung: NguoiDung | null }) {
+export function SiteHeader({
+  nguoiDung,
+  kiemTraPhienLoi = false,
+}: {
+  nguoiDung: NguoiDung | null;
+  kiemTraPhienLoi?: boolean;
+}) {
   const { pathname } = useLocation();
   const goc = laTrangGoc(pathname);
   const [moTaiKhoan, setMoTaiKhoan] = useState(false);
@@ -119,7 +123,9 @@ export function SiteHeader({ nguoiDung }: { nguoiDung: NguoiDung | null }) {
   // Tài khoản chưa được xác minh không có trang Tôi: mục này dẫn thẳng tới trang Tài khoản.
   const toi: NavItem = nguoiDung
     ? { to: nguoiDung.cho_xac_minh ? "/tai-khoan" : "/toi", label: "Tôi", khop: ["/tai-khoan"] }
-    : { to: "/dang-nhap", label: "Đăng nhập" };
+    : kiemTraPhienLoi
+      ? { to: "/tai-khoan", label: "Tài khoản" }
+      : { to: "/dang-nhap", label: "Đăng nhập" };
   const hoTen = nguoiDung ? (nguoiDung.ten ?? nguoiDung.ten_dang_nhap ?? nguoiDung.email) : "";
   const lienKet = (item: NavItem) => {
     const active = dangOMuc(item, pathname);
@@ -130,17 +136,19 @@ export function SiteHeader({ nguoiDung }: { nguoiDung: NguoiDung | null }) {
         title={
           item === toi && nguoiDung ? [hoTen, nguoiDung.don_vi?.ten].filter(Boolean).join(" · ") : undefined
         }
-        className={navClass(active)}
+        className={cn(navClass(active), item === toi && !nguoiDung && "site-login site-account-action")}
       >
         {item === toi && nguoiDung ? (
           <>
             {/* Nền đặc: mục đang chọn có nền primary-soft, ảnh đại diện cùng màu sẽ chìm mất. */}
             <AnhDaiDien nguoiDung={nguoiDung} className="mr-2 size-7 shrink-0 text-[13px]" />
-            {/* Tên và đơn vị thay cho chữ "Tôi"; tên dài thì cắt bằng "…", rê chuột xem đủ. */}
+            {/* Tên và đơn vị được xuống dòng để hiển thị đầy đủ. */}
             <span className="flex min-w-0 max-w-36 flex-col leading-tight lg:max-w-48">
-              <span className="truncate">{hoTen}</span>
+              <span className="site-account-name">{hoTen}</span>
               {nguoiDung.don_vi ? (
-                <span className="truncate text-xs font-normal text-ink-2">{nguoiDung.don_vi.ten}</span>
+                <span className="whitespace-normal break-words text-xs font-normal text-ink-2">
+                  {nguoiDung.don_vi.ten}
+                </span>
               ) : nguoiDung.cho_xac_minh ? (
                 <span className="truncate text-xs font-normal text-ink-2">Chờ xác minh</span>
               ) : null}
@@ -161,28 +169,39 @@ export function SiteHeader({ nguoiDung }: { nguoiDung: NguoiDung | null }) {
         anDauTrangDienThoai(pathname) && "max-md:hidden",
       )}
     >
-      <div className="wrap flex min-h-16 items-center gap-2 py-2 sm:min-h-20 sm:gap-3">
+      <div className="site-header-inner wrap flex min-h-16 items-center gap-2 py-2 sm:min-h-20 sm:gap-3">
         {goc ? (
           <BrandMark />
         ) : (
           <>
             <DauTrangCon pathname={pathname} />
-            <span className="hidden md:contents">
+            <span className="hidden xl:contents">
               <BrandMark />
             </span>
           </>
         )}
 
-        <nav aria-label="Điều hướng chính" className="menu-chinh ml-auto hidden items-center gap-1 md:flex">
+        <nav aria-label="Điều hướng chính" className="menu-chinh ml-auto hidden items-center gap-1 xl:flex">
           {MAIN_NAV.map((item) => (
             <span key={item.to}>{lienKet(item)}</span>
           ))}
         </nav>
 
         {/* Thứ tự bên phải: mục "Tôi" (cuối cùng). */}
-        <div className="ml-auto flex shrink-0 items-center gap-1 md:ml-2">
+        <div className="site-account ml-auto flex shrink-0 items-center gap-1 xl:ml-2">
+          <span className="site-notification-slot">
+            {nguoiDung && !nguoiDung.cho_xac_minh ? (
+              <Link
+                to="/toi#nhac-hoc"
+                aria-label="Nhắc học và thông báo"
+                className="grid size-11 place-items-center rounded-lg text-secondary hover:bg-secondary-soft"
+              >
+                <Icon name="bell" kieu="net" className="size-5" />
+              </Link>
+            ) : null}
+          </span>
           {/* Từ 768px: mục "Tôi" (hoặc "Đăng nhập") của menu, đứng sau các nút khác. */}
-          <div className="relative hidden md:block" ref={taiKhoanRef}>
+          <div className="relative hidden xl:block" ref={taiKhoanRef}>
             {nguoiDung ? (
               <>
                 <button
@@ -190,11 +209,11 @@ export function SiteHeader({ nguoiDung }: { nguoiDung: NguoiDung | null }) {
                   type="button"
                   aria-expanded={moTaiKhoan}
                   aria-controls="menu-tai-khoan"
-                  className={navClass(dangOMuc(toi, pathname))}
+                  className={cn(navClass(dangOMuc(toi, pathname)), "site-account-action")}
                   onClick={() => setMoTaiKhoan((mo) => !mo)}
                 >
                   <AnhDaiDien nguoiDung={nguoiDung} className="mr-2 size-7 shrink-0 text-[13px]" />
-                  <span className="max-w-48 truncate">{hoTen}</span>
+                  <span className="site-account-name">{hoTen}</span>
                   <Icon name="chevronDown" className="ml-2 size-4" />
                 </button>
                 {moTaiKhoan ? (
@@ -228,13 +247,13 @@ export function SiteHeader({ nguoiDung }: { nguoiDung: NguoiDung | null }) {
             <Link
               to={toi.to}
               aria-label="Trang cá nhân"
-              className="grid size-11 shrink-0 place-items-center rounded-full md:hidden"
+              className="grid size-11 shrink-0 place-items-center rounded-full xl:hidden"
             >
               <AnhDaiDien nguoiDung={nguoiDung} className="size-8 text-sm" />
             </Link>
           ) : null}
-          {/* Dưới 768px, chỉ ở trang chủ: nút ☰ mở ngăn tiện ích bên phải. */}
-          {nguoiDung && pathname === "/" ? <NganTienIch nguoiDung={nguoiDung} /> : null}
+          {/* Menu drawer cho màn hình chưa đủ chỗ đặt điều hướng ngang. */}
+          <NganTienIch nguoiDung={nguoiDung} />
         </div>
       </div>
     </header>

@@ -50,6 +50,11 @@ export default function TraCuu({ loaderData }: Route.ComponentProps) {
             ten: "Văn bản Đảng",
             moTa: "Tìm các văn bản đã được phân loại là văn bản Đảng trong kho.",
           },
+          {
+            to: "/dich-vu-cong",
+            ten: "Dịch vụ công trực tuyến",
+            moTa: "Mở Cổng Dịch vụ công Quốc gia; tra cứu nội dung dành cho công chức, viên chức, đảng viên.",
+          },
         ].map((muc) => (
           <Link key={muc.to} to={muc.to} className="rounded-xl border border-line bg-surface p-4 the-bam">
             <span className="block font-semibold text-primary">{muc.ten}</span>
@@ -57,9 +62,6 @@ export default function TraCuu({ loaderData }: Route.ComponentProps) {
           </Link>
         ))}
       </nav>
-      <Link to="/hoi-dap" className="mt-4 inline-flex min-h-11 items-center text-primary underline">
-        Hỏi trợ lý AI kèm căn cứ
-      </Link>
     </KhungTraCuu>
   );
 }

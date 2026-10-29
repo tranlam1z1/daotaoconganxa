@@ -10,6 +10,7 @@
  */
 
 import { apiBase } from "./api";
+import type { PhienHienThi } from "./phien-hien-thi";
 import type { DonViChon, NguoiDung } from "./types";
 
 export type { NguoiDung };
@@ -232,18 +233,26 @@ export async function dangNhapDemo(
   });
 }
 
-/**
- * Danh tính của người đang xem trang. Trả null khi chưa đăng nhập, token hỏng, hết hạn,
- * hoặc API không sẵn sàng — trang công khai vẫn phải đọc được khi phần đăng nhập trục trặc.
- */
-export async function nguoiDungHienTai(request: Request): Promise<NguoiDung | null> {
+/** Phân biệt phiên không hợp lệ với lỗi tạm thời để header không báo đăng xuất nhầm. */
+export async function docPhienHienTai(request: Request): Promise<PhienHienThi> {
   const token = layToken(request);
-  if (!token) return null;
+  if (!token) return { nguoiDung: null, trangThaiPhien: "khach" };
   try {
-    return await goiApi<NguoiDung>("/v1/auth/me", { headers: { authorization: `Bearer ${token}` } });
-  } catch {
-    return null;
+    const nguoiDung = await goiApi<NguoiDung>("/v1/auth/me", {
+      headers: { authorization: `Bearer ${token}` },
+    });
+    if (!nguoiDung || typeof nguoiDung.email !== "string")
+      return { nguoiDung: null, trangThaiPhien: "tam_loi" };
+    return { nguoiDung, trangThaiPhien: "hop_le" };
+  } catch (error) {
+    const biTuChoi = error instanceof LoiDangNhap && (error.status === 401 || error.status === 403);
+    return { nguoiDung: null, trangThaiPhien: biTuChoi ? "khach" : "tam_loi" };
   }
+}
+
+/** Các loader bảo vệ vẫn chỉ nhận danh tính vừa được API xác nhận. */
+export async function nguoiDungHienTai(request: Request): Promise<NguoiDung | null> {
+  return (await docPhienHienTai(request)).nguoiDung;
 }
 
 export async function thuHoiPhien(token: string): Promise<void> {

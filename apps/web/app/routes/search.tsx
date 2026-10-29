@@ -14,7 +14,6 @@ import {
   loiBoLoc,
   NHOM_VAN_BAN,
   ngayTra,
-  voiNgay,
 } from "../lib/bo-loc-van-ban";
 import { cn } from "../lib/cn";
 import { DOC_STATUS_LABEL, docTypeLabel, formatDate } from "../lib/format";
@@ -177,15 +176,6 @@ export default function SearchPage({ loaderData }: Route.ComponentProps) {
             ) : null}
           </>
         )}
-        {loc.q && !loi ? (
-          <ButtonLink
-            to={voiNgay(`/hoi-dap?q=${encodeURIComponent(loc.q)}`, asOf)}
-            variant="secondary"
-            className="mt-6"
-          >
-            Hỏi trợ lý AI về nội dung này
-          </ButtonLink>
-        ) : null}
       </section>
     </KhungTraCuu>
   );

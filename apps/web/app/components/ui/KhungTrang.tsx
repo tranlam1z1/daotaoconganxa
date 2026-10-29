@@ -18,6 +18,7 @@ export function KhungTrang({
         {...props}
         className={cn(
           "khung-trang min-w-0",
+          `khung-trang-${variant}`,
           variant !== "auth" && "rounded-card border border-line bg-surface p-4 shadow-card sm:p-6",
           variant === "reader" && "sm:p-8",
           variant === "workspace" && "pb-28",
@@ -47,7 +48,7 @@ export function DauTrangAnh({
       >
         <Icon name={icon} kieu="net" className="size-6" />
       </span>
-      <div className="min-w-0 flex-1 sm:max-w-[60%]">
+      <div className="min-w-0 flex-1">
         <h1 className="text-2xl font-bold leading-tight">{tieuDe}</h1>
         <p className="mt-1 text-sm text-ink-2">{children}</p>
       </div>

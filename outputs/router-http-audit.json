@@ -1,0 +1,692 @@
+[
+  {
+    "path": "/",
+    "file": "routes/home.tsx",
+    "status": 200,
+    "finalPath": "/",
+    "redirects": [],
+    "title": "Học tập và tra cứu | Học tập pháp luật"
+  },
+  {
+    "path": "/cong-cu",
+    "file": "routes/cong-cu._index.tsx",
+    "status": 200,
+    "finalPath": "/cong-cu",
+    "redirects": [],
+    "title": "Công cụ nghiệp vụ | Học tập pháp luật"
+  },
+  {
+    "path": "/cong-cu/coi-noi-thanh-thung",
+    "file": "routes/cong-cu.coi-noi-thanh-thung.tsx",
+    "status": 410,
+    "finalPath": "/cong-cu/coi-noi-thanh-thung",
+    "redirects": [],
+    "title": "Chức năng đã ngừng cung cấp | Học tập pháp luật"
+  },
+  {
+    "path": "/cong-cu/dia-gioi-hanh-chinh",
+    "file": "routes/cong-cu.dia-gioi._index.tsx",
+    "status": 200,
+    "finalPath": "/cong-cu/dia-gioi-hanh-chinh",
+    "redirects": [],
+    "title": "Chuyển đổi địa giới hành chính | Học tập pháp luật"
+  },
+  {
+    "path": "/cong-cu/dia-gioi-hanh-chinh/dia-chi",
+    "file": "routes/cong-cu.dia-gioi.dia-chi.tsx",
+    "status": 200,
+    "finalPath": "/cong-cu/dia-gioi-hanh-chinh/dia-chi",
+    "redirects": [],
+    "title": "Tra cứu theo địa chỉ cụ thể | Học tập pháp luật"
+  },
+  {
+    "path": "/cong-cu/dia-gioi-hanh-chinh/thu-cong",
+    "file": "routes/cong-cu.dia-gioi.thu-cong.tsx",
+    "status": 200,
+    "finalPath": "/cong-cu/dia-gioi-hanh-chinh/thu-cong",
+    "redirects": [],
+    "title": "Chuyển đổi thủ công | Học tập pháp luật"
+  },
+  {
+    "path": "/cong-cu/dia-gioi-hanh-chinh/tra-nguoc",
+    "file": "routes/cong-cu.dia-gioi.tra-nguoc.tsx",
+    "status": 200,
+    "finalPath": "/cong-cu/dia-gioi-hanh-chinh/tra-nguoc",
+    "redirects": [],
+    "title": "Tra ngược từ xã, phường mới | Học tập pháp luật"
+  },
+  {
+    "path": "/cong-cu/dia-gioi-hanh-chinh/vi-tri",
+    "file": "routes/cong-cu.dia-gioi.vi-tri.tsx",
+    "status": 200,
+    "finalPath": "/cong-cu/dia-gioi-hanh-chinh/vi-tri",
+    "redirects": [],
+    "title": "Lấy vị trí hiện tại | Học tập pháp luật"
+  },
+  {
+    "path": "/cong-cu/do-dac-dien-tu",
+    "file": "routes/cong-cu.do-dac-dien-tu.tsx",
+    "status": 410,
+    "finalPath": "/cong-cu/do-dac-dien-tu",
+    "redirects": [],
+    "title": "Chức năng đã ngừng cung cấp | Học tập pháp luật"
+  },
+  {
+    "path": "/cong-cu/loai-gplx",
+    "file": "routes/cong-cu.loai-gplx.tsx",
+    "status": 410,
+    "finalPath": "/cong-cu/loai-gplx",
+    "redirects": [],
+    "title": "Chức năng đã ngừng cung cấp | Học tập pháp luật"
+  },
+  {
+    "path": "/cong-cu/nong-do-con",
+    "file": "routes/cong-cu.nong-do-con.tsx",
+    "status": 410,
+    "finalPath": "/cong-cu/nong-do-con",
+    "redirects": [],
+    "title": "Chức năng đã ngừng cung cấp | Học tập pháp luật"
+  },
+  {
+    "path": "/cong-cu/qua-kho-hang-hoa",
+    "file": "routes/cong-cu.qua-kho-hang-hoa.tsx",
+    "status": 410,
+    "finalPath": "/cong-cu/qua-kho-hang-hoa",
+    "redirects": [],
+    "title": "Chức năng đã ngừng cung cấp | Học tập pháp luật"
+  },
+  {
+    "path": "/cong-cu/tinh-ngay-xu-ly",
+    "file": "routes/cong-cu.tinh-ngay-xu-ly.tsx",
+    "status": 410,
+    "finalPath": "/cong-cu/tinh-ngay-xu-ly",
+    "redirects": [],
+    "title": "Chức năng đã ngừng cung cấp | Học tập pháp luật"
+  },
+  {
+    "path": "/cong-cu/tinh-qua-tai",
+    "file": "routes/cong-cu.tinh-qua-tai.tsx",
+    "status": 410,
+    "finalPath": "/cong-cu/tinh-qua-tai",
+    "redirects": [],
+    "title": "Chức năng đã ngừng cung cấp | Học tập pháp luật"
+  },
+  {
+    "path": "/cong-cu/xac-dinh-tuoi",
+    "file": "routes/cong-cu.xac-dinh-tuoi.tsx",
+    "status": 410,
+    "finalPath": "/cong-cu/xac-dinh-tuoi",
+    "redirects": [],
+    "title": "Chức năng đã ngừng cung cấp | Học tập pháp luật"
+  },
+  {
+    "path": "/dang-ky",
+    "file": "routes/dang-ky.tsx",
+    "status": 200,
+    "finalPath": "/dang-ky",
+    "redirects": [],
+    "title": "Đăng ký tài khoản | Học tập pháp luật"
+  },
+  {
+    "path": "/dang-nhap",
+    "file": "routes/dang-nhap.tsx",
+    "status": 200,
+    "finalPath": "/dang-nhap",
+    "redirects": [],
+    "title": "Đăng nhập | Học tập pháp luật"
+  },
+  {
+    "path": "/dao-tao",
+    "file": "routes/dao-tao.chuyen-huong.tsx",
+    "status": 200,
+    "finalPath": "/dang-nhap",
+    "redirects": [
+      {
+        "status": 301,
+        "to": "/hoc"
+      },
+      {
+        "status": 302,
+        "to": "/dang-nhap?tiep=%2Fhoc"
+      }
+    ],
+    "title": "Đăng nhập | Học tập pháp luật"
+  },
+  {
+    "path": "/dich-vu-cong",
+    "file": "routes/dich-vu-cong.tsx",
+    "status": 200,
+    "finalPath": "/dich-vu-cong",
+    "redirects": [],
+    "title": "Dịch vụ công trực tuyến | Học tập pháp luật"
+  },
+  {
+    "path": "/doi-mat-khau",
+    "file": "routes/doi-mat-khau.tsx",
+    "status": 200,
+    "finalPath": "/dang-nhap",
+    "redirects": [
+      {
+        "status": 302,
+        "to": "/dang-nhap?tiep=%2Fdoi-mat-khau"
+      }
+    ],
+    "title": "Đăng nhập | Học tập pháp luật"
+  },
+  {
+    "path": "/hoc",
+    "file": "routes/training.tsx",
+    "status": 200,
+    "finalPath": "/dang-nhap",
+    "redirects": [
+      {
+        "status": 302,
+        "to": "/dang-nhap?tiep=%2Fhoc"
+      }
+    ],
+    "title": "Đăng nhập | Học tập pháp luật"
+  },
+  {
+    "path": "/hoi-dap",
+    "file": "routes/ask.tsx",
+    "status": 200,
+    "finalPath": "/hoi-dap",
+    "redirects": [],
+    "title": "Hỏi trợ lý AI | Học tập pháp luật"
+  },
+  {
+    "path": "/huong-dan",
+    "file": "routes/huong-dan._index.tsx",
+    "status": 200,
+    "finalPath": "/huong-dan",
+    "redirects": [],
+    "title": "Hướng dẫn sử dụng | Học tập pháp luật"
+  },
+  {
+    "path": "/luyen-tap",
+    "file": "routes/luyen-tap._index.tsx",
+    "status": 200,
+    "finalPath": "/dang-nhap",
+    "redirects": [
+      {
+        "status": 302,
+        "to": "/dang-nhap?tiep=%2Fluyen-tap"
+      }
+    ],
+    "title": "Đăng nhập | Học tập pháp luật"
+  },
+  {
+    "path": "/luyen-tap/offline",
+    "file": "routes/luyen-tap.offline.tsx",
+    "status": 200,
+    "finalPath": "/luyen-tap/offline",
+    "redirects": [],
+    "title": "Luyện tập không cần mạng | Học tập pháp luật"
+  },
+  {
+    "path": "/nhom",
+    "file": "routes/nhom.tsx",
+    "status": 200,
+    "finalPath": "/dang-nhap",
+    "redirects": [
+      {
+        "status": 302,
+        "to": "/dang-nhap?tiep=%2Fnhom"
+      }
+    ],
+    "title": "Đăng nhập | Học tập pháp luật"
+  },
+  {
+    "path": "/quan-tri",
+    "file": "routes/quan-tri._index.tsx",
+    "status": 200,
+    "finalPath": "/dang-nhap",
+    "redirects": [
+      {
+        "status": 302,
+        "to": "/dang-nhap?tiep=%2Fquan-tri"
+      }
+    ],
+    "title": "Đăng nhập | Học tập pháp luật"
+  },
+  {
+    "path": "/quan-tri/bao-cao",
+    "file": "routes/quan-tri.bao-cao.tsx",
+    "status": 200,
+    "finalPath": "/dang-nhap",
+    "redirects": [
+      {
+        "status": 302,
+        "to": "/dang-nhap?tiep=%2Fquan-tri%2Fbao-cao"
+      }
+    ],
+    "title": "Đăng nhập | Học tập pháp luật"
+  },
+  {
+    "path": "/quan-tri/cau-hoi",
+    "file": "routes/quan-tri.cau-hoi.tsx",
+    "status": 200,
+    "finalPath": "/dang-nhap",
+    "redirects": [
+      {
+        "status": 302,
+        "to": "/dang-nhap?tiep=%2Fquan-tri%2Fcau-hoi"
+      }
+    ],
+    "title": "Đăng nhập | Học tập pháp luật"
+  },
+  {
+    "path": "/quan-tri/cau-hoi/moi",
+    "file": "routes/quan-tri.cau-hoi.sua.tsx",
+    "status": 200,
+    "finalPath": "/dang-nhap",
+    "redirects": [
+      {
+        "status": 302,
+        "to": "/dang-nhap?tiep=%2Fquan-tri%2Fcau-hoi%2Fmoi"
+      }
+    ],
+    "title": "Đăng nhập | Học tập pháp luật"
+  },
+  {
+    "path": "/quan-tri/cham-tu-luan",
+    "file": "routes/quan-tri.cham-tu-luan.tsx",
+    "status": 200,
+    "finalPath": "/dang-nhap",
+    "redirects": [
+      {
+        "status": 302,
+        "to": "/dang-nhap?tiep=%2Fquan-tri%2Fcham-tu-luan"
+      }
+    ],
+    "title": "Đăng nhập | Học tập pháp luật"
+  },
+  {
+    "path": "/quan-tri/cham-tu-luan/de-thi",
+    "file": "routes/quan-tri.cham-tu-luan.de-thi.tsx",
+    "status": 200,
+    "finalPath": "/dang-nhap",
+    "redirects": [
+      {
+        "status": 302,
+        "to": "/dang-nhap?tiep=%2Fquan-tri%2Fcham-tu-luan%2Fde-thi"
+      }
+    ],
+    "title": "Đăng nhập | Học tập pháp luật"
+  },
+  {
+    "path": "/quan-tri/chuyen-de",
+    "file": "routes/quan-tri.chuyen-de.tsx",
+    "status": 200,
+    "finalPath": "/dang-nhap",
+    "redirects": [
+      {
+        "status": 302,
+        "to": "/dang-nhap?tiep=%2Fquan-tri%2Fchuyen-de"
+      }
+    ],
+    "title": "Đăng nhập | Học tập pháp luật"
+  },
+  {
+    "path": "/quan-tri/chuyen-de/moi",
+    "file": "routes/quan-tri.chuyen-de.sua.tsx",
+    "status": 200,
+    "finalPath": "/dang-nhap",
+    "redirects": [
+      {
+        "status": 302,
+        "to": "/dang-nhap?tiep=%2Fquan-tri%2Fchuyen-de%2Fmoi"
+      }
+    ],
+    "title": "Đăng nhập | Học tập pháp luật"
+  },
+  {
+    "path": "/quan-tri/chuyen-de/tu-pdf",
+    "file": "routes/quan-tri.chuyen-de.tu-pdf.tsx",
+    "status": 200,
+    "finalPath": "/dang-nhap",
+    "redirects": [
+      {
+        "status": 302,
+        "to": "/dang-nhap?tiep=%2Fquan-tri%2Fchuyen-de%2Ftu-pdf"
+      }
+    ],
+    "title": "Đăng nhập | Học tập pháp luật"
+  },
+  {
+    "path": "/quan-tri/de-thi",
+    "file": "routes/quan-tri.de-thi.tsx",
+    "status": 200,
+    "finalPath": "/dang-nhap",
+    "redirects": [
+      {
+        "status": 302,
+        "to": "/dang-nhap?tiep=%2Fquan-tri%2Fde-thi"
+      }
+    ],
+    "title": "Đăng nhập | Học tập pháp luật"
+  },
+  {
+    "path": "/quan-tri/de-thi/cham-tu-luan",
+    "file": "routes/quan-tri.de-thi.cham-tu-luan.tsx",
+    "status": 200,
+    "finalPath": "/dang-nhap",
+    "redirects": [
+      {
+        "status": 301,
+        "to": "/quan-tri/cham-tu-luan/de-thi"
+      },
+      {
+        "status": 302,
+        "to": "/dang-nhap?tiep=%2Fquan-tri%2Fcham-tu-luan%2Fde-thi"
+      }
+    ],
+    "title": "Đăng nhập | Học tập pháp luật"
+  },
+  {
+    "path": "/quan-tri/de-thi/moi",
+    "file": "routes/quan-tri.de-thi.sua.tsx",
+    "status": 200,
+    "finalPath": "/dang-nhap",
+    "redirects": [
+      {
+        "status": 302,
+        "to": "/dang-nhap?tiep=%2Fquan-tri%2Fde-thi%2Fmoi"
+      }
+    ],
+    "title": "Đăng nhập | Học tập pháp luật"
+  },
+  {
+    "path": "/quan-tri/de-thi/moi/ma-tran",
+    "file": "routes/quan-tri.de-thi.ma-tran.tsx",
+    "status": 200,
+    "finalPath": "/dang-nhap",
+    "redirects": [
+      {
+        "status": 302,
+        "to": "/dang-nhap?tiep=%2Fquan-tri%2Fde-thi%2Fmoi%2Fma-tran"
+      }
+    ],
+    "title": "Đăng nhập | Học tập pháp luật"
+  },
+  {
+    "path": "/quan-tri/de-thi/tu-pdf",
+    "file": "routes/quan-tri.de-thi.tu-pdf.tsx",
+    "status": 200,
+    "finalPath": "/dang-nhap",
+    "redirects": [
+      {
+        "status": 302,
+        "to": "/dang-nhap?tiep=%2Fquan-tri%2Fde-thi%2Ftu-pdf"
+      }
+    ],
+    "title": "Đăng nhập | Học tập pháp luật"
+  },
+  {
+    "path": "/quan-tri/don-vi",
+    "file": "routes/quan-tri.don-vi.tsx",
+    "status": 200,
+    "finalPath": "/dang-nhap",
+    "redirects": [
+      {
+        "status": 302,
+        "to": "/dang-nhap?tiep=%2Fquan-tri%2Fdon-vi"
+      }
+    ],
+    "title": "Đăng nhập | Học tập pháp luật"
+  },
+  {
+    "path": "/quan-tri/du-lieu-tra-cuu",
+    "file": "routes/quan-tri.du-lieu-tra-cuu.tsx",
+    "status": 200,
+    "finalPath": "/dang-nhap",
+    "redirects": [
+      {
+        "status": 302,
+        "to": "/dang-nhap?tiep=%2Fquan-tri%2Fdu-lieu-tra-cuu"
+      }
+    ],
+    "title": "Đăng nhập | Học tập pháp luật"
+  },
+  {
+    "path": "/quan-tri/du-lieu-tra-cuu/moi",
+    "file": "routes/quan-tri.du-lieu-tra-cuu.moi.tsx",
+    "status": 200,
+    "finalPath": "/dang-nhap",
+    "redirects": [
+      {
+        "status": 302,
+        "to": "/dang-nhap?tiep=%2Fquan-tri%2Fdu-lieu-tra-cuu%2Fmoi"
+      }
+    ],
+    "title": "Đăng nhập | Học tập pháp luật"
+  },
+  {
+    "path": "/quan-tri/giao-bai",
+    "file": "routes/quan-tri.giao-bai.tsx",
+    "status": 200,
+    "finalPath": "/dang-nhap",
+    "redirects": [
+      {
+        "status": 302,
+        "to": "/dang-nhap?tiep=%2Fquan-tri%2Fgiao-bai"
+      }
+    ],
+    "title": "Đăng nhập | Học tập pháp luật"
+  },
+  {
+    "path": "/quan-tri/giao-thong",
+    "file": "routes/quan-tri.giao-thong.tsx",
+    "status": 200,
+    "finalPath": "/dang-nhap",
+    "redirects": [
+      {
+        "status": 302,
+        "to": "/dang-nhap?tiep=%2Fquan-tri%2Fgiao-thong"
+      }
+    ],
+    "title": "Đăng nhập | Học tập pháp luật"
+  },
+  {
+    "path": "/quan-tri/nguoi-dung",
+    "file": "routes/quan-tri.nguoi-dung.tsx",
+    "status": 200,
+    "finalPath": "/dang-nhap",
+    "redirects": [
+      {
+        "status": 302,
+        "to": "/dang-nhap?tiep=%2Fquan-tri%2Fnguoi-dung"
+      }
+    ],
+    "title": "Đăng nhập | Học tập pháp luật"
+  },
+  {
+    "path": "/quan-tri/nhom",
+    "file": "routes/quan-tri.nhom.tsx",
+    "status": 200,
+    "finalPath": "/dang-nhap",
+    "redirects": [
+      {
+        "status": 302,
+        "to": "/dang-nhap?tiep=%2Fquan-tri%2Fnhom"
+      }
+    ],
+    "title": "Đăng nhập | Học tập pháp luật"
+  },
+  {
+    "path": "/quan-tri/van-ban",
+    "file": "routes/quan-tri.van-ban.tsx",
+    "status": 200,
+    "finalPath": "/dang-nhap",
+    "redirects": [
+      {
+        "status": 302,
+        "to": "/dang-nhap?tiep=%2Fquan-tri%2Fvan-ban"
+      }
+    ],
+    "title": "Đăng nhập | Học tập pháp luật"
+  },
+  {
+    "path": "/quan-tri/van-ban/moi",
+    "file": "routes/quan-tri.van-ban.sua.tsx",
+    "status": 200,
+    "finalPath": "/dang-nhap",
+    "redirects": [
+      {
+        "status": 302,
+        "to": "/dang-nhap?tiep=%2Fquan-tri%2Fvan-ban%2Fmoi"
+      }
+    ],
+    "title": "Đăng nhập | Học tập pháp luật"
+  },
+  {
+    "path": "/quan-tri/van-ban/sua",
+    "file": "routes/quan-tri.van-ban.sua.tsx",
+    "status": 200,
+    "finalPath": "/dang-nhap",
+    "redirects": [
+      {
+        "status": 302,
+        "to": "/dang-nhap?tiep=%2Fquan-tri%2Fvan-ban%2Fsua"
+      }
+    ],
+    "title": "Đăng nhập | Học tập pháp luật"
+  },
+  {
+    "path": "/so-sanh",
+    "file": "routes/compare.tsx",
+    "status": 200,
+    "finalPath": "/so-sanh",
+    "redirects": [],
+    "title": "So sánh văn bản | Học tập pháp luật"
+  },
+  {
+    "path": "/tai-khoan",
+    "file": "routes/tai-khoan.tsx",
+    "status": 200,
+    "finalPath": "/dang-nhap",
+    "redirects": [
+      {
+        "status": 302,
+        "to": "/dang-nhap?tiep=%2Ftai-khoan"
+      }
+    ],
+    "title": "Đăng nhập | Học tập pháp luật"
+  },
+  {
+    "path": "/thi",
+    "file": "routes/thi._index.tsx",
+    "status": 200,
+    "finalPath": "/dang-nhap",
+    "redirects": [
+      {
+        "status": 302,
+        "to": "/dang-nhap?tiep=%2Fthi"
+      }
+    ],
+    "title": "Đăng nhập | Học tập pháp luật"
+  },
+  {
+    "path": "/tim-kiem",
+    "file": "routes/search.tsx",
+    "status": 200,
+    "finalPath": "/tim-kiem",
+    "redirects": [],
+    "title": "Tra cứu văn bản | Học tập pháp luật"
+  },
+  {
+    "path": "/toi",
+    "file": "routes/toi.tsx",
+    "status": 200,
+    "finalPath": "/dang-nhap",
+    "redirects": [
+      {
+        "status": 302,
+        "to": "/dang-nhap?tiep=%2Ftoi"
+      }
+    ],
+    "title": "Đăng nhập | Học tập pháp luật"
+  },
+  {
+    "path": "/tra-cuu",
+    "file": "routes/tra-cuu.tsx",
+    "status": 200,
+    "finalPath": "/tra-cuu",
+    "redirects": [],
+    "title": "Tra cứu | Học tập pháp luật"
+  },
+  {
+    "path": "/tra-cuu-nhanh",
+    "file": "routes/tra-cuu-nhanh._index.tsx",
+    "status": 200,
+    "finalPath": "/tra-cuu",
+    "redirects": [
+      {
+        "status": 302,
+        "to": "/tra-cuu"
+      }
+    ],
+    "title": "Tra cứu | Học tập pháp luật"
+  },
+  {
+    "path": "/tra-cuu-nhanh/bien-bao",
+    "file": "routes/tra-cuu-nhanh.bien-bao.tsx",
+    "status": 410,
+    "finalPath": "/tra-cuu-nhanh/bien-bao",
+    "redirects": [],
+    "title": "Chức năng đã ngừng cung cấp | Học tập pháp luật"
+  },
+  {
+    "path": "/tra-cuu-nhanh/muc-phat",
+    "file": "routes/tra-cuu-nhanh.muc-phat.tsx",
+    "status": 410,
+    "finalPath": "/tra-cuu-nhanh/muc-phat",
+    "redirects": [],
+    "title": "Chức năng đã ngừng cung cấp | Học tập pháp luật"
+  },
+  {
+    "path": "/tra-cuu-nhanh/quy-trinh",
+    "file": "routes/tra-cuu-nhanh.quy-trinh.tsx",
+    "status": 200,
+    "finalPath": "/tra-cuu-nhanh/quy-trinh",
+    "redirects": [],
+    "title": "Quy trình, Biểu mẫu | Học tập pháp luật"
+  },
+  {
+    "path": "/tra-cuu-nhanh/toc-do",
+    "file": "routes/tra-cuu-nhanh.toc-do.tsx",
+    "status": 410,
+    "finalPath": "/tra-cuu-nhanh/toc-do",
+    "redirects": [],
+    "title": "Chức năng đã ngừng cung cấp | Học tập pháp luật"
+  },
+  {
+    "path": "/tra-cuu/thu-tuc-hanh-chinh",
+    "file": "routes/thu-tuc-hanh-chinh.tsx",
+    "status": 200,
+    "finalPath": "/dich-vu-cong",
+    "redirects": [
+      {
+        "status": 302,
+        "to": "/dich-vu-cong"
+      }
+    ],
+    "title": "Dịch vụ công trực tuyến | Học tập pháp luật"
+  },
+  {
+    "path": "/ung-dung",
+    "file": "routes/usecases.tsx",
+    "status": 200,
+    "finalPath": "/ung-dung",
+    "redirects": [],
+    "title": "Trường hợp ứng dụng | Học tập pháp luật"
+  },
+  {
+    "path": "/xem-bieu-tuong",
+    "file": "routes/xem-bieu-tuong.tsx",
+    "status": 200,
+    "finalPath": "/xem-bieu-tuong",
+    "redirects": [],
+    "title": "Xem trước bộ biểu tượng | Học tập pháp luật"
+  }
+]

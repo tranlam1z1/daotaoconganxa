@@ -1,6 +1,6 @@
 import { Link } from "react-router";
 
-import { Icon, type IconName } from "../ui/Icon";
+import { Icon, type IconName, sacCua } from "../ui/Icon";
 
 /**
  * Khung lối tắt (Bộ công cụ nghiệp vụ, Nghiệp vụ nhanh) ở trang chủ và trang /cong-cu: tiêu đề có
@@ -17,7 +17,7 @@ export function LuoiLoiTat({
   id: string;
   tieuDe: string;
   icon: IconName;
-  items: ReadonlyArray<{ to: string; ten: string; icon: IconName }>;
+  items: ReadonlyArray<{ to: string; ten: string; icon: IconName; moTa?: string }>;
   xemTatCa?: string;
 }) {
   return (
@@ -51,10 +51,21 @@ export function LuoiLoiTat({
               to={o.to}
               className="group flex h-full min-h-20 items-center gap-2 rounded-xl bg-surface-2/60 px-2 py-3 sm:gap-3 sm:px-3 the-bam"
             >
-              <span className="hinh-noi grid size-11 shrink-0 place-items-center rounded-xl bg-surface">
+              <span
+                data-sac={sacCua(o.icon)}
+                className="shortcut-icon hinh-noi grid size-11 shrink-0 place-items-center rounded-xl"
+              >
                 <Icon name={o.icon} className="size-7" />
               </span>
-              <span className="min-w-0 text-sm leading-snug font-semibold">{o.ten}</span>
+              <span className="min-w-0 text-sm leading-snug">
+                <span className="block font-semibold">{o.ten}</span>
+                {o.moTa ? (
+                  <span className="resource-description mt-1 block text-xs font-normal text-ink-2">
+                    {o.moTa}
+                  </span>
+                ) : null}
+              </span>
+              {o.moTa ? <Icon name="chevronRight" kieu="net" className="ml-auto size-4 shrink-0" /> : null}
             </Link>
           </li>
         ))}

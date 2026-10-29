@@ -1,6 +1,6 @@
 import { describe, expect, test } from "bun:test";
 import { loader as daNgung } from "../app/components/tra-cuu/ChucNangDaNgung";
-import { BOTTOM_NAV, dangOMuc, MAIN_NAV, MORE_NAV } from "../app/lib/site";
+import { BOTTOM_NAV, dangOMuc, MAIN_NAV } from "../app/lib/site";
 import { loader } from "../app/routes/tra-cuu";
 
 function load(query = "") {
@@ -31,7 +31,7 @@ describe("điều hướng ba nhóm", () => {
       expect(nav.some((x) => x.to === "/luyen-tap")).toBe(true);
       expect(nav.some((x) => x.to === "/tra-cuu")).toBe(true);
     }
-    expect([...MAIN_NAV, ...BOTTOM_NAV, ...MORE_NAV].some((x) => x.to === "/dich-vu-cong")).toBe(false);
+    expect(MAIN_NAV.some((x) => x.to === "/dich-vu-cong")).toBe(true);
   });
   test("trang con vẫn được đánh dấu đúng mục cha", () => {
     const hoc = MAIN_NAV.find((x) => x.to === "/hoc")!;

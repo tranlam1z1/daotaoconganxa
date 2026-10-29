@@ -61,7 +61,7 @@
   --color-tim: var(--tim);
   --color-ngoc: var(--ngoc);
 
-  --shadow-card: 0 1px 2px rgb(20 22 30 / 0.04), 0 4px 16px -6px rgb(20 22 30 / 0.08);
+  --shadow-card: 0 4px 18px rgb(37 55 79 / 0.08);
   --shadow-noi: var(--bong-noi);
 }
 
@@ -85,7 +85,7 @@
   --text-sm--line-height: 1.5;
   --text-xs: 0.8125rem;
   --text-xs--line-height: calc(1.25 / 0.8125);
-  --radius-card: 0.75rem;
+  --radius-card: 0.875rem;
   --radius-btn: 0.5rem;
 }
 
@@ -100,20 +100,20 @@
   --canvas: #f5f7fa;
   --surface: #ffffff;
   --surface-2: #eef4f8;
-  --ink: #243447;
-  --ink-2: #526277;
+  --ink: #103866;
+  --ink-2: #526782;
   --ink-3: #64748b;
-  --line: #e2e8f0;
+  --line: #dce5f0;
   --line-strong: #94a3b8;
-  --primary: #a61c30;
-  --primary-hover: #881728;
+  --primary: #b8081c;
+  --primary-hover: #930817;
   --on-primary: #ffffff;
-  --primary-soft: #f9ecef;
-  --secondary: #17618b;
-  --secondary-soft: #edf4f8;
-  --accent: #c9a227;
+  --primary-soft: #fce8eb;
+  --secondary: #103866;
+  --secondary-soft: #eaf2fc;
+  --accent: #d8a348;
   --warning: #b7791f;
-  --seal: #a61c30;
+  --seal: #b8081c;
 
   --ok: #16805d;
   --ok-soft: #f4faf6;
@@ -123,7 +123,7 @@
   --danger-soft: #fdeaea;
   --info: #17618b;
   --info-soft: #eef4f8;
-  --muted: #526277;
+  --muted: #526782;
   --muted-soft: #f1f5f9;
 
   /* Phản hồi trỏ chuột (lớp the-bam, dong-bam): bóng thẻ đang nhấc, nền ngả xanh rất nhạt. */
@@ -136,9 +136,9 @@
      xanh/vàng/đỏ/xám. */
   --tim: #17618b;
   --ngoc: #16805d;
-  --g-nhan: #c9a227;
+  --g-nhan: #d8a348;
   --g-tren-nhan: #3d310b;
-  --ic-dam: 25%;
+  --ic-dam: 12%;
 
   /* Băng chào trang chủ (.bang-chao): nền xanh nhạt, quầng xanh dương và vàng. */
   --chao-nen-1: #ffffff;
@@ -186,7 +186,7 @@
   --ngoc: #5eead4;
   --g-nhan: #d6b64e;
   --g-tren-nhan: #241a00;
-  --ic-dam: 35%;
+  --ic-dam: 20%;
 
   --chao-nen-1: #16233c;
   --chao-nen-2: #121c30;
@@ -436,14 +436,14 @@
  */
 @utility wrap {
   width: 100%;
-  max-width: 75rem;
+  max-width: 81.25rem;
   margin-inline: auto;
   padding-inline: 1rem;
   @media (width >= 48rem) {
     padding-inline: 1.5rem;
   }
   @media (width >= 64rem) {
-    max-width: 80rem;
+    max-width: 81.25rem;
     padding-inline: 2rem;
   }
 }
@@ -1142,17 +1142,22 @@
  */
 .ic {
   --ic-chinh: var(--secondary);
-  --ic-vang: var(--g-nhan);
+  --ic-vang: var(--warn);
   --ic-cam: var(--warn);
   --ic-do: var(--seal);
   --ic-luc: var(--ok);
-  --ic-tim: var(--secondary);
-  --ic-ngoc: var(--ngoc);
-  --ic-trung: var(--ink-3);
+  --ic-tim: var(--info);
+  --ic-ngoc: var(--ok);
+  --ic-trung: var(--ink-2);
   --ic-s: var(--ic-chinh);
   --ic-nen: color-mix(in srgb, var(--ic-s) var(--ic-dam), transparent);
   --ic-tren: var(--on-primary);
   flex-shrink: 0;
+}
+/* Biểu tượng minh họa dùng sắc riêng; nút thao tác kế thừa màu nhãn để luôn rõ trên nền đặc. */
+.ic[data-kieu="hai-lop"] { color: var(--ic-s); }
+:is(button, [role="button"], .bg-primary, .bg-secondary, [aria-current="page"]) .ic {
+  color: inherit;
 }
 :is(.ic, .ic-nhan)[data-sac="vang"] {
   --ic-s: var(--ic-vang);
@@ -1182,7 +1187,7 @@
 
 /* Màu nền ô tô đặc (kiểu "dac"): bản đậm hơn sắc để nét trắng trên đó đủ tương phản. */
 .ic[data-kieu="dac"] {
-  --ic-o-fill: var(--primary);
+  --ic-o-fill: var(--ic-s);
 }
 .ic[data-kieu="dac"][data-sac="vang"] {
   --ic-o-fill: var(--g-nhan);
@@ -1543,3 +1548,73 @@
 .bang-chao-logo { background: var(--surface); }
 .tra-cuu-tieu-de::before, .tieu-de-trang-banner::before { opacity: .18; }
 .tra-cuu-tieu-de > div, .tieu-de-trang-banner > div { background: var(--surface); border-radius: .5rem; }
+
+/* Header duy nhất và chân trang của hệ thống. */
+.site-header { border-top: 0; background: #fff; --primary: #b8081c; --secondary: #103866; }
+.site-header .wrap { max-width: 1300px; min-height: 72px; padding-block: 6px; }
+.site-header .menu-chinh { --primary: #b8081c; --secondary: #103866; }
+.site-header .menu-chinh a { font-size: 13px; padding-inline: 10px; }
+.site-header a > svg { max-height: 52px; }
+.site-header .site-brand { gap: 10px; }
+.site-header .site-brand > span > span { font-size: 12px; white-space: normal; }
+.site-header .site-brand > span { max-width: 310px; }
+.site-footer { position: relative; isolation: isolate; margin-top: 0; border-top: 5px solid #d8a348; background: #930817; color: white; }
+.site-footer::after { content: ""; position: absolute; inset: 0; z-index: -1; pointer-events: none; background: url('/assets/lotus-corner.svg') right bottom / 220px auto no-repeat; opacity: .16; }
+.site-footer .wrap { max-width: 1300px; padding-block: 24px; }
+@media (max-width: 1279px) { .site-header .site-brand > span { max-width: 360px; } }
+@media (max-width: 767px) {
+  .site-header .wrap { min-height: 72px; gap: 4px; }
+  .site-header .site-brand > span > span { font-size: 10px; line-height: 1.45; }
+  .site-header .site-brand > svg { max-height: 38px; }
+  .site-header .site-brand { gap: 6px; }
+  .site-footer .wrap { padding-block: 24px; }
+}
+
+/* Menu có biểu tượng, nút tài khoản và chân trang theo trang chủ. */
+.site-header .wrap { min-height: 68px; }
+.site-header .menu-chinh a { padding-inline: 9px; font-size: 12px; font-weight: 600; }
+.site-header .site-login { justify-content: center; text-align: center; border: 1px solid #b8081c; color: #b8081c; padding-inline: 16px; font-size: 13px; font-weight: 700; }
+.site-header .site-brand > span { max-width: 300px; }
+.site-header .site-account-name { min-width: 0; white-space: normal; overflow-wrap: anywhere; font-size: 12px; line-height: 1.45; text-align: left; }
+.site-footer { border-top-width: 0; background: linear-gradient(110deg, #a60819, #930817); }
+.site-footer .wrap { padding-block: 16px; }
+.site-footer .wrap > p { border-left: 1px solid #ffffff66; padding-left: 28px; font-size: 12px; line-height: 1.5; }
+.site-footer::after { background: url('/assets/lotus-corner.svg') left bottom / 180px auto no-repeat, url('/assets/lotus-corner.svg') right bottom / 180px auto no-repeat; opacity: .2; }
+@media (max-width: 767px) { .site-footer .wrap > p { border-left: 0; padding-left: 0; } }
+
+/* Bộ nhận diện: sách đỏ–xanh, ngòi bút và sao vàng. */
+.brand-name { display: flex; min-width: 0; flex-direction: column; align-items: inherit; font-family: var(--font-sans); line-height: 1.25; }
+.brand-name-title, .brand-name-subtitle { display: block; font-weight: 800; text-transform: uppercase; }
+.brand-name-title { color: #a61c30; }
+.brand-name-subtitle { color: #165a78; }
+.brand-name-rule { display: block; height: 1px; width: min(100%, 180px); background: #d1aa36; margin-block: 5px; }
+.brand-name-tagline { color: #526277; font-size: .7em; letter-spacing: .06em; text-transform: uppercase; }
+.brand-name-inverse .brand-name-title, .brand-name-inverse .brand-name-subtitle, .brand-name-inverse .brand-name-tagline { color: white; }
+.site-header .site-brand { gap: 10px; }
+.site-header .site-brand > .brand-name { padding: 0; max-width: 270px; }
+.site-header .site-brand .brand-name-title, .site-header .site-brand .brand-name-subtitle { font-size: 12px; line-height: 1.2; white-space: normal; }
+.site-header .site-brand .brand-name-rule { margin-block: 3px; }
+.site-header .site-brand .brand-name-tagline { font-size: 9px; line-height: 1.25; }
+.site-footer .brand-name { font-size: 13px; }
+.site-footer .brand-name-tagline { font-size: 10px; }
+.khung-trang-auth .brand-name { align-items: center; font-size: 21px; }
+@media (max-width: 767px) {
+  .site-header .site-brand .brand-name-title, .site-header .site-brand .brand-name-subtitle { font-size: 10px; }
+  .site-header .site-brand .brand-name-tagline { font-size: 8px; }
+  .site-header .site-brand .brand-name-rule { margin-block: 2px; }
+  .site-footer .brand-name { font-size: 12px; }
+  .khung-trang-auth .brand-name { font-size: 19px; }
+}
+.brand-home-button { --primary: #a61c30; }
+
+/* Header giữ hình học ổn định khi đổi route hoặc trạng thái kiểm tra phiên. */
+html { scrollbar-gutter: stable; }
+.site-header .site-header-inner { min-height: 68px; }
+@media (min-width: 1280px) {
+  .site-header .site-header-inner { display: grid; grid-template-columns: minmax(0, 1fr) auto 232px; gap: 16px; }
+  .site-header .menu-chinh { margin-left: 0; }
+  .site-header .site-account { margin-left: 0; width: 232px; justify-content: flex-end; gap: 8px; }
+  .site-header .site-notification-slot { width: 44px; flex-shrink: 0; }
+  .site-header .site-account-action { width: 180px; min-width: 0; max-width: 180px; }
+  .site-header .site-account-action > .site-account-name { flex: 1; max-width: none; }
+}

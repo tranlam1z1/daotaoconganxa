@@ -3,6 +3,7 @@
  * (docs/PLAN.md GĐ11), để liên kết đã chia sẻ vẫn mở được. Resource route, không có giao diện.
  */
 import { redirect } from "react-router";
+import { urlTrang } from "../lib/session.server";
 
 export function loader({
   request,
@@ -11,7 +12,7 @@ export function loader({
   request: Request;
   params: Record<string, string | undefined>;
 }) {
-  const url = new URL(request.url);
+  const url = urlTrang(request);
   const duong = ["/hoc", params.course, params.lesson]
     .filter(Boolean)
     .map((p, i) => (i ? encodeURIComponent(p!) : p))

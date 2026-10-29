@@ -1,60 +1,54 @@
-/** Danh mục chọn lọc, đối chiếu liên kết trên cổng Bộ Công an ngày 26/10/2026. */
-export const CONG_DICH_VU = "https://dichvucong.bocongan.gov.vn";
+export const CONG_DICH_VU = "https://dichvucong.gov.vn/";
+export const NHOM_DICH_VU = ["Công chức", "Viên chức", "Đảng viên"] as const;
+export type NhomDichVu = (typeof NHOM_DICH_VU)[number];
 export interface DichVuCong {
   ma: string;
   ten: string;
   linhVuc: string;
-  url: string;
+  tuKhoa: string;
+  nhom: readonly NhomDichVu[];
   phoBien: boolean;
+  url: string;
 }
-const thuTuc = (ma: string, ten: string, linhVuc: string, phoBien = false): DichVuCong => ({
-  ma,
-  ten,
-  linhVuc,
-  phoBien,
-  url: `${CONG_DICH_VU}/bocongan/bothutuc/tthc?matt=${ma}`,
-});
+// Chủ đề tra cứu, không phải mã thủ tục. Người dùng chọn cơ quan và thủ tục trên cổng quốc gia.
+const muc = (
+  ma: string,
+  ten: string,
+  linhVuc: string,
+  tuKhoa: string,
+  nhom: readonly NhomDichVu[],
+  phoBien = false,
+): DichVuCong => ({ ma, ten, linhVuc, tuKhoa, nhom, phoBien, url: CONG_DICH_VU });
 export const DICH_VU_CONG: DichVuCong[] = [
-  thuTuc(
-    "56952",
-    "Đăng ký xe lần đầu trực tuyến toàn trình đối với xe sản xuất lắp ráp trong nước",
-    "Đăng ký, quản lý phương tiện giao thông",
+  muc("cong-chuc", "Tuyển dụng công chức", "Công vụ", "tuyển dụng công chức", ["Công chức"], true),
+  muc("vien-chuc", "Tuyển dụng viên chức", "Viên chức", "tuyển dụng viên chức", ["Viên chức"], true),
+  muc(
+    "dang",
+    "Dịch vụ công trực tuyến của Đảng",
+    "Công tác Đảng",
+    "Dịch vụ công trực tuyến của Đảng",
+    ["Đảng viên"],
     true,
   ),
-  thuTuc("26345", "Gia hạn tạm trú", "Quản lý cư trú", true),
-  thuTuc("26094", "Cấp đổi thẻ căn cước (thực hiện tại cấp tỉnh)", "Căn cước", true),
-  thuTuc(
-    "29497",
-    "Cấp hộ chiếu phổ thông ở trong nước (thực hiện tại cấp tỉnh)",
-    "Quản lý xuất nhập cảnh",
-    true,
+  muc("chung-thuc", "Chứng thực bản sao, chữ ký", "Chứng thực", "chứng thực", NHOM_DICH_VU, true),
+  muc(
+    "bhxh",
+    "Cấp lại, đổi sổ bảo hiểm xã hội",
+    "Bảo hiểm xã hội",
+    "cấp lại đổi sổ bảo hiểm xã hội",
+    NHOM_DICH_VU,
   ),
-  thuTuc(
-    "58712",
-    "Đăng ký xe lần đầu trực tuyến toàn trình đối với xe nhập khẩu",
-    "Đăng ký, quản lý phương tiện giao thông",
+  muc(
+    "bhyt",
+    "Cấp lại, đổi thẻ bảo hiểm y tế",
+    "Bảo hiểm y tế",
+    "cấp lại đổi thẻ bảo hiểm y tế",
+    NHOM_DICH_VU,
   ),
-  thuTuc(
-    "62012",
-    "Thu hồi giấy chứng nhận đăng ký, biển số xe thực hiện bằng dịch vụ công trực tuyến một phần hoặc trực tiếp tại cơ quan đăng ký xe thực hiện tại cấp trung ương, cấp tỉnh, cấp xã",
-    "Đăng ký, quản lý phương tiện giao thông",
-  ),
-  thuTuc("26093", "Cấp lại thẻ căn cước (thực hiện tại cấp tỉnh)", "Căn cước"),
-  thuTuc("26096", "Cấp lại thẻ căn cước (thực hiện tại cấp trung ương)", "Căn cước"),
-  thuTuc(
-    "26270",
-    "Cấp hộ chiếu phổ thông ở trong nước (thực hiện tại cấp trung ương)",
-    "Quản lý xuất nhập cảnh",
-  ),
-  thuTuc(
-    "40857",
-    "Cấp mới Giấy chứng nhận đủ điều kiện về an ninh, trật tự (thực hiện tại cấp tỉnh)",
-    "Quản lý ngành, nghề kinh doanh có điều kiện",
-  ),
-  thuTuc("40853", "Đăng ký lại mẫu con dấu (thực hiện tại cấp tỉnh)", "Đăng ký, quản lý con dấu"),
-  thuTuc("40854", "Đăng ký thêm con dấu (thực hiện tại cấp tỉnh)", "Đăng ký, quản lý con dấu"),
+  muc("huu-tri", "Giải quyết hưởng chế độ hưu trí", "Bảo hiểm xã hội", "hưởng chế độ hưu trí", NHOM_DICH_VU),
+  muc("ly-lich", "Cấp phiếu lý lịch tư pháp", "Lý lịch tư pháp", "cấp phiếu lý lịch tư pháp", NHOM_DICH_VU),
 ];
-export function timDichVuCong(q: string): DichVuCong[] {
+export function timDichVuCong(q: string, nhom?: NhomDichVu): DichVuCong[] {
   const chuanHoa = (s: string) =>
     s
       .normalize("NFD")
@@ -63,5 +57,9 @@ export function timDichVuCong(q: string): DichVuCong[] {
       .replace(/Đ/g, "D")
       .toLowerCase();
   const tu = chuanHoa(q).trim().split(/\s+/).filter(Boolean);
-  return DICH_VU_CONG.filter((d) => tu.every((t) => chuanHoa(`${d.ten} ${d.linhVuc}`).includes(t)));
+  return DICH_VU_CONG.filter(
+    (d) =>
+      (!nhom || d.nhom.includes(nhom)) &&
+      tu.every((t) => chuanHoa(`${d.ten} ${d.linhVuc} ${d.nhom.join(" ")}`).includes(t)),
+  );
 }

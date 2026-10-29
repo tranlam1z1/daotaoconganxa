@@ -6,7 +6,7 @@
  */
 import { redirect } from "react-router";
 
-import { layToken, type NguoiDung, nguoiDungHienTai } from "./auth.server";
+import { docPhienHienTai, layToken, type NguoiDung } from "./auth.server";
 
 /**
  * Thứ tự vai trò từ thấp lên cao, khớp với ROLES trong packages/auth/src/rbac.ts.
@@ -65,8 +65,13 @@ export async function yeuCauDangNhap(
   { choPhepChoXacMinh = false }: { choPhepChoXacMinh?: boolean } = {},
 ): Promise<{ token: string; nguoiDung: NguoiDung }> {
   const token = layToken(request);
-  const nguoiDung = token ? await nguoiDungHienTai(request) : null;
-  if (!token || !nguoiDung) throw redirect(duongDangNhap(request));
+  if (!token) throw redirect(duongDangNhap(request));
+  const phien = await docPhienHienTai(request);
+  if (phien.trangThaiPhien === "tam_loi") {
+    throw new Response("Chưa kiểm tra được phiên đăng nhập. Vui lòng thử lại sau.", { status: 503 });
+  }
+  const { nguoiDung } = phien;
+  if (!nguoiDung) throw redirect(duongDangNhap(request));
   if (nguoiDung.cho_xac_minh && !choPhepChoXacMinh) throw redirect("/tai-khoan?can-xac-minh=1");
   return { token, nguoiDung };
 }

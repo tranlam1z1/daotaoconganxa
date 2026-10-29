@@ -20,11 +20,13 @@ export default defineConfig({
     include: ["react", "react-dom/client", "react/jsx-runtime", "react/jsx-dev-runtime", "react-router"],
   },
   server: {
+    // Khớp với isPortFree và URL của launcher; localhost có thể trỏ tới ::1.
+    host: "127.0.0.1",
     port,
     // Không tự nhảy sang cổng khác: scripts/serve.ts đã giải phóng cổng trước khi chạy,
     // nếu vẫn bận thì phải báo lỗi để biết, chứ không im lặng đổi cổng.
     strictPort: true,
     allowedHosts: ["resort-nail-deserving.ngrok-free.dev", "66d0-113-160-183-253.ngrok-free.app"],
   },
-  preview: { port, strictPort: true },
+  preview: { host: "127.0.0.1", port, strictPort: true },
 });

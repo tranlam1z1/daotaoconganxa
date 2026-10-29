@@ -1,99 +1,97 @@
-/**
- * Gieo cây đơn vị mẫu và 11 tài khoản mẫu để trình diễn và thử nghiệm (docs/PLAN.md GĐ2).
- *
- * Cây: Phòng Cảnh sát giao thông (PC08) > Đội 1, Đội 2, Đội 3.
- * Tài khoản: 1 Admin quản trị hệ thống, 1 Admin quản lý, 2 lãnh đạo (phòng, đội 1),
- * 7 cán bộ.
- * Mật khẩu chung lấy từ SEED_MAT_KHAU (mặc định "Matkhau2026"); tài khoản mẫu KHÔNG bị bắt
- * đổi mật khẩu để người trình diễn đăng nhập được ngay. Không dùng cho môi trường thật.
- *
- * Chạy lại được nhiều lần: đơn vị và tài khoản đã có (theo mã, theo tên đăng nhập) thì bỏ qua.
- *
- * Chạy: bun run packages/db/src/seed-don-vi.ts
+/** Dữ liệu mẫu cho công chức, viên chức, đảng viên.
+ * Chạy bình thường chỉ bổ sung dữ liệu thiếu.
+ * --cap-nhat-mau chuyển bộ mẫu PC08 cũ, giữ ID, mật khẩu, phiên và lịch sử.
+ * Chỉ dùng cho CSDL thử nghiệm/demo; mật khẩu tài khoản mới: SEED_MAT_KHAU.
  */
 import { sql } from "./client.ts";
-import { layDonViTheoMa, taoDonVi } from "./don-vi.ts";
 
-const ACTOR = "he_thong:seed-don-vi";
-const MAT_KHAU = process.env.SEED_MAT_KHAU?.trim() || "Matkhau2026";
-
-const DON_VI = [
-  { code: "PC08", name: "Phòng Cảnh sát giao thông", levelLabel: "Phòng", cha: null, ordinal: 0 },
-  { code: "PC08-D1", name: "Đội Tuần tra kiểm soát số 1", levelLabel: "Đội", cha: "PC08", ordinal: 1 },
-  { code: "PC08-D2", name: "Đội Tuần tra kiểm soát số 2", levelLabel: "Đội", cha: "PC08", ordinal: 2 },
-  { code: "PC08-D3", name: "Đội Điều tra giải quyết tai nạn", levelLabel: "Đội", cha: "PC08", ordinal: 3 },
+const capNhat = process.argv.includes("--cap-nhat-mau");
+const donVi = [
+  ["PC08", "XA-MH", "Xã Minh Hòa (mẫu)", "Xã"],
+  ["PC08-D1", "UBND-MH", "UBND xã Minh Hòa (mẫu)", "Cơ quan hành chính"],
+  ["PC08-D2", "TH-MH", "Trường Tiểu học Minh Hòa (mẫu)", "Đơn vị sự nghiệp"],
+  ["PC08-D3", "DU-MH", "Đảng ủy xã Minh Hòa (mẫu)", "Tổ chức Đảng"],
+] as const;
+const taiKhoan = [
+  ["quantri", "quantri", "Quản trị hệ thống", "quan_tri", null, "Quản trị viên", []],
+  ["quanly", "quanly", "Quản lý nội dung", "quan_ly", null, "Quản lý nội dung học tập", []],
+  [
+    "lanhdao.phong",
+    "lanhdao.xa",
+    "Nguyễn Văn Hùng",
+    "lanh_dao",
+    "XA-MH",
+    "Lãnh đạo xã",
+    ["cong_chuc_cap_xa", "dang_vien"],
+  ],
+  [
+    "lanhdao.doi1",
+    "lanhdao.ubnd",
+    "Trần Minh Đức",
+    "lanh_dao",
+    "UBND-MH",
+    "Lãnh đạo UBND xã",
+    ["cong_chuc_cap_xa", "dang_vien"],
+  ],
+  [
+    "canbo.d1.01",
+    "congchuc.01",
+    "Lê Quang Huy",
+    "can_bo",
+    "UBND-MH",
+    "Chuyên viên",
+    ["cong_chuc_cap_xa", "dang_vien"],
+  ],
+  ["canbo.d1.02", "congchuc.02", "Phạm Thị Lan", "can_bo", "UBND-MH", "Chuyên viên", ["cong_chuc_cap_xa"]],
+  ["canbo.d1.03", "congchuc.03", "Hoàng Văn Nam", "can_bo", "UBND-MH", "Chuyên viên", ["cong_chuc_cap_xa"]],
+  ["canbo.d2.01", "vienchuc.01", "Vũ Đức Thắng", "can_bo", "TH-MH", "Giáo viên", ["vien_chuc", "dang_vien"]],
+  ["canbo.d2.02", "vienchuc.02", "Đỗ Thị Hạnh", "can_bo", "TH-MH", "Giáo viên", ["vien_chuc"]],
+  ["canbo.d3.01", "dangvien.01", "Bùi Văn Tuấn", "can_bo", "DU-MH", "Đảng viên", ["dang_vien"]],
+  ["canbo.d3.02", "dangvien.02", "Ngô Thanh Tâm", "can_bo", "DU-MH", "Đảng viên", ["dang_vien"]],
 ] as const;
 
-const TAI_KHOAN = [
-  { username: "quantri", name: "Admin quản trị hệ thống", role: "quan_tri", donVi: null, capBac: null },
-  { username: "quanly", name: "Admin quản lý", role: "quan_ly", donVi: null, capBac: null },
-  // Tên đăng nhập đặt theo vai trò: `lanhdao.*` là lãnh đạo UBND xã (thang mới 5 bậc),
-  // `quanly.*` là vai trò Cán bộ quản lý của thang cũ, đã bị gộp vào `lanh_dao`.
-  {
-    username: "lanhdao.phong",
-    name: "Nguyễn Văn Hùng",
-    role: "lanh_dao",
-    donVi: "PC08",
-    capBac: "Trung tá, Trưởng phòng",
-  },
-  {
-    username: "lanhdao.doi1",
-    name: "Trần Minh Đức",
-    role: "lanh_dao",
-    donVi: "PC08-D1",
-    capBac: "Thiếu tá, Đội trưởng",
-  },
-  { username: "canbo.d1.01", name: "Lê Quang Huy", role: "can_bo", donVi: "PC08-D1", capBac: "Đại úy" },
-  { username: "canbo.d1.02", name: "Phạm Thị Lan", role: "can_bo", donVi: "PC08-D1", capBac: "Thượng úy" },
-  { username: "canbo.d1.03", name: "Hoàng Văn Nam", role: "can_bo", donVi: "PC08-D1", capBac: "Trung úy" },
-  { username: "canbo.d2.01", name: "Vũ Đức Thắng", role: "can_bo", donVi: "PC08-D2", capBac: "Đại úy" },
-  { username: "canbo.d2.02", name: "Đỗ Thị Hạnh", role: "can_bo", donVi: "PC08-D2", capBac: "Thiếu úy" },
-  { username: "canbo.d3.01", name: "Bùi Văn Tuấn", role: "can_bo", donVi: "PC08-D3", capBac: "Thượng úy" },
-  { username: "canbo.d3.02", name: "Ngô Thanh Tâm", role: "can_bo", donVi: "PC08-D3", capBac: "Trung úy" },
-] as const;
-
-const idTheoMa = new Map<string, string>();
-for (const d of DON_VI) {
-  const co = await layDonViTheoMa(d.code);
-  if (co) {
-    idTheoMa.set(d.code, co.id);
-    continue;
-  }
-  const moi = await taoDonVi(
-    {
-      code: d.code,
-      name: d.name,
-      levelLabel: d.levelLabel,
-      ordinal: d.ordinal,
-      parentId: d.cha ? (idTheoMa.get(d.cha) ?? null) : null,
-    },
-    ACTOR,
+try {
+  const hash = await Bun.password.hash(process.env.SEED_MAT_KHAU?.trim() || "Matkhau2026", {
+    algorithm: "argon2id",
+  });
+  await sql.begin(async (tx) => {
+    const ids = new Map<string, string>();
+    for (const [i, [cu, code, name, label]] of donVi.entries()) {
+      if (capNhat) {
+        await tx`UPDATE units SET code = ${code}, name = ${name}, level_label = ${label}, updated_at = now() WHERE code = ${cu}`;
+      }
+      let [unit] = await tx`SELECT id, path::text AS path FROM units WHERE code = ${code}`;
+      if (!unit) {
+        const id = crypto.randomUUID();
+        const nhan = `u${id.replace(/-/g, "")}`;
+        const parentId = i === 0 ? null : ids.get("XA-MH")!;
+        const [parent] = parentId
+          ? await tx`SELECT path::text AS path FROM units WHERE id = ${parentId}`
+          : [];
+        [unit] = await tx`INSERT INTO units (id, code, name, parent_id, path, level_label, ordinal)
+          VALUES (${id}, ${code}, ${name}, ${parentId}, ${parent ? `${parent.path}.${nhan}` : nhan}::ltree, ${label}, ${i}) RETURNING id`;
+      }
+      ids.set(code, unit!.id);
+    }
+    for (const [cu, username, name, role, code, title, groups] of taiKhoan) {
+      const unitId = code ? ids.get(code)! : null;
+      if (capNhat) {
+        // Chỉ cập nhật các tên mẫu được liệt kê; xung đột tên sẽ rollback cả giao dịch.
+        await tx`UPDATE accounts SET username = ${username}, name = ${name}, role = ${role},
+          unit_id = ${unitId}, rank_title = ${title}, nhom_doi_tuong = ${[...groups]}::text[]
+          WHERE username = ${cu} OR username = ${username}`;
+      }
+      await tx`INSERT INTO accounts (username, name, role, unit_id, rank_title, nhom_doi_tuong, password_hash, must_change_password, xac_minh)
+        VALUES (${username}, ${name}, ${role}, ${unitId}, ${title}, ${[...groups]}::text[], ${hash}, false, 'da_xac_minh')
+        ON CONFLICT (username) WHERE username IS NOT NULL DO NOTHING`;
+    }
+    await tx`INSERT INTO audit_log (actor, action, target, detail)
+      VALUES ('he_thong:seed-don-vi', 'nguoi_dung:gieo_mau', 'cong_chuc_vien_chuc_dang_vien',
+        ${tx.json({ capNhat, taiKhoan: taiKhoan.map(([cu, username]) => ({ cu, username })) })})`;
+  });
+  console.log(
+    `Đã chuẩn bị ${donVi.length} đơn vị và ${taiKhoan.length} tài khoản mẫu. Giữ mật khẩu của tài khoản đã có.`,
   );
-  idTheoMa.set(d.code, moi.id);
-  console.log(`+ đơn vị ${d.code} — ${d.name}`);
+} finally {
+  await sql.end();
 }
-
-const hash = await Bun.password.hash(MAT_KHAU, { algorithm: "argon2id" });
-let taoMoi = 0;
-for (const t of TAI_KHOAN) {
-  const [row] = (await sql`
-    INSERT INTO accounts (username, name, role, unit_id, rank_title, password_hash, must_change_password)
-    VALUES (${t.username}, ${t.name}, ${t.role}, ${t.donVi ? (idTheoMa.get(t.donVi) ?? null) : null},
-            ${t.capBac}, ${hash}, false)
-    ON CONFLICT (username) WHERE username IS NOT NULL DO NOTHING
-    RETURNING id`) as any[];
-  if (row) {
-    taoMoi++;
-    console.log(`+ tài khoản ${t.username} (${t.role})`);
-  }
-}
-if (taoMoi) {
-  await sql`INSERT INTO audit_log (actor, action, target, detail)
-            VALUES (${ACTOR}, 'nguoi_dung:gieo_mau', ${`${taoMoi} tài khoản`}, ${sql.json({} as never)})`;
-}
-
-console.log(
-  `\nĐã có ${DON_VI.length} đơn vị và ${TAI_KHOAN.length} tài khoản mẫu (tạo mới ${taoMoi}). ` +
-    `Mật khẩu của tài khoản tạo mới: ${MAT_KHAU}`,
-);
-await sql.end();

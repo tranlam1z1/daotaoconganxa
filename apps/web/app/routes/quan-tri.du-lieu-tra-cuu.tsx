@@ -57,7 +57,7 @@ import {
   type TrangThaiCauHoi,
 } from "../lib/ngan-hang";
 import { goiApiQuanTri, LoiApi } from "../lib/quan-tri.server";
-import { duVaiTro, type VaiTro, yeuCauVaiTro } from "../lib/session.server";
+import { duVaiTro, urlTrang, type VaiTro, yeuCauVaiTro } from "../lib/session.server";
 import { pageMeta } from "../lib/site";
 import { dungLuongTep, LOAI_TEP_TAI_LIEU, NHAN_TEP_TAI_LIEU } from "../lib/tai-lieu";
 import { CHU_DE_MUC_PHAT, khoangTien, LOAI_XE } from "../lib/tra-cuu-nhanh";
@@ -132,7 +132,7 @@ type ViecXong = keyof typeof DA_XONG;
 
 export async function loader({ request }: Route.LoaderArgs) {
   const { token, nguoiDung } = await yeuCauVaiTro(request, "quan_ly");
-  const url = new URL(request.url);
+  const url = urlTrang(request);
   const p = url.searchParams;
   const loai = (LOAI.some((l) => l.id === p.get("loai")) ? p.get("loai") : "muc-phat") as Loai;
   // Nhóm luật giấy tờ (GĐ-T11): giấy tờ người lái hoặc hồ sơ phạt nguội.

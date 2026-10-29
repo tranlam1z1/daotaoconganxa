@@ -1,0 +1,32 @@
+{
+  "result": [
+    {
+      "name": "menu desktop: Tra cứu -> Dịch vụ công -> Trang chủ",
+      "ok": true,
+      "finalPath": "/"
+    },
+    {
+      "name": "Học tập dành cho khách giữ đích quay lại",
+      "ok": true,
+      "target": "/hoc"
+    },
+    {
+      "name": "văn bản thật: chi tiết, thuộc tính, phiên bản, quay lại",
+      "ok": true,
+      "document": "/van-ban/nd/150-2027-nd-cp?asOf=2026-10-28",
+      "finalPath": "/van-ban/nd/150-2027-nd-cp/thuoc-tinh"
+    },
+    {
+      "name": "404 vẫn chuyển được sang Tra cứu bằng header",
+      "ok": true,
+      "recovered": true
+    },
+    {
+      "name": "mobile drawer đóng, Back/Forward và mở lại menu",
+      "ok": true,
+      "scrollLocked": false,
+      "overflow": false
+    }
+  ],
+  "pageErrors": []
+}

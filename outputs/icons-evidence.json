@@ -1,0 +1,18 @@
+{
+  "contract": "Refine all 110 shared UI icons for a Vietnamese public-service learning portal. Keep labels and actions intact; use navy, crimson and bronze with green for successful states. Inspect 390x844 and 1440x900 layouts, light/dark icon gallery and 16/20/24/40px sizes.",
+  "targetViewports": ["390x844", "1440x900"],
+  "accessibility": {"status":"pass","evidence":"Shared SVGs remain aria-hidden and focusable=false. Existing action labels remain intact; focus verified on login link. Monochrome icons inherit label color on controls, colored illustrative icons use theme tokens. No new animation introduced."},
+  "responsive": {"status":"pass","evidence":"Rendered home at 390x844 and 1440x900 without horizontal overflow. Preview gallery renders 110 icons, all three variants and all four sizes; SVG path lengths valid."},
+  "contentStates": {
+    "loading":{"status":"not-applicable","reason":"Static SVG/CSS changes introduce no asynchronous state."},
+    "empty":{"status":"not-applicable","reason":"No content or data rendering logic changed."},
+    "error":{"status":"not-applicable","reason":"No error handling changed; status color tokens retained."},
+    "partial":{"status":"not-applicable","reason":"No data fetching or partial content logic changed."},
+    "success":{"status":"not-applicable","reason":"No submission behavior changed; green success tokens retained."},
+    "permission":{"status":"not-applicable","reason":"No access logic changed; existing three home account-state tests pass."}
+  },
+  "renderedEvidence": [
+    {"viewport":"1440x900","artifact":"icons-desktop.png","observation":"Side-by-side light and dark gallery: navy/crimson/green/bronze icons, outline/duotone/solid variants at four sizes."},
+    {"viewport":"390x844","artifact":"icons-mobile.jpg","observation":"Home audience and learning shortcuts: distinct public-office, official and flag symbols; compact readable icons with semantic tinted backgrounds and no horizontal overflow."}
+  ]
+}

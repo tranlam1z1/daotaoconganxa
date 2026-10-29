@@ -29,6 +29,7 @@ export const MAIN_NAV: NavItem[] = [
   },
   { to: "/hoc", label: "Học tập", khop: ["/dao-tao", "/nhom"] },
   { to: "/luyen-tap", label: "Luyện tập", khop: ["/thi"] },
+  { to: "/dich-vu-cong", label: "Dịch vụ công" },
 ];
 
 /* ------------------------------------------------------------------ */
@@ -61,8 +62,8 @@ export const BOTTOM_NAV: MobileNavItem[] = [
  * quản lý trở lên.
  */
 export const MORE_NAV: Array<MobileNavItem & { quanLy?: boolean }> = [
+  { to: "/dich-vu-cong", label: "Dịch vụ công trực tuyến", icon: "file" },
   { to: "/thi", label: "Thi và kiểm tra", icon: "steps" },
-  { to: "/hoi-dap", label: "Hỏi trợ lý AI", icon: "chat" },
   { to: "/nhom", label: "Nhóm học cùng", icon: "nhom" },
   { to: "/huong-dan", label: "Hướng dẫn sử dụng", icon: "help" },
   { to: "/quan-tri", label: "Quản trị", icon: "layers", quanLy: true },

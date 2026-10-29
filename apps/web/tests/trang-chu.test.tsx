@@ -40,7 +40,7 @@ describe("trang chủ ba nhóm", () => {
       expect(html).toContain(`href="/hoc?nhom=${nhom}"`);
     expect(html).toContain('action="/tim-kiem"');
     expect(html).toContain('href="/dang-nhap"');
-    expect(html).not.toContain('href="/dich-vu-cong"');
+    expect(html).toContain('href="/dich-vu-cong"');
     expect(html).not.toContain("Tra cứu vi phạm");
   });
   test("tài khoản chờ xác minh có đường tới trạng thái thay vì nhiệm vụ không thể mở", async () => {

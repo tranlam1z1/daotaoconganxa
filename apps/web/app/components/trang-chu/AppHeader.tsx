@@ -1,26 +1,30 @@
+import { useState } from "react";
 import { Link } from "react-router";
 
 import type { NguoiDung } from "../../lib/types";
 import { ButtonLink } from "../ui/Button";
 import { Icon } from "../ui/Icon";
-import { LogoHocTap } from "../ui/LogoHocTap";
 
-/**
- * Băng chào đầu trang chủ, ngay dưới thanh đầu trang (SiteHeader): nền theo giao diện sáng/tối
- * (ảnh nền và lớp phủ .bang-chao trong app.css), lời chào và đoạn giới thiệu.
- */
+/** Hero trang chủ, giữ lời chào và CTA theo trạng thái tài khoản thực tế. */
 export function AppHeader({ nguoiDung }: { nguoiDung: NguoiDung | null }) {
+  const [loiAnh, setLoiAnh] = useState(false);
   const hoTen = nguoiDung ? (nguoiDung.ten ?? nguoiDung.ten_dang_nhap ?? nguoiDung.email) : null;
   return (
-    <section className="bang-chao-khung overflow-hidden rounded-xl border border-line text-ink shadow-card">
-      <div className="grid items-stretch md:grid-cols-[1fr_215px]">
-        <div className="bang-chao relative min-w-0 px-5 py-5 sm:px-8">
-          <div className="relative z-10 lg:max-w-[62%]">
-            <p className="text-[11px] font-bold uppercase leading-4 text-primary">
-              Dành cho công chức, viên chức, đảng viên
-            </p>
-            <h1 className="mt-2 text-2xl font-bold leading-tight sm:text-[28px]">
-              {hoTen ? `Xin chào, ${hoTen}` : "Học tập và tra cứu phục vụ công tác"}
+    <section className="home-hero">
+      <span className="home-hero-lotus home-hero-lotus-left" aria-hidden="true" />
+      <span className="home-hero-lotus home-hero-lotus-right" aria-hidden="true" />
+      <div className="home-container home-hero-grid">
+        <div className="relative min-w-0 py-8 sm:py-12">
+          <div className="relative z-10">
+            <p className="home-eyebrow">Dành cho công chức, viên chức, đảng viên</p>
+            <h1 className="home-title">
+              {hoTen ? (
+                `Xin chào, ${hoTen}`
+              ) : (
+                <>
+                  Học tập và tra cứu <span className="text-primary">phục vụ công tác</span>
+                </>
+              )}
             </h1>
             {nguoiDung?.cho_xac_minh ? (
               <p className="mt-1 text-sm leading-relaxed text-ink-2">
@@ -60,30 +64,35 @@ export function AppHeader({ nguoiDung }: { nguoiDung: NguoiDung | null }) {
               </ButtonLink>
             </div>
           </div>
-          <div
-            className="bang-chao-khau-hieu absolute right-5 top-12 hidden text-center lg:block"
-            aria-hidden="true"
-          >
-            <p>
-              “Thượng tôn pháp luật
-              <br />
-              Vì nhân dân phục vụ”
-            </p>
-            <span className="mx-auto mt-3 block h-0.5 w-16 bg-amber-400" />
-          </div>
         </div>
-        <div
-          className="bang-chao-logo hidden flex-col items-center justify-center gap-2 border-l border-line px-4 py-5 md:flex"
-          aria-hidden="true"
-        >
-          <LogoHocTap className="w-32" />
-          <span className="text-center text-xs font-bold uppercase leading-tight text-primary">
-            Học tập pháp luật &amp;
+        <figure className="home-hero-visual">
+          {loiAnh ? (
+            <div className="home-building-placeholder">
+              <Icon name="home" kieu="net" className="size-10" />
+              <p>Không tải được hình minh họa trụ sở</p>
+            </div>
+          ) : (
+            <div className="home-building-art">
+              <svg
+                viewBox="1010 15 705 510"
+                role="img"
+                aria-label="Hình minh họa tòa nhà hành chính từ bộ tài nguyên được cung cấp"
+              >
+                <image
+                  href="/assets/vietnam-banner-resources.png"
+                  width={1735}
+                  height={906}
+                  onError={() => setLoiAnh(true)}
+                />
+              </svg>
+            </div>
+          )}
+          <figcaption>
+            “Thượng tôn pháp luật
             <br />
-            bồi dưỡng nghiệp vụ
-            <span className="mt-1 block text-[9px] font-semibold tracking-widest">Cấp xã tỉnh Thanh Hóa</span>
-          </span>
-        </div>
+            Vì nhân dân phục vụ”
+          </figcaption>
+        </figure>
       </div>
     </section>
   );

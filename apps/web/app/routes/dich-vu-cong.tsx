@@ -24,8 +24,9 @@ export default function DichVuCong() {
         <div className="relative">
           <h2 className="text-lg font-semibold">Cổng Dịch vụ công Quốc gia</h2>
           <p className="mt-2 text-sm text-ink-2">
-            Đăng nhập bằng VNeID theo hướng dẫn trên cổng. Tìm theo từ khóa bên dưới, chọn cơ quan thực hiện
-            và xem yêu cầu hồ sơ. Với công tác Đảng, chọn mục “Dịch vụ công trực tuyến của Đảng” trên cổng.
+            Đăng nhập bằng VNeID theo hướng dẫn trên cổng. Bấm dịch vụ bên dưới để mở trang thủ tục, chọn cơ
+            quan thực hiện và xem yêu cầu hồ sơ. Với công tác Đảng, chọn mục “Dịch vụ công trực tuyến của
+            Đảng” trên cổng.
           </p>
           <a
             href={CONG_DICH_VU}
@@ -92,9 +93,12 @@ export default function DichVuCong() {
                   <span className="min-w-0 flex-1">
                     <span className="block font-semibold">{d.ten}</span>
                     <span className="mt-1 block text-sm text-ink-2">{d.linhVuc}</span>
-                    <span className="mt-2 block text-sm">Từ khóa trên cổng: {d.tuKhoa}</span>
+                    {d.tuKhoa ? (
+                      <span className="mt-2 block text-sm">Từ khóa trên cổng: {d.tuKhoa}</span>
+                    ) : null}
                     <span className="mt-2 block text-sm text-primary">
-                      Mở cổng quốc gia ↗<span className="sr-only"> (tab mới)</span>
+                      {d.tuKhoa ? "Mở cổng quốc gia" : "Mở trang thủ tục"} ↗
+                      <span className="sr-only"> (tab mới)</span>
                     </span>
                   </span>
                 </a>

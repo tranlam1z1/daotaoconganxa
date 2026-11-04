@@ -11,7 +11,10 @@ export interface DichVuCong {
   phoBien: boolean;
   url: string;
 }
-const trangThuTuc = (trang: string, ma: string) => `${CONG_DICH_VU}p/home/${trang}.html?ma_thu_tuc=${ma}`;
+// shortcut: cổng mới báo "Trang không tồn tại" với link thủ tục cũ nên dùng bản vpcp, chuyển lại khi cổng mới có link thủ tục ổn định.
+const CONG_TRA_CUU_THU_TUC = "https://vpcp.dichvucong.gov.vn/";
+const trangThuTuc = (trang: string, ma: string) =>
+  `${CONG_TRA_CUU_THU_TUC}p/home/${trang}.html?ma_thu_tuc=${ma}`;
 const muc = (
   ma: string,
   ten: string,
@@ -26,7 +29,7 @@ export const DICH_VU_CONG: DichVuCong[] = [
     "cong-chuc",
     "Tuyển dụng công chức: xét tuyển",
     "Công vụ",
-    trangThuTuc("dvc-tthc-thu-tuc-hanh-chinh-chi-tiet", "407885"),
+    trangThuTuc("dvc-chi-tiet-thu-tuc-dung-chung", "1.014113"),
     ["Công chức"],
     true,
   ),

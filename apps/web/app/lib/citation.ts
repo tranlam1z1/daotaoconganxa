@@ -94,9 +94,56 @@ export function nodeUrn(docUrn: string, path: string, asOf?: string): string {
   return asOf ? `${withPath}@${asOf}` : withPath;
 }
 
+const SO_LA_MA: Array<[number, string]> = [
+  [1000, "M"],
+  [900, "CM"],
+  [500, "D"],
+  [400, "CD"],
+  [100, "C"],
+  [90, "XC"],
+  [50, "L"],
+  [40, "XL"],
+  [10, "X"],
+  [9, "IX"],
+  [5, "V"],
+  [4, "IV"],
+  [1, "I"],
+];
+
+function soLaMa(n: number): string {
+  let con = n;
+  let ra = "";
+  for (const [giaTri, ky] of SO_LA_MA) {
+    while (con >= giaTri) {
+      ra += ky;
+      con -= giaTri;
+    }
+  }
+  return ra;
+}
+
+/**
+ * Khóa mục cấp 1 của văn bản đánh số mục, không chia Điều (văn bản của Đảng): "c2-3" là mục 3
+ * Chương II, "m3" là mục 3 của văn bản không chia Chương. Khớp tachKhoaMucSo của @qdpl/legal-model.
+ */
+function tachKhoaMucSo(key: string): { chuong?: number; so: number } | undefined {
+  const m = /^(?:c(\d+)-|m)(\d+)$/.exec(key);
+  if (!m) return undefined;
+  return m[1] ? { chuong: Number(m[1]), so: Number(m[2]) } : { so: Number(m[2]) };
+}
+
+/** Nhãn của Điều theo khóa: "15" -> "Điều 15", "c1-2" -> "Mục 2 Chương I". */
+export function nhanDieuTheoKhoa(key: string): string {
+  const muc = tachKhoaMucSo(key);
+  if (!muc) return `Điều ${key}`;
+  return muc.chuong ? `Mục ${muc.so} Chương ${soLaMa(muc.chuong)}` : `Mục ${muc.so}`;
+}
+
 /**
  * Đọc path nút thành cụm tiếng Việt theo trật tự viện dẫn (điểm → khoản → Điều).
- * "dieu-15.khoan-2.diem-a" -> "điểm a khoản 2 Điều 15"
+ * "dieu-15.khoan-2.diem-a" -> "điểm a khoản 2 Điều 15"; văn bản đánh số mục:
+ * "dieu-c2-3.khoan-1.diem-2" -> "tiết 3.1.2 điểm 3.1 Mục 3 Chương II". Khớp cumViDanTheoPath của
+ * @qdpl/legal-model.
  */
 export function pathToCitationPhrase(path: string): string {
   if (!path) return "";
@@ -106,9 +153,18 @@ export function pathToCitationPhrase(path: string): string {
     if (m?.[1] && m[2]) seg[m[1]] = m[2];
   }
   const out: string[] = [];
-  if (seg.diem) out.push(`điểm ${seg.diem}`);
-  if (seg.khoan) out.push(`khoản ${seg.khoan}`);
-  if (seg.dieu) out.push(`Điều ${seg.dieu}`);
+  const muc = seg.dieu ? tachKhoaMucSo(seg.dieu) : undefined;
+  if (muc) {
+    // Điểm "1" là tiết 3.1.1, "1a" là ý a của tiết đó, "a" là ý a thẳng dưới điểm 3.1.
+    const diem = seg.diem ? /^(\d+)?(.*)$/.exec(seg.diem) : null;
+    if (diem?.[2]) out.push(`ý ${diem[2]}`);
+    if (diem?.[1]) out.push(`tiết ${muc.so}.${seg.khoan}.${diem[1]}`);
+    if (seg.khoan) out.push(`điểm ${muc.so}.${seg.khoan}`);
+  } else {
+    if (seg.diem) out.push(`điểm ${seg.diem}`);
+    if (seg.khoan) out.push(`khoản ${seg.khoan}`);
+  }
+  if (seg.dieu) out.push(nhanDieuTheoKhoa(seg.dieu));
   if (!out.length) {
     if (seg["phu-luc"]) out.push(`Phụ lục ${seg["phu-luc"].toUpperCase()}`);
     else if (seg.muc) out.push(`Mục ${seg.muc}`);

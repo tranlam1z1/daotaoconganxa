@@ -227,3 +227,24 @@ describe("các dạng viện dẫn khó (hồi quy từ bộ đánh giá)", () =
     expect(urns("Tỷ lệ 30/70 và mốc 2026 không phải viện dẫn.")).toEqual([]);
   });
 });
+
+describe("viện dẫn văn bản đánh số mục, không chia Điều", () => {
+  test("mục, điểm, tiết trong Chương", () => {
+    expect(
+      formatCitation({
+        path: "dieu-c2-3.khoan-1",
+        docTypeName: "Quy định",
+        soKyHieu: "208-QĐ/TW",
+        short: true,
+      }),
+    ).toBe("điểm 3.1 Mục 3 Chương II Quy định 208-QĐ/TW");
+    expect(
+      formatCitation({
+        path: "dieu-c1-1.khoan-2.diem-1",
+        docTypeName: "Quy định",
+        soKyHieu: "208-QĐ/TW",
+        short: true,
+      }),
+    ).toBe("tiết 1.2.1 điểm 1.2 Mục 1 Chương I Quy định 208-QĐ/TW");
+  });
+});

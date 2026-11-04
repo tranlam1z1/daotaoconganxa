@@ -5,48 +5,75 @@ export interface DichVuCong {
   ma: string;
   ten: string;
   linhVuc: string;
-  tuKhoa: string;
+  // Chỉ có khi chưa có trang thủ tục riêng: url là trang chủ cổng, người dùng tự tìm theo từ khóa.
+  tuKhoa?: string;
   nhom: readonly NhomDichVu[];
   phoBien: boolean;
   url: string;
 }
-// Chủ đề tra cứu, không phải mã thủ tục. Người dùng chọn cơ quan và thủ tục trên cổng quốc gia.
+const trangThuTuc = (trang: string, ma: string) => `${CONG_DICH_VU}p/home/${trang}.html?ma_thu_tuc=${ma}`;
 const muc = (
   ma: string,
   ten: string,
   linhVuc: string,
-  tuKhoa: string,
+  url: string,
   nhom: readonly NhomDichVu[],
   phoBien = false,
-): DichVuCong => ({ ma, ten, linhVuc, tuKhoa, nhom, phoBien, url: CONG_DICH_VU });
+): DichVuCong => ({ ma, ten, linhVuc, nhom, phoBien, url });
+const BHXH_BHYT = trangThuTuc("dvc-chi-tiet-thu-tuc-hanh-chinh", "1.002759");
 export const DICH_VU_CONG: DichVuCong[] = [
-  muc("cong-chuc", "Tuyển dụng công chức", "Công vụ", "tuyển dụng công chức", ["Công chức"], true),
-  muc("vien-chuc", "Tuyển dụng viên chức", "Viên chức", "tuyển dụng viên chức", ["Viên chức"], true),
   muc(
-    "dang",
-    "Dịch vụ công trực tuyến của Đảng",
-    "Công tác Đảng",
-    "Dịch vụ công trực tuyến của Đảng",
-    ["Đảng viên"],
+    "cong-chuc",
+    "Tuyển dụng công chức: xét tuyển",
+    "Công vụ",
+    trangThuTuc("dvc-tthc-thu-tuc-hanh-chinh-chi-tiet", "407885"),
+    ["Công chức"],
     true,
   ),
-  muc("chung-thuc", "Chứng thực bản sao, chữ ký", "Chứng thực", "chứng thực", NHOM_DICH_VU, true),
   muc(
-    "bhxh",
-    "Cấp lại, đổi sổ bảo hiểm xã hội",
+    "vien-chuc",
+    "Tuyển dụng viên chức: thi tuyển",
+    "Viên chức",
+    trangThuTuc("dvc-chi-tiet-thu-tuc-hanh-chinh", "1.012299"),
+    ["Viên chức"],
+    true,
+  ),
+  {
+    ...muc("dang", "Dịch vụ công trực tuyến của Đảng", "Công tác Đảng", CONG_DICH_VU, ["Đảng viên"], true),
+    tuKhoa: "Dịch vụ công trực tuyến của Đảng",
+  },
+  muc(
+    "chung-thuc-ban-sao",
+    "Chứng thực bản sao từ bản chính",
+    "Chứng thực",
+    trangThuTuc("dvc-cap-ban-sao-tu-ban-chinh", "2.000843"),
+    NHOM_DICH_VU,
+    true,
+  ),
+  muc(
+    "chung-thuc-chu-ky",
+    "Chứng thực chữ ký",
+    "Chứng thực",
+    trangThuTuc("dvc-chi-tiet-thu-tuc-hanh-chinh", "2.000884"),
+    NHOM_DICH_VU,
+    true,
+  ),
+  muc("bhxh", "Cấp lại, đổi sổ bảo hiểm xã hội", "Bảo hiểm xã hội", BHXH_BHYT, NHOM_DICH_VU),
+  muc("bhyt", "Cấp lại, đổi thẻ bảo hiểm y tế", "Bảo hiểm y tế", BHXH_BHYT, NHOM_DICH_VU),
+  muc(
+    "huu-tri",
+    "Hưởng chế độ hưu trí (BHXH tự nguyện, bảo lưu thời gian đóng)",
     "Bảo hiểm xã hội",
-    "cấp lại đổi sổ bảo hiểm xã hội",
+    trangThuTuc("dvc-chi-tiet-thu-tuc-hanh-chinh", "1.000846"),
     NHOM_DICH_VU,
   ),
   muc(
-    "bhyt",
-    "Cấp lại, đổi thẻ bảo hiểm y tế",
-    "Bảo hiểm y tế",
-    "cấp lại đổi thẻ bảo hiểm y tế",
+    "ly-lich",
+    "Cấp phiếu lý lịch tư pháp",
+    "Lý lịch tư pháp",
+    trangThuTuc("dvc-chi-tiet-thu-tuc-nganh-doc", "3.000333"),
     NHOM_DICH_VU,
   ),
-  muc("huu-tri", "Giải quyết hưởng chế độ hưu trí", "Bảo hiểm xã hội", "hưởng chế độ hưu trí", NHOM_DICH_VU),
-  muc("ly-lich", "Cấp phiếu lý lịch tư pháp", "Lý lịch tư pháp", "cấp phiếu lý lịch tư pháp", NHOM_DICH_VU),
 ];
 export function timDichVuCong(q: string, nhom?: NhomDichVu): DichVuCong[] {
   const chuanHoa = (s: string) =>

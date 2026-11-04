@@ -1573,7 +1573,8 @@
 /* Menu có biểu tượng, nút tài khoản và chân trang theo trang chủ. */
 .site-header .wrap { min-height: 68px; }
 .site-header .menu-chinh a { padding-inline: 9px; font-size: 12px; font-weight: 600; }
-.site-header .site-login { justify-content: center; text-align: center; border: 1px solid #b8081c; color: #b8081c; padding-inline: 16px; font-size: 13px; font-weight: 700; }
+.site-header .site-login { justify-content: center; text-align: center; border: 1px solid #b8081c; background: #b8081c; color: #fff; padding-inline: 16px; font-size: 13px; font-weight: 700; }
+.site-header .site-login:hover { background: #930817; border-color: #930817; }
 .site-header .site-brand > span { max-width: 300px; }
 .site-header .site-account-name { min-width: 0; white-space: normal; overflow-wrap: anywhere; font-size: 12px; line-height: 1.45; text-align: left; }
 .site-footer { border-top-width: 0; background: linear-gradient(110deg, #a60819, #930817); }

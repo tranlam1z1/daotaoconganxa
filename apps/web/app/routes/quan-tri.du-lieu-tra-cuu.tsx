@@ -170,6 +170,7 @@ export async function loader({ request }: Route.LoaderArgs) {
   const chuDe = chon
     ? sapXepCayChuDe(
         (await goiApiQuanTri<{ items: ChuDeCauHoi[] }>(token, "/v1/quan-tri/ngan-hang/chu-de")).items,
+        { giu: chon.topic_id },
       )
     : [];
   const vua = p.get("vua");

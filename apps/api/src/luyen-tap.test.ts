@@ -109,6 +109,17 @@ describe("luồng luyện tập đầy đủ", () => {
     expect(t.da_lam_dung).toBe(0);
   });
 
+  test("chủ đề bị ẩn và chủ đề con của nó không hiện cho người học", async () => {
+    const [cha] = await sql`
+      INSERT INTO question_topics (code, name, hidden) VALUES (${`${PREFIX}-an`}, 'Ẩn', true) RETURNING id`;
+    await sql`INSERT INTO question_topics (code, name, parent_id) VALUES (${`${PREFIX}-an-con`}, 'Con', ${cha!.id})`;
+    const r = await goi("GET", "/v1/luyen-tap/chu-de", A.token);
+    const ma = r.body.items.map((x: { code: string }) => x.code);
+    expect(ma).not.toContain(`${PREFIX}-an`);
+    expect(ma).not.toContain(`${PREFIX}-an-con`);
+    expect(ma).toContain(CHU_DE);
+  });
+
   test("tạo phiên 10 câu; không câu chờ duyệt nào lọt vào", async () => {
     const r = await goi("POST", "/v1/luyen-tap/phien", A.token, { chu_de: CHU_DE });
     expect(r.status).toBe(201);

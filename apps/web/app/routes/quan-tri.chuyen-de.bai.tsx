@@ -399,11 +399,13 @@ export default function SoanBai({ loaderData, actionData }: Route.ComponentProps
                 className={inputClass}
               >
                 <option value="">Không có</option>
-                {chuDe.map((t) => (
-                  <option key={t.id} value={t.id}>
-                    {t.name} ({t.so_da_duyet} câu đã duyệt)
-                  </option>
-                ))}
+                {chuDe
+                  .filter((t) => !t.hidden || t.id === bai?.topic_id)
+                  .map((t) => (
+                    <option key={t.id} value={t.id}>
+                      {t.name} ({t.so_da_duyet} câu đã duyệt)
+                    </option>
+                  ))}
               </select>
               <p className="mt-1 text-xs text-ink-3">Rút 3 đến 5 câu từ chủ đề ngân hàng câu hỏi này.</p>
             </div>

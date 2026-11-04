@@ -274,6 +274,8 @@ export interface ChuDeKhaDung {
   code: string;
   name: string;
   field_name: string | null;
+  /** Chủ đề bị ẩn: không cho thêm vào ma trận mới, ô đã có vẫn giữ. */
+  hidden: boolean;
   kha_dung: Record<MucDoCauHoi, number>;
   kha_dung_tu_luan: Record<MucDoCauHoi, number>;
 }

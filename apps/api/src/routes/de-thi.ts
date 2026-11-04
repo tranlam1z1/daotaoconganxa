@@ -152,6 +152,7 @@ deThiRoute.get("/kha-dung", async (c) => {
       code: t.code,
       name: t.name,
       field_name: t.field_name,
+      hidden: t.hidden,
       kha_dung: theoMuc(t.id, "trac_nghiem"),
       kha_dung_tu_luan: theoMuc(t.id, "tu_luan"),
     })),

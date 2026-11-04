@@ -21,6 +21,8 @@ export interface ChuDeCauHoiRow {
   code: string;
   name: string;
   ordinal: number;
+  /** Ẩn khỏi ô chọn và danh sách luyện tập; dữ liệu gắn với chủ đề vẫn giữ. */
+  hidden: boolean;
 }
 
 export interface ChuDeKemSoLieu extends ChuDeCauHoiRow {
@@ -112,6 +114,64 @@ export async function luuChuDeCauHoi(inp: LuuChuDeInput): Promise<ChuDeCauHoiRow
       ordinal = EXCLUDED.ordinal, updated_at = now()
     RETURNING *`;
   return row!;
+}
+
+export interface SuaChuDeInput {
+  name?: string;
+  /** `null`: đưa lên gốc. */
+  parentId?: string | null;
+  ordinal?: number;
+  hidden?: boolean;
+}
+
+/** Sửa tên, chủ đề cha, thứ tự hoặc trạng thái ẩn; trường không truyền giữ nguyên. */
+export async function suaChuDeCauHoi(id: string, inp: SuaChuDeInput): Promise<ChuDeCauHoiRow | undefined> {
+  const [row] = await sql<ChuDeCauHoiRow[]>`
+    UPDATE question_topics SET
+      name = ${inp.name ?? sql`name`},
+      parent_id = ${inp.parentId === undefined ? sql`parent_id` : inp.parentId},
+      ordinal = ${inp.ordinal ?? sql`ordinal`},
+      hidden = ${inp.hidden ?? sql`hidden`},
+      updated_at = now()
+    WHERE id = ${id}
+    RETURNING *`;
+  return row;
+}
+
+/** `chaId` là chính `id` hoặc nằm trong cây con của `id` (đặt làm cha sẽ tạo vòng). */
+export async function laCayConCuaChuDe(id: string, chaId: string): Promise<boolean> {
+  const [r] = await sql<{ co: boolean }[]>`
+    WITH RECURSIVE cay AS (
+      SELECT id FROM question_topics WHERE id = ${id}
+      UNION SELECT t.id FROM question_topics t JOIN cay ON t.parent_id = cay.id
+    )
+    SELECT EXISTS (SELECT 1 FROM cay WHERE id = ${chaId}) AS co`;
+  return r!.co;
+}
+
+/**
+ * Số dòng ở mọi bảng đang trỏ tới chủ đề (câu hỏi, bài học, trò chơi, chủ đề con...). Đọc khóa
+ * ngoại từ catalog để bảng thêm sau này cũng được đếm; có dòng nào thì không cho xoá.
+ */
+export async function soThamChieuChuDe(id: string): Promise<number> {
+  const fks = await sql<{ bang: string; cot: string }[]>`
+    SELECT cl.relname AS bang, a.attname AS cot
+    FROM pg_constraint c
+    JOIN pg_class cl ON cl.oid = c.conrelid
+    JOIN pg_attribute a ON a.attrelid = c.conrelid AND a.attnum = ANY (c.conkey)
+    WHERE c.contype = 'f' AND c.confrelid = 'question_topics'::regclass`;
+  let tong = 0;
+  for (const f of fks) {
+    const [r] = await sql<
+      { n: number }[]
+    >`SELECT count(*)::int AS n FROM ${sql(f.bang)} WHERE ${sql(f.cot)} = ${id}`;
+    tong += r!.n;
+  }
+  return tong;
+}
+
+export async function xoaChuDeCauHoi(id: string): Promise<void> {
+  await sql`DELETE FROM question_topics WHERE id = ${id}`;
 }
 
 /* ------------------------------------------------------------------ */

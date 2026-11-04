@@ -79,7 +79,7 @@ export async function loader({ request }: Route.LoaderArgs) {
   const loc = Object.fromEntries(LOC.map((k) => [k, p.get(k) ?? ""])) as Record<(typeof LOC)[number], string>;
   return {
     ...ds,
-    chuDe: sapXepCayChuDe(chuDe.items),
+    chuDe: sapXepCayChuDe(chuDe.items, { giu: p.get("chu_de") }),
     choDuyet,
     loc,
     coTheDuyet: duVaiTro(nguoiDung, ds.vai_tro_duyet),
@@ -233,6 +233,9 @@ export default function QuanTriCauHoi({ loaderData, actionData }: Route.Componen
           </ButtonLink>
           <ButtonLink to="/quan-tri/cau-hoi?sinh=ai#sinh-ai" variant="secondary">
             Sinh bằng AI
+          </ButtonLink>
+          <ButtonLink to="/quan-tri/chu-de" variant="secondary">
+            Chủ đề
           </ButtonLink>
           <a
             href={`/quan-tri/cau-hoi/tep/xuat${qsLoc.size ? `?${qsLoc}` : ""}`}

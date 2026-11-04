@@ -197,6 +197,7 @@ export interface ChuDeNganHang {
   name: string;
   field_name: string | null;
   so_da_duyet: number;
+  hidden: boolean;
 }
 
 /* ------------------------------------------------------------------ */

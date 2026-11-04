@@ -116,6 +116,7 @@ export default [
     route("nguoi-dung/mau", "routes/quan-tri.nguoi-dung.mau.tsx"),
     // Ngân hàng câu hỏi (docs/PLAN.md GĐ3). Đường tĩnh "moi", "tep/:loai" khai trước ":id".
     route("cau-hoi", "routes/quan-tri.cau-hoi.tsx"),
+    route("chu-de", "routes/quan-tri.chu-de.tsx"),
     route("cau-hoi/moi", "routes/quan-tri.cau-hoi.sua.tsx", { id: "quan-tri-cau-hoi-moi" }),
     route("cau-hoi/tep/:loai", "routes/quan-tri.cau-hoi.tep.tsx"),
     route("cau-hoi/:id", "routes/quan-tri.cau-hoi.sua.tsx"),

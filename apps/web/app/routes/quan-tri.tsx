@@ -71,6 +71,7 @@ const GROUPS: Array<{
     vaiTro: "quan_ly",
     items: [
       { to: "/quan-tri/cau-hoi", label: "Ngân hàng câu hỏi", icon: "help" },
+      { to: "/quan-tri/chu-de", label: "Chủ đề câu hỏi", icon: "layers" },
       { to: "/quan-tri/du-lieu-tra-cuu", label: "Duyệt dữ liệu tra cứu", icon: "search" },
       { to: "/quan-tri/chuyen-de", label: "Chuyên đề", icon: "book" },
       { to: "/quan-tri/cham-tu-luan", label: "Chấm tự luận", icon: "pencil" },

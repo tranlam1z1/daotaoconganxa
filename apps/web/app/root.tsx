@@ -1,4 +1,4 @@
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import {
   isRouteErrorResponse,
   Links,
@@ -8,10 +8,11 @@ import {
   Scripts,
   ScrollRestoration,
   useLocation,
-  useRouteError,
+  useRouteLoaderData,
 } from "react-router";
 
 import "./styles/app.css";
+import "./styles/site-theme.css";
 import type { Route } from "./+types/root";
 import { BottomNav } from "./components/layout/BottomNav";
 import { NutLenDauTrang } from "./components/layout/NutLenDauTrang";
@@ -19,11 +20,12 @@ import { SiteFooter } from "./components/layout/SiteFooter";
 import { SiteHeader } from "./components/layout/SiteHeader";
 import { ThanhTaiTrang } from "./components/layout/ThanhTaiTrang";
 import { TrangThaiMang } from "./components/layout/TrangThaiMang";
-import { ButtonLink } from "./components/ui/Button";
+import { buttonClass } from "./components/ui/Button";
 import { KhungTrang, TieuDeTrang } from "./components/ui/KhungTrang";
 import { VungThongBaoNhanh } from "./components/ui/ThongBaoNhanh";
-import { nguoiDungHienTai } from "./lib/auth.server";
+import { docPhienHienTai } from "./lib/auth.server";
 import { cn } from "./lib/cn";
+import { nguoiDungDauTrang } from "./lib/phien-hien-thi";
 import { urlTrang } from "./lib/session.server";
 import { coCotTrai, coThanhDuoi, SITE_NAME_SHORT } from "./lib/site";
 
@@ -36,14 +38,15 @@ export const links: Route.LinksFunction = () => [];
  * công, trang không được hỏng theo phần đăng nhập.
  */
 export async function loader({ request }: Route.LoaderArgs) {
-  const nguoiDung = await nguoiDungHienTai(request);
+  const phien = await docPhienHienTai(request);
+  const { nguoiDung } = phien;
   // Tài khoản đang dùng mật khẩu tạm: mọi trang chuyển về trang đổi mật khẩu (API cũng chặn,
   // đây chỉ để người dùng không gặp lỗi 403 ở từng trang).
   const { pathname, search } = urlTrang(request);
   if (nguoiDung?.phai_doi_mat_khau && pathname !== "/doi-mat-khau" && pathname !== "/dang-xuat") {
     throw redirect(`/doi-mat-khau?tiep=${encodeURIComponent(pathname + search)}`);
   }
-  return { nguoiDung };
+  return phien;
 }
 
 export function Layout({ children }: { children: React.ReactNode }) {
@@ -52,16 +55,16 @@ export function Layout({ children }: { children: React.ReactNode }) {
       <head>
         <meta charSet="utf-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
-        <meta name="theme-color" content="#0052CC" />
+        <meta name="theme-color" content="#A61C30" />
         {/* Cài lên màn hình chính (docs/PLAN.md GĐ13). */}
         <link rel="manifest" href="/manifest.webmanifest" />
-        <link rel="icon" type="image/svg+xml" href="/logo.svg?v=4" />
-        <link rel="icon" type="image/png" sizes="48x48" href="/icons/icon-48.png?v=4" />
+        <link rel="icon" type="image/svg+xml" href="/logo.svg?v=5" />
+        <link rel="icon" type="image/png" sizes="48x48" href="/icons/icon-48.png?v=5" />
         {/* Icon iPhone, iPad; "?v=" đổi mỗi lần sinh lại icon (scripts/pwa-icons.ts). */}
-        <link rel="apple-touch-icon" sizes="120x120" href="/icons/apple-touch-icon-120.png?v=4" />
-        <link rel="apple-touch-icon" sizes="152x152" href="/icons/apple-touch-icon-152.png?v=4" />
-        <link rel="apple-touch-icon" sizes="167x167" href="/icons/apple-touch-icon-167.png?v=4" />
-        <link rel="apple-touch-icon" sizes="180x180" href="/icons/apple-touch-icon.png?v=4" />
+        <link rel="apple-touch-icon" sizes="120x120" href="/icons/apple-touch-icon-120.png?v=5" />
+        <link rel="apple-touch-icon" sizes="152x152" href="/icons/apple-touch-icon-152.png?v=5" />
+        <link rel="apple-touch-icon" sizes="167x167" href="/icons/apple-touch-icon-167.png?v=5" />
+        <link rel="apple-touch-icon" sizes="180x180" href="/icons/apple-touch-icon.png?v=5" />
         <meta name="apple-mobile-web-app-capable" content="yes" />
         <meta name="apple-mobile-web-app-title" content="Học tập pháp luật" />
         <Meta />
@@ -104,6 +107,12 @@ export default function App({ loaderData }: Route.ComponentProps) {
   useSearchShortcut();
   const { pathname } = useLocation();
   const nguoiDung = loaderData?.nguoiDung ?? null;
+  const [danhTinhDaXacNhan, setDanhTinhDaXacNhan] = useState(nguoiDung);
+  const trangThaiPhien = loaderData?.trangThaiPhien ?? "khach";
+  useEffect(() => {
+    if (trangThaiPhien !== "tam_loi") setDanhTinhDaXacNhan(nguoiDung);
+  }, [nguoiDung, trangThaiPhien]);
+  const danhTinhHeader = nguoiDungDauTrang(danhTinhDaXacNhan, { nguoiDung, trangThaiPhien });
   const thanhDuoi = coThanhDuoi(pathname);
   return (
     <div
@@ -111,14 +120,18 @@ export default function App({ loaderData }: Route.ComponentProps) {
         "flex min-h-screen flex-col",
         thanhDuoi && "co-thanh-duoi",
         coCotTrai(pathname) && "co-cot-trai",
-        // Ứng dụng cài trên máy (PWA) mà chưa đăng nhập thì ẩn menu (app.css, .menu-chinh).
+        // Đánh dấu trạng thái đăng nhập cho các thành phần giao diện.
         !nguoiDung && "chua-dang-nhap",
       )}
     >
       <ThanhTaiTrang />
-      <SiteHeader nguoiDung={nguoiDung} />
+      <SiteHeader nguoiDung={danhTinhHeader} kiemTraPhienLoi={trangThaiPhien === "tam_loi"} />
       <TrangThaiMang daDangNhap={Boolean(loaderData?.nguoiDung && !loaderData.nguoiDung.cho_xac_minh)} />
-      <main id="noi-dung-chinh" tabIndex={-1} className="flex-1 focus:outline-none">
+      <main
+        id="noi-dung-chinh"
+        tabIndex={-1}
+        className={cn("site-main flex-1 focus:outline-none", pathname !== "/" && "site-content-page")}
+      >
         <Outlet />
       </main>
       <SiteFooter />
@@ -130,8 +143,28 @@ export default function App({ loaderData }: Route.ComponentProps) {
   );
 }
 
-export function ErrorBoundary() {
-  const error = useRouteError();
+/** Các trạng thái lỗi dùng cùng footer với mọi trang nội dung. */
+function ErrorPageFrame({ children }: { children: React.ReactNode }) {
+  const phien = useRouteLoaderData<typeof loader>("root");
+  return (
+    <div className="flex min-h-screen flex-col">
+      <SiteHeader
+        nguoiDung={phien?.nguoiDung ?? null}
+        kiemTraPhienLoi={phien?.trangThaiPhien === "tam_loi"}
+      />
+      <main
+        id="noi-dung-chinh"
+        tabIndex={-1}
+        className="site-main site-content-page flex-1 focus:outline-none"
+      >
+        {children}
+      </main>
+      <SiteFooter />
+    </div>
+  );
+}
+
+export function ErrorBoundary({ error }: Route.ErrorBoundaryProps) {
   // Không có dữ liệu mẫu thay thế: báo lỗi còn hơn để người đọc tưởng nội dung minh hoạ là quy
   // định pháp luật. Chỉ nói vấn đề, không lộ thông báo thô của máy chủ (trừ khi đang phát triển).
   let title = "Không tải được dữ liệu";
@@ -142,18 +175,18 @@ export function ErrorBoundary() {
 
   if (matMang) {
     return (
-      <main id="noi-dung-chinh" tabIndex={-1} className="focus:outline-none">
+      <ErrorPageFrame>
         <KhungTrang className="wrap max-w-2xl py-8">
           <TieuDeTrang icon="alert">Cần có mạng</TieuDeTrang>
           <p className="mt-3 text-ink-2">
             Trang này cần kết nối mạng. Trong lúc chờ, bạn vẫn luyện tập được các chủ đề đã tải về máy.
           </p>
-          {/* reloadDocument: như liên kết ở TrangThaiMang, để service worker trả trang đã giữ. */}
-          <ButtonLink to="/luyen-tap/offline" reloadDocument className="mt-8 min-h-12">
+          {/* Liên kết HTML vẫn hoạt động khi router hoặc module phía client gặp lỗi. */}
+          <a href="/luyen-tap/offline" className={buttonClass({ className: "mt-8 min-h-12" })}>
             Luyện tập không cần mạng
-          </ButtonLink>
+          </a>
         </KhungTrang>
-      </main>
+      </ErrorPageFrame>
     );
   }
 
@@ -163,12 +196,18 @@ export function ErrorBoundary() {
   } else if (isRouteErrorResponse(error) && error.status === 403) {
     title = "Không đủ quyền";
     detail = typeof error.data === "string" ? error.data : "Tài khoản không đủ quyền xem trang này.";
+  } else if (isRouteErrorResponse(error) && error.status === 503) {
+    title = "Dịch vụ tạm thời gián đoạn";
+    detail = "Chưa kết nối được dịch vụ để mở trang này. Bạn có thể thử lại hoặc chuyển sang trang khác.";
+  } else if (isRouteErrorResponse(error) && error.status === 400) {
+    title = "Thông tin truy cập chưa hợp lệ";
+    detail = "Vui lòng kiểm tra đường dẫn và các bộ lọc, hoặc quay về danh mục để chọn lại.";
   } else if (import.meta.env.DEV && error instanceof Error) {
     detail = error.message;
   }
 
   return (
-    <main id="noi-dung-chinh" tabIndex={-1} className="focus:outline-none">
+    <ErrorPageFrame>
       <KhungTrang className="wrap max-w-2xl py-8">
         {/* Trang lỗi không chạy meta() của route nên tự đặt tiêu đề; React đưa thẻ này lên <head>. */}
         <title>{`${title} | ${SITE_NAME_SHORT}`}</title>
@@ -177,10 +216,17 @@ export function ErrorBoundary() {
         </p>
         <TieuDeTrang icon="alert">{title}</TieuDeTrang>
         <p className="mt-3 text-ink-2">{detail}</p>
-        <ButtonLink to="/" className="mt-8">
+        <a href="/" className={buttonClass({ className: "mt-8" })}>
           Về trang chủ
-        </ButtonLink>
+        </a>
+        <button
+          type="button"
+          onClick={() => window.location.reload()}
+          className={buttonClass({ variant: "secondary", className: "mt-8 ml-3" })}
+        >
+          Tải lại trang
+        </button>
       </KhungTrang>
-    </main>
+    </ErrorPageFrame>
   );
 }

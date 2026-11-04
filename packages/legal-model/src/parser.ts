@@ -2,7 +2,14 @@
  * Parser cấu trúc: Markdown chuẩn nội bộ -> cây nút.
  * Máy trạng thái đọc tuần tự, đẩy/bật ngăn xếp theo cấp. Xem ke-hoach/06 §1.
  */
-import { matchLabel } from "./labels.ts";
+import {
+  khoaMucSo,
+  type LabelMatch,
+  type MucSo,
+  matchLabel,
+  matchMucSo,
+  nhanDieuTheoKhoa,
+} from "./labels.ts";
 import type { LegalNode, NodeKind } from "./types.ts";
 
 const LEVEL: Record<NodeKind, number> = {
@@ -180,7 +187,9 @@ export function joinWrappedLines(text: string): string {
       continue;
     }
     const prevEndsSentence = /[.;:!?]["')\]]?$/.test(prev);
-    const startsNewUnit = matchLabel(line) !== undefined || /^[-–•]/.test(line);
+    // "1.2." và "1.2.1." chưa là nhãn của văn bản có Điều nhưng vẫn mở một ý mới, không nối vào dòng trước.
+    const startsNewUnit =
+      matchLabel(line) !== undefined || /^[-–•]/.test(line) || /^\d{1,3}(?:\.\d{1,3})+\.\s/.test(line);
     const prevLabel = matchLabel(prev);
     let join = !prevEndsSentence && !startsNewUnit;
 
@@ -200,6 +209,16 @@ export function joinWrappedLines(text: string): string {
     }
   }
   return out.join("\n");
+}
+
+/**
+ * Văn bản đánh số mục thay cho Điều (xem labels.ts): không có dòng nhãn "Điều N" nào, nhưng có mục
+ * cấp 2 dạng "1.1.". Văn bản có Điều giữ nguyên cách tách cũ.
+ */
+function laVanBanDanhSoMuc(body: string): boolean {
+  const lines = body.split(/\r?\n/);
+  if (lines.some((l) => matchLabel(l)?.kind === "dieu")) return false;
+  return lines.some((l) => /^\s*\d{1,3}\.\d{1,3}\.\s/.test(l));
 }
 
 export function parseDocument(markdown: string): ParseResult {
@@ -249,6 +268,38 @@ export function parseDocument(markdown: string): ParseResult {
 
   let seenDieu = false;
   const dieuKeys: string[] = [];
+
+  const danhSoMuc = laVanBanDanhSoMuc(body);
+  /** Số Chương đang đọc và số mục đang mở ở từng cấp, chỉ dùng cho văn bản đánh số mục. */
+  let chuongKey: string | undefined;
+  let mucCap1 = 0;
+  let mucCap2 = 0;
+  let mucCap3 = 0;
+
+  /**
+   * Nhãn của một dòng mục đánh số. Số mục phải tăng dần và khớp mục cha đang mở; không khớp (ví dụ
+   * liệt kê "1.", "2." trong nội dung) thì là chữ thường, để không sinh nút trùng path.
+   */
+  function nhanMucSo({ so, rest }: MucSo): LabelMatch | undefined {
+    const [cap1 = 0, cap2 = 0, cap3 = 0] = so;
+    if (so.length === 1 && cap1 > mucCap1) {
+      mucCap1 = cap1;
+      mucCap2 = 0;
+      mucCap3 = 0;
+      const key = khoaMucSo(chuongKey, cap1);
+      return { kind: "dieu", key, label: nhanDieuTheoKhoa(key), heading: rest || undefined, rest: "" };
+    }
+    if (so.length === 2 && cap1 === mucCap1 && cap2 > mucCap2) {
+      mucCap2 = cap2;
+      mucCap3 = 0;
+      return { kind: "khoan", key: String(cap2), label: `${so.join(".")}.`, rest };
+    }
+    if (so.length === 3 && cap1 === mucCap1 && cap2 === mucCap2 && cap3 > mucCap3) {
+      mucCap3 = cap3;
+      return { kind: "diem", key: String(cap3), label: `${so.join(".")}.`, rest };
+    }
+    return undefined;
+  }
   /** Độ sâu ngoặc kép đang mở; > 0 nghĩa là đang ở trong nội dung trích dẫn. */
   let quoteDepth = 0;
 
@@ -287,7 +338,14 @@ export function parseDocument(markdown: string): ParseResult {
         continue;
       }
 
-      const label = matchLabel(content);
+      const mucSo = danhSoMuc ? matchMucSo(content) : undefined;
+      const nhan = mucSo ? nhanMucSo(mucSo) : matchLabel(content);
+      // Ý "a)", "b)" dưới một tiết "1.2.3." đánh lại từ a ở mỗi tiết: khóa kèm số tiết ("3a") để
+      // không trùng path giữa các tiết của cùng một điểm.
+      const label =
+        danhSoMuc && !mucSo && nhan?.kind === "diem" && mucCap3 > 0
+          ? { ...nhan, key: `${mucCap3}${nhan.key}` }
+          : nhan;
       if (!label) {
         // Không phải nhãn: gắn vào nút hiện tại.
         const cur = current();
@@ -373,6 +431,10 @@ export function parseDocument(markdown: string): ParseResult {
       parent.children.push(node);
       stack.push(node);
       bump(label.kind);
+      if (label.kind === "chuong") {
+        chuongKey = label.key;
+        mucCap1 = 0;
+      }
       if (label.kind === "dieu") {
         seenDieu = true;
         dieuKeys.push(label.key);

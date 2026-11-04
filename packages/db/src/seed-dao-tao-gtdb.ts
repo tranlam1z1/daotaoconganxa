@@ -22,6 +22,7 @@
  * Chạy: bun run packages/db/src/seed-dao-tao-gtdb.ts
  */
 
+import { NHOM_HOC_TAP } from "@qdpl/dao-tao";
 import { sql } from "./client.ts";
 import {
   datTrangThaiBaiHoc,
@@ -36,6 +37,15 @@ import {
 } from "./dao-tao.ts";
 
 export const AS_OF_GTDB = "2026-09-08";
+
+/**
+ * Nhóm đối tượng học tập cho chuyên đề mẫu.
+ *
+ * Nội dung trong cây mẫu là nội dung dùng chung nên gắn cả bốn nhóm
+ * (docs/nhom-doi-tuong-hoc-tap.md). Không gắn nhóm thì chuyên đề không lọt qua
+ * bộ lọc danh mục công khai, nên trang `/hoc` không hiện chuyên đề nào.
+ */
+const NHOM_DUNG_CHUNG = [...NHOM_HOC_TAP];
 
 /* ------------------------------------------------------------------ */
 /* Văn bản của lĩnh vực (URN trong kho)                                 */
@@ -2977,6 +2987,7 @@ export async function gieoCayGtdb() {
       parentId: cd.cha ? (idChuyenDe.get(cd.cha) ?? null) : null,
       followsId: cd.noiTiepTu ? (idChuyenDe.get(cd.noiTiepTu) ?? null) : null,
       audienceGroup: "khach_hang",
+      nhomHocTap: NHOM_DUNG_CHUNG,
       ordinal: i,
     });
     idChuyenDe.set(cd.slug, course.id);

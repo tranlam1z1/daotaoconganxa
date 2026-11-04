@@ -94,7 +94,7 @@ export interface TocDoToiDa {
 
 export interface QuyTrinhTomTat {
   ma: string;
-  loai: "vi_pham" | "tai_nan";
+  loai: "vi_pham" | "tai_nan" | "hanh_chinh" | "nghiep_vu" | "cong_tac_dang";
   tieuDe: string;
   tomTat: string | null;
   soBuoc: number;

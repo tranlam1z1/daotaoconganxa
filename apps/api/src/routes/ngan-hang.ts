@@ -45,15 +45,19 @@ import {
   demCauHoiTheoTrangThai,
   docTepCauHoi,
   LoiTepExcel,
+  laCayConCuaChuDe,
   lichSuDuyetCauHoi,
   luuChuDeCauHoi,
   maCauHoiDaCo,
+  soThamChieuChuDe,
   sql,
   suaCauHoi,
+  suaChuDeCauHoi,
   type TaoCauHoiInput,
   taoCauHoi,
   taoNhieuCauHoi,
   taoTepCauHoi,
+  xoaChuDeCauHoi,
 } from "@qdpl/db";
 import { Hono } from "hono";
 import { z } from "zod";
@@ -247,6 +251,54 @@ nganHang.post("/chu-de", async (c) => {
   }
   const row = await luuChuDeCauHoi({ code: b.code, name: b.name, parentId, fieldId, ordinal: b.ordinal });
   return c.json(row, 201);
+});
+
+async function layChuDe(code: string) {
+  const t = await chuDeTheoMa(code);
+  if (!t) throw notFound(`Không có chủ đề mã "${code}"`);
+  return t;
+}
+
+/** Sửa tên, chủ đề cha, thứ tự, ẩn hoặc hiện. Ẩn thay cho xoá khi chủ đề đã có dữ liệu. */
+nganHang.patch("/chu-de/:code", async (c) => {
+  await batBuocVaiTro(c, "quan_ly");
+  const t = await layChuDe(c.req.param("code"));
+  const b = await parseBody(
+    c,
+    z.object({
+      name: z.string().trim().min(1).max(200).optional(),
+      /** `null` hoặc chuỗi rỗng: đưa lên gốc. */
+      parent_code: z.string().trim().nullish(),
+      ordinal: z.number().int().optional(),
+      hidden: z.boolean().optional(),
+    }),
+  );
+  let parentId: string | null | undefined;
+  if (b.parent_code !== undefined) {
+    if (!b.parent_code) parentId = null;
+    else {
+      const cha = await chuDeTheoMa(b.parent_code);
+      if (!cha) throw badRequest(`Không có chủ đề cha mã "${b.parent_code}"`);
+      if (await laCayConCuaChuDe(t.id, cha.id))
+        throw badRequest("Không đặt được chủ đề cha là chính nó hoặc chủ đề nằm dưới nó");
+      parentId = cha.id;
+    }
+  }
+  const row = await suaChuDeCauHoi(t.id, { name: b.name, parentId, ordinal: b.ordinal, hidden: b.hidden });
+  return c.json(row);
+});
+
+/** Chỉ xoá được chủ đề chưa có gì trỏ tới; còn dữ liệu thì phải ẩn, để không mất dữ liệu. */
+nganHang.delete("/chu-de/:code", async (c) => {
+  await batBuocVaiTro(c, "quan_ly");
+  const t = await layChuDe(c.req.param("code"));
+  const n = await soThamChieuChuDe(t.id);
+  if (n > 0)
+    throw conflict(
+      `Chủ đề "${t.name}" đang được dùng ở ${n} chỗ (câu hỏi, bài học, chủ đề con...). Hãy ẩn chủ đề thay vì xoá.`,
+    );
+  await xoaChuDeCauHoi(t.id);
+  return c.json({ ok: true });
 });
 
 /* ------------------------------------------------------------------ */

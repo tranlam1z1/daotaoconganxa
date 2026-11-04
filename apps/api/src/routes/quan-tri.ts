@@ -16,6 +16,7 @@ import {
   LOAI_CAU_HOI,
   lechCham,
   MUC_DO_CAU_HOI,
+  NHOM_HOC_TAP,
   pheuHoanThanh,
   type TrangThaiNoiDung,
   timChuTrinh,
@@ -177,6 +178,7 @@ quanTri.get("/dao-tao/chuyen-de/:slug", async (c) => {
       asOf: asDate(r.as_of) ?? "",
       fieldId: r.field_id,
       audienceGroup: r.audience_group,
+      nhomHocTap: r.nhom_hoc_tap,
       ordinal: r.ordinal,
       defaultMode: r.default_mode,
     },
@@ -201,6 +203,11 @@ const chuyenDeSchema = z.object({
   title: z.string().trim().min(3).max(500),
   summary: z.string().trim().max(2000).nullable().optional(),
   audience: z.array(z.string().trim()).default([]),
+  nhomHocTap: z
+    .array(z.enum(NHOM_HOC_TAP))
+    .max(4)
+    .transform((nhom) => [...new Set(nhom)])
+    .optional(),
   level: z.enum(["co_ban", "nang_cao", "chuyen_sau"]).default("co_ban"),
   tags: z.array(z.string().trim()).default([]),
   taxonomyCodes: z.array(z.string().trim()).default([]),
@@ -226,6 +233,9 @@ quanTri.post("/dao-tao/chuyen-de", async (c) => {
   const cu = await chuyenDeTheoSlug(body.slug);
   const daGui = new Set(Object.keys((await c.req.json()) as Record<string, unknown>));
   const giu = <T>(khoa: string, moi: T, cot: unknown): T => (cu && !daGui.has(khoa) ? (cot as T) : moi);
+  if (cu?.status === "xuat_ban" && body.nhomHocTap?.length === 0) {
+    throw badRequest("Chuyên đề đã xuất bản phải có ít nhất một nhóm đối tượng học tập.");
+  }
   const row = await luuChuyenDe({
     ...body,
     summary: giu("summary", body.summary, cu?.summary),
@@ -263,6 +273,9 @@ quanTri.post("/dao-tao/chuyen-de/:id/trang-thai", async (c) => {
   const canVaiTro = VAI_TRO_DAT_TRANG_THAI[moi];
   if (!atLeast(p.role, canVaiTro)) throw new KhongDuQuyen(canVaiTro);
 
+  if (moi === "xuat_ban" && !cu.nhom_hoc_tap.length) {
+    throw badRequest("Chọn và lưu ít nhất một nhóm đối tượng học tập trước khi xuất bản.");
+  }
   const row = await datTrangThaiChuyenDe(cu.id, moi);
   await ghiNhatKy(p.email, `dao_tao.chuyen_de.${moi}`, cu.id, { tu: cu.status, den: moi });
   return c.json({ chuyenDe: row });
@@ -325,8 +338,10 @@ quanTri.get("/dao-tao/chuyen-de/:slug/kiem-tra", async (c) => {
     dat:
       theoBai.filter((b) => b.status === "xuat_ban").every((b) => b.dat) &&
       chuTrinh.length === 0 &&
-      tuoiAsOf <= 90,
+      tuoiAsOf <= 90 &&
+      course.nhom_hoc_tap.length > 0,
     chanBoi: {
+      chuaChonNhomHocTap: course.nhom_hoc_tap.length === 0,
       baiHong: theoBai.filter((b) => !b.dat).map((b) => b.slug),
       chuTrinhKyNang: chuTrinh,
       // as_of quá 90 ngày: khung pháp lý có thể đã đổi mà chưa ai rà lại.
@@ -511,6 +526,9 @@ quanTri.post("/dao-tao/chuyen-de/:id/bai/trang-thai", async (c) => {
   const canVaiTro = VAI_TRO_DAT_TRANG_THAI[body.den];
   if (!atLeast(p.role, canVaiTro)) throw new KhongDuQuyen(canVaiTro);
 
+  if (body.den === "xuat_ban" && !course.nhom_hoc_tap.length) {
+    throw badRequest("Chọn và lưu ít nhất một nhóm đối tượng học tập trước khi xuất bản.");
+  }
   const chon = body.bai ? new Set(body.bai) : null;
   const bai = (await baiHocCuaChuyenDe(course.id)).filter((b) => !chon || chon.has(b.id));
   const daChuyen: Array<{ id: string; title: string }> = [];

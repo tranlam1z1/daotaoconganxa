@@ -7,6 +7,7 @@
     "packages/*"
   ],
   "scripts": {
+    "test:tra-cuu": "bun run scripts/kiem-thu-tra-cuu.ts",
     "dev": "bun run scripts/serve.ts web api",
     "dev:web": "bun run scripts/serve.ts web",
     "dev:api": "bun run scripts/serve.ts api",
@@ -53,6 +54,8 @@
     "thon:dung": "bun run scripts/thon.ts",
     "ranh-gioi:dung": "bun run scripts/ranh-gioi.ts",
     "bien-bao:nap": "bun run scripts/bien-bao.ts",
+    "bien-bao:nap:qcvn": "bun run scripts/nap-bien-bao-qcvn.ts",
+    "muc-phat:nap:reviewed": "bun run scripts/nap-muc-phat-reviewed.ts",
     "content:check": "bun run scripts/kiem-tra-bai-hoc.ts",
     "index": "bun run packages/search/src/cli.ts",
     "corpus:load": "bun run scripts/corpus.ts nap",
@@ -75,6 +78,7 @@
     "playwright-core": "^1.63.0",
     "postgres": "^3.4.9",
     "puppeteer-core": "^25.10.0",
-    "typescript": "^5.9.0"
+    "typescript": "^5.9.0",
+    "zod": "^4.1.0"
   }
 }

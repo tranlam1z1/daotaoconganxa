@@ -224,6 +224,20 @@ describe("tự đăng ký tài khoản", () => {
       cap_bac_chuc_vu: null,
     });
 
+    // Mã cán bộ không bắt buộc, kể cả khi API không gửi trường này.
+    const khongMa = await goi("PUT", "/v1/auth/xac-minh", token, {
+      don_vi_id: donVi,
+      so_dien_thoai: "0987654321",
+      cap_bac_chuc_vu: "Bí thư chi bộ",
+    });
+    expect(khongMa.status).toBe(200);
+    expect(khongMa.body.xac_minh).toMatchObject({
+      trang_thai: "cho_duyet",
+      so_hieu: null,
+      don_vi: { id: donVi },
+      cap_bac_chuc_vu: "Bí thư chi bộ",
+    });
+
     const lai = await dangKy();
     expect(lai.status).toBe(409);
     expect(lai.body.error.code).toBe("da_ton_tai");

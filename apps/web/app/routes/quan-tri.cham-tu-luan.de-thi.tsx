@@ -74,11 +74,11 @@ export default function ChamTuLuan({ loaderData, actionData }: Route.ComponentPr
   const { items, cheDo } = loaderData;
   return (
     <section>
-      <TieuDeTrang as="h2" icon="shield" className="text-xl font-semibold">
+      <TieuDeTrang as="h2" icon="shield" className="text-2xl font-bold sm:text-[28px]">
         Chấm tự luận
       </TieuDeTrang>
       <NguonChamTuLuan dangXem="de-thi" />
-      <p className="mt-4 max-w-3xl text-sm text-ink-2">
+      <p className="mt-4 max-w-[84ch] text-base leading-relaxed text-ink-2">
         Câu tự luận trong đề thi được chấm tự động theo tiêu chí khi người thi nộp bài. Câu chưa chấm được nằm
         ở tab Chờ chấm. Tab AI đã chấm dùng để đối chiếu và phúc khảo: chấm lại thì điểm lượt thi được tính
         lại.
@@ -117,7 +117,8 @@ export default function ChamTuLuan({ loaderData, actionData }: Route.ComponentPr
       {items.length === 0 ? (
         <div className="mt-6">
           <EmptyState
-            icon="check"
+            icon="cap"
+            className="min-h-[248px] justify-center text-xl [&>span]:size-[68px] [&>span]:bg-primary-soft [&>span>svg]:size-9"
             title={cheDo === "cho_nguoi" ? "Không có câu nào chờ chấm" : "Chưa có câu nào được AI chấm"}
           />
         </div>

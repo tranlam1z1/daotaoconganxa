@@ -1,0 +1,111 @@
+{
+  "skip": {
+    "text": "Bỏ qua điều hướng, tới nội dung chính",
+    "outline": "solid"
+  },
+  "skipTarget": "noi-dung-chinh",
+  "focus": {
+    "outline": "solid",
+    "label": "Email hoặc tên đăng nhập",
+    "valid": false,
+    "height": 44
+  },
+  "modes": [
+    {
+      "theme": "light",
+      "pairs": [
+        {
+          "name": "body",
+          "foreground": "#243447",
+          "background": "#fff",
+          "contrast": 12.67
+        },
+        {
+          "name": "secondary text",
+          "foreground": "#64748b",
+          "background": "#fff",
+          "contrast": 4.76
+        },
+        {
+          "name": "button",
+          "foreground": "#fff",
+          "background": "#a61c30",
+          "contrast": 7.42
+        },
+        {
+          "name": "navigation",
+          "foreground": "#17618b",
+          "background": "#edf4f8",
+          "contrast": 6.06
+        },
+        {
+          "name": "warning",
+          "foreground": "#8a5b18",
+          "background": "#fbf3e4",
+          "contrast": 5.3
+        },
+        {
+          "name": "success",
+          "foreground": "#16805d",
+          "background": "#f4faf6",
+          "contrast": 4.64
+        },
+        {
+          "name": "error",
+          "foreground": "#c62828",
+          "background": "#fdeaea",
+          "contrast": 4.85
+        }
+      ]
+    },
+    {
+      "theme": "dark",
+      "pairs": [
+        {
+          "name": "body",
+          "foreground": "#e9f0fa",
+          "background": "#121e33",
+          "contrast": 14.54
+        },
+        {
+          "name": "secondary text",
+          "foreground": "#8698b3",
+          "background": "#121e33",
+          "contrast": 5.68
+        },
+        {
+          "name": "button",
+          "foreground": "#331019",
+          "background": "#ff9eac",
+          "contrast": 8.74
+        },
+        {
+          "name": "navigation",
+          "foreground": "#91c9ec",
+          "background": "#142d40",
+          "contrast": 7.96
+        },
+        {
+          "name": "warning",
+          "foreground": "#ffd43b",
+          "background": "#2e2410",
+          "contrast": 10.71
+        },
+        {
+          "name": "success",
+          "foreground": "#6ede9f",
+          "background": "#10281c",
+          "contrast": 9.4
+        },
+        {
+          "name": "error",
+          "foreground": "#ffa8a8",
+          "background": "#341618",
+          "contrast": 8.96
+        }
+      ]
+    }
+  ],
+  "reducedMotion": true,
+  "limits": "Token contrast only; no authenticated writes or protected content inspected."
+}

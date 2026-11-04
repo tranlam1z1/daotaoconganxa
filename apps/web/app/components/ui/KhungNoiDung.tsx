@@ -15,13 +15,13 @@ export function KhungNoiDung({
 }) {
   return (
     <div className="wrap max-w-5xl py-4 sm:py-6">
-      <div className="trang-tra-cuu relative min-w-0 overflow-hidden rounded-2xl border border-line bg-surface p-4 shadow-card sm:p-6">
+      <div className="trang-tra-cuu relative min-w-0 overflow-hidden rounded-card border border-line bg-surface p-4 shadow-card sm:p-6">
         <header className="tra-cuu-tieu-de relative mb-6 flex min-h-20 items-center gap-3">
-          <span className="grid size-12 shrink-0 place-items-center rounded-xl bg-primary-soft text-primary">
+          <span className="grid size-12 shrink-0 place-items-center rounded-xl bg-secondary-soft text-secondary">
             <Icon name={icon} kieu="net" className="size-6" />
           </span>
-          <div className="min-w-0 flex-1 sm:max-w-[60%]">
-            <h1 className="text-2xl font-bold leading-tight">{title}</h1>
+          <div className="min-w-0 flex-1">
+            <h1 className="text-page font-bold leading-tight">{title}</h1>
             <p className="mt-1 text-sm text-ink-2">{description}</p>
           </div>
         </header>

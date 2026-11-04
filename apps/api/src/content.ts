@@ -55,7 +55,7 @@ export interface PointInTime {
 /** Lấy văn bản theo URN, ném 404 nếu không có. */
 export async function requireDocument(urn: string): Promise<DocumentRow> {
   const doc = await getDocumentByUrn(urn);
-  if (!doc) throw notFound(`Không tìm thấy văn bản có URN ${urn}`);
+  if (!doc || doc.is_draft) throw notFound(`Không tìm thấy văn bản có URN ${urn}`);
   return doc;
 }
 

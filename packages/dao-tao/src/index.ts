@@ -23,6 +23,7 @@ export * from "./luat-tai-lieu.ts";
 export * from "./luyen-tap.ts";
 export * from "./mastery.ts";
 export * from "./ngay.ts";
+export * from "./nhom-doi-tuong.ts";
 export * from "./nhom-hoc.ts";
 export * from "./path.ts";
 export * as ranhGioi from "./ranh-gioi.ts";

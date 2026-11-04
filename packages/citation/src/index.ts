@@ -10,7 +10,14 @@
  * chỉ bắt được phần tử cuối. Phần còn lại không gắn với mỏ neo nào thì coi là
  * viện dẫn nội bộ ("Điều 7 của Nghị định này").
  */
-import { buildUrn, DIEM_LETTERS, inferDocType, normalizeSoKyHieu, parseUrn } from "@qdpl/legal-model";
+import {
+  buildUrn,
+  cumViDanTheoPath,
+  DIEM_LETTERS,
+  inferDocType,
+  normalizeSoKyHieu,
+  parseUrn,
+} from "@qdpl/legal-model";
 
 export interface CitationRef {
   /** Chuỗi gốc trong văn bản. */
@@ -425,16 +432,7 @@ export function formatCitation(opts: {
   title?: string;
   short?: boolean;
 }): string {
-  const parts: string[] = [];
-  if (opts.path) {
-    const m = /^dieu-([^.]+)(?:\.khoan-([^.]+))?(?:\.diem-([^.]+))?/.exec(opts.path);
-    if (m) {
-      if (m[3]) parts.push(`điểm ${m[3]}`);
-      if (m[2]) parts.push(`khoản ${m[2]}`);
-      parts.push(`Điều ${m[1]}`);
-    }
-  }
-  const head = parts.join(" ");
+  const head = opts.path ? cumViDanTheoPath(opts.path) : "";
   if (opts.short) {
     return `${head ? `${head} ` : ""}${opts.docTypeName} ${opts.soKyHieu}`.trim();
   }

@@ -1,5 +1,7 @@
 # PHONG CÁCH HÌNH ẢNH
 
+> Cập nhật 28/10/2026: màu và typography trong [DESIGN_SYSTEM.md](DESIGN_SYSTEM.md) thay thế chỉ dẫn màu/font cũ dưới đây theo yêu cầu mới của người dùng. Giữ logo gốc, icon, quy tắc nội dung, hiệu năng và các chức năng hiện có.
+
 *Lập ngày 25/9/2026; cập nhật sau khi rút gọn phạm vi. Tài liệu nêu nguyên tắc hình ảnh chung của toàn ứng dụng: chữ, hiệu năng và bộ biểu tượng. Mọi màn hình dùng chung hệ "Công báo" (nền giấy, chữ mực, màu nhấn của thương hiệu).*
 
 ---

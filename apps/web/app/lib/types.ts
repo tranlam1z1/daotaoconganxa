@@ -59,6 +59,8 @@ export interface LegalNode {
 }
 
 export interface DocumentMeta {
+  documentGroup?: string;
+  primarySource?: string;
   urn: string;
   docType: string;
   rank: number;
@@ -232,6 +234,9 @@ export interface SearchResponse {
 }
 
 export interface DocumentListItem {
+  documentGroup?: string;
+  primarySource?: string;
+  coTepGoc?: boolean;
   urn: string;
   docType: string;
   soKyHieu: string;
@@ -277,6 +282,8 @@ export interface DiffToken {
 }
 
 export interface DiffNode {
+  statusBefore?: string;
+  statusAfter?: string;
   path: string;
   label: string;
   heading?: string;
@@ -345,6 +352,7 @@ export interface DonViChon {
  * thành phần chạy trên trình duyệt dùng được kiểu mà không chạm vào mã chỉ có ở máy chủ.
  */
 export interface NguoiDung {
+  nhom_doi_tuong?: string[];
   email: string;
   ten: string | null;
   vai_tro: string;

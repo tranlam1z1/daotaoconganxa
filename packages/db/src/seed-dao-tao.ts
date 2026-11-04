@@ -14,6 +14,7 @@
  * Chạy: bun run packages/db/src/seed-dao-tao.ts
  */
 
+import { NHOM_HOC_TAP } from "@qdpl/dao-tao";
 import { BAN_GIAO_GOC, HANH_DONG_GOC, NHAN_VAT_GOC } from "@qdpl/mascot";
 import { sql } from "./client.ts";
 import {
@@ -31,6 +32,15 @@ import {
 import { luuBanGiao, luuHanhDong, luuNhanVat, nhanVatTheoCode } from "./mascot.ts";
 
 const AS_OF = "2026-09-06";
+
+/**
+ * Nhóm đối tượng học tập cho chuyên đề mẫu.
+ *
+ * Nội dung trong cây mẫu là nội dung dùng chung nên gắn cả bốn nhóm
+ * (docs/nhom-doi-tuong-hoc-tap.md). Không gắn nhóm thì chuyên đề không lọt qua
+ * bộ lọc danh mục công khai, nên trang `/hoc` không hiện chuyên đề nào.
+ */
+const NHOM_DUNG_CHUNG = [...NHOM_HOC_TAP];
 
 /** URN các nút văn bản mà chuyên đề mẫu viện dẫn (ke-hoach/09 §2.1). */
 const ND_224 = "vn:vbqppl:nd:224/2026/NĐ-CP";
@@ -710,6 +720,7 @@ async function gieoCayDaoTao() {
         parentId: cd.cha ? (idChuyenDe.get(cd.cha) ?? null) : null,
         followsId: cd.noiTiepTu ? (idChuyenDe.get(cd.noiTiepTu) ?? null) : null,
         audienceGroup: cd.nhomDoiTuong,
+        nhomHocTap: NHOM_DUNG_CHUNG,
         ordinal: i,
       });
       idChuyenDe.set(cd.slug, course.id);

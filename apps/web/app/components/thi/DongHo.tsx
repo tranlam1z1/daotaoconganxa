@@ -47,7 +47,7 @@ export function DongHo({ giayConLai, onHetGio }: { giayConLai: number; onHetGio:
   return (
     <div
       className={cn(
-        "flex min-h-11 items-center gap-2 rounded-lg px-3 font-mono text-lg font-semibold tabular-nums",
+        "flex min-h-11 shrink-0 items-center gap-2 whitespace-nowrap rounded-lg px-3 font-mono text-base font-semibold tabular-nums sm:text-lg",
         sapHet ? "bg-danger-soft text-danger" : "bg-surface-2 text-ink",
       )}
     >

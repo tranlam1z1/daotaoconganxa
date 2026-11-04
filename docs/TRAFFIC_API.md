@@ -141,6 +141,49 @@ effective_to: YYYY-MM-DD hoặc null
 Các nguồn trên xác nhận đầu mối văn bản, không chứng nhận toàn bộ dữ liệu sẵn có trong repository.
 Chưa nạp bộ dữ liệu pháp luật đầy đủ và chưa xác nhận tất cả quan hệ sửa đổi sau các văn bản trên.
 
+## Bộ 31 biển đối chiếu từ QCVN 41:2024/BGTVT
+
+`data/bien-bao/qcvn-41-2024-source.json` chứa 31 biển thuộc 5 nhóm, ảnh PNG
+trích từ PDF Chính phủ và nội dung mục tương ứng. Đây là bộ trích chọn, không phải
+toàn bộ quy chuẩn. Bộ mẫu `bien-bao.json` và SVG minh họa cũ không được tự công khai.
+
+```sh
+bun run bien-bao:nap:qcvn
+bun run bien-bao:nap:qcvn --apply
+```
+
+Lệnh mặc định chỉ kiểm tra. `--apply` nạp vào CSDL và kho ảnh đang cấu hình;
+nạp lại dữ liệu giống nhau không tạo bản ghi trùng. Bộ nạp kiểm SHA-256 của bộ dữ liệu,
+PDF nguồn và từng ảnh theo `qcvn-41-2024-review.json`, lưu căn cứ, lịch sử duyệt
+và bản trích canonical. Actor `codex:source-verification` ghi nhận đối chiếu bằng
+công cụ, không đại diện cho người duyệt. Không ghi đè nội dung khác đã duyệt.
+
+Có thể tái trích bằng `python scripts/extract-qcvn-signs.py path/to/51-bgtvt-kem.pdf`
+(cần PyMuPDF). Kết quả trích luôn chờ duyệt; thay đổi dữ liệu làm mất hiệu lực
+manifest đối chiếu cũ và phải đối chiếu lại trước khi nạp.
+
+## Bộ hành vi đã đối chiếu
+
+`data/tra-cuu/muc-phat-reviewed-source.json` có 21 hành vi thông thường cho ô tô
+và mô tô/xe gắn máy tại Điều 6, Điều 7 Nghị định 168/2024/NĐ-CP. Đã đối chiếu
+tiền phạt, điểm GPLX, tước GPLX, điểm/khoản căn cứ và phạm vi sửa đổi của
+Nghị định 238/2026/NĐ-CP từ nguồn Chính phủ. Hai dòng điện thoại trong bộ mẫu
+ghi 2 điểm; bộ đã đối chiếu sửa thành 4 điểm. Bộ mẫu cũ vẫn là bản nháp.
+
+```sh
+bun run muc-phat:nap:reviewed
+bun run muc-phat:nap:reviewed --apply
+```
+
+Mặc định chỉ kiểm tra hash, danh sách duyệt và căn cứ. `--apply` tạo các điểm
+trích chọn trong kho canonical, hành vi, khung phạt và dấu vết đối chiếu.
+Chạy lại cùng dữ liệu không tạo trùng; từ chối ghi đè dữ liệu khác đã có.
+Manifest ghi actor công cụ `codex:source-verification`, không giả danh người duyệt.
+
+Đây chưa phải toàn bộ hành vi hoặc mọi khung tăng nặng/gây tai nạn. Khung trả về
+ghi tình tiết cần đối chiếu, gồm loại xe, hành vi, tai nạn, số đo và tình trạng GPLX.
+Trang tra cứu hiện ngay danh sách đã duyệt khi mở tab, cùng chủ đề và bộ lọc loại xe.
+
 ## Giới hạn triển khai
 
 - Bản chụp `traffic_revisions` giữ lịch sử chỉnh sửa, nhưng API as_of đọc bảng nội dung hiện tại;

@@ -1,0 +1,77 @@
+{
+  "contract": "../../docs/DESIGN_SYSTEM.md",
+  "targetViewports": [
+    "375x900",
+    "390x900",
+    "768x900",
+    "1366x900",
+    "1440x900",
+    "1920x900"
+  ],
+  "renderedEvidence": [
+    {
+      "viewport": "375x900",
+      "artifact": "375-home.png",
+      "observation": "Trang chủ được chụp thực tế; 24 URL tại kích thước này không tràn ngang hoặc lỗi 5xx."
+    },
+    {
+      "viewport": "390x900",
+      "artifact": "390-home.png",
+      "observation": "Trang chủ được chụp thực tế; 24 URL tại kích thước này không tràn ngang hoặc lỗi 5xx."
+    },
+    {
+      "viewport": "768x900",
+      "artifact": "768-home.png",
+      "observation": "Trang chủ được chụp thực tế; 24 URL tại kích thước này không tràn ngang hoặc lỗi 5xx."
+    },
+    {
+      "viewport": "1366x900",
+      "artifact": "1366-home.png",
+      "observation": "Trang chủ được chụp thực tế; 24 URL tại kích thước này không tràn ngang hoặc lỗi 5xx."
+    },
+    {
+      "viewport": "1440x900",
+      "artifact": "1440-home.png",
+      "observation": "Trang chủ được chụp thực tế; 24 URL tại kích thước này không tràn ngang hoặc lỗi 5xx."
+    },
+    {
+      "viewport": "1920x900",
+      "artifact": "1920-home.png",
+      "observation": "Trang chủ được chụp thực tế; 24 URL tại kích thước này không tràn ngang hoặc lỗi 5xx."
+    }
+  ],
+  "accessibility": {
+    "status": "partial",
+    "evidence": "Đã kiểm skip link, focus ô nhập, nhãn, vùng chạm và 14 cặp màu token. Chưa kiểm screen reader và toàn bộ nội dung sau đăng nhập."
+  },
+  "responsive": {
+    "status": "pass",
+    "evidence": "144 tổ hợp URL/kích thước không tràn ngang; đã xem ảnh mobile, tablet và desktop."
+  },
+  "contentStates": {
+    "loading": {
+      "status": "untested",
+      "reason": "Chưa mô phỏng đầy đủ API chậm."
+    },
+    "empty": {
+      "status": "untested",
+      "reason": "Chưa xác minh đầy đủ dữ liệu rỗng trên mọi route."
+    },
+    "error": {
+      "status": "pass",
+      "evidence": "Trang URL không tồn tại trả 404, có thông điệp và liên kết quay lại; chụp tại sáu kích thước."
+    },
+    "partial": {
+      "status": "untested",
+      "reason": "Chưa có kịch bản dữ liệu nguồn thiếu một phần."
+    },
+    "success": {
+      "status": "untested",
+      "reason": "Không thực hiện thao tác ghi dữ liệu trong rà soát giao diện."
+    },
+    "permission": {
+      "status": "pass",
+      "evidence": "Các trang bảo vệ chuyển hướng sang đăng nhập; không tắt xác thực."
+    }
+  }
+}

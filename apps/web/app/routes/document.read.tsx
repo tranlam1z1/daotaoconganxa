@@ -5,8 +5,16 @@
  *  - không có `dieu`: toàn văn; văn bản lớn chia theo từng phần 30 điều (`?tu=dieu-31`).
  * Ngày áp dụng mặc định là hôm nay (giờ Việt Nam), chỉ đổi trong "Xem theo ngày khác".
  */
-import { useEffect } from "react";
-import { Form, Link, useNavigation, useRevalidator, useRouteLoaderData, useSearchParams } from "react-router";
+import { useEffect, useRef } from "react";
+import {
+  Form,
+  Link,
+  useLocation,
+  useNavigation,
+  useRevalidator,
+  useRouteLoaderData,
+  useSearchParams,
+} from "react-router";
 
 import { MucLucNganKeo } from "../components/tra-cuu/MucLucNganKeo";
 import { type NguCanhDoc, NoiDungDieu } from "../components/tra-cuu/NoiDungDieu";
@@ -39,6 +47,7 @@ export async function loader({ params, request }: Route.LoaderArgs) {
   const p = new URL(request.url).searchParams;
   const homNay = todayIso();
   const asOfRaw = p.get("asOf");
+  if (asOfRaw && !isIsoDate(asOfRaw)) throw new Response("Ngày tra cứu không hợp lệ.", { status: 400 });
   const asOf = isIsoDate(asOfRaw) ? asOfRaw : homNay;
   const dieuRaw = (p.get("dieu") ?? "").trim();
   // Liên kết của trang ghi "dieu-15"; người gõ tay "15" hay "3a" cũng hiểu là Điều đó.
@@ -219,6 +228,37 @@ function TepGoc({
 export default function DocumentRead({ loaderData: data, actionData }: Route.ComponentProps) {
   const layout = useRouteLoaderData<typeof documentLoader>("routes/document");
   const [params] = useSearchParams();
+  const location = useLocation();
+  const contentRef = useRef<HTMLDivElement>(null);
+  useEffect(() => {
+    if (!location.hash || data.cheDo === "chua-co-chu") return;
+    let id: string;
+    try {
+      id = decodeURIComponent(location.hash.slice(1));
+    } catch {
+      return;
+    }
+    // Chờ nội dung và ScrollRestoration hoàn tất, kể cả điều hướng trong ứng dụng.
+    let target: HTMLElement | null = null;
+    let previousTabIndex: string | null = null;
+    const frame = requestAnimationFrame(() => {
+      const element = document.getElementById(id);
+      if (!element || !contentRef.current?.contains(element)) return;
+      target = element;
+      previousTabIndex = target.getAttribute("tabindex");
+      target.setAttribute("data-citation-target", "true");
+      target.setAttribute("tabindex", "-1");
+      target.focus({ preventScroll: true });
+      target.scrollIntoView({ block: "start", behavior: "instant" });
+    });
+    return () => {
+      cancelAnimationFrame(frame);
+      if (!target) return;
+      target.removeAttribute("data-citation-target");
+      if (previousTabIndex === null) target.removeAttribute("tabindex");
+      else target.setAttribute("tabindex", previousTabIndex);
+    };
+  }, [location, data]);
   if (!layout) return null;
   const meta = layout.detail.meta;
   const base = layout.basePath;
@@ -251,7 +291,7 @@ export default function DocumentRead({ loaderData: data, actionData }: Route.Com
   };
 
   return (
-    <div>
+    <div ref={contentRef}>
       <div className="no-print flex flex-wrap items-center gap-2">
         <MucLucNganKeo
           muc={data.toc}
@@ -271,9 +311,11 @@ export default function DocumentRead({ loaderData: data, actionData }: Route.Com
       >
         <summary className="flex min-h-11 cursor-pointer items-center gap-2 text-sm text-ink-2">
           <Icon name="calendar" className="size-4" />
-          {data.asOf === data.homNay
-            ? `Nội dung áp dụng hôm nay, ${formatDate(data.asOf)}`
-            : `Nội dung áp dụng ngày ${formatDate(data.asOf)}`}
+          {meta.documentGroup === "dang"
+            ? `Nội dung trong kho tại ngày ${formatDate(data.asOf)}`
+            : data.asOf === data.homNay
+              ? `Nội dung áp dụng hôm nay, ${formatDate(data.asOf)}`
+              : `Nội dung áp dụng ngày ${formatDate(data.asOf)}`}
           <span className="ml-auto font-medium text-primary">Xem theo ngày khác</span>
         </summary>
         <Form method="get" action={base} className="flex flex-wrap items-end gap-3 pb-4">

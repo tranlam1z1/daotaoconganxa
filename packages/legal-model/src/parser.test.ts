@@ -1,6 +1,6 @@
 import { describe, expect, test } from "bun:test";
 import { compareAuthority, inferDocType, rankOf, refineDocTypeByTitle } from "./hierarchy.ts";
-import { matchLabel } from "./labels.ts";
+import { cumViDanTheoPath, matchLabel } from "./labels.ts";
 import { nextQuoteDepth, nodeKey, parseDocument, walk } from "./parser.ts";
 import { contextPath, plainText, serializeDocument } from "./serialize.ts";
 import { buildUrn, normalizeSoKyHieu, parseUrn, soKyHieuSlug } from "./urn.ts";
@@ -302,5 +302,93 @@ describe("theo dõi trạng thái ngoặc kép", () => {
 
   test("không âm", () => {
     expect(nextQuoteDepth("nội dung.”", 0)).toBe(0);
+  });
+});
+
+describe("văn bản đánh số mục, không chia Điều (văn bản của Đảng)", () => {
+  const vanBanDang = [
+    "Số 208-QĐ/TW",
+    "",
+    "- Căn cứ Điều lệ Đảng;",
+    "",
+    "Chương I",
+    "",
+    "HỆ THỐNG TỔ CHỨC CỦA ĐẢNG",
+    "",
+    "1. Hệ thống tổ chức của Đảng (Khoản 1, Điều 10)",
+    "",
+    "1.1. Hệ thống tổ chức của Đảng được tổ chức theo đơn vị hành chính.",
+    "",
+    "1.2. Thí điểm thống nhất tên gọi các loại hình tổ chức đảng.",
+    "",
+    "1.2.1. Đảng bộ cơ sở.",
+    "",
+    "a) Điều hành công việc của đại hội.",
+    "",
+    "1.2.2. Chi bộ.",
+    "",
+    "a) Ý a của tiết thứ hai.",
+    "",
+    "2. Việc thành lập tổ chức đảng",
+    "",
+    "2.1. Ở cấp Trung ương.",
+    "",
+    "1. Liệt kê lặp lại số 1 không phải mục mới.",
+    "",
+    "Chương II",
+    "",
+    "NGUYÊN TẮC TẬP TRUNG DÂN CHỦ",
+    "",
+    "1. Một số quy định về thực hiện nguyên tắc tập trung dân chủ (Điều 9)",
+    "",
+    "1.1. Quy chế làm việc.",
+  ].join("\n");
+  const r = parseDocument(vanBanDang);
+  const nut = (path: string) => {
+    let found: ReturnType<typeof parseDocument>["root"] | undefined;
+    walk(r.root, (n) => {
+      if (n.path === path) found = n;
+    });
+    return found;
+  };
+
+  test("mục cấp 1 trong từng Chương thành Điều, khóa không trùng giữa các Chương", () => {
+    expect(r.counts.dieu).toBe(3);
+    expect(nut("dieu-c1-1")?.label).toBe("Mục 1 Chương I");
+    expect(nut("dieu-c1-1")?.heading).toBe("Hệ thống tổ chức của Đảng (Khoản 1, Điều 10)");
+    expect(nut("dieu-c1-2")?.label).toBe("Mục 2 Chương I");
+    expect(nut("dieu-c2-1")?.label).toBe("Mục 1 Chương II");
+  });
+  test("mục 1.1 thành khoản, 1.1.1 và a) thành điểm", () => {
+    expect(nut("dieu-c1-1.khoan-2")?.label).toBe("1.2.");
+    expect(nut("dieu-c1-1.khoan-2")?.text).toBe("Thí điểm thống nhất tên gọi các loại hình tổ chức đảng.");
+    expect(nut("dieu-c1-1.khoan-2.diem-1")?.label).toBe("1.2.1.");
+    expect(nut("dieu-c1-1.khoan-2.diem-1a")?.text).toBe("Điều hành công việc của đại hội.");
+    expect(nut("dieu-c1-1.khoan-2.diem-2a")?.text).toBe("Ý a của tiết thứ hai.");
+    expect(nut("dieu-c2-1.khoan-1")?.text).toBe("Quy chế làm việc.");
+  });
+  test("số thứ tự không nối tiếp không mở mục mới", () => {
+    expect(nut("dieu-c1-1.khoan-1")).toBeDefined();
+    expect(JSON.stringify(nut("dieu-c1-2"))).toContain("Liệt kê lặp lại số 1");
+  });
+  test("văn bản có Điều giữ nguyên cách tách cũ", () => {
+    const thuong = parseDocument("Điều 1. Phạm vi\n\n1. Khoản một.\n\n1.1. Không phải nhãn.");
+    expect(r.counts.dieu).toBe(3);
+    expect(thuong.counts.dieu).toBe(1);
+    expect(thuong.counts.khoan).toBe(1);
+  });
+});
+
+describe("cụm viện dẫn theo path", () => {
+  test("Điều thường", () => {
+    expect(cumViDanTheoPath("dieu-15.khoan-2.diem-a")).toBe("điểm a khoản 2 Điều 15");
+  });
+  test("mục đánh số trong Chương", () => {
+    expect(cumViDanTheoPath("dieu-c1-1")).toBe("Mục 1 Chương I");
+    expect(cumViDanTheoPath("dieu-c2-3.khoan-1")).toBe("điểm 3.1 Mục 3 Chương II");
+    expect(cumViDanTheoPath("dieu-c2-3.khoan-1.diem-2")).toBe("tiết 3.1.2 điểm 3.1 Mục 3 Chương II");
+    expect(cumViDanTheoPath("dieu-c2-3.khoan-1.diem-a")).toBe("ý a điểm 3.1 Mục 3 Chương II");
+    expect(cumViDanTheoPath("dieu-c2-3.khoan-1.diem-2b")).toBe("ý b tiết 3.1.2 điểm 3.1 Mục 3 Chương II");
+    expect(cumViDanTheoPath("dieu-m4.khoan-2")).toBe("điểm 4.2 Mục 4");
   });
 });

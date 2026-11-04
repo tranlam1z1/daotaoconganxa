@@ -14,7 +14,7 @@ export const CONG_CU: ReadonlyArray<{
   {
     ma: "dia-gioi-hanh-chinh",
     ten: "Chuyển đổi địa giới hành chính",
-    icon: "map",
+    icon: "banDo",
     moTa: "Đối chiếu tên đơn vị hành chính trước và sau sắp xếp.",
     chucNang: [
       "Nhập tên xã, tỉnh cũ để biết đơn vị hành chính hiện nay.",
@@ -44,7 +44,7 @@ export const CONG_CU: ReadonlyArray<{
   {
     ma: "tinh-qua-tai",
     ten: "Tính % quá tải",
-    icon: "scale",
+    icon: "trongTai",
     moTa: "Tính khối lượng và phần trăm quá tải của xe tải, đầu kéo, sơ mi rơ moóc.",
     chucNang: [
       "Chọn loại xe: xe tải, đầu kéo hoặc sơ mi rơ moóc.",
@@ -64,7 +64,7 @@ export const CONG_CU: ReadonlyArray<{
   {
     ma: "qua-kho-hang-hoa",
     ten: "Tính quá khổ hàng hóa",
-    icon: "layers",
+    icon: "thuocDo",
     moTa: "Tính phần hàng hóa vượt quá kích thước giới hạn xếp hàng của xe.",
     chucNang: [
       "Chọn loại thùng xe, nhập chiều cao, chiều rộng, chiều dài xếp hàng để biết phần vượt giới hạn.",
@@ -107,9 +107,12 @@ export const CONG_CU: ReadonlyArray<{
 export const NGHIEP_VU_NHANH: ReadonlyArray<{ to: string; ten: string; icon: IconName }> = [
   { to: "/tim-kiem", ten: "Tra cứu văn bản", icon: "book" },
   { to: "/tra-cuu-nhanh/quy-trinh", ten: "Quy trình biểu mẫu", icon: "file" },
-  { to: "/tra-cuu", ten: "Tra cứu biển báo", icon: "sign" },
-  { to: "/hoi-dap", ten: "Hỏi đáp", icon: "chat" },
+  { to: "/hoc", ten: "Danh mục bài học", icon: "cap" },
 ];
 
 /** Hai nhóm trên dạng ô lối tắt (LuoiLoiTat), dùng chung cho trang chủ và trang /cong-cu. */
-export const O_CONG_CU = CONG_CU.map((c) => ({ to: `/cong-cu/${c.ma}`, ten: c.ten, icon: c.icon }));
+export const O_CONG_CU = CONG_CU.filter((c) => c.ma === "dia-gioi-hanh-chinh").map((c) => ({
+  to: `/cong-cu/${c.ma}`,
+  ten: c.ten,
+  icon: c.icon,
+}));

@@ -421,3 +421,39 @@ describe("văn bản bản quét: lưu tệp PDF gốc thay cho nội dung chữ
     expect(tep.status).toBe(404);
   });
 });
+
+test("lưu phân loại Văn bản Đảng và nguồn, không tự suy hiệu lực từ ngày", async () => {
+  const partyUrn = "vn:vbqppl:vb-dang:TEST-DOT3/2099";
+  URN_THU.push(partyUrn);
+  const body = {
+    ...TAO,
+    issuer: "Cơ quan kiểm thử Đảng",
+    docType: "vb-dang",
+    soKyHieu: "TEST-DOT3/2099",
+    documentGroup: "dang",
+    sourceUrl: "https://example.invalid/van-ban-dang",
+    title: "Văn bản thử nghiệm công tác Đảng",
+    issuedDate: "2099-01-01",
+    effectiveFrom: "2099-02-01",
+    markdown: "Điều 1. Nội dung kiểm thử\nDữ liệu chỉ dùng cho kiểm thử phân loại.",
+  };
+  const created = await goi("POST", "/v1/quan-tri/van-ban", tk.bienTap, body);
+  expect(created.status).toBe(201);
+  if (created.body.urn) URN_THU.push(created.body.urn);
+  const d = await goi("GET", `/v1/documents/${E(created.body.urn)}?asOf=2100-01-01`);
+  expect(d.status).toBe(200);
+  expect(d.body.document.documentGroup).toBe("dang");
+  expect(d.body.document.primarySource).toBe(body.sourceUrl);
+  expect(d.body.document.statusAsOf).toBe("khong_xac_dinh");
+  const bad = await goi("PUT", `/v1/quan-tri/van-ban/${E(created.body.urn)}`, tk.bienTap, {
+    ...body,
+    sourceUrl: "javascript:alert(1)",
+  });
+  expect(bad.status).toBe(400);
+  const mismatched = await goi("POST", "/v1/quan-tri/van-ban", tk.bienTap, {
+    ...body,
+    docType: "nd",
+    soKyHieu: "9991/2099/ND-CP",
+  });
+  expect(mismatched.status).toBe(400);
+});

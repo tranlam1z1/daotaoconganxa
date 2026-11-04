@@ -1,4 +1,5 @@
 /** Tiện ích xử lý cây cấu trúc: đếm nút, dựng mục lục, cắt cửa sổ hiển thị. */
+import { nhanDieuTheoKhoa } from "./citation";
 import type { LegalNode, NodeKind } from "./types";
 
 /** Ngưỡng bật chế độ render theo cửa sổ (ke-hoach/10 §7). */
@@ -135,11 +136,11 @@ export function computeWindow(root: LegalNode, targetPath: string | null): Windo
   };
 }
 
-/** Nhãn hiển thị của một path Điều: "dieu-15" -> "Điều 15". */
+/** Nhãn hiển thị của một path Điều: "dieu-15" -> "Điều 15", "dieu-c1-2" -> "Mục 2 Chương I". */
 export function dieuLabelFromPath(path: string | undefined): string {
   if (!path) return "";
   const m = /^dieu-(.+)$/.exec(path);
-  return m?.[1] ? `Điều ${m[1]}` : path;
+  return m?.[1] ? nhanDieuTheoKhoa(m[1]) : path;
 }
 
 /* ------------------------------------------------------------------ */

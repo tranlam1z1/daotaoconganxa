@@ -193,7 +193,7 @@ function XacMinhCanBo({
   const busy = useNavigation().state === "submitting";
   const xm = nguoiDung.xac_minh;
   const tuChoi = xm?.trang_thai === "tu_choi";
-  const chuaKhai = !xm?.so_hieu || !xm.don_vi;
+  const chuaKhai = !xm?.don_vi;
   const loi = ketQua && "loi" in ketQua ? ketQua.loi : null;
 
   return (
@@ -211,8 +211,8 @@ function XacMinhCanBo({
         </Notice>
       ) : chuaKhai ? (
         <p className="mt-2 text-sm leading-relaxed text-ink-2">
-          Khai số hiệu và đơn vị công tác để cán bộ quản lý đơn vị hoặc quản trị viên xác minh. Học, luyện tập
-          và thi mở sau khi tài khoản được duyệt.
+          Khai cơ quan, đơn vị hoặc tổ chức Đảng để cán bộ quản lý đơn vị hoặc quản trị viên xác minh. Học,
+          luyện tập và thi mở sau khi tài khoản được duyệt.
         </p>
       ) : (
         <p className="mt-2 text-sm leading-relaxed text-ink-2">
@@ -223,13 +223,13 @@ function XacMinhCanBo({
 
       {xm && !chuaKhai ? (
         <dl className="mt-4 grid gap-3 text-sm [overflow-wrap:anywhere] sm:grid-cols-[10rem_1fr]">
-          <dt className="text-ink-3">Số hiệu CAND</dt>
-          <dd className="font-mono font-medium">{xm.so_hieu}</dd>
+          <dt className="text-ink-3">Mã cán bộ</dt>
+          <dd className="font-mono font-medium">{xm.so_hieu || "Không khai"}</dd>
           <dt className="text-ink-3">Đơn vị đã khai</dt>
           <dd className="font-medium">{xm.don_vi?.ten}</dd>
           {xm.cap_bac_chuc_vu ? (
             <>
-              <dt className="text-ink-3">Cấp bậc, chức vụ</dt>
+              <dt className="text-ink-3">Chức vụ, chức danh</dt>
               <dd className="font-medium">{xm.cap_bac_chuc_vu}</dd>
             </>
           ) : null}

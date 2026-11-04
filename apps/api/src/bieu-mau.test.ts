@@ -311,3 +311,32 @@ describe("sửa và thay tệp", () => {
     );
   });
 });
+
+test("quy trình ba nhóm và tổng phân trang trên 200 mục", async () => {
+  const prefix = `${PREFIX}-phan-trang-dot-ba`;
+  await sql`INSERT INTO procedures(code,kind,title,steps,status) SELECT ${prefix}||i,'hanh_chinh',${prefix}||' '||i,'[]'::jsonb,'da_duyet' FROM generate_series(1,205)i`;
+  const first = await goi(
+    "GET",
+    `/v1/tra-cuu/tai-lieu?${new URLSearchParams({ q: prefix, loai: "quy_trinh", gioi_han: "20", page: "1" })}`,
+  );
+  const last = await goi(
+    "GET",
+    `/v1/tra-cuu/tai-lieu?${new URLSearchParams({ q: prefix, loai: "quy_trinh", gioi_han: "20", page: "11" })}`,
+  );
+  expect(first.status).toBe(200);
+  expect(first.body.total).toBe(205);
+  expect(first.body.items).toHaveLength(20);
+  expect(last.body.items).toHaveLength(5);
+  expect(last.body.total).toBe(205);
+  const literal = await goi("GET", `/v1/tra-cuu/tai-lieu?${new URLSearchParams({ q: `${prefix} %` })}`);
+  expect(literal.body.total).toBe(0);
+  for (const kind of ["hanh_chinh", "nghiep_vu", "cong_tac_dang"]) {
+    const created = await goi("POST", `${QT}/quy-trinh`, quanLy, {
+      code: `${prefix}-${kind.replaceAll("_", "-")}`,
+      kind,
+      title: `Quy trình kiểm thử ${kind}`,
+      steps: [{ tieu_de: "Bước kiểm thử", mo_ta: "Dữ liệu chỉ dùng kiểm thử" }],
+    });
+    expect(created.status).toBe(201);
+  }
+});

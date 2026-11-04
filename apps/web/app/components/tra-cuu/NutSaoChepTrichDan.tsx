@@ -1,4 +1,5 @@
-import { formatCitationFull } from "../../lib/citation";
+import { voiNgay } from "../../lib/bo-loc-van-ban";
+import { dieuHrefFromUrn, formatCitationFull } from "../../lib/citation";
 import type { DocumentMeta, VersionKind } from "../../lib/types";
 import { Icon } from "../ui/Icon";
 import { baoNhanh } from "../ui/ThongBaoNhanh";
@@ -49,7 +50,8 @@ export function NutSaoChepTrichDan({
       ...(asOf ? { asOf } : {}),
       ...(versionKind ? { versionKind } : {}),
     });
-    const ok = await saoChep(text);
+    const url = new URL(voiNgay(dieuHrefFromUrn(meta.urn, path), asOf), window.location.origin).href;
+    const ok = await saoChep(`${text}\n${url}`);
     // Toast ở đáy màn hình (thay bong bóng cạnh nút, vốn tràn khỏi màn hình điện thoại).
     if (ok) baoNhanh("Đã sao chép trích dẫn");
     else baoNhanh("Chưa sao chép được. Hãy chọn đoạn văn và sao chép thủ công.", "loi");

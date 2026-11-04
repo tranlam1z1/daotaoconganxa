@@ -34,8 +34,11 @@ interface LinhVucApi {
  * `/v1/dao-tao/linh-vuc`: gộp mọi nhóm, chỉ giữ chuyên đề đã xuất bản và có bài. Chỉ chép những
  * trường trang dùng, gồm `phanTram` (null khi chưa ghi danh) và `daHoanThanh`.
  */
-export async function danhMucHoc(request: Request): Promise<LinhVucHoc[]> {
-  const { items } = await docApi<LinhVucApi>(request, "/v1/dao-tao/linh-vuc");
+export async function danhMucHoc(request: Request, nhom = "tat_ca"): Promise<LinhVucHoc[]> {
+  const { items } = await docApi<LinhVucApi>(
+    request,
+    `/v1/dao-tao/linh-vuc?nhom=${encodeURIComponent(nhom)}`,
+  );
   return items
     .map((lv) => ({
       slug: lv.slug,

@@ -8,6 +8,7 @@
  *   cây đơn vị của mình và chỉ gắn vào đơn vị trong cây đó.
  * Mọi thay đổi ghi `audit_log` (làm trong packages/db).
  */
+
 import {
   bamMatKhau,
   chuanHoaTenDangNhap,
@@ -18,6 +19,7 @@ import {
   taoMatKhauTam,
   trongPhamVi,
 } from "@qdpl/auth";
+import { NHOM_HOC_TAP } from "@qdpl/dao-tao";
 import {
   COT_NHAP_NGUOI_DUNG,
   danhSachDonVi,
@@ -194,7 +196,13 @@ nguoiDungRoute.post("/nhap", async (c) => {
   }
 });
 
+const nhomDoiTuongSchema = z
+  .array(z.enum(NHOM_HOC_TAP))
+  .max(4)
+  .transform((nhom) => [...new Set(nhom)]);
+
 const taoNguoiDungSchema = z.object({
+  nhomDoiTuong: nhomDoiTuongSchema.default([]),
   username: z.string().trim().min(1, "Nhập tên đăng nhập").max(50),
   name: z.string().trim().min(1, "Nhập họ và tên").max(200),
   role: z.enum(ROLES).default("can_bo"),
@@ -218,6 +226,7 @@ nguoiDungRoute.post("/", async (c) => {
         username,
         name: body.name,
         role: body.role,
+        nhomDoiTuong: body.nhomDoiTuong,
         unitId: body.unitId ?? null,
         rankTitle: body.rankTitle ?? null,
         email: body.email ? body.email.toLowerCase() : null,
@@ -232,6 +241,7 @@ nguoiDungRoute.post("/", async (c) => {
 });
 
 const suaNguoiDungSchema = z.object({
+  nhomDoiTuong: nhomDoiTuongSchema.optional(),
   name: z.string().trim().min(1).max(200).optional(),
   role: z.enum(ROLES).optional(),
   unitId: uuid.nullable().optional(),

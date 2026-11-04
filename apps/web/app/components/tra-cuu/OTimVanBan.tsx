@@ -4,7 +4,7 @@
  * lại rồi tự bấm tra. Trình duyệt không có nhận dạng giọng nói thì không có nút micro.
  * Ô mang id "o-tim-kiem" nên phím tắt "/" đưa con trỏ vào (root.tsx).
  */
-import { useRef } from "react";
+import { type ReactNode, useRef } from "react";
 import { Form, useNavigation } from "react-router";
 
 import { cn } from "../../lib/cn";
@@ -12,7 +12,7 @@ import { TU_KHOA_TOI_DA } from "../../lib/tra-cuu-van-ban";
 import { useNhanDangGiong } from "../giong-noi/useNhanDangGiong";
 import { Icon } from "../ui/Icon";
 
-export function OTimVanBan({ q }: { q: string }) {
+export function OTimVanBan({ q, children }: { q: string; children?: ReactNode }) {
   const inputRef = useRef<HTMLInputElement>(null);
   const g = useNhanDangGiong((text) => {
     if (!inputRef.current) return;
@@ -40,7 +40,7 @@ export function OTimVanBan({ q }: { q: string }) {
             type="search"
             defaultValue={q}
             maxLength={TU_KHOA_TOI_DA}
-            placeholder="Nhập từ khóa (Điều, khoản,...)"
+            placeholder="Số hiệu, tên văn bản hoặc từ khóa"
             autoComplete="off"
             enterKeyHint="search"
             className={cn(
@@ -73,6 +73,7 @@ export function OTimVanBan({ q }: { q: string }) {
             `Đang nghe: ${g.tamThoi}`
           ) : null}
         </p>
+        {children}
         <button
           type="submit"
           disabled={dangTra}

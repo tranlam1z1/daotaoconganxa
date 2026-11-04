@@ -9,8 +9,7 @@ import { Badge } from "../components/ui/Badge";
 import { Button } from "../components/ui/Button";
 import { EmptyState } from "../components/ui/EmptyState";
 import { Input, inputClass, Label, Notice } from "../components/ui/Field";
-import { TieuDeTrang } from "../components/ui/KhungTrang";
-import { ThanhLuuBieuMau } from "../components/ui/ThanhDinhDay";
+import { Icon } from "../components/ui/Icon";
 import { formatNgayGio, gioVietNamSangIso, isoSangGioVietNam } from "../lib/format";
 import { goiApiQuanTri, LoiApi } from "../lib/quan-tri.server";
 import { yeuCauVaiTro } from "../lib/session.server";
@@ -95,13 +94,21 @@ export default function GiaoBaiPage({ loaderData, actionData }: Route.ComponentP
   const capGoc = Math.min(...donVi.map((d) => d.cap), 1);
 
   return (
-    <section>
-      <TieuDeTrang as="h2" icon="shield" className="text-xl font-semibold">
-        Giao bài thi
-      </TieuDeTrang>
-      <p className="mt-1 text-sm text-ink-2">
-        Giao đề đang mở cho một đơn vị hoặc một người trong phạm vi quản lý, kèm hạn làm bài.
-      </p>
+    <section className="giao-bai-trang khung-trang min-w-0">
+      <header className="giao-bai-tieu-de flex items-center gap-5 rounded-t-2xl border border-line px-4 py-6 shadow-card sm:px-7">
+        <span
+          className="grid size-14 shrink-0 place-items-center rounded-2xl bg-primary-soft text-primary sm:size-[68px]"
+          aria-hidden="true"
+        >
+          <Icon name="shield" kieu="net" className="size-9" />
+        </span>
+        <div className="min-w-0">
+          <h2 className="text-2xl font-bold sm:text-[30px]">Giao bài thi</h2>
+          <p className="mt-2 text-sm text-ink-2">
+            Giao đề đang mở cho một đơn vị hoặc một người trong phạm vi quản lý, kèm hạn làm bài.
+          </p>
+        </div>
+      </header>
 
       {actionData && "loi" in actionData ? (
         <Notice tone="danger" className="mt-4">
@@ -111,11 +118,14 @@ export default function GiaoBaiPage({ loaderData, actionData }: Route.ComponentP
       {actionData && "ok" in actionData ? <Notice className="mt-4">{actionData.ok}</Notice> : null}
 
       {deThi.length === 0 ? (
-        <div className="mt-6">
+        <div className="mt-2 rounded-xl border border-line bg-surface p-4 shadow-card sm:px-7">
           <EmptyState icon="cap" title="Chưa có đề thi đang mở để giao" />
         </div>
       ) : (
-        <Form method="post" className="mt-4 space-y-4 rounded-xl border border-line bg-surface p-4">
+        <Form
+          method="post"
+          className="mt-1.5 space-y-4 rounded-xl border border-line bg-surface px-4 py-5 shadow-card sm:px-7"
+        >
           <input type="hidden" name="intent" value="giao" />
           <div>
             <Label htmlFor="gb-de">Đề thi</Label>
@@ -146,10 +156,11 @@ export default function GiaoBaiPage({ loaderData, actionData }: Route.ComponentP
               ].map((o) => (
                 <label
                   key={o.v}
-                  className="flex min-h-11 cursor-pointer items-center gap-2 rounded-lg border border-line-strong px-3 text-[15px] has-[:checked]:border-primary has-[:checked]:bg-primary-soft"
+                  className="flex min-h-12 cursor-pointer items-center gap-3 rounded-lg border border-line-strong px-4 text-[15px] has-[:checked]:border-primary has-[:checked]:bg-primary-soft"
                 >
                   <input
                     type="radio"
+                    className="size-[18px] accent-primary"
                     name="loai"
                     value={o.v}
                     checked={loai === o.v}
@@ -176,7 +187,12 @@ export default function GiaoBaiPage({ loaderData, actionData }: Route.ComponentP
                 ))}
               </select>
               <label className="mt-2 flex min-h-11 items-center gap-2 text-[15px]">
-                <input type="checkbox" name="include_subunits" defaultChecked />
+                <input
+                  type="checkbox"
+                  name="include_subunits"
+                  className="size-4 accent-primary"
+                  defaultChecked
+                />
                 Kèm các đơn vị cấp dưới
               </label>
             </div>
@@ -210,48 +226,56 @@ export default function GiaoBaiPage({ loaderData, actionData }: Route.ComponentP
             <Label htmlFor="gb-ghi-chu">Ghi chú cho người làm bài (không bắt buộc)</Label>
             <Input id="gb-ghi-chu" name="note" maxLength={1000} />
           </div>
-          <ThanhLuuBieuMau
-            className="bg-surface"
-            loi={actionData && "loi" in actionData ? actionData.loi : null}
-            ok={actionData && "ok" in actionData ? actionData.ok : null}
-          >
-            <Button type="submit" disabled={busy} className="min-h-12 w-full md:w-auto">
-              Giao bài
+          <div>
+            <Button type="submit" disabled={busy} className="min-h-11 w-full px-7 sm:w-auto">
+              {busy ? "Đang xử lý…" : "Giao bài"}
             </Button>
-          </ThanhLuuBieuMau>
+          </div>
         </Form>
       )}
 
-      <h3 className="mt-8 font-sans text-base font-semibold">Bài đã giao</h3>
-      {giaoBai.length === 0 ? (
-        <EmptyState gon icon="list" title="Chưa giao bài nào trong phạm vi quản lý" className="mt-3" />
-      ) : (
-        <ul className="mt-3 divide-y divide-line rounded-xl border border-line bg-surface">
-          {giaoBai.map((g) => (
-            <li key={g.id} className="px-4 py-3">
-              <div className="flex flex-wrap items-center gap-x-3 gap-y-1">
-                <span className="font-semibold">{g.exam_title}</span>
-                {g.cancelled_at ? <Badge tone="muted">Đã hủy</Badge> : null}
-              </div>
-              <p className="text-sm text-ink-2">
-                {g.unit_name
-                  ? `${g.unit_name}${g.include_subunits ? " và đơn vị cấp dưới" : ""}`
-                  : `Cá nhân: ${g.account_name ?? ""}`}{" "}
-                · hạn {formatNgayGio(g.due_at)} · {g.so_da_nop}/{g.so_nguoi} người đã nộp
-              </p>
-              {!g.cancelled_at ? (
-                <Form method="post" className="mt-1">
-                  <input type="hidden" name="intent" value="huy" />
-                  <input type="hidden" name="id" value={g.id} />
-                  <Button type="submit" variant="ghost" disabled={busy} className="px-0 text-danger">
-                    Hủy giao bài
-                  </Button>
-                </Form>
-              ) : null}
-            </li>
-          ))}
-        </ul>
-      )}
+      <section
+        aria-labelledby="gb-da-giao"
+        className="mt-3 rounded-xl border border-line bg-surface px-4 py-3 shadow-card sm:px-7"
+      >
+        <h3 id="gb-da-giao" className="font-sans text-lg font-bold">
+          Bài đã giao
+        </h3>
+        {giaoBai.length === 0 ? (
+          <EmptyState
+            gon
+            icon="list"
+            title="Chưa giao bài nào trong phạm vi quản lý"
+            className="giao-bai-trong mt-2 text-sm text-ink-2"
+          />
+        ) : (
+          <ul className="mt-3 divide-y divide-line rounded-xl border border-line bg-surface">
+            {giaoBai.map((g) => (
+              <li key={g.id} className="px-4 py-3">
+                <div className="flex flex-wrap items-center gap-x-3 gap-y-1">
+                  <span className="font-semibold">{g.exam_title}</span>
+                  {g.cancelled_at ? <Badge tone="muted">Đã hủy</Badge> : null}
+                </div>
+                <p className="text-sm text-ink-2">
+                  {g.unit_name
+                    ? `${g.unit_name}${g.include_subunits ? " và đơn vị cấp dưới" : ""}`
+                    : `Cá nhân: ${g.account_name ?? ""}`}{" "}
+                  · hạn {formatNgayGio(g.due_at)} · {g.so_da_nop}/{g.so_nguoi} người đã nộp
+                </p>
+                {!g.cancelled_at ? (
+                  <Form method="post" className="mt-1">
+                    <input type="hidden" name="intent" value="huy" />
+                    <input type="hidden" name="id" value={g.id} />
+                    <Button type="submit" variant="ghost" disabled={busy} className="px-0 text-danger">
+                      Hủy giao bài
+                    </Button>
+                  </Form>
+                ) : null}
+              </li>
+            ))}
+          </ul>
+        )}
+      </section>
     </section>
   );
 }

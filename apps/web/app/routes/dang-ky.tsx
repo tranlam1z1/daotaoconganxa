@@ -2,12 +2,13 @@
  * Tự đăng ký tài khoản. Đăng ký xong là đăng nhập luôn (không gửi email kích hoạt) và tới trang Tài
  * khoản xem trạng thái xác minh. Sau này đăng nhập bằng email và mật khẩu ở /dang-nhap.
  *
- * Người đăng ký khai số hiệu CAND, đơn vị công tác, cấp bậc và chức vụ. Tài khoản chờ quản trị viên
+ * Người đăng ký khai mã cán bộ (nếu có), cơ quan hoặc tổ chức Đảng, chức danh và chức vụ. Tài khoản chờ quản trị viên
  * hoặc cán bộ quản lý đơn vị xác minh (migration 0064); trong lúc chờ chỉ dùng được trang Tài khoản
  * và các trang tra cứu công khai.
  */
 import { Form, Link, redirect, useNavigation } from "react-router";
 import { KhaiXacMinh } from "../components/tai-khoan/KhaiXacMinh";
+import { BrandName } from "../components/ui/BrandName";
 import { Button } from "../components/ui/Button";
 import { Card } from "../components/ui/Card";
 import { Label, Notice } from "../components/ui/Field";
@@ -22,7 +23,7 @@ import {
   layToken,
   nguoiDungHienTai,
 } from "../lib/auth.server";
-import { pageMeta, SITE_NAME, SITE_TAGLINE } from "../lib/site";
+import { pageMeta } from "../lib/site";
 import type { Route } from "./+types/dang-ky";
 
 export function meta(_: Route.MetaArgs) {
@@ -81,12 +82,7 @@ export default function DangKy({ loaderData, actionData }: Route.ComponentProps)
       {/* Như trang đăng nhập: không có thanh đầu trang, logo đứng trên, tên căn giữa bên dưới. */}
       <Link to="/" className="flex flex-col items-center gap-3 text-center">
         <LogoHocTap className="h-20 w-auto" />
-        <span className="flex flex-col gap-1">
-          <span className="font-display text-xl font-bold uppercase leading-tight text-primary">
-            {SITE_NAME}
-          </span>
-          <span className="text-xs uppercase tracking-[0.14em] leading-tight text-ink-2">{SITE_TAGLINE}</span>
-        </span>
+        <BrandName />
       </Link>
 
       <Card className="mt-8 w-full">
@@ -94,7 +90,8 @@ export default function DangKy({ loaderData, actionData }: Route.ComponentProps)
           Đăng ký tài khoản
         </TieuDeTrang>
         <p className="mt-2 text-sm leading-relaxed text-ink-2">
-          Tạo tài khoản để học, luyện tập và thi. Tra cứu văn bản không cần đăng nhập.
+          Dành cho cán bộ, công chức, viên chức và đảng viên đăng ký học tập, luyện tập và thi. Tra cứu văn
+          bản không cần đăng nhập.
         </p>
         <p className="mt-2 text-sm leading-relaxed text-ink-2">
           Tài khoản cần được cán bộ quản lý đơn vị hoặc quản trị viên xác minh. Học, luyện tập và thi mở sau

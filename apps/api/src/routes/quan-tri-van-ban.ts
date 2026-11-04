@@ -99,6 +99,17 @@ async function soTrangTepGoc(uri: string): Promise<number> {
 }
 
 const thuocTinh = z.object({
+  documentGroup: z.enum(["phap_luat", "dang", "khac", "chua_phan_loai"]).optional(),
+  sourceUrl: z
+    .string()
+    .trim()
+    .max(2000)
+    .url()
+    .refine((s) => {
+      const u = new URL(s);
+      return ["http:", "https:"].includes(u.protocol) && !u.username && !u.password;
+    }, "Nguồn phải dùng HTTP/HTTPS và không chứa thông tin đăng nhập")
+    .nullish(),
   title: z.string().trim().min(5, "Tên văn bản cần ít nhất 5 ký tự.").max(1000),
   issuer: z.string().trim().max(300).nullish(),
   signer: z.string().trim().max(200).nullish(),
@@ -303,7 +314,7 @@ async function demLenhNhamVao(urn: string): Promise<number> {
 async function luuNoiDung(doc: DocumentRow, md: string, nguoiSua: string) {
   const { parsed, tomTat } = phanTich(md);
   await luuPhienBanGoc(doc, md, parsed, nguoiSua);
-  const suaDoi = laVanBanSuaDoi(doc.title, parsed.root);
+  const suaDoi = doc.document_group !== "dang" && laVanBanSuaDoi(doc.title, parsed.root);
   const hangDoi = await xepViecSauLuu(doc.urn, suaDoi, (await demLenhNhamVao(doc.urn)) > 0);
   return { tomTat, suaDoi, hangDoi };
 }
@@ -558,6 +569,10 @@ export type VanBanMoi = z.infer<typeof taoMoiSchema>;
  */
 export async function taoVanBanMoi(b: VanBanMoi, nguoiEmail: string) {
   const loai = docTypeByCode(b.docType)!;
+  const documentGroup =
+    b.documentGroup ?? (b.docType === "vb-dang" ? "dang" : loai.isNormative ? "phap_luat" : "chua_phan_loai");
+  if ((documentGroup === "dang") !== (b.docType === "vb-dang"))
+    throw badRequest("Văn bản Đảng cần chọn loại Văn bản của Đảng và nhóm Văn bản Đảng.");
   const soKyHieu = normalizeSoKyHieu(b.soKyHieu);
   const urn = buildUrn({ docType: b.docType, soKyHieu, ...(b.locality ? { locality: b.locality } : {}) });
   if (await getDocumentByUrn(urn)) {
@@ -572,12 +587,12 @@ export async function taoVanBanMoi(b: VanBanMoi, nguoiEmail: string) {
   const [row] = (await sql`
     INSERT INTO documents (urn, doc_type, rank, is_normative, so_ky_hieu, locality, title, short_title,
                            issuer_name, signer, issued_date, effective_from, effective_to, fields,
-                           status, summary, primary_source, original_file_uri, original_file_pages,
+                           document_group, status, summary, primary_source, original_file_uri, original_file_pages,
                            updated_at)
     VALUES (${urn}, ${b.docType}, ${loai.rank}, ${loai.isNormative}, ${soKyHieu}, ${b.locality ?? null},
             ${b.title}, ${`${loai.name} ${soKyHieu}`}, ${b.issuer || null}, ${b.signer || null},
             ${b.issuedDate || null}, ${b.effectiveFrom || null}, ${b.effectiveTo || null}, ${b.fields},
-            ${b.status ?? trangThaiTheoNgay(b)}, ${b.summary || null}, 'quan-tri', ${b.tepGoc ?? null}, ${soTrang}, now())
+            ${documentGroup}, ${b.status ?? (documentGroup === "dang" ? "khong_xac_dinh" : trangThaiTheoNgay(b))}, ${b.summary || null}, ${b.sourceUrl || "quan-tri"}, ${b.tepGoc ?? null}, ${soTrang}, now())
     RETURNING *`) as any[];
   const doc = (await getDocumentByUrn(row.urn))!;
   if (!coNoiDung) {
@@ -591,7 +606,7 @@ export async function taoVanBanMoi(b: VanBanMoi, nguoiEmail: string) {
     throw err;
   }
 
-  const suaDoi = laVanBanSuaDoi(b.title, parsed.root);
+  const suaDoi = documentGroup !== "dang" && laVanBanSuaDoi(b.title, parsed.root);
   const hangDoi = await xepViecSauLuu(urn, suaDoi, (await demLenhNhamVao(urn)) > 0);
   await ghiNhatKy(nguoiEmail, "van_ban.tao", urn, { soNut: tomTat.soNut, hangDoi });
   return { urn, tomTat, laVanBanSuaDoi: suaDoi, hangDoi };
@@ -607,6 +622,9 @@ quanTriVanBanRoute.put("/:urn", async (c) => {
   const cu = await getDocumentByUrn(urn);
   if (!cu) throw notFound(`Không tìm thấy văn bản có URN ${urn}`);
   const b = await parseBody(c, suaSchema);
+  const documentGroup = b.documentGroup ?? cu.document_group ?? "chua_phan_loai";
+  if ((documentGroup === "dang") !== (cu.doc_type === "vb-dang"))
+    throw badRequest("Loại Văn bản của Đảng phải đi cùng nhóm Văn bản Đảng.");
   const [goc] = (await sql`
     SELECT markdown FROM document_versions
     WHERE document_id = ${cu.id} AND kind = 'original' ORDER BY version_no LIMIT 1`) as Array<{
@@ -622,7 +640,9 @@ quanTriVanBanRoute.put("/:urn", async (c) => {
       title = ${b.title}, issuer_name = ${b.issuer || null}, signer = ${b.signer || null},
       issued_date = ${b.issuedDate || null}, effective_from = ${b.effectiveFrom || null},
       effective_to = ${b.effectiveTo || null}, fields = ${b.fields},
-      status = ${b.status ?? trangThaiTheoNgay(b)}, summary = ${b.summary || null},
+      document_group = ${documentGroup},
+      primary_source = CASE WHEN ${b.sourceUrl !== undefined} THEN ${b.sourceUrl ?? null} ELSE primary_source END,
+      status = ${b.status ?? (documentGroup === "dang" ? cu.status : trangThaiTheoNgay(b))}, summary = ${b.summary || null},
       original_file_uri = COALESCE(${b.tepGoc ?? null}, original_file_uri),
       original_file_pages = COALESCE(${soTrang}, original_file_pages), updated_at = now()
     WHERE id = ${cu.id}`;
@@ -642,6 +662,8 @@ quanTriVanBanRoute.put("/:urn", async (c) => {
     ({ tomTat, suaDoi, hangDoi } = await luuNoiDung(doc, b.markdown, nguoi.email));
   }
   await ghiNhatKy(nguoi.email, "van_ban.sua", urn, {
+    documentGroup,
+    sourceUrl: b.sourceUrl,
     doiNoiDung,
     doiNgay,
     ...(tomTat ? { soNut: tomTat.soNut } : {}),

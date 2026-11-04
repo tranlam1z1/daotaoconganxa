@@ -191,19 +191,21 @@ export default function LamBai({ loaderData, actionData }: Route.ComponentProps)
   return (
     <KhungTrang variant="workspace" className="wrap max-w-3xl pb-28">
       <div className="sticky top-16 z-30 -mx-4 border-b border-line bg-canvas/95 px-4 py-2 backdrop-blur-md sm:-mx-6 sm:px-6">
-        <div className="flex items-center gap-2">
+        <div className="flex items-center gap-2 sm:gap-3">
           <DongHo giayConLai={luot.giay_con_lai} onHetGio={hetGio} />
           <button
             type="button"
             onClick={() => setMoLuoi((v) => !v)}
             aria-expanded={moLuoi}
             aria-controls="luoi-cau"
-            className="lun flex min-h-11 items-center rounded-lg px-3 text-[15px] font-medium text-ink-2 hover:bg-surface-2"
+            className="lun flex min-h-11 min-w-0 flex-1 flex-col items-center justify-center rounded-lg px-1 text-sm font-medium leading-snug text-ink-2 hover:bg-surface-2 sm:flex-row sm:justify-start sm:gap-2 sm:px-3 sm:text-[15px]"
           >
-            Câu {dangXem}/{luot.so_cau}
-            <span className="ml-1 text-sm text-ink-3">({daLam.size} đã làm)</span>
+            <span className="whitespace-nowrap">
+              Câu {dangXem}/{luot.so_cau}
+            </span>
+            <span className="whitespace-nowrap text-xs text-ink-3 sm:text-sm">{daLam.size} đã làm</span>
           </button>
-          <Button className="ml-auto" onClick={() => setMoXacNhan(true)} disabled={dangNop}>
+          <Button className="shrink-0" onClick={() => setMoXacNhan(true)} disabled={dangNop}>
             Nộp bài
           </Button>
         </div>

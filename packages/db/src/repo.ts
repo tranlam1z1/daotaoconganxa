@@ -8,6 +8,8 @@ import { contextPath, deriveDocStatus, nodeKey, plainText, walk } from "@qdpl/le
 import { sql } from "./client.ts";
 
 export interface DocumentRow {
+  document_group?: string;
+  primary_source?: string | null;
   id: string;
   urn: string;
   doc_type: string;
@@ -59,17 +61,22 @@ export function normalizeDates<T extends Record<string, any>>(row: T): T {
 }
 
 export async function upsertDocument(
-  meta: DocumentMeta & { locality?: string; isDraft?: boolean; primarySource?: string },
+  meta: DocumentMeta & {
+    locality?: string;
+    isDraft?: boolean;
+    primarySource?: string;
+    documentGroup?: string;
+  },
 ) {
   const rows = await sql`
     INSERT INTO documents (urn, doc_type, rank, is_normative, so_ky_hieu, locality, title, short_title,
                            issuer_name, signer, issued_date, effective_from, effective_to,
-                           gazette_no, gazette_date, fields, status, summary, is_draft, primary_source, updated_at)
+                           gazette_no, gazette_date, fields, status, summary, is_draft, primary_source, document_group, updated_at)
     VALUES (${meta.urn}, ${meta.docType}, ${meta.rank}, ${meta.isNormative}, ${meta.soKyHieu}, ${meta.locality ?? null},
             ${meta.title}, ${meta.shortTitle}, ${meta.issuer}, ${meta.signer ?? null},
             ${meta.issuedDate || null}, ${meta.effectiveFrom || null}, ${meta.effectiveTo || null},
             ${meta.gazetteNo ?? null}, ${meta.gazetteDate ?? null}, ${meta.fields}, ${meta.status},
-            ${meta.summary ?? null}, ${meta.isDraft ?? false}, ${meta.primarySource ?? null}, now())
+            ${meta.summary ?? null}, ${meta.isDraft ?? false}, ${meta.primarySource ?? null}, ${meta.documentGroup ?? (meta.docType === "vb-dang" ? "dang" : meta.isNormative ? "phap_luat" : "chua_phan_loai")}, now())
     ON CONFLICT (urn) DO UPDATE SET
       doc_type = EXCLUDED.doc_type, rank = EXCLUDED.rank, title = EXCLUDED.title,
       short_title = EXCLUDED.short_title, issuer_name = COALESCE(EXCLUDED.issuer_name, documents.issuer_name),
@@ -386,24 +393,17 @@ export { nodeKey, sql };
  * có hiệu lực tại `asOf`, đồng thời xét ngày hiệu lực/hết hiệu lực của cả văn bản.
  */
 export async function getStatusAsOf(documentId: string, asOf: string): Promise<string> {
-  const rows = await sql`
-    SELECT v.status, d.effective_from, d.effective_to
-    FROM document_versions v
-    JOIN documents d ON d.id = v.document_id
-    WHERE v.document_id = ${documentId} AND v.valid_from <= ${asOf}
-      AND (v.valid_to IS NULL OR v.valid_to > ${asOf})
-    ORDER BY v.valid_from DESC, v.version_no DESC
-    LIMIT 1`;
-  const row = rows[0] as any;
-  if (!row) {
-    // Chưa có phiên bản nào có hiệu lực tại thời điểm này.
-    const [doc] = await sql`SELECT effective_from FROM documents WHERE id = ${documentId}`;
-    const ef = d((doc as any)?.effective_from);
-    return ef && ef > asOf ? "chua_hieu_luc" : "khong_xac_dinh";
-  }
-  const ef = d(row.effective_from);
-  const et = d(row.effective_to);
+  const [doc] =
+    await sql`SELECT effective_from,effective_to,document_group,status FROM documents WHERE id=${documentId}`;
+  if (!doc) return "khong_xac_dinh";
+  if (doc.document_group === "dang") return String(doc.status);
+  const ef = d(doc.effective_from);
+  const et = d(doc.effective_to);
   if (et && et <= asOf) return "het_hieu_luc";
   if (ef && ef > asOf) return "chua_hieu_luc";
-  return row.status as string;
+  const [v] =
+    await sql`SELECT status FROM document_versions WHERE document_id=${documentId} AND valid_from<=${asOf}::date AND(valid_to IS NULL OR valid_to>${asOf}::date) ORDER BY valid_from DESC,version_no DESC LIMIT 1`;
+  if (v) return String(v.status);
+  // Chưa có phiên bản nội dung (mới nhập thông tin chung, tệp PDF): suy theo ngày hiệu lực.
+  return ef ? "con_hieu_luc" : "khong_xac_dinh";
 }

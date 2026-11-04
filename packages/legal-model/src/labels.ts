@@ -163,6 +163,104 @@ export function matchLabel(line: string): LabelMatch | undefined {
   return undefined;
 }
 
+/* ------------------------------------------------------------------ */
+/* Văn bản đánh số mục, không chia Điều                                */
+/* ------------------------------------------------------------------ */
+/*
+ * Quy định, hướng dẫn của Đảng (ví dụ Quy định 208-QĐ/TW thi hành Điều lệ Đảng) không có "Điều":
+ * trong từng Chương, nội dung đánh số mục "1.", "1.1.", "1.1.1.". Mục cấp 1 đóng vai Điều để soạn
+ * bài, sinh câu hỏi và viện dẫn; số mục bắt đầu lại ở mỗi Chương nên khóa của nó mang số Chương:
+ * "c<chương>-<mục>", hoặc "m<mục>" khi văn bản không chia Chương. Mục 1.2 là khoản khóa "2",
+ * mục 1.2.1 là điểm khóa "1"; ý "a)" dưới tiết 1.2.1 là điểm khóa "1a".
+ */
+
+/** Mục đánh số ở đầu dòng: "1." (cấp 1), "1.2." (cấp 2), "1.2.1." (cấp 3). */
+export interface MucSo {
+  so: number[];
+  rest: string;
+}
+
+export function matchMucSo(line: string): MucSo | undefined {
+  const m = /^(\d{1,3}(?:\.\d{1,3}){0,2})\.(?:\s+(.*))?$/.exec(line.normalize("NFC").trim());
+  if (!m) return undefined;
+  return { so: m[1]!.split(".").map(Number), rest: m[2]?.trim() ?? "" };
+}
+
+/** Khóa của mục cấp 1, tức "Điều" của văn bản đánh số mục. */
+export function khoaMucSo(chuong: string | undefined, so: number): string {
+  return chuong ? `c${chuong}-${so}` : `m${so}`;
+}
+
+/** Tách khóa mục cấp 1: "c2-3" -> { chuong: 2, so: 3 }. Không phải khóa mục thì undefined. */
+export function tachKhoaMucSo(key: string): { chuong?: number; so: number } | undefined {
+  const m = /^(?:c(\d+)-|m)(\d+)$/.exec(key);
+  if (!m) return undefined;
+  return m[1] ? { chuong: Number(m[1]), so: Number(m[2]) } : { so: Number(m[2]) };
+}
+
+function intToRoman(n: number): string {
+  const bang: Array<[number, string]> = [
+    [1000, "M"],
+    [900, "CM"],
+    [500, "D"],
+    [400, "CD"],
+    [100, "C"],
+    [90, "XC"],
+    [50, "L"],
+    [40, "XL"],
+    [10, "X"],
+    [9, "IX"],
+    [5, "V"],
+    [4, "IV"],
+    [1, "I"],
+  ];
+  let con = n;
+  let ra = "";
+  for (const [giaTri, ky] of bang) {
+    while (con >= giaTri) {
+      ra += ky;
+      con -= giaTri;
+    }
+  }
+  return ra;
+}
+
+/** Nhãn của nút Điều theo khóa: "15" -> "Điều 15", "c1-2" -> "Mục 2 Chương I". */
+export function nhanDieuTheoKhoa(key: string): string {
+  const muc = tachKhoaMucSo(key);
+  if (!muc) return `Điều ${key}`;
+  return muc.chuong ? `Mục ${muc.so} Chương ${intToRoman(muc.chuong)}` : `Mục ${muc.so}`;
+}
+
+/** Điểm của văn bản đánh số mục: "1" -> "tiết 3.1.1", "1a" -> "ý a tiết 3.1.1", "a" -> "ý a". */
+function cumDiemMucSo(so: number, khoan: string | undefined, diem: string): string {
+  const m = /^(\d+)?(.*)$/.exec(diem)!;
+  const tiet = m[1] ? `tiết ${so}.${khoan}.${m[1]}` : "";
+  return [m[2] ? `ý ${m[2]}` : "", tiet].filter(Boolean).join(" ");
+}
+
+/**
+ * Đọc path nút thành cụm viện dẫn, từ cấp nhỏ lên: "dieu-15.khoan-2.diem-a" -> "điểm a khoản 2
+ * Điều 15"; với văn bản đánh số mục: "dieu-c2-3.khoan-1.diem-2" -> "tiết 3.1.2 điểm 3.1 Mục 3
+ * Chương II". Path không bắt đầu bằng Điều thì trả chuỗi rỗng.
+ */
+export function cumViDanTheoPath(path: string): string {
+  const m = /^dieu-([^.]+)(?:\.khoan-([^.]+))?(?:\.diem-([^.]+))?/.exec(path);
+  if (!m) return "";
+  const [, dieu, khoan, diem] = m as unknown as [string, string, string | undefined, string | undefined];
+  const muc = tachKhoaMucSo(dieu);
+  const parts: string[] = [];
+  if (!muc) {
+    if (diem) parts.push(`điểm ${diem}`);
+    if (khoan) parts.push(`khoản ${khoan}`);
+  } else {
+    if (diem) parts.push(cumDiemMucSo(muc.so, khoan, diem));
+    if (khoan) parts.push(`điểm ${muc.so}.${khoan}`);
+  }
+  parts.push(nhanDieuTheoKhoa(dieu));
+  return parts.join(" ");
+}
+
 /** Nhãn tiếp theo trong dãy (dùng để kiểm tra tính liên tục). */
 export function nextKey(kind: NodeKind, key: string): string | undefined {
   if (kind === "diem") {

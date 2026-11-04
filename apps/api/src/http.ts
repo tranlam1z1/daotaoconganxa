@@ -100,7 +100,7 @@ function issueOf(i: z.core.$ZodIssue): { duong_dan: string; loi: string } {
 
 /** Ngày hôm nay dạng YYYY-MM-DD. */
 export function today(): string {
-  return new Date().toISOString().slice(0, 10);
+  return new Date(Date.now() + 7 * 60 * 60 * 1000).toISOString().slice(0, 10);
 }
 
 /** Chuẩn hóa giá trị date của postgres về YYYY-MM-DD. */

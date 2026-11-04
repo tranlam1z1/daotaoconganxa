@@ -5,6 +5,7 @@
  * packages/dao-tao/src/cau-hoi.ts và phải đổi cùng lúc khi bên đó đổi.
  */
 import type { Tone } from "./format";
+import { taoSlug } from "./soan-bai-giang";
 
 export type LoaiCauHoi =
   | "mot_dap_an"
@@ -261,6 +262,9 @@ export interface ChuDeCauHoi {
   name: string;
   parent_id: string | null;
   field_name: string | null;
+  ordinal: number;
+  /** Ẩn khỏi ô chọn; dữ liệu đã gắn vẫn giữ. */
+  hidden: boolean;
   so_cau: number;
   so_da_duyet: number;
 }
@@ -273,8 +277,15 @@ export function tachDeDienKhuyet(stem: string): string[] {
   return stem.split(O_TRONG_RE);
 }
 
-/** Chủ đề xếp theo cây, kèm độ sâu để thụt lề trong ô chọn. */
-export function sapXepCayChuDe(ds: ChuDeCauHoi[]): Array<ChuDeCauHoi & { cap: number }> {
+/**
+ * Chủ đề xếp theo cây, kèm độ sâu để thụt lề trong ô chọn. Bỏ chủ đề ẩn cùng cây con của nó,
+ * trừ khi `caAn`. `giu` (id hoặc mã): giá trị đang chọn, luôn giữ lại dù bị ẩn, để lưu form
+ * không xoá mất chủ đề đã gắn.
+ */
+export function sapXepCayChuDe(
+  ds: ChuDeCauHoi[],
+  { caAn = false, giu }: { caAn?: boolean; giu?: string | null } = {},
+): Array<ChuDeCauHoi & { cap: number }> {
   const con = new Map<string | null, ChuDeCauHoi[]>();
   const coId = new Set(ds.map((t) => t.id));
   for (const t of ds) {
@@ -284,10 +295,26 @@ export function sapXepCayChuDe(ds: ChuDeCauHoi[]): Array<ChuDeCauHoi & { cap: nu
   const ra: Array<ChuDeCauHoi & { cap: number }> = [];
   const di = (cha: string | null, cap: number) => {
     for (const t of con.get(cha) ?? []) {
+      if (t.hidden && !caAn) continue;
       ra.push({ ...t, cap });
       di(t.id, cap + 1);
     }
   };
   di(null, 0);
+  const dangChon = giu ? ds.find((t) => t.id === giu || t.code === giu) : undefined;
+  if (dangChon && !ra.some((t) => t.id === dangChon.id)) ra.push({ ...dangChon, cap: 0 });
   return ra;
+}
+
+/**
+ * Mã chủ đề mới sinh từ tên ("Tốc độ" → "toc-do"), thêm -2, -3... nếu trùng mã đã có: API tạo
+ * chủ đề ghi đè theo mã, trùng thì mất chủ đề cũ.
+ */
+export function maChuDeMoi(ten: string, daCo: Set<string>): string {
+  const goc = taoSlug(ten).slice(0, 74);
+  const co = goc.length >= 2 ? goc : "chu-de";
+  if (!daCo.has(co)) return co;
+  let i = 2;
+  while (daCo.has(`${co}-${i}`)) i++;
+  return `${co}-${i}`;
 }

@@ -27,6 +27,8 @@ export default [
 
   // Mục Tra cứu trên header: chọn giữa văn bản và tra cứu nhanh (docs/PLAN.md GĐ5).
   route("tra-cuu", "routes/tra-cuu.tsx"),
+  route("tra-cuu/thu-tuc-hanh-chinh", "routes/thu-tuc-hanh-chinh.tsx"),
+  route("dich-vu-cong", "routes/dich-vu-cong.tsx"),
   route("tra-cuu-nhanh", "routes/tra-cuu-nhanh._index.tsx"),
   route("tra-cuu-nhanh/muc-phat", "routes/tra-cuu-nhanh.muc-phat.tsx"),
   route("tra-cuu-nhanh/toc-do", "routes/tra-cuu-nhanh.toc-do.tsx"),
@@ -114,6 +116,7 @@ export default [
     route("nguoi-dung/mau", "routes/quan-tri.nguoi-dung.mau.tsx"),
     // Ngân hàng câu hỏi (docs/PLAN.md GĐ3). Đường tĩnh "moi", "tep/:loai" khai trước ":id".
     route("cau-hoi", "routes/quan-tri.cau-hoi.tsx"),
+    route("chu-de", "routes/quan-tri.chu-de.tsx"),
     route("cau-hoi/moi", "routes/quan-tri.cau-hoi.sua.tsx", { id: "quan-tri-cau-hoi-moi" }),
     route("cau-hoi/tep/:loai", "routes/quan-tri.cau-hoi.tep.tsx"),
     route("cau-hoi/:id", "routes/quan-tri.cau-hoi.sua.tsx"),

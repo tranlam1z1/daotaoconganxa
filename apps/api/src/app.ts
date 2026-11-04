@@ -31,6 +31,7 @@ import { nodes } from "./routes/nodes.ts";
 import { quanTri } from "./routes/quan-tri.ts";
 import { quanTriVanBanRoute } from "./routes/quan-tri-van-ban.ts";
 import { searchRoute } from "./routes/search.ts";
+import { searchDocuments } from "./routes/search-documents.ts";
 import { thiRoute } from "./routes/thi.ts";
 import { thongBao } from "./routes/thong-bao.ts";
 import { toi } from "./routes/toi.ts";
@@ -129,6 +130,7 @@ export function createApp() {
   app.route("/api/v1/quan-tri/du-lieu-tra-cuu", duLieuTraCuuRoute);
   app.route("/v1/documents", documents);
   app.route("/v1/nodes", nodes);
+  app.route("/v1/search/documents", searchDocuments);
   app.route("/v1/search", searchRoute);
   app.route("/v1/tra-cuu/bien-bao", bienBao);
   app.route("/v1/tra-cuu", traCuuNhanh);

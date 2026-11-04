@@ -119,6 +119,7 @@ export interface ChiTietChuyenDe {
     asOf: string;
     fieldId: string | null;
     audienceGroup: string;
+    nhomHocTap: string[];
     ordinal: number;
     defaultMode: string;
   };
@@ -196,6 +197,7 @@ export interface ChuDeNganHang {
   name: string;
   field_name: string | null;
   so_da_duyet: number;
+  hidden: boolean;
 }
 
 /* ------------------------------------------------------------------ */

@@ -50,6 +50,10 @@ export async function chuDeLuyenTap(accountId: string): Promise<ChuDeLuyenTapRow
     JOIN cay ON cay.goc = t.id
     LEFT JOIN questions q ON q.topic_id = cay.id AND q.status = 'da_duyet'
     LEFT JOIN dung ON dung.question_id = q.id
+    -- Bỏ chủ đề bị ẩn và mọi chủ đề nằm dưới nó.
+    WHERE NOT EXISTS (
+      SELECT 1 FROM cay c JOIN question_topics h ON h.id = c.goc AND h.hidden WHERE c.id = t.id
+    )
     GROUP BY t.id
     ORDER BY t.ordinal, t.name`;
 }

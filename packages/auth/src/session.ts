@@ -52,7 +52,7 @@ export async function createSession(
  */
 export async function principalFromToken(token: string): Promise<Principal | undefined> {
   const [row] = (await sql`
-    SELECT s.id AS session_id, a.id AS account_id, a.email, a.username, a.name, a.role, a.enabled,
+    SELECT s.id AS session_id, a.id AS account_id, a.email, a.username, a.name, a.role, a.nhom_doi_tuong, a.enabled,
            a.hosted_domain, a.unit_id, u.path::text AS unit_path, a.must_change_password, a.la_khach,
            a.xac_minh
     FROM sessions s
@@ -70,6 +70,7 @@ export async function principalFromToken(token: string): Promise<Principal | und
     email: row.email ?? row.username,
     name: row.name ?? undefined,
     role: row.role as Role,
+    nhomDoiTuong: row.nhom_doi_tuong,
     // Tài khoản Google không có tên đăng nhập; tài khoản cán bộ luôn có.
     source: row.username ? "mat_khau" : "google",
     hostedDomain: row.hosted_domain ?? undefined,

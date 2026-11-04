@@ -199,6 +199,9 @@ function KhungQuyTrinh() {
     <>
       <Truong id="kind" nhan="Loại quy trình">
         <select id="kind" name="kind" required defaultValue="vi_pham" className={o}>
+          <option value="hanh_chinh">Thủ tục hành chính</option>
+          <option value="nghiep_vu">Quy trình nghiệp vụ</option>
+          <option value="cong_tac_dang">Công tác Đảng</option>
           <option value="vi_pham">Xử lý vi phạm</option>
           <option value="tai_nan">Xử lý tai nạn</option>
         </select>

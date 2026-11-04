@@ -121,6 +121,36 @@ describe("chủ đề và tạo câu", () => {
     expect(r.body.code).toBe(CHU_DE);
   });
 
+  test("sửa, ẩn, chặn vòng cha con và xoá chủ đề trống", async () => {
+    const con = `${PREFIX}-con`;
+    await goi("POST", `${BASE}/chu-de`, {
+      token: tk.quanLy,
+      body: { code: con, name: "Con", parent_code: CHU_DE },
+    });
+
+    const sua = await goi("PATCH", `${BASE}/chu-de/${con}`, {
+      token: tk.quanLy,
+      body: { name: "Con mới", hidden: true },
+    });
+    expect(sua.status).toBe(200);
+    expect(sua.body.name).toBe("Con mới");
+    expect(sua.body.hidden).toBe(true);
+    const ds = await goi("GET", `${BASE}/chu-de`, { token: tk.quanLy });
+    expect(ds.body.items.find((t: { code: string }) => t.code === con).hidden).toBe(true);
+
+    // Cha không được nằm dưới chính nó.
+    const vong = await goi("PATCH", `${BASE}/chu-de/${CHU_DE}`, {
+      token: tk.quanLy,
+      body: { parent_code: con },
+    });
+    expect(vong.status).toBe(400);
+
+    // Cha còn chủ đề con trỏ tới nên không xoá được; con trống thì xoá được.
+    expect((await goi("DELETE", `${BASE}/chu-de/${CHU_DE}`, { token: tk.quanLy })).status).toBe(409);
+    expect((await goi("DELETE", `${BASE}/chu-de/${con}`, { token: tk.quanLy })).status).toBe(200);
+    expect((await goi("DELETE", `${BASE}/chu-de/${con}`, { token: tk.quanLy })).status).toBe(404);
+  });
+
   test("câu không hợp lệ bị từ chối kèm danh sách lỗi", async () => {
     const r = await goi("POST", `${BASE}/cau-hoi`, {
       token: tk.quanLy,

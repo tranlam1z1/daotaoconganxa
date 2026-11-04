@@ -1,3 +1,4 @@
+/* biome-ignore-all lint/a11y/noNoninteractiveTabindex: khung bảng cần nhận focus để cuộn bằng phím mũi tên */
 /**
  * Khung bảng và ô số liệu dùng chung cho màn hình báo cáo, hồ sơ cán bộ và trang Tổng quan của khu
  * quản trị.
@@ -17,11 +18,15 @@ export const DINH = "cot-dinh min-w-32 pl-1";
 
 export function KhungBang({ children, minRem }: { children: ReactNode; minRem: number }) {
   return (
-    <div className="bang-cuon mt-3 rounded-xl border border-line p-3">
+    <section
+      tabIndex={0}
+      aria-label="Bảng báo cáo, cuộn ngang để xem thêm cột"
+      className="bang-cuon mt-3 max-w-full rounded-xl border border-line p-3"
+    >
       <table className="w-full text-left text-sm" style={{ minWidth: `${minRem}rem` }}>
         {children}
       </table>
-    </div>
+    </section>
   );
 }
 

@@ -1,0 +1,850 @@
+[
+  {
+    "file": "anh-dai-dien.tsx",
+    "ui": false,
+    "forms": 0,
+    "tables": 0,
+    "dialogs": false,
+    "sharedLayout": false
+  },
+  {
+    "file": "api.$.tsx",
+    "ui": false,
+    "forms": 0,
+    "tables": 0,
+    "dialogs": false,
+    "sharedLayout": false
+  },
+  {
+    "file": "api.giong-doc.$.tsx",
+    "ui": false,
+    "forms": 0,
+    "tables": 0,
+    "dialogs": false,
+    "sharedLayout": false
+  },
+  {
+    "file": "ask.tsx",
+    "ui": true,
+    "forms": 1,
+    "tables": 0,
+    "dialogs": false,
+    "sharedLayout": true
+  },
+  {
+    "file": "bien-bao.anh.tsx",
+    "ui": false,
+    "forms": 0,
+    "tables": 0,
+    "dialogs": false,
+    "sharedLayout": false
+  },
+  {
+    "file": "compare.tsx",
+    "ui": true,
+    "forms": 1,
+    "tables": 0,
+    "dialogs": false,
+    "sharedLayout": false
+  },
+  {
+    "file": "cong-cu.coi-noi-thanh-thung.tsx",
+    "ui": false,
+    "forms": 0,
+    "tables": 0,
+    "dialogs": false,
+    "sharedLayout": false
+  },
+  {
+    "file": "cong-cu.dia-gioi.dia-chi.tsx",
+    "ui": true,
+    "forms": 0,
+    "tables": 0,
+    "dialogs": false,
+    "sharedLayout": true
+  },
+  {
+    "file": "cong-cu.dia-gioi.thu-cong.tsx",
+    "ui": true,
+    "forms": 1,
+    "tables": 0,
+    "dialogs": false,
+    "sharedLayout": true
+  },
+  {
+    "file": "cong-cu.dia-gioi.tra-nguoc.tsx",
+    "ui": true,
+    "forms": 1,
+    "tables": 0,
+    "dialogs": false,
+    "sharedLayout": true
+  },
+  {
+    "file": "cong-cu.dia-gioi.vi-tri.tsx",
+    "ui": true,
+    "forms": 0,
+    "tables": 0,
+    "dialogs": false,
+    "sharedLayout": true
+  },
+  {
+    "file": "cong-cu.dia-gioi._index.tsx",
+    "ui": true,
+    "forms": 0,
+    "tables": 0,
+    "dialogs": false,
+    "sharedLayout": true
+  },
+  {
+    "file": "cong-cu.do-dac-dien-tu.tsx",
+    "ui": false,
+    "forms": 0,
+    "tables": 0,
+    "dialogs": false,
+    "sharedLayout": false
+  },
+  {
+    "file": "cong-cu.loai-gplx.tsx",
+    "ui": false,
+    "forms": 0,
+    "tables": 0,
+    "dialogs": false,
+    "sharedLayout": false
+  },
+  {
+    "file": "cong-cu.nong-do-con.tsx",
+    "ui": false,
+    "forms": 0,
+    "tables": 0,
+    "dialogs": false,
+    "sharedLayout": false
+  },
+  {
+    "file": "cong-cu.qua-kho-hang-hoa.tsx",
+    "ui": false,
+    "forms": 0,
+    "tables": 0,
+    "dialogs": false,
+    "sharedLayout": false
+  },
+  {
+    "file": "cong-cu.tinh-ngay-xu-ly.tsx",
+    "ui": false,
+    "forms": 0,
+    "tables": 0,
+    "dialogs": false,
+    "sharedLayout": false
+  },
+  {
+    "file": "cong-cu.tinh-qua-tai.tsx",
+    "ui": false,
+    "forms": 0,
+    "tables": 0,
+    "dialogs": false,
+    "sharedLayout": false
+  },
+  {
+    "file": "cong-cu.tsx",
+    "ui": true,
+    "forms": 0,
+    "tables": 0,
+    "dialogs": false,
+    "sharedLayout": false
+  },
+  {
+    "file": "cong-cu.xac-dinh-tuoi.tsx",
+    "ui": false,
+    "forms": 0,
+    "tables": 0,
+    "dialogs": false,
+    "sharedLayout": false
+  },
+  {
+    "file": "cong-cu._index.tsx",
+    "ui": true,
+    "forms": 0,
+    "tables": 0,
+    "dialogs": false,
+    "sharedLayout": false
+  },
+  {
+    "file": "dang-ky.tsx",
+    "ui": true,
+    "forms": 1,
+    "tables": 0,
+    "dialogs": false,
+    "sharedLayout": true
+  },
+  {
+    "file": "dang-nhap.tsx",
+    "ui": true,
+    "forms": 1,
+    "tables": 0,
+    "dialogs": false,
+    "sharedLayout": true
+  },
+  {
+    "file": "dang-xuat.tsx",
+    "ui": false,
+    "forms": 0,
+    "tables": 0,
+    "dialogs": false,
+    "sharedLayout": false
+  },
+  {
+    "file": "dao-tao.chuyen-huong.tsx",
+    "ui": false,
+    "forms": 0,
+    "tables": 0,
+    "dialogs": false,
+    "sharedLayout": false
+  },
+  {
+    "file": "dich-vu-cong.tsx",
+    "ui": true,
+    "forms": 0,
+    "tables": 0,
+    "dialogs": false,
+    "sharedLayout": false
+  },
+  {
+    "file": "document.diagram.tsx",
+    "ui": true,
+    "forms": 0,
+    "tables": 0,
+    "dialogs": false,
+    "sharedLayout": false
+  },
+  {
+    "file": "document.properties.tsx",
+    "ui": true,
+    "forms": 0,
+    "tables": 0,
+    "dialogs": false,
+    "sharedLayout": false
+  },
+  {
+    "file": "document.read.tsx",
+    "ui": true,
+    "forms": 2,
+    "tables": 0,
+    "dialogs": false,
+    "sharedLayout": false
+  },
+  {
+    "file": "document.tep-goc.tsx",
+    "ui": false,
+    "forms": 0,
+    "tables": 0,
+    "dialogs": false,
+    "sharedLayout": false
+  },
+  {
+    "file": "document.tsx",
+    "ui": true,
+    "forms": 0,
+    "tables": 0,
+    "dialogs": false,
+    "sharedLayout": true
+  },
+  {
+    "file": "document.versions.tsx",
+    "ui": true,
+    "forms": 0,
+    "tables": 0,
+    "dialogs": false,
+    "sharedLayout": false
+  },
+  {
+    "file": "doi-mat-khau.tsx",
+    "ui": true,
+    "forms": 1,
+    "tables": 0,
+    "dialogs": false,
+    "sharedLayout": true
+  },
+  {
+    "file": "home.tsx",
+    "ui": true,
+    "forms": 0,
+    "tables": 0,
+    "dialogs": false,
+    "sharedLayout": false
+  },
+  {
+    "file": "huong-dan.bai.tsx",
+    "ui": true,
+    "forms": 0,
+    "tables": 0,
+    "dialogs": false,
+    "sharedLayout": false
+  },
+  {
+    "file": "huong-dan._index.tsx",
+    "ui": true,
+    "forms": 0,
+    "tables": 0,
+    "dialogs": false,
+    "sharedLayout": false
+  },
+  {
+    "file": "luyen-tap.can-cu.tsx",
+    "ui": false,
+    "forms": 0,
+    "tables": 0,
+    "dialogs": false,
+    "sharedLayout": false
+  },
+  {
+    "file": "luyen-tap.ket-qua.tsx",
+    "ui": true,
+    "forms": 1,
+    "tables": 0,
+    "dialogs": false,
+    "sharedLayout": true
+  },
+  {
+    "file": "luyen-tap.offline.tsx",
+    "ui": true,
+    "forms": 0,
+    "tables": 0,
+    "dialogs": false,
+    "sharedLayout": true
+  },
+  {
+    "file": "luyen-tap.phien.luu.tsx",
+    "ui": false,
+    "forms": 0,
+    "tables": 0,
+    "dialogs": false,
+    "sharedLayout": false
+  },
+  {
+    "file": "luyen-tap.phien.tsx",
+    "ui": true,
+    "forms": 0,
+    "tables": 0,
+    "dialogs": false,
+    "sharedLayout": true
+  },
+  {
+    "file": "luyen-tap._index.tsx",
+    "ui": true,
+    "forms": 3,
+    "tables": 0,
+    "dialogs": false,
+    "sharedLayout": true
+  },
+  {
+    "file": "nhom.chi-tiet.tsx",
+    "ui": true,
+    "forms": 0,
+    "tables": 0,
+    "dialogs": true,
+    "sharedLayout": true
+  },
+  {
+    "file": "nhom.nguon.tsx",
+    "ui": false,
+    "forms": 0,
+    "tables": 0,
+    "dialogs": false,
+    "sharedLayout": false
+  },
+  {
+    "file": "nhom.tham-gia.tsx",
+    "ui": true,
+    "forms": 1,
+    "tables": 0,
+    "dialogs": false,
+    "sharedLayout": true
+  },
+  {
+    "file": "nhom.tien-do.tsx",
+    "ui": false,
+    "forms": 0,
+    "tables": 0,
+    "dialogs": false,
+    "sharedLayout": false
+  },
+  {
+    "file": "nhom.tsx",
+    "ui": true,
+    "forms": 0,
+    "tables": 0,
+    "dialogs": true,
+    "sharedLayout": true
+  },
+  {
+    "file": "not-found.tsx",
+    "ui": true,
+    "forms": 0,
+    "tables": 0,
+    "dialogs": false,
+    "sharedLayout": false
+  },
+  {
+    "file": "quan-tri.bao-cao.can-bo.tai.tsx",
+    "ui": false,
+    "forms": 0,
+    "tables": 0,
+    "dialogs": false,
+    "sharedLayout": false
+  },
+  {
+    "file": "quan-tri.bao-cao.can-bo.tsx",
+    "ui": true,
+    "forms": 1,
+    "tables": 0,
+    "dialogs": false,
+    "sharedLayout": true
+  },
+  {
+    "file": "quan-tri.bao-cao.tai.tsx",
+    "ui": false,
+    "forms": 0,
+    "tables": 0,
+    "dialogs": false,
+    "sharedLayout": false
+  },
+  {
+    "file": "quan-tri.bao-cao.tsx",
+    "ui": true,
+    "forms": 1,
+    "tables": 0,
+    "dialogs": false,
+    "sharedLayout": true
+  },
+  {
+    "file": "quan-tri.can-cu.tsx",
+    "ui": false,
+    "forms": 0,
+    "tables": 0,
+    "dialogs": false,
+    "sharedLayout": false
+  },
+  {
+    "file": "quan-tri.cau-hoi.sua.tsx",
+    "ui": true,
+    "forms": 3,
+    "tables": 0,
+    "dialogs": false,
+    "sharedLayout": true
+  },
+  {
+    "file": "quan-tri.cau-hoi.tep.tsx",
+    "ui": false,
+    "forms": 0,
+    "tables": 0,
+    "dialogs": false,
+    "sharedLayout": false
+  },
+  {
+    "file": "quan-tri.cau-hoi.tsx",
+    "ui": true,
+    "forms": 7,
+    "tables": 0,
+    "dialogs": false,
+    "sharedLayout": true
+  },
+  {
+    "file": "quan-tri.cham-tu-luan.de-thi.tsx",
+    "ui": true,
+    "forms": 0,
+    "tables": 0,
+    "dialogs": false,
+    "sharedLayout": true
+  },
+  {
+    "file": "quan-tri.cham-tu-luan.tsx",
+    "ui": true,
+    "forms": 0,
+    "tables": 0,
+    "dialogs": false,
+    "sharedLayout": true
+  },
+  {
+    "file": "quan-tri.chuyen-de.bai.tsx",
+    "ui": true,
+    "forms": 7,
+    "tables": 0,
+    "dialogs": false,
+    "sharedLayout": true
+  },
+  {
+    "file": "quan-tri.chuyen-de.sua.tsx",
+    "ui": true,
+    "forms": 3,
+    "tables": 0,
+    "dialogs": false,
+    "sharedLayout": true
+  },
+  {
+    "file": "quan-tri.chuyen-de.tsx",
+    "ui": true,
+    "forms": 0,
+    "tables": 0,
+    "dialogs": false,
+    "sharedLayout": true
+  },
+  {
+    "file": "quan-tri.chuyen-de.tu-pdf.tsx",
+    "ui": true,
+    "forms": 1,
+    "tables": 0,
+    "dialogs": false,
+    "sharedLayout": true
+  },
+  {
+    "file": "quan-tri.de-thi.cham-tu-luan.tsx",
+    "ui": false,
+    "forms": 0,
+    "tables": 0,
+    "dialogs": false,
+    "sharedLayout": false
+  },
+  {
+    "file": "quan-tri.de-thi.ma-tran.tsx",
+    "ui": true,
+    "forms": 1,
+    "tables": 0,
+    "dialogs": false,
+    "sharedLayout": true
+  },
+  {
+    "file": "quan-tri.de-thi.sua.tsx",
+    "ui": true,
+    "forms": 7,
+    "tables": 0,
+    "dialogs": false,
+    "sharedLayout": true
+  },
+  {
+    "file": "quan-tri.de-thi.tsx",
+    "ui": true,
+    "forms": 0,
+    "tables": 0,
+    "dialogs": false,
+    "sharedLayout": true
+  },
+  {
+    "file": "quan-tri.de-thi.tu-pdf.tsx",
+    "ui": true,
+    "forms": 1,
+    "tables": 0,
+    "dialogs": false,
+    "sharedLayout": true
+  },
+  {
+    "file": "quan-tri.don-vi.tsx",
+    "ui": true,
+    "forms": 0,
+    "tables": 0,
+    "dialogs": true,
+    "sharedLayout": false
+  },
+  {
+    "file": "quan-tri.du-lieu-tra-cuu.moi.tsx",
+    "ui": true,
+    "forms": 1,
+    "tables": 0,
+    "dialogs": false,
+    "sharedLayout": true
+  },
+  {
+    "file": "quan-tri.du-lieu-tra-cuu.tep.tsx",
+    "ui": false,
+    "forms": 0,
+    "tables": 0,
+    "dialogs": false,
+    "sharedLayout": false
+  },
+  {
+    "file": "quan-tri.du-lieu-tra-cuu.tsx",
+    "ui": true,
+    "forms": 11,
+    "tables": 0,
+    "dialogs": false,
+    "sharedLayout": true
+  },
+  {
+    "file": "quan-tri.giao-bai.tsx",
+    "ui": true,
+    "forms": 2,
+    "tables": 0,
+    "dialogs": false,
+    "sharedLayout": false
+  },
+  {
+    "file": "quan-tri.giao-thong.tsx",
+    "ui": true,
+    "forms": 3,
+    "tables": 0,
+    "dialogs": false,
+    "sharedLayout": false
+  },
+  {
+    "file": "quan-tri.nguoi-dung.mau.tsx",
+    "ui": false,
+    "forms": 0,
+    "tables": 0,
+    "dialogs": false,
+    "sharedLayout": false
+  },
+  {
+    "file": "quan-tri.nguoi-dung.tsx",
+    "ui": true,
+    "forms": 4,
+    "tables": 1,
+    "dialogs": true,
+    "sharedLayout": false
+  },
+  {
+    "file": "quan-tri.nhom.chi-tiet.tsx",
+    "ui": true,
+    "forms": 1,
+    "tables": 1,
+    "dialogs": false,
+    "sharedLayout": true
+  },
+  {
+    "file": "quan-tri.nhom.tsx",
+    "ui": true,
+    "forms": 1,
+    "tables": 1,
+    "dialogs": false,
+    "sharedLayout": false
+  },
+  {
+    "file": "quan-tri.tsx",
+    "ui": true,
+    "forms": 0,
+    "tables": 0,
+    "dialogs": false,
+    "sharedLayout": false
+  },
+  {
+    "file": "quan-tri.van-ban.sua.tsx",
+    "ui": true,
+    "forms": 2,
+    "tables": 0,
+    "dialogs": true,
+    "sharedLayout": true
+  },
+  {
+    "file": "quan-tri.van-ban.tsx",
+    "ui": true,
+    "forms": 1,
+    "tables": 0,
+    "dialogs": false,
+    "sharedLayout": true
+  },
+  {
+    "file": "quan-tri._index.tsx",
+    "ui": true,
+    "forms": 0,
+    "tables": 0,
+    "dialogs": false,
+    "sharedLayout": true
+  },
+  {
+    "file": "search.tsx",
+    "ui": true,
+    "forms": 0,
+    "tables": 0,
+    "dialogs": false,
+    "sharedLayout": false
+  },
+  {
+    "file": "tai-khoan.tsx",
+    "ui": true,
+    "forms": 3,
+    "tables": 0,
+    "dialogs": false,
+    "sharedLayout": true
+  },
+  {
+    "file": "thi.ket-qua.tsx",
+    "ui": true,
+    "forms": 0,
+    "tables": 0,
+    "dialogs": false,
+    "sharedLayout": true
+  },
+  {
+    "file": "thi.luot.luu.tsx",
+    "ui": false,
+    "forms": 0,
+    "tables": 0,
+    "dialogs": false,
+    "sharedLayout": false
+  },
+  {
+    "file": "thi.luot.tsx",
+    "ui": true,
+    "forms": 1,
+    "tables": 0,
+    "dialogs": false,
+    "sharedLayout": true
+  },
+  {
+    "file": "thi._index.tsx",
+    "ui": true,
+    "forms": 1,
+    "tables": 0,
+    "dialogs": false,
+    "sharedLayout": true
+  },
+  {
+    "file": "thong-bao.tsx",
+    "ui": false,
+    "forms": 0,
+    "tables": 0,
+    "dialogs": false,
+    "sharedLayout": false
+  },
+  {
+    "file": "thu-tuc-hanh-chinh.tsx",
+    "ui": false,
+    "forms": 0,
+    "tables": 0,
+    "dialogs": false,
+    "sharedLayout": false
+  },
+  {
+    "file": "toi.tsx",
+    "ui": true,
+    "forms": 1,
+    "tables": 0,
+    "dialogs": false,
+    "sharedLayout": false
+  },
+  {
+    "file": "tra-cuu-nhanh.bien-bao.tsx",
+    "ui": false,
+    "forms": 0,
+    "tables": 0,
+    "dialogs": false,
+    "sharedLayout": false
+  },
+  {
+    "file": "tra-cuu-nhanh.bieu-mau.tep.tsx",
+    "ui": false,
+    "forms": 0,
+    "tables": 0,
+    "dialogs": false,
+    "sharedLayout": false
+  },
+  {
+    "file": "tra-cuu-nhanh.bieu-mau.tsx",
+    "ui": true,
+    "forms": 0,
+    "tables": 0,
+    "dialogs": false,
+    "sharedLayout": true
+  },
+  {
+    "file": "tra-cuu-nhanh.muc-phat.tsx",
+    "ui": false,
+    "forms": 0,
+    "tables": 0,
+    "dialogs": false,
+    "sharedLayout": false
+  },
+  {
+    "file": "tra-cuu-nhanh.quy-trinh.tsx",
+    "ui": true,
+    "forms": 0,
+    "tables": 0,
+    "dialogs": false,
+    "sharedLayout": true
+  },
+  {
+    "file": "tra-cuu-nhanh.toc-do.tsx",
+    "ui": false,
+    "forms": 0,
+    "tables": 0,
+    "dialogs": false,
+    "sharedLayout": false
+  },
+  {
+    "file": "tra-cuu-nhanh._index.tsx",
+    "ui": false,
+    "forms": 0,
+    "tables": 0,
+    "dialogs": false,
+    "sharedLayout": false
+  },
+  {
+    "file": "tra-cuu.tsx",
+    "ui": true,
+    "forms": 0,
+    "tables": 0,
+    "dialogs": false,
+    "sharedLayout": false
+  },
+  {
+    "file": "training.course.tsx",
+    "ui": true,
+    "forms": 0,
+    "tables": 0,
+    "dialogs": false,
+    "sharedLayout": true
+  },
+  {
+    "file": "training.lesson.tsx",
+    "ui": true,
+    "forms": 0,
+    "tables": 0,
+    "dialogs": true,
+    "sharedLayout": true
+  },
+  {
+    "file": "training.patch.tsx",
+    "ui": true,
+    "forms": 0,
+    "tables": 0,
+    "dialogs": false,
+    "sharedLayout": false
+  },
+  {
+    "file": "training.progress.tsx",
+    "ui": true,
+    "forms": 0,
+    "tables": 0,
+    "dialogs": false,
+    "sharedLayout": false
+  },
+  {
+    "file": "training.review.tsx",
+    "ui": true,
+    "forms": 0,
+    "tables": 0,
+    "dialogs": false,
+    "sharedLayout": false
+  },
+  {
+    "file": "training.tsx",
+    "ui": true,
+    "forms": 1,
+    "tables": 0,
+    "dialogs": false,
+    "sharedLayout": true
+  },
+  {
+    "file": "usecases.tsx",
+    "ui": true,
+    "forms": 0,
+    "tables": 0,
+    "dialogs": false,
+    "sharedLayout": false
+  },
+  {
+    "file": "xem-bieu-tuong.tsx",
+    "ui": true,
+    "forms": 0,
+    "tables": 0,
+    "dialogs": false,
+    "sharedLayout": false
+  }
+]

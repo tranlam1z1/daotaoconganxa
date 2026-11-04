@@ -5,8 +5,8 @@ import { cn } from "../../lib/cn";
  * (giao diện không dùng emoji — QUY-TAC-HANH-VAN.md §3.4).
  *
  * Mỗi khóa có ba lớp:
- * - net: nét chính dày 2, bo tròn, màu currentColor. Một mình lớp này phải đủ nghĩa.
- * - nen: mảng tô đặc nằm dưới nét, lệch 1,25 về phía dưới phải, màu --ic-nen (sắc pha nhạt).
+ * - net: nét chính dày 1,75, bo tròn. Một mình lớp này phải đủ nghĩa.
+ * - nen: mảng màu nhạt nằm trong đường viền, không lệch bóng.
  * - nhan: một chi tiết điểm nhấn, tô và viền bằng --ic-nhan. Vẽ nét đơn (không tô) thì bọc
  *   bằng vach(): đường lặp hai lần, quy tắc evenodd triệt phần tô.
  * Màu chỉ khai ở styles/app.css (khối "Bộ biểu tượng"), TSX không viết mã màu.
@@ -44,6 +44,34 @@ const KHIEN = {
 } as const satisfies Hinh;
 
 const BO = {
+  congSo: {
+    net: "M3 9h18L12 3 3 9Zm2 3v7m4-7v7m6-7v7m4-7v7M3 21h18",
+    nen: "M3 9h18L12 3 3 9Z",
+    sac: "chinh",
+    sacNhan: "vang",
+  },
+  canBo: {
+    net: "M8 7a4 4 0 1 0 8 0 4 4 0 0 0-8 0ZM4 21v-2a6 6 0 0 1 6-6h4a6 6 0 0 1 6 6v2M9 13l3 4 3-4m-3 4v4",
+    nen: "M4 21v-2a6 6 0 0 1 6-6h4a6 6 0 0 1 6 6v2Z",
+    sac: "chinh",
+  },
+  co: {
+    net: "M5 21V3m0 1c5-3 9 3 15 0v10c-6 3-10-3-15 0",
+    nen: "M5 4c5-3 9 3 15 0v10c-6 3-10-3-15 0Z",
+    nhan: "m12.5 6.5.8 1.6 1.7.3-1.2 1.2.3 1.7-1.6-.8-1.5.8.3-1.7-1.3-1.2 1.7-.3Z",
+    sac: "do",
+    sacNhan: "vang",
+  },
+  trongTai: {
+    net: "M9 7V5a3 3 0 0 1 6 0v2M7 7h10l4 14H3L7 7Zm3 5v5m4-5v5",
+    nen: "M7 7h10l4 14H3L7 7Z",
+    sac: "ngoc",
+  },
+  thuocDo: {
+    net: "m3 16 13-13 5 5L8 21l-5-5Zm10-10 2 2m-5 1 2 2m-5 1 2 2m-5 1 2 2",
+    nen: "m3 16 13-13 5 5L8 21l-5-5Z",
+    sac: "ngoc",
+  },
   /* Điều hướng và thao tác chung */
   search: {
     net: "M10.5 17a6.5 6.5 0 1 0 0-13 6.5 6.5 0 0 0 0 13Zm4.6-1.9L20 20",
@@ -71,9 +99,9 @@ const BO = {
     sac: "trung",
   },
   // Mũi tên: đầu tam giác nhỏ, thân chạy vào giữa đầu nên ở nét 2 đầu kín như tô đặc.
-  arrowRight: { net: "M4 12h14m-3-4 5 4-5 4z", sac: "trung" },
-  arrowLeft: { net: "M20 12H6m3-4-5 4 5 4z", sac: "trung" },
-  arrowUp: { net: "M12 20V6m-4 3 4-5 4 5z", sac: "trung" },
+  arrowRight: { net: "M4 12h16m-6-6 6 6-6 6", sac: "trung" },
+  arrowLeft: { net: "M20 12H4m6-6-6 6 6 6", sac: "trung" },
+  arrowUp: { net: "M12 20V4m-6 6 6-6 6 6", sac: "trung" },
   home: {
     net: "M3 11 12 3.5l9 7.5M5.5 9.5V20h13V9.5M10 20v-3.5a2 2 0 0 1 4 0V20",
     nen: "M5.5 9.5 12 4l6.5 5.5V20h-13Z",
@@ -629,23 +657,23 @@ export function Icon({
       viewBox="0 0 24 24"
       fill="none"
       stroke="currentColor"
-      strokeWidth="2"
+      strokeWidth="1.75"
       strokeLinecap="round"
       strokeLinejoin="round"
       className={cn("ic", className)}
       data-sac={s}
       data-kieu={kieu}
+      data-icon={name}
+      focusable="false"
     >
-      {/* Kiểu tô đặc: ô bo góc màu sắc, hình thu 75% vào giữa, nét giữ dày 2 sau khi thu. */}
+      {/* Kiểu tô đặc: hình thu 75% vào giữa, nét giữ dày 1,75 sau khi thu. */}
       {dac ? <rect width="24" height="24" rx="7" className="ic-o" stroke="none" /> : null}
       <g
         className={dac ? "ic-tren" : undefined}
         transform={dac ? "matrix(.75 0 0 .75 3 3)" : undefined}
-        strokeWidth={dac ? 2.67 : undefined}
+        strokeWidth={dac ? 2.33 : undefined}
       >
-        {kieu === "hai-lop" && h.nen ? (
-          <path d={h.nen} className="ic-nen" stroke="none" transform="translate(1.25 1.25)" />
-        ) : null}
+        {kieu === "hai-lop" && h.nen ? <path d={h.nen} className="ic-nen" stroke="none" /> : null}
         <path d={h.net} />
         {nhan.map(([d, sn]) => (
           <path key={sn + d} d={d} className="ic-nhan" data-sac={sn} fillRule="evenodd" />

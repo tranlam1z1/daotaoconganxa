@@ -104,6 +104,7 @@ export interface CourseRow {
   title: string;
   summary: string | null;
   audience: string[];
+  nhom_hoc_tap: string[];
   level: string;
   objectives: unknown;
   taxonomy_codes: string[];
@@ -131,6 +132,8 @@ export interface DanhSachChuyenDeOpts {
   /** Chỉ chuyên đề đã xuất bản (mặc định true cho phía công khai). */
   chiXuatBan?: boolean;
   doiTuong?: string;
+  /** undefined: tất cả; []: không khớp; nhiều nhóm: khớp ít nhất một nhóm. */
+  nhomHocTap?: string[];
   /**
    * Đếm bài đã xuất bản thay vì đếm mọi bài. Mặc định theo `chiXuatBan`; tách riêng để danh
    * mục công khai vừa hiện được chuyên đề đang biên soạn, vừa nói đúng số bài học được.
@@ -171,8 +174,9 @@ export async function danhSachChuyenDe(o: DanhSachChuyenDeOpts = {}) {
            f.slug AS field_slug, f.name AS field_name, f.ordinal AS field_ordinal
     FROM courses c
     LEFT JOIN fields f ON f.id = c.field_id
-    WHERE (NOT ${chiXuatBan} OR c.status = 'xuat_ban')
+    WHERE (NOT ${chiXuatBan} OR (c.status = 'xuat_ban' AND cardinality(c.nhom_hoc_tap) > 0))
       AND (${doiTuong}::text IS NULL OR ${doiTuong}::text = ANY(c.audience))
+      AND (${o.nhomHocTap === undefined} OR c.nhom_hoc_tap && ${o.nhomHocTap ?? []}::text[])
       AND (${linhVuc}::text IS NULL OR f.slug = ${linhVuc}::text)
       AND (${nhomDoiTuong}::text IS NULL OR c.audience_group = ${nhomDoiTuong}::text)
       AND (${tuKhoa}::text IS NULL OR c.title ILIKE ${tuKhoa}::text OR c.summary ILIKE ${tuKhoa}::text)
@@ -217,6 +221,7 @@ export interface LuuChuyenDeInput {
   title: string;
   summary?: string | null;
   audience?: string[];
+  nhomHocTap?: string[];
   level?: string;
   tags?: string[];
   taxonomyCodes?: string[];
@@ -239,7 +244,7 @@ export async function luuChuyenDe(inp: LuuChuyenDeInput): Promise<CourseRow> {
   const [row] = await sql<CourseRow[]>`
     INSERT INTO courses (id, slug, title, summary, audience, level, tags, taxonomy_codes, objectives,
                          as_of, duration_minutes, default_mode, mascot_id, mascot_locked, mascot_costume, legal_map,
-                         field_id, parent_id, follows_id, audience_group, ordinal, status)
+                         field_id, parent_id, follows_id, audience_group, ordinal, status, nhom_hoc_tap)
     -- status ghi rõ 'nhap': mặc định của cột vẫn là 'draft' từ 0001, nằm ngoài vòng đời nội dung
     -- nên chuyên đề mới không chuyển được sang trạng thái nào. Cập nhật không đụng tới status.
     VALUES (COALESCE(${inp.id ?? null}::uuid, uuid_generate_v4()), ${inp.slug}, ${inp.title},
@@ -248,7 +253,7 @@ export async function luuChuyenDe(inp: LuuChuyenDeInput): Promise<CourseRow> {
             ${inp.durationMinutes ?? null}, ${inp.defaultMode ?? "day_du"}, ${inp.mascotId ?? null}::uuid,
             ${inp.mascotLocked ?? false}, ${inp.mascotCostume ?? null}, ${sql.json((inp.legalMap ?? {}) as never)},
             ${inp.fieldId ?? null}::uuid, ${inp.parentId ?? null}::uuid, ${inp.followsId ?? null}::uuid,
-            ${inp.audienceGroup ?? "khach_hang"}, ${inp.ordinal ?? 0}, 'nhap')
+            ${inp.audienceGroup ?? "khach_hang"}, ${inp.ordinal ?? 0}, 'nhap', ${inp.nhomHocTap ?? []}::text[])
     ON CONFLICT (slug) DO UPDATE SET
       title = EXCLUDED.title, summary = EXCLUDED.summary, audience = EXCLUDED.audience,
       level = EXCLUDED.level, tags = EXCLUDED.tags, taxonomy_codes = EXCLUDED.taxonomy_codes,
@@ -258,6 +263,7 @@ export async function luuChuyenDe(inp: LuuChuyenDeInput): Promise<CourseRow> {
       mascot_costume = EXCLUDED.mascot_costume, legal_map = EXCLUDED.legal_map,
       field_id = EXCLUDED.field_id, parent_id = EXCLUDED.parent_id, follows_id = EXCLUDED.follows_id,
       audience_group = EXCLUDED.audience_group, ordinal = EXCLUDED.ordinal,
+      nhom_hoc_tap = CASE WHEN ${inp.nhomHocTap !== undefined} THEN EXCLUDED.nhom_hoc_tap ELSE courses.nhom_hoc_tap END,
       updated_at = now()
     RETURNING *`;
   return row!;

@@ -1,43 +1,24 @@
-/**
- * Sinh icon ứng dụng cài được (PWA) cho apps/web/public/icons (docs/PLAN.md GĐ13).
- *
- *   bun run scripts/pwa-icons.ts
- *
- * Vẽ logo "Học tập pháp luật & Bồi dưỡng nghiệp vụ" (apps/web/public/logo.svg, cùng hình với
- * logo ở thanh đầu trang) lên canvas của Chrome có sẵn trên máy (playwright-core, như
- * scripts/e2e).
- *
- * Căn cứ thương hiệu (docs/brand): bản "Icon ứng dụng" là dấu logo màu trắng đặt trên nền
- * xanh dương #0052CC. Vì vậy:
- *  - Icon thường (manifest "any"): nền trong suốt, logo màu đầy đủ phủ ~95% cạnh.
- *  - Icon "maskable": Android chỉ hiện vùng giữa khoảng 80/108 cạnh (hình tròn, bo góc…), vùng
- *    an toàn là hình tròn đường kính 80/108. Logo rộng nên chừa sao cho cả góc chữa vẫn nằm
- *    trong vùng an toàn.
- *  - Icon iPhone: iOS tự bo góc và không nhận nền trong suốt, nên nền xanh #0052CC phủ kín,
- *    dấu logo màu trắng.
- *
- * Sinh lại icon thì tăng số `?v=` ở manifest.webmanifest, root.tsx, sw.js và offline.html: service
- * worker giữ icon theo kiểu cache-first, máy đã cài chỉ lấy icon mới khi URL đổi.
- */
+/** Sinh favicon/PWA và logo offline từ hình học nhận diện dùng chung. Chạy: bun run scripts/pwa-icons.ts */
 import { existsSync } from "node:fs";
 import { mkdir, readFile, writeFile } from "node:fs/promises";
 import { join } from "node:path";
 import { chromium } from "playwright-core";
+import { brandMarkSvg } from "../apps/web/app/lib/brand-mark";
 
 const PUBLIC = join(import.meta.dir, "..", "apps", "web", "public");
 const THU_MUC = join(PUBLIC, "icons");
-/** Xanh dương thương hiệu (docs/brand): nền của icon ứng dụng. */
-const XANH_DUONG = "#0052CC";
+/** Nền đỏ của bản ứng dụng theo bộ nhận diện mới. */
+const DO_THUONG_HIEU = "#A61C30";
 /** Tỉ lệ chiều cao / chiều rộng của dấu logo trong logo.svg. */
-const TINH = 323 / 429;
+const TINH = 1;
 
 type Kieu = { nen: string | null; trang: boolean; rong: number };
-/** Manifest "any": nền trong suốt, logo màu đầy đủ. */
-const THUONG: Kieu = { nen: null, trang: false, rong: 0.95 };
+/** Manifest "any": nền kem, logo màu đầy đủ. */
+const THUONG: Kieu = { nen: "#FFF9EE", trang: false, rong: 0.88 };
 /** Manifest "maskable": nền phủ kín, hình nằm trong vùng an toàn; Android tự cắt theo hình của máy. */
-const MASKABLE: Kieu = { nen: XANH_DUONG, trang: true, rong: 0.62 };
+const MASKABLE: Kieu = { nen: DO_THUONG_HIEU, trang: true, rong: 0.62 };
 /** iOS tự bo góc, nên icon màn hình chính của iPhone, iPad để vuông, phủ kín. */
-const APPLE: Kieu = { nen: XANH_DUONG, trang: true, rong: 0.78 };
+const APPLE: Kieu = { nen: DO_THUONG_HIEU, trang: true, rong: 0.78 };
 
 const ICON: Array<{ ten: string; co: number; kieu: Kieu }> = [
   // Android: mdpi 48, hdpi 72, xhdpi 96, xxhdpi 144, xxxhdpi 192; 512 cho màn hình chờ, cửa hàng.
@@ -62,9 +43,16 @@ function timChrome(): string {
   return co;
 }
 
-const svg = await readFile(join(PUBLIC, "logo.svg"), "utf8");
+const svg = brandMarkSvg();
+await writeFile(join(PUBLIC, "logo.svg"), svg);
+const offlinePath = join(PUBLIC, "offline.html");
+const offline = await readFile(offlinePath, "utf8");
+await writeFile(
+  offlinePath,
+  offline.replace(/<svg class="dau"[\s\S]*?<\/svg>/, svg.replace("<svg ", '<svg class="dau" ')),
+);
 /** Bản trắng đơn sắc: thay mọi chỗ tô gradient bằng trắng (bản "âm" của thương hiệu). */
-const svgTrang = svg.replace(/fill="url\(#[^"]+\)"/g, 'fill="#FFFFFF"');
+const svgTrang = brandMarkSvg(true);
 
 const duongDan = (s: string) => `data:image/svg+xml;base64,${Buffer.from(s).toString("base64")}`;
 
@@ -87,7 +75,7 @@ try {
           ctx.fillStyle = nen;
           ctx.fillRect(0, 0, co, co);
         }
-        // Logo rộng hơn cao: canh theo cạnh ngang rồi đặt giữa theo chiều cao.
+        // Logo vuông: đặt giữa và chừa vùng an toàn theo từng nền tảng.
         const r = co * rong;
         const cao = r * tinh;
         ctx.drawImage(anh, (co - r) / 2, (co - cao) / 2, r, cao);

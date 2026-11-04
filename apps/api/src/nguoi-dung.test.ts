@@ -3,7 +3,7 @@
  * mục "Kiểm tra đã xong"). Chạy trên Postgres test thật; mọi dữ liệu mang tiền tố riêng.
  */
 import { afterAll, beforeAll, describe, expect, test } from "bun:test";
-import { bamMatKhau, createSession } from "@qdpl/auth";
+import { bamMatKhau, createSession, principalFromToken } from "@qdpl/auth";
 import { sql, taoDonVi, taoTepExcel } from "@qdpl/db";
 import { createApp } from "./app.ts";
 
@@ -410,5 +410,50 @@ describe("xác minh cán bộ tự đăng ký", () => {
       body: { duyet: true },
     });
     expect(r.status).toBe(403);
+  });
+});
+
+describe("Nhóm học tập độc lập với vai trò", () => {
+  test("lưu nhiều nhóm, phiên đọc lại nhóm, sửa thường giữ nhóm và cho phép xóa hết", async () => {
+    const tao = await goi("POST", "/v1/quan-tri/nguoi-dung", {
+      token: tk.quanTri,
+      body: {
+        username: `${PREFIX}-nhom`,
+        name: "Người học nhiều nhóm",
+        role: "can_bo",
+        unitId: donVi.doiA,
+        nhomDoiTuong: ["cong_an_cap_xa", "dang_vien", "dang_vien"],
+      },
+    });
+    expect(tao.status).toBe(201);
+    const id = tao.body.item.id;
+    expect(tao.body.item.nhom_doi_tuong).toEqual(["cong_an_cap_xa", "dang_vien"]);
+    expect(tao.body.item.role).toBe("can_bo");
+    const { token } = await createSession(id, "test");
+    expect((await principalFromToken(token))?.nhomDoiTuong).toEqual(["cong_an_cap_xa", "dang_vien"]);
+    const sua = await goi("PATCH", `/v1/quan-tri/nguoi-dung/${id}`, {
+      token: tk.quanTri,
+      body: { name: "Tên mới" },
+    });
+    expect(sua.status).toBe(200);
+    expect(sua.body.item.nhom_doi_tuong).toEqual(["cong_an_cap_xa", "dang_vien"]);
+    const cam = await goi("PATCH", `/v1/quan-tri/nguoi-dung/${id}`, {
+      token: tk.quanLyA,
+      body: { nhomDoiTuong: ["dang_vien"] },
+    });
+    expect(cam.status).toBe(403);
+    const sai = await goi("PATCH", `/v1/quan-tri/nguoi-dung/${id}`, {
+      token: tk.quanTri,
+      body: { nhomDoiTuong: ["quan_tri"] },
+    });
+    expect(sai.status).toBe(400);
+    const xoa = await goi("PATCH", `/v1/quan-tri/nguoi-dung/${id}`, {
+      token: tk.quanTri,
+      body: { nhomDoiTuong: [] },
+    });
+    expect(xoa.status).toBe(200);
+    expect(xoa.body.item.nhom_doi_tuong).toEqual([]);
+    expect((await principalFromToken(token))?.nhomDoiTuong).toEqual([]);
+    expect((await principalFromToken(token))?.role).toBe("can_bo");
   });
 });

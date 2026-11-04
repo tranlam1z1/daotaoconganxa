@@ -15,6 +15,7 @@
         "postgres": "^3.4.9",
         "puppeteer-core": "^25.10.0",
         "typescript": "^5.9.0",
+        "zod": "^4.1.0",
       },
     },
     "apps/api": {

@@ -9,19 +9,20 @@ import { StatusBadge } from "../components/ui/Badge";
 import { Icon } from "../components/ui/Icon";
 import { KhungTrang, TieuDeTrang } from "../components/ui/KhungTrang";
 import { ApiKhongTimThay, getDocument, getDocumentUrnBySlug } from "../lib/api";
-import { docTypeLabel, formatDate, isIsoDate } from "../lib/format";
+import { docTypeLabel, formatDate, isIsoDate, todayIso } from "../lib/format";
 import { pageMeta } from "../lib/site";
 import { duongSuaVanBan } from "../lib/van-ban-quan-tri";
 import type { loader as rootLoader } from "../root";
 import type { Route } from "./+types/document";
 
 export async function loader({ params, request }: Route.LoaderArgs) {
-  const asOfRaw = new URL(request.url).searchParams.get("asOf");
+  const asOfRaw = new URL(request.url).searchParams.get("asOf") || todayIso();
+  if (!isIsoDate(asOfRaw)) throw new Response("Ngày tra cứu không hợp lệ.", { status: 400 });
   let urn: string;
   let detail: Awaited<ReturnType<typeof getDocument>>;
   try {
     urn = await getDocumentUrnBySlug(params.docType, params.slug);
-    detail = await getDocument(urn);
+    detail = await getDocument(urn, isIsoDate(asOfRaw) ? asOfRaw : undefined);
   } catch (e) {
     // Văn bản chưa có trong kho (ví dụ căn cứ của dữ liệu tra cứu chưa nạp): báo 404, không báo lỗi tải.
     if (e instanceof ApiKhongTimThay) throw new Response("Không tìm thấy văn bản.", { status: 404 });

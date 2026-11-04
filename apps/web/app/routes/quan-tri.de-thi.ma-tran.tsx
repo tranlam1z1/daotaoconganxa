@@ -176,7 +176,7 @@ export default function MaTranDe({ loaderData, actionData }: Route.ComponentProp
 
   const theoId = useMemo(() => new Map(chuDe.map((t) => [t.id, t])), [chuDe]);
   const cacChuDe = dangDung.map((id) => theoId.get(id)).filter((t): t is ChuDeKhaDung => Boolean(t));
-  const conLai = chuDe.filter((t) => !dangDung.includes(t.id));
+  const conLai = chuDe.filter((t) => !t.hidden && !dangDung.includes(t.id));
 
   const tongTheoDang: Record<DangCau, number> = { trac_nghiem: 0, tu_luan: 0 };
   for (const t of cacChuDe) {

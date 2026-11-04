@@ -9,6 +9,7 @@ import { cn } from "../../lib/cn";
 import type { Rubric } from "../../lib/ngan-hang";
 import { Button } from "../ui/Button";
 import { inputClass, Label } from "../ui/Field";
+import { Icon } from "../ui/Icon";
 
 /** Điểm từng tiêu chí trong form gửi lên (các ô `tc__<mã>`), khóa là mã tiêu chí. */
 export function docDiemTieuChi(f: FormData): Record<string, number> {
@@ -25,7 +26,7 @@ export function NguonChamTuLuan({ dangXem }: { dangXem: "bai-giang" | "de-thi" }
   return (
     <nav
       aria-label="Nguồn bài chấm"
-      className="mt-4 grid grid-cols-2 gap-1 rounded-xl bg-surface-2 p-1 sm:max-w-md"
+      className="mt-5 grid w-full grid-cols-2 overflow-hidden rounded-lg bg-primary-soft sm:max-w-[554px]"
     >
       {(
         [
@@ -38,10 +39,13 @@ export function NguonChamTuLuan({ dangXem }: { dangXem: "bai-giang" | "de-thi" }
           to={to}
           aria-current={dangXem === ma ? "page" : undefined}
           className={cn(
-            "flex min-h-11 items-center justify-center rounded-lg text-base",
-            dangXem === ma ? "bg-surface font-semibold text-primary shadow-sm" : "text-ink-2 hover:text-ink",
+            "flex min-h-[52px] items-center justify-center gap-4 border-b-2 rounded-lg text-base font-semibold",
+            dangXem === ma
+              ? "border-primary bg-surface/50 text-primary shadow-[inset_0_0_0_1px_var(--line)]"
+              : "border-transparent text-ink-2 hover:bg-surface/30 hover:text-ink",
           )}
         >
+          <Icon name={ma === "bai-giang" ? "book" : "file"} kieu="net" className="size-6" />
           {nhan}
         </Link>
       ))}

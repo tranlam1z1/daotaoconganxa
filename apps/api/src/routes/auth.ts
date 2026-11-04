@@ -64,7 +64,7 @@ const dangNhapMatKhauSchema = z.object({
 
 // Thông tin để được xác minh cán bộ (migration 0064). Quy tắc chi tiết kiểm ở @qdpl/auth dang-ky.ts.
 const khaiBaoSchema = z.object({
-  so_hieu: z.string().trim().min(1, "Nhập số hiệu CAND").max(30),
+  so_hieu: z.string().trim().max(30).default(""),
   don_vi_id: z.string().trim().min(1, "Chọn đơn vị công tác").max(50),
   cap_bac_chuc_vu: z.string().trim().max(300).optional(),
   so_dien_thoai: z.string().trim().min(1, "Nhập số điện thoại").max(30),
@@ -155,6 +155,7 @@ async function moTa(principal: Principal) {
     phai_doi_mat_khau: Boolean(principal.mustChangePassword),
     ten: principal.name ?? null,
     vai_tro: principal.role,
+    nhom_doi_tuong: principal.nhomDoiTuong ?? [],
     mo_ta_vai_tro: ROLE_LABEL[principal.role],
     mien: principal.hostedDomain ?? null,
     la_quan_tri: principal.role === "quan_tri",

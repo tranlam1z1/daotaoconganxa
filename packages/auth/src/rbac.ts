@@ -103,6 +103,8 @@ export const WRITE_TOOLS = new Set([
 
 export interface Principal {
   accountId?: string;
+  /** Nhóm nội dung học, không cấp quyền. */
+  nhomDoiTuong?: string[];
   /**
    * Định danh hiển thị và ghi nhật ký. Tài khoản cán bộ không có email thì mang tên đăng nhập,
    * để mọi chỗ đang ghi `principal.email` (audit_log, người duyệt) vẫn có giá trị.

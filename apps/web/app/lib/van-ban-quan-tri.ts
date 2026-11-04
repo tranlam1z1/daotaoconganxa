@@ -7,6 +7,8 @@ import type { DocStatus } from "./types";
 export const API_VAN_BAN = "/v1/quan-tri/van-ban";
 
 export interface VanBanQuanTri {
+  documentGroup?: string;
+  primarySource?: string | null;
   urn: string;
   docType: string;
   docTypeName: string;

@@ -89,7 +89,7 @@ export async function loader({ request, params }: Route.LoaderArgs) {
     ),
   ]);
   return {
-    chuDe: sapXepCayChuDe(chuDe.items),
+    chuDe: sapXepCayChuDe(chuDe.items, { giu: cauHoi?.topic_code }),
     cauHoi,
     coTheDuyet: duVaiTro(nguoiDung, ds.vai_tro_duyet),
     bien: bien.items.flatMap((b) => (b.image_uri ? [{ ma: b.code, ten: b.name, anh: b.image_uri }] : [])),

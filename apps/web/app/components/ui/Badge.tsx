@@ -22,11 +22,11 @@ export function Badge({ tone = "muted", children }: { tone?: Tone; children: Rea
   return (
     <span
       className={cn(
-        "inline-flex items-center gap-1.5 rounded-full px-2.5 py-0.5 text-xs font-semibold",
+        "inline-flex max-w-full items-center gap-1.5 break-words rounded-full px-2.5 py-0.5 text-xs font-semibold",
         TONE[tone],
       )}
     >
-      <span aria-hidden="true" className="size-1.5 rounded-full bg-current" />
+      <span aria-hidden="true" className="size-1.5 shrink-0 rounded-full bg-current" />
       {children}
     </span>
   );

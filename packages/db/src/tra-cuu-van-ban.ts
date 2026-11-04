@@ -50,7 +50,9 @@ export async function traCuuVanBan(o: TraVanBanOptions): Promise<KetQuaVanBan> {
         CASE WHEN d.document_group='dang' THEN d.status
           WHEN d.effective_to IS NOT NULL AND d.effective_to <= ${o.asOf}::date THEN 'het_hieu_luc'
           WHEN d.effective_from IS NOT NULL AND d.effective_from > ${o.asOf}::date THEN 'chua_hieu_luc'
-          WHEN v.id IS NULL THEN 'khong_xac_dinh' ELSE v.status END AS view_status
+          WHEN v.id IS NOT NULL THEN v.status
+          WHEN d.effective_from IS NOT NULL THEN 'con_hieu_luc'
+          ELSE 'khong_xac_dinh' END AS view_status
       FROM documents d LEFT JOIN LATERAL (
         SELECT id,status FROM document_versions v
         WHERE v.document_id=d.id AND v.valid_from<=${o.asOf}::date

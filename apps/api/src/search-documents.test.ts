@@ -131,6 +131,22 @@ test("hiệu lực hết hạn khớp giữa danh sách và chi tiết dù phiê
     await sql`UPDATE document_versions SET valid_to=NULL WHERE document_id=(SELECT id FROM documents WHERE urn=${urn})`;
   }
 });
+test("văn bản chưa có phiên bản nội dung suy hiệu lực theo ngày, danh sách khớp chi tiết", async () => {
+  await sql`INSERT INTO documents(urn,doc_type,rank,is_normative,so_ky_hieu,title,short_title,status,document_group,effective_from)
+ VALUES(${`${prefix}chi-pdf`},'nd',50,true,'CHIPDF-TEST','Chỉ có tệp gốc','Chỉ có tệp gốc','con_hieu_luc','phap_luat','2025-07-01'),
+ (${`${prefix}khong-ngay`},'nd',50,true,'KHONGNGAY-TEST','Không có ngày','Không có ngày','con_hieu_luc','phap_luat',NULL)`;
+  for (const [soKyHieu, urn, mong] of [
+    ["CHIPDF-TEST", `${prefix}chi-pdf`, "con_hieu_luc"],
+    ["KHONGNGAY-TEST", `${prefix}khong-ngay`, "khong_xac_dinh"],
+  ]) {
+    const list = await app.request(`http://test/v1/documents?q=${soKyHieu}&asOf=2026-10-27`);
+    expect(((await list.json()) as any).items[0].statusAsOf).toBe(mong);
+    const detail = await app.request(`http://test/v1/documents/${encodeURIComponent(urn!)}?asOf=2026-10-27`);
+    expect(((await detail.json()) as any).document.statusAsOf).toBe(mong);
+  }
+  const truoc = await app.request(`http://test/v1/documents?q=CHIPDF-TEST&asOf=2025-06-30`);
+  expect(((await truoc.json()) as any).items[0].statusAsOf).toBe("chua_hieu_luc");
+});
 test("không mở văn bản nháp bằng URN công khai; ký tự % không mở rộng truy vấn", async () => {
   const r = await app.request(`http://test/v1/documents/${encodeURIComponent(`${prefix}draft`)}`);
   expect(r.status).toBe(404);

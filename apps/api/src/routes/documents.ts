@@ -90,7 +90,9 @@ documents.get("/", async (c) => {
   const statusAsOf = sql`CASE WHEN d.document_group='dang' THEN d.status
    WHEN d.effective_to IS NOT NULL AND d.effective_to<=${asOf}::date THEN 'het_hieu_luc'
    WHEN d.effective_from IS NOT NULL AND d.effective_from>${asOf}::date THEN 'chua_hieu_luc'
-   WHEN vs.status IS NULL THEN 'khong_xac_dinh' ELSE vs.status END`;
+   WHEN vs.status IS NOT NULL THEN vs.status
+   WHEN d.effective_from IS NOT NULL THEN 'con_hieu_luc'
+   ELSE 'khong_xac_dinh' END`;
 
   const where = sql`
         NOT d.is_draft AND (${q}::text IS NULL

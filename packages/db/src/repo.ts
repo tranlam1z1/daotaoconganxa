@@ -403,5 +403,7 @@ export async function getStatusAsOf(documentId: string, asOf: string): Promise<s
   if (ef && ef > asOf) return "chua_hieu_luc";
   const [v] =
     await sql`SELECT status FROM document_versions WHERE document_id=${documentId} AND valid_from<=${asOf}::date AND(valid_to IS NULL OR valid_to>${asOf}::date) ORDER BY valid_from DESC,version_no DESC LIMIT 1`;
-  return v ? String(v.status) : "khong_xac_dinh";
+  if (v) return String(v.status);
+  // Chưa có phiên bản nội dung (mới nhập thông tin chung, tệp PDF): suy theo ngày hiệu lực.
+  return ef ? "con_hieu_luc" : "khong_xac_dinh";
 }

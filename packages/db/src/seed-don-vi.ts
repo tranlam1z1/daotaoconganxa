@@ -7,10 +7,10 @@ import { sql } from "./client.ts";
 
 const capNhat = process.argv.includes("--cap-nhat-mau");
 const donVi = [
-  ["PC08", "XA-MH", "Xã Minh Hòa (mẫu)", "Xã"],
-  ["PC08-D1", "UBND-MH", "UBND xã Minh Hòa (mẫu)", "Cơ quan hành chính"],
-  ["PC08-D2", "TH-MH", "Trường Tiểu học Minh Hòa (mẫu)", "Đơn vị sự nghiệp"],
-  ["PC08-D3", "DU-MH", "Đảng ủy xã Minh Hòa (mẫu)", "Tổ chức Đảng"],
+  ["PC08", "XA-MH", "Xã Minh Hòa (mẫu)", "Xã", "xa"],
+  ["PC08-D1", "UBND-MH", "UBND xã Minh Hòa (mẫu)", "Cơ quan hành chính", "co_quan_hanh_chinh"],
+  ["PC08-D2", "TH-MH", "Trường Tiểu học Minh Hòa (mẫu)", "Đơn vị sự nghiệp", "don_vi_su_nghiep"],
+  ["PC08-D3", "DU-MH", "Đảng ủy xã Minh Hòa (mẫu)", "Tổ chức Đảng", "to_chuc_dang"],
 ] as const;
 const taiKhoan = [
   ["quantri", "quantri", "Quản trị hệ thống", "quan_tri", null, "Quản trị viên", []],
@@ -56,9 +56,9 @@ try {
   });
   await sql.begin(async (tx) => {
     const ids = new Map<string, string>();
-    for (const [i, [cu, code, name, label]] of donVi.entries()) {
+    for (const [i, [cu, code, name, label, loai]] of donVi.entries()) {
       if (capNhat) {
-        await tx`UPDATE units SET code = ${code}, name = ${name}, level_label = ${label}, updated_at = now() WHERE code = ${cu}`;
+        await tx`UPDATE units SET code = ${code}, name = ${name}, level_label = ${label}, loai = ${loai}, updated_at = now() WHERE code = ${cu}`;
       }
       let [unit] = await tx`SELECT id, path::text AS path FROM units WHERE code = ${code}`;
       if (!unit) {
@@ -68,8 +68,8 @@ try {
         const [parent] = parentId
           ? await tx`SELECT path::text AS path FROM units WHERE id = ${parentId}`
           : [];
-        [unit] = await tx`INSERT INTO units (id, code, name, parent_id, path, level_label, ordinal)
-          VALUES (${id}, ${code}, ${name}, ${parentId}, ${parent ? `${parent.path}.${nhan}` : nhan}::ltree, ${label}, ${i}) RETURNING id`;
+        [unit] = await tx`INSERT INTO units (id, code, name, parent_id, path, level_label, ordinal, loai)
+          VALUES (${id}, ${code}, ${name}, ${parentId}, ${parent ? `${parent.path}.${nhan}` : nhan}::ltree, ${label}, ${i}, ${loai}) RETURNING id`;
       }
       ids.set(code, unit!.id);
     }

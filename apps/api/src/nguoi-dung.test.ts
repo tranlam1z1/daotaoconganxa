@@ -4,7 +4,7 @@
  */
 import { afterAll, beforeAll, describe, expect, test } from "bun:test";
 import { bamMatKhau, createSession, principalFromToken } from "@qdpl/auth";
-import { sql, taoDonVi, taoTepExcel } from "@qdpl/db";
+import { layDonViTheoMa, sql, suaDonVi, taoDonVi, taoTepExcel } from "@qdpl/db";
 import { createApp } from "./app.ts";
 
 const app = createApp();
@@ -223,6 +223,56 @@ describe("đăng nhập tài khoản vừa nhập", () => {
       SELECT count(*)::int AS n FROM audit_log
       WHERE actor = ${`${PREFIX}-nhap-3`} AND action = 'dang_nhap:that_bai'`) as any[];
     expect(dem.n).toBe(1);
+  });
+});
+
+describe("loại đơn vị", () => {
+  const ACTOR = `${PREFIX}-seed`;
+
+  test("tạo đơn vị loại xã kèm mã hành chính", async () => {
+    const d = await taoDonVi(
+      { code: `${PREFIX}-xa1`, name: "Xã A", loai: "xa", maHanhChinh: "00008" },
+      ACTOR,
+    );
+    expect(d.loai).toBe("xa");
+    expect(d.ma_hanh_chinh).toBe("00008");
+  });
+
+  test("mặc định loại khác", async () => {
+    const d = await taoDonVi({ code: `${PREFIX}-k1`, name: "Đơn vị K" }, ACTOR);
+    expect(d.loai).toBe("khac");
+    expect(d.ma_hanh_chinh).toBeNull();
+  });
+
+  test("mã hành chính trên đơn vị không phải xã bị từ chối", async () => {
+    await expect(
+      taoDonVi(
+        { code: `${PREFIX}-cq1`, name: "CQ", loai: "co_quan_hanh_chinh", maHanhChinh: "00008" },
+        ACTOR,
+      ),
+    ).rejects.toMatchObject({ loai: "khong_hop_le" });
+  });
+
+  test("mã hành chính trùng trả xung đột", async () => {
+    await expect(
+      taoDonVi({ code: `${PREFIX}-xa2`, name: "Xã B", loai: "xa", maHanhChinh: "00008" }, ACTOR),
+    ).rejects.toMatchObject({ loai: "xung_dot" });
+  });
+
+  test("đổi loại xã sang loại khác thì xóa mã hành chính", async () => {
+    const d = await layDonViTheoMa(`${PREFIX}-xa1`);
+    const s = await suaDonVi(d!.id, { loai: "khac" }, ACTOR);
+    expect(s.loai).toBe("khac");
+    expect(s.ma_hanh_chinh).toBeNull();
+  });
+
+  test("sửa không nêu mã thì giữ mã cũ", async () => {
+    const d = await taoDonVi(
+      { code: `${PREFIX}-xa3`, name: "Xã C", loai: "xa", maHanhChinh: "00025" },
+      ACTOR,
+    );
+    const s = await suaDonVi(d.id, { name: "Xã C mới" }, ACTOR);
+    expect(s.ma_hanh_chinh).toBe("00025");
   });
 });
 

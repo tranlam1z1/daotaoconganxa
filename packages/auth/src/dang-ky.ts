@@ -77,6 +77,8 @@ const UUID = /^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/i;
 /** Kiểm và chuẩn hóa thông tin khai báo; đơn vị phải có thật và đang hoạt động. Ném LoiDangKy. */
 async function kiemKhaiBao(
   kb: KhaiBaoXacMinh,
+  /** Nơi sinh hoạt Đảng đang gắn: giữ nguyên thì không kiểm lại (đơn vị có thể đã ngừng dùng). */
+  donViDangHienTai: string | null = null,
 ): Promise<Omit<Required<KhaiBaoXacMinh>, "soHieu"> & { soHieu: string | null }> {
   const soHieu = kb.soHieu.trim() ? chuanHoaSoHieu(kb.soHieu) : null;
   if (kb.soHieu.trim() && !soHieu)
@@ -90,7 +92,7 @@ async function kiemKhaiBao(
     : [];
   if (!donVi.length) throw new LoiDangKy("Chọn đơn vị công tác trong danh sách.");
   const donViDangId = kb.donViDangId?.trim() || null;
-  if (donViDangId) {
+  if (donViDangId && donViDangId !== donViDangHienTai) {
     try {
       await kiemDonViDang(donViDangId);
     } catch (e) {
@@ -197,7 +199,8 @@ export async function thongTinXacMinh(accountId: string): Promise<ThongTinXacMin
  * Tài khoản đã xác minh không đi qua đây: thông tin của họ do quản trị sửa.
  */
 export async function capNhatKhaiBao(accountId: string, khai: KhaiBaoXacMinh): Promise<ThongTinXacMinh> {
-  const kb = await kiemKhaiBao(khai);
+  const [hienTai] = (await sql`SELECT party_unit_id FROM accounts WHERE id = ${accountId}`) as any[];
+  const kb = await kiemKhaiBao(khai, hienTai?.party_unit_id ?? null);
   const rows = (await sql`
     UPDATE accounts SET
       so_hieu = ${kb.soHieu}, don_vi_khai = ${kb.donViId}, rank_title = ${kb.capBacChucVu},

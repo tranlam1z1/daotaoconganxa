@@ -1,5 +1,13 @@
 import { describe, expect, test } from "bun:test";
-import { canHien, khoaTimDonVi, locCay, NHAN_LOAI, thanhMucDonVi, timDonVi } from "../app/lib/cay-don-vi";
+import {
+  canHien,
+  dsChon,
+  khoaTimDonVi,
+  locCay,
+  NHAN_LOAI,
+  thanhMucDonVi,
+  timDonVi,
+} from "../app/lib/cay-don-vi";
 
 const CAY = [
   { id: "a", parent_id: null, name: "Xã A", loai: "xa" as const },
@@ -89,5 +97,32 @@ test("thanhMucDonVi dựng đường dẫn cấp trên", () => {
     cap: 3,
     loai: "khac",
     duong: "Xã A › Trường B",
+  });
+});
+
+describe("dsChon", () => {
+  const MUC = [
+    { id: "x", ten: "Xã A", cap: 1, loai: "xa" as const, duong: "" },
+    { id: "d1", ten: "Chi bộ 1", cap: 2, loai: "to_chuc_dang" as const, duong: "Xã A" },
+  ];
+
+  test("lọc theo loại", () => {
+    expect(dsChon(MUC, "to_chuc_dang", null).map((m) => m.id)).toEqual(["d1"]);
+  });
+
+  test("giữ giá trị đang gắn dù đã ngừng dùng hoặc đổi loại, kèm nhãn ngừng dùng", () => {
+    const ds = dsChon(MUC, "to_chuc_dang", { id: "d0", ten: "Chi bộ cũ" });
+    expect(ds[0]).toEqual({
+      id: "d0",
+      ten: "Chi bộ cũ (ngừng dùng)",
+      cap: 1,
+      loai: "to_chuc_dang",
+      duong: "",
+    });
+    expect(ds).toHaveLength(2);
+  });
+
+  test("giá trị đang gắn có trong danh sách thì không thêm", () => {
+    expect(dsChon(MUC, "to_chuc_dang", { id: "d1", ten: "Chi bộ 1" })).toHaveLength(1);
   });
 });

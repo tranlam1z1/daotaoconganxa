@@ -439,6 +439,7 @@ function TruongNguoiDung({ u, donVi }: { u?: NguoiDungHang; donVi: DonVi[] }) {
           items={donVi}
           chiLoai="to_chuc_dang"
           defaultValue={u?.party_unit_id}
+          tenMacDinh={u?.party_unit_name}
           placeholder="Không có"
         />
       </div>

@@ -114,3 +114,24 @@ export function thanhMucDonVi(ds: Array<NutCay & { cap: number }>): MucDonVi[] {
     duong: duong(d.parent_id).join(" › "),
   }));
 }
+
+/**
+ * Danh sách cho ô chọn: lọc theo loại (nếu có), và giữ giá trị đang gắn kể cả khi đơn vị đó đã
+ * ngừng dùng hoặc đổi loại, để lưu biểu mẫu không âm thầm xóa nó. Mục giữ lại đứng đầu, ghi "(ngừng dùng)".
+ */
+export function dsChon(
+  items: MucDonVi[],
+  chiLoai: LoaiDonVi | undefined,
+  dangGan: { id: string; ten: string } | null | undefined,
+): MucDonVi[] {
+  const ds = chiLoai ? items.filter((d) => d.loai === chiLoai) : items;
+  if (!dangGan || ds.some((d) => d.id === dangGan.id)) return ds;
+  const giuLai: MucDonVi = {
+    id: dangGan.id,
+    ten: `${dangGan.ten} (ngừng dùng)`,
+    cap: 1,
+    loai: chiLoai ?? "khac",
+    duong: "",
+  };
+  return [giuLai, ...ds];
+}

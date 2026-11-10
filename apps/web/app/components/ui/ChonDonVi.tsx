@@ -6,9 +6,10 @@
  * Sau khi hydrate thành ô gõ kiểu combobox (WAI-ARIA 1.2): ↑/↓ chọn dòng, Enter nhận, Esc đóng.
  * Giá trị gửi đi nằm trong ô ẩn `name`; ô gõ mang `required` để trình duyệt chặn gửi khi chưa chọn.
  */
-import { useEffect, useId, useMemo, useState } from "react";
-import { type LoaiDonVi, type MucDonVi, NHAN_LOAI, timDonVi } from "../../lib/cay-don-vi";
+import { useEffect, useId, useMemo, useRef, useState } from "react";
+import { dsChon, type LoaiDonVi, type MucDonVi, NHAN_LOAI, timDonVi } from "../../lib/cay-don-vi";
 import { cn } from "../../lib/cn";
+import { phimCombobox, viTriKhiMo } from "../../lib/combobox";
 import { inputClass } from "./Field";
 
 const BO_CHON = "__bo_chon__";
@@ -22,6 +23,7 @@ export function ChonDonVi({
   name,
   items,
   defaultValue,
+  tenMacDinh,
   required = false,
   placeholder,
   chiLoai,
@@ -32,6 +34,11 @@ export function ChonDonVi({
   name: string;
   items: MucDonVi[];
   defaultValue?: string | null;
+  /**
+   * Tên của `defaultValue`. Có thì giá trị đang gắn được giữ (ghi "ngừng dùng") cả khi đơn vị đó
+   * không còn trong `items` hay không đúng `chiLoai`, để lưu biểu mẫu không âm thầm xóa nó.
+   */
+  tenMacDinh?: string | null;
   required?: boolean;
   placeholder: string;
   /** Chỉ cho chọn đơn vị loại này (ví dụ nơi sinh hoạt Đảng: `to_chuc_dang`). */
@@ -39,21 +46,30 @@ export function ChonDonVi({
   moTaId?: string;
   className?: string;
 }) {
-  const ds = useMemo(() => (chiLoai ? items.filter((d) => d.loai === chiLoai) : items), [items, chiLoai]);
-  const [daHydrate, datHydrate] = useState(false);
-  useEffect(() => datHydrate(true), []);
-
+  const ds = useMemo(
+    () => dsChon(items, chiLoai, defaultValue && tenMacDinh ? { id: defaultValue, ten: tenMacDinh } : null),
+    [items, chiLoai, defaultValue, tenMacDinh],
+  );
   const [chon, datChon] = useState<string>(
     defaultValue && ds.some((d) => d.id === defaultValue) ? defaultValue : "",
   );
+  const [daHydrate, datHydrate] = useState(false);
+  const selectGoc = useRef<HTMLSelectElement>(null);
+  useEffect(() => {
+    // Người dùng có thể đã chọn trên <select> gốc trước khi JavaScript chạy: giữ lựa chọn đó.
+    const daChonTruoc = selectGoc.current?.value;
+    if (daChonTruoc !== undefined) datChon(daChonTruoc);
+    datHydrate(true);
+  }, []);
   const [q, datQ] = useState("");
   const [mo, datMo] = useState(false);
-  const [viTri, datViTri] = useState(0);
+  const [viTri, datViTri] = useState(-1);
   const listId = useId();
 
   if (!daHydrate) {
     return (
       <select
+        ref={selectGoc}
         id={id}
         name={name}
         required={required}
@@ -87,7 +103,9 @@ export function ChonDonVi({
   const moDanhSach = () => {
     datMo(true);
     datQ("");
-    datViTri(0);
+    // Đánh dấu dòng đang chọn (không mặc định dòng đầu), để Enter không thay giá trị.
+    const idsKhiMo = [...(!required && chon ? [BO_CHON] : []), ...timDonVi(ds, "").map((d) => d.id)];
+    datViTri(viTriKhiMo(idsKhiMo, chon));
   };
   const dongId = (i: number) => `${listId}-${i}`;
 
@@ -101,7 +119,7 @@ export function ChonDonVi({
         aria-expanded={mo}
         aria-controls={listId}
         aria-autocomplete="list"
-        aria-activedescendant={mo && dong.length ? dongId(viTri) : undefined}
+        aria-activedescendant={mo && viTri >= 0 && viTri < dong.length ? dongId(viTri) : undefined}
         aria-describedby={moTaId}
         autoComplete="off"
         spellCheck={false}
@@ -117,21 +135,18 @@ export function ChonDonVi({
           datViTri(0);
         }}
         onKeyDown={(e) => {
-          if (e.key === "ArrowDown") {
-            e.preventDefault();
-            if (!mo) moDanhSach();
-            else datViTri((v) => Math.min(v + 1, dong.length - 1));
-          } else if (e.key === "ArrowUp") {
-            e.preventDefault();
-            datViTri((v) => Math.max(v - 1, 0));
-          } else if (e.key === "Enter" && mo) {
-            e.preventDefault();
-            nhan(dong[viTri]);
-          } else if (e.key === "Escape" && mo) {
-            e.preventDefault();
+          const kq = phimCombobox(e.key, viTri, dong.length, mo);
+          if (!kq.hanhDong) return;
+          // `dong_gui`: đóng danh sách nhưng để Enter gửi biểu mẫu như ô nhập thường.
+          if (kq.hanhDong !== "dong_gui") e.preventDefault();
+          if (kq.hanhDong === "mo") return moDanhSach();
+          if (kq.hanhDong === "nhan") return nhan(dong[kq.viTri]);
+          if (kq.hanhDong === "dong" || kq.hanhDong === "dong_gui") {
             datMo(false);
             datQ("");
+            return;
           }
+          datViTri(kq.viTri);
         }}
         className={cn(inputClass, "pr-9")}
       />

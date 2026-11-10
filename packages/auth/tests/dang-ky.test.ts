@@ -3,7 +3,7 @@
  * trên Postgres test thật, email mang tiền tố riêng và được dọn sau khi chạy.
  */
 import { afterAll, beforeAll, describe, expect, test } from "bun:test";
-import { sql, taoDonVi } from "@qdpl/db";
+import { sql, suaDonVi, taoDonVi } from "@qdpl/db";
 import {
   capNhatKhaiBao,
   chuanHoaSoDienThoai,
@@ -235,5 +235,25 @@ describe("nơi sinh hoạt Đảng", () => {
     const tk = await dangKyTaiKhoan(duLieu("dang-4"));
     const tt = await capNhatKhaiBao(tk.id, { ...duLieu("dang-4"), donViDangId: TO_CHUC_DANG });
     expect(tt.donViDang?.id).toBe(TO_CHUC_DANG);
+  });
+});
+
+describe("khai lại khi tổ chức Đảng đã ngừng dùng", () => {
+  test("giữ nơi sinh hoạt Đảng đang gắn; chọn mới tổ chức đã ngừng thì bị từ chối", async () => {
+    const dang = await taoDonVi(
+      { code: `${PREFIX}-DANG-NGUNG`, name: "Chi bộ sẽ ngừng", loai: "to_chuc_dang" },
+      `${PREFIX}-seed`,
+    );
+    const tk = await dangKyTaiKhoan(duLieu("dang-ngung", { donViDangId: dang.id }));
+    await suaDonVi(dang.id, { enabled: false }, `${PREFIX}-seed`);
+
+    const tt = await capNhatKhaiBao(tk.id, { ...duLieu("dang-ngung"), donViDangId: dang.id });
+    expect(tt.donViDang?.id).toBe(dang.id);
+
+    const tk2 = await dangKyTaiKhoan(duLieu("dang-ngung-2"));
+    const loi = await capNhatKhaiBao(tk2.id, { ...duLieu("dang-ngung-2"), donViDangId: dang.id }).catch(
+      (e) => e,
+    );
+    expect(loi).toBeInstanceOf(LoiDangKy);
   });
 });

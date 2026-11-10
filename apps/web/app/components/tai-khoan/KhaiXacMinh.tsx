@@ -60,6 +60,7 @@ export function KhaiXacMinh({
         items={donVi}
         chiLoai="to_chuc_dang"
         defaultValue={macDinh?.don_vi_dang?.id}
+        tenMacDinh={macDinh?.don_vi_dang?.ten}
         placeholder="Gõ tên chi bộ, đảng bộ để tìm; bỏ trống nếu không có"
       />
 

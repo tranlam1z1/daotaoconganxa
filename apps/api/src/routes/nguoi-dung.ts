@@ -284,7 +284,10 @@ nguoiDungRoute.patch("/:id", async (c) => {
   }
   if (body.unitId && !(await layDonVi(body.unitId))) throw notFound("Không tìm thấy đơn vị.");
   try {
-    if (body.partyUnitId) await kiemDonViDang(body.partyUnitId);
+    // Chỉ kiểm khi đổi nơi sinh hoạt Đảng: giữ nguyên một tổ chức đã ngừng dùng vẫn lưu được.
+    if (body.partyUnitId && body.partyUnitId !== (await layNguoiDung(id))?.party_unit_id) {
+      await kiemDonViDang(body.partyUnitId);
+    }
     return c.json({ item: await suaNguoiDung(id, body, p.email) });
   } catch (e) {
     doiLoi(e);

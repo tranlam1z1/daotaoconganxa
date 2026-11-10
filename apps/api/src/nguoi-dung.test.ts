@@ -335,12 +335,25 @@ describe("nơi sinh hoạt Đảng của người dùng", () => {
     const ds = await goi("GET", `/v1/quan-tri/nguoi-dung?q=${PREFIX}-can-bo-b`, { token: tk.quanTri });
     expect(ds.body.items[0].party_unit_id).toBe(dang.id);
 
-    // Đã ngừng dùng thì không gắn mới được.
-    const ganLai = await goi("PATCH", `/v1/quan-tri/nguoi-dung/${nd.id}`, {
+    // Lưu lại tài khoản với nơi sinh hoạt Đảng không đổi (ví dụ chỉ đổi vai trò) vẫn được.
+    const luuLai = await goi("PATCH", `/v1/quan-tri/nguoi-dung/${nd.id}`, {
       token: tk.quanTri,
-      body: { partyUnitId: dang.id },
+      body: { partyUnitId: dang.id, rankTitle: "Chuyên viên" },
     });
-    expect(ganLai.status).toBe(400);
+    expect(luuLai.status).toBe(200);
+    expect(luuLai.body.item.party_unit_id).toBe(dang.id);
+
+    // Gắn mới một tổ chức Đảng đã ngừng dùng thì bị từ chối.
+    const ngungKhac = await taoDonVi(
+      { code: `${PREFIX}-DANG2`, name: "Chi bộ đã ngừng", loai: "to_chuc_dang" },
+      `${PREFIX}-seed`,
+    );
+    await suaDonVi(ngungKhac.id, { enabled: false }, `${PREFIX}-seed`);
+    const ganMoi = await goi("PATCH", `/v1/quan-tri/nguoi-dung/${nd.id}`, {
+      token: tk.quanTri,
+      body: { partyUnitId: ngungKhac.id },
+    });
+    expect(ganMoi.status).toBe(400);
     await sql`UPDATE accounts SET party_unit_id = NULL WHERE id = ${nd.id}`;
   });
 

@@ -14,6 +14,7 @@ import {
   layToken,
   nguoiDungHienTai,
 } from "../lib/auth.server";
+import { duVaiTro } from "../lib/session.server";
 import { pageMeta } from "../lib/site";
 import type { Route } from "./+types/dang-nhap";
 
@@ -27,6 +28,11 @@ function noiDenAnToan(raw: string | null): string {
   return raw;
 }
 
+/** Không có ?tiep= riêng: tài khoản vào được khu quản trị (lãnh đạo trở lên) đi thẳng tới /quan-tri. */
+function noiDenSauDangNhap(tiep: string, nguoiDung: { vai_tro: string }): string {
+  return tiep === "/" && duVaiTro(nguoiDung, "lanh_dao") ? "/quan-tri" : tiep;
+}
+
 function chuyenKemPhien(request: Request, phien: KetQuaDangNhap, dich: string): Response {
   return new Response(null, {
     status: 302,
@@ -37,7 +43,7 @@ function chuyenKemPhien(request: Request, phien: KetQuaDangNhap, dich: string): 
 export async function loader({ request }: Route.LoaderArgs) {
   const tiep = noiDenAnToan(new URL(request.url).searchParams.get("tiep"));
   const nguoiDung = await nguoiDungHienTai(request);
-  return { tiep, nguoiDung };
+  return { tiep, nguoiDung, vaoQuanTri: duVaiTro(nguoiDung, "lanh_dao") };
 }
 
 export async function action({ request }: Route.ActionArgs) {
@@ -55,7 +61,8 @@ export async function action({ request }: Route.ActionArgs) {
         tokenKhach,
       );
       // Mật khẩu tạm (lần đầu, hoặc vừa được đặt lại) phải đổi trước khi vào hệ thống.
-      const dich = phien.phai_doi_mat_khau ? `/doi-mat-khau?tiep=${encodeURIComponent(tiep)}` : tiep;
+      const noiDen = noiDenSauDangNhap(tiep, phien);
+      const dich = phien.phai_doi_mat_khau ? `/doi-mat-khau?tiep=${encodeURIComponent(noiDen)}` : noiDen;
       return chuyenKemPhien(request, phien, dich);
     }
     return { loi: "Phương thức đăng nhập không được hỗ trợ." };
@@ -66,7 +73,7 @@ export async function action({ request }: Route.ActionArgs) {
 }
 
 export default function DangNhap({ loaderData, actionData }: Route.ComponentProps) {
-  const { tiep, nguoiDung } = loaderData;
+  const { tiep, nguoiDung, vaoQuanTri } = loaderData;
   const busy = useNavigation().state === "submitting";
 
   return (
@@ -85,8 +92,8 @@ export default function DangNhap({ loaderData, actionData }: Route.ComponentProp
           <p className="mt-2 text-sm text-ink-2">
             {nguoiDung.ten ?? nguoiDung.email} · {nguoiDung.mo_ta_vai_tro}
           </p>
-          <ButtonLink to="/" className="mt-6">
-            Về trang chủ
+          <ButtonLink to={vaoQuanTri ? "/quan-tri" : "/"} className="mt-6">
+            {vaoQuanTri ? "Vào trang quản trị" : "Về trang chủ"}
           </ButtonLink>
         </Card>
       ) : (

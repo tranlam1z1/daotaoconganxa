@@ -25,7 +25,7 @@ const TEN_VAI_TRO: Record<VaiTro, string> = {
   quan_tri: "Admin quản trị hệ thống",
 };
 
-export function duVaiTro(nguoiDung: NguoiDung | null, can: VaiTro): boolean {
+export function duVaiTro(nguoiDung: Pick<NguoiDung, "vai_tro"> | null, can: VaiTro): boolean {
   if (!nguoiDung) return false;
   return VAI_TRO_THU_TU.indexOf(nguoiDung.vai_tro as VaiTro) >= VAI_TRO_THU_TU.indexOf(can);
 }

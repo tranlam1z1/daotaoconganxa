@@ -68,6 +68,7 @@ const khaiBaoSchema = z.object({
   don_vi_id: z.string().trim().min(1, "Chọn đơn vị công tác").max(50),
   cap_bac_chuc_vu: z.string().trim().max(300).optional(),
   so_dien_thoai: z.string().trim().min(1, "Nhập số điện thoại").max(30),
+  don_vi_dang_id: z.string().trim().max(50).optional(),
 });
 
 // Quy tắc chi tiết (độ dài tên, dạng số điện thoại, độ mạnh mật khẩu) kiểm ở dangKyTaiKhoan.
@@ -131,6 +132,7 @@ function xacMinhJson(tt: NonNullable<Awaited<ReturnType<typeof thongTinXacMinh>>
     trang_thai: tt.trangThai,
     so_hieu: tt.soHieu,
     don_vi: tt.donVi,
+    don_vi_dang: tt.donViDang,
     cap_bac_chuc_vu: tt.capBacChucVu,
     so_dien_thoai: tt.soDienThoai,
     ly_do_tu_choi: tt.lyDo,
@@ -316,6 +318,7 @@ auth.post("/dang-ky", async (c) => {
         soHieu: body.so_hieu,
         donViId: body.don_vi_id,
         capBacChucVu: body.cap_bac_chuc_vu ?? null,
+        donViDangId: body.don_vi_dang_id ?? null,
       },
       diaChiIp(c),
     );
@@ -356,6 +359,7 @@ auth.put("/xac-minh", async (c) => {
       donViId: body.don_vi_id,
       capBacChucVu: body.cap_bac_chuc_vu ?? null,
       soDienThoai: body.so_dien_thoai,
+      donViDangId: body.don_vi_dang_id ?? null,
     });
     return c.json({ xac_minh: xacMinhJson(tt) });
   } catch (e) {

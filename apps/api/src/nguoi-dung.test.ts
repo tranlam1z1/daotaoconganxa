@@ -312,6 +312,49 @@ describe("API đơn vị: loại và mã xã theo danh mục", () => {
   });
 });
 
+describe("nơi sinh hoạt Đảng của người dùng", () => {
+  test("quản trị gắn tổ chức Đảng; ngừng dùng tổ chức đó thì người dùng vẫn giữ", async () => {
+    const dang = await taoDonVi(
+      { code: `${PREFIX}-DANG`, name: "Chi bộ thử", loai: "to_chuc_dang" },
+      `${PREFIX}-seed`,
+    );
+    const [nd] = (await sql`SELECT id FROM accounts WHERE username = ${`${PREFIX}-can-bo-b`}`) as any[];
+    const gan = await goi("PATCH", `/v1/quan-tri/nguoi-dung/${nd.id}`, {
+      token: tk.quanTri,
+      body: { partyUnitId: dang.id },
+    });
+    expect(gan.status).toBe(200);
+    expect(gan.body.item.party_unit_id).toBe(dang.id);
+    expect(gan.body.item.party_unit_name).toBe("Chi bộ thử");
+
+    const ngung = await goi("PATCH", `/v1/quan-tri/don-vi/${dang.id}`, {
+      token: tk.quanTri,
+      body: { enabled: false },
+    });
+    expect(ngung.status).toBe(200);
+    const ds = await goi("GET", `/v1/quan-tri/nguoi-dung?q=${PREFIX}-can-bo-b`, { token: tk.quanTri });
+    expect(ds.body.items[0].party_unit_id).toBe(dang.id);
+
+    // Đã ngừng dùng thì không gắn mới được.
+    const ganLai = await goi("PATCH", `/v1/quan-tri/nguoi-dung/${nd.id}`, {
+      token: tk.quanTri,
+      body: { partyUnitId: dang.id },
+    });
+    expect(ganLai.status).toBe(400);
+    await sql`UPDATE accounts SET party_unit_id = NULL WHERE id = ${nd.id}`;
+  });
+
+  test("gắn đơn vị không phải tổ chức Đảng trả 400", async () => {
+    const [nd] = (await sql`SELECT id FROM accounts WHERE username = ${`${PREFIX}-can-bo-b`}`) as any[];
+    const r = await goi("PATCH", `/v1/quan-tri/nguoi-dung/${nd.id}`, {
+      token: tk.quanTri,
+      body: { partyUnitId: donVi.doiA },
+    });
+    expect(r.status).toBe(400);
+    expect(r.body.error.message).toContain("tổ chức Đảng");
+  });
+});
+
 describe("phạm vi đơn vị của cán bộ quản lý", () => {
   test("quản lý đội A lọc theo đội B nhận 403", async () => {
     const r = await goi("GET", `/v1/quan-tri/nguoi-dung?don_vi=${donVi.doiB}`, { token: tk.quanLyA });

@@ -27,6 +27,7 @@ import {
   demChoXacMinh,
   docBangExcel,
   duyetTaiKhoan,
+  kiemDonViDang,
   LOAI_DON_VI,
   LoiNghiepVu,
   LoiTepExcel,
@@ -227,6 +228,7 @@ const taoNguoiDungSchema = z.object({
   role: z.enum(ROLES).default("can_bo"),
   unitId: uuid.nullable().optional(),
   rankTitle: z.string().trim().max(200).nullable().optional(),
+  partyUnitId: uuid.nullable().optional(),
   email: z.string().trim().email("Email không hợp lệ").max(200).nullable().optional().or(z.literal("")),
 });
 
@@ -240,6 +242,7 @@ nguoiDungRoute.post("/", async (c) => {
   if (body.unitId && !(await layDonVi(body.unitId))) throw notFound("Không tìm thấy đơn vị.");
   const matKhauTam = taoMatKhauTam();
   try {
+    if (body.partyUnitId) await kiemDonViDang(body.partyUnitId);
     const item = await taoNguoiDung(
       {
         username,
@@ -248,6 +251,7 @@ nguoiDungRoute.post("/", async (c) => {
         nhomDoiTuong: body.nhomDoiTuong,
         unitId: body.unitId ?? null,
         rankTitle: body.rankTitle ?? null,
+        partyUnitId: body.partyUnitId ?? null,
         email: body.email ? body.email.toLowerCase() : null,
         passwordHash: await bamMatKhau(matKhauTam),
       },
@@ -265,6 +269,7 @@ const suaNguoiDungSchema = z.object({
   role: z.enum(ROLES).optional(),
   unitId: uuid.nullable().optional(),
   rankTitle: z.string().trim().max(200).nullable().optional(),
+  partyUnitId: uuid.nullable().optional(),
   enabled: z.boolean().optional(),
 });
 
@@ -279,6 +284,7 @@ nguoiDungRoute.patch("/:id", async (c) => {
   }
   if (body.unitId && !(await layDonVi(body.unitId))) throw notFound("Không tìm thấy đơn vị.");
   try {
+    if (body.partyUnitId) await kiemDonViDang(body.partyUnitId);
     return c.json({ item: await suaNguoiDung(id, body, p.email) });
   } catch (e) {
     doiLoi(e);

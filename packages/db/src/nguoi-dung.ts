@@ -21,6 +21,9 @@ export interface NguoiDungHang {
   unit_name: string | null;
   unit_path: string | null;
   rank_title: string | null;
+  /** Nơi sinh hoạt Đảng (migration 0087); không ảnh hưởng phạm vi quản lý. */
+  party_unit_id: string | null;
+  party_unit_name: string | null;
   must_change_password: boolean;
   last_login_at: string | null;
   created_at: string;
@@ -42,15 +45,16 @@ export interface NguoiDungHang {
   pham_vi_path: string | null;
 }
 
-/** Bảng nguồn: tài khoản, đơn vị đang gắn (u) và đơn vị đã khai (k). */
-const TU = sql`accounts a LEFT JOIN units u ON u.id = a.unit_id LEFT JOIN units k ON k.id = a.don_vi_khai`;
+/** Bảng nguồn: tài khoản, đơn vị đang gắn (u), đơn vị đã khai (k), nơi sinh hoạt Đảng (d). */
+const TU = sql`accounts a LEFT JOIN units u ON u.id = a.unit_id LEFT JOIN units k ON k.id = a.don_vi_khai
+  LEFT JOIN units d ON d.id = a.party_unit_id`;
 
 const PHAM_VI = sql`COALESCE(u.path, CASE WHEN a.xac_minh <> 'da_xac_minh' THEN k.path END)`;
 
 const COT = sql`
   a.id, a.username, a.email, a.name, a.role, a.nhom_doi_tuong, a.enabled, a.unit_id,
   u.code AS unit_code, u.name AS unit_name, u.path::text AS unit_path,
-  a.rank_title, a.must_change_password, a.last_login_at, a.created_at,
+  a.rank_title, a.party_unit_id, d.name AS party_unit_name, a.must_change_password, a.last_login_at, a.created_at,
   a.xac_minh, a.so_hieu, a.phone, a.self_registered, a.don_vi_khai, k.name AS don_vi_khai_name,
   a.xac_minh_ly_do, a.xac_minh_boi, a.xac_minh_luc, (${PHAM_VI})::text AS pham_vi_path`;
 
@@ -145,6 +149,8 @@ export interface DuLieuNguoiDung {
   role: string;
   unitId: string | null;
   rankTitle?: string | null;
+  /** Nơi sinh hoạt Đảng; nơi gọi đã kiểm bằng `kiemDonViDang`. */
+  partyUnitId?: string | null;
   email?: string | null;
   passwordHash: string;
   nhomDoiTuong?: string[];
@@ -162,9 +168,10 @@ export async function taoNguoiDung(d: DuLieuNguoiDung, actor: string): Promise<N
     );
   }
   const [row] = (await sql`
-    INSERT INTO accounts (username, name, role, unit_id, rank_title, email, password_hash, must_change_password, nhom_doi_tuong)
+    INSERT INTO accounts (username, name, role, unit_id, rank_title, email, password_hash, must_change_password,
+                          nhom_doi_tuong, party_unit_id)
     VALUES (${d.username}, ${d.name}, ${d.role}, ${d.unitId}, ${d.rankTitle ?? null}, ${d.email ?? null},
-            ${d.passwordHash}, true, ${d.nhomDoiTuong ?? []}::text[])
+            ${d.passwordHash}, true, ${d.nhomDoiTuong ?? []}::text[], ${d.partyUnitId ?? null})
     RETURNING id`) as any[];
   await sql`INSERT INTO audit_log (actor, action, target, detail)
             VALUES (${actor}, 'nguoi_dung:tao', ${d.username}, ${sql.json({ role: d.role, unitId: d.unitId, nhomDoiTuong: d.nhomDoiTuong ?? [] } as never)})`;
@@ -178,6 +185,8 @@ export interface SuaNguoiDung {
   /** null: bỏ gắn đơn vị. */
   unitId?: string | null;
   rankTitle?: string | null;
+  /** null: bỏ nơi sinh hoạt Đảng; nơi gọi đã kiểm bằng `kiemDonViDang`. */
+  partyUnitId?: string | null;
   enabled?: boolean;
 }
 
@@ -190,6 +199,7 @@ export async function suaNguoiDung(id: string, s: SuaNguoiDung, actor: string): 
       nhom_doi_tuong = CASE WHEN ${s.nhomDoiTuong !== undefined} THEN ${s.nhomDoiTuong ?? []}::text[] ELSE nhom_doi_tuong END,
       unit_id = CASE WHEN ${s.unitId !== undefined} THEN ${s.unitId ?? null}::uuid ELSE unit_id END,
       rank_title = CASE WHEN ${s.rankTitle !== undefined} THEN ${s.rankTitle?.trim() || null} ELSE rank_title END,
+      party_unit_id = CASE WHEN ${s.partyUnitId !== undefined} THEN ${s.partyUnitId ?? null}::uuid ELSE party_unit_id END,
       enabled = COALESCE(${s.enabled ?? null}, enabled)
     WHERE id = ${id}
     RETURNING COALESCE(username, email) AS ten`) as any[];

@@ -247,3 +247,13 @@ export async function suaDonVi(id: string, s: SuaDonVi, actor: string): Promise<
   });
   return (await layDonVi(id)) as DonVi;
 }
+
+/** Nơi sinh hoạt Đảng phải là đơn vị loại `to_chuc_dang` đang hoạt động. Ném LoiNghiepVu. */
+export async function kiemDonViDang(id: string): Promise<void> {
+  const hopLe = /^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/i.test(id)
+    ? ((await sql`SELECT 1 FROM units WHERE id = ${id} AND loai = 'to_chuc_dang' AND enabled`) as any[])
+    : [];
+  if (!hopLe.length) {
+    throw new LoiNghiepVu("Nơi sinh hoạt Đảng phải là tổ chức Đảng đang hoạt động.", "khong_hop_le");
+  }
+}

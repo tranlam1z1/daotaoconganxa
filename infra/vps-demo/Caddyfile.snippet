@@ -1,0 +1,17 @@
+# Dán vào cuối /opt/daotao/docker/Caddyfile rồi: docker exec daotao-caddy-1 caddy reload --config /etc/caddy/Caddyfile
+# Header bảo mật giữ như bản Traefik cũ. SAMEORIGIN chứ không DENY: trang đọc văn bản nhúng PDF của chính trang này.
+daotaonghiepvu.click, www.daotaonghiepvu.click {
+	encode zstd gzip
+	header {
+		Strict-Transport-Security "max-age=31536000"
+		X-Content-Type-Options nosniff
+		X-Frame-Options SAMEORIGIN
+		Referrer-Policy strict-origin-when-cross-origin
+		-Server
+	}
+	reverse_proxy hocluat-web:3000
+}
+
+api.daotaonghiepvu.click {
+	reverse_proxy hocluat-api:3001
+}

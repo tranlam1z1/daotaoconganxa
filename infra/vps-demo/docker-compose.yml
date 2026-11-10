@@ -1,4 +1,5 @@
-# Bản demo hocluat.senow.tech trên VPS. Traefik (happyfinate-traefik-1) nhận HTTPS và cấp chứng chỉ.
+# Bản demo daotaonghiepvu.click trên VPS 180.93.117.43. Caddy của stack daotao (daotao-caddy-1) nhận HTTPS,
+# cấp chứng chỉ và chuyển vào hocluat-web:3000 / hocluat-api:3001 qua mạng daotao_default (xem Caddyfile.snippet).
 # Dùng: docker compose --env-file .env up -d --build ; gieo dữ liệu: docker compose run --rm seed
 name: hocluat
 
@@ -39,15 +40,9 @@ services:
       timeout: 5s
       retries: 5
       start_period: 20s
-    networks: [internal, proxy]
-    labels:
-      traefik.enable: "true"
-      traefik.docker.network: happyfinate_proxy
-      traefik.http.routers.hocluat-api.rule: Host(`${API_DOMAIN}`) || Host(`${API_DOMAIN_2}`)
-      traefik.http.routers.hocluat-api.entrypoints: websecure
-      traefik.http.routers.hocluat-api.tls.certresolver: le
-      traefik.http.routers.hocluat-api.service: hocluat-api
-      traefik.http.services.hocluat-api.loadbalancer.server.port: "3001"
+    networks:
+      internal:
+      proxy: { aliases: [hocluat-api] }
 
   web:
     <<: *app
@@ -58,23 +53,9 @@ services:
       WEB_PORT: "3000"
       API_URL: http://api:3001
     depends_on: { api: { condition: service_healthy } }
-    networks: [internal, proxy]
-    labels:
-      traefik.enable: "true"
-      traefik.docker.network: happyfinate_proxy
-      traefik.http.routers.hocluat-web.rule: Host(`${WEB_DOMAIN}`) || Host(`${WEB_DOMAIN_2}`)
-      traefik.http.routers.hocluat-web.entrypoints: websecure
-      traefik.http.routers.hocluat-web.tls.certresolver: le
-      traefik.http.routers.hocluat-web.service: hocluat-web
-      traefik.http.middlewares.hocluat-compress.compress: "true"
-      # Header bảo mật cho mọi phản hồi của web. SAMEORIGIN chứ không DENY: trang đọc văn bản và biểu mẫu
-      # nhúng tệp PDF của chính trang này trong khung.
-      traefik.http.middlewares.hocluat-headers.headers.stsSeconds: "31536000"
-      traefik.http.middlewares.hocluat-headers.headers.contentTypeNosniff: "true"
-      traefik.http.middlewares.hocluat-headers.headers.referrerPolicy: strict-origin-when-cross-origin
-      traefik.http.middlewares.hocluat-headers.headers.customFrameOptionsValue: SAMEORIGIN
-      traefik.http.routers.hocluat-web.middlewares: hocluat-compress,hocluat-headers
-      traefik.http.services.hocluat-web.loadbalancer.server.port: "3000"
+    networks:
+      internal:
+      proxy: { aliases: [hocluat-web] }
 
   # Việc chạy một lần: migration + gieo dữ liệu demo (cùng các bước của scripts/demo.ts).
   # Dùng chung mạng với db để CSDL nằm ở 127.0.0.1: các script demo chỉ chịu ghi vào CSDL trên máy.
@@ -96,5 +77,5 @@ volumes:
 networks:
   internal:
   proxy:
-    name: happyfinate_proxy
+    name: daotao_default
     external: true

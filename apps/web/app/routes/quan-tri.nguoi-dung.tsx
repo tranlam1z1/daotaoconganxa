@@ -17,10 +17,12 @@ import { Form, Link, useFetcher, useNavigation, useSearchParams } from "react-ro
 import { NHOM_HOC_TAP, TEN_NHOM_HOC_TAP } from "../../../../packages/dao-tao/src/nhom-doi-tuong";
 import { Badge } from "../components/ui/Badge";
 import { Button, ButtonLink } from "../components/ui/Button";
+import { ChonDonVi as ChonDonViTim } from "../components/ui/ChonDonVi";
 import { EmptyState } from "../components/ui/EmptyState";
 import { Input, inputClass, Label, Notice } from "../components/ui/Field";
 import { HopThoai, useHop, VungNutHop } from "../components/ui/HopThoai";
 import { Icon } from "../components/ui/Icon";
+import { type LoaiDonVi, type MucDonVi, thanhMucDonVi } from "../lib/cay-don-vi";
 import { formatDate } from "../lib/format";
 import { goiApiQuanTri, LoiApi } from "../lib/quan-tri.server";
 import { duVaiTro, yeuCauVaiTro } from "../lib/session.server";
@@ -44,6 +46,8 @@ interface NguoiDungHang {
   unit_code: string | null;
   unit_name: string | null;
   rank_title: string | null;
+  party_unit_id: string | null;
+  party_unit_name: string | null;
   must_change_password: boolean;
   last_login_at: string | null;
   created_at: string;
@@ -55,12 +59,15 @@ interface NguoiDungHang {
   xac_minh_ly_do: string | null;
 }
 
-interface DonVi {
+/** Đơn vị trả về từ GET /v1/quan-tri/don-vi; loader chuyển sang `MucDonVi` cho ô chọn. */
+interface DonViApi {
   id: string;
-  code: string;
   name: string;
+  parent_id: string | null;
   cap: number;
+  loai: LoaiDonVi;
 }
+type DonVi = MucDonVi;
 
 interface KetQuaNhap {
   chayThu: boolean;
@@ -98,9 +105,14 @@ export async function loader({ request }: Route.LoaderArgs) {
       token,
       `/v1/quan-tri/nguoi-dung?${qs}`,
     ),
-    goiApiQuanTri<{ items: DonVi[] }>(token, "/v1/quan-tri/don-vi"),
+    goiApiQuanTri<{ items: DonViApi[] }>(token, "/v1/quan-tri/don-vi"),
   ]);
-  return { ...ds, donVi: dv.items, laQuanTri: nguoiDung.la_quan_tri, toi: nguoiDung.ten_dang_nhap ?? null };
+  return {
+    ...ds,
+    donVi: thanhMucDonVi(dv.items),
+    laQuanTri: nguoiDung.la_quan_tri,
+    toi: nguoiDung.ten_dang_nhap ?? null,
+  };
 }
 
 type KetQuaThaoTac =
@@ -152,6 +164,7 @@ export async function action({ request }: Route.ActionArgs): Promise<KetQuaThaoT
             nhomDoiTuong: f.getAll("nhomDoiTuong").map(String),
             unitId: chuoi("unitId") || null,
             rankTitle: chuoi("rankTitle") || null,
+            partyUnitId: chuoi("partyUnitId") || null,
             email: chuoi("email") || null,
           },
         },
@@ -194,6 +207,7 @@ export async function action({ request }: Route.ActionArgs): Promise<KetQuaThaoT
           nhomDoiTuong: f.getAll("nhomDoiTuong").map(String),
           unitId: chuoi("unitId") || null,
           rankTitle: chuoi("rankTitle") || null,
+          partyUnitId: chuoi("partyUnitId") || null,
         },
       });
       return { ok: `Đã lưu tài khoản ${chuoi("ten")}.` };
@@ -216,17 +230,16 @@ function ChonDonVi({
   macDinh?: string | null;
   tatCa?: string;
 }) {
-  const capGoc = Math.min(...donVi.map((d) => d.cap), 1);
   return (
-    <select id={id} name={tatCa ? "don_vi" : "unitId"} defaultValue={macDinh ?? ""} className={inputClass}>
-      <option value="">{tatCa ?? "Chưa gắn đơn vị"}</option>
-      {donVi.map((d) => (
-        <option key={d.id} value={d.id}>
-          {"· ".repeat(d.cap - capGoc)}
-          {d.name}
-        </option>
-      ))}
-    </select>
+    <ChonDonViTim
+      // Đổi giá trị lọc trên URL thì dựng lại ô với giá trị mới.
+      key={macDinh ?? ""}
+      id={id}
+      name={tatCa ? "don_vi" : "unitId"}
+      items={donVi}
+      defaultValue={macDinh}
+      placeholder={tatCa ?? "Chưa gắn đơn vị"}
+    />
   );
 }
 
@@ -415,8 +428,19 @@ function TruongNguoiDung({ u, donVi }: { u?: NguoiDungHang; donVi: DonVi[] }) {
         </div>
       )}
       <div>
-        <Label htmlFor={`dv-${id}`}>Đơn vị</Label>
+        <Label htmlFor={`dv-${id}`}>Nơi công tác</Label>
         <ChonDonVi id={`dv-${id}`} donVi={donVi} macDinh={u?.unit_id} />
+      </div>
+      <div>
+        <Label htmlFor={`dang-${id}`}>Nơi sinh hoạt Đảng</Label>
+        <ChonDonViTim
+          id={`dang-${id}`}
+          name="partyUnitId"
+          items={donVi}
+          chiLoai="to_chuc_dang"
+          defaultValue={u?.party_unit_id}
+          placeholder="Không có"
+        />
       </div>
       <div>
         <Label htmlFor={`vt-${id}`}>Vai trò</Label>
@@ -546,6 +570,7 @@ function ChiTietNguoiDung({
         <Dong nhan="Đơn vị">
           {u.unit_name ? `${u.unit_name}${u.unit_code ? ` (${u.unit_code})` : ""}` : "Chưa gắn đơn vị"}
         </Dong>
+        {u.party_unit_name ? <Dong nhan="Nơi sinh hoạt Đảng">{u.party_unit_name}</Dong> : null}
         {u.rank_title ? <Dong nhan="Chức vụ, chức danh">{u.rank_title}</Dong> : null}
         {u.so_hieu ? (
           <Dong nhan="Mã cán bộ">

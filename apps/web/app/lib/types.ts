@@ -1,3 +1,4 @@
+import type { MucDonVi } from "./cay-don-vi";
 /**
  * Kiểu dữ liệu dùng ở tầng giao diện.
  * Phản chiếu `packages/legal-model/src/types.ts` (ke-hoach/03) — khai báo lại tại đây
@@ -335,17 +336,18 @@ export interface ThongTinXacMinh {
   trang_thai: "cho_duyet" | "da_xac_minh" | "tu_choi";
   so_hieu: string | null;
   don_vi: { id: string; ten: string } | null;
+  /** Nơi sinh hoạt Đảng; null khi không khai. */
+  don_vi_dang: { id: string; ten: string } | null;
   cap_bac_chuc_vu: string | null;
   so_dien_thoai: string | null;
   ly_do_tu_choi: string | null;
 }
 
-/** Một đơn vị trong danh sách chọn khi đăng ký; `cap` là độ sâu tính từ gốc (gốc = 1). */
-export interface DonViChon {
-  id: string;
-  ten: string;
-  cap: number;
-}
+/**
+ * Một đơn vị trong danh sách chọn khi đăng ký (GET /v1/auth/don-vi); `cap` là độ sâu tính từ gốc
+ * (gốc = 1), `duong` là tên các cấp trên nối bằng " › ".
+ */
+export type DonViChon = MucDonVi;
 
 /**
  * Danh tính người đang đăng nhập. Khai ở đây (không phải trong auth.server.ts) để các

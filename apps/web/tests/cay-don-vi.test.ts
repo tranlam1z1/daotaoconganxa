@@ -1,5 +1,5 @@
 import { describe, expect, test } from "bun:test";
-import { canHien, khoaTimDonVi, locCay, NHAN_LOAI, timDonVi } from "../app/lib/cay-don-vi";
+import { canHien, khoaTimDonVi, locCay, NHAN_LOAI, thanhMucDonVi, timDonVi } from "../app/lib/cay-don-vi";
 
 const CAY = [
   { id: "a", parent_id: null, name: "Xã A", loai: "xa" as const },
@@ -79,4 +79,15 @@ describe("canHien", () => {
 test("nhãn loại đủ 6 loại", () => {
   expect(Object.keys(NHAN_LOAI)).toHaveLength(6);
   expect(NHAN_LOAI.to_chuc_dang).toBe("Tổ chức Đảng");
+});
+
+test("thanhMucDonVi dựng đường dẫn cấp trên", () => {
+  const ds = CAY.map((d) => ({ ...d, cap: d.parent_id === null ? 1 : d.id === "d" ? 3 : 2 }));
+  expect(thanhMucDonVi(ds).find((m) => m.id === "d")).toEqual({
+    id: "d",
+    ten: "Tổ chuyên môn",
+    cap: 3,
+    loai: "khac",
+    duong: "Xã A › Trường B",
+  });
 });

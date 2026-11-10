@@ -89,3 +89,28 @@ export function canHien(ds: Pick<NutCay, "id" | "parent_id">[], id: string, dang
   }
   return true;
 }
+
+/** Một mục của ô chọn đơn vị: `duong` là tên các cấp trên nối bằng " › ". */
+export interface MucDonVi {
+  id: string;
+  ten: string;
+  cap: number;
+  loai: LoaiDonVi;
+  duong: string;
+}
+
+/** Chuyển danh sách đơn vị của API quản trị (theo thứ tự cây) sang mục của ô chọn. */
+export function thanhMucDonVi(ds: Array<NutCay & { cap: number }>): MucDonVi[] {
+  const theoId = new Map(ds.map((d) => [d.id, d]));
+  const duong = (id: string | null): string[] => {
+    const d = id ? theoId.get(id) : undefined;
+    return d ? [...duong(d.parent_id), d.name] : [];
+  };
+  return ds.map((d) => ({
+    id: d.id,
+    ten: d.name,
+    cap: d.cap,
+    loai: d.loai,
+    duong: duong(d.parent_id).join(" › "),
+  }));
+}

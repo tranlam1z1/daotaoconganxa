@@ -36,7 +36,8 @@ function docMotLan<T, R>(tep: string, dung: (d: T) => R): () => Promise<R> {
   };
 }
 
-const layBoTra = docMotLan("dia-gioi.json", diaGioi.taoBoTra);
+/** Bộ tra danh mục địa giới, đọc tệp một lần. Dùng chung với API đơn vị để kiểm mã xã. */
+export const layBoTra = docMotLan("dia-gioi.json", diaGioi.taoBoTra);
 const layRanhGioi = docMotLan("ranh-gioi.json", ranhGioi.taoBoRanhGioi);
 const layThon = docMotLan("thon.json", diaGioi.taoBoTraThon);
 

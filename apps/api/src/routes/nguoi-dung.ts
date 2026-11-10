@@ -27,6 +27,7 @@ import {
   demChoXacMinh,
   docBangExcel,
   duyetTaiKhoan,
+  LOAI_DON_VI,
   LoiNghiepVu,
   LoiTepExcel,
   layDonVi,
@@ -43,6 +44,7 @@ import { Hono } from "hono";
 import { z } from "zod";
 import { batBuocPhamViDonVi, batBuocVaiTro, NgoaiPhamVi, phamViCua } from "../auth.ts";
 import { ApiError, badRequest, conflict, notFound, parseBody, parseQuery } from "../http.ts";
+import { layBoTra } from "./dia-gioi.ts";
 
 const uuid = z.string().uuid("Id phải là UUID hợp lệ");
 
@@ -83,11 +85,27 @@ const donViSchema = z.object({
   parentId: uuid.nullable().optional(),
   levelLabel: z.string().trim().max(50).nullable().optional(),
   ordinal: z.coerce.number().int().min(0).max(100_000).optional(),
+  loai: z.enum(LOAI_DON_VI).optional(),
+  maHanhChinh: z
+    .string()
+    .trim()
+    .regex(/^\d{5}$/, "Mã xã gồm đúng 5 chữ số")
+    .nullable()
+    .optional(),
 });
+
+/** Mã xã phải có trong danh mục xã, phường, đặc khu hiện hành (data/dia-gioi). */
+async function kiemMaXaTrongDanhMuc(ma: string | null | undefined) {
+  if (!ma) return;
+  if (!(await layBoTra()).xaMoi(ma)) {
+    throw badRequest(`Không có xã, phường mã ${ma} trong danh mục hiện hành.`);
+  }
+}
 
 donViRoute.post("/", async (c) => {
   const p = await batBuocVaiTro(c, "quan_tri");
   const body = await parseBody(c, donViSchema);
+  await kiemMaXaTrongDanhMuc(body.maHanhChinh);
   try {
     return c.json({ item: await taoDonVi(body, p.email) }, 201);
   } catch (e) {
@@ -101,6 +119,7 @@ donViRoute.patch("/:id", async (c) => {
   const p = await batBuocVaiTro(c, "quan_tri");
   const id = idHopLe(c.req.param("id"));
   const body = await parseBody(c, suaDonViSchema);
+  await kiemMaXaTrongDanhMuc(body.maHanhChinh);
   try {
     return c.json({ item: await suaDonVi(id, body, p.email) });
   } catch (e) {

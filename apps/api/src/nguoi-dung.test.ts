@@ -276,6 +276,42 @@ describe("loại đơn vị", () => {
   });
 });
 
+describe("API đơn vị: loại và mã xã theo danh mục", () => {
+  const tao = (body: unknown) => goi("POST", "/v1/quan-tri/don-vi", { token: tk.quanTri, body });
+
+  test("mã xã không có trong danh mục trả 400", async () => {
+    const r = await tao({ code: `${PREFIX}-api-xa0`, name: "Xã ma", loai: "xa", maHanhChinh: "99999" });
+    expect(r.status).toBe(400);
+    expect(r.body.error.message).toContain("Không có xã, phường mã 99999");
+  });
+
+  test("mã xã có thật thì tạo được, trùng thì 409", async () => {
+    const r = await tao({
+      code: `${PREFIX}-api-xa1`,
+      name: "Phường Hoàn Kiếm",
+      loai: "xa",
+      maHanhChinh: "00070",
+    });
+    expect(r.status).toBe(201);
+    expect(r.body.item.ma_hanh_chinh).toBe("00070");
+    const trung = await tao({ code: `${PREFIX}-api-xa2`, name: "Trùng", loai: "xa", maHanhChinh: "00070" });
+    expect(trung.status).toBe(409);
+  });
+
+  test("loại không hợp lệ trả 400", async () => {
+    const r = await tao({ code: `${PREFIX}-api-x`, name: "X", loai: "abc" });
+    expect(r.status).toBe(400);
+  });
+
+  test("sửa mã xã không có trong danh mục trả 400", async () => {
+    const r = await goi("PATCH", `/v1/quan-tri/don-vi/${donVi.phong}`, {
+      token: tk.quanTri,
+      body: { loai: "xa", maHanhChinh: "99999" },
+    });
+    expect(r.status).toBe(400);
+  });
+});
+
 describe("phạm vi đơn vị của cán bộ quản lý", () => {
   test("quản lý đội A lọc theo đội B nhận 403", async () => {
     const r = await goi("GET", `/v1/quan-tri/nguoi-dung?don_vi=${donVi.doiB}`, { token: tk.quanLyA });

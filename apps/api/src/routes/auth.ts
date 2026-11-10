@@ -279,16 +279,22 @@ auth.post("/mat-khau", async (c) => {
 });
 
 /**
- * GET /v1/auth/don-vi — đơn vị đang hoạt động, theo thứ tự cây, để người đăng ký chọn đơn vị công
- * tác. Chỉ trả tên và độ sâu, không trả số người hay mã nội bộ.
+ * GET /v1/auth/don-vi — đơn vị đang hoạt động, theo thứ tự cây, để người đăng ký chọn nơi công tác
+ * và nơi sinh hoạt Đảng. Trả tên, độ sâu, loại và `duong` (tên các cấp trên nối bằng " › ", để ô
+ * tìm phân biệt các đơn vị trùng tên); không trả số người hay mã nội bộ.
  */
 auth.get("/don-vi", async (c) => {
   const ds = await danhSachDonVi(null);
   // Đơn vị con của đơn vị đã ngừng cũng ẩn theo.
   const ngung = ds.filter((d) => !d.enabled).map((d) => d.path);
+  const theoId = new Map(ds.map((d) => [d.id, d]));
+  const duong = (id: string | null): string[] => {
+    const d = id ? theoId.get(id) : undefined;
+    return d ? [...duong(d.parent_id), d.name] : [];
+  };
   const items = ds
     .filter((d) => !ngung.some((p) => d.path === p || d.path.startsWith(`${p}.`)))
-    .map((d) => ({ id: d.id, ten: d.name, cap: d.cap }));
+    .map((d) => ({ id: d.id, ten: d.name, cap: d.cap, loai: d.loai, duong: duong(d.parent_id).join(" › ") }));
   return c.json({ items });
 });
 

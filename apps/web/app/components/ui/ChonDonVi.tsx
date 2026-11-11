@@ -7,7 +7,7 @@
  * Giá trị gửi đi nằm trong ô ẩn `name`; ô gõ mang `required` để trình duyệt chặn gửi khi chưa chọn.
  */
 import { useEffect, useId, useMemo, useRef, useState } from "react";
-import { dsChon, type LoaiDonVi, type MucDonVi, NHAN_LOAI, timDonVi } from "../../lib/cay-don-vi";
+import { dsChon, ketQuaChon, type LoaiDonVi, type MucDonVi, NHAN_LOAI } from "../../lib/cay-don-vi";
 import { cn } from "../../lib/cn";
 import { phimCombobox, viTriKhiMo } from "../../lib/combobox";
 import { inputClass } from "./Field";
@@ -65,6 +65,11 @@ export function ChonDonVi({
   const [mo, datMo] = useState(false);
   const [viTri, datViTri] = useState(-1);
   const listId = useId();
+  const dongId = (i: number) => `${listId}-${i}`;
+  // Bấm ↑/↓ qua mép khung danh sách thì cuộn theo dòng đang đánh dấu.
+  useEffect(() => {
+    if (mo && viTri >= 0) document.getElementById(`${listId}-${viTri}`)?.scrollIntoView({ block: "nearest" });
+  }, [mo, viTri, listId]);
 
   if (!daHydrate) {
     return (
@@ -89,7 +94,7 @@ export function ChonDonVi({
     );
   }
 
-  const ketQua = timDonVi(ds, q);
+  const { muc: ketQua, conLai } = ketQuaChon(ds, q, chon);
   // Dòng "Bỏ chọn" đứng đầu khi ô không bắt buộc và đang có giá trị.
   const dong: Array<MucDonVi | typeof BO_CHON> = !required && chon ? [BO_CHON, ...ketQua] : ketQua;
   const dangChon = ds.find((d) => d.id === chon);
@@ -104,10 +109,12 @@ export function ChonDonVi({
     datMo(true);
     datQ("");
     // Đánh dấu dòng đang chọn (không mặc định dòng đầu), để Enter không thay giá trị.
-    const idsKhiMo = [...(!required && chon ? [BO_CHON] : []), ...timDonVi(ds, "").map((d) => d.id)];
+    const idsKhiMo = [
+      ...(!required && chon ? [BO_CHON] : []),
+      ...ketQuaChon(ds, "", chon).muc.map((d) => d.id),
+    ];
     datViTri(viTriKhiMo(idsKhiMo, chon));
   };
-  const dongId = (i: number) => `${listId}-${i}`;
 
   return (
     <div className={cn("relative", className)}>
@@ -200,6 +207,9 @@ export function ChonDonVi({
               </div>
             ))
           )}
+          {conLai > 0 ? (
+            <p className="px-3 py-2 text-xs text-ink-3">Còn {conLai} đơn vị nữa. Gõ tên để tìm.</p>
+          ) : null}
         </div>
       ) : null}
     </div>

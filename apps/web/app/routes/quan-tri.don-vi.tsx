@@ -17,7 +17,7 @@ import { EmptyState } from "../components/ui/EmptyState";
 import { Input, inputClass, Label, Notice } from "../components/ui/Field";
 import { HopThoai, useHop, VungNutHop } from "../components/ui/HopThoai";
 import { Icon } from "../components/ui/Icon";
-import { canHien, DS_LOAI, type LoaiDonVi, locCay, NHAN_LOAI, thanhMucDonVi } from "../lib/cay-don-vi";
+import { DS_LOAI, type LoaiDonVi, locCay, locTheoThu, NHAN_LOAI, thanhMucDonVi } from "../lib/cay-don-vi";
 import { cn } from "../lib/cn";
 import { goiApiQuanTri, LoiApi } from "../lib/quan-tri.server";
 import { yeuCauVaiTro } from "../lib/session.server";
@@ -325,7 +325,7 @@ export default function QuanTriDonVi({ loaderData }: Route.ComponentProps) {
   const loc = useMemo(() => locCay(items, q, loaiLoc), [items, q, loaiLoc]);
   // Đang lọc thì mở hết và chỉ hiện đơn vị khớp cùng cấp trên của chúng.
   const hienThi = useMemo(
-    () => items.filter((d) => (loc ? loc.has(d.id) : canHien(items, d.id, dangThu))),
+    () => (loc ? items.filter((d) => loc.has(d.id)) : locTheoThu(items, dangThu)),
     [items, loc, dangThu],
   );
   const doiThu = (id: string) =>
@@ -402,7 +402,7 @@ export default function QuanTriDonVi({ loaderData }: Route.ComponentProps) {
                 type="search"
                 value={q}
                 onChange={(e) => datQ(e.target.value)}
-                placeholder="Gõ tên đơn vị, không cần dấu"
+                placeholder="Gõ tên, mã đơn vị hoặc mã xã"
                 autoComplete="off"
               />
             </div>

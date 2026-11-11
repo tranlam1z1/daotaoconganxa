@@ -50,16 +50,39 @@ export function timDonVi<T extends { ten: string; duong: string }>(ds: T[], q: s
   return khop.slice(0, gioiHan).map((x) => x.d);
 }
 
+/**
+ * Các dòng của ô chọn: kết quả `timDonVi` cắt ở `gioiHan`, và `conLai` là số mục khớp bị cắt.
+ * Chưa gõ gì thì đơn vị đang chọn luôn có mặt (đứng đầu nếu nằm ngoài giới hạn), để mở danh sách
+ * vẫn thấy và đánh dấu được nó.
+ */
+export function ketQuaChon<T extends { id: string; ten: string; duong: string }>(
+  ds: T[],
+  q: string,
+  chon: string,
+  gioiHan = 50,
+): { muc: T[]; conLai: number } {
+  const khop = timDonVi(ds, q, Number.POSITIVE_INFINITY);
+  const muc = khop.slice(0, gioiHan);
+  const dangChon =
+    !khoaTimDonVi(q) && chon && !muc.some((d) => d.id === chon) ? khop.find((d) => d.id === chon) : undefined;
+  return dangChon
+    ? { muc: [dangChon, ...muc], conLai: khop.length - muc.length - 1 }
+    : { muc, conLai: khop.length - muc.length };
+}
+
 interface NutCay {
   id: string;
   parent_id: string | null;
   name: string;
   loai: LoaiDonVi;
+  /** Mã đơn vị và mã xã: có thì tìm được theo chúng (trang quản trị). */
+  code?: string;
+  ma_hanh_chinh?: string | null;
 }
 
 /**
- * Id các đơn vị cần hiện khi lọc: đơn vị khớp từ khóa và loại, cộng mọi cấp trên của chúng để cây
- * vẫn liền. Trả null khi không có bộ lọc nào.
+ * Id các đơn vị cần hiện khi lọc: đơn vị khớp từ khóa (tên, mã đơn vị, mã xã) và loại, cộng mọi
+ * cấp trên của chúng để cây vẫn liền. Trả null khi không có bộ lọc nào.
  */
 export function locCay(ds: NutCay[], q: string, loai: LoaiDonVi | ""): Set<string> | null {
   const tu = khoaTimDonVi(q).split(" ").filter(Boolean);
@@ -68,7 +91,7 @@ export function locCay(ds: NutCay[], q: string, loai: LoaiDonVi | ""): Set<strin
   const hien = new Set<string>();
   for (const d of ds) {
     if (loai && d.loai !== loai) continue;
-    const ten = khoaTimDonVi(d.name);
+    const ten = khoaTimDonVi([d.name, d.code ?? "", d.ma_hanh_chinh ?? ""].join(" "));
     if (!tu.every((t) => ten.includes(t))) continue;
     for (
       let n: NutCay | undefined = d;
@@ -81,13 +104,22 @@ export function locCay(ds: NutCay[], q: string, loai: LoaiDonVi | ""): Set<strin
   return hien;
 }
 
-/** Đơn vị hiện được khi không có cấp trên nào nằm trong `dangThu` (nhánh đang thu gọn). */
-export function canHien(ds: Pick<NutCay, "id" | "parent_id">[], id: string, dangThu: Set<string>): boolean {
+/**
+ * Các đơn vị hiện được khi thu gọn các nhánh trong `dangThu`: bỏ mọi con cháu của chúng, giữ thứ tự.
+ * Dựng bảng tra một lần và nhớ kết quả từng nút, nên chạy tuyến tính theo số đơn vị.
+ */
+export function locTheoThu<T extends Pick<NutCay, "id" | "parent_id">>(ds: T[], dangThu: Set<string>): T[] {
   const theoId = new Map(ds.map((d) => [d.id, d]));
-  for (let cha = theoId.get(id)?.parent_id; cha; cha = theoId.get(cha)?.parent_id) {
-    if (dangThu.has(cha)) return false;
-  }
-  return true;
+  const an = new Map<string, boolean>();
+  const biAn = (id: string): boolean => {
+    const daBiet = an.get(id);
+    if (daBiet !== undefined) return daBiet;
+    const cha = theoId.get(id)?.parent_id;
+    const kq = cha ? dangThu.has(cha) || biAn(cha) : false;
+    an.set(id, kq);
+    return kq;
+  };
+  return ds.filter((d) => !biAn(d.id));
 }
 
 /** Một mục của ô chọn đơn vị: `duong` là tên các cấp trên nối bằng " › ". */

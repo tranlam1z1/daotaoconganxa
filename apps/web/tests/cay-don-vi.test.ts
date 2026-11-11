@@ -1,9 +1,10 @@
 import { describe, expect, test } from "bun:test";
 import {
-  canHien,
   dsChon,
+  ketQuaChon,
   khoaTimDonVi,
   locCay,
+  locTheoThu,
   NHAN_LOAI,
   thanhMucDonVi,
   timDonVi,
@@ -67,20 +68,54 @@ describe("locCay", () => {
   test("không lọc trả null", () => {
     expect(locCay(CAY, " ", "")).toBeNull();
   });
+
+  test("tìm được theo mã đơn vị và mã xã", () => {
+    const ds = [
+      { id: "a", parent_id: null, name: "Xã A", loai: "xa" as const, code: "XA-MH", ma_hanh_chinh: "00070" },
+      { id: "c", parent_id: "a", name: "UBND", loai: "co_quan_hanh_chinh" as const, code: "UBND-MH" },
+    ];
+    expect(locCay(ds, "ubnd-mh", "")).toEqual(new Set(["a", "c"]));
+    expect(locCay(ds, "00070", "")).toEqual(new Set(["a"]));
+  });
 });
 
-describe("canHien", () => {
+describe("locTheoThu", () => {
+  const id = (ds: { id: string }[]) => ds.map((d) => d.id);
+
   test("ẩn con cháu của nhánh đang thu", () => {
-    const thu = new Set(["a"]);
-    expect(canHien(CAY, "a", thu)).toBe(true);
-    expect(canHien(CAY, "b", thu)).toBe(false);
-    expect(canHien(CAY, "d", thu)).toBe(false);
+    expect(id(locTheoThu(CAY, new Set(["a"])))).toEqual(["a"]);
   });
 
   test("thu nhánh con không ẩn anh em", () => {
-    const thu = new Set(["b"]);
-    expect(canHien(CAY, "c", thu)).toBe(true);
-    expect(canHien(CAY, "d", thu)).toBe(false);
+    expect(id(locTheoThu(CAY, new Set(["b"])))).toEqual(["a", "b", "c"]);
+  });
+
+  test("không thu gì thì hiện hết, giữ thứ tự", () => {
+    expect(id(locTheoThu(CAY, new Set()))).toEqual(["a", "b", "c", "d"]);
+  });
+});
+
+describe("ketQuaChon", () => {
+  const NHIEU = Array.from({ length: 60 }, (_, i) => ({ id: `u${i}`, ten: `Đơn vị ${i}`, duong: "" }));
+
+  test("chưa gõ: hiện giới hạn đầu và báo số còn lại", () => {
+    const kq = ketQuaChon(NHIEU, "", "", 50);
+    expect(kq.muc).toHaveLength(50);
+    expect(kq.conLai).toBe(10);
+  });
+
+  test("đơn vị đang chọn nằm ngoài giới hạn vẫn có trong danh sách, đứng đầu", () => {
+    const kq = ketQuaChon(NHIEU, "", "u55", 50);
+    expect(kq.muc[0]?.id).toBe("u55");
+    expect(kq.muc).toHaveLength(51);
+    expect(kq.conLai).toBe(9);
+  });
+
+  test("đang gõ thì chỉ hiện kết quả khớp, không chèn đơn vị đang chọn", () => {
+    const kq = ketQuaChon(NHIEU, "don vi 5", "u10", 50);
+    expect(kq.muc[0]?.id).toBe("u5");
+    expect(kq.muc.some((d) => d.id === "u10")).toBe(false);
+    expect(kq.conLai).toBe(0);
   });
 });
 

@@ -55,6 +55,7 @@ export async function action({ request }: Route.ActionArgs) {
         so_dien_thoai: String(form.get("so_dien_thoai") ?? ""),
         so_hieu: String(form.get("so_hieu") ?? ""),
         don_vi_id: String(form.get("don_vi_id") ?? ""),
+        don_vi_dang_id: String(form.get("don_vi_dang_id") ?? ""),
         cap_bac_chuc_vu: String(form.get("cap_bac_chuc_vu") ?? ""),
         mat_khau: matKhau,
       },

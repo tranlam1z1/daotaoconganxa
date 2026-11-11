@@ -14,6 +14,17 @@ export class LoiNghiepVu extends Error {
   }
 }
 
+/** Loại đơn vị chuẩn (migration 0087); CHECK của bảng `units` là nguồn kiểm. */
+export const LOAI_DON_VI = [
+  "xa",
+  "co_quan_hanh_chinh",
+  "don_vi_su_nghiep",
+  "to_chuc_dang",
+  "doan_the",
+  "khac",
+] as const;
+export type LoaiDonVi = (typeof LOAI_DON_VI)[number];
+
 export interface DonVi {
   id: string;
   code: string;
@@ -21,6 +32,9 @@ export interface DonVi {
   parent_id: string | null;
   path: string;
   level_label: string | null;
+  loai: LoaiDonVi;
+  /** Mã xã, phường, đặc khu 5 số; chỉ có ở đơn vị loại `xa`. */
+  ma_hanh_chinh: string | null;
   ordinal: number;
   enabled: boolean;
   /** Độ sâu tính từ gốc, gốc = 1. */
@@ -35,7 +49,8 @@ export function nhanDonVi(id: string): string {
 }
 
 const COT = sql`
-  u.id, u.code, u.name, u.parent_id, u.path::text AS path, u.level_label, u.ordinal, u.enabled,
+  u.id, u.code, u.name, u.parent_id, u.path::text AS path, u.level_label, u.loai, u.ma_hanh_chinh,
+  u.ordinal, u.enabled,
   nlevel(u.path) AS cap,
   (SELECT count(*)::int FROM accounts a WHERE a.unit_id = u.id) AS so_nguoi`;
 
@@ -95,6 +110,8 @@ export interface DuLieuDonVi {
   parentId?: string | null;
   levelLabel?: string | null;
   ordinal?: number;
+  loai?: LoaiDonVi;
+  maHanhChinh?: string | null;
 }
 
 function kiemMa(code: string) {
@@ -106,8 +123,28 @@ function kiemMa(code: string) {
   }
 }
 
+/** Mã hành chính chỉ cho đơn vị loại xã, đúng 5 chữ số. */
+function kiemLoai(loai: LoaiDonVi, maHanhChinh: string | null) {
+  if (maHanhChinh === null) return;
+  if (loai !== "xa") {
+    throw new LoiNghiepVu("Chỉ đơn vị loại xã, phường mới có mã hành chính.", "khong_hop_le");
+  }
+  if (!/^\d{5}$/.test(maHanhChinh)) throw new LoiNghiepVu("Mã xã gồm đúng 5 chữ số.", "khong_hop_le");
+}
+
+/** Mã xã đã gắn với đơn vị khác thì báo xung đột kèm tên đơn vị đó. */
+async function kiemTrungMaHanhChinh(tx: Tx, ma: string | null, boQuaId: string | null) {
+  if (ma === null) return;
+  const [trung] = (await tx`
+    SELECT name FROM units WHERE ma_hanh_chinh = ${ma} AND (${boQuaId}::uuid IS NULL OR id <> ${boQuaId})`) as any[];
+  if (trung) throw new LoiNghiepVu(`Mã xã ${ma} đã gắn với đơn vị "${trung.name}".`, "xung_dot");
+}
+
 export async function taoDonVi(d: DuLieuDonVi, actor: string): Promise<DonVi> {
   kiemMa(d.code);
+  const loai = d.loai ?? "khac";
+  const maHanhChinh = d.maHanhChinh?.trim() || null;
+  kiemLoai(loai, maHanhChinh);
   if (!d.name.trim()) throw new LoiNghiepVu("Nhập tên đơn vị.", "khong_hop_le");
   const id = crypto.randomUUID();
   await sql.begin(async (tx) => {
@@ -119,11 +156,17 @@ export async function taoDonVi(d: DuLieuDonVi, actor: string): Promise<DonVi> {
     }
     const [trung] = (await tx`SELECT 1 FROM units WHERE lower(code) = lower(${d.code})`) as any[];
     if (trung) throw new LoiNghiepVu(`Mã đơn vị "${d.code}" đã có.`, "xung_dot");
+    await kiemTrungMaHanhChinh(tx, maHanhChinh, null);
     await tx`
-      INSERT INTO units (id, code, name, parent_id, path, level_label, ordinal)
+      INSERT INTO units (id, code, name, parent_id, path, level_label, ordinal, loai, ma_hanh_chinh)
       VALUES (${id}, ${d.code}, ${d.name.trim()}, ${d.parentId ?? null}, ${path}::ltree,
-              ${d.levelLabel?.trim() || null}, ${d.ordinal ?? 0})`;
-    await ghiNhatKy(tx, actor, "don_vi:tao", d.code, { name: d.name, parentId: d.parentId ?? null });
+              ${d.levelLabel?.trim() || null}, ${d.ordinal ?? 0}, ${loai}, ${maHanhChinh})`;
+    await ghiNhatKy(tx, actor, "don_vi:tao", d.code, {
+      name: d.name,
+      parentId: d.parentId ?? null,
+      loai,
+      maHanhChinh,
+    });
   });
   return (await layDonVi(id)) as DonVi;
 }
@@ -136,6 +179,9 @@ export interface SuaDonVi {
   enabled?: boolean;
   /** undefined: giữ nguyên cha; null: chuyển thành đơn vị gốc. */
   parentId?: string | null;
+  loai?: LoaiDonVi;
+  /** undefined: giữ nguyên; null: xóa. Đổi loại khỏi `xa` thì mã luôn bị xóa. */
+  maHanhChinh?: string | null;
 }
 
 /**
@@ -145,9 +191,17 @@ export interface SuaDonVi {
 export async function suaDonVi(id: string, s: SuaDonVi, actor: string): Promise<DonVi> {
   if (s.code !== undefined) kiemMa(s.code);
   await sql.begin(async (tx) => {
-    const [cu] =
-      (await tx`SELECT code, parent_id, path::text AS path FROM units WHERE id = ${id} FOR UPDATE`) as any[];
+    const [cu] = (await tx`SELECT code, parent_id, path::text AS path, loai, ma_hanh_chinh
+                FROM units WHERE id = ${id} FOR UPDATE`) as any[];
     if (!cu) throw new LoiNghiepVu("Không tìm thấy đơn vị.", "khong_tim_thay");
+
+    const loai: LoaiDonVi = s.loai ?? cu.loai;
+    const maYeuCau = s.maHanhChinh === undefined ? cu.ma_hanh_chinh : s.maHanhChinh?.trim() || null;
+    // Đổi loại khỏi xã thì bỏ mã cũ; mã gửi kèm trong cùng yêu cầu vẫn được kiểm như thường.
+    const maHanhChinh = loai !== "xa" && s.maHanhChinh === undefined ? null : maYeuCau;
+    kiemLoai(loai, maHanhChinh);
+    await kiemTrungMaHanhChinh(tx, maHanhChinh, id);
+    if (cu.loai === "to_chuc_dang" && loai !== "to_chuc_dang") await kiemKhongConNguoiSinhHoat(tx, id);
 
     if (s.code !== undefined && s.code.toLowerCase() !== String(cu.code).toLowerCase()) {
       const [trung] =
@@ -186,9 +240,35 @@ export async function suaDonVi(id: string, s: SuaDonVi, actor: string): Promise<
         level_label = CASE WHEN ${s.levelLabel !== undefined} THEN ${s.levelLabel?.trim() || null} ELSE level_label END,
         ordinal = COALESCE(${s.ordinal ?? null}, ordinal),
         enabled = COALESCE(${s.enabled ?? null}, enabled),
+        loai = ${loai},
+        ma_hanh_chinh = ${maHanhChinh},
         updated_at = now()
       WHERE id = ${id}`;
     await ghiNhatKy(tx, actor, "don_vi:sua", s.code ?? cu.code, s);
   });
   return (await layDonVi(id)) as DonVi;
+}
+
+/**
+ * Đổi loại một tổ chức Đảng khi còn người ghi nó là nơi sinh hoạt Đảng thì `party_unit_id` của
+ * họ trỏ tới đơn vị không còn là tổ chức Đảng: chặn, báo số người cần chuyển trước.
+ */
+async function kiemKhongConNguoiSinhHoat(tx: Tx, id: string) {
+  const [r] = (await tx`SELECT count(*)::int AS n FROM accounts WHERE party_unit_id = ${id}`) as any[];
+  if (r.n > 0) {
+    throw new LoiNghiepVu(
+      `Đơn vị đang là nơi sinh hoạt Đảng của ${r.n} người. Chuyển những người này sang tổ chức Đảng khác trước khi đổi loại.`,
+      "xung_dot",
+    );
+  }
+}
+
+/** Nơi sinh hoạt Đảng phải là đơn vị loại `to_chuc_dang` đang hoạt động. Ném LoiNghiepVu. */
+export async function kiemDonViDang(id: string): Promise<void> {
+  const hopLe = /^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/i.test(id)
+    ? ((await sql`SELECT 1 FROM units WHERE id = ${id} AND loai = 'to_chuc_dang' AND enabled`) as any[])
+    : [];
+  if (!hopLe.length) {
+    throw new LoiNghiepVu("Nơi sinh hoạt Đảng phải là tổ chức Đảng đang hoạt động.", "khong_hop_le");
+  }
 }

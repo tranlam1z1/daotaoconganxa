@@ -46,6 +46,7 @@ export async function action({ request }: Route.ActionArgs): Promise<KetQua> {
       await khaiXacMinh(token, {
         so_hieu: String(form.get("so_hieu") ?? ""),
         don_vi_id: String(form.get("don_vi_id") ?? ""),
+        don_vi_dang_id: String(form.get("don_vi_dang_id") ?? ""),
         cap_bac_chuc_vu: String(form.get("cap_bac_chuc_vu") ?? ""),
         so_dien_thoai: String(form.get("so_dien_thoai") ?? ""),
       });
@@ -225,8 +226,14 @@ function XacMinhCanBo({
         <dl className="mt-4 grid gap-3 text-sm [overflow-wrap:anywhere] sm:grid-cols-[10rem_1fr]">
           <dt className="text-ink-3">Mã cán bộ</dt>
           <dd className="font-mono font-medium">{xm.so_hieu || "Không khai"}</dd>
-          <dt className="text-ink-3">Đơn vị đã khai</dt>
+          <dt className="text-ink-3">Nơi công tác đã khai</dt>
           <dd className="font-medium">{xm.don_vi?.ten}</dd>
+          {xm.don_vi_dang ? (
+            <>
+              <dt className="text-ink-3">Nơi sinh hoạt Đảng</dt>
+              <dd className="font-medium">{xm.don_vi_dang.ten}</dd>
+            </>
+          ) : null}
           {xm.cap_bac_chuc_vu ? (
             <>
               <dt className="text-ink-3">Chức vụ, chức danh</dt>

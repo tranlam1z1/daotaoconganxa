@@ -27,6 +27,8 @@ import {
   demChoXacMinh,
   docBangExcel,
   duyetTaiKhoan,
+  kiemDonViDang,
+  LOAI_DON_VI,
   LoiNghiepVu,
   LoiTepExcel,
   layDonVi,
@@ -43,6 +45,7 @@ import { Hono } from "hono";
 import { z } from "zod";
 import { batBuocPhamViDonVi, batBuocVaiTro, NgoaiPhamVi, phamViCua } from "../auth.ts";
 import { ApiError, badRequest, conflict, notFound, parseBody, parseQuery } from "../http.ts";
+import { layBoTra } from "./dia-gioi.ts";
 
 const uuid = z.string().uuid("Id phải là UUID hợp lệ");
 
@@ -83,11 +86,27 @@ const donViSchema = z.object({
   parentId: uuid.nullable().optional(),
   levelLabel: z.string().trim().max(50).nullable().optional(),
   ordinal: z.coerce.number().int().min(0).max(100_000).optional(),
+  loai: z.enum(LOAI_DON_VI).optional(),
+  maHanhChinh: z
+    .string()
+    .trim()
+    .regex(/^\d{5}$/, "Mã xã gồm đúng 5 chữ số")
+    .nullable()
+    .optional(),
 });
+
+/** Mã xã phải có trong danh mục xã, phường, đặc khu hiện hành (data/dia-gioi). */
+async function kiemMaXaTrongDanhMuc(ma: string | null | undefined) {
+  if (!ma) return;
+  if (!(await layBoTra()).xaMoi(ma)) {
+    throw badRequest(`Không có xã, phường mã ${ma} trong danh mục hiện hành.`);
+  }
+}
 
 donViRoute.post("/", async (c) => {
   const p = await batBuocVaiTro(c, "quan_tri");
   const body = await parseBody(c, donViSchema);
+  await kiemMaXaTrongDanhMuc(body.maHanhChinh);
   try {
     return c.json({ item: await taoDonVi(body, p.email) }, 201);
   } catch (e) {
@@ -101,6 +120,7 @@ donViRoute.patch("/:id", async (c) => {
   const p = await batBuocVaiTro(c, "quan_tri");
   const id = idHopLe(c.req.param("id"));
   const body = await parseBody(c, suaDonViSchema);
+  await kiemMaXaTrongDanhMuc(body.maHanhChinh);
   try {
     return c.json({ item: await suaDonVi(id, body, p.email) });
   } catch (e) {
@@ -208,6 +228,7 @@ const taoNguoiDungSchema = z.object({
   role: z.enum(ROLES).default("can_bo"),
   unitId: uuid.nullable().optional(),
   rankTitle: z.string().trim().max(200).nullable().optional(),
+  partyUnitId: uuid.nullable().optional(),
   email: z.string().trim().email("Email không hợp lệ").max(200).nullable().optional().or(z.literal("")),
 });
 
@@ -221,6 +242,7 @@ nguoiDungRoute.post("/", async (c) => {
   if (body.unitId && !(await layDonVi(body.unitId))) throw notFound("Không tìm thấy đơn vị.");
   const matKhauTam = taoMatKhauTam();
   try {
+    if (body.partyUnitId) await kiemDonViDang(body.partyUnitId);
     const item = await taoNguoiDung(
       {
         username,
@@ -229,6 +251,7 @@ nguoiDungRoute.post("/", async (c) => {
         nhomDoiTuong: body.nhomDoiTuong,
         unitId: body.unitId ?? null,
         rankTitle: body.rankTitle ?? null,
+        partyUnitId: body.partyUnitId ?? null,
         email: body.email ? body.email.toLowerCase() : null,
         passwordHash: await bamMatKhau(matKhauTam),
       },
@@ -246,6 +269,7 @@ const suaNguoiDungSchema = z.object({
   role: z.enum(ROLES).optional(),
   unitId: uuid.nullable().optional(),
   rankTitle: z.string().trim().max(200).nullable().optional(),
+  partyUnitId: uuid.nullable().optional(),
   enabled: z.boolean().optional(),
 });
 
@@ -260,6 +284,10 @@ nguoiDungRoute.patch("/:id", async (c) => {
   }
   if (body.unitId && !(await layDonVi(body.unitId))) throw notFound("Không tìm thấy đơn vị.");
   try {
+    // Chỉ kiểm khi đổi nơi sinh hoạt Đảng: giữ nguyên một tổ chức đã ngừng dùng vẫn lưu được.
+    if (body.partyUnitId && body.partyUnitId !== (await layNguoiDung(id))?.party_unit_id) {
+      await kiemDonViDang(body.partyUnitId);
+    }
     return c.json({ item: await suaNguoiDung(id, body, p.email) });
   } catch (e) {
     doiLoi(e);

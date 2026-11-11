@@ -68,6 +68,7 @@ const khaiBaoSchema = z.object({
   don_vi_id: z.string().trim().min(1, "Chọn đơn vị công tác").max(50),
   cap_bac_chuc_vu: z.string().trim().max(300).optional(),
   so_dien_thoai: z.string().trim().min(1, "Nhập số điện thoại").max(30),
+  don_vi_dang_id: z.string().trim().max(50).optional(),
 });
 
 // Quy tắc chi tiết (độ dài tên, dạng số điện thoại, độ mạnh mật khẩu) kiểm ở dangKyTaiKhoan.
@@ -131,6 +132,7 @@ function xacMinhJson(tt: NonNullable<Awaited<ReturnType<typeof thongTinXacMinh>>
     trang_thai: tt.trangThai,
     so_hieu: tt.soHieu,
     don_vi: tt.donVi,
+    don_vi_dang: tt.donViDang,
     cap_bac_chuc_vu: tt.capBacChucVu,
     so_dien_thoai: tt.soDienThoai,
     ly_do_tu_choi: tt.lyDo,
@@ -279,16 +281,22 @@ auth.post("/mat-khau", async (c) => {
 });
 
 /**
- * GET /v1/auth/don-vi — đơn vị đang hoạt động, theo thứ tự cây, để người đăng ký chọn đơn vị công
- * tác. Chỉ trả tên và độ sâu, không trả số người hay mã nội bộ.
+ * GET /v1/auth/don-vi — đơn vị đang hoạt động, theo thứ tự cây, để người đăng ký chọn nơi công tác
+ * và nơi sinh hoạt Đảng. Trả tên, độ sâu, loại và `duong` (tên các cấp trên nối bằng " › ", để ô
+ * tìm phân biệt các đơn vị trùng tên); không trả số người hay mã nội bộ.
  */
 auth.get("/don-vi", async (c) => {
   const ds = await danhSachDonVi(null);
   // Đơn vị con của đơn vị đã ngừng cũng ẩn theo.
   const ngung = ds.filter((d) => !d.enabled).map((d) => d.path);
+  const theoId = new Map(ds.map((d) => [d.id, d]));
+  const duong = (id: string | null): string[] => {
+    const d = id ? theoId.get(id) : undefined;
+    return d ? [...duong(d.parent_id), d.name] : [];
+  };
   const items = ds
     .filter((d) => !ngung.some((p) => d.path === p || d.path.startsWith(`${p}.`)))
-    .map((d) => ({ id: d.id, ten: d.name, cap: d.cap }));
+    .map((d) => ({ id: d.id, ten: d.name, cap: d.cap, loai: d.loai, duong: duong(d.parent_id).join(" › ") }));
   return c.json({ items });
 });
 
@@ -310,6 +318,7 @@ auth.post("/dang-ky", async (c) => {
         soHieu: body.so_hieu,
         donViId: body.don_vi_id,
         capBacChucVu: body.cap_bac_chuc_vu ?? null,
+        donViDangId: body.don_vi_dang_id ?? null,
       },
       diaChiIp(c),
     );
@@ -350,6 +359,7 @@ auth.put("/xac-minh", async (c) => {
       donViId: body.don_vi_id,
       capBacChucVu: body.cap_bac_chuc_vu ?? null,
       soDienThoai: body.so_dien_thoai,
+      donViDangId: body.don_vi_dang_id ?? null,
     });
     return c.json({ xac_minh: xacMinhJson(tt) });
   } catch (e) {

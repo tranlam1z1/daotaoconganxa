@@ -13,7 +13,7 @@
  *   chủ thật của email đăng nhập bằng Google thì mật khẩu do người đăng ký đặt bị bỏ (rbac.ts).
  * - Mỗi địa chỉ IP đăng ký tối đa SO_LAN_DANG_KY_TOI_DA tài khoản mỗi giờ.
  */
-import { sql } from "@qdpl/db";
+import { kiemDonViDang, LoiNghiepVu, sql } from "@qdpl/db";
 import { bamMatKhau, loiDoManhMatKhau, type TaiKhoanMatKhau } from "./mat-khau.ts";
 import type { Role } from "./rbac.ts";
 
@@ -68,6 +68,8 @@ export interface KhaiBaoXacMinh {
   /** Cấp bậc, chức vụ; không bắt buộc. */
   capBacChucVu?: string | null;
   soDienThoai: string;
+  /** Nơi sinh hoạt Đảng (đơn vị loại `to_chuc_dang`); bỏ trống nếu không phải đảng viên. */
+  donViDangId?: string | null;
 }
 
 const UUID = /^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/i;
@@ -75,6 +77,8 @@ const UUID = /^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/i;
 /** Kiểm và chuẩn hóa thông tin khai báo; đơn vị phải có thật và đang hoạt động. Ném LoiDangKy. */
 async function kiemKhaiBao(
   kb: KhaiBaoXacMinh,
+  /** Nơi sinh hoạt Đảng đang gắn: giữ nguyên thì không kiểm lại (đơn vị có thể đã ngừng dùng). */
+  donViDangHienTai: string | null = null,
 ): Promise<Omit<Required<KhaiBaoXacMinh>, "soHieu"> & { soHieu: string | null }> {
   const soHieu = kb.soHieu.trim() ? chuanHoaSoHieu(kb.soHieu) : null;
   if (kb.soHieu.trim() && !soHieu)
@@ -87,7 +91,16 @@ async function kiemKhaiBao(
     ? ((await sql`SELECT 1 FROM units WHERE id = ${kb.donViId} AND enabled`) as any[])
     : [];
   if (!donVi.length) throw new LoiDangKy("Chọn đơn vị công tác trong danh sách.");
-  return { soHieu, donViId: kb.donViId, capBacChucVu, soDienThoai };
+  const donViDangId = kb.donViDangId?.trim() || null;
+  if (donViDangId && donViDangId !== donViDangHienTai) {
+    try {
+      await kiemDonViDang(donViDangId);
+    } catch (e) {
+      if (e instanceof LoiNghiepVu) throw new LoiDangKy(e.message);
+      throw e;
+    }
+  }
+  return { soHieu, donViId: kb.donViId, capBacChucVu, soDienThoai, donViDangId };
 }
 
 export interface DuLieuDangKy extends KhaiBaoXacMinh {
@@ -125,11 +138,11 @@ export async function dangKyTaiKhoan(dl: DuLieuDangKy, ip: string | null = null)
   // ON CONFLICT DO NOTHING bắt nốt trường hợp hai lượt đăng ký cùng email chạy song song.
   const [row] = (await sql`
     INSERT INTO accounts (email, username, name, phone, password_hash, role, self_registered,
-                          xac_minh, so_hieu, don_vi_khai, rank_title,
+                          xac_minh, so_hieu, don_vi_khai, rank_title, party_unit_id,
                           password_changed_at, last_login_at)
     VALUES (${email}, ${email}, ${ten}, ${kb.soDienThoai}, ${await bamMatKhau(dl.matKhau)},
             ${VAI_TRO_TU_DANG_KY}, true,
-            'cho_duyet', ${kb.soHieu}, ${kb.donViId}, ${kb.capBacChucVu},
+            'cho_duyet', ${kb.soHieu}, ${kb.donViId}, ${kb.capBacChucVu}, ${kb.donViDangId},
             now(), now())
     ON CONFLICT DO NOTHING
     RETURNING id, username, email, name, role`) as any[];
@@ -154,6 +167,8 @@ export interface ThongTinXacMinh {
   trangThai: TrangThaiXacMinh;
   soHieu: string | null;
   donVi: { id: string; ten: string } | null;
+  /** Nơi sinh hoạt Đảng; null khi không khai. */
+  donViDang: { id: string; ten: string } | null;
   capBacChucVu: string | null;
   soDienThoai: string | null;
   /** Lý do từ chối lần gần nhất; null khi chưa bị từ chối. */
@@ -163,14 +178,16 @@ export interface ThongTinXacMinh {
 /** Trạng thái và thông tin đã khai của một tài khoản; null khi không có tài khoản. */
 export async function thongTinXacMinh(accountId: string): Promise<ThongTinXacMinh | null> {
   const [r] = (await sql`
-    SELECT a.xac_minh, a.so_hieu, a.rank_title, a.phone, a.xac_minh_ly_do, u.id AS dv_id, u.name AS dv_ten
-    FROM accounts a LEFT JOIN units u ON u.id = a.don_vi_khai
+    SELECT a.xac_minh, a.so_hieu, a.rank_title, a.phone, a.xac_minh_ly_do, u.id AS dv_id, u.name AS dv_ten,
+           d.id AS dang_id, d.name AS dang_ten
+    FROM accounts a LEFT JOIN units u ON u.id = a.don_vi_khai LEFT JOIN units d ON d.id = a.party_unit_id
     WHERE a.id = ${accountId} AND NOT a.la_khach`) as any[];
   if (!r) return null;
   return {
     trangThai: r.xac_minh,
     soHieu: r.so_hieu,
     donVi: r.dv_id ? { id: r.dv_id, ten: r.dv_ten } : null,
+    donViDang: r.dang_id ? { id: r.dang_id, ten: r.dang_ten } : null,
     capBacChucVu: r.rank_title,
     soDienThoai: r.phone,
     lyDo: r.xac_minh === "tu_choi" ? r.xac_minh_ly_do : null,
@@ -182,11 +199,12 @@ export async function thongTinXacMinh(accountId: string): Promise<ThongTinXacMin
  * Tài khoản đã xác minh không đi qua đây: thông tin của họ do quản trị sửa.
  */
 export async function capNhatKhaiBao(accountId: string, khai: KhaiBaoXacMinh): Promise<ThongTinXacMinh> {
-  const kb = await kiemKhaiBao(khai);
+  const [hienTai] = (await sql`SELECT party_unit_id FROM accounts WHERE id = ${accountId}`) as any[];
+  const kb = await kiemKhaiBao(khai, hienTai?.party_unit_id ?? null);
   const rows = (await sql`
     UPDATE accounts SET
       so_hieu = ${kb.soHieu}, don_vi_khai = ${kb.donViId}, rank_title = ${kb.capBacChucVu},
-      phone = ${kb.soDienThoai}, xac_minh = 'cho_duyet'
+      phone = ${kb.soDienThoai}, party_unit_id = ${kb.donViDangId}, xac_minh = 'cho_duyet'
     WHERE id = ${accountId} AND NOT la_khach AND xac_minh <> 'da_xac_minh'
     RETURNING COALESCE(email, username) AS ten`) as any[];
   if (!rows.length) throw new LoiDangKy("Tài khoản này đã được xác minh.", "da_xac_minh");

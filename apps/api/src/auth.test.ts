@@ -182,7 +182,27 @@ describe("tự đăng ký tài khoản", () => {
     const res = await app.request("http://test/v1/auth/don-vi");
     const items = ((await res.json()) as any).items as any[];
     const dv = items.find((d) => d.id === donVi);
-    expect(dv).toEqual({ id: donVi, ten: "Đội đăng ký thử API", cap: 1 });
+    expect(dv).toEqual({ id: donVi, ten: "Đội đăng ký thử API", cap: 1, loai: "khac", duong: "" });
+  });
+
+  test("đơn vị cấp dưới kèm đường dẫn tên các cấp trên", async () => {
+    const con = await taoDonVi(
+      { code: `${MA_DV}-CON`, name: "Tổ con thử API", parentId: donVi, loai: "to_chuc_dang" },
+      "test-api-dang-ky",
+    );
+    try {
+      const res = await app.request("http://test/v1/auth/don-vi");
+      const items = ((await res.json()) as any).items as any[];
+      expect(items.find((d) => d.id === con.id)).toEqual({
+        id: con.id,
+        ten: "Tổ con thử API",
+        cap: 2,
+        loai: "to_chuc_dang",
+        duong: "Đội đăng ký thử API",
+      });
+    } finally {
+      await sql`DELETE FROM units WHERE id = ${con.id}`;
+    }
   });
 
   test("đăng ký cấp phiên ngay, tài khoản chờ xác minh chỉ dùng nhóm API tài khoản; đăng ký lại trả 409", async () => {

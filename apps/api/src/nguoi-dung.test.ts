@@ -4,7 +4,7 @@
  */
 import { afterAll, beforeAll, describe, expect, test } from "bun:test";
 import { bamMatKhau, createSession, principalFromToken } from "@qdpl/auth";
-import { sql, taoDonVi, taoTepExcel } from "@qdpl/db";
+import { layDonViTheoMa, sql, suaDonVi, taoDonVi, taoTepExcel } from "@qdpl/db";
 import { createApp } from "./app.ts";
 
 const app = createApp();
@@ -223,6 +223,175 @@ describe("đăng nhập tài khoản vừa nhập", () => {
       SELECT count(*)::int AS n FROM audit_log
       WHERE actor = ${`${PREFIX}-nhap-3`} AND action = 'dang_nhap:that_bai'`) as any[];
     expect(dem.n).toBe(1);
+  });
+});
+
+describe("loại đơn vị", () => {
+  const ACTOR = `${PREFIX}-seed`;
+
+  test("tạo đơn vị loại xã kèm mã hành chính", async () => {
+    const d = await taoDonVi(
+      { code: `${PREFIX}-xa1`, name: "Xã A", loai: "xa", maHanhChinh: "00008" },
+      ACTOR,
+    );
+    expect(d.loai).toBe("xa");
+    expect(d.ma_hanh_chinh).toBe("00008");
+  });
+
+  test("mặc định loại khác", async () => {
+    const d = await taoDonVi({ code: `${PREFIX}-k1`, name: "Đơn vị K" }, ACTOR);
+    expect(d.loai).toBe("khac");
+    expect(d.ma_hanh_chinh).toBeNull();
+  });
+
+  test("mã hành chính trên đơn vị không phải xã bị từ chối", async () => {
+    await expect(
+      taoDonVi(
+        { code: `${PREFIX}-cq1`, name: "CQ", loai: "co_quan_hanh_chinh", maHanhChinh: "00008" },
+        ACTOR,
+      ),
+    ).rejects.toMatchObject({ loai: "khong_hop_le" });
+  });
+
+  test("mã hành chính trùng trả xung đột", async () => {
+    await expect(
+      taoDonVi({ code: `${PREFIX}-xa2`, name: "Xã B", loai: "xa", maHanhChinh: "00008" }, ACTOR),
+    ).rejects.toMatchObject({ loai: "xung_dot" });
+  });
+
+  test("đổi loại xã sang loại khác thì xóa mã hành chính", async () => {
+    const d = await layDonViTheoMa(`${PREFIX}-xa1`);
+    const s = await suaDonVi(d!.id, { loai: "khac" }, ACTOR);
+    expect(s.loai).toBe("khac");
+    expect(s.ma_hanh_chinh).toBeNull();
+  });
+
+  test("sửa không nêu mã thì giữ mã cũ", async () => {
+    const d = await taoDonVi(
+      { code: `${PREFIX}-xa3`, name: "Xã C", loai: "xa", maHanhChinh: "00025" },
+      ACTOR,
+    );
+    const s = await suaDonVi(d.id, { name: "Xã C mới" }, ACTOR);
+    expect(s.ma_hanh_chinh).toBe("00025");
+  });
+});
+
+describe("API đơn vị: loại và mã xã theo danh mục", () => {
+  const tao = (body: unknown) => goi("POST", "/v1/quan-tri/don-vi", { token: tk.quanTri, body });
+
+  test("mã xã không có trong danh mục trả 400", async () => {
+    const r = await tao({ code: `${PREFIX}-api-xa0`, name: "Xã ma", loai: "xa", maHanhChinh: "99999" });
+    expect(r.status).toBe(400);
+    expect(r.body.error.message).toContain("Không có xã, phường mã 99999");
+  });
+
+  test("mã xã có thật thì tạo được, trùng thì 409", async () => {
+    const r = await tao({
+      code: `${PREFIX}-api-xa1`,
+      name: "Phường Hoàn Kiếm",
+      loai: "xa",
+      maHanhChinh: "00070",
+    });
+    expect(r.status).toBe(201);
+    expect(r.body.item.ma_hanh_chinh).toBe("00070");
+    const trung = await tao({ code: `${PREFIX}-api-xa2`, name: "Trùng", loai: "xa", maHanhChinh: "00070" });
+    expect(trung.status).toBe(409);
+  });
+
+  test("loại không hợp lệ trả 400", async () => {
+    const r = await tao({ code: `${PREFIX}-api-x`, name: "X", loai: "abc" });
+    expect(r.status).toBe(400);
+  });
+
+  test("sửa mã xã không có trong danh mục trả 400", async () => {
+    const r = await goi("PATCH", `/v1/quan-tri/don-vi/${donVi.phong}`, {
+      token: tk.quanTri,
+      body: { loai: "xa", maHanhChinh: "99999" },
+    });
+    expect(r.status).toBe(400);
+  });
+});
+
+describe("nơi sinh hoạt Đảng của người dùng", () => {
+  test("quản trị gắn tổ chức Đảng; ngừng dùng tổ chức đó thì người dùng vẫn giữ", async () => {
+    const dang = await taoDonVi(
+      { code: `${PREFIX}-DANG`, name: "Chi bộ thử", loai: "to_chuc_dang" },
+      `${PREFIX}-seed`,
+    );
+    const [nd] = (await sql`SELECT id FROM accounts WHERE username = ${`${PREFIX}-can-bo-b`}`) as any[];
+    const gan = await goi("PATCH", `/v1/quan-tri/nguoi-dung/${nd.id}`, {
+      token: tk.quanTri,
+      body: { partyUnitId: dang.id },
+    });
+    expect(gan.status).toBe(200);
+    expect(gan.body.item.party_unit_id).toBe(dang.id);
+    expect(gan.body.item.party_unit_name).toBe("Chi bộ thử");
+
+    const ngung = await goi("PATCH", `/v1/quan-tri/don-vi/${dang.id}`, {
+      token: tk.quanTri,
+      body: { enabled: false },
+    });
+    expect(ngung.status).toBe(200);
+    const ds = await goi("GET", `/v1/quan-tri/nguoi-dung?q=${PREFIX}-can-bo-b`, { token: tk.quanTri });
+    expect(ds.body.items[0].party_unit_id).toBe(dang.id);
+
+    // Lưu lại tài khoản với nơi sinh hoạt Đảng không đổi (ví dụ chỉ đổi vai trò) vẫn được.
+    const luuLai = await goi("PATCH", `/v1/quan-tri/nguoi-dung/${nd.id}`, {
+      token: tk.quanTri,
+      body: { partyUnitId: dang.id, rankTitle: "Chuyên viên" },
+    });
+    expect(luuLai.status).toBe(200);
+    expect(luuLai.body.item.party_unit_id).toBe(dang.id);
+
+    // Gắn mới một tổ chức Đảng đã ngừng dùng thì bị từ chối.
+    const ngungKhac = await taoDonVi(
+      { code: `${PREFIX}-DANG2`, name: "Chi bộ đã ngừng", loai: "to_chuc_dang" },
+      `${PREFIX}-seed`,
+    );
+    await suaDonVi(ngungKhac.id, { enabled: false }, `${PREFIX}-seed`);
+    const ganMoi = await goi("PATCH", `/v1/quan-tri/nguoi-dung/${nd.id}`, {
+      token: tk.quanTri,
+      body: { partyUnitId: ngungKhac.id },
+    });
+    expect(ganMoi.status).toBe(400);
+    await sql`UPDATE accounts SET party_unit_id = NULL WHERE id = ${nd.id}`;
+  });
+
+  test("gắn đơn vị không phải tổ chức Đảng trả 400", async () => {
+    const [nd] = (await sql`SELECT id FROM accounts WHERE username = ${`${PREFIX}-can-bo-b`}`) as any[];
+    const r = await goi("PATCH", `/v1/quan-tri/nguoi-dung/${nd.id}`, {
+      token: tk.quanTri,
+      body: { partyUnitId: donVi.doiA },
+    });
+    expect(r.status).toBe(400);
+    expect(r.body.error.message).toContain("tổ chức Đảng");
+  });
+
+  test("không đổi loại tổ chức Đảng khi còn người sinh hoạt; hết người thì đổi được", async () => {
+    const dang = await taoDonVi(
+      { code: `${PREFIX}-DANG3`, name: "Chi bộ có người", loai: "to_chuc_dang" },
+      `${PREFIX}-seed`,
+    );
+    const [nd] = (await sql`SELECT id FROM accounts WHERE username = ${`${PREFIX}-can-bo-b`}`) as any[];
+    await sql`UPDATE accounts SET party_unit_id = ${dang.id} WHERE id = ${nd.id}`;
+
+    const doi = () =>
+      goi("PATCH", `/v1/quan-tri/don-vi/${dang.id}`, { token: tk.quanTri, body: { loai: "khac" } });
+    const biChan = await doi();
+    expect(biChan.status).toBe(409);
+    expect(biChan.body.error.message).toContain("nơi sinh hoạt Đảng của 1 người");
+
+    // Sửa trường khác, giữ nguyên loại, vẫn được.
+    const doiTen = await goi("PATCH", `/v1/quan-tri/don-vi/${dang.id}`, {
+      token: tk.quanTri,
+      body: { name: "Chi bộ có người (đổi tên)", loai: "to_chuc_dang" },
+    });
+    expect(doiTen.status).toBe(200);
+
+    await sql`UPDATE accounts SET party_unit_id = NULL WHERE id = ${nd.id}`;
+    const duoc = await doi();
+    expect(duoc.status).toBe(200);
+    expect(duoc.body.item.loai).toBe("khac");
   });
 });
 

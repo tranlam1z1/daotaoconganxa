@@ -151,6 +151,8 @@ export interface KhaiBaoXacMinh {
   don_vi_id: string;
   cap_bac_chuc_vu?: string;
   so_dien_thoai: string;
+  /** Nơi sinh hoạt Đảng; rỗng nếu không khai. */
+  don_vi_dang_id?: string;
 }
 
 /**

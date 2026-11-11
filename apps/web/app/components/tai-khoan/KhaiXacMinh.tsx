@@ -1,13 +1,13 @@
-import { cn } from "../../lib/cn";
 import type { DonViChon, ThongTinXacMinh } from "../../lib/types";
-import { inputClass, Label } from "../ui/Field";
-import { Icon } from "../ui/Icon";
+import { ChonDonVi } from "../ui/ChonDonVi";
+import { Label } from "../ui/Field";
 import { OCoIcon } from "../ui/OCoIcon";
 
 /**
- * Các ô khai báo để được xác minh cán bộ (migration 0064): mã cán bộ (nếu có), cơ quan hoặc tổ chức Đảng, chức danh
- * và chức vụ, và (khi `coSoDienThoai`) số điện thoại. Dùng ở trang đăng ký và trang Tài khoản; tên
- * ô khớp với API (`so_hieu`, `don_vi_id`, `cap_bac_chuc_vu`, `so_dien_thoai`).
+ * Các ô khai báo để được xác minh cán bộ (migration 0064, 0087): mã cán bộ (nếu có), nơi công tác,
+ * nơi sinh hoạt Đảng (không bắt buộc), chức danh và chức vụ, và (khi `coSoDienThoai`) số điện thoại.
+ * Dùng ở trang đăng ký và trang Tài khoản; tên ô khớp với API (`so_hieu`, `don_vi_id`,
+ * `don_vi_dang_id`, `cap_bac_chuc_vu`, `so_dien_thoai`).
  */
 export function KhaiXacMinh({
   donVi,
@@ -18,7 +18,6 @@ export function KhaiXacMinh({
   macDinh?: ThongTinXacMinh | null;
   coSoDienThoai?: boolean;
 }) {
-  const capGoc = Math.min(...donVi.map((d) => d.cap), 1);
   return (
     <>
       <Label htmlFor="so-hieu" className="mt-5">
@@ -36,35 +35,34 @@ export function KhaiXacMinh({
       />
 
       <Label htmlFor="don-vi" className="mt-5">
-        Cơ quan, đơn vị hoặc tổ chức Đảng
+        Nơi công tác
       </Label>
-      <div className="relative">
-        <span className="pointer-events-none absolute inset-y-0 left-3 flex items-center text-ink-2">
-          <Icon name="home" kieu="net" className="size-5" />
-        </span>
-        <select
-          id="don-vi"
-          name="don_vi_id"
-          required
-          defaultValue={macDinh?.don_vi?.id ?? ""}
-          className={cn(inputClass, "pl-10 text-base")}
-          aria-describedby="don-vi-goi-y"
-        >
-          <option value="" disabled>
-            {donVi.length ? "Chọn nơi công tác hoặc sinh hoạt Đảng" : "Chưa tải được danh sách đơn vị"}
-          </option>
-          {donVi.map((d) => (
-            <option key={d.id} value={d.id}>
-              {"· ".repeat(d.cap - capGoc)}
-              {d.ten}
-            </option>
-          ))}
-        </select>
-      </div>
+      <ChonDonVi
+        id="don-vi"
+        name="don_vi_id"
+        items={donVi}
+        required
+        defaultValue={macDinh?.don_vi?.id}
+        moTaId="don-vi-goi-y"
+        placeholder={donVi.length ? "Gõ tên cơ quan, đơn vị để tìm" : "Chưa tải được danh sách đơn vị"}
+      />
       <p id="don-vi-goi-y" className="mt-1.5 text-xs text-ink-3">
-        Chọn nơi công tác hoặc sinh hoạt Đảng để người quản lý duyệt tài khoản. Nếu chưa có trong danh sách,
-        liên hệ quản trị viên để bổ sung.
+        Người quản lý nơi công tác sẽ duyệt tài khoản. Nếu chưa có trong danh sách, liên hệ quản trị viên để
+        bổ sung.
       </p>
+
+      <Label htmlFor="don-vi-dang" className="mt-5">
+        Nơi sinh hoạt Đảng (nếu là đảng viên)
+      </Label>
+      <ChonDonVi
+        id="don-vi-dang"
+        name="don_vi_dang_id"
+        items={donVi}
+        chiLoai="to_chuc_dang"
+        defaultValue={macDinh?.don_vi_dang?.id}
+        tenMacDinh={macDinh?.don_vi_dang?.ten}
+        placeholder="Gõ tên chi bộ, đảng bộ để tìm; bỏ trống nếu không có"
+      />
 
       <Label htmlFor="cap-bac" className="mt-5">
         Chức vụ, chức danh (không bắt buộc)

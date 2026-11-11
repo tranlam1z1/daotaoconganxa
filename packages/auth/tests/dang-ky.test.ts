@@ -3,7 +3,7 @@
  * trên Postgres test thật, email mang tiền tố riêng và được dọn sau khi chạy.
  */
 import { afterAll, beforeAll, describe, expect, test } from "bun:test";
-import { sql, taoDonVi } from "@qdpl/db";
+import { sql, suaDonVi, taoDonVi } from "@qdpl/db";
 import {
   capNhatKhaiBao,
   chuanHoaSoDienThoai,
@@ -198,5 +198,62 @@ describe("đăng ký tài khoản", () => {
       (await sql`SELECT revoked_at FROM sessions WHERE token_hash = ${`${PREFIX}-phien`}`) as any[];
     expect(phien.revoked_at).not.toBeNull();
     expect((await dangNhapMatKhau(email, MAT_KHAU)).ok).toBe(false);
+  });
+});
+
+describe("nơi sinh hoạt Đảng", () => {
+  let TO_CHUC_DANG = "";
+  let CO_QUAN = "";
+  beforeAll(async () => {
+    TO_CHUC_DANG = (
+      await taoDonVi({ code: `${PREFIX}-DANG`, name: "Đảng ủy thử", loai: "to_chuc_dang" }, `${PREFIX}-seed`)
+    ).id;
+    CO_QUAN = (
+      await taoDonVi({ code: `${PREFIX}-CQ`, name: "UBND thử", loai: "co_quan_hanh_chinh" }, `${PREFIX}-seed`)
+    ).id;
+  });
+
+  test("khai tổ chức Đảng thì lưu riêng bên cạnh nơi công tác", async () => {
+    const tk = await dangKyTaiKhoan(duLieu("dang-1", { donViDangId: TO_CHUC_DANG }));
+    const tt = await thongTinXacMinh(tk.id);
+    expect(tt?.donVi?.id).toBe(DON_VI);
+    expect(tt?.donViDang).toEqual({ id: TO_CHUC_DANG, ten: "Đảng ủy thử" });
+  });
+
+  test("đơn vị không phải tổ chức Đảng bị từ chối", async () => {
+    const loi = await dangKyTaiKhoan(duLieu("dang-2", { donViDangId: CO_QUAN })).catch((e) => e);
+    expect(loi).toBeInstanceOf(LoiDangKy);
+    expect(loi.message).toContain("tổ chức Đảng");
+  });
+
+  test("bỏ trống thì không có nơi sinh hoạt Đảng", async () => {
+    const tk = await dangKyTaiKhoan(duLieu("dang-3", { donViDangId: "" }));
+    expect((await thongTinXacMinh(tk.id))?.donViDang).toBeNull();
+  });
+
+  test("khai lại đổi được nơi sinh hoạt Đảng", async () => {
+    const tk = await dangKyTaiKhoan(duLieu("dang-4"));
+    const tt = await capNhatKhaiBao(tk.id, { ...duLieu("dang-4"), donViDangId: TO_CHUC_DANG });
+    expect(tt.donViDang?.id).toBe(TO_CHUC_DANG);
+  });
+});
+
+describe("khai lại khi tổ chức Đảng đã ngừng dùng", () => {
+  test("giữ nơi sinh hoạt Đảng đang gắn; chọn mới tổ chức đã ngừng thì bị từ chối", async () => {
+    const dang = await taoDonVi(
+      { code: `${PREFIX}-DANG-NGUNG`, name: "Chi bộ sẽ ngừng", loai: "to_chuc_dang" },
+      `${PREFIX}-seed`,
+    );
+    const tk = await dangKyTaiKhoan(duLieu("dang-ngung", { donViDangId: dang.id }));
+    await suaDonVi(dang.id, { enabled: false }, `${PREFIX}-seed`);
+
+    const tt = await capNhatKhaiBao(tk.id, { ...duLieu("dang-ngung"), donViDangId: dang.id });
+    expect(tt.donViDang?.id).toBe(dang.id);
+
+    const tk2 = await dangKyTaiKhoan(duLieu("dang-ngung-2"));
+    const loi = await capNhatKhaiBao(tk2.id, { ...duLieu("dang-ngung-2"), donViDangId: dang.id }).catch(
+      (e) => e,
+    );
+    expect(loi).toBeInstanceOf(LoiDangKy);
   });
 });

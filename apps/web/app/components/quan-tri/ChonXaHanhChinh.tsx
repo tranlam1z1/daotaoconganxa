@@ -1,10 +1,11 @@
 /**
  * Chọn xã, phường, đặc khu theo danh mục hiện hành (data/dia-gioi) cho đơn vị loại xã: chọn tỉnh rồi
  * chọn xã. Gửi mã 5 số trong ô ẩn `maHanhChinh`; API kiểm lại mã có trong danh mục.
- * Danh mục tải phía trình duyệt khi ô hiện ra, qua API công khai /v1/dia-gioi.
+ * Danh mục tải phía trình duyệt khi ô hiện ra, qua API công khai /v1/dia-gioi. Khi sửa đơn vị đã
+ * gắn mã, tra ngược mã để chọn sẵn tỉnh và hiện tên xã.
  */
 import { useEffect, useState } from "react";
-import { type DonVi, dsTinhMoi, dsXaMoi, type XaMoi } from "../../lib/dia-gioi";
+import { type DonVi, dsTinhMoi, dsXaMoi, traNguoc, type XaMoi } from "../../lib/dia-gioi";
 import { inputClass, Label } from "../ui/Field";
 
 export function ChonXaHanhChinh({
@@ -23,12 +24,30 @@ export function ChonXaHanhChinh({
   const [tinh, datTinh] = useState("");
   const [dsXa, datDsXa] = useState<XaMoi[]>([]);
   const [loi, datLoi] = useState<string | null>(null);
+  /** Tên xã đang gắn, để hiện cạnh mã; rỗng khi chưa tra được. */
+  const [tenXa, datTenXa] = useState("");
 
   useEffect(() => {
     dsTinhMoi()
       .then(datDsTinh)
       .catch(() => datLoi("Chưa tải được danh mục tỉnh. Tải lại trang để thử lại."));
   }, []);
+
+  useEffect(() => {
+    if (!maHienTai) return;
+    let huy = false;
+    // Không tra được (mã không còn trong danh mục, lỗi mạng) thì vẫn hiện mã như cũ.
+    traNguoc(maHienTai)
+      .then((kq) => {
+        if (huy) return;
+        datTinh(kq.tinhMoi.ma);
+        datTenXa(`${kq.xaMoi.ten}, ${kq.tinhMoi.ten}`);
+      })
+      .catch(() => {});
+    return () => {
+      huy = true;
+    };
+  }, [maHienTai]);
 
   useEffect(() => {
     if (!tinh) return datDsXa([]);
@@ -73,6 +92,7 @@ export function ChonXaHanhChinh({
             const xa = dsXa.find((x) => x.ma === e.target.value);
             if (!xa) return;
             datMa(xa.ma);
+            datTenXa(`${xa.ten}, ${dsTinh.find((t) => t.ma === tinh)?.ten ?? ""}`.replace(/, $/, ""));
             onChonXa(xa);
           }}
           className={inputClass}
@@ -88,12 +108,15 @@ export function ChonXaHanhChinh({
       <p className="flex flex-wrap items-center gap-x-3 text-sm text-ink-3 sm:col-span-2" aria-live="polite">
         {loi ??
           (ma
-            ? `Mã xã đang gắn: ${ma}.`
+            ? `Đang gắn: ${tenXa ? `${tenXa} (mã ${ma})` : `mã xã ${ma}`}.`
             : "Chưa gắn mã xã. Có thể bỏ trống nếu đơn vị không theo xã hiện hành.")}
         {ma && !loi ? (
           <button
             type="button"
-            onClick={() => datMa("")}
+            onClick={() => {
+              datMa("");
+              datTenXa("");
+            }}
             className="min-h-11 font-medium text-primary underline"
           >
             Bỏ mã xã

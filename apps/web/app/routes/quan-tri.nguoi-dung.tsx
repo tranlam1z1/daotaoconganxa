@@ -275,8 +275,14 @@ function XetXacMinh({
       <dl className="grid gap-x-4 gap-y-1 text-sm [overflow-wrap:anywhere] sm:grid-cols-[9rem_1fr]">
         <dt className="text-ink-3">Mã cán bộ</dt>
         <dd className="font-mono font-medium">{u.so_hieu ?? "Chưa khai"}</dd>
-        <dt className="text-ink-3">Đơn vị đã khai</dt>
+        <dt className="text-ink-3">Nơi công tác đã khai</dt>
         <dd className="font-medium">{u.don_vi_khai_name ?? "Chưa khai"}</dd>
+        {u.party_unit_name ? (
+          <>
+            <dt className="text-ink-3">Nơi sinh hoạt Đảng</dt>
+            <dd className="font-medium">{u.party_unit_name}</dd>
+          </>
+        ) : null}
         {u.rank_title ? (
           <>
             <dt className="text-ink-3">Chức vụ, chức danh</dt>
@@ -568,7 +574,7 @@ function ChiTietNguoiDung({
             .map((nhom) => TEN_NHOM_HOC_TAP[nhom as keyof typeof TEN_NHOM_HOC_TAP] ?? nhom)
             .join(", ") || "Chưa gắn nhóm"}
         </Dong>
-        <Dong nhan="Đơn vị">
+        <Dong nhan="Nơi công tác">
           {u.unit_name ? `${u.unit_name}${u.unit_code ? ` (${u.unit_code})` : ""}` : "Chưa gắn đơn vị"}
         </Dong>
         {u.party_unit_name ? <Dong nhan="Nơi sinh hoạt Đảng">{u.party_unit_name}</Dong> : null}

@@ -201,6 +201,7 @@ export async function suaDonVi(id: string, s: SuaDonVi, actor: string): Promise<
     const maHanhChinh = loai !== "xa" && s.maHanhChinh === undefined ? null : maYeuCau;
     kiemLoai(loai, maHanhChinh);
     await kiemTrungMaHanhChinh(tx, maHanhChinh, id);
+    if (cu.loai === "to_chuc_dang" && loai !== "to_chuc_dang") await kiemKhongConNguoiSinhHoat(tx, id);
 
     if (s.code !== undefined && s.code.toLowerCase() !== String(cu.code).toLowerCase()) {
       const [trung] =
@@ -246,6 +247,20 @@ export async function suaDonVi(id: string, s: SuaDonVi, actor: string): Promise<
     await ghiNhatKy(tx, actor, "don_vi:sua", s.code ?? cu.code, s);
   });
   return (await layDonVi(id)) as DonVi;
+}
+
+/**
+ * Đổi loại một tổ chức Đảng khi còn người ghi nó là nơi sinh hoạt Đảng thì `party_unit_id` của
+ * họ trỏ tới đơn vị không còn là tổ chức Đảng: chặn, báo số người cần chuyển trước.
+ */
+async function kiemKhongConNguoiSinhHoat(tx: Tx, id: string) {
+  const [r] = (await tx`SELECT count(*)::int AS n FROM accounts WHERE party_unit_id = ${id}`) as any[];
+  if (r.n > 0) {
+    throw new LoiNghiepVu(
+      `Đơn vị đang là nơi sinh hoạt Đảng của ${r.n} người. Chuyển những người này sang tổ chức Đảng khác trước khi đổi loại.`,
+      "xung_dot",
+    );
+  }
 }
 
 /** Nơi sinh hoạt Đảng phải là đơn vị loại `to_chuc_dang` đang hoạt động. Ném LoiNghiepVu. */

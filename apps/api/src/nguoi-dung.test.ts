@@ -366,6 +366,33 @@ describe("nơi sinh hoạt Đảng của người dùng", () => {
     expect(r.status).toBe(400);
     expect(r.body.error.message).toContain("tổ chức Đảng");
   });
+
+  test("không đổi loại tổ chức Đảng khi còn người sinh hoạt; hết người thì đổi được", async () => {
+    const dang = await taoDonVi(
+      { code: `${PREFIX}-DANG3`, name: "Chi bộ có người", loai: "to_chuc_dang" },
+      `${PREFIX}-seed`,
+    );
+    const [nd] = (await sql`SELECT id FROM accounts WHERE username = ${`${PREFIX}-can-bo-b`}`) as any[];
+    await sql`UPDATE accounts SET party_unit_id = ${dang.id} WHERE id = ${nd.id}`;
+
+    const doi = () =>
+      goi("PATCH", `/v1/quan-tri/don-vi/${dang.id}`, { token: tk.quanTri, body: { loai: "khac" } });
+    const biChan = await doi();
+    expect(biChan.status).toBe(409);
+    expect(biChan.body.error.message).toContain("nơi sinh hoạt Đảng của 1 người");
+
+    // Sửa trường khác, giữ nguyên loại, vẫn được.
+    const doiTen = await goi("PATCH", `/v1/quan-tri/don-vi/${dang.id}`, {
+      token: tk.quanTri,
+      body: { name: "Chi bộ có người (đổi tên)", loai: "to_chuc_dang" },
+    });
+    expect(doiTen.status).toBe(200);
+
+    await sql`UPDATE accounts SET party_unit_id = NULL WHERE id = ${nd.id}`;
+    const duoc = await doi();
+    expect(duoc.status).toBe(200);
+    expect(duoc.body.item.loai).toBe("khac");
+  });
 });
 
 describe("phạm vi đơn vị của cán bộ quản lý", () => {

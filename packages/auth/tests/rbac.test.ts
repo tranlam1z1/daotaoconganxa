@@ -44,14 +44,14 @@ const who = (role: Role): Principal => ({ email: "x@vidu.vn", role, source: "goo
 
 describe("thứ bậc vai trò", () => {
   test("xếp theo mức tăng dần", () => {
-    // Thang tổ chức 5 bậc (migration 0073): khách, cán bộ, lãnh đạo UBND xã, Admin quản lý,
+    // Thang tổ chức 5 bậc (migration 0073): khách, cán bộ, lãnh đạo Công an xã, Admin quản lý,
     // Admin quản trị hệ thống.
     expect(ROLES).toEqual(["khach", "can_bo", "lanh_dao", "quan_ly", "quan_tri"]);
     expect(atLeast("quan_tri", "lanh_dao")).toBe(true);
-    // Cán bộ trên khách, dưới lãnh đạo UBND xã.
+    // Cán bộ trên khách, dưới lãnh đạo Công an xã.
     expect(atLeast("can_bo", "khach")).toBe(true);
     expect(atLeast("can_bo", "lanh_dao")).toBe(false);
-    // Lãnh đạo UBND xã dưới Admin quản lý: Admin quản lý kế thừa quyền phê duyệt.
+    // Lãnh đạo Công an xã dưới Admin quản lý: Admin quản lý kế thừa quyền phê duyệt.
     expect(atLeast("lanh_dao", "quan_ly")).toBe(false);
     expect(atLeast("quan_ly", "lanh_dao")).toBe(true);
     expect(atLeast("khach", "khach")).toBe(true);
@@ -81,7 +81,7 @@ describe("kiểm soát truy cập công cụ", () => {
     expect(d.reason).toContain("quan_ly");
   });
 
-  test("lãnh đạo UBND xã KHÔNG duyệt được lệnh sửa đổi", () => {
+  test("lãnh đạo Công an xã KHÔNG duyệt được lệnh sửa đổi", () => {
     expect(canUseTool(who("lanh_dao"), "duyet_lenh_sua_doi", true).allowed).toBe(false);
   });
 

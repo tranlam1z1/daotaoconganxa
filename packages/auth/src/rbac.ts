@@ -16,7 +16,7 @@ import { bootstrapAdminEnabled, defaultRole } from "./config.ts";
  *
  * - `khach` — khách, chỉ tra cứu công khai.
  * - `can_bo` — cán bộ, công chức: học tập, luyện tập, thi, tra cứu.
- * - `lanh_dao` — lãnh đạo UBND xã: quản lý trong cây đơn vị của mình (cán bộ, báo cáo, đề thi, nhóm).
+ * - `lanh_dao` — lãnh đạo Công an xã: quản lý trong cây đơn vị của mình (cán bộ, báo cáo, đề thi, nhóm).
  * - `quan_ly` — Admin quản lý: quản trị nội dung toàn hệ thống, gồm cả duyệt và xuất bản.
  * - `quan_tri` — Admin quản trị hệ thống: toàn quyền, gồm quản lý tài khoản.
  *
@@ -31,8 +31,8 @@ export type Role = (typeof ROLES)[number];
 
 export const ROLE_LABEL: Record<Role, string> = {
   khach: "Khách (chỉ tra cứu văn bản công khai)",
-  can_bo: "Cán bộ, công chức (học tập, luyện tập, thi, tra cứu)",
-  lanh_dao: "Lãnh đạo UBND xã (quản lý đơn vị mình: cán bộ, báo cáo, đề thi, nhóm)",
+  can_bo: "Cán bộ, chiến sĩ (học tập, luyện tập, thi, tra cứu)",
+  lanh_dao: "Lãnh đạo Công an xã (quản lý đơn vị mình: cán bộ, báo cáo, đề thi, nhóm)",
   quan_ly: "Admin quản lý (quản trị nội dung toàn hệ thống: soạn, duyệt, xuất bản)",
   quan_tri: "Admin quản trị hệ thống (toàn quyền, gồm quản lý tài khoản)",
 };

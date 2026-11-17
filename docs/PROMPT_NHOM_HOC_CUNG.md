@@ -30,7 +30,7 @@
 ### 1.1. Người dùng
 
 - **Người học** là cán bộ, chiến sĩ (vai trò `can_bo`), học trên điện thoại xen giữa ca trực. Mỗi lần mở nhóm chỉ vài phút: xem còn bài nào chưa học, học tiếp, cổ vũ đồng đội.
-- **Lãnh đạo UBND xã** (vai trò `lanh_dao`) xem trên máy tính là chính, cần bảng, bộ lọc và xuất Excel như báo cáo GĐ7.
+- **Lãnh đạo Công an xã** (vai trò `lanh_dao`) xem trên máy tính là chính, cần bảng, bộ lọc và xuất Excel như báo cáo GĐ7.
 - Nhóm học cùng là **hoạt động tự nguyện**. Nó không thay việc giao bài, giao đề chính thức (`exam_assignments`).
 
 ### 1.2. Tài liệu phải đọc trước khi làm

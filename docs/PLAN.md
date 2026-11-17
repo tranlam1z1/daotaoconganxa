@@ -248,13 +248,13 @@ Migration mới đánh số tiếp từ **`0010_`**. Thư mục hiện có hai t
 ## GĐ2 — Tài khoản, đơn vị, vai trò, nhật ký truy cập
 
 **Mục tiêu**
-- Có **đơn vị** dạng cây, tài khoản cán bộ đăng nhập bằng tên/mật khẩu, vai trò **Cán bộ, công chức** và **Lãnh đạo UBND xã** giới hạn theo đơn vị.
+- Có **đơn vị** dạng cây, tài khoản cán bộ đăng nhập bằng tên/mật khẩu, vai trò **Cán bộ, chiến sĩ** và **Lãnh đạo Công an xã** giới hạn theo đơn vị.
 - Admin quản trị hệ thống có màn hình quản lý người dùng và đơn vị, nhập danh sách từ Excel.
 - Có nhật ký truy cập.
 
 **Thiết kế vai trò (A5)**
 - Thang tổ chức 5 bậc: `khach < can_bo < lanh_dao < quan_ly < quan_tri`
-  (Khách < Cán bộ, công chức < Lãnh đạo UBND xã < Admin quản lý < Admin quản trị hệ thống).
+  (Khách < Cán bộ, chiến sĩ < Lãnh đạo Công an xã < Admin quản lý < Admin quản trị hệ thống).
 - `can_bo` là người học: học, luyện tập, thi, tra cứu.
 - `lanh_dao` = quản lý **trong cây đơn vị của mình**: giao bài, xem báo cáo, quản lý người dùng trong đơn vị.
 - `quan_ly` = quản trị nội dung toàn hệ thống: soạn, duyệt và xuất bản. Thấy mọi đơn vị.
@@ -337,7 +337,7 @@ Migration mới đánh số tiếp từ **`0010_`**. Thư mục hiện có hai t
 - Khác với dự kiến:
   - Họ tên dùng lại cột `accounts.name` sẵn có, không thêm cột `full_name`.
   - Hàm phạm vi nhận đường dẫn ltree của đơn vị (`trongPhamVi(principal, unitPath)`); API có `batBuocPhamViDonVi(c, unitId)` tra đường dẫn rồi gọi hàm này.
-  - Nhập Excel chỉ nhận vai trò Cán bộ và Lãnh đạo UBND xã. Vai trò Admin quản lý và quản trị cấp từng người trên màn hình.
+  - Nhập Excel chỉ nhận vai trò Cán bộ và Lãnh đạo Công an xã. Vai trò Admin quản lý và quản trị cấp từng người trên màn hình.
   - Mật khẩu tạm sinh ngẫu nhiên cho từng người và chỉ hiện một lần.
 - Thêm ngoài danh sách:
   - `apps/web/app/lib/quan-tri.server.ts`
@@ -350,7 +350,7 @@ Migration mới đánh số tiếp từ **`0010_`**. Thư mục hiện có hai t
 - Tài khoản mẫu (`bun run db:seed:don-vi`): `quantri`, `quanly`, `lanhdao.phong`, `lanhdao.doi1`, 7 tài khoản `canbo.*`. Mật khẩu `Matkhau2026`, hoặc đặt qua `SEED_MAT_KHAU`.
 - Việc chuyển sang giai đoạn sau:
   - Tạo xong một người dùng trên điện thoại, thông báo mật khẩu tạm nằm ở đầu trang, cần cuộn lên mới thấy.
-  - Trang `/quan-tri` (tổng quan đào tạo) vẫn là trang tạm; Lãnh đạo UBND xã vào thẳng `/quan-tri/nguoi-dung` từ trang Tài khoản.
+  - Trang `/quan-tri` (tổng quan đào tạo) vẫn là trang tạm; Lãnh đạo Công an xã vào thẳng `/quan-tri/nguoi-dung` từ trang Tài khoản.
 
 ---
 
@@ -670,7 +670,7 @@ Migration mới đánh số tiếp từ **`0010_`**. Thư mục hiện có hai t
 
 **Mục tiêu**
 - **Quản trị viên** tạo đề: cấu hình 30–40 câu theo **ma trận** chủ đề × mức độ, thời gian, ngưỡng đạt, số lần làm, trộn câu và đảo đáp án.
-- **Lãnh đạo UBND xã** giao đề cho đơn vị hoặc cá nhân, kèm hạn làm.
+- **Lãnh đạo Công an xã** giao đề cho đơn vị hoặc cá nhân, kèm hạn làm.
 - **Cán bộ** làm bài có **đồng hồ đếm ngược**, nộp bài và xem kết quả.
 
 **Thiết kế**
@@ -785,7 +785,7 @@ Migration mới đánh số tiếp từ **`0010_`**. Thư mục hiện có hai t
 ## GĐ7 — Báo cáo, xếp hạng, xuất Excel/PDF (MỐC M2)
 
 **Mục tiêu**
-- Lãnh đạo UBND xã xem kết quả **theo cá nhân và đơn vị**: điểm, thời gian làm bài, số lần làm, xếp hạng.
+- Lãnh đạo Công an xã xem kết quả **theo cá nhân và đơn vị**: điểm, thời gian làm bài, số lần làm, xếp hạng.
 - Xuất ra **Excel** và **PDF**.
 
 **Việc làm**
@@ -1635,7 +1635,7 @@ Kiểm lại tên tệp route thật trước khi sửa. Tên khác danh sách t
 ## GĐ16c — Nhóm học cùng: quản lý xem tiến độ học
 
 **Mục tiêu**
-- Lãnh đạo UBND xã xem các nhóm học cùng có thành viên trong đơn vị mình, và tiến độ của từng thành viên trong phạm vi.
+- Lãnh đạo Công an xã xem các nhóm học cùng có thành viên trong đơn vị mình, và tiến độ của từng thành viên trong phạm vi.
 - Có báo cáo "Tiến độ học" của từng cán bộ trong cây đơn vị theo N13, xuất Excel và PDF như các báo cáo GĐ7.
 
 **Thiết kế** (PROMPT_NHOM_HOC_CUNG.md mục 2.1, 2.5 phần Quản lý và Báo cáo, 2.6 Trang quản lý; câu N11, N13 trả lời theo đề xuất, đề xuất Đ11, Đ12 được đồng ý, Đ18 trả lời "Không" ngày 29/9/2026)
@@ -1735,7 +1735,7 @@ Kiểm lại tên tệp route thật trước khi sửa. Tên khác danh sách t
 
 **Mục tiêu**
 - Trưởng nhóm nhận gợi ý thứ tự học cho các mục trong nhóm (AI-1) và tự quyết định có áp dụng không.
-- Lãnh đạo UBND xã đọc bản tóm tắt tiến độ nhóm do AI soạn từ số liệu trong phạm vi (AI-2), đặt cạnh bảng số liệu để đối chiếu.
+- Lãnh đạo Công an xã đọc bản tóm tắt tiến độ nhóm do AI soạn từ số liệu trong phạm vi (AI-2), đặt cạnh bảng số liệu để đối chiếu.
 - Giai đoạn bỏ được nếu N12 chọn không làm AI.
 
 **Thiết kế** (PROMPT_NHOM_HOC_CUNG.md mục 2.7; N12 trả lời "AI-1 và AI-2", đồng ý đề xuất Đ7, Đ15, Đ16, Đ17 ngày 30/9/2026; mẫu GĐ8)

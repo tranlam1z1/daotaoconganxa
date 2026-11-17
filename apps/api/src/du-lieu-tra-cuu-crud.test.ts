@@ -139,7 +139,7 @@ describe("tốc độ tối đa", () => {
 
     const ma = `${PREFIX}-duyet`;
     await goi("POST", `${QT}/toc-do-toi-da`, quanLy, tocDo("duyet", { gui_duyet: true }));
-    // Lãnh đạo UBND xã không duyệt được nội dung: việc duyệt thuộc Admin quản lý.
+    // Lãnh đạo Công an xã không duyệt được nội dung: việc duyệt thuộc Admin quản lý.
     expect((await goi("POST", `${QT}/toc-do-toi-da/${ma}/duyet`, lanhDao, {})).status).toBe(403);
     expect((await goi("POST", `${QT}/toc-do-toi-da/${ma}/duyet`, quanLy, {})).status).toBe(200);
     expect((await goi("POST", `${QT}/toc-do-toi-da/${ma}/khoi-phuc`, quanLy, {})).status).toBe(409);

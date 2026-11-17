@@ -11,7 +11,7 @@
 
 import { useEffect, useState } from "react";
 import { Form, Link, redirect, useNavigation, useRevalidator } from "react-router";
-import { NHOM_HOC_TAP, TEN_NHOM_HOC_TAP } from "../../../../packages/dao-tao/src/nhom-doi-tuong";
+import { nhomChoForm, TEN_NHOM_HOC_TAP } from "../../../../packages/dao-tao/src/nhom-doi-tuong";
 import { NutTrangThai } from "../components/quan-tri/NutTrangThai";
 import { Badge } from "../components/ui/Badge";
 import { Button, ButtonLink } from "../components/ui/Button";
@@ -438,7 +438,7 @@ export default function SuaChuyenDe({ loaderData, actionData }: Route.ComponentP
           <fieldset>
             <legend className="mb-2 text-sm font-medium">Nhóm đối tượng học tập</legend>
             <div className="flex flex-wrap gap-4">
-              {NHOM_HOC_TAP.map((nhom) => (
+              {nhomChoForm(cd?.nhomHocTap).map((nhom) => (
                 <label key={nhom} className="flex items-center gap-2 text-sm">
                   <input
                     type="checkbox"

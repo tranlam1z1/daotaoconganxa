@@ -46,7 +46,7 @@ describe("trongPhamVi", () => {
     expect(trongPhamVi(nguoi("lanh_dao", A), null)).toBe(false);
   });
 
-  test("phạm vi của lãnh đạo UBND xã là cây đơn vị của mình, không tính thứ bậc vai trò", () => {
+  test("phạm vi của lãnh đạo Công an xã là cây đơn vị của mình, không tính thứ bậc vai trò", () => {
     const lanhDao = nguoi("lanh_dao", A);
     expect(trongPhamVi(lanhDao, A1)).toBe(true);
     expect(trongPhamVi(lanhDao, B)).toBe(false);

@@ -53,7 +53,7 @@ Dùng bốn hồ sơ Chrome (Profile) để không phải đăng xuất, đăng 
 |---|---|---|---|---|
 | A | `canbo.d1.01` | Đại úy Lê Quang Huy, Đội 1 | Người học chính | `/`, `/hoc` |
 | B | `canbo.d2.01` | Đại úy Vũ Đức Thắng, Đội 2 | Người học thứ hai: **chưa làm bài thi**, tham gia nhóm | `/thi` |
-| C | `lanhdao.doi1` | Thiếu tá Trần Minh Đức, Đội trưởng Đội 1 | Lãnh đạo UBND xã | `/quan-tri/bao-cao` |
+| C | `lanhdao.doi1` | Thiếu tá Trần Minh Đức, Đội trưởng Đội 1 | Lãnh đạo Công an xã | `/quan-tri/bao-cao` |
 | D | `quantri` | Admin quản trị hệ thống | Admin quản trị hệ thống | `/quan-tri/nguoi-dung` |
 
 Thiếu thời gian tạo hồ sơ thì dùng một cửa sổ thường (A) và một cửa sổ ẩn danh (lần lượt B, C, D).
@@ -97,10 +97,10 @@ Tài khoản `quantri` không thuộc đơn vị nào.
 | 2 | `canbo.d1.04` Đặng Văn Khoa | PC08-D1 | Cán bộ | Tạo được |
 | 3 | `canbo.d2.03` Lý Thị Mai | PC08-D2 | Cán bộ | Tạo được |
 | 4 | `canbo.d3.03` Phan Minh Tú | PC08-D3 | Cán bộ | Tạo được |
-| 5 | `lanhdao.doi2` Trịnh Quốc Bảo | PC08-D2 | Lãnh đạo UBND xã | Tạo được |
+| 5 | `lanhdao.doi2` Trịnh Quốc Bảo | PC08-D2 | Lãnh đạo Công an xã | Tạo được |
 | 6 | `canbo.d1.01` Hồ Văn Lực | PC08-D1 | Cán bộ | Lỗi cố ý: tên đăng nhập đã có |
 | 7 | `canbo.d4.01` Mai Thanh Sơn | PC08-D4 | Cán bộ | Lỗi cố ý: không có đơn vị mã PC08-D4 |
-| 8 | `quanly.ngoc` Cao Thị Ngọc | PC08 | Admin quản lý | Lỗi cố ý: tệp chỉ nhận "Cán bộ" hoặc "Lãnh đạo UBND xã" |
+| 8 | `quanly.ngoc` Cao Thị Ngọc | PC08 | Admin quản lý | Lỗi cố ý: tệp chỉ nhận "Cán bộ" hoặc "Lãnh đạo Công an xã" |
 
 Tệp đã được đọc thử bằng đúng bộ đọc của API. Tệp chỉ nhập thật **một lần**: lần sau các dòng báo "đã có". Muốn nhập lại thì dựng lại bằng `bun run demo --lam-lai`.
 
@@ -127,7 +127,7 @@ Mỗi bước ghi: hồ sơ Chrome, thao tác, lời dẫn (gợi ý, nói theo 
 **Thao tác:** mở `/` của `canbo.d1.01`.
 
 **Lời dẫn:**
-> Hệ thống gồm ba phần trên một ứng dụng web: tra cứu văn bản và quy định nghiệp vụ, học bài giảng, luyện tập và thi. Cán bộ dùng trên máy tính hoặc cài lên điện thoại. Lãnh đạo UBND xã giao bài và xem báo cáo trên cùng ứng dụng.
+> Hệ thống gồm ba phần trên một ứng dụng web: tra cứu văn bản và quy định nghiệp vụ, học bài giảng, luyện tập và thi. Cán bộ dùng trên máy tính hoặc cài lên điện thoại. Lãnh đạo Công an xã giao bài và xem báo cáo trên cùng ứng dụng.
 >
 > Dữ liệu hôm nay là dữ liệu mẫu chạy trên máy này. Tên người, đơn vị là giả định. Một phần câu hỏi và dữ liệu tra cứu được duyệt tự động để chạy thử, chưa qua đơn vị chuyên môn đối chiếu. Hệ thống thật chỉ hiện cho cán bộ những nội dung đã duyệt.
 
@@ -190,7 +190,7 @@ Không có key AI thì bỏ 1.6. Nếu người xem hỏi, mở `/hoi-dap`: tran
 | 4.4 | A | Trong nhóm, "Chia sẻ vào nhóm" → "Đề ôn tập", chủ đề "Giấy phép lái xe", 5 câu, tên `Đề ôn giấy phép lái xe` | Trưởng nhóm chia sẻ bài học, đề ôn; đặt hạn gợi ý | Mục mới trong nhóm |
 | 4.5 | A | Trong nhóm vừa tạo, bấm "Cổ vũ" ở dòng của B | Thành viên cổ vũ nhau; cổ vũ chỉ để động viên, không tính vào kết quả học | Số lượt cổ vũ |
 
-### Bước 5. Lãnh đạo UBND xã (4 phút) · Hồ sơ C (`lanhdao.doi1`)
+### Bước 5. Lãnh đạo Công an xã (4 phút) · Hồ sơ C (`lanhdao.doi1`)
 
 | # | Thao tác | Lời dẫn | Người xem thấy |
 |---|---|---|---|

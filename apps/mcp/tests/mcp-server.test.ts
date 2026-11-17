@@ -62,7 +62,7 @@ describe("danh sách công cụ lọc theo vai trò", () => {
     await c.close();
   });
 
-  test("lãnh đạo UBND xã không thấy công cụ quản trị nội dung", async () => {
+  test("lãnh đạo Công an xã không thấy công cụ quản trị nội dung", async () => {
     const c = await connect("lanh_dao", true);
     const names = (await c.listTools()).tools.map((t) => t.name);
     expect(names).not.toContain("hang_doi_bien_tap");

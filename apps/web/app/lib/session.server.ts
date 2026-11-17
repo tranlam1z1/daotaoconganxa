@@ -19,8 +19,8 @@ const VAI_TRO_THU_TU = ["khach", "can_bo", "lanh_dao", "quan_ly", "quan_tri"] as
 export type VaiTro = (typeof VAI_TRO_THU_TU)[number];
 const TEN_VAI_TRO: Record<VaiTro, string> = {
   khach: "Khách",
-  can_bo: "Cán bộ, công chức",
-  lanh_dao: "Lãnh đạo UBND xã",
+  can_bo: "Cán bộ, chiến sĩ",
+  lanh_dao: "Lãnh đạo Công an xã",
   quan_ly: "Admin quản lý",
   quan_tri: "Admin quản trị hệ thống",
 };

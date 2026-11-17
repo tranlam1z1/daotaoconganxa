@@ -313,9 +313,9 @@ function inHuongDan(duongHam: string | null) {
   console.log("\n  Tài khoản (mật khẩu chung Matkhau2026, đổi bằng SEED_MAT_KHAU):");
   console.log("    quantri        Admin quản trị hệ thống");
   console.log("    quanly         Admin quản lý nội dung (toàn hệ thống)");
-  console.log("    lanhdao.xa     Lãnh đạo xã Minh Hòa");
-  console.log("    lanhdao.ubnd   Lãnh đạo UBND xã Minh Hòa");
-  console.log("    congchuc.01 … congchuc.03; vienchuc.01 … vienchuc.02; dangvien.01 … dangvien.02");
+  console.log("    truong.cax     Trưởng Công an xã Minh Hòa");
+  console.log("    pho.cax.01     Phó Trưởng Công an xã (pho.cax.02 tương tự)");
+  console.log("    cax.01 … cax.05  Cán bộ, chiến sĩ Công an xã");
   console.log(
     `\n  Hỏi đáp AI: ${env.LLM_PROVIDER === "none" ? "chưa cấu hình (đặt key ở .env.demo.local)" : "bật"}`,
   );

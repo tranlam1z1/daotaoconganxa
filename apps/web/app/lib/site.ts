@@ -2,15 +2,12 @@
 
 import type { IconName } from "../components/ui/Icon";
 
-/**
- * Dòng chữ chữ nhận diện (docs/brand): "HỌC TẬP PHÁP LUẬT & BỒI DƯỠNG NGHIỆP VỤ".
- * Dùng ở logo đầu trang, trang đăng nhập/đăng ký và chân trang.
- */
-export const SITE_NAME = "Học tập pháp luật & Bồi dưỡng nghiệp vụ";
-/** Dòng chữ nhỏ dưới tên trang ở logo đầu trang. */
-export const SITE_TAGLINE = "Cấp xã tỉnh Thanh Hóa";
+/** Tên hệ thống, hai dòng như logo: "Đào tạo nghiệp vụ" / "Công an xã". */
+export const SITE_NAME_LINES = ["Đào tạo nghiệp vụ", "Công an xã"] as const;
+/** Dùng ở logo đầu trang, trang đăng nhập/đăng ký, chân trang và manifest. */
+export const SITE_NAME = SITE_NAME_LINES.join(" ");
 /** Tên rút gọn dùng cho tiêu đề thẻ (tránh tiêu đề quá dài). */
-export const SITE_NAME_SHORT = "Học tập pháp luật";
+export const SITE_NAME_SHORT = "Đào tạo Công an xã";
 
 export interface NavItem {
   to: string;

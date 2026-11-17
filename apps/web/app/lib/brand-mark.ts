@@ -1,60 +1,57 @@
-/** Hình học nhận diện: sách mở đỏ–xanh, ngòi bút và sao vàng. */
+/** Hình học nhận diện: khiên xanh, sách mở màu kem và hình thoi vàng. */
 export const BRAND_COLORS = {
-  red: ["#C22A43", "#A61C30"],
-  blue: ["#267798", "#104866"],
-  gold: ["#E5C66B", "#C89B22"],
+  /** Xanh chủ đạo. */
+  green: "#1B4D3E",
+  /** Vàng điểm nhấn. */
+  gold: "#D4AF37",
+  /** Kem của trang sách. */
+  cream: "#FFF9EE",
 } as const;
-export const BRAND_DRUM_RINGS = [78, 84, 94, 100, 118, 124] as const;
-export const BRAND_PATHS = [
+
+export type BrandTone = "shield" | "diamond" | "page";
+
+export const BRAND_PATHS: ReadonlyArray<{ tone: BrandTone; d: string }> = [
   {
-    tone: "blue",
-    d: "M12 184 L27 180 L38 239 C87 241 128 266 160 300 C119 273 72 258 22 258 Z",
+    tone: "shield",
+    d: "M160 10 C205 10 250 18 278 30 C287 34 290 40 290 50 L290 150 C290 225 235 280 168 308 C163 310 157 310 152 308 C85 280 30 225 30 150 L30 50 C30 40 33 34 42 30 C70 18 115 10 160 10 Z",
   },
   {
-    tone: "blue",
-    d: "M308 184 L293 180 L282 239 C233 241 192 266 160 300 C201 273 248 258 298 258 Z",
+    tone: "diamond",
+    d: "M158 52 Q160 50 162 52 L190 80 Q192 82 190 84 L162 112 Q160 114 158 112 L130 84 Q128 82 130 80 Z",
   },
   {
-    tone: "blue",
-    d: "M35 157 L51 155 L62 219 C101 230 134 254 158 291 C123 255 86 238 47 232 Z",
+    tone: "page",
+    d: "M68 130 Q68 127 71 127 L153 127 Q155 127 155 129 L155 256 C134 236 104 229 71 229 Q68 229 68 226 Z",
   },
   {
-    tone: "blue",
-    d: "M285 157 L269 155 L258 219 C219 230 186 254 162 291 C197 255 234 238 273 232 Z",
+    tone: "page",
+    d: "M252 130 Q252 127 249 127 L167 127 Q165 127 165 129 L165 256 C186 236 216 229 249 229 Q252 229 252 226 Z",
   },
-  {
-    tone: "red",
-    d: "M62 130 C103 131 138 151 154 181 L158 276 C135 229 107 204 74 193 Z",
-  },
-  {
-    tone: "red",
-    d: "M258 130 C217 131 182 151 166 181 L162 276 C185 229 213 204 246 193 Z",
-  },
-  {
-    tone: "gold",
-    d: "M160 88 C153 105 138 118 141 132 C143 143 154 149 160 172 C166 149 177 143 179 132 C182 118 167 105 160 88 Z M160 119 A4 4 0 1 0 160 127 A4 4 0 1 0 160 119 Z M158.5 127 H161.5 V160 H158.5 Z",
-    fillRule: "evenodd",
-  },
-  {
-    tone: "gold",
-    d: "M160.00 3.00 L170.58 34.44 L203.75 34.79 L177.12 54.56 L187.04 86.21 L160.00 67.00 L132.96 86.21 L142.88 54.56 L116.25 34.79 L149.42 34.44 Z",
-  },
-] as const;
+];
+
+/**
+ * - "mau": bản màu đầy đủ trên nền sáng.
+ * - "trang": bản đảo trên nền xanh hoặc nền tối (khiên kem, sách xanh).
+ * - "den": bản đơn sắc đen (in ấn).
+ */
+export type BrandVariant = "mau" | "trang" | "den";
+
+export function brandFill(tone: BrandTone, variant: BrandVariant): string {
+  if (variant === "den") return tone === "shield" ? "#000000" : "#FFFFFF";
+  if (variant === "trang") {
+    if (tone === "shield") return BRAND_COLORS.cream;
+    if (tone === "page") return BRAND_COLORS.green;
+    return BRAND_COLORS.gold;
+  }
+  if (tone === "shield") return BRAND_COLORS.green;
+  if (tone === "page") return BRAND_COLORS.cream;
+  return BRAND_COLORS.gold;
+}
+
+export const BRAND_LABEL = "Đào tạo nghiệp vụ Công an xã";
 
 /** Nguồn dùng chung cho favicon, PWA và logo nhúng của trang offline. */
-export function brandMarkSvg(white = false) {
-  const defs = Object.entries(BRAND_COLORS)
-    .map(
-      ([tone, colors]) =>
-        `<linearGradient id="brand-${tone}" x2="0" y2="1"><stop stop-color="${colors[0]}"/><stop offset="1" stop-color="${colors[1]}"/></linearGradient>`,
-    )
-    .join("");
-  const ornament = white
-    ? ""
-    : `<g fill="none" stroke="#D1AA36" stroke-width="1.5" opacity=".2">${BRAND_DRUM_RINGS.map((r) => `<circle cx="160" cy="142" r="${r}"/>`).join("")}</g>`;
-  const shapes = BRAND_PATHS.map(
-    (shape) =>
-      `<path d="${shape.d}" fill="${white ? "#FFFFFF" : `url(#brand-${shape.tone})`}" fill-rule="${"fillRule" in shape ? shape.fillRule : "nonzero"}"/>`,
-  ).join("");
-  return `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 320" role="img" aria-label="Học tập pháp luật và bồi dưỡng nghiệp vụ"><defs>${defs}</defs>${ornament}${shapes}</svg>`;
+export function brandMarkSvg(variant: BrandVariant = "mau") {
+  const shapes = BRAND_PATHS.map((s) => `<path d="${s.d}" fill="${brandFill(s.tone, variant)}"/>`).join("");
+  return `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 320" role="img" aria-label="${BRAND_LABEL}">${shapes}</svg>`;
 }

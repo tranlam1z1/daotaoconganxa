@@ -25,9 +25,9 @@ export function BrandMark() {
   return (
     <Link
       to="/"
-      className="site-brand flex min-h-11 min-w-0 items-center gap-2 font-sans xl:shrink-0 xl:gap-4"
+      className="site-brand flex min-h-11 min-w-0 items-center font-sans xl:shrink-0"
     >
-      <LogoHocTap className="h-10 w-auto shrink-0 sm:h-14 lg:h-16" />
+      <LogoHocTap className="shrink-0" />
 
       <BrandName />
     </Link>

@@ -7,8 +7,8 @@ import { brandMarkSvg } from "../apps/web/app/lib/brand-mark";
 
 const PUBLIC = join(import.meta.dir, "..", "apps", "web", "public");
 const THU_MUC = join(PUBLIC, "icons");
-/** Nền đỏ của bản ứng dụng theo bộ nhận diện mới. */
-const DO_THUONG_HIEU = "#A61C30";
+/** Nền xanh chủ đạo của bộ nhận diện. */
+const XANH_THUONG_HIEU = "#1B4D3E";
 /** Tỉ lệ chiều cao / chiều rộng của dấu logo trong logo.svg. */
 const TINH = 1;
 
@@ -16,9 +16,9 @@ type Kieu = { nen: string | null; trang: boolean; rong: number };
 /** Manifest "any": nền kem, logo màu đầy đủ. */
 const THUONG: Kieu = { nen: "#FFF9EE", trang: false, rong: 0.88 };
 /** Manifest "maskable": nền phủ kín, hình nằm trong vùng an toàn; Android tự cắt theo hình của máy. */
-const MASKABLE: Kieu = { nen: DO_THUONG_HIEU, trang: true, rong: 0.62 };
+const MASKABLE: Kieu = { nen: XANH_THUONG_HIEU, trang: true, rong: 0.62 };
 /** iOS tự bo góc, nên icon màn hình chính của iPhone, iPad để vuông, phủ kín. */
-const APPLE: Kieu = { nen: DO_THUONG_HIEU, trang: true, rong: 0.78 };
+const APPLE: Kieu = { nen: XANH_THUONG_HIEU, trang: true, rong: 0.78 };
 
 const ICON: Array<{ ten: string; co: number; kieu: Kieu }> = [
   // Android: mdpi 48, hdpi 72, xhdpi 96, xxhdpi 144, xxxhdpi 192; 512 cho màn hình chờ, cửa hàng.
@@ -51,8 +51,8 @@ await writeFile(
   offlinePath,
   offline.replace(/<svg class="dau"[\s\S]*?<\/svg>/, svg.replace("<svg ", '<svg class="dau" ')),
 );
-/** Bản trắng đơn sắc: thay mọi chỗ tô gradient bằng trắng (bản "âm" của thương hiệu). */
-const svgTrang = brandMarkSvg(true);
+/** Bản đảo (khiên kem, sách xanh) cho nền xanh. */
+const svgTrang = brandMarkSvg("trang");
 
 const duongDan = (s: string) => `data:image/svg+xml;base64,${Buffer.from(s).toString("base64")}`;
 

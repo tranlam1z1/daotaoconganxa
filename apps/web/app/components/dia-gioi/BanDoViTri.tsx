@@ -45,7 +45,7 @@ export function BanDoViTri({
         const L = m.default ?? (m as unknown as typeof m.default);
         if (huy || !khung.current) return;
         const mau =
-          getComputedStyle(document.documentElement).getPropertyValue("--primary").trim() || "#b91c1c";
+          getComputedStyle(document.documentElement).getPropertyValue("--primary").trim() || "#1b4d3e";
         banDo = L.map(khung.current, {
           minZoom: 12,
           maxZoom: 19,

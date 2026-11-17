@@ -158,7 +158,7 @@ export function BottomNav() {
                   {giua ? (
                     <span
                       className={cn(
-                        // Bản trắng trên nền đỏ theo bộ nhận diện ứng dụng.
+                        // Bản đảo (khiên kem) trên nền xanh chủ đạo.
                         "brand-home-button absolute bottom-7 grid size-[3.75rem] shrink-0 place-items-center rounded-full bg-primary shadow-[0_6px_18px_color-mix(in_srgb,var(--primary)_22%,transparent)] transition-opacity",
                         active ? "opacity-100" : "opacity-90",
                       )}

@@ -25,7 +25,7 @@ export function meta(_: Route.MetaArgs) {
 
 export async function loader({ request }: Route.LoaderArgs) {
   const { nguoiDung } = await yeuCauDangNhap(request, { choPhepChoXacMinh: true });
-  // Lãnh đạo UBND xã vào thẳng danh sách người dùng; Admin quản lý trở lên vào trang tổng quan quản trị.
+  // Lãnh đạo Công an xã vào thẳng danh sách người dùng; Admin quản lý trở lên vào trang tổng quan quản trị.
   const trangQuanTri = duVaiTro(nguoiDung, "quan_ly")
     ? "/quan-tri"
     : duVaiTro(nguoiDung, "lanh_dao")

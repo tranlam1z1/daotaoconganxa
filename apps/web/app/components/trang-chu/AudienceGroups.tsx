@@ -4,12 +4,11 @@ import { Icon } from "../ui/Icon";
 
 const NHOM = [
   {
-    ma: "cong_chuc_cap_xa",
-    icon: "congSo",
-    moTa: "Chuyên đề dành cho công chức cấp xã trong danh mục hiện có.",
+    ma: "cong_an_cap_xa",
+    icon: "shield",
+    moTa: "Chuyên đề dành cho cán bộ, chiến sĩ Công an xã.",
   },
-  { ma: "vien_chuc", icon: "canBo", moTa: "Chuyên đề dành cho viên chức." },
-  { ma: "dang_vien", icon: "co", moTa: "Chuyên đề dành cho đảng viên." },
+  { ma: "dang_vien", icon: "co", moTa: "Chuyên đề dành cho cán bộ, chiến sĩ là đảng viên." },
 ] as const;
 
 export function AudienceGroups({ choXacMinh }: { choXacMinh: boolean }) {

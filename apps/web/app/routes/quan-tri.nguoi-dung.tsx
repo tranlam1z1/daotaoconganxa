@@ -14,7 +14,7 @@
 
 import { type ReactNode, useEffect, useRef, useState } from "react";
 import { Form, Link, useFetcher, useNavigation, useSearchParams } from "react-router";
-import { NHOM_HOC_TAP, TEN_NHOM_HOC_TAP } from "../../../../packages/dao-tao/src/nhom-doi-tuong";
+import { nhomChoForm, TEN_NHOM_HOC_TAP } from "../../../../packages/dao-tao/src/nhom-doi-tuong";
 import { Badge } from "../components/ui/Badge";
 import { Button, ButtonLink } from "../components/ui/Button";
 import { ChonDonVi as ChonDonViTim } from "../components/ui/ChonDonVi";
@@ -85,8 +85,8 @@ interface KetQuaNhap {
 
 const TEN_VAI_TRO: Record<string, string> = {
   khach: "Khách",
-  can_bo: "Cán bộ, công chức",
-  lanh_dao: "Lãnh đạo UBND xã",
+  can_bo: "Cán bộ, chiến sĩ",
+  lanh_dao: "Lãnh đạo Công an xã",
   quan_ly: "Admin quản lý",
   quan_tri: "Admin quản trị hệ thống",
 };
@@ -456,7 +456,7 @@ function TruongNguoiDung({ u, donVi }: { u?: NguoiDungHang; donVi: DonVi[] }) {
       <fieldset className="sm:col-span-2">
         <legend className="mb-2 text-sm font-medium">Nhóm đối tượng học tập</legend>
         <div className="flex flex-wrap gap-4">
-          {NHOM_HOC_TAP.map((nhom) => (
+          {nhomChoForm(u?.nhom_doi_tuong).map((nhom) => (
             <label key={nhom} className="flex items-center gap-2 text-sm">
               <input
                 type="checkbox"

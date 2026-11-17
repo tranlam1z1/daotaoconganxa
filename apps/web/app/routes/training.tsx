@@ -4,7 +4,11 @@
  * cùng kiểu với thẻ bài ở `/hoc/:course`.
  */
 import { Form } from "react-router";
-import { NHOM_HOC_TAP, TEN_NHOM_HOC_TAP } from "../../../../packages/dao-tao/src/nhom-doi-tuong";
+import {
+  NHOM_HIEN_THI,
+  NHOM_HOC_TAP,
+  TEN_NHOM_HOC_TAP,
+} from "../../../../packages/dao-tao/src/nhom-doi-tuong";
 import { TheBaiHoc } from "../components/bai-giang/TheBaiHoc";
 import { Button } from "../components/ui/Button";
 import { EmptyState } from "../components/ui/EmptyState";
@@ -18,7 +22,7 @@ import type { Route } from "./+types/training";
 
 export function meta(_: Route.MetaArgs) {
   return pageMeta("Bài giảng", {
-    description: "Chuyên đề học tập dành cho công chức, viên chức và đảng viên, có kiểm tra cuối bài.",
+    description: "Chuyên đề học tập dành cho cán bộ, chiến sĩ Công an xã, có kiểm tra cuối bài.",
   });
 }
 
@@ -47,7 +51,7 @@ export default function Training({ loaderData }: Route.ComponentProps) {
           <select key={nhom} id="loc-nhom-hoc" name="nhom" defaultValue={nhom} className={inputClass}>
             <option value="tat_ca">Tất cả chuyên đề</option>
             {nhomCuaToi.length > 0 ? <option value="cua_toi">Theo nhóm của tôi</option> : null}
-            {NHOM_HOC_TAP.filter((ma) => ma !== "cong_an_cap_xa").map((ma) => (
+            {NHOM_HIEN_THI.map((ma) => (
               <option key={ma} value={ma}>
                 {TEN_NHOM_HOC_TAP[ma]}
               </option>

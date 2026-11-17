@@ -499,7 +499,7 @@ describe("soạn tự động cả chuyên đề từ văn bản", () => {
       ).id;
     });
 
-    test("cán bộ nhận 403; lãnh đạo UBND xã không xuất bản được (403); chuyên đề không có trả 404", async () => {
+    test("cán bộ nhận 403; lãnh đạo Công an xã không xuất bản được (403); chuyên đề không có trả 404", async () => {
       expect((await dua(tk.canBo, { den: "cho_phap_che" })).status).toBe(403);
       expect((await dua(tk.canBo, { den: "xuat_ban" })).status).toBe(403);
       expect((await dua(tk.lanhDao, { den: "xuat_ban" })).status).toBe(403);

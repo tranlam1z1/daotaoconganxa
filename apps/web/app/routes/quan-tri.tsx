@@ -47,7 +47,7 @@ const GROUPS: Array<{
     ],
   },
   {
-    // Lãnh đạo UBND xã xem đề đang mở và giao bài; tạo, sửa đề chỉ Admin quản trị (API kiểm quyền).
+    // Lãnh đạo Công an xã xem đề đang mở và giao bài; tạo, sửa đề chỉ Admin quản trị (API kiểm quyền).
     // Nhóm học cùng (docs/PLAN.md GĐ16c): quản lý xem tiến độ nhóm trong phạm vi.
     label: "Thi",
     icon: "cap",

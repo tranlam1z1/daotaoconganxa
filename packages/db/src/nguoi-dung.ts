@@ -240,6 +240,9 @@ const VAI_TRO_NHAP: Record<string, "can_bo" | "lanh_dao"> = {
   "can bo quan ly": "lanh_dao",
   "quan ly": "lanh_dao",
   "lanh dao": "lanh_dao",
+  "lanh dao cong an xa": "lanh_dao",
+  "lanh dao cax": "lanh_dao",
+  // Nhãn cũ, giữ để tệp đã điền trước khi đổi nhãn vẫn nhập được.
   "lanh dao ubnd xa": "lanh_dao",
 };
 
@@ -320,7 +323,7 @@ export async function nhapNguoiDung(
     else if (!unit) loi.push(`không có đơn vị mã "${g.maDonVi.trim()}"`);
 
     const role = VAI_TRO_NHAP[chuanHoaTieuDe(g.vaiTro).replace(/_/g, " ")];
-    if (!role) loi.push(`vai trò "${g.vaiTro}" không hợp lệ, chỉ nhận "Cán bộ" hoặc "Lãnh đạo UBND xã"`);
+    if (!role) loi.push(`vai trò "${g.vaiTro}" không hợp lệ, chỉ nhận "Cán bộ, chiến sĩ" hoặc "Lãnh đạo Công an xã"`);
 
     if (email && !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) loi.push(`email "${email}" không hợp lệ`);
     else if (email && emailDaCo.has(email)) loi.push(`email "${email}" đã có trong hệ thống`);
@@ -410,7 +413,7 @@ export async function taoMauNhapNguoiDung(): Promise<Uint8Array> {
         'Điền danh sách vào trang "Người dùng", mỗi người một dòng, bắt đầu từ dòng 2.',
         "Bắt buộc: Họ và tên, Tên đăng nhập, Mã đơn vị. Mã đơn vị lấy ở bảng trên.",
         "Tên đăng nhập: 3 đến 50 ký tự, chữ không dấu, chữ số, dấu chấm, gạch ngang hoặc gạch dưới.",
-        'Vai trò: "Cán bộ" hoặc "Lãnh đạo UBND xã". Để trống thì là Cán bộ.',
+        'Vai trò: "Cán bộ, chiến sĩ" hoặc "Lãnh đạo Công an xã". Để trống thì là Cán bộ, chiến sĩ.',
         "Hệ thống cấp mật khẩu tạm cho từng người; người dùng phải đổi mật khẩu ở lần đăng nhập đầu.",
       ],
     },

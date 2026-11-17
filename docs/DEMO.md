@@ -11,7 +11,7 @@ Hệ thống có **một ứng dụng web** dùng cho mọi vai trò. Không có
 | Phần | Địa chỉ trên máy | Ghi chú |
 |---|---|---|
 | Web người dùng | http://localhost:3080 | Tra cứu, học, luyện tập, thi |
-| Trang quản trị (Admin) | http://localhost:3080/quan-tri | Cùng ứng dụng web; chỉ hiện với Lãnh đạo UBND xã trở lên |
+| Trang quản trị (Admin) | http://localhost:3080/quan-tri | Cùng ứng dụng web; chỉ hiện với Lãnh đạo Công an xã trở lên |
 | PWA (cài lên điện thoại) | Địa chỉ HTTPS của đường hầm, xem mục 6 | Cũng là ứng dụng web trên, cài ra màn hình chính |
 | API | http://localhost:3081/health | Web gọi API; người dùng không cần mở |
 
@@ -83,14 +83,12 @@ Mật khẩu chung là `Matkhau2026`. Tài khoản mẫu không bị bắt đổ
 |---|---|---|---|
 | Admin quản trị hệ thống | `quantri` | Toàn hệ thống | Mọi trang, gồm ngân hàng câu hỏi, soạn đề, quản lý tài khoản |
 | Admin quản lý | `quanly` | Toàn hệ thống | Soạn, duyệt và xuất bản nội dung; không quản lý được tài khoản |
-| Lãnh đạo UBND xã | `lanhdao.phong` | Phòng CSGT (PC08) | Giao bài, báo cáo của phòng và các đội |
-| Lãnh đạo UBND xã | `lanhdao.doi1` | Đội 1 | Như trên, trong phạm vi Đội 1 |
-| Cán bộ, công chức | `canbo.d1.01`, `canbo.d1.02`, `canbo.d1.03` | Đội 1 | Học, luyện tập, thi |
-| Cán bộ, công chức | `canbo.d2.01`, `canbo.d2.02` | Đội 2 | Như trên |
-| Cán bộ, công chức | `canbo.d3.01`, `canbo.d3.02` | Đội 3 | Như trên |
+| Lãnh đạo Công an xã | `truong.cax` (Trưởng Công an xã) | Công an xã Minh Hòa | Giao bài, báo cáo của Công an xã |
+| Lãnh đạo Công an xã | `pho.cax.01`, `pho.cax.02` (Phó Trưởng) | Công an xã Minh Hòa | Như trên |
+| Cán bộ, chiến sĩ | `cax.01` … `cax.05` | Công an xã Minh Hòa | Học, luyện tập, thi |
 
 Dữ liệu mẫu có sẵn:
-- 4 đơn vị: Phòng PC08 và 3 đội.
+- 3 đơn vị: Xã Minh Hòa, Công an xã Minh Hòa, Chi bộ Công an xã Minh Hòa (nơi sinh hoạt Đảng của 5 tài khoản là đảng viên).
 - Câu hỏi đã duyệt chuyển từ bài tập của các bài giảng giao thông.
 - Dữ liệu tra cứu nhanh: mức phạt, quy trình, tốc độ tối đa, biển báo, luật giấy tờ, giới hạn tải trọng (nạp ở trạng thái chờ duyệt, mục 8).
 
@@ -167,7 +165,7 @@ Bảng dưới đây lập từ lượt rà tự động ngày 25/9/2026:
 | Tài khoản, đổi mật khẩu | `/tai-khoan`, `/doi-mat-khau` | Xem được |
 | Hướng dẫn sử dụng | `/huong-dan` | Còn là PageStub |
 
-### Quản trị (Lãnh đạo UBND xã, Admin quản lý, Admin quản trị hệ thống)
+### Quản trị (Lãnh đạo Công an xã, Admin quản lý, Admin quản trị hệ thống)
 
 | Màn hình | Đường dẫn | Ai dùng | Tình trạng |
 |---|---|---|---|
@@ -186,11 +184,11 @@ Bảng dưới đây lập từ lượt rà tự động ngày 25/9/2026:
 
 Không cần chuẩn bị thêm: `bun run demo` áp migration `0056_nhom_hoc_cung.sql`. Dùng hai trình duyệt (hoặc một cửa sổ thường, một cửa sổ ẩn danh) để thấy hai người cùng lúc.
 
-1. Đăng nhập `canbo.d1.01`, mở **Học → Nhóm học cùng** (hoặc ngăn "Thêm" trên điện thoại). Bấm "Tạo nhóm", đặt tên, bấm "Tạo nhóm". Hộp thoại hiện mã mời và liên kết mời; bấm "Sao chép liên kết mời".
-2. Ở cửa sổ thứ hai, mở liên kết mời khi chưa đăng nhập: trang chuyển sang đăng nhập. Đăng nhập `canbo.d2.01` (đội khác vẫn tham gia được), trang quay lại, nêu rõ thành viên khác thấy họ tên và phần trăm, không thấy điểm số. Bấm "Tham gia nhóm".
-3. Ở `canbo.d1.01`, mở nhóm, bấm "Chia sẻ vào nhóm": chọn "Bài học", tìm một bài, bấm "Chia sẻ bài học". Mở lại, chọn "Đề ôn tập", chọn chủ đề, số câu 5, đặt tên đề, bấm "Chia sẻ đề ôn tập".
-4. Ở `canbo.d2.01`, tải lại nhóm, bấm "Học bài" rồi "Hoàn thành bài" ở cuối bài. Quay lại nhóm, bấm "Làm đề", làm hết 5 câu, bấm "Xem kết quả", rồi "Về nhóm".
-5. Ở `canbo.d1.01`, tải lại: phần trăm chung của `canbo.d2.01` là 100 (hai mục đều xong), trung bình nhóm 50. Bấm "Cổ vũ" ở dòng của người đó; bên kia tải lại thấy 1 lượt cổ vũ. Bấm lại thì bỏ lượt.
+1. Đăng nhập `cax.01`, mở **Học → Nhóm học cùng** (hoặc ngăn "Thêm" trên điện thoại). Bấm "Tạo nhóm", đặt tên, bấm "Tạo nhóm". Hộp thoại hiện mã mời và liên kết mời; bấm "Sao chép liên kết mời".
+2. Ở cửa sổ thứ hai, mở liên kết mời khi chưa đăng nhập: trang chuyển sang đăng nhập. Đăng nhập `cax.02`, trang quay lại, nêu rõ thành viên khác thấy họ tên và phần trăm, không thấy điểm số. Bấm "Tham gia nhóm".
+3. Ở `cax.01`, mở nhóm, bấm "Chia sẻ vào nhóm": chọn "Bài học", tìm một bài, bấm "Chia sẻ bài học". Mở lại, chọn "Đề ôn tập", chọn chủ đề, số câu 5, đặt tên đề, bấm "Chia sẻ đề ôn tập".
+4. Ở `cax.02`, tải lại nhóm, bấm "Học bài" rồi "Hoàn thành bài" ở cuối bài. Quay lại nhóm, bấm "Làm đề", làm hết 5 câu, bấm "Xem kết quả", rồi "Về nhóm".
+5. Ở `cax.01`, tải lại: phần trăm chung của `cax.02` là 100 (hai mục đều xong), trung bình nhóm 50. Bấm "Cổ vũ" ở dòng của người đó; bên kia tải lại thấy 1 lượt cổ vũ. Bấm lại thì bỏ lượt.
 6. Chạm vào họ tên một thành viên để xem phần trăm từng mục. Trưởng nhóm thấy thêm "Chuyển quyền trưởng nhóm", "Mời ra khỏi nhóm". Mục "Tùy chọn" của từng bài cho chuyển lên, chuyển xuống, đặt hạn gợi ý, gỡ khỏi nhóm.
 7. Mở một bài giảng ở `/hoc/...` khi đã có nhóm: nút "Chia sẻ vào nhóm" dưới tên bài chia sẻ bài đó vào một hoặc nhiều nhóm.
 
@@ -198,15 +196,14 @@ Lưu ý khi giới thiệu:
 - Thành viên chỉ thấy họ tên, phần trăm, số lượt cổ vũ của nhau; không thấy điểm số. Cổ vũ không làm thay đổi phần trăm. Làm lại cùng một đề ôn tập không cộng thêm phần trăm.
 - Trang bài học chưa gửi vị trí khối đang đọc, nên phần trăm một bài học là 0 hoặc 100 (câu N14).
 - Thông báo khi được cổ vũ hoặc có bài mới **cần khóa VAPID và worker**; bản demo không chạy worker nên không có thông báo. Công tắc nằm trong khối "Nhắc học" ở trang Tôi.
-- Trang quản lý nhóm và báo cáo tiến độ học cho Lãnh đạo UBND xã: mục 7b.
+- Trang quản lý nhóm và báo cáo tiến độ học cho Lãnh đạo Công an xã: mục 7b.
 
 ### 7b. Xem thử trang quản lý nhóm
 
 `bun run demo` không gieo nhóm mẫu. Tạo nhóm theo mục 7a trước, rồi:
 
-1. Đăng nhập `lanhdao.doi1`, mở **Quản trị → Nhóm học cùng**: quản lý chỉ thấy tên và tiến độ của thành viên thuộc đơn vị mình; thành viên đội khác tính vào "ngoài phạm vi".
+1. Đăng nhập `truong.cax`, mở **Quản trị → Nhóm học cùng**: lãnh đạo chỉ thấy tên và tiến độ của thành viên thuộc đơn vị mình; thành viên đơn vị khác (nếu có) tính vào "ngoài phạm vi".
 2. Mở **Báo cáo → Tiến độ học**: mỗi cán bộ một dòng, lọc được theo nhóm học cùng; bấm "Tải Excel", "Tải PDF".
-3. Đăng nhập `lanhdao.phong`: thấy mọi nhóm có người của phòng PC08.
 
 Lưu ý khi giới thiệu:
 - Lưu trữ là thật và không mở lại được.

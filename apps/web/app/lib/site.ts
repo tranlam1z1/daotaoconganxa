@@ -69,7 +69,7 @@ export const MORE_NAV: Array<MobileNavItem & { quanLy?: boolean }> = [
   { to: "/quan-tri", label: "Quản trị", icon: "layers", quanLy: true },
 ];
 
-/** Vai trò từ lãnh đạo UBND xã trở lên (khớp thứ tự trong session.server.ts). */
+/** Vai trò từ lãnh đạo Công an xã trở lên (khớp thứ tự trong session.server.ts). */
 const VAI_TRO_QUAN_LY = ["lanh_dao", "quan_ly", "quan_tri"];
 export function laQuanLy(vaiTro: string | undefined): boolean {
   return Boolean(vaiTro && VAI_TRO_QUAN_LY.includes(vaiTro));

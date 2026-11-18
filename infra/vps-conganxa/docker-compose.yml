@@ -21,10 +21,10 @@ services:
     environment:
       POSTGRES_USER: qdpl
       POSTGRES_PASSWORD: ${PGPASSWORD:?đặt PGPASSWORD trong .env}
-      POSTGRES_DB: conganxa
+      POSTGRES_DB: conganxa_demo  # đuôi _demo: scripts/demo-van-ban-tep.ts chỉ chịu ghi vào CSDL như vậy
     volumes: ["pgdata:/var/lib/postgresql/data"]
     healthcheck:
-      test: ["CMD-SHELL", "pg_isready -U qdpl -d conganxa"]
+      test: ["CMD-SHELL", "pg_isready -U qdpl -d conganxa_demo"]
       interval: 5s
       retries: 20
     restart: unless-stopped
@@ -68,8 +68,8 @@ services:
     profiles: ["seed"]
     command: ["sh", "infra/vps-conganxa/seed.sh"]
     environment:
-      DATABASE_URL: postgres://qdpl:${PGPASSWORD}@127.0.0.1:5432/conganxa
-      DATABASE_URL_DIRECT: postgres://qdpl:${PGPASSWORD}@127.0.0.1:5432/conganxa
+      DATABASE_URL: postgres://qdpl:${PGPASSWORD}@127.0.0.1:5432/conganxa_demo
+      DATABASE_URL_DIRECT: postgres://qdpl:${PGPASSWORD}@127.0.0.1:5432/conganxa_demo
     network_mode: service:db
     depends_on: { db: { condition: service_healthy } }
 

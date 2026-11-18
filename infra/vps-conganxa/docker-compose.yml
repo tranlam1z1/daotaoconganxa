@@ -1,8 +1,8 @@
 # Bản Đào tạo nghiệp vụ Công an xã tại conganxa.daotaonghiepvu.click, trên VPS 180.93.117.43.
 # Chạy song song với dự án đang có ở daotaonghiepvu.click (stack hocluat). Mọi tên ở đây đều mang
 # tiền tố "conganxa" (project, image, volume, alias mạng) để không đè lên stack đó.
-# Caddy của stack daotao (daotao-caddy-1) nhận HTTPS và chuyển vào conganxa-web:3000 / conganxa-api:3001
-# qua mạng daotao_default (xem Caddyfile.snippet).
+# Caddy của stack daotao (daotao-caddy-1) nhận HTTPS và chuyển vào conganxa-web:3000
+# (web gọi API nội bộ, không mở API ra ngoài) qua mạng daotao_default (xem Caddyfile.snippet).
 # Dùng: docker compose --env-file .env up -d --build ; gieo dữ liệu: docker compose --env-file .env run --rm seed
 name: conganxa
 

@@ -21,9 +21,11 @@ export default {
   // Tên miền ngrok cố định dùng khi mở bản demo trên máy ra Internet (ngrok http 3080 --url=…).
   // hocluat.senow.tech, hocluat.dmst.vn: bản demo trên VPS sau Traefik (infra/vps-demo), cùng lý do như trên.
   // daotaonghiepvu.click: bản demo trên VPS sau Caddy (infra/vps-demo/Caddyfile.snippet), cùng lý do.
+  // conganxa.daotaonghiepvu.click: bản Công an xã trên cùng VPS (infra/vps-conganxa), cùng lý do.
   allowedActionOrigins: [
     "daotaonghiepvu.click",
     "www.daotaonghiepvu.click",
+    "conganxa.daotaonghiepvu.click",
     "qdpl-wyo3f.ondigitalocean.app",
     "quydinhphapluat.vn",
     "www.quydinhphapluat.vn",

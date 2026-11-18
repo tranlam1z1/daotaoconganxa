@@ -31,7 +31,7 @@ export function HopChiaSeBai({
         <div className="grid gap-3">
           <ul className="grid gap-2">
             {ketQua.map((k) => (
-              <li key={k.id} className="rounded-lg border border-line px-3 py-2 text-base">
+              <li key={k.id} className="rounded-btn border border-line px-3 py-2 text-base">
                 <span className="font-medium">{k.ten}:</span>{" "}
                 {k.ok ? "Đã chia sẻ." : <span className="text-danger">{k.loi}</span>}
               </li>
@@ -50,7 +50,7 @@ export function HopChiaSeBai({
             {nhom.map((g) => (
               <label
                 key={g.id}
-                className="flex min-h-12 cursor-pointer items-center gap-3 rounded-lg border border-line px-3 py-2 text-base has-[:checked]:border-primary has-[:checked]:bg-primary-soft"
+                className="flex min-h-12 cursor-pointer items-center gap-3 rounded-btn border border-line px-3 py-2 text-base has-[:checked]:border-primary has-[:checked]:bg-primary-soft"
               >
                 <input type="checkbox" name="nhom" value={g.id} className="size-5 shrink-0" />
                 <span className="min-w-0">

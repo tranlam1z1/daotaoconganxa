@@ -27,7 +27,7 @@ export function KiemTraCuoiBai({
   const daXong = bai.trangThai === "xong" || Boolean(hoanThanh);
   const kt = bai.kiemTraCuoiBai;
   return (
-    <section aria-labelledby="ket-bai" className="rounded-xl border border-line bg-surface p-4">
+    <section aria-labelledby="ket-bai" className="rounded-card border border-line bg-surface p-4">
       <h2 id="ket-bai" className="text-lg font-semibold">
         Kết bài
       </h2>

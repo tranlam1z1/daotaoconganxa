@@ -140,7 +140,7 @@ function DoiAnhDaiDien({
         <AnhDaiDien nguoiDung={nguoiDung} src={xemTruoc} className="size-24 text-4xl" />
         <div className="min-w-0 flex-1">
           <Form method="post" encType="multipart/form-data" className="flex flex-wrap items-center gap-2">
-            <label className="lun inline-flex min-h-11 cursor-pointer items-center rounded-lg border border-line-strong bg-surface px-4 text-sm font-medium hover:bg-surface-2 focus-within:ring-2 focus-within:ring-primary">
+            <label className="lun inline-flex min-h-11 cursor-pointer items-center rounded-btn border border-line-strong bg-surface px-4 text-sm font-medium hover:bg-surface-2 focus-within:ring-2 focus-within:ring-primary">
               Chọn ảnh…
               <input
                 ref={inputRef}

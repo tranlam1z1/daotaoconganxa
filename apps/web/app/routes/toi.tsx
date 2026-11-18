@@ -109,7 +109,7 @@ export default function Toi({ loaderData, actionData }: Route.ComponentProps) {
             </Link>
             <div className="min-w-0">
               <h1 className="break-words text-2xl font-bold">{hoTen}</h1>
-              <p className="mt-1 text-[15px] text-ink-2">
+              <p className="mt-1 text-sm text-ink-2">
                 {nguoiDung.don_vi ? nguoiDung.don_vi.ten : "Chưa gắn đơn vị"} · {nguoiDung.mo_ta_vai_tro}
               </p>
             </div>

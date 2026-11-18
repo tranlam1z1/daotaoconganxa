@@ -160,7 +160,7 @@ export function HopThoai({
           type="button"
           onClick={() => ref.current?.close()}
           aria-label="Đóng"
-          className="lun grid size-12 shrink-0 place-items-center rounded-lg text-ink-2 hover:bg-surface-2 hover:text-ink"
+          className="lun grid size-12 shrink-0 place-items-center rounded-btn text-ink-2 hover:bg-surface-2 hover:text-ink"
         >
           <Icon name="close" />
         </button>

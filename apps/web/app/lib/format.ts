@@ -163,6 +163,27 @@ export function formatNgayGio(value?: string | Date | null): string {
 }
 
 /**
+ * Ngày đầy đủ kiểu dòng địa danh, ngày tháng trên công văn, theo giờ Việt Nam:
+ * "Thứ Ba, ngày 17 tháng 11 năm 2026". Kèm ISO YYYY-MM-DD cho thuộc tính `dateTime`.
+ */
+export function ngayCongVan(ms: number): { chu: string; iso: string } {
+  const p = new Intl.DateTimeFormat("vi-VN", {
+    timeZone: "Asia/Ho_Chi_Minh",
+    weekday: "long",
+    day: "numeric",
+    month: "numeric",
+    year: "numeric",
+  }).formatToParts(new Date(ms));
+  const g = (t: string) => p.find((x) => x.type === t)?.value ?? "";
+  const thu = g("weekday");
+  const iso = `${g("year")}-${g("month").padStart(2, "0")}-${g("day").padStart(2, "0")}`;
+  return {
+    chu: `${thu.charAt(0).toLocaleUpperCase("vi-VN")}${thu.slice(1)}, ngày ${g("day")} tháng ${g("month")} năm ${g("year")}`,
+    iso,
+  };
+}
+
+/**
  * Ô `datetime-local` gửi giờ không kèm múi ("2026-09-25T17:00"); người dùng nhập theo giờ Việt
  * Nam nên gắn +07:00. Trả chuỗi ISO, hoặc null khi rỗng hay sai định dạng.
  */

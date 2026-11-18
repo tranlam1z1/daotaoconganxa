@@ -94,7 +94,7 @@ function useAnKhiCuon(): [boolean, () => void] {
 
 const lopMuc = (active: boolean) =>
   cn(
-    "group lun [--lun:0.92] relative flex min-h-11 min-w-0 flex-1 flex-col items-center justify-end gap-1 rounded-2xl pb-2 text-[clamp(11px,3vw,14px)] font-medium leading-tight tracking-tight whitespace-nowrap focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary",
+    "group lun [--lun:0.92] relative flex min-h-11 min-w-0 flex-1 flex-col items-center justify-end gap-1 rounded-card pb-2 text-[clamp(11px,3vw,14px)] font-medium leading-tight tracking-tight whitespace-nowrap focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary",
     active ? "font-semibold text-primary" : "text-ink-2 hover:text-primary",
   );
 

@@ -63,7 +63,7 @@ export function DanhSachMuc({
       {muc.map((m) => {
         const coTuyChon = choGhi && (laTruongNhom || m.cua_toi);
         return (
-          <li key={m.id} className="rounded-xl border border-line bg-surface p-4">
+          <li key={m.id} className="rounded-card border border-line bg-surface p-4">
             <p className="text-base font-semibold leading-snug">{m.ten}</p>
             <p className="mt-1 text-sm text-ink-2">
               {TEN_LOAI_MUC[m.loai]}

@@ -107,8 +107,8 @@ export function OCanCu({
   return (
     <>
       <input type="hidden" id={id} name={name} value={sach} />
-      <div className="rounded-lg border border-line bg-surface p-3">
-        <p className="break-words text-[15px] font-semibold">{nhanVienDan(sach)}</p>
+      <div className="rounded-btn border border-line bg-surface p-3">
+        <p className="break-words text-sm font-semibold">{nhanVienDan(sach)}</p>
         <div className="mt-2 flex flex-wrap items-center gap-x-3 gap-y-2">
           <Button
             variant="secondary"
@@ -212,13 +212,13 @@ function TimVanBan({
         ) : null}
       </div>
       {ketQua.length ? (
-        <ul className="mt-2 grid gap-1 rounded-lg border border-line bg-surface p-1">
+        <ul className="mt-2 grid gap-1 rounded-btn border border-line bg-surface p-1">
           {ketQua.map((v) => (
             <li key={v.urn}>
               <button
                 type="button"
                 onClick={() => chon(v)}
-                className="flex min-h-11 w-full items-start gap-3 rounded-md px-2 py-2 text-left text-sm hover:bg-surface-2"
+                className="flex min-h-11 w-full items-start gap-3 rounded-btn px-2 py-2 text-left text-sm hover:bg-surface-2"
               >
                 <span className="min-w-0 flex-1">
                   <span className="font-semibold">{v.soKyHieu}</span> {v.title}
@@ -269,7 +269,7 @@ function MucLuc({
 
   const trong = (nut: string) => path === nut || path.startsWith(`${nut}.`);
   return (
-    <ul className="mt-3 max-h-[28rem] overflow-y-auto rounded-lg border border-line">
+    <ul className="mt-3 max-h-[28rem] overflow-y-auto rounded-btn border border-line">
       <li>
         <Dong dangChon={!path} bam={() => chon("")}>
           <span className="font-semibold">Cả văn bản</span>

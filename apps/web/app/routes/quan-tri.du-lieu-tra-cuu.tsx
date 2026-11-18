@@ -442,7 +442,7 @@ function KhungSua({ loai, d, khiDoi }: { loai: Loai; d: Dong; khiDoi: () => void
 /** Ảnh của biển báo: xem ở mọi trạng thái, và thay bằng ảnh khác (trừ khi đã ngừng dùng). */
 function KhungAnh({ d, busy, an }: { d: Dong; busy: boolean; an: React.ReactNode }) {
   return (
-    <div className="mt-4 flex flex-wrap items-start gap-4 rounded-lg border border-line p-3">
+    <div className="mt-4 flex flex-wrap items-start gap-4 rounded-btn border border-line p-3">
       <img
         src={urlAnhBienBao(d.image_uri)}
         alt={`Biển ${d.code}`}
@@ -475,8 +475,8 @@ function KhungAnh({ d, busy, an }: { d: Dong; busy: boolean; an: React.ReactNode
 /** Tệp đang gắn với biểu mẫu: xem được ở mọi trạng thái, và thay bằng tệp khác (trừ khi đã ngừng dùng). */
 function KhungTep({ d, busy, an }: { d: Dong; busy: boolean; an: React.ReactNode }) {
   return (
-    <div className="mt-4 rounded-lg border border-line p-3">
-      <p className="flex flex-wrap items-center gap-x-3 gap-y-1 text-[15px]">
+    <div className="mt-4 rounded-btn border border-line p-3">
+      <p className="flex flex-wrap items-center gap-x-3 gap-y-1 text-sm">
         <Icon name="file" sac="do" className="size-5 shrink-0" />
         <span className="min-w-0 break-words font-medium">{String(d.file_name)}</span>
         <span className="text-sm text-ink-3">{dungLuongTep(Number(d.file_size))}</span>
@@ -522,7 +522,7 @@ function KhungPhanLoai({ loai, d, busy }: { loai: Loai; d: Dong; busy: boolean }
   return (
     <Form
       method="post"
-      className="mt-6 grid gap-3 rounded-lg border border-line p-3"
+      className="mt-6 grid gap-3 rounded-btn border border-line p-3"
       key={`pl-${d.code}-${String(d.vehicle)}-${String(d.group_name)}-${String(d.pinned)}`}
     >
       <input type="hidden" name="loai" value={loai} />
@@ -550,7 +550,7 @@ function KhungPhanLoai({ loai, d, busy }: { loai: Loai; d: Dong; busy: boolean }
           </select>
         </Truong>
       </div>
-      <label htmlFor="pl-pinned" className="flex min-h-11 cursor-pointer items-center gap-3 text-[15px]">
+      <label htmlFor="pl-pinned" className="flex min-h-11 cursor-pointer items-center gap-3 text-sm">
         <input
           id="pl-pinned"
           name="pinned"
@@ -676,7 +676,7 @@ function KhungChiTiet({
   return (
     <section
       aria-labelledby="chi-tiet"
-      className="order-first rounded-xl border border-line bg-surface p-4 lg:order-none"
+      className="order-first rounded-card border border-line bg-surface p-4 lg:order-none"
     >
       <Link
         to={duongVe}
@@ -823,7 +823,7 @@ export default function DuLieuTraCuu({ loaderData, actionData }: Route.Component
           <ButtonLink to="/quan-tri/giao-thong">Nhập tài liệu, khung phạt</ButtonLink>
         </div>
       </div>
-      <p className="mt-2 max-w-2xl text-[15px] leading-relaxed text-ink-2">
+      <p className="mt-2 max-w-2xl text-sm leading-relaxed text-ink-2">
         Người học chỉ thấy dòng đã duyệt. Sửa dòng đã duyệt thì dòng về chờ duyệt, tăng phiên bản, và tạm rời
         tra cứu nhanh cùng mọi tình huống trỏ tới nó cho tới khi được duyệt lại.
       </p>
@@ -865,7 +865,7 @@ export default function DuLieuTraCuu({ loaderData, actionData }: Route.Component
               key={n.id || "tat-ca"}
               to={`?${new URLSearchParams({ loai, trang_thai: loc.trang_thai, ...(n.id ? { nhom: n.id } : {}) })}`}
               className={cn(
-                "inline-flex min-h-11 items-center rounded-lg px-3",
+                "inline-flex min-h-11 items-center rounded-btn px-3",
                 loc.nhom === n.id ? "bg-surface-2 font-semibold" : "text-ink-2",
               )}
             >
@@ -881,7 +881,7 @@ export default function DuLieuTraCuu({ loaderData, actionData }: Route.Component
             to={`?${new URLSearchParams({ loai, ...(loc.nhom ? { nhom: loc.nhom } : {}), trang_thai: t })}`}
             aria-current={loc.trang_thai === t ? "page" : undefined}
             className={cn(
-              "inline-flex min-h-11 items-center rounded-lg px-3",
+              "inline-flex min-h-11 items-center rounded-btn px-3",
               loc.trang_thai === t ? "bg-surface-2 font-semibold" : "text-ink-2",
             )}
           >
@@ -964,7 +964,7 @@ export default function DuLieuTraCuu({ loaderData, actionData }: Route.Component
                     <li
                       key={d.code}
                       className={cn(
-                        "duyet-tra-cuu-the flex rounded-lg border bg-surface",
+                        "duyet-tra-cuu-the flex rounded-btn border bg-surface",
                         dangMo ? "border-primary" : "border-line",
                       )}
                     >
@@ -984,7 +984,7 @@ export default function DuLieuTraCuu({ loaderData, actionData }: Route.Component
                         <Link
                           to={qs({ ma: d.code })}
                           aria-current={dangMo ? "true" : undefined}
-                          className="duyet-tra-cuu-dong block rounded-lg p-3 dong-bam"
+                          className="duyet-tra-cuu-dong block rounded-btn p-3 dong-bam"
                         >
                           <span className="duyet-tra-cuu-icon" aria-hidden="true">
                             <Icon name="file" kieu="net" className="size-7" />
@@ -993,7 +993,7 @@ export default function DuLieuTraCuu({ loaderData, actionData }: Route.Component
                             <span className="break-all text-xs text-ink-3">{d.code}</span>
                             <Badge tone={TONE_TRANG_THAI[d.trang_thai]}>{TEN_TRANG_THAI[d.trang_thai]}</Badge>
                           </span>
-                          <span className="duyet-tra-cuu-ten mt-1 block text-[15px] font-semibold">
+                          <span className="duyet-tra-cuu-ten mt-1 block text-sm font-semibold">
                             {d.ten}
                           </span>
                           <span className="mt-1 line-clamp-2 text-sm text-ink-2">{tomTatDong(loai, d)}</span>
@@ -1093,7 +1093,7 @@ export default function DuLieuTraCuu({ loaderData, actionData }: Route.Component
             ok={ok}
           />
         ) : (
-          <div className="duyet-tra-cuu-trong rounded-xl border border-line text-center text-[15px] text-ink-2">
+          <div className="duyet-tra-cuu-trong rounded-card border border-line text-center text-sm text-ink-2">
             <span className="duyet-tra-cuu-icon" aria-hidden="true">
               <Icon name="file" kieu="net" className="size-7" />
             </span>

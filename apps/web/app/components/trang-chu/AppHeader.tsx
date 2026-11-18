@@ -1,98 +1,77 @@
-import { useState } from "react";
 import { Link } from "react-router";
 
+import { ngayCongVan } from "../../lib/format";
 import type { NguoiDung } from "../../lib/types";
 import { ButtonLink } from "../ui/Button";
 import { Icon } from "../ui/Icon";
 
-/** Hero trang chủ, giữ lời chào và CTA theo trạng thái tài khoản thực tế. */
-export function AppHeader({ nguoiDung }: { nguoiDung: NguoiDung | null }) {
-  const [loiAnh, setLoiAnh] = useState(false);
+/**
+ * Đầu trang chủ theo hướng "Công văn" (docs/DESIGN_SYSTEM.md), mượn bố cục phần đầu một công văn:
+ * hàng trên là "tên cơ quan" (đơn vị của người dùng, gạch đỏ son bên dưới) bên trái và khẩu hiệu
+ * (nét vàng bên dưới) cùng dòng ngày tháng in nghiêng bên phải; hàng dưới là lời chào, mô tả và hai
+ * nút. Chỉ có chữ trên nền giấy, không ảnh trang trí.
+ */
+export function AppHeader({ nguoiDung, now }: { nguoiDung: NguoiDung | null; now: number }) {
   const hoTen = nguoiDung ? (nguoiDung.ten ?? nguoiDung.ten_dang_nhap ?? nguoiDung.email) : null;
+  const ngay = ngayCongVan(now);
+  const nutChinh = nguoiDung?.cho_xac_minh
+    ? { to: "/tai-khoan", nhan: "Xem trạng thái tài khoản" }
+    : nguoiDung
+      ? { to: "/hoc", nhan: "Xem bài học" }
+      : { to: "/dang-nhap", nhan: "Đăng nhập để học tập" };
+  const moTa = nguoiDung?.cho_xac_minh ? (
+    <>
+      Tài khoản chưa được xác minh cán bộ. Tra cứu và bộ công cụ dùng được ngay; học, luyện tập và thi mở
+      sau khi được duyệt.{" "}
+      <Link to="/tai-khoan" className="font-semibold underline underline-offset-2">
+        Xem trạng thái xác minh
+      </Link>
+    </>
+  ) : nguoiDung ? (
+    "Học tập pháp luật, tra cứu nghiệp vụ và dùng công cụ phục vụ công tác hằng ngày."
+  ) : (
+    "Tra cứu pháp luật và dùng công cụ nghiệp vụ ngay. Đăng nhập bằng tài khoản cán bộ đã được xác minh để học, luyện tập và thi."
+  );
+
   return (
-    <section className="home-hero">
-      <span className="home-hero-lotus home-hero-lotus-left" aria-hidden="true" />
-      <span className="home-hero-lotus home-hero-lotus-right" aria-hidden="true" />
-      <div className="home-container home-hero-grid">
-        <div className="relative min-w-0 py-8 sm:py-12">
-          <div className="relative z-10">
-            <p className="home-eyebrow">Dành cho công chức, viên chức, đảng viên</p>
-            <h1 className="home-title">
-              {hoTen ? (
-                `Xin chào, ${hoTen}`
-              ) : (
-                <>
-                  Học tập và tra cứu <span className="text-primary">phục vụ công tác</span>
-                </>
-              )}
-            </h1>
-            {nguoiDung?.cho_xac_minh ? (
-              <p className="mt-1 text-sm leading-relaxed text-ink-2">
-                Tài khoản chưa được xác minh cán bộ. Tra cứu và bộ công cụ dùng được ngay; học, luyện tập và
-                thi mở sau khi được duyệt.{" "}
-                <Link to="/tai-khoan" className="font-medium text-primary underline underline-offset-2">
-                  Xem trạng thái xác minh
-                </Link>
-              </p>
-            ) : nguoiDung ? (
-              <p className="mt-1 text-sm leading-relaxed text-ink-2">
-                Cổng hỗ trợ học tập pháp luật, tra cứu nghiệp vụ và công cụ phục vụ công tác hằng ngày.
-                <br />
-                Nội dung học tập dành cho công chức, viên chức và đảng viên.
-              </p>
-            ) : (
-              <p className="mt-2 max-w-2xl text-base leading-relaxed text-ink-2">
-                Tra cứu pháp luật và sử dụng công cụ nghiệp vụ ngay. Đăng nhập bằng tài khoản cán bộ đã được
-                xác minh để học, luyện tập và thi.
-              </p>
-            )}
-            <div className="mt-4 flex flex-wrap gap-3">
-              {" "}
-              <ButtonLink
-                to={nguoiDung?.cho_xac_minh ? "/tai-khoan" : nguoiDung ? "/hoc" : "/dang-nhap"}
-                icon="book"
-              >
-                {nguoiDung?.cho_xac_minh
-                  ? "Xem trạng thái tài khoản"
-                  : nguoiDung
-                    ? "Xem bài học"
-                    : "Đăng nhập để học tập"}
-                <Icon name="chevronRight" kieu="net" className="ml-2 size-4" />
-              </ButtonLink>
-              <ButtonLink to="/tra-cuu" variant="secondary" icon="search">
-                Tra cứu pháp luật
-              </ButtonLink>
-            </div>
+    <section className="home-hero" aria-labelledby="loi-chao">
+      <div className="home-container">
+        <div className="home-hero-dau">
+          <div className="home-hero-co-quan">
+            <p className="home-hero-co-quan-tren">Dành cho cán bộ, chiến sĩ</p>
+            <p className="home-hero-co-quan-ten">{nguoiDung?.don_vi?.ten ?? "Công an xã"}</p>
+            <span className="home-ke-ngan" aria-hidden="true" />
+          </div>
+          <div className="home-hero-ben-phai">
+            <p className="home-khau-hieu">
+              Thượng tôn pháp luật
+              <br />
+              Vì nhân dân phục vụ
+            </p>
+            <span className="home-ke-vang" aria-hidden="true" />
+            <p className="home-hero-ngay">
+              <time dateTime={ngay.iso}>{ngay.chu}</time>
+            </p>
           </div>
         </div>
-        <figure className="home-hero-visual">
-          {loiAnh ? (
-            <div className="home-building-placeholder">
-              <Icon name="home" kieu="net" className="size-10" />
-              <p>Không tải được hình minh họa trụ sở</p>
-            </div>
-          ) : (
-            <div className="home-building-art">
-              <svg
-                viewBox="1010 15 705 510"
-                role="img"
-                aria-label="Hình minh họa tòa nhà hành chính từ bộ tài nguyên được cung cấp"
-              >
-                <image
-                  href="/assets/vietnam-banner-resources.png"
-                  width={1735}
-                  height={906}
-                  onError={() => setLoiAnh(true)}
-                />
-              </svg>
-            </div>
-          )}
-          <figcaption>
-            “Thượng tôn pháp luật
-            <br />
-            Vì nhân dân phục vụ”
-          </figcaption>
-        </figure>
+
+        <div className="home-hero-chinh">
+          <div className="min-w-0">
+            <h1 id="loi-chao" className="home-title">
+              {hoTen ? `Xin chào, ${hoTen}` : "Học tập và tra cứu phục vụ công tác"}
+            </h1>
+            <p className="home-hero-mo-ta">{moTa}</p>
+          </div>
+          <div className="home-hero-nut">
+            <ButtonLink to={nutChinh.to} icon="book" className="home-hero-nut-chinh">
+              {nutChinh.nhan}
+              <Icon name="chevronRight" kieu="net" className="ml-2 size-4" />
+            </ButtonLink>
+            <ButtonLink to="/tra-cuu" variant="secondary" icon="search" className="home-hero-nut-phu">
+              Tra cứu pháp luật
+            </ButtonLink>
+          </div>
+        </div>
       </div>
     </section>
   );

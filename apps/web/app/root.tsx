@@ -73,7 +73,7 @@ export function Layout({ children }: { children: React.ReactNode }) {
       <body>
         <a
           href="#noi-dung-chinh"
-          className="sr-only focus:not-sr-only focus:fixed focus:left-3 focus:top-3 focus:z-50 focus:rounded-lg focus:bg-primary focus:px-4 focus:py-3 focus:text-on-primary"
+          className="sr-only focus:not-sr-only focus:fixed focus:left-3 focus:top-3 focus:z-50 focus:rounded-btn focus:bg-primary focus:px-4 focus:py-3 focus:text-on-primary"
         >
           Bỏ qua điều hướng, tới nội dung chính
         </a>

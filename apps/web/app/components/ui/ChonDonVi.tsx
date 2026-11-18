@@ -167,7 +167,7 @@ export function ChonDonVi({
         <div
           id={listId}
           role="listbox"
-          className="absolute z-30 mt-1 max-h-72 w-full overflow-auto rounded-lg border border-line-strong bg-surface py-1 shadow-lg"
+          className="absolute z-30 mt-1 max-h-72 w-full overflow-auto rounded-btn border border-line-strong bg-surface py-1 shadow-lg"
         >
           {dong.length === 0 ? (
             <p className="px-3 py-2.5 text-sm text-ink-3">

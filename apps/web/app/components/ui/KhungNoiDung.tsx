@@ -17,7 +17,7 @@ export function KhungNoiDung({
     <div className="wrap max-w-5xl py-4 sm:py-6">
       <div className="trang-tra-cuu relative min-w-0 overflow-hidden rounded-card border border-line bg-surface p-4 shadow-card sm:p-6">
         <header className="tra-cuu-tieu-de relative mb-6 flex min-h-20 items-center gap-3">
-          <span className="grid size-12 shrink-0 place-items-center rounded-xl bg-secondary-soft text-secondary">
+          <span className="grid size-12 shrink-0 place-items-center rounded-card bg-secondary-soft text-secondary">
             <Icon name={icon} kieu="net" className="size-6" />
           </span>
           <div className="min-w-0 flex-1">

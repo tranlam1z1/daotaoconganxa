@@ -114,7 +114,7 @@ export default function LayViTriHienTai() {
       type="button"
       onClick={lay}
       disabled={dangLay}
-      className="lun flex min-h-13 w-full items-center justify-center gap-2 rounded-2xl bg-primary px-4 text-lg font-semibold text-on-primary shadow-card hover:bg-primary-hover disabled:opacity-70"
+      className="lun flex min-h-13 w-full items-center justify-center gap-2 rounded-card bg-primary px-4 text-lg font-semibold text-on-primary shadow-card hover:bg-primary-hover disabled:opacity-70"
     >
       <Icon name="dinhVi" kieu="net" className="size-6" />
       {dangLay ? "Đang lấy vị trí…" : toaDo ? "Lấy lại vị trí hiện tại" : "Lấy vị trí hiện tại"}
@@ -212,7 +212,7 @@ export default function LayViTriHienTai() {
             {DAC_DIEM.map((d) => (
               <li
                 key={d.ten}
-                className="flex items-center gap-4 rounded-2xl border border-line bg-surface p-4 shadow-card"
+                className="flex items-center gap-4 rounded-card border border-line bg-surface p-4 shadow-card"
               >
                 <OBieuTuong icon={d.icon} />
                 <div className="min-w-0">

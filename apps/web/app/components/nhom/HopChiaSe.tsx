@@ -19,7 +19,7 @@ import { HopThoai } from "../ui/HopThoai";
 import { KhungCho } from "../ui/KhungCho";
 
 const lopLuaChon =
-  "flex min-h-12 cursor-pointer items-center gap-3 rounded-lg border border-line px-3 py-2 text-base has-[:checked]:border-primary has-[:checked]:bg-primary-soft";
+  "flex min-h-12 cursor-pointer items-center gap-3 rounded-btn border border-line px-3 py-2 text-base has-[:checked]:border-primary has-[:checked]:bg-primary-soft";
 
 /**
  * Chia sẻ vào nhóm, mở từ trong nhóm (docs/PLAN.md GĐ16b). Bài học: tìm và chọn một bài đã xuất

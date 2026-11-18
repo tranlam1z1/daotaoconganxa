@@ -141,111 +141,132 @@ export default function PhienLuyenTap({ loaderData, actionData }: Route.Componen
 
   const laCauCuoi = stt === phien.tong;
 
+  // Hướng "Công văn" (docs/DESIGN_SYSTEM.md): cột câu hỏi bên trái; từ 1024px lưới câu luôn hiện ở
+  // cột phải, dưới 1024px mở bằng nút "Danh sách câu" như trước.
   return (
-    <KhungTrang variant="workspace" className="wrap max-w-xl py-6">
-      <p className="text-sm text-ink-2">
-        {tenPhienLuyenTap(phien)} · {TEN_MUC_DO[cau.muc_do]}
-      </p>
-      <div className="mt-2">
-        <ThanhTienDo hienTai={stt} tong={phien.tong} daLam={daLam.size} />
-      </div>
-      <div className="mt-2 flex items-center gap-2">
-        <button
-          type="button"
-          onClick={() => datMoLuoi((v) => !v)}
-          aria-expanded={moLuoi}
-          aria-controls="luoi-cau"
-          className="lun flex min-h-11 items-center rounded-lg px-2 text-sm font-medium text-ink-2 underline hover:bg-surface-2"
-        >
-          {moLuoi ? "Ẩn danh sách câu" : "Danh sách câu"}
-        </button>
-        <p
-          role="status"
-          aria-live="polite"
-          className={cn(
-            "ml-auto text-xs",
-            luuTam.trangThai === "loi" ? "font-semibold text-danger" : "text-ink-3",
-          )}
-        >
-          {luuTam.trangThai === "dang_luu"
-            ? "Đang lưu"
-            : luuTam.trangThai === "loi"
-              ? "Chưa lưu được, kiểm tra mạng"
-              : daLam.size
-                ? "Đã lưu"
-                : ""}
-        </p>
-      </div>
-      {moLuoi ? (
-        <div id="luoi-cau" className="mt-2">
-          <LuoiCauHoi soCau={phien.tong} daLam={daLam} dangXem={stt} onChon={denCau} />
+    <KhungTrang variant="workspace" className="wrap max-w-xl py-6 lg:max-w-5xl">
+      <div className="lg:grid lg:grid-cols-[minmax(0,1fr)_15rem] lg:items-start lg:gap-10">
+        <div className="min-w-0">
+          <div className="flex flex-wrap items-center justify-between gap-2">
+            <p className="min-w-0 text-base font-semibold">{tenPhienLuyenTap(phien)}</p>
+            <span className="rounded-full bg-surface-2 px-2.5 py-0.5 text-sm font-medium text-ink-2">
+              {TEN_MUC_DO[cau.muc_do]}
+            </span>
+          </div>
+          <div className="mt-3">
+            <ThanhTienDo hienTai={stt} tong={phien.tong} daLam={daLam.size} cacCauDaLam={daLam} />
+          </div>
+          <div className="mt-2 flex items-center gap-2">
+            <button
+              type="button"
+              onClick={() => datMoLuoi((v) => !v)}
+              aria-expanded={moLuoi}
+              aria-controls="luoi-cau"
+              className="lun flex min-h-11 items-center rounded-btn px-2 text-sm font-medium text-primary underline underline-offset-4 hover:bg-surface-2 lg:hidden"
+            >
+              {moLuoi ? "Ẩn danh sách câu" : "Danh sách câu"}
+            </button>
+            <p
+              role="status"
+              aria-live="polite"
+              className={cn(
+                "ml-auto text-sm",
+                luuTam.trangThai === "loi" ? "font-semibold text-danger" : "text-ink-3",
+              )}
+            >
+              {luuTam.trangThai === "dang_luu"
+                ? "Đang lưu"
+                : luuTam.trangThai === "loi"
+                  ? "Chưa lưu được, kiểm tra mạng"
+                  : daLam.size
+                    ? "Đã lưu"
+                    : ""}
+            </p>
+          </div>
+          {moLuoi ? (
+            <div id="luoi-cau" className="mt-2 lg:hidden">
+              <LuoiCauHoi soCau={phien.tong} daLam={daLam} dangXem={stt} onChon={denCau} />
+            </div>
+          ) : null}
+
+          <div className="mt-4 border-t border-line pt-6">
+            <HienThiCauHoi
+              key={stt}
+              de={cau.de}
+              traLoi={traLoi[stt] ?? {}}
+              onChange={doiTraLoi}
+              khoa={daCham}
+              idGoc={`cau-${stt}`}
+            />
+          </div>
+
+          {/* Đọc câu hỏi và nói đáp án (docs/PLAN.md GĐ14): nói chỉ chọn đáp án, vẫn sửa được tới khi nộp. */}
+          {!daCham ? (
+            <div className="mt-4">
+              <ThanhGiongNoiCauHoi key={stt} de={cau.de} onChon={(id) => doiTraLoi({ chon: [id] })} />
+            </div>
+          ) : null}
+
+          {luuTam.loi || actionData?.loi ? (
+            <Notice tone="danger" className="mt-4">
+              {actionData?.loi ?? luuTam.loi}
+            </Notice>
+          ) : null}
+          {chuaLuuHet ? (
+            <Notice tone="danger" className="mt-4">
+              Chưa lưu được hết câu trả lời nên chưa nộp. Kiểm tra kết nối mạng rồi bấm "Nộp bài" lại.
+            </Notice>
+          ) : null}
+
+          <nav aria-label="Chuyển câu" className="mt-6 grid grid-cols-2 gap-3">
+            <Button
+              variant="secondary"
+              className="min-h-12 text-base"
+              disabled={stt <= 1}
+              onClick={() => denCau(stt - 1)}
+            >
+              Câu trước
+            </Button>
+            {laCauCuoi ? (
+              <Button className="min-h-12 text-base" onClick={() => datMoXacNhan(true)} disabled={dangNop}>
+                Nộp bài
+              </Button>
+            ) : (
+              <Button className="min-h-12 text-base" onClick={() => denCau(stt + 1)}>
+                Câu sau
+              </Button>
+            )}
+          </nav>
+          {!laCauCuoi ? (
+            <Button
+              variant="secondary"
+              className="mt-3 min-h-12 w-full text-base"
+              onClick={() => datMoXacNhan(true)}
+              disabled={dangNop}
+            >
+              Nộp bài
+            </Button>
+          ) : null}
+
+          <p className="mt-6 text-center text-sm">
+            <Link to="/luyen-tap" className="inline-flex min-h-11 items-center text-ink-2 underline">
+              Tạm dừng, làm tiếp sau
+            </Link>
+          </p>
         </div>
-      ) : null}
 
-      <div className="mt-6">
-        <HienThiCauHoi
-          key={stt}
-          de={cau.de}
-          traLoi={traLoi[stt] ?? {}}
-          onChange={doiTraLoi}
-          khoa={daCham}
-          idGoc={`cau-${stt}`}
-        />
+        <aside aria-label="Danh sách câu" className="hidden lg:sticky lg:top-24 lg:block">
+          <h2 className="border-b-2 border-ink pb-2 text-sm font-bold uppercase tracking-[0.06em]">
+            Danh sách câu
+          </h2>
+          <div className="mt-3">
+            <LuoiCauHoi soCau={phien.tong} daLam={daLam} dangXem={stt} onChon={denCau} />
+          </div>
+          <p className="mt-3 text-sm text-ink-3 tabular-nums">
+            Đã làm {daLam.size} · Chưa làm {phien.tong - daLam.size}
+          </p>
+        </aside>
       </div>
-
-      {/* Đọc câu hỏi và nói đáp án (docs/PLAN.md GĐ14): nói chỉ chọn đáp án, vẫn sửa được tới khi nộp. */}
-      {!daCham ? (
-        <div className="mt-4">
-          <ThanhGiongNoiCauHoi key={stt} de={cau.de} onChon={(id) => doiTraLoi({ chon: [id] })} />
-        </div>
-      ) : null}
-
-      {luuTam.loi || actionData?.loi ? (
-        <Notice tone="danger" className="mt-4">
-          {actionData?.loi ?? luuTam.loi}
-        </Notice>
-      ) : null}
-      {chuaLuuHet ? (
-        <Notice tone="danger" className="mt-4">
-          Chưa lưu được hết câu trả lời nên chưa nộp. Kiểm tra kết nối mạng rồi bấm "Nộp bài" lại.
-        </Notice>
-      ) : null}
-
-      <nav aria-label="Chuyển câu" className="mt-6 grid grid-cols-2 gap-3">
-        <Button
-          variant="secondary"
-          className="min-h-12 text-base"
-          disabled={stt <= 1}
-          onClick={() => denCau(stt - 1)}
-        >
-          Câu trước
-        </Button>
-        {laCauCuoi ? (
-          <Button className="min-h-12 text-base" onClick={() => datMoXacNhan(true)} disabled={dangNop}>
-            Nộp bài
-          </Button>
-        ) : (
-          <Button className="min-h-12 text-base" onClick={() => denCau(stt + 1)}>
-            Câu sau
-          </Button>
-        )}
-      </nav>
-      {!laCauCuoi ? (
-        <Button
-          variant="secondary"
-          className="mt-3 min-h-12 w-full text-base"
-          onClick={() => datMoXacNhan(true)}
-          disabled={dangNop}
-        >
-          Nộp bài
-        </Button>
-      ) : null}
-
-      <p className="mt-6 text-center text-sm">
-        <Link to="/luyen-tap" className="inline-flex min-h-11 items-center text-ink-2 underline">
-          Tạm dừng, làm tiếp sau
-        </Link>
-      </p>
 
       <HopXacNhanNop
         mo={moXacNhan}

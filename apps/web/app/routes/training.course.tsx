@@ -40,7 +40,7 @@ export default function TrainingCourse({ loaderData }: Route.ComponentProps) {
         {chuyenDe.title}
       </TieuDeTrang>
       {chuyenDe.summary ? (
-        <p className="mt-2 text-[15px] leading-relaxed text-ink-2 lg:max-w-3xl">{chuyenDe.summary}</p>
+        <p className="mt-2 text-sm leading-relaxed text-ink-2 lg:max-w-3xl">{chuyenDe.summary}</p>
       ) : null}
       <p className="mt-2 text-sm text-ink-2">
         {loTrinh.length} bài · khoảng {chuyenDe.durationMinutes} phút
@@ -61,20 +61,25 @@ export default function TrainingCourse({ loaderData }: Route.ComponentProps) {
           <EmptyState icon="cap" title="Chuyên đề chưa có bài nào mở được" />
         </div>
       ) : (
-        <ol className="mt-6 grid grid-cols-1 gap-3 sm:grid-cols-2 lg:grid-cols-3">
-          {loTrinh.map((b) => (
-            <li key={b.id}>
-              <TheBaiHoc
-                to={`/hoc/${chuyenDe.slug}/${b.slug}`}
-                icon={iconChoBai(b.slug, b.title)}
-                tieuDe={`Bài ${b.soBai}. ${b.title}`}
-                moTa={b.summary}
-                dongPhu={`khoảng ${b.estimatedMinutes} phút`}
-                phanTram={b.phanTram}
-              />
-            </li>
-          ))}
-        </ol>
+        <>
+          <h2 className="mt-8 border-b-2 border-ink pb-2 text-base font-bold uppercase tracking-[0.04em]">
+            Danh sách bài ({loTrinh.length})
+          </h2>
+          <ol className="mt-4 grid grid-cols-1 gap-3 sm:grid-cols-2 lg:grid-cols-3">
+            {loTrinh.map((b) => (
+              <li key={b.id}>
+                <TheBaiHoc
+                  to={`/hoc/${chuyenDe.slug}/${b.slug}`}
+                  icon={iconChoBai(b.slug, b.title)}
+                  tieuDe={`Bài ${b.soBai}. ${b.title}`}
+                  moTa={b.summary}
+                  dongPhu={`khoảng ${b.estimatedMinutes} phút`}
+                  phanTram={b.phanTram}
+                />
+              </li>
+            ))}
+          </ol>
+        </>
       )}
     </KhungTrang>
   );

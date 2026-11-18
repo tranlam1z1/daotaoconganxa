@@ -98,7 +98,7 @@ export default function NhomCuaToi({ loaderData }: Route.ComponentProps) {
               <li key={g.id}>
                 <Link
                   to={`/nhom/${g.id}`}
-                  className="block min-h-12 rounded-xl border border-line bg-surface p-4 the-bam"
+                  className="block min-h-12 rounded-card border border-line bg-surface p-4 the-bam"
                 >
                   <span className="flex items-start justify-between gap-3">
                     <span className="min-w-0 break-words text-base font-semibold">{g.ten}</span>

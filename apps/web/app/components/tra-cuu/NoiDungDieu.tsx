@@ -19,7 +19,7 @@ export interface NguCanhDoc {
 }
 
 /** Nền tô cho nút đang được liên kết tới; scroll-mt chừa chỗ cho thanh đầu trang dính. */
-const NEO = "scroll-mt-24 rounded-md target:bg-warn-soft target:ring-4 target:ring-warn-soft";
+const NEO = "scroll-mt-24 rounded-btn target:bg-warn-soft target:ring-4 target:ring-warn-soft";
 
 /** Chèn nhãn nút ("2.", "a)") vào đầu đoạn văn đầu tiên. */
 function kemNhan(html: string, label: string): string {
@@ -30,7 +30,7 @@ function kemNhan(html: string, label: string): string {
 
 function GhiChuSuaDoi({ text }: { text: string }) {
   return (
-    <details className="mt-2 rounded-lg border border-line bg-surface-2 px-3 text-sm">
+    <details className="mt-2 rounded-btn border border-line bg-surface-2 px-3 text-sm">
       <summary className="flex min-h-11 cursor-pointer items-center font-medium text-ink-2">
         Ghi chú sửa đổi, bổ sung
       </summary>
@@ -58,7 +58,7 @@ export function NoiDungDieu({ node, ctx }: { node: LegalNode; ctx: NguCanhDoc })
   if (node.kind === "phan" || node.kind === "chuong" || node.kind === "muc" || node.kind === "tieu_muc") {
     return (
       <section id={id} className="mt-10 scroll-mt-24">
-        <h2 className="border-b border-line pb-2 text-center text-base font-semibold uppercase tracking-wide">
+        <h2 className="border-b border-line pb-2 text-center font-doc text-base font-bold uppercase tracking-wide">
           <span className="block">{node.label}</span>
           {node.heading ? <span className="mt-1 block">{node.heading}</span> : null}
         </h2>
@@ -73,7 +73,7 @@ export function NoiDungDieu({ node, ctx }: { node: LegalNode; ctx: NguCanhDoc })
     const tieuDe = `${node.label}${node.heading ? `. ${node.heading}` : ""}`;
     return (
       <article id={id} data-node-kind="dieu" className={cn("mt-8", NEO)}>
-        <h3 className="flex flex-wrap items-start gap-x-2 gap-y-1 text-lg font-semibold leading-snug">
+        <h3 className="flex flex-wrap items-start gap-x-2 gap-y-1 font-doc text-lg font-bold leading-snug">
           <span className="min-w-0 flex-1">
             {ctx.lienKetDieu ? (
               <Link
@@ -113,7 +113,7 @@ export function NoiDungDieu({ node, ctx }: { node: LegalNode; ctx: NguCanhDoc })
   if (node.kind === "phu_luc") {
     return (
       <section id={id} className="mt-10 scroll-mt-24">
-        <h2 className="text-center text-base font-semibold uppercase">
+        <h2 className="text-center font-doc text-base font-bold uppercase">
           <span className="block">{node.label}</span>
           {node.heading ? <span className="mt-1 block">{node.heading}</span> : null}
         </h2>

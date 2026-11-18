@@ -31,7 +31,7 @@ export default function QuanTriChuyenDe({ loaderData }: Route.ComponentProps) {
   const { items } = loaderData;
   return (
     <section className="chuyen-de-trang">
-      <header className="chuyen-de-dau khung-trang rounded-2xl border border-line bg-surface shadow-card">
+      <header className="chuyen-de-dau khung-trang rounded-card border border-line bg-surface shadow-card">
         <div className="min-w-0">
           <TieuDeTrang as="h2" icon="shield" className="text-3xl font-bold">
             Chuyên đề
@@ -53,11 +53,11 @@ export default function QuanTriChuyenDe({ loaderData }: Route.ComponentProps) {
         </div>
       </header>
 
-      <div className="chuyen-de-noi-dung khung-trang mt-3 rounded-2xl border border-line bg-surface p-6 shadow-card">
+      <div className="chuyen-de-noi-dung khung-trang mt-3 rounded-card border border-line bg-surface p-6 shadow-card">
         {items.length === 0 ? (
           <EmptyState icon="cap" title="Chưa có chuyên đề nào" className="chuyen-de-trong" />
         ) : (
-          <ul className="divide-y divide-line rounded-xl border border-line bg-surface">
+          <ul className="divide-y divide-line rounded-card border border-line bg-surface">
             {items.map((c) => (
               <li key={c.id} className="px-4 py-3">
                 <div className="flex flex-wrap items-center gap-x-3 gap-y-1">

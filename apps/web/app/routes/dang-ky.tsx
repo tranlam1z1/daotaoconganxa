@@ -91,7 +91,7 @@ export default function DangKy({ loaderData, actionData }: Route.ComponentProps)
           Đăng ký tài khoản
         </TieuDeTrang>
         <p className="mt-2 text-sm leading-relaxed text-ink-2">
-          Dành cho cán bộ, công chức, viên chức và đảng viên đăng ký học tập, luyện tập và thi. Tra cứu văn
+          Dành cho cán bộ, chiến sĩ Công an xã đăng ký học tập, luyện tập và thi. Tra cứu văn
           bản không cần đăng nhập.
         </p>
         <p className="mt-2 text-sm leading-relaxed text-ink-2">

@@ -93,7 +93,7 @@ export function CheDoSlide({
         {/* Tên bài đã có ở h1 đầu trang nên băng này ẩn với trình đọc màn hình. */}
         <p
           aria-hidden="true"
-          className="truncate rounded-t-[calc(var(--radius-card)-1px)] border-b-[3px] border-vang bg-primary px-4 py-2.5 text-[15px] font-semibold text-on-primary sm:px-6 md:px-10 md:py-3 md:text-base"
+          className="truncate rounded-t-[calc(var(--radius-card)-1px)] border-b-[3px] border-vang bg-primary px-4 py-2.5 text-sm font-semibold text-on-primary sm:px-6 md:px-10 md:py-3 md:text-base"
         >
           {tieuDe}
         </p>

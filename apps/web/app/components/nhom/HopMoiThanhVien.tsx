@@ -45,7 +45,7 @@ export function HopMoiThanhVien({
           xacNhan ? (
             <f.Form
               method="post"
-              className="grid gap-3 rounded-xl border border-line bg-surface-2 p-4"
+              className="grid gap-3 rounded-card border border-line bg-surface-2 p-4"
               onSubmit={() => datXacNhan(false)}
             >
               <input type="hidden" name="intent" value="doi-ma" />

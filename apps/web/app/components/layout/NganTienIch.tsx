@@ -7,7 +7,7 @@ import { AnhDaiDien } from "../ui/AnhDaiDien";
 import { Icon } from "../ui/Icon";
 
 const LOP_DONG =
-  "lun [--lun:0.985] flex min-h-12 w-full items-center gap-3 rounded-lg px-3 text-base hover:bg-surface-2";
+  "lun [--lun:0.985] flex min-h-12 w-full items-center gap-3 rounded-btn px-3 text-base hover:bg-surface-2";
 
 /**
  * Ngăn tiện ích trượt từ bên phải, chỉ có ở trang chủ dưới 768px (thanh dưới cùng không còn nút
@@ -57,7 +57,7 @@ export function NganTienIch({ nguoiDung }: { nguoiDung: NguoiDung | null }) {
           ref.current?.showModal();
           document.documentElement.style.overflow = "hidden";
         }}
-        className="lun grid size-11 shrink-0 place-items-center rounded-lg text-ink-2 hover:bg-surface-2 hover:text-ink xl:hidden"
+        className="lun grid size-11 shrink-0 place-items-center rounded-btn text-ink-2 hover:bg-surface-2 hover:text-ink xl:hidden"
       >
         <Icon name="menu" className="size-6" />
       </button>
@@ -95,7 +95,7 @@ export function NganTienIch({ nguoiDung }: { nguoiDung: NguoiDung | null }) {
             type="button"
             onClick={dong}
             aria-label="Đóng"
-            className="lun grid size-12 shrink-0 place-items-center rounded-lg text-ink-2 hover:bg-surface-2 hover:text-ink"
+            className="lun grid size-12 shrink-0 place-items-center rounded-btn text-ink-2 hover:bg-surface-2 hover:text-ink"
           >
             <Icon name="close" />
           </button>

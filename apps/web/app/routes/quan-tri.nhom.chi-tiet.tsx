@@ -128,7 +128,7 @@ function KhoiTomTatAi({ soThanhVien }: { soThanhVien: number }) {
   return (
     <section
       aria-labelledby="tom-tat-ai"
-      className="mt-6 rounded-xl border border-line bg-surface p-4"
+      className="mt-6 rounded-card border border-line bg-surface p-4"
       data-tom-tat-ai=""
     >
       <h3 id="tom-tat-ai" className="font-semibold">
@@ -232,7 +232,7 @@ export default function QuanTriNhomChiTiet({ loaderData, actionData }: Route.Com
             ["Số mục", soVn(nhom.muc.length)],
           ] as const
         ).map(([nhan, giaTri]) => (
-          <div key={nhan} className="rounded-xl border border-line bg-surface p-3">
+          <div key={nhan} className="rounded-card border border-line bg-surface p-3">
             <dt className="text-sm text-ink-2">{nhan}</dt>
             <dd className="mt-1 text-xl font-semibold tabular-nums">{giaTri}</dd>
           </div>
@@ -255,7 +255,7 @@ export default function QuanTriNhomChiTiet({ loaderData, actionData }: Route.Com
       ) : (
         <ol className="mt-2 space-y-2">
           {nhom.muc.map((m, i) => (
-            <li key={m.id} className="rounded-lg border border-line bg-surface px-3 py-2 text-sm">
+            <li key={m.id} className="rounded-btn border border-line bg-surface px-3 py-2 text-sm">
               <span className="font-semibold">Mục {i + 1}.</span>{" "}
               <span className="[overflow-wrap:anywhere]">{m.ten}</span>
               <span className="block text-ink-3">
@@ -279,7 +279,7 @@ export default function QuanTriNhomChiTiet({ loaderData, actionData }: Route.Com
           <EmptyState icon="user" title="Không có thành viên nào trong phạm vi" />
         </div>
       ) : (
-        <div className="bang-cuon mt-2 rounded-xl border border-line p-3">
+        <div className="bang-cuon mt-2 rounded-card border border-line p-3">
           <table
             className="w-full text-left text-sm"
             style={{ minWidth: `${Math.max(36, 26 + nhom.muc.length * 5.5)}rem` }}
@@ -352,7 +352,7 @@ export default function QuanTriNhomChiTiet({ loaderData, actionData }: Route.Com
       </p>
 
       {nhom.trang_thai === "hoat_dong" ? (
-        <div className="mt-6 rounded-xl border border-line bg-surface p-4">
+        <div className="mt-6 rounded-card border border-line bg-surface p-4">
           <h3 className="font-semibold">Lưu trữ nhóm</h3>
           {nhom.luu_tru_duoc ? (
             <Form

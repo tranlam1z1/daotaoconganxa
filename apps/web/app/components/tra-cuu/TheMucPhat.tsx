@@ -9,7 +9,7 @@ import { ButtonLink } from "../ui/Button";
  */
 export function TheMucPhat({ muc, hienXe = false }: { muc: MucPhat; hienXe?: boolean }) {
   return (
-    <li className="rounded-xl border border-line bg-surface p-4 shadow-card">
+    <li className="rounded-card border border-line bg-surface p-4 shadow-card">
       <p className="flex flex-wrap items-center gap-2 text-sm text-ink-3">
         {hienXe ? <span className="font-semibold text-ink-2">{muc.tenXe}</span> : null}
         {muc.nhom ? <span>{muc.nhom}</span> : null}
@@ -30,7 +30,7 @@ export function ChiTietMucPhat({ muc }: { muc: MucPhat }) {
         <div className="mt-3 space-y-3">
           <p className="text-sm text-ink-2">Đối chiếu tình tiết để xác định khung áp dụng:</p>
           {muc.khungPhat.map((k) => (
-            <section key={k.id} className="rounded-lg border border-line p-3">
+            <section key={k.id} className="rounded-btn border border-line p-3">
               <p className="font-semibold">{khoangTien(Number(k.fine_min), Number(k.fine_max))}</p>
               <p>{k.conditions.join("; ")}</p>
               {k.required_facts.length ? <p>Cần bổ sung: {k.required_facts.join("; ")}</p> : null}

@@ -273,7 +273,7 @@ function ChiTietDonVi({
       </dl>
 
       {con.length ? (
-        <ul className="mt-3 divide-y divide-line rounded-lg border border-line">
+        <ul className="mt-3 divide-y divide-line rounded-btn border border-line">
           {con.map((x) => (
             <li key={x.id}>
               <button
@@ -352,7 +352,7 @@ export default function QuanTriDonVi({ loaderData }: Route.ComponentProps) {
       <div className="flex flex-wrap items-start justify-between gap-5">
         <div className="flex min-w-0 flex-1 items-start gap-4 sm:gap-6">
           <span
-            className="grid size-11 shrink-0 place-items-center rounded-xl bg-primary-soft text-primary"
+            className="grid size-11 shrink-0 place-items-center rounded-card bg-primary-soft text-primary"
             aria-hidden="true"
           >
             <Icon name="shield" kieu="net" className="size-6" />
@@ -387,7 +387,7 @@ export default function QuanTriDonVi({ loaderData }: Route.ComponentProps) {
         </div>
       ) : (
         <>
-          <p className="mt-6 flex min-h-[60px] items-center gap-5 rounded-xl bg-primary-soft px-5 py-4 text-sm font-semibold text-ink">
+          <p className="mt-6 flex min-h-[60px] items-center gap-5 rounded-card bg-primary-soft px-5 py-4 text-sm font-semibold text-ink">
             <Icon name="nhom" kieu="net" className="size-6 shrink-0 text-primary" />
             {loc
               ? `Hiện ${hienThi.length}/${items.length} đơn vị`
@@ -452,7 +452,7 @@ export default function QuanTriDonVi({ loaderData }: Route.ComponentProps) {
               return (
                 <li
                   key={d.id}
-                  className="flex items-center overflow-hidden rounded-xl border border-line bg-surface transition-colors hover:border-primary/40"
+                  className="flex items-center overflow-hidden rounded-card border border-line bg-surface transition-colors hover:border-primary/40"
                   style={{ paddingLeft: `${(d.cap - capGoc) * 1.5}rem` }}
                 >
                   {nutThu ? (
@@ -478,7 +478,7 @@ export default function QuanTriDonVi({ loaderData }: Route.ComponentProps) {
                     className="lun flex min-h-[88px] min-w-0 flex-1 items-center gap-4 py-3 pr-2 text-left hover:bg-surface-2 sm:gap-6"
                   >
                     <span
-                      className="grid size-12 shrink-0 place-items-center rounded-xl bg-primary-soft text-primary sm:size-[60px]"
+                      className="grid size-12 shrink-0 place-items-center rounded-card bg-primary-soft text-primary sm:size-[60px]"
                       aria-hidden="true"
                     >
                       <Icon name="toaNha" kieu="net" className="size-7" />

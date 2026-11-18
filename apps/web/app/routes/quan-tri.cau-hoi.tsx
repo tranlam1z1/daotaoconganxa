@@ -247,7 +247,7 @@ export default function QuanTriCauHoi({ loaderData, actionData }: Route.Componen
       </div>
 
       {/* Bộ đếm theo mục tiêu của khách hàng */}
-      <div className="mt-3 rounded-xl border border-line bg-surface px-4 py-3">
+      <div className="mt-3 rounded-card border border-line bg-surface px-4 py-3">
         <p className="flex flex-wrap items-baseline justify-between gap-2">
           <span className="font-semibold">
             Đã duyệt: {dem.da_duyet.toLocaleString("vi-VN")} / mục tiêu {muc_tieu.toLocaleString("vi-VN")}
@@ -356,10 +356,10 @@ export default function QuanTriCauHoi({ loaderData, actionData }: Route.Componen
 
           <ul className="mt-2 grid gap-2">
             {items.map((q) => (
-              <li key={q.id} className="rounded-xl border border-line bg-surface px-4 py-3">
+              <li key={q.id} className="rounded-card border border-line bg-surface px-4 py-3">
                 <div className="flex gap-4 sm:gap-6">
                   <span
-                    className="grid size-11 shrink-0 place-items-center rounded-xl bg-primary-soft text-primary sm:size-14"
+                    className="grid size-11 shrink-0 place-items-center rounded-card bg-primary-soft text-primary sm:size-14"
                     aria-hidden="true"
                   >
                     <Icon name="file" kieu="net" className="size-7" />
@@ -446,7 +446,7 @@ function BoLoc({
   return (
     <Form
       method="get"
-      className="mt-3 grid gap-x-6 gap-y-3 rounded-xl border border-line bg-primary-soft/30 px-4 py-3 sm:grid-cols-2 lg:grid-cols-3"
+      className="mt-3 grid gap-x-6 gap-y-3 rounded-card border border-line bg-primary-soft/30 px-4 py-3 sm:grid-cols-2 lg:grid-cols-3"
     >
       {choDuyet ? <input type="hidden" name="tab" value="cho-duyet" /> : null}
       <div className="sm:col-span-2 lg:col-span-3">
@@ -575,10 +575,10 @@ function NutDuyet({ q, busy }: { q: CauHoi; busy: boolean }) {
 
 function NhapExcel({ busy }: { busy: boolean }) {
   return (
-    <details className="mt-3 rounded-xl border border-line bg-surface px-5 py-3">
+    <details className="mt-3 rounded-card border border-line bg-surface px-5 py-3">
       <summary className="flex min-h-12 cursor-pointer list-none items-center gap-5 text-lg font-semibold [&::-webkit-details-marker]:hidden">
         <span
-          className="grid size-11 shrink-0 place-items-center rounded-xl bg-primary-soft text-ok"
+          className="grid size-11 shrink-0 place-items-center rounded-card bg-primary-soft text-ok"
           aria-hidden="true"
         >
           <svg viewBox="0 0 24 24" fill="none" className="size-7">
@@ -611,7 +611,7 @@ function NhapExcel({ busy }: { busy: boolean }) {
             type="file"
             required
             accept=".xlsx,application/vnd.openxmlformats-officedocument.spreadsheetml.sheet"
-            className="block min-h-11 w-full text-sm file:mr-3 file:min-h-11 file:rounded-lg file:border file:border-line-strong file:bg-surface file:px-3"
+            className="block min-h-11 w-full text-sm file:mr-3 file:min-h-11 file:rounded-btn file:border file:border-line-strong file:bg-surface file:px-3"
           />
         </div>
         <label className="flex min-h-11 items-center gap-2 text-sm">
@@ -661,7 +661,7 @@ function ChonDieuKhoanSinhAi() {
     <fieldset className="grid gap-2 sm:col-span-2">
       <legend className="mb-1.5 text-sm font-medium text-ink-2">Điều khoản làm căn cứ</legend>
       {ds.map((k) => (
-        <div key={k} className="rounded-lg border border-line p-3">
+        <div key={k} className="rounded-btn border border-line p-3">
           <OCanCu id={`sinh-ai-urn-${k}`} name="urns" batBuoc={ds.length === 1} />
           {ds.length > 1 ? (
             <div>
@@ -716,11 +716,11 @@ function SinhBangAi({
     <details
       id="sinh-ai"
       open={mo || dangSinh}
-      className="mt-3 rounded-xl border border-line bg-surface px-5 py-3"
+      className="mt-3 rounded-card border border-line bg-surface px-5 py-3"
     >
       <summary className="flex min-h-12 cursor-pointer list-none items-center gap-5 text-lg font-semibold [&::-webkit-details-marker]:hidden">
         <span
-          className="grid size-11 shrink-0 place-items-center rounded-xl bg-primary-soft text-primary"
+          className="grid size-11 shrink-0 place-items-center rounded-card bg-primary-soft text-primary"
           aria-hidden="true"
         >
           <Icon name="ai" kieu="net" className="size-7" />
@@ -809,7 +809,7 @@ function SinhBangAi({
           ) : null}
           <ul className="mt-2 grid gap-2">
             {viec.map((v) => (
-              <li key={v.id} className="rounded-lg border border-line p-3 text-sm">
+              <li key={v.id} className="rounded-btn border border-line p-3 text-sm">
                 <p className="flex flex-wrap items-center gap-2">
                   <Badge tone={TONE_TRANG_THAI_VIEC[v.state]}>{TEN_TRANG_THAI_VIEC[v.state]}</Badge>
                   <span>
@@ -881,7 +881,7 @@ function SinhBangAi({
 
 function KetQuaNhapExcel({ kq }: { kq: KetQuaNhap }) {
   return (
-    <div className="mt-4 rounded-xl border border-line bg-surface p-4">
+    <div className="mt-4 rounded-card border border-line bg-surface p-4">
       <p className="font-semibold">
         {kq.chay_thu
           ? `Chạy thử: ${kq.hop_le}/${kq.tong_dong} câu hợp lệ. Chưa ghi câu nào.`

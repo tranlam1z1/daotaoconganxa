@@ -59,7 +59,7 @@ export function VungThongBaoNhanh() {
         <p
           key={tb.lan}
           className={cn(
-            "hop-vao w-full max-w-sm rounded-xl px-4 py-3 text-center text-base shadow-lg",
+            "hop-vao w-full max-w-sm rounded-card px-4 py-3 text-center text-base shadow-lg",
             tb.loai === "loi" ? "bg-danger text-canvas" : "bg-ink text-canvas",
           )}
         >

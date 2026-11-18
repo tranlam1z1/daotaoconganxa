@@ -619,7 +619,7 @@ function ChonAnh({
           <img
             src={urlAnhBienBao(anh)}
             alt="Ảnh đang chọn"
-            className="size-24 rounded-lg border border-line bg-white object-contain p-1"
+            className="size-24 rounded-btn border border-line bg-white object-contain p-1"
           />
           <Button variant="secondary" onClick={() => doi(null)}>
             Bỏ ảnh
@@ -658,7 +658,7 @@ function ChonAnh({
             tai.submit(f, { method: "post", encType: "multipart/form-data" });
             e.target.value = "";
           }}
-          className="block min-h-11 w-full text-sm file:mr-3 file:min-h-11 file:rounded-lg file:border file:border-line-strong file:bg-surface file:px-3"
+          className="block min-h-11 w-full text-sm file:mr-3 file:min-h-11 file:rounded-btn file:border file:border-line-strong file:bg-surface file:px-3"
         />
         {tai.state !== "idle" ? <p className="mt-1 text-sm text-ink-2">Đang tải ảnh lên…</p> : null}
         {loi ? <p className="mt-1 text-sm text-danger">{loi}</p> : null}
@@ -705,7 +705,7 @@ function PhanAnh({
               <img
                 src={urlAnhBienBao(uri)}
                 alt={`Hình ${i + 1}`}
-                className="size-24 rounded-lg border border-line bg-white object-contain p-1"
+                className="size-24 rounded-btn border border-line bg-white object-contain p-1"
               />
               Hình {i + 1}
               <div className="flex items-center">
@@ -821,7 +821,7 @@ function PhanDapAn({
         </legend>
         {bm.cap.map((c, i) => (
           // biome-ignore lint/suspicious/noArrayIndexKey: dòng nhập theo vị trí, chưa có id
-          <div key={i} className="grid gap-2 rounded-lg border border-line p-2 sm:grid-cols-[1fr_1fr_auto]">
+          <div key={i} className="grid gap-2 rounded-btn border border-line p-2 sm:grid-cols-[1fr_1fr_auto]">
             <Input
               aria-label={`Vế trái cặp ${i + 1}`}
               placeholder="Vế trái"
@@ -907,7 +907,7 @@ function PhanDapAn({
       )}
       {bm.muc.map((m, i) => (
         // biome-ignore lint/suspicious/noArrayIndexKey: dòng nhập theo vị trí, chưa có id
-        <div key={i} className={cn(hinh && !sapXep && "grid gap-2 rounded-lg border border-line p-2")}>
+        <div key={i} className={cn(hinh && !sapXep && "grid gap-2 rounded-btn border border-line p-2")}>
           <div className="flex items-center gap-2">
             {sapXep ? (
               <span className="w-8 shrink-0 text-center font-semibold">{i + 1}.</span>
@@ -994,7 +994,7 @@ function XemTruoc({ de, coTheCham }: { de: DeCauHoi; coTheCham: boolean }) {
   }, [de.kind]);
 
   return (
-    <section aria-labelledby="xem-truoc" className="rounded-xl border border-line bg-canvas p-4">
+    <section aria-labelledby="xem-truoc" className="rounded-card border border-line bg-canvas p-4">
       <h3 id="xem-truoc" className="font-sans text-base font-semibold">
         Xem trước: người học sẽ thấy
       </h3>

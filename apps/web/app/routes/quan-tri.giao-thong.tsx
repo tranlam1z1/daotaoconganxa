@@ -78,7 +78,7 @@ export default function TrafficAdmin({ loaderData, actionData }: Route.Component
           {actionData.error}
         </p>
       ) : null}
-      <section className="rounded-xl border border-line bg-surface p-4">
+      <section className="rounded-card border border-line bg-surface p-4">
         <h2 className="text-lg font-semibold">Nhập tài liệu vào vùng chờ</h2>
         <Form method="post" className="mt-3 space-y-3">
           <input type="hidden" name="intent" value="stage" />
@@ -90,7 +90,7 @@ export default function TrafficAdmin({ loaderData, actionData }: Route.Component
             name="json"
             required
             rows={6}
-            className="w-full rounded-lg border border-line bg-surface p-3 font-mono text-sm"
+            className="w-full rounded-btn border border-line bg-surface p-3 font-mono text-sm"
           />
           <Button type="submit" disabled={busy}>
             Đưa vào vùng chờ
@@ -103,7 +103,7 @@ export default function TrafficAdmin({ loaderData, actionData }: Route.Component
             </summary>
             <ul className="mt-3 space-y-3">
               {job.payload.records.map((r) => (
-                <li key={`${job.id}-${r.text}`} className="rounded-lg bg-page p-3">
+                <li key={`${job.id}-${r.text}`} className="rounded-btn bg-page p-3">
                   <p className="whitespace-pre-wrap">{r.text}</p>
                   <p className="mt-1 text-sm text-ink-3">Chưa đủ: {r.missing.join(", ")}</p>
                 </li>
@@ -112,7 +112,7 @@ export default function TrafficAdmin({ loaderData, actionData }: Route.Component
           </details>
         ))}
       </section>
-      <section className="rounded-xl border border-line bg-surface p-4">
+      <section className="rounded-card border border-line bg-surface p-4">
         <h2 className="text-lg font-semibold">Khung phạt theo tình tiết</h2>
         <p className="mt-2 text-sm text-ink-2">
           Nhập bản ghi đã biên tập theo mẫu trong hướng dẫn API. Khung mới ở trạng thái nháp; duyệt kiểm tra
@@ -128,7 +128,7 @@ export default function TrafficAdmin({ loaderData, actionData }: Route.Component
             name="json"
             required
             rows={6}
-            className="w-full rounded-lg border border-line bg-surface p-3 font-mono text-sm"
+            className="w-full rounded-btn border border-line bg-surface p-3 font-mono text-sm"
           />
           <Button type="submit" disabled={busy}>
             Lưu bản nháp
@@ -136,7 +136,7 @@ export default function TrafficAdmin({ loaderData, actionData }: Route.Component
         </Form>
         <ul className="mt-4 space-y-3">
           {loaderData.penalties.map((p) => (
-            <li key={p.id} className="rounded-lg border border-line p-3">
+            <li key={p.id} className="rounded-btn border border-line p-3">
               <p className="font-semibold">
                 {p.violation_code} · {Number(p.fine_min).toLocaleString("vi-VN")} –{" "}
                 {Number(p.fine_max).toLocaleString("vi-VN")} đồng

@@ -214,7 +214,7 @@ export interface MoTaKhoiSoan {
   macDinh: () => Record<string, unknown>;
 }
 
-/** Chín loại trang bài giảng dựng đầy đủ (KHOI_BAI_GIANG), theo thứ tự hay dùng khi soạn. */
+/** Chín loại có biểu mẫu soạn riêng, theo thứ tự hay dùng khi soạn. KHOI_BAI_GIANG còn có "dong_thoi_gian": trang dựng được nhưng chưa có biểu mẫu soạn. */
 export const KHOI_SOAN: readonly MoTaKhoiSoan[] = [
   {
     kind: "giang",

@@ -26,7 +26,7 @@ export function NguonChamTuLuan({ dangXem }: { dangXem: "bai-giang" | "de-thi" }
   return (
     <nav
       aria-label="Nguồn bài chấm"
-      className="mt-5 grid w-full grid-cols-2 overflow-hidden rounded-lg bg-primary-soft sm:max-w-[554px]"
+      className="mt-5 grid w-full grid-cols-2 overflow-hidden rounded-btn bg-primary-soft sm:max-w-[554px]"
     >
       {(
         [
@@ -39,7 +39,7 @@ export function NguonChamTuLuan({ dangXem }: { dangXem: "bai-giang" | "de-thi" }
           to={to}
           aria-current={dangXem === ma ? "page" : undefined}
           className={cn(
-            "flex min-h-[52px] items-center justify-center gap-4 border-b-2 rounded-lg text-base font-semibold",
+            "flex min-h-[52px] items-center justify-center gap-4 border-b-2 rounded-btn text-base font-semibold",
             dangXem === ma
               ? "border-primary bg-surface/50 text-primary shadow-[inset_0_0_0_1px_var(--line)]"
               : "border-transparent text-ink-2 hover:bg-surface/30 hover:text-ink",

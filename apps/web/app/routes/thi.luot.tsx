@@ -10,6 +10,7 @@
 import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import { Form, redirect, useNavigate, useNavigation, useSearchParams, useSubmit } from "react-router";
 import { HienThiCauHoi } from "../components/cau-hoi/HienThiCauHoi";
+import { ThanhTienDo } from "../components/luyen-tap/ThanhTienDo";
 import { DongHo } from "../components/thi/DongHo";
 import { HopXacNhanNop } from "../components/thi/HopXacNhanNop";
 import { LuoiCauHoi } from "../components/thi/LuoiCauHoi";
@@ -188,31 +189,39 @@ export default function LamBai({ loaderData, actionData }: Route.ComponentProps)
     [luot.cau],
   );
 
+  // Hướng "Công văn" (docs/DESIGN_SYSTEM.md): thanh dính nền đặc ngay dưới header (đồng hồ, tên đề,
+  // nộp bài) và thanh tiến độ chia ô; từ 1024px lưới câu luôn hiện ở cột phải.
   return (
-    <KhungTrang variant="workspace" className="wrap max-w-3xl pb-28">
-      <div className="sticky top-16 z-30 -mx-4 border-b border-line bg-canvas/95 px-4 py-2 backdrop-blur-md sm:-mx-6 sm:px-6">
+    <KhungTrang variant="workspace" className="wrap max-w-3xl pb-28 lg:max-w-5xl">
+      <div className="sticky top-[var(--cao-header)] z-30 -mx-4 -mt-4 border-b border-line bg-surface px-4 pt-3 pb-2 sm:-mx-6 sm:-mt-6 sm:px-6">
         <div className="flex items-center gap-2 sm:gap-3">
           <DongHo giayConLai={luot.giay_con_lai} onHetGio={hetGio} />
+          <p className="hidden min-w-0 flex-1 truncate text-base font-semibold lg:block" aria-hidden="true">
+            {luot.exam_title}
+          </p>
           <button
             type="button"
             onClick={() => setMoLuoi((v) => !v)}
             aria-expanded={moLuoi}
             aria-controls="luoi-cau"
-            className="lun flex min-h-11 min-w-0 flex-1 flex-col items-center justify-center rounded-lg px-1 text-sm font-medium leading-snug text-ink-2 hover:bg-surface-2 sm:flex-row sm:justify-start sm:gap-2 sm:px-3 sm:text-[15px]"
+            className="lun flex min-h-11 min-w-0 flex-1 flex-col items-center justify-center rounded-btn px-1 text-sm font-medium leading-snug text-ink-2 hover:bg-surface-2 sm:flex-row sm:justify-start sm:gap-2 sm:px-3 lg:hidden"
           >
-            <span className="whitespace-nowrap">
+            <span className="whitespace-nowrap font-semibold tabular-nums">
               Câu {dangXem}/{luot.so_cau}
             </span>
-            <span className="whitespace-nowrap text-xs text-ink-3 sm:text-sm">{daLam.size} đã làm</span>
+            <span className="whitespace-nowrap text-sm text-ink-3">{daLam.size} đã làm</span>
           </button>
           <Button className="shrink-0" onClick={() => setMoXacNhan(true)} disabled={dangNop}>
             Nộp bài
           </Button>
         </div>
+        <div className="mt-2">
+          <ThanhTienDo hienTai={dangXem} tong={luot.so_cau} daLam={daLam.size} cacCauDaLam={daLam} chiThanh />
+        </div>
         <p
           role="status"
           aria-live="polite"
-          className={cn("mt-1 min-h-4 text-xs", luu === "loi" ? "font-semibold text-danger" : "text-ink-3")}
+          className={cn("mt-1 min-h-5 text-sm", luu === "loi" ? "font-semibold text-danger" : "text-ink-3")}
         >
           {luu === "dang_luu"
             ? "Đang lưu câu trả lời"
@@ -223,7 +232,7 @@ export default function LamBai({ loaderData, actionData }: Route.ComponentProps)
                 : ""}
         </p>
         {moLuoi ? (
-          <div id="luoi-cau" className="mt-2 max-h-[50vh] overflow-y-auto pb-2">
+          <div id="luoi-cau" className="mt-2 max-h-[50vh] overflow-y-auto pb-2 lg:hidden">
             <LuoiCauHoi
               soCau={luot.so_cau}
               daLam={daLam}
@@ -236,60 +245,89 @@ export default function LamBai({ loaderData, actionData }: Route.ComponentProps)
       </div>
 
       <h1 className="sr-only">{luot.exam_title}</h1>
-      {dangNop && cauTuLuan.size ? (
-        <Notice tone="info" className="mt-4">
-          Đang nộp bài và chấm phần tự luận. Việc này mất vài giây, đừng đóng trang.
-        </Notice>
-      ) : null}
-      {actionData?.loi ? (
-        <Notice tone="danger" className="mt-4">
-          {actionData.loi}
-        </Notice>
-      ) : null}
+      <div className="lg:grid lg:grid-cols-[minmax(0,1fr)_15rem] lg:items-start lg:gap-10">
+        <div className="min-w-0">
+          {dangNop && cauTuLuan.size ? (
+            <Notice tone="info" className="mt-4">
+              Đang nộp bài và chấm phần tự luận. Việc này mất vài giây, đừng đóng trang.
+            </Notice>
+          ) : null}
+          {actionData?.loi ? (
+            <Notice tone="danger" className="mt-4">
+              {actionData.loi}
+            </Notice>
+          ) : null}
 
-      {cau ? (
-        <section aria-labelledby="cau-hien-tai" className="mt-6">
-          <h2 id="cau-hien-tai" className="font-sans text-sm font-semibold text-ink-3">
-            Câu {dangXem}
+          {cau ? (
+            <section aria-labelledby="cau-hien-tai" className="mt-6">
+              <h2
+                id="cau-hien-tai"
+                className="font-sans text-sm font-semibold uppercase tracking-[0.06em] text-ink-3 tabular-nums"
+              >
+                Câu {dangXem} / {luot.so_cau}
+                {cauTuLuan.has(dangXem) ? " · Tự luận" : ""}
+              </h2>
+              <div className="mt-2">
+                <HienThiCauHoi
+                  key={dangXem}
+                  de={cau.de}
+                  traLoi={traLoi[dangXem] ?? {}}
+                  onChange={doiTraLoi}
+                  idGoc={`cau-${dangXem}`}
+                />
+              </div>
+            </section>
+          ) : null}
+
+          <nav aria-label="Chuyển câu" className="mt-8 grid grid-cols-2 gap-3">
+            <Button
+              variant="secondary"
+              className="min-h-12 text-base"
+              disabled={dangXem <= 1}
+              onClick={() => denCau(dangXem - 1)}
+            >
+              Câu trước
+            </Button>
+            {dangXem < luot.so_cau ? (
+              <Button className="min-h-12 text-base" onClick={() => denCau(dangXem + 1)}>
+                Câu sau
+              </Button>
+            ) : (
+              <Button className="min-h-12 text-base" onClick={() => setMoXacNhan(true)} disabled={dangNop}>
+                Nộp bài
+              </Button>
+            )}
+          </nav>
+
+          {/* Nộp không cần JavaScript cũng được: biểu mẫu thật, hộp xác nhận chỉ là lớp bên trên. */}
+          <noscript>
+            <Form method="post" className="mt-6">
+              <Button type="submit">Nộp bài</Button>
+            </Form>
+          </noscript>
+        </div>
+
+        <aside
+          aria-label="Danh sách câu"
+          className="hidden lg:sticky lg:top-[calc(var(--cao-header)+9rem)] lg:mt-6 lg:block"
+        >
+          <h2 className="border-b-2 border-ink pb-2 text-sm font-bold uppercase tracking-[0.06em]">
+            Danh sách câu
           </h2>
-          <div className="mt-2">
-            <HienThiCauHoi
-              key={dangXem}
-              de={cau.de}
-              traLoi={traLoi[dangXem] ?? {}}
-              onChange={doiTraLoi}
-              idGoc={`cau-${dangXem}`}
+          <div className="mt-3 max-h-[50vh] overflow-y-auto p-1">
+            <LuoiCauHoi
+              soCau={luot.so_cau}
+              daLam={daLam}
+              dangXem={dangXem}
+              onChon={denCau}
+              tuLuan={cauTuLuan}
             />
           </div>
-        </section>
-      ) : null}
-
-      <nav aria-label="Chuyển câu" className="mt-8 grid grid-cols-2 gap-3">
-        <Button
-          variant="secondary"
-          className="min-h-12 text-base"
-          disabled={dangXem <= 1}
-          onClick={() => denCau(dangXem - 1)}
-        >
-          Câu trước
-        </Button>
-        {dangXem < luot.so_cau ? (
-          <Button className="min-h-12 text-base" onClick={() => denCau(dangXem + 1)}>
-            Câu sau
-          </Button>
-        ) : (
-          <Button className="min-h-12 text-base" onClick={() => setMoXacNhan(true)} disabled={dangNop}>
-            Nộp bài
-          </Button>
-        )}
-      </nav>
-
-      {/* Nộp không cần JavaScript cũng được: biểu mẫu thật, hộp xác nhận chỉ là lớp bên trên. */}
-      <noscript>
-        <Form method="post" className="mt-6">
-          <Button type="submit">Nộp bài</Button>
-        </Form>
-      </noscript>
+          <p className="mt-3 text-sm text-ink-3 tabular-nums">
+            Đã làm {daLam.size} · Chưa làm {soChuaLam}
+          </p>
+        </aside>
+      </div>
 
       <HopXacNhanNop
         mo={moXacNhan}

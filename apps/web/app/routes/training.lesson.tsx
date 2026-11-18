@@ -201,7 +201,7 @@ export default function TrainingLesson({ loaderData, actionData }: Route.Compone
       {baiSau ? (
         <Link
           to={`/hoc/${chuyenDe.slug}/${baiSau.slug}${cheDo === "slide" ? "?che_do=slide" : ""}`}
-          className="flex min-h-12 items-center rounded-xl border border-line bg-surface px-4 py-3 text-base dong-bam"
+          className="flex min-h-12 items-center rounded-card border border-line bg-surface px-4 py-3 text-base dong-bam"
         >
           <span>
             <span className="block text-sm text-ink-2">Bài tiếp theo</span>
@@ -211,7 +211,7 @@ export default function TrainingLesson({ loaderData, actionData }: Route.Compone
       ) : (
         <Link
           to={`/hoc/${chuyenDe.slug}`}
-          className="flex min-h-12 items-center rounded-xl border border-line bg-surface px-4 py-3 text-base dong-bam"
+          className="flex min-h-12 items-center rounded-card border border-line bg-surface px-4 py-3 text-base dong-bam"
         >
           Đây là bài cuối của chuyên đề. Về danh sách bài
         </Link>
@@ -258,7 +258,7 @@ export default function TrainingLesson({ loaderData, actionData }: Route.Compone
         </div>
       ) : null}
 
-      <nav aria-label="Cách xem bài" className="mt-3 grid grid-cols-2 gap-1 rounded-xl bg-surface-2 p-1">
+      <nav aria-label="Cách xem bài" className="mt-3 grid grid-cols-2 gap-1 rounded-card bg-surface-2 p-1">
         {(
           [
             ["doc", "Đọc cuộn", coso],
@@ -271,7 +271,7 @@ export default function TrainingLesson({ loaderData, actionData }: Route.Compone
             replace
             aria-current={cheDo === ma ? "page" : undefined}
             className={cn(
-              "flex min-h-11 items-center justify-center rounded-lg text-[15px]",
+              "flex min-h-11 items-center justify-center rounded-btn text-sm",
               cheDo === ma ? "bg-surface font-semibold text-primary shadow-sm" : "text-ink-2 hover:text-ink",
             )}
           >

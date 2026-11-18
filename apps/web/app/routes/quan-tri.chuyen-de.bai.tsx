@@ -306,7 +306,7 @@ export default function SoanBai({ loaderData, actionData }: Route.ComponentProps
         </div>
       ) : null}
 
-      <details open={!bai} className="mt-6 rounded-xl border border-line bg-surface px-4">
+      <details open={!bai} className="mt-6 rounded-card border border-line bg-surface px-4">
         <summary className="flex min-h-12 cursor-pointer items-center font-semibold">Thông tin bài</summary>
         <Form method="post" className="space-y-4 pb-4">
           <input type="hidden" name="intent" value="luu_bai" />
@@ -436,7 +436,7 @@ export default function SoanBai({ loaderData, actionData }: Route.ComponentProps
           </div>
 
           {xemCaBai ? (
-            <div className="mt-4 space-y-6 rounded-xl border border-line bg-canvas p-4">
+            <div className="mt-4 space-y-6 rounded-card border border-line bg-canvas p-4">
               {khoi.map((k) => (
                 <KhoiNoiDung
                   key={k.id}
@@ -466,7 +466,7 @@ export default function SoanBai({ loaderData, actionData }: Route.ComponentProps
                       <li
                         key={k.id}
                         className={cn(
-                          "rounded-xl border bg-surface p-3",
+                          "rounded-card border bg-surface p-3",
                           coLoi ? "border-danger" : "border-line",
                           dangSua === k.id && "border-primary",
                         )}
@@ -559,7 +559,7 @@ export default function SoanBai({ loaderData, actionData }: Route.ComponentProps
                 </ol>
               )}
 
-              <Form method="post" className="mt-4 rounded-xl border border-dashed border-line-strong p-3">
+              <Form method="post" className="mt-4 rounded-card border border-dashed border-line-strong p-3">
                 <input type="hidden" name="intent" value="them_khoi" />
                 <input type="hidden" name="ordinal" value={ordinalMoi} />
                 <fieldset>
@@ -627,7 +627,7 @@ function DanhSachBaiTap({ hoatDong, busy }: { hoatDong: HoatDongQuanTri[]; busy:
       ) : (
         <ol className="mt-4 space-y-3">
           {hoatDong.map((h, i) => (
-            <li key={h.id} className="rounded-xl border border-line bg-surface p-3 text-sm">
+            <li key={h.id} className="rounded-card border border-line bg-surface p-3 text-sm">
               <div className="flex flex-wrap items-center gap-2">
                 <span className="font-mono text-ink-3">{i + 1}.</span>
                 <span className="font-semibold">{h.title ?? TEN_DANG_BAI[h.kind] ?? h.kind}</span>
@@ -663,7 +663,7 @@ function DanhSachBaiTap({ hoatDong, busy }: { hoatDong: HoatDongQuanTri[]; busy:
                 </ul>
               ) : null}
               {h.answer.giai_thich ? (
-                <p className="mt-2 rounded-lg bg-surface-2 p-2">
+                <p className="mt-2 rounded-btn bg-surface-2 p-2">
                   <span className="font-semibold">Gợi ý đáp án (chỉ người chấm thấy): </span>
                   {h.answer.giai_thich}
                 </p>

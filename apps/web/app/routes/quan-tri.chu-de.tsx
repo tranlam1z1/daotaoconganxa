@@ -129,7 +129,7 @@ export default function QuanTriChuDe({ loaderData, actionData }: Route.Component
 
       <Form
         method="post"
-        className="mt-4 grid gap-3 rounded-xl border border-line bg-surface p-4 sm:grid-cols-[1fr_1fr_auto]"
+        className="mt-4 grid gap-3 rounded-card border border-line bg-surface p-4 sm:grid-cols-[1fr_1fr_auto]"
       >
         <input type="hidden" name="intent" value="tao" />
         <div>
@@ -150,7 +150,7 @@ export default function QuanTriChuDe({ loaderData, actionData }: Route.Component
       <p className="mt-5 text-sm text-ink-2">
         {dangHien.length} chủ đề đang dùng{soAn ? ` · ${soAn} chủ đề đã ẩn` : ""}
       </p>
-      <ul className="mt-2 divide-y divide-line rounded-xl border border-line bg-surface">
+      <ul className="mt-2 divide-y divide-line rounded-card border border-line bg-surface">
         {chuDe.map((t) => (
           <DongChuDe key={t.id} t={t} chuDe={chuDe} busy={busy} onXoa={() => hop.mo("xoa", t)} />
         ))}

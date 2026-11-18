@@ -21,9 +21,9 @@ export function TheTaiLieu({ t }: { t: TaiLieu }) {
     <li>
       <Link
         to={hrefTaiLieu(t)}
-        className="flex min-h-20 items-center gap-3 rounded-2xl border border-line bg-surface p-3 shadow-card the-bam sm:gap-4 sm:p-4"
+        className="flex min-h-20 items-center gap-3 rounded-card border border-line bg-surface p-3 shadow-card the-bam sm:gap-4 sm:p-4"
       >
-        <span className="grid size-12 shrink-0 place-items-center rounded-xl border border-line bg-surface-2">
+        <span className="grid size-12 shrink-0 place-items-center rounded-card border border-line bg-surface-2">
           {t.tep ? (
             <Icon name="file" sac="do" className="size-7" />
           ) : (

@@ -56,7 +56,7 @@ export default function ThamGiaNhom({ loaderData, actionData }: Route.ComponentP
         </Notice>
       ) : null}
       {xemTruoc ? (
-        <div className="mt-6 grid gap-4 rounded-xl border border-line bg-surface p-5">
+        <div className="mt-6 grid gap-4 rounded-card border border-line bg-surface p-5">
           <div>
             <p className="break-words text-xl font-semibold">{xemTruoc.ten}</p>
             <p className="mt-1 text-sm text-ink-2">

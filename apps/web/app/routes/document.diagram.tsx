@@ -27,7 +27,7 @@ export default function DocumentDiagram({ loaderData }: Route.ComponentProps) {
                   <li key={v.urn + String(i)}>
                     <Link
                       to={voiNgay(docHref(v.docType, v.soKyHieu), asOf)}
-                      className="block rounded-lg border border-line p-3 text-primary underline"
+                      className="block rounded-btn border border-line p-3 text-primary underline"
                     >
                       {v.title || v.shortTitle}
                       {v.targetLabel ? ` · ${v.targetLabel}` : ""}

@@ -16,7 +16,7 @@ export interface NavItem {
   khop?: string[];
 }
 
-/** Menu chính cho công chức, viên chức, đảng viên; tài khoản hiển thị riêng ở đầu trang. */
+/** Menu chính cho cán bộ, chiến sĩ Công an xã; tài khoản hiển thị riêng ở đầu trang. */
 export const MAIN_NAV: NavItem[] = [
   { to: "/", label: "Trang chủ" },
   {

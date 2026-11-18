@@ -1,152 +1,120 @@
-/* Trang chủ: ảnh trang trí riêng, nội dung và biểu mẫu vẫn là HTML. */
-.home-page {
-  position: relative; isolation: isolate; color: var(--ink); background: var(--canvas);
-  padding-block: 14px 80px;
-}
-.home-page::before {
-  content: ""; position: absolute; inset: 0; z-index: -2; pointer-events: none;
-  background: url('/assets/dong-son-background.png') center top / cover no-repeat; opacity: .22;
-}
-.home-page::after {
-  content: ""; position: absolute; inset: auto 0 0; height: 100px; z-index: -1; pointer-events: none;
-  background: url('/assets/home-ribbon-bottom.svg') center bottom / 100% 100% no-repeat;
-}
-.home-container { width: min(1300px, calc(100% - 40px)); margin-inline: auto; }
-
-/* Banner độc lập: chỉ lấy phần cờ trang trí từ ảnh tham chiếu; chữ là HTML. */
-.home-hero {
-  position: relative; isolation: isolate; overflow: hidden;
-  width: min(1300px, calc(100% - 40px)); margin: 0 auto;
-  border: 0; border-radius: 12px; box-shadow: var(--shadow-card);
-  background: linear-gradient(100deg, rgb(230 237 255 / 0) 55%, rgb(230 237 255 / 0.85) 100%), url('/assets/dong-son-background.png') center / cover no-repeat;
-}
-.home-hero::before {
-  content: ""; position: absolute; inset: 0 auto 0 0; width: 270px; height: 250px; pointer-events: none; z-index: -1;
-  background: url('/assets/hero-flag-reference.png') 5.024% 13.333% / 562.105% auto no-repeat;
-  mask-image: linear-gradient(to right, #000 72%, transparent);
-}
-.home-hero::after {
-  content: ""; position: absolute; inset: 0; pointer-events: none; z-index: -2;
-  background: url('/assets/dong-son-watermark.png') 20% 42% / 1000px auto no-repeat; opacity: .3;
-}
-.home-hero-grid { display: grid; grid-template-columns: minmax(0, 1.35fr) minmax(0, 1fr); gap: 12px; align-items: start; width: 100%; min-height: 275px; padding: 32px 24px 65px 250px; }
-.home-hero-grid > div { position: relative; z-index: 3; padding: 0; }
-.home-hero-grid > div > div { max-width: 620px; }
-.home-hero-grid > div > div > p:not(.home-eyebrow) { font-size: 14px; line-height: 1.5; max-width: 520px; }
-.home-eyebrow { display: inline-block; font-size: 11px; font-weight: 700; text-transform: uppercase; color: var(--seal); background: color-mix(in srgb, var(--surface) 70%, transparent); border-radius: 3px; padding: 0 2px; }
-.home-title { font-size: clamp(25px, 2.15vw, 32px); font-weight: 700; line-height: 1.3; margin-top: 4px; text-wrap: balance; }
-.home-hero-grid .mt-4 { margin-top: 12px; gap: 10px; }
-.home-hero-grid a { font-size: 13px; min-height: 42px; }
-.home-hero-visual { position: static; min-width: 0; margin: 0; }
-/* Giữ vùng tòa nhà và ẩn nhãn chú thích của ảnh tài nguyên. */
-.home-building-art { position: absolute; width: 680px; aspect-ratio: 725 / 530; right: 50px; bottom: -125px; overflow: hidden; pointer-events: none; z-index: 0; mask-image: linear-gradient(to bottom, transparent, #000 7%, #000 90%, transparent), linear-gradient(to right, transparent, #000 6%, #000 94%, transparent); mask-composite: intersect; }
-.home-building-art > svg { display: block; width: 100%; height: 100%; }
-.home-building-placeholder { display: grid; place-items: center; gap: 8px; min-height: 150px; background: var(--surface-2); border: 1px dashed var(--line-strong); border-radius: 16px; color: var(--ink-3); padding: 16px; }
-.home-hero-visual figcaption { position: absolute; top: 40px; right: 70px; z-index: 2; margin: 0; text-align: center; font-size: 18px; line-height: 1.5; font-weight: 700; color: var(--ink); padding: 4px 8px; background: color-mix(in srgb, var(--surface) 60%, transparent); border-radius: 8px; }
-.home-hero-visual figcaption::after { content: ""; display: block; width: 90px; height: 2px; background: var(--g-nhan); margin: 8px auto 0; }
-.home-hero-lotus { clip-path: inset(0 3%); position: absolute; bottom: 8px; width: 220px; aspect-ratio: 855 / 270; background: url('/assets/vietnam-banner-resources.png') no-repeat; background-size: 202.924% 335.556%; pointer-events: none; z-index: 1; }
-.home-hero-lotus-left { left: 0; background-position: 1.364% 92.453%; }
-.home-hero-lotus-right { right: 0; background-position: 99% 92.453%; }
-.home-content { position: relative; z-index: 3; margin-top: 12px; }
-.home-search-position { margin-top: 0; }
-.home-audience-section { margin-top: 16px; }
-.home-section-heading { display: flex; align-items: center; justify-content: space-between; gap: 16px; }
-.home-section-heading h2 { display: flex; align-items: center; gap: 10px; font-size: 20px; font-weight: 700; flex-shrink: 0; }
-.home-all-link { display: inline-flex; align-items: center; gap: 6px; min-height: 34px; flex-shrink: 0; padding: 8px 12px; border: 1px solid var(--line); border-radius: var(--radius-btn); background: var(--surface); font-size: 13px; font-weight: 600; }
-.home-audience-inline { flex: 1; font-size: 12px; }
-.home-audience-intro { display: none; }
-.home-audiences { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 16px; margin-top: 10px; }
-.home-audience { display: flex; align-items: center; gap: 16px; min-height: 96px; padding: 12px 16px; border: 1px solid var(--line); background: var(--surface); border-radius: 16px; box-shadow: var(--shadow-card); }
-.home-audience .text-lg { font-size: 18px; }
-.home-audience .text-sm { font-size: 13px; }
-.home-audience > svg { margin-left: auto; border-radius: 50%; background: var(--primary-soft); padding: 8px; width: 36px; height: 36px; }
-.home-audience-icon { display: grid; place-items: center; width: 64px; height: 68px; flex-shrink: 0; border-radius: 12px; background: var(--secondary-soft); color: var(--secondary); }
-.home-audience-cong_an_cap_xa { color: var(--primary); }
-.home-audience-dang_vien { border-color: color-mix(in srgb, var(--seal) 25%, var(--line)); color: var(--seal); }
-.home-audience-dang_vien .home-audience-icon, .home-audience-dang_vien > svg { background: var(--danger-soft); color: var(--seal); }
-.home-resources { margin-top: 10px; }
-.home-resources section { padding: 12px 16px; border-radius: 14px; }
-.home-resources h2 { font-size: 18px; font-weight: 700; }
-.home-resources ul { margin-top: 8px; gap: 6px; }
-.home-resources li a { min-height: 58px; padding: 7px 8px; gap: 12px; border-radius: 8px; border: 1px solid var(--line); background: var(--surface); }
-.home-resources li a .text-sm { font-size: 13px; }
-.home-resources .resource-description { font-size: 12px; line-height: 1.4; margin-top: 3px; }
-.home-resources .hinh-noi { width: 42px; height: 42px; }
-.home-lotus { position: absolute; bottom: 30px; z-index: 0; pointer-events: none; width: clamp(220px, 28vw, 480px); aspect-ratio: 855 / 270; background-image: url('/assets/vietnam-banner-resources.png'); background-repeat: no-repeat; background-size: 202.924% 335.556%; }
-.home-lotus-left { left: 0; background-position: 1.364% 92.453%; }
-.home-lotus-right { right: 0; background-position: 99% 92.453%; }
+/*
+ * Trang chủ theo hướng "Công văn" (17/11/2026, docs/DESIGN_SYSTEM.md): nền giấy đặc, không ảnh trang
+ * trí. Đầu trang là khối chữ; các mục dùng tiêu đề viết hoa với kẻ đậm bên dưới thay cho thẻ nổi.
+ */
+.home-page { color: var(--ink); background: var(--canvas); padding-block: 0 48px; }
+/* Cùng khung với tiện ích `wrap` của đầu trang và chân trang (tối đa 1300px gồm lề 24px) để logo,
+   nội dung và chân trang thẳng một mép. */
+.home-container { width: 100%; max-width: 1300px; margin-inline: auto; padding-inline: 24px; }
 .home-page :focus-visible { outline: 3px solid var(--primary); outline-offset: 3px; }
-@media (max-width: 1439px) {
-  .home-hero-grid { padding-left: 195px; grid-template-columns: minmax(0, 1.5fr) minmax(0, 1fr); }
-  .home-hero::before { width: 220px; }
-  .home-title { font-size: 28px; }
-  .home-building-art { width: 580px; right: -35px; bottom: -135px; }
-  .home-hero-visual figcaption { right: 32px; top: 30px; font-size: 16px; }
+
+/*
+ * Đầu trang theo bố cục phần đầu công văn. Hàng trên: hai khối chữ canh giữa, mỗi khối có nét ngắn
+ * canh giữa bên dưới (đỏ son dưới "tên cơ quan", vàng dưới khẩu hiệu), dòng ngày in nghiêng bên
+ * phải. Hàng dưới: lời chào và mô tả bên trái, hai nút canh phải cùng đáy.
+ */
+/*
+ * Dải lục đặc cùng màu chân trang (--brand-luc, không đổi giữa sáng/tối), viền vàng dưới như chân
+ * trang: thêm màu mà không cần ảnh hay gradient. Trên nền lục, nét ngắn đều dùng vàng nhận diện
+ * (đỏ son không đủ tương phản). Đã đo 17/11/2026: trắng 9.6:1, chữ phụ 7.4:1, vàng 4.6:1, viền nút phụ 5.7:1.
+ */
+.home-hero {
+  --hero-chu: #ffffff;
+  --hero-chu-phu: color-mix(in srgb, #ffffff 84%, var(--brand-luc));
+  --hero-ke: color-mix(in srgb, #ffffff 22%, var(--brand-luc));
+  background: var(--brand-luc); color: var(--hero-chu); border-bottom: 3px solid var(--brand-vang);
 }
+.home-hero :focus-visible { outline-color: var(--brand-vang); }
+.home-hero-dau { display: flex; justify-content: space-between; align-items: flex-start; gap: 24px 48px; padding-block: 24px 20px; border-bottom: 1px solid var(--hero-ke); }
+.home-hero-co-quan, .home-hero-ben-phai { display: flex; flex-direction: column; align-items: center; text-align: center; min-width: 0; }
+.home-hero-co-quan-tren { font-size: 14px; font-weight: 500; letter-spacing: .04em; text-transform: uppercase; color: var(--hero-chu-phu); }
+.home-hero-co-quan-ten { margin-top: 2px; font-size: 16px; font-weight: 700; letter-spacing: .04em; text-transform: uppercase; }
+.home-ke-ngan { display: block; width: 56px; height: 2px; margin-top: 8px; background: var(--brand-vang); }
+.home-khau-hieu { font-size: 16px; font-weight: 700; line-height: 1.45; letter-spacing: .04em; text-transform: uppercase; color: var(--brand-vang); }
+.home-ke-vang { display: block; width: 120px; height: 2px; margin-top: 8px; background: var(--brand-vang); }
+.home-hero-ngay { align-self: flex-end; margin-top: 10px; font-size: 15px; font-style: italic; color: var(--hero-chu-phu); font-variant-numeric: tabular-nums; }
+
+.home-hero-chinh { display: flex; justify-content: space-between; align-items: flex-end; gap: 20px 48px; padding-block: 24px 32px; }
+.home-title { font-size: clamp(24px, 2.2vw, 30px); font-weight: 700; line-height: 1.3; text-wrap: balance; color: var(--hero-chu); }
+.home-hero-mo-ta { margin-top: 6px; max-width: 64ch; font-size: 16px; line-height: 1.6; color: var(--hero-chu-phu); text-wrap: pretty; }
+.home-hero-nut { display: flex; flex-wrap: wrap; gap: 12px; flex-shrink: 0; }
+/* Nút trên nền lục: nút chính trắng chữ lục, nút phụ viền trắng trong suốt. */
+.home-hero .home-hero-nut-chinh { background: #ffffff; color: var(--brand-luc); border-color: #ffffff; box-shadow: none; }
+.home-hero .home-hero-nut-chinh:hover { background: color-mix(in srgb, #ffffff 88%, var(--brand-vang)); }
+.home-hero .home-hero-nut-phu { background: transparent; color: #ffffff; border-color: color-mix(in srgb, #ffffff 70%, var(--brand-luc)); }
+.home-hero .home-hero-nut-phu:hover { background: color-mix(in srgb, #ffffff 10%, var(--brand-luc)); border-color: #ffffff; }
+
+.home-content { margin-top: 24px; }
+.home-search-position { margin-top: 0; }
+
+/* Tiêu đề mục: viết hoa, kẻ mực đậm bên dưới. */
+/* Chiều cao cố định (liên kết 44px + kẻ) để tiêu đề có và không có liên kết "Xem…" kẻ ngang cùng một dòng. */
+.home-section-heading { display: flex; align-items: center; justify-content: space-between; gap: 16px; min-height: 54px; padding-bottom: 8px; border-bottom: 2px solid var(--ink); }
+.home-section-heading h2 { display: flex; align-items: center; gap: 10px; font-size: 16px; font-weight: 700; text-transform: uppercase; letter-spacing: .04em; flex-shrink: 0; }
+.home-section-heading h2 svg { color: var(--primary); }
+.home-all-link { display: inline-flex; align-items: center; gap: 6px; min-height: 44px; flex-shrink: 0; padding: 6px 4px; border-radius: var(--radius-btn); font-size: 14px; font-weight: 600; color: var(--primary); }
+.home-all-link:hover { text-decoration: underline; text-underline-offset: 3px; }
+
+.home-dashboard { display: grid; grid-template-columns: minmax(0, 1.65fr) minmax(0, 1fr); gap: 32px 40px; margin-top: 32px; align-items: start; }
+.home-panel { min-width: 0; padding: 0; background: transparent; border: 0; box-shadow: none; }
+.home-panel-intro { color: var(--ink-3); font-size: 14px; margin-top: 8px; margin-bottom: 14px; }
+.home-tasks { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 12px; }
+.home-task { display: flex; flex-direction: column; align-items: start; gap: 8px; min-width: 0; padding: 16px; border: 1px solid var(--line); border-radius: var(--radius-card); background: var(--surface); }
+.home-task > svg { color: var(--primary); }
+.home-task-primary { border-color: color-mix(in srgb, var(--primary) 35%, var(--line)); box-shadow: inset 0 3px 0 var(--primary); }
+.home-task h3 { font-size: 16px; font-weight: 700; }
+.home-task p, .home-task small { font-size: 14px; color: var(--ink-2); }
+.home-task > a { margin-top: auto; padding-top: 4px; font-size: 14px; font-weight: 700; color: var(--primary); min-height: 36px; }
+.home-task small { display: block; }
+.home-task ul { display: grid; gap: 8px; font-size: 14px; }
+.home-task li a { font-weight: 600; }
+.home-task-badge { border-radius: 999px; background: var(--surface-2); padding: 2px 10px; font-size: 14px; font-weight: 600; font-variant-numeric: tabular-nums; color: var(--ink-2); }
+.home-wrong-count { font-size: 28px; color: var(--seal); font-variant-numeric: tabular-nums; }
+
+.home-new-documents .home-section-heading h2 { flex-shrink: 1; }
+.home-new-documents ul { margin-bottom: 12px; }
+.home-new-documents li { padding: 12px 0; border-bottom: 1px solid var(--line); }
+.home-document-number { font-size: 14px; font-weight: 600; color: var(--ink-3); font-variant-numeric: tabular-nums; }
+.home-new-documents h3 { font-weight: 600; font-size: 15px; line-height: 1.45; margin-top: 2px; }
+.home-new-documents li p { color: var(--ink-3); font-size: 14px; margin-top: 4px; }
+
+.home-resources { margin-top: 32px; }
+.home-resources section { padding: 0; border-radius: 0; }
+.home-resources h2 { font-size: 16px; font-weight: 700; }
+.home-resources ul { margin-top: 12px; gap: 8px; grid-template-columns: repeat(4, minmax(0, 1fr)); }
+/* Canh trên: mô tả dài ngắn khác nhau không làm tên công cụ lệch dòng giữa các ô; mũi tên vẫn ở giữa. */
+.home-resources li a { align-items: flex-start; min-height: 60px; padding: 12px; gap: 12px; border-radius: var(--radius-btn); border: 1px solid var(--line); background: var(--surface); }
+.home-resources li a > svg:last-child { align-self: center; }
+.home-resources li a:hover { border-color: var(--primary); }
+.home-resources .resource-description { font-size: 14px; line-height: 1.4; margin-top: 2px; }
+.home-resources .hinh-noi { width: 40px; height: 40px; }
+
 @media (max-width: 1100px) {
-  .home-audience-inline { display: none; }
-  .home-audience-intro { display: block; margin-top: 6px; }
-  .home-hero-grid { padding: 28px 16px 65px 150px; grid-template-columns: minmax(0, 1.8fr) minmax(0, 1fr); }
-  .home-hero::before { width: 170px; }
-  .home-building-art { width: 480px; right: -80px; bottom: -95px; }
-  .home-hero-visual figcaption { font-size: 14px; right: 14px; top: 22px; }
-  .home-audience { gap: 10px; padding: 16px 12px; }
-  .home-audience-icon { width: 44px; height: 52px; }
-  .home-audience > svg { display: none; }
+  .home-hero-chinh { flex-direction: column; align-items: flex-start; }
+  .home-dashboard { grid-template-columns: 1fr; }
+  .home-resources ul { grid-template-columns: repeat(2, minmax(0, 1fr)); }
 }
 @media (max-width: 767px) {
-  .home-page { padding-bottom: 56px; }
-  .home-container { width: calc(100% - 24px); }
-  .home-hero { width: calc(100% - 24px); }
-  .home-hero::before { width: 120px; height: 110px; opacity: .3; }
-  .home-hero-grid { grid-template-columns: minmax(0, 1fr); gap: 12px; min-height: 0; padding: 20px 16px 0; }
-  .home-hero-grid > div { padding: 0; }
-  .home-eyebrow { font-size: 10px; line-height: 1.5; }
-  .home-title { font-size: clamp(23px, 6.2vw, 28px); line-height: 1.25; text-wrap: auto; }
-  .home-hero-grid > div > div > p:not(.home-eyebrow) { font-size: 13px; line-height: 1.55; }
-  .home-hero-grid a { min-height: 44px; }
-  /* Khẩu hiệu và trụ sở cùng một hàng, không dành cả màn hình cho ảnh trang trí. */
-  .home-hero-visual { position: relative; display: flex; align-items: center; min-height: 132px; }
-  .home-building-art { position: absolute; width: clamp(195px, 55vw, 300px); bottom: -8px; right: -24px; }
-  .home-hero-visual figcaption { position: relative; inset: auto; width: 48%; margin: 0; padding: 8px 0; text-align: left; background: transparent; font-size: clamp(12px, 3vw, 15px); line-height: 1.6; }
-  .home-hero-visual figcaption::after { width: 48px; margin: 8px 0 0; }
-  .home-building-placeholder { width: 50%; min-height: 120px; margin-left: auto; font-size: 12px; padding: 8px; }
-  .home-hero-lotus { width: 70px; bottom: 2px; }
-  .home-audiences { grid-template-columns: 1fr; gap: 12px; }
-  .home-audience { min-height: 94px; }
-  .home-audience > svg { display: block; }
-  .home-audience-icon { width: 52px; height: 60px; }
-  .home-section-heading h2 { font-size: 18px; }
-  .home-all-link { padding-inline: 8px; }
-  .home-resources ul { grid-template-columns: 1fr; }
-  .home-resources li a { min-height: 66px; }
-  .home-page::before { background-size: auto 100%; }
-  .home-content { margin-top: 12px; }
-  .home-page::after { height: 46px; }
-  .home-lotus { width: 120px; bottom: 5px; }
+  .home-container { padding-inline: 16px; }
+  /* Điện thoại: bỏ khẩu hiệu (trang trí) cho lời chào lên sớm; khối đơn vị và ngày canh trái. */
+  .home-hero-dau { flex-direction: column; gap: 6px; padding-block: 16px 12px; }
+  .home-hero-co-quan, .home-hero-ben-phai { align-items: flex-start; text-align: left; }
+  .home-hero-co-quan-tren { letter-spacing: 0; text-wrap: balance; }
+  .home-khau-hieu, .home-ke-vang { display: none; }
+  .home-hero-ngay { align-self: flex-start; margin-top: 0; font-size: 14px; }
+  .home-hero-chinh { padding-block: 16px 20px; gap: 16px; }
+  .home-title { font-size: clamp(23px, 6.2vw, 28px); line-height: 1.25; }
+  .home-hero-mo-ta { font-size: 15px; }
+  .home-hero-nut { width: 100%; }
+  .home-hero-nut a { min-height: 44px; flex: 1 1 auto; justify-content: center; }
+  .home-content { margin-top: 16px; }
+  .home-dashboard { margin-top: 24px; }
 }
-
-.home-dashboard { display: grid; grid-template-columns: minmax(0, 1.65fr) minmax(0, 1fr); gap: 16px; margin-top: 16px; align-items: start; }
-.home-panel { min-width: 0; padding: 20px; background: var(--surface); border: 1px solid var(--line); border-radius: 16px; box-shadow: var(--shadow-card); }
-.home-panel-intro { color: var(--ink-2); font-size: 13px; margin-top: 6px; margin-bottom: 16px; }
-.home-tasks { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 12px; }
-.home-task { display: flex; flex-direction: column; align-items: start; gap: 9px; min-width: 0; padding: 16px; border: 1px solid var(--line); border-radius: 12px; background: var(--surface-2); }
-.home-task-primary { background: var(--primary-soft); border-color: color-mix(in srgb, var(--primary) 25%, var(--line)); }
-.home-task h3 { font-size: 15px; font-weight: 700; }
-.home-task p, .home-task small { font-size: 13px; color: var(--ink-2); }
-.home-task > a { margin-top: auto; padding-top: 5px; font-size: 13px; font-weight: 700; color: var(--primary); min-height: 34px; }
-.home-task small { display: block; }
-.home-task ul { display: grid; gap: 10px; font-size: 13px; }
-.home-task li a { font-weight: 600; }
-.home-task-badge { border-radius: 4px; background: var(--secondary-soft); padding: 5px 8px; font-size: 12px; font-weight: 600; font-variant-numeric: tabular-nums; }
-.home-wrong-count { font-size: 30px; color: var(--primary); }
-.home-new-documents .home-section-heading h2 { flex-shrink: 1; }
-.home-new-documents ul { margin-bottom: 14px; }
-.home-new-documents li { padding: 12px 0; border-top: 1px solid var(--line); }
-.home-document-number { font-size: 12px; font-weight: 700; color: var(--primary); }
-.home-new-documents h3 { font-weight: 600; font-size: 14px; margin-top: 3px; }
-.home-new-documents li p { color: var(--ink-2); font-size: 12px; margin-top: 5px; }
-.home-resources { margin-top: 16px; }
-.home-resources ul { grid-template-columns: repeat(4, minmax(0, 1fr)); }
-@media (max-width: 1100px) { .home-dashboard { grid-template-columns: 1fr; } .home-resources ul { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
-@media (max-width: 600px) { .home-panel { padding: 16px; } .home-tasks, .home-resources ul { grid-template-columns: 1fr; } .home-section-heading { flex-wrap: wrap; gap: 8px; } }
+@media (max-width: 600px) {
+  .home-tasks, .home-resources ul { grid-template-columns: 1fr; }
+  .home-section-heading { flex-wrap: wrap; gap: 8px; }
+}
+@media print {
+  .home-hero { --hero-chu: #000; --hero-chu-phu: #333; background: none; border: 0; }
+  .home-ke-ngan { display: none; }
+}

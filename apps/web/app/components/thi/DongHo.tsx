@@ -2,6 +2,7 @@ import { useEffect, useRef, useState } from "react";
 
 import { cn } from "../../lib/cn";
 import { dinhDangDemNguoc } from "../../lib/thi";
+import { Icon } from "../ui/Icon";
 
 /**
  * Đồng hồ đếm ngược. Số giây gốc do máy chủ tính lúc tải trang (`giayConLai`); đồng hồ chỉ
@@ -44,13 +45,15 @@ export function DongHo({ giayConLai, onHetGio }: { giayConLai: number; onHetGio:
           ? `Còn ${con / 60} phút.`
           : "";
 
+  // Hướng "Công văn": chữ số đều bề rộng của Public Sans, viền mảnh; 5 phút cuối chuyển đỏ son.
   return (
     <div
       className={cn(
-        "flex min-h-11 shrink-0 items-center gap-2 whitespace-nowrap rounded-lg px-3 font-mono text-base font-semibold tabular-nums sm:text-lg",
-        sapHet ? "bg-danger-soft text-danger" : "bg-surface-2 text-ink",
+        "flex min-h-11 shrink-0 items-center gap-2 whitespace-nowrap rounded-btn border px-3 text-base font-bold tabular-nums sm:text-lg",
+        sapHet ? "border-danger bg-danger-soft text-danger" : "border-line-strong bg-surface text-ink",
       )}
     >
+      <Icon name="clock" kieu="net" className="size-5 shrink-0" />
       <span className="sr-only">Thời gian còn lại</span>
       <span aria-hidden="true">{dinhDangDemNguoc(con)}</span>
       <span role="status" aria-live="polite" className="sr-only">

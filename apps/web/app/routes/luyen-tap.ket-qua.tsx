@@ -75,11 +75,12 @@ export default function KetQuaLuyenTap({ loaderData, actionData }: Route.Compone
       </TieuDeTrang>
       <p className="mt-1 text-sm text-ink-2">{tenPhienLuyenTap(phien)}</p>
 
-      <div className="mt-6 rounded-xl border border-line bg-surface p-6 text-center">
-        <p className={cn("text-5xl font-semibold", phanTram >= 70 ? "text-ok" : "text-danger")}>
+      <div className="mt-6 rounded-card border border-line bg-surface p-6 text-center">
+        <p className="text-sm font-semibold uppercase tracking-[0.06em] text-ink-3">Tỉ lệ đúng</p>
+        <p className={cn("mt-1 text-5xl font-bold tabular-nums", phanTram >= 70 ? "text-ok" : "text-danger")}>
           {phanTram}%
         </p>
-        <p className="mt-2 text-lg">
+        <p className="mt-2 text-lg tabular-nums">
           Đúng {dung}/{phien.tong} câu
         </p>
         {boQua ? <p className="mt-1 text-sm text-ink-2">{boQua} câu chưa trả lời.</p> : null}
@@ -121,14 +122,18 @@ export default function KetQuaLuyenTap({ loaderData, actionData }: Route.Compone
 
       {cauSai.length ? (
         <section aria-labelledby="cau-sai" className="mt-8">
-          <h2 id="cau-sai" className="font-sans text-lg font-semibold">
-            Các câu chưa đúng
+          {/* Tiêu đề mục kiểu "Công văn": viết hoa, kẻ mực đậm bên dưới; mỗi câu một dòng kẻ. */}
+          <h2
+            id="cau-sai"
+            className="border-b-2 border-ink pb-2 font-sans text-base font-bold uppercase tracking-[0.04em]"
+          >
+            Các câu chưa đúng ({cauSai.length})
           </h2>
-          <ol className="mt-3 grid gap-4">
+          <ol className="grid">
             {cauSai.map((c) => (
-              <li key={c.stt} className="rounded-xl border border-line bg-surface p-4">
-                <p className="text-sm text-ink-2">Câu {c.stt}</p>
-                <p className="mt-1 text-base leading-relaxed font-medium">{c.de.stem}</p>
+              <li key={c.stt} className="border-b border-line py-5">
+                <p className="text-sm font-semibold uppercase tracking-[0.06em] text-ink-3">Câu {c.stt}</p>
+                <p className="mt-1 text-lg leading-relaxed font-semibold">{c.de.stem}</p>
                 <p className="mt-2 text-base">
                   <span className="font-semibold">Đáp án đúng:</span> {dapAnBangChu(c.de, c.ket_qua!.dap_an)}
                 </p>

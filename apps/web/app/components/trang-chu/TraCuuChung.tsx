@@ -7,7 +7,7 @@ export function TraCuuChung() {
   return (
     <section
       aria-labelledby="tra-cuu-chung"
-      className="home-search rounded-2xl border border-line bg-surface p-4 shadow-card sm:p-6"
+      className="home-search rounded-card border border-line bg-surface p-4 shadow-card sm:p-6"
     >
       <span className="home-search-icon">
         <Icon name="search" kieu="net" className="size-9" />

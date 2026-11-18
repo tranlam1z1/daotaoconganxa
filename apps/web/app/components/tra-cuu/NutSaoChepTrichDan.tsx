@@ -63,7 +63,7 @@ export function NutSaoChepTrichDan({
         type="button"
         onClick={() => void bam()}
         title="Sao chép trích dẫn"
-        className="lun inline-flex min-h-11 items-center justify-center gap-1.5 rounded-lg border border-line px-3 text-sm font-medium text-ink-2 hover:bg-surface-2 hover:text-ink"
+        className="lun inline-flex min-h-11 items-center justify-center gap-1.5 rounded-btn border border-line px-3 text-sm font-medium text-ink-2 hover:bg-surface-2 hover:text-ink"
       >
         <Icon name="copy" className="size-4" />
         <span>Sao chép trích dẫn</span>

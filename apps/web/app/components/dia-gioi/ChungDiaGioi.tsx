@@ -25,7 +25,7 @@ export function OBieuTuong({ icon, className }: { icon: IconName; className?: st
   return (
     <span
       className={cn(
-        "grid size-12 shrink-0 place-items-center rounded-xl border border-line bg-surface-2 sm:size-14",
+        "grid size-12 shrink-0 place-items-center rounded-card border border-line bg-surface-2 sm:size-14",
         className,
       )}
     >
@@ -49,7 +49,7 @@ export function TheLuaChon({
   return (
     <Link
       to={to}
-      className="lun [--lun:0.985] flex h-full items-center gap-3 rounded-2xl border border-line bg-surface p-3 shadow-card hover:border-primary sm:gap-4 sm:p-5"
+      className="lun [--lun:0.985] flex h-full items-center gap-3 rounded-card border border-line bg-surface p-3 shadow-card hover:border-primary sm:gap-4 sm:p-5"
     >
       <OBieuTuong icon={icon} />
       <span className="min-w-0 flex-1">
@@ -85,7 +85,7 @@ export function BangDiaChi({
   className?: string;
 }) {
   return (
-    <section className={cn("rounded-2xl border border-line bg-surface shadow-card", className)}>
+    <section className={cn("rounded-card border border-line bg-surface shadow-card", className)}>
       <h2 className="flex items-start gap-2 border-b border-line px-4 py-3.5 text-lg font-semibold leading-snug text-primary sm:px-5">
         <Icon name="ghim" className="mt-0.5 size-6 shrink-0" />
         {tieuDe}

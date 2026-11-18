@@ -270,7 +270,7 @@ export default function MaTranDe({ loaderData, actionData }: Route.ComponentProp
             <p
               aria-live="polite"
               className={cn(
-                "rounded-lg px-3 py-2 text-[15px] font-semibold",
+                "rounded-btn px-3 py-2 text-sm font-semibold",
                 tongHopLe && !vuot.length ? "bg-ok-soft text-ok" : "bg-warn-soft text-warn",
               )}
             >
@@ -284,13 +284,13 @@ export default function MaTranDe({ loaderData, actionData }: Route.ComponentProp
           </div>
 
           {cacChuDe.length === 0 ? (
-            <p className="rounded-xl border border-dashed border-line-strong p-4 text-sm text-ink-2">
+            <p className="rounded-card border border-dashed border-line-strong p-4 text-sm text-ink-2">
               Ma trận chưa có chủ đề nào. Chọn chủ đề ở dưới để thêm.
             </p>
           ) : (
             <ul className="grid gap-3">
               {cacChuDe.map((t) => (
-                <li key={t.id} className="rounded-xl border border-line bg-surface p-3">
+                <li key={t.id} className="rounded-card border border-line bg-surface p-3">
                   <div className="flex items-start justify-between gap-3">
                     <div className="min-w-0">
                       <p className="font-medium">{t.name}</p>

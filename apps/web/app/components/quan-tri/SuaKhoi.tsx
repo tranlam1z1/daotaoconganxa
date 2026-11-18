@@ -156,7 +156,7 @@ export function SuaKhoi({ khoi, ban, onDong }: { khoi: KhoiQuanTri; ban: boolean
       {xemTruoc ? (
         <div>
           <p className="mb-2 text-sm font-semibold text-ink-2">Xem trước</p>
-          <div className="rounded-xl border border-dashed border-line-strong bg-canvas p-3">
+          <div className="rounded-card border border-dashed border-line-strong bg-canvas p-3">
             <KhoiNoiDung khoi={xemTruoc} />
           </div>
         </div>
@@ -544,7 +544,7 @@ function DanhSach<T>({
     <div className="grid gap-2">
       {items.map((it, i) => (
         // biome-ignore lint/suspicious/noArrayIndexKey: mục không có khóa riêng, sửa theo vị trí
-        <div key={i} className="rounded-lg border border-line bg-surface p-2">
+        <div key={i} className="rounded-btn border border-line bg-surface p-2">
           <div className="mb-1 flex items-center gap-1">
             <span className="mr-auto text-xs font-semibold text-ink-3">
               {ten} {i + 1}

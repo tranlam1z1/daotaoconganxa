@@ -70,13 +70,13 @@ export default function BieuMauPage({ loaderData }: Route.ComponentProps) {
       {tep ? (
         <section
           aria-labelledby="bm-tep"
-          className="mt-6 rounded-2xl border border-line bg-surface p-4 shadow-card"
+          className="mt-6 rounded-card border border-line bg-surface p-4 shadow-card"
         >
           <h2 id="bm-tep" className="sr-only">
             Tệp biểu mẫu
           </h2>
           <div className="flex items-center gap-3">
-            <span className="grid size-12 shrink-0 place-items-center rounded-xl border border-line bg-surface-2">
+            <span className="grid size-12 shrink-0 place-items-center rounded-card border border-line bg-surface-2">
               <Icon name="file" sac="do" className="size-7" />
             </span>
             <p className="min-w-0 flex-1">
@@ -118,7 +118,7 @@ export default function BieuMauPage({ loaderData }: Route.ComponentProps) {
         <iframe
           src={hrefTepBieuMau(b.ma)}
           title={`Xem trước: ${b.tieuDe}`}
-          className="mt-4 hidden h-[80vh] w-full rounded-2xl border border-line bg-surface md:block"
+          className="mt-4 hidden h-[80vh] w-full rounded-card border border-line bg-surface md:block"
         />
       ) : null}
     </KhungTrang>

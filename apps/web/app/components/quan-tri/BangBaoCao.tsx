@@ -21,7 +21,7 @@ export function KhungBang({ children, minRem }: { children: ReactNode; minRem: n
     <section
       tabIndex={0}
       aria-label="Bảng báo cáo, cuộn ngang để xem thêm cột"
-      className="bang-cuon mt-3 max-w-full rounded-xl border border-line p-3"
+      className="bang-cuon mt-3 max-w-full rounded-card border border-line p-3"
     >
       <table className="w-full text-left text-sm" style={{ minWidth: `${minRem}rem` }}>
         {children}
@@ -58,7 +58,7 @@ export function TomTat({ muc }: { muc: MucTomTat[] }) {
         <div
           key={m.nhan}
           className={cn(
-            "relative rounded-xl border bg-surface p-3",
+            "relative rounded-card border bg-surface p-3",
             m.canhBao ? "border-warn" : "border-line",
             m.to && "dong-bam",
           )}
@@ -74,7 +74,7 @@ export function TomTat({ muc }: { muc: MucTomTat[] }) {
           <dt className="text-sm text-ink-2">
             {m.to ? (
               // Lớp phủ ::after cho cả ô bấm được, mà <dl> vẫn chỉ chứa <div>, <dt>, <dd>.
-              <Link to={m.to} className="after:absolute after:inset-0 after:rounded-xl">
+              <Link to={m.to} className="after:absolute after:inset-0 after:rounded-card">
                 {m.nhan}
               </Link>
             ) : (

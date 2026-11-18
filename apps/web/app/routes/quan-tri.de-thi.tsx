@@ -27,7 +27,7 @@ export default function QuanTriDeThi({ loaderData }: Route.ComponentProps) {
   const { items, laQuanTri, coTheCham } = loaderData;
   return (
     <section className="de-thi-trang">
-      <header className="de-thi-dau khung-trang rounded-2xl border border-line bg-surface shadow-card">
+      <header className="de-thi-dau khung-trang rounded-card border border-line bg-surface shadow-card">
         <TieuDeTrang as="h2" icon="shield" className="text-3xl font-bold">
           Đề thi
         </TieuDeTrang>
@@ -54,7 +54,7 @@ export default function QuanTriDeThi({ loaderData }: Route.ComponentProps) {
       </header>
 
       {items.length === 0 ? (
-        <div className="mt-5 rounded-2xl border border-line bg-surface p-6 shadow-card">
+        <div className="mt-5 rounded-card border border-line bg-surface p-6 shadow-card">
           <EmptyState icon="cap" title={laQuanTri ? "Chưa có đề thi nào" : "Chưa có đề thi đang mở"} />
         </div>
       ) : (
@@ -62,7 +62,7 @@ export default function QuanTriDeThi({ loaderData }: Route.ComponentProps) {
           {items.map((d) => (
             <li
               key={d.id}
-              className="de-thi-the khung-trang rounded-2xl border border-line bg-surface shadow-card"
+              className="de-thi-the khung-trang rounded-card border border-line bg-surface shadow-card"
             >
               <div className="de-thi-thong-tin flex flex-wrap items-center gap-x-5 gap-y-1">
                 {laQuanTri ? (

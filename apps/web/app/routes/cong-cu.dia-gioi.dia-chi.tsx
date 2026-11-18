@@ -77,7 +77,7 @@ export default function TraTheoDiaChi() {
         Tra cứu theo địa chỉ cụ thể
       </TieuDeTrang>
 
-      <section className="mt-5 rounded-2xl border border-line bg-surface p-4 shadow-card sm:p-5">
+      <section className="mt-5 rounded-card border border-line bg-surface p-4 shadow-card sm:p-5">
         <h2 className="flex items-center gap-2 text-lg font-semibold text-primary">
           <Icon name="file" className="size-6" />
           Hướng dẫn nhập
@@ -118,13 +118,13 @@ export default function TraTheoDiaChi() {
             autoComplete="off"
             enterKeyHint="search"
             placeholder="Nhập địa chỉ chi tiết"
-            className="min-h-14 w-full rounded-2xl border border-line-strong bg-surface pr-14 pl-13 text-base text-ink shadow-card placeholder:text-ink-3 focus:border-primary focus:outline-none"
+            className="min-h-14 w-full rounded-card border border-line-strong bg-surface pr-14 pl-13 text-base text-ink shadow-card placeholder:text-ink-3 focus:border-primary focus:outline-none"
           />
           <button
             type="submit"
             disabled={dangTra}
             aria-label="Tra cứu"
-            className="lun absolute inset-y-1.5 right-1.5 grid w-11 place-items-center rounded-xl text-primary hover:bg-surface-2 disabled:opacity-60"
+            className="lun absolute inset-y-1.5 right-1.5 grid w-11 place-items-center rounded-card text-primary hover:bg-surface-2 disabled:opacity-60"
           >
             <Icon name="arrowRight" kieu="net" className="size-6" />
           </button>
@@ -210,7 +210,7 @@ export default function TraTheoDiaChi() {
               type="button"
               onClick={() => thu(v)}
               disabled={dangTra}
-              className="lun flex min-h-12 w-full items-center gap-2 rounded-xl border border-line bg-surface px-3 text-left text-base shadow-card hover:border-primary disabled:opacity-60"
+              className="lun flex min-h-12 w-full items-center gap-2 rounded-card border border-line bg-surface px-3 text-left text-base shadow-card hover:border-primary disabled:opacity-60"
             >
               <Icon name="ghim" kieu="net" className="size-5 shrink-0 text-vang" />
               <span className="truncate">{v}</span>

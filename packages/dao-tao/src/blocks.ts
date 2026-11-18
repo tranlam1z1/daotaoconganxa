@@ -299,6 +299,7 @@ export const KHOI_BAI_GIANG: readonly LoaiKhoi[] = [
   "the_lat",
   "hoi_nhanh",
   "kich_ban",
+  "dong_thoi_gian",
 ];
 
 /** Số câu kiểm tra nhanh cuối bài, rút từ ngân hàng theo chủ đề của bài. */

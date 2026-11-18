@@ -42,7 +42,7 @@ export function HopThamGia({ mo, onDong }: { mo: boolean; onDong: () => void }) 
         {loi ? <Notice tone="danger">{loi}</Notice> : null}
 
         {xemTruoc ? (
-          <div className="grid gap-3 rounded-xl border border-line bg-surface-2 p-4">
+          <div className="grid gap-3 rounded-card border border-line bg-surface-2 p-4">
             <div>
               <p className="text-base font-semibold">{xemTruoc.ten}</p>
               <p className="text-sm text-ink-2">

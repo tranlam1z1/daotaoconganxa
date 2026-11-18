@@ -171,7 +171,7 @@ export default function ChiTietNhom({ loaderData }: Route.ComponentProps) {
 
       <section
         aria-labelledby="tien-do-cua-toi"
-        className="mt-5 rounded-xl border border-line bg-surface p-4"
+        className="mt-5 rounded-card border border-line bg-surface p-4"
       >
         <h2 id="tien-do-cua-toi" className="font-sans text-base font-semibold">
           Tiến độ của tôi

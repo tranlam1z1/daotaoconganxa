@@ -43,7 +43,7 @@ function DanhSach({
           value={loc}
           onChange={(e) => setLoc(e.target.value)}
           placeholder="Lọc theo số hoặc tên điều"
-          className="min-h-11 w-full rounded-lg border border-line-strong bg-surface px-3 text-[15px] focus:border-primary focus:outline-none"
+          className="min-h-11 w-full rounded-btn border border-line-strong bg-surface px-3 text-sm focus:border-primary focus:outline-none"
         />
       </div>
       <nav aria-label="Mục lục văn bản" className="min-h-0 flex-auto overflow-y-auto p-2">
@@ -59,7 +59,7 @@ function DanhSach({
                     onClick={onChon}
                     aria-current={m.path === dangDoc ? "page" : undefined}
                     className={cn(
-                      "lun [--lun:0.985] flex min-h-11 items-center rounded-md px-3 py-1 text-[15px]",
+                      "lun [--lun:0.985] flex min-h-11 items-center rounded-btn px-3 py-1 text-sm",
                       m.path === dangDoc
                         ? "bg-primary-soft font-semibold text-primary"
                         : "text-ink-2 hover:bg-surface-2 hover:text-ink",
@@ -147,7 +147,7 @@ export function MucLucNganKeo({
                 type="button"
                 onClick={() => setMo(false)}
                 aria-label="Đóng mục lục"
-                className="lun grid size-11 place-items-center rounded-lg text-ink-2 hover:bg-surface-2"
+                className="lun grid size-11 place-items-center rounded-btn text-ink-2 hover:bg-surface-2"
               >
                 <Icon name="close" />
               </button>

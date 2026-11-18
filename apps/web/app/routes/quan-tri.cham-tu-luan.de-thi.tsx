@@ -141,7 +141,7 @@ function CauCham({ c, kq }: { c: CauTuLuanCanCham; kq: KetQua | undefined }) {
   const so = (n: number) => n.toLocaleString("vi-VN", { maximumFractionDigits: 2 });
 
   return (
-    <li className="rounded-xl border border-line bg-surface p-4">
+    <li className="rounded-card border border-line bg-surface p-4">
       <p className="text-sm text-ink-3">
         {c.exam_title} · câu {c.ordinal} · {c.account_name ?? "Người thi"}
         {c.unit_name ? ` (${c.unit_name})` : ""}
@@ -152,7 +152,7 @@ function CauCham({ c, kq }: { c: CauTuLuanCanCham; kq: KetQua | undefined }) {
       </p>
 
       <h3 className="mt-4 font-sans text-sm font-semibold text-ink-2">Bài làm</h3>
-      <p className="mt-1 rounded-lg border border-line bg-surface-2 p-3 text-base leading-relaxed whitespace-pre-line">
+      <p className="mt-1 rounded-btn border border-line bg-surface-2 p-3 text-base leading-relaxed whitespace-pre-line">
         {c.response.bai_viet || "(trống)"}
       </p>
 
@@ -160,7 +160,7 @@ function CauCham({ c, kq }: { c: CauTuLuanCanCham; kq: KetQua | undefined }) {
         <summary className="flex min-h-11 cursor-pointer items-center text-sm font-medium text-primary">
           Đáp án gợi ý và căn cứ
         </summary>
-        <p className="text-[15px] leading-relaxed whitespace-pre-line">
+        <p className="text-sm leading-relaxed whitespace-pre-line">
           {c.item.noi_dung.explanation || "—"}
         </p>
         {c.item.noi_dung.citations.length ? (

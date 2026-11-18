@@ -18,37 +18,29 @@ export function PhanHoiCauTraLoi({ ketQua }: { ketQua: KetQuaCauHoi }) {
   const [urnMo, datUrnMo] = useState<string | null>(null);
   const dong = useCallback(() => datUrnMo(null), []);
   return (
-    <div
-      role="status"
-      className={cn(
-        "rounded-lg border-l-4 px-4 py-3",
-        ketQua.dung ? "border-ok bg-ok-soft" : "border-danger bg-danger-soft",
-      )}
-    >
+    // Hướng "Công văn": tách bằng kẻ mảnh, màu chỉ ở dòng kết luận; căn cứ là liên kết gạch chân.
+    <div role="status" className="border-t border-line pt-4">
       <p
-        className={cn(
-          "flex items-center gap-2 text-lg font-semibold",
-          ketQua.dung ? "text-ok" : "text-danger",
-        )}
+        className={cn("flex items-center gap-2 text-base font-bold", ketQua.dung ? "text-ok" : "text-danger")}
       >
         <Icon name={ketQua.dung ? "check" : "x"} kieu="net" className="size-5 shrink-0" />
         {ketQua.dung ? "Đúng." : "Chưa đúng."}
       </p>
       {ketQua.giai_thich ? (
-        <p className="mt-1 text-base leading-relaxed text-ink">{ketQua.giai_thich}</p>
+        <p className="mt-1 text-base leading-relaxed text-ink-2">{ketQua.giai_thich}</p>
       ) : null}
       {ketQua.can_cu.length ? (
-        <ul className="mt-3 flex flex-wrap gap-2">
+        <ul className="mt-2 flex flex-wrap gap-x-4 gap-y-1">
           {ketQua.can_cu.map((urn) => (
             <li key={urn}>
               <button
                 type="button"
                 onClick={() => datUrnMo(urn)}
                 aria-haspopup="dialog"
-                className="inline-flex min-h-11 items-center gap-2 rounded-md border border-line bg-surface px-3 text-left text-sm text-primary dong-bam"
+                className="inline-flex min-h-11 items-center gap-2 text-left text-sm font-semibold text-primary underline underline-offset-4"
               >
                 <Icon name="book" className="size-4 shrink-0" />
-                {nhanVienDan(urn)}
+                Căn cứ: {nhanVienDan(urn)}
               </button>
             </li>
           ))}
@@ -106,7 +98,7 @@ function NganKeoCanCu({ urn, dong }: { urn: string; dong: () => void }) {
             type="button"
             onClick={dong}
             aria-label="Đóng căn cứ"
-            className="lun grid size-11 shrink-0 place-items-center rounded-lg text-ink-2 hover:bg-surface-2"
+            className="lun grid size-11 shrink-0 place-items-center rounded-btn text-ink-2 hover:bg-surface-2"
           >
             <Icon name="close" />
           </button>

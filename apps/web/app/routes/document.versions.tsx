@@ -16,7 +16,7 @@ export default function DocumentVersions() {
       ) : (
         <ol className="mt-4 grid gap-3">
           {versions.map((v, i) => (
-            <li key={v.versionNo} className="rounded-xl border border-line p-4">
+            <li key={v.versionNo} className="rounded-card border border-line p-4">
               <h3 className="font-semibold">
                 Phiên bản {v.versionNo} · {VERSION_KIND_LABEL[v.kind]}
               </h3>

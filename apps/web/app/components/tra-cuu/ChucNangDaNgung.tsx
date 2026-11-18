@@ -13,7 +13,7 @@ export default function ChucNangDaNgung() {
   return (
     <KhungTraCuu
       title="Chức năng đã ngừng cung cấp"
-      description="Trang hiện phục vụ học tập và tra cứu cho công chức, viên chức, đảng viên."
+      description="Trang hiện phục vụ học tập và tra cứu cho cán bộ, chiến sĩ Công an xã."
     >
       <p className="text-ink-2">
         Chức năng chuyên ngành công an và giao thông tại đường dẫn này đã ngừng cung cấp.

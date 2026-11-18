@@ -85,7 +85,7 @@ export function HopGoiYThuTu({
               {g.thu_tu.map((m, i) => {
                 const cu = viTriCu.get(m.id);
                 return (
-                  <li key={m.id} className="rounded-lg border border-line bg-surface px-3 py-2 text-base">
+                  <li key={m.id} className="rounded-btn border border-line bg-surface px-3 py-2 text-base">
                     <span className="font-semibold tabular-nums">{i + 1}.</span>{" "}
                     <span className="break-words">{m.ten}</span>
                     {cu !== undefined && cu !== i + 1 ? (

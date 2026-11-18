@@ -113,7 +113,7 @@ export function TraCuuControls({
 export function TraCuuError() {
   const revalidator = useRevalidator();
   return (
-    <section role="alert" className="mx-auto max-w-3xl rounded-xl border border-line bg-surface p-6">
+    <section role="alert" className="mx-auto max-w-3xl rounded-card border border-line bg-surface p-6">
       <h1 className="text-xl font-semibold">Chưa tải được dữ liệu tra cứu</h1>
       <p className="mt-2">Vui lòng kiểm tra kết nối và thử lại.</p>
       <button

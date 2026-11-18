@@ -43,7 +43,7 @@ export async function action({ request }: Route.ActionArgs) {
 
 function TheBaiThi({ b, busy }: { b: BaiThi; busy: boolean }) {
   return (
-    <li className="rounded-xl border border-line bg-surface p-4 shadow-card">
+    <li className="rounded-card border border-line bg-surface p-4 shadow-card">
       <div className="flex flex-wrap items-start justify-between gap-2">
         <h3 className="min-w-0 break-words font-display text-lg font-semibold leading-snug">
           {b.exam_title}
@@ -55,15 +55,15 @@ function TheBaiThi({ b, busy }: { b: BaiThi; busy: boolean }) {
             : TEN_TRANG_THAI_BAI[b.trang_thai]}
         </Badge>
       </div>
-      <p className="mt-2 text-[15px] text-ink-2">
+      <p className="mt-2 text-sm text-ink-2">
         {b.question_count} câu · {b.duration_minutes} phút · đạt từ {b.pass_score} điểm
       </p>
-      <p className="mt-1 text-[15px] text-ink-2">
+      <p className="mt-1 text-sm text-ink-2">
         {b.trang_thai === "chua_mo" ? `Mở lúc ${formatNgayGio(b.opens_at)}. ` : ""}
         Hạn làm bài: <span className="font-semibold text-ink">{formatNgayGio(b.due_at)}</span>
       </p>
       {b.so_luot_nop > 0 ? (
-        <p className="mt-1 text-[15px] text-ink-2">
+        <p className="mt-1 text-sm text-ink-2">
           Điểm cao nhất: <span className="font-semibold text-ink">{diemSo(b.diem_cao_nhat ?? 0)}</span>/100 ·{" "}
           {b.da_dat ? "Đạt" : "Chưa đạt"}
           {b.max_attempts > 1 ? ` · còn ${b.con_luot} lần làm` : ""}
@@ -132,7 +132,10 @@ export default function ThiIndex({ loaderData, actionData }: Route.ComponentProp
       ) : (
         <>
           <section aria-labelledby="can-lam" className="mt-6">
-            <h2 id="can-lam" className="font-sans text-base font-semibold">
+            <h2
+              id="can-lam"
+              className="border-b-2 border-ink pb-2 font-sans text-base font-bold uppercase tracking-[0.04em]"
+            >
               Cần làm ({canLam.length})
             </h2>
             {canLam.length ? (
@@ -147,7 +150,10 @@ export default function ThiIndex({ loaderData, actionData }: Route.ComponentProp
           </section>
           {daXong.length ? (
             <section aria-labelledby="da-lam" className="mt-8">
-              <h2 id="da-lam" className="font-sans text-base font-semibold">
+              <h2
+                id="da-lam"
+                className="border-b-2 border-ink pb-2 font-sans text-base font-bold uppercase tracking-[0.04em]"
+              >
                 Đã làm, đã quá hạn ({daXong.length})
               </h2>
               <ul className="mt-3 grid gap-3 lg:grid-cols-2">

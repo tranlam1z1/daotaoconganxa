@@ -61,7 +61,7 @@ export async function loader({ request }: Route.LoaderArgs) {
 }
 
 const oNhap =
-  "min-h-12 w-full min-w-0 rounded-xl border border-line-strong bg-surface px-4 text-base text-ink placeholder:text-ink-3 focus:border-primary focus:outline-none";
+  "min-h-12 w-full min-w-0 rounded-card border border-line-strong bg-surface px-4 text-base text-ink placeholder:text-ink-3 focus:border-primary focus:outline-none";
 
 export default function TraNguoc({ loaderData }: Route.ComponentProps) {
   const { dsTinh, form, kq, ds, nguon, loi } = loaderData;
@@ -128,7 +128,7 @@ export default function TraNguoc({ loaderData }: Route.ComponentProps) {
         <button
           type="submit"
           disabled={dangTai}
-          className="lun flex min-h-12 w-full items-center justify-center gap-2 rounded-2xl bg-primary px-4 text-base font-semibold text-on-primary shadow-card hover:bg-primary-hover disabled:opacity-70"
+          className="lun flex min-h-12 w-full items-center justify-center gap-2 rounded-card bg-primary px-4 text-base font-semibold text-on-primary shadow-card hover:bg-primary-hover disabled:opacity-70"
         >
           <Icon name="search" kieu="net" className="size-5" />
           {dangTai ? "Đang tra…" : "Tra ngược"}
@@ -140,7 +140,7 @@ export default function TraNguoc({ loaderData }: Route.ComponentProps) {
         {ds?.length ? (
           <>
             <p className="mb-2 text-sm text-ink-2">{ds.length} phường/xã</p>
-            <ul className="divide-y divide-line rounded-2xl border border-line bg-surface shadow-card">
+            <ul className="divide-y divide-line rounded-card border border-line bg-surface shadow-card">
               {ds.map(({ xa, tinh }) => (
                 <li key={xa.ma}>
                   <Link

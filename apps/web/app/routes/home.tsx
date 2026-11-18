@@ -48,9 +48,7 @@ export default function Home() {
   const loi = "Chưa tải được dữ liệu. Vui lòng thử lại.";
   return (
     <div className="home-page">
-      <AppHeader nguoiDung={nguoiDung} />
-      <span aria-hidden="true" className="home-lotus home-lotus-left" />
-      <span aria-hidden="true" className="home-lotus home-lotus-right" />
+      <AppHeader nguoiDung={nguoiDung} now={now} />
       <div className="home-container home-content">
         <div className="home-search-position">
           <TraCuuChung />

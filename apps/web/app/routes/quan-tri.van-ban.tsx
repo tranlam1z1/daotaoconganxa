@@ -53,7 +53,7 @@ export default function QuanTriVanBan({ loaderData }: Route.ComponentProps) {
   return (
     <section>
       <div className="flex flex-wrap items-center justify-between gap-3">
-        <TieuDeTrang as="h2" icon="shield" className="text-2xl font-bold sm:text-[30px]">
+        <TieuDeTrang as="h2" icon="shield" className="text-2xl font-bold sm:text-3xl">
           Văn bản
         </TieuDeTrang>
         <ButtonLink to="/quan-tri/van-ban/moi" icon="plus" className="min-h-12 px-6">
@@ -69,7 +69,7 @@ export default function QuanTriVanBan({ loaderData }: Route.ComponentProps) {
 
       <Form
         method="get"
-        className="mt-4 grid gap-3 rounded-xl bg-primary-soft/50 p-4 sm:grid-cols-[minmax(0,1fr)_16rem_auto] sm:items-end"
+        className="mt-4 grid gap-3 rounded-card bg-primary-soft/50 p-4 sm:grid-cols-[minmax(0,1fr)_16rem_auto] sm:items-end"
       >
         <div>
           <Label htmlFor="vb-q">Tìm theo số ký hiệu hoặc tên</Label>
@@ -119,10 +119,10 @@ export default function QuanTriVanBan({ loaderData }: Route.ComponentProps) {
           {items.map((d) => (
             <li
               key={d.urn}
-              className="flex items-center gap-4 rounded-xl border border-line bg-surface px-3 py-3 sm:gap-5"
+              className="flex items-center gap-4 rounded-card border border-line bg-surface px-3 py-3 sm:gap-5"
             >
               <span
-                className="grid size-12 shrink-0 place-items-center rounded-xl bg-primary-soft text-primary sm:size-14"
+                className="grid size-12 shrink-0 place-items-center rounded-card bg-primary-soft text-primary sm:size-14"
                 aria-hidden="true"
               >
                 <Icon name="file" kieu="net" className="size-7" />

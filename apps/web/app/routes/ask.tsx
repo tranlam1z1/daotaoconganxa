@@ -76,7 +76,7 @@ export default function AskPage({ loaderData }: Route.ComponentProps) {
     <KhungTrang className="wrap max-w-3xl py-8">
       <header className="tieu-de-trang tieu-de-trang-banner relative isolate flex min-w-0 items-center gap-3">
         <span
-          className="relative grid size-12 shrink-0 place-items-center rounded-xl bg-primary-soft text-primary"
+          className="relative grid size-12 shrink-0 place-items-center rounded-card bg-primary-soft text-primary"
           aria-hidden="true"
         >
           <Icon name="chat" kieu="net" className="size-6" />
@@ -109,7 +109,7 @@ export default function AskPage({ loaderData }: Route.ComponentProps) {
           required
           maxLength={1000}
           placeholder="Ví dụ: Vượt đèn đỏ bằng xe máy bị phạt bao nhiêu?"
-          className="w-full rounded-lg border border-line-strong bg-surface p-3 text-base leading-relaxed placeholder:text-ink-3 focus:border-primary focus:outline-none"
+          className="w-full rounded-btn border border-line-strong bg-surface p-3 text-base leading-relaxed placeholder:text-ink-3 focus:border-primary focus:outline-none"
         />
         <NutMicro
           className="mt-2"
@@ -136,7 +136,7 @@ export default function AskPage({ loaderData }: Route.ComponentProps) {
               <li key={g}>
                 <Link
                   to={`/hoi-dap?q=${encodeURIComponent(g)}`}
-                  className="flex min-h-11 items-center rounded-lg border border-line bg-surface px-4 py-2 text-[15px] dong-bam"
+                  className="flex min-h-11 items-center rounded-btn border border-line bg-surface px-4 py-2 text-sm dong-bam"
                 >
                   {g}
                 </Link>
@@ -200,7 +200,7 @@ function CauTraLoi({ data, asOf }: { data: AskResponse; asOf: string }) {
         </Notice>
       ))}
 
-      <div className="prose-legal mt-4 rounded-xl border border-line bg-surface p-4">
+      <div className="prose-legal mt-4 font-sans rounded-card border border-line bg-surface p-4">
         {data.answer
           .split(/\n{2,}/)
           .filter((doan) => doan.trim())

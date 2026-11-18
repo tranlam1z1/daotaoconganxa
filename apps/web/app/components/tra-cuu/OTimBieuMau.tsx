@@ -10,7 +10,7 @@ import { Icon } from "../ui/Icon";
 const DUONG_DAN = "/tra-cuu-nhanh/quy-trinh";
 /** Khung chung của ô từ khóa và các ô chọn, để mọi ô cao và rộng như nhau. */
 const KHUNG_O =
-  "h-14 w-full rounded-2xl border border-line-strong bg-surface text-base text-ink focus:border-primary focus:outline-none";
+  "h-14 w-full rounded-card border border-line-strong bg-surface text-base text-ink focus:border-primary focus:outline-none";
 
 /**
  * Ô chọn cùng cỡ với ô từ khóa. Bỏ kiểu vẽ mặc định của trình duyệt (appearance-none): Safari trên
@@ -103,7 +103,7 @@ export function OTimBieuMau({ q, loai, xe, nhom }: { q: string; loai: string; xe
                 aria-label={g.dangNghe ? "Đang nghe, bấm để dừng" : "Tìm bằng giọng nói"}
                 onClick={g.dangNghe ? g.dung : g.batDau}
                 className={cn(
-                  "lun absolute inset-y-1.5 right-1 grid w-11 place-items-center rounded-xl",
+                  "lun absolute inset-y-1.5 right-1 grid w-11 place-items-center rounded-card",
                   g.dangNghe
                     ? "bg-danger-soft text-danger motion-safe:animate-pulse"
                     : "text-ink-2 hover:bg-surface-2",
@@ -132,7 +132,7 @@ export function OTimBieuMau({ q, loai, xe, nhom }: { q: string; loai: string; xe
         <button
           type="submit"
           disabled={dangTra}
-          className="lun mt-2 flex min-h-12 w-full items-center justify-center gap-2 rounded-2xl bg-primary px-4 text-base font-semibold text-on-primary shadow-card hover:bg-primary-hover disabled:opacity-70"
+          className="lun mt-2 flex min-h-12 w-full items-center justify-center gap-2 rounded-card bg-primary px-4 text-base font-semibold text-on-primary shadow-card hover:bg-primary-hover disabled:opacity-70"
         >
           <Icon name="search" kieu="net" className="size-5" />
           {dangTra ? "Đang tra…" : "Tra cứu tài liệu"}

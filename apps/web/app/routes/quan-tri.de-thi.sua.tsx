@@ -300,7 +300,7 @@ export default function SuaDeThi({ loaderData, actionData }: Route.ComponentProp
       ) : null}
 
       {actionData && "xemTruoc" in actionData ? (
-        <details open className="mt-4 rounded-xl border border-line bg-surface px-4">
+        <details open className="mt-4 rounded-card border border-line bg-surface px-4">
           <summary className="flex min-h-11 cursor-pointer items-center font-medium">
             Đề sinh thử: {actionData.xemTruoc.length} câu, kèm đáp án
           </summary>
@@ -328,7 +328,7 @@ export default function SuaDeThi({ loaderData, actionData }: Route.ComponentProp
       ) : null}
 
       {de && maTran ? (
-        <section aria-labelledby="ma-tran" className="mt-6 rounded-xl border border-line bg-surface p-4">
+        <section aria-labelledby="ma-tran" className="mt-6 rounded-card border border-line bg-surface p-4">
           <div className="flex flex-wrap items-start justify-between gap-3">
             <div className="min-w-0">
               <h3 id="ma-tran" className="font-sans text-base font-semibold">
@@ -435,7 +435,7 @@ export default function SuaDeThi({ loaderData, actionData }: Route.ComponentProp
             </div>
           </div>
           <div className="flex flex-col gap-1">
-            <label className="flex min-h-11 items-center gap-2 text-[15px]">
+            <label className="flex min-h-11 items-center gap-2 text-sm">
               <input
                 type="checkbox"
                 name="shuffle_questions"
@@ -443,7 +443,7 @@ export default function SuaDeThi({ loaderData, actionData }: Route.ComponentProp
               />
               Trộn thứ tự câu cho mỗi lượt thi
             </label>
-            <label className="flex min-h-11 items-center gap-2 text-[15px]">
+            <label className="flex min-h-11 items-center gap-2 text-sm">
               <input type="checkbox" name="shuffle_options" defaultChecked={de?.shuffle_options ?? true} />
               Đảo thứ tự phương án trong mỗi câu
             </label>
@@ -512,7 +512,7 @@ function KhungCauAi({
   }
 
   return (
-    <section aria-labelledby="cau-ai" className="mt-4 rounded-xl border border-line bg-surface p-4">
+    <section aria-labelledby="cau-ai" className="mt-4 rounded-card border border-line bg-surface p-4">
       <h3 id="cau-ai" className="font-sans text-base font-semibold">
         Câu hỏi AI sinh cho đề này
       </h3>
@@ -559,7 +559,7 @@ function KhungCauAi({
               Duyệt {choDuyet.length} câu và xuất bản đề
             </Button>
           </Form>
-          <details open className="mt-3 rounded-lg border border-line px-3">
+          <details open className="mt-3 rounded-btn border border-line px-3">
             <summary className="flex min-h-11 cursor-pointer items-center font-medium">
               {choDuyet.length} câu chờ duyệt, kèm đáp án
             </summary>
@@ -618,7 +618,7 @@ function KhungCauAi({
           <summary className="inline-flex min-h-11 cursor-pointer items-center text-sm font-medium text-ink-2">
             Chi tiết {viec.length} lượt sinh
           </summary>
-          <ul className="divide-y divide-line text-[15px]">
+          <ul className="divide-y divide-line text-sm">
             {viec.map((v) => {
               const tuLuan = (v.input.loai ?? []).includes("tu_luan");
               const muc = v.input.muc_do ? TEN_MUC_DO[v.input.muc_do as MucDoCauHoi] : "Trộn mức";

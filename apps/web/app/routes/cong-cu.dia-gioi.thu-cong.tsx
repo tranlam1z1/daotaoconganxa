@@ -93,7 +93,7 @@ function OTruong({
       >
         {so}
       </span>
-      <div className="relative flex min-w-0 flex-1 items-center gap-3 rounded-2xl border border-line bg-surface p-3 shadow-card focus-within:border-primary">
+      <div className="relative flex min-w-0 flex-1 items-center gap-3 rounded-card border border-line bg-surface p-3 shadow-card focus-within:border-primary">
         <OBieuTuong icon={icon} className="size-11 sm:size-12" />
         <div className="min-w-0 flex-1">
           <label htmlFor={htmlFor} className="block text-base font-semibold leading-snug">
@@ -115,9 +115,9 @@ function OTruong({
 }
 
 const oChon =
-  "-mx-1 mt-0.5 block min-h-10 w-[calc(100%+0.5rem)] cursor-pointer appearance-none truncate rounded-md bg-transparent px-1 pr-8 text-base text-ink focus:outline-none disabled:cursor-not-allowed disabled:text-ink-3";
+  "-mx-1 mt-0.5 block min-h-10 w-[calc(100%+0.5rem)] cursor-pointer appearance-none truncate rounded-btn bg-transparent px-1 pr-8 text-base text-ink focus:outline-none disabled:cursor-not-allowed disabled:text-ink-3";
 const oGo =
-  "-mx-1 mt-0.5 block min-h-10 w-[calc(100%+0.5rem)] rounded-md bg-transparent px-1 text-base text-ink placeholder:text-ink-3 focus:outline-none";
+  "-mx-1 mt-0.5 block min-h-10 w-[calc(100%+0.5rem)] rounded-btn bg-transparent px-1 text-base text-ink placeholder:text-ink-3 focus:outline-none";
 
 export default function ChuyenDoiThuCong({ loaderData }: Route.ComponentProps) {
   const { dsTinh, dsHuyen, dsXa, form, kq, nguon, loi } = loaderData;
@@ -267,7 +267,7 @@ export default function ChuyenDoiThuCong({ loaderData }: Route.ComponentProps) {
           name="xem"
           value="1"
           disabled={dangChuyen}
-          className="lun mt-2 flex min-h-13 w-full items-center justify-center gap-2 rounded-2xl bg-primary px-4 text-lg font-semibold text-on-primary shadow-card hover:bg-primary-hover disabled:opacity-70"
+          className="lun mt-2 flex min-h-13 w-full items-center justify-center gap-2 rounded-card bg-primary px-4 text-lg font-semibold text-on-primary shadow-card hover:bg-primary-hover disabled:opacity-70"
         >
           <Icon name="turn" kieu="net" className="size-6" />
           {dangChuyen ? "Đang chuyển đổi…" : "Chuyển đổi địa chỉ"}
@@ -430,7 +430,7 @@ function KetQuaHuyen({ kq }: { kq: Extract<KetQuaChuyenDoi, { muc: "huyen" }> })
               <li key={x.ma}>
                 <Link
                   to={`${DUONG_DIA_GIOI}/tra-nguoc?xa=${x.ma}`}
-                  className="lun inline-flex min-h-10 items-center rounded-lg border border-line-strong px-3 hover:border-primary hover:text-primary"
+                  className="lun inline-flex min-h-10 items-center rounded-btn border border-line-strong px-3 hover:border-primary hover:text-primary"
                 >
                   {x.ten}
                 </Link>

@@ -149,7 +149,7 @@ export function NhacHoc({ laQuanTri = false }: { laQuanTri?: boolean }) {
       <h2 id="nhac-hoc" className="text-lg font-semibold">
         <Icon name="bell" className="size-6 text-primary" /> Nhắc học
       </h2>
-      <p className="mt-1 text-[15px] leading-relaxed text-ink-2">
+      <p className="mt-1 text-sm leading-relaxed text-ink-2">
         Nhận thông báo khi đến giờ học và khi có bài thi mới. Không gửi từ 22h đến 6h.
       </p>
 
@@ -160,7 +160,7 @@ export function NhacHoc({ laQuanTri = false }: { laQuanTri?: boolean }) {
       ) : null}
 
       {tinhTrang === "can-cai-ios" ? (
-        <div className="mt-3 rounded-lg bg-info-soft px-4 py-3 text-[15px] leading-relaxed text-info">
+        <div className="mt-3 rounded-btn bg-info-soft px-4 py-3 text-sm leading-relaxed text-info">
           <p className="font-semibold">Trên iPhone, cần thêm trang vào Màn hình chính trước:</p>
           <ol className="mt-1 list-decimal pl-5">
             <li>Mở trang này bằng Safari, bấm nút Chia sẻ.</li>
@@ -222,7 +222,7 @@ function CaiDat({ caiDat }: { caiDat: CauHinhThongBao["cai_dat"] & { group_activ
   const [nhom, datNhom] = useState(caiDat.group_activity ?? true);
 
   const oChon = (id: string, nhan: string, gt: boolean, dat: (v: boolean) => void) => (
-    <label htmlFor={id} className="flex min-h-11 items-center gap-3 text-[15px]">
+    <label htmlFor={id} className="flex min-h-11 items-center gap-3 text-sm">
       <input
         id={id}
         type="checkbox"

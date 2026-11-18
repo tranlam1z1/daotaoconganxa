@@ -199,7 +199,7 @@ function KhungTienDo({ tienDo, id, ban }: { tienDo: TienDoSoan; id: string; ban:
   const loi = doc?.state === "loi" ? doc.error : soan?.state === "loi" ? soan.error : (soan?.loi_dau ?? null);
 
   return (
-    <div className="mt-4 rounded-xl border border-line bg-surface p-4">
+    <div className="mt-4 rounded-card border border-line bg-surface p-4">
       <h3 className="font-sans text-base font-semibold">Tiến độ AI soạn</h3>
       <p className="mt-1 text-sm text-ink-2" aria-live="polite">
         {buoc}
@@ -349,7 +349,7 @@ export default function SuaChuyenDe({ loaderData, actionData }: Route.ComponentP
           {chiTiet.bai.length === 0 ? (
             <EmptyState icon="book" title="Chuyên đề chưa có bài nào" gon className="mt-4" />
           ) : (
-            <ol className="mt-4 divide-y divide-line rounded-xl border border-line bg-surface">
+            <ol className="mt-4 divide-y divide-line rounded-card border border-line bg-surface">
               {chiTiet.bai.map((b) => {
                 const kt = kiemTheoBai.get(b.id);
                 const soLoi = kt?.loi.filter((l) => l.muc === "loi").length ?? 0;

@@ -388,7 +388,7 @@ function BieuMauVanBan({ loaderData, actionData }: Pick<Route.ComponentProps, "l
       ) : null}
 
       {d ? null : (
-        <div className="mt-4 rounded-xl border border-line bg-surface p-4">
+        <div className="mt-4 rounded-card border border-line bg-surface p-4">
           <h3 className="font-sans text-base font-semibold">Nạp từ tệp PDF</h3>
           <p className="mt-1 text-sm text-ink-2">
             Chọn tệp PDF của văn bản. Tệp bôi đen được chữ (bản tải từ Công báo hoặc cổng văn bản) thì trang
@@ -573,7 +573,7 @@ function BieuMauVanBan({ loaderData, actionData }: Pick<Route.ComponentProps, "l
             <Label htmlFor="vb-noi-dung" className="mb-0">
               Nội dung (Markdown)
             </Label>
-            <label className="lun flex min-h-11 cursor-pointer items-center rounded-lg px-2 text-sm font-medium text-primary hover:bg-surface-2">
+            <label className="lun flex min-h-11 cursor-pointer items-center rounded-btn px-2 text-sm font-medium text-primary hover:bg-surface-2">
               Mở tệp PDF hoặc .md
               <input
                 type="file"
@@ -647,7 +647,7 @@ function BieuMauVanBan({ loaderData, actionData }: Pick<Route.ComponentProps, "l
       </Form>
 
       {d && coTheXoa ? (
-        <div className="mt-10 rounded-xl border border-danger/40 p-4">
+        <div className="mt-10 rounded-card border border-danger/40 p-4">
           <h3 className="font-sans text-lg font-semibold">Xóa văn bản</h3>
           <p className="mt-1 text-sm text-ink-2">
             Xóa nội dung, các phiên bản, quan hệ và lệnh sửa đổi do văn bản này đặt ra. Không hoàn tác được;
@@ -697,7 +697,7 @@ function XemTruocPdf({ href, tieuDe, moSan = false }: { href: string; tieuDe: st
         <iframe
           src={href}
           title={`Xem trước tệp PDF: ${tieuDe}`}
-          className="mt-2 hidden h-[80vh] w-full rounded-2xl border border-line bg-surface md:block"
+          className="mt-2 hidden h-[80vh] w-full rounded-card border border-line bg-surface md:block"
         />
       ) : null}
     </details>
@@ -782,7 +782,7 @@ function KetQuaPhanTich({
 }) {
   const dem = NHAN_DEM.filter(([k]) => tomTat.dem[k]).map(([k, nhan]) => `${tomTat.dem[k]} ${nhan}`);
   return (
-    <div className={cn("rounded-xl border border-line bg-surface p-4 text-sm", className)}>
+    <div className={cn("rounded-card border border-line bg-surface p-4 text-sm", className)}>
       <p className="font-semibold">
         Tách được {dem.length ? dem.join(", ") : "0 điều"} ({tomTat.soNut} nút).
       </p>

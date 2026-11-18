@@ -31,8 +31,8 @@ export function NutMicro({
         aria-pressed={g.dangNghe}
         onClick={g.dangNghe ? g.dung : g.batDau}
         className={cn(
-          "inline-flex items-center justify-center gap-2 rounded-lg border font-medium",
-          lon ? "min-h-14 w-full px-5 text-lg" : "min-h-11 px-4 text-[15px]",
+          "inline-flex items-center justify-center gap-2 rounded-btn border font-medium",
+          lon ? "min-h-14 w-full px-5 text-lg" : "min-h-11 px-4 text-sm",
           g.dangNghe
             ? "border-danger bg-danger-soft text-danger motion-safe:animate-pulse"
             : "border-line-strong bg-surface text-ink dong-bam",

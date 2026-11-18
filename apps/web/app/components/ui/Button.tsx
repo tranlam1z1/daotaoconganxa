@@ -28,7 +28,7 @@ const SIZE: Record<Size, string> = {
   lg: "min-h-12 px-5 text-base",
   md: "min-h-11 px-4 text-sm",
   // Dưới 768px vùng chạm tối thiểu 44px, chữ 14px.
-  sm: "min-h-11 px-3 text-sm md:min-h-9 md:text-[13px]",
+  sm: "min-h-11 px-3 text-sm md:min-h-9 md:text-xs",
 };
 
 export function buttonClass({ variant = "primary", size = "md", className }: ButtonStyle = {}): string {

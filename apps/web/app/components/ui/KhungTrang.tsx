@@ -43,7 +43,7 @@ export function DauTrangAnh({
   return (
     <header className="tieu-de-trang tieu-de-trang-banner relative isolate flex min-w-0 items-center gap-3">
       <span
-        className="relative grid size-12 shrink-0 place-items-center rounded-xl bg-secondary-soft text-secondary"
+        className="relative grid size-12 shrink-0 place-items-center rounded-card bg-secondary-soft text-secondary"
         aria-hidden="true"
       >
         <Icon name={icon} kieu="net" className="size-6" />
@@ -77,7 +77,7 @@ export function TieuDeTrang({
       {variant !== "status" ? (
         <span
           className={cn(
-            "relative grid shrink-0 place-items-center rounded-xl bg-secondary-soft text-secondary",
+            "relative grid shrink-0 place-items-center rounded-card bg-secondary-soft text-secondary",
             variant === "banner" ? "size-12" : "size-10",
           )}
           aria-hidden="true"

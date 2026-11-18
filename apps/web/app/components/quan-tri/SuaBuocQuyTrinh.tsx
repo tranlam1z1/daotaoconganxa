@@ -90,7 +90,7 @@ export function SuaBuocQuyTrinh({
       <legend className="text-sm font-medium">Các bước, theo đúng thứ tự thực hiện</legend>
       <input type="hidden" name="steps" value={JSON.stringify(gui)} />
       {buoc.map((b, i) => (
-        <div key={b.k} className="grid gap-3 rounded-lg border border-line p-3">
+        <div key={b.k} className="grid gap-3 rounded-btn border border-line p-3">
           <div className="flex flex-wrap items-center justify-between gap-2">
             <span className="text-sm font-semibold">Bước {i + 1}</span>
             <span className="flex flex-wrap gap-1">

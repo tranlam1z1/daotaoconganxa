@@ -14,7 +14,7 @@ export function TheCanCu({ citation }: { citation: Citation }) {
   const nhan = citation.urn ? nhanVienDan(citation.urn) : citation.label;
   return (
     <li
-      className={cn("rounded-xl border bg-surface p-4", citation.expired ? "border-danger" : "border-line")}
+      className={cn("rounded-card border bg-surface p-4", citation.expired ? "border-danger" : "border-line")}
     >
       {citation.expired ? (
         <p className="mb-2 text-sm font-semibold text-danger">
@@ -29,7 +29,7 @@ export function TheCanCu({ citation }: { citation: Citation }) {
         ) : null}
       </p>
       {citation.citedText ? (
-        <blockquote className="mt-2 border-l-4 border-line-strong pl-3 text-[15px] leading-relaxed text-ink-2">
+        <blockquote className="mt-2 border-l-4 border-line-strong pl-3 text-sm leading-relaxed text-ink-2">
           {citation.citedText}
         </blockquote>
       ) : null}

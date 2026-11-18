@@ -227,7 +227,7 @@ function TheChuDe({ t, chau, dangTao }: { t: ChuDeLuyenTap; chau: ChuDeLuyenTap[
             <Icon name={bieuTuongCua(t.name)} sac={xong ? "luc" : undefined} className="size-6" />
           </span>
           <div className="min-w-0">
-            <h4 className="text-[15px] font-semibold leading-snug break-words">{t.name}</h4>
+            <h4 className="text-sm font-semibold leading-snug break-words">{t.name}</h4>
             <p className="text-sm text-ink-3">{t.so_cau} câu hỏi</p>
           </div>
         </div>
@@ -324,7 +324,7 @@ export default function LuyenTap({ loaderData, actionData }: Route.ComponentProp
         {soCauSai > 0 ? (
           <section
             aria-labelledby="cau-sai-tieu-de"
-            className="bang-cau-sai flex flex-col gap-4 rounded-2xl p-5 shadow-card md:flex-row md:items-center md:justify-between md:p-6"
+            className="bang-cau-sai flex flex-col gap-4 rounded-card p-5 shadow-card md:flex-row md:items-center md:justify-between md:p-6"
           >
             <div className="flex items-start gap-4">
               <span className="bang-cau-sai-o grid size-12 shrink-0 place-items-center rounded-card">

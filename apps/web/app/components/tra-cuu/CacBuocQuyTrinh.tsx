@@ -58,7 +58,7 @@ export function CacBuocQuyTrinh({ ma, cacBuoc }: { ma: string; cacBuoc: BuocQuyT
               // biome-ignore lint/suspicious/noArrayIndexKey: thứ tự bước cố định, số thứ tự là danh tính của bước
               key={i}
               className={cn(
-                "rounded-xl border bg-surface p-4",
+                "rounded-card border bg-surface p-4",
                 xong ? "border-ok bg-ok-soft" : "border-line shadow-card",
               )}
             >

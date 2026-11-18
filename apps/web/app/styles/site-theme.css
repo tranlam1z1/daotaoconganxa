@@ -1,28 +1,29 @@
-/* Nhận diện trang chủ áp dụng ở lớp giao diện dùng chung của mọi route. */
+/*
+ * Lớp giao diện dùng chung của mọi route, hướng "Công văn" (17/11/2026, docs/DESIGN_SYSTEM.md):
+ * nền giấy đặc, không ảnh nền hay họa tiết; thẻ tách bằng viền mảnh; tiêu đề trang nằm thẳng trên
+ * nền với một kẻ mảnh và gạch ngắn đỏ son bên dưới, như dưới tên cơ quan trên công văn.
+ */
 .site-main { min-width: 0; }
-.site-content-page {
-  background: linear-gradient(rgb(223 230 246 / 88%), rgb(223 230 246 / 92%)), url('/assets/dong-son-background.png') center top / max(100%, 1450px) auto repeat-y var(--canvas);
-  padding-bottom: 28px;
-}
+.site-content-page { background: var(--canvas); padding-bottom: 40px; }
 .site-content-page > .wrap { padding-top: 24px; }
 .site-content-page .khung-trang:not(.khung-trang-auth),
 .site-content-page .ui-card,
 .site-content-page .hop-thoai {
-  border-color: var(--line); border-radius: 16px; box-shadow: var(--shadow-card); background-color: var(--surface);
+  border-color: var(--line); border-radius: var(--radius-card); box-shadow: var(--shadow-card); background-color: var(--surface);
 }
-/* Watermark nằm sau tiêu đề; nội dung nghiệp vụ giữ bề mặt trắng. */
+
+/* Đầu trang: không khung, không nền; kẻ mảnh toàn chiều rộng và gạch đỏ son 56px đè lên ở mép trái. */
 .site-content-page :is(.tieu-de-trang-banner, .tra-cuu-tieu-de, .site-page-header) {
-  position: relative; isolation: isolate; border: 1px solid var(--line); border-radius: 16px;
-  background: var(--surface-2); padding: 20px; min-height: 112px; margin-bottom: 24px;
+  position: relative; border: 0; border-bottom: 1px solid var(--line); border-radius: 0;
+  background: transparent; padding: 4px 0 18px; min-height: 0; margin-bottom: 24px;
 }
-.site-content-page :is(.tieu-de-trang-banner, .tra-cuu-tieu-de, .site-page-header)::before {
-  content: ""; position: absolute; inset: 0; width: auto; border-radius: inherit; z-index: -1; pointer-events: none;
-  background: url('/assets/dong-son-watermark.png') right center / 600px auto no-repeat;
-  opacity: .12;
+.site-content-page :is(.tieu-de-trang-banner, .tra-cuu-tieu-de, .site-page-header)::after {
+  content: ""; position: absolute; left: 0; bottom: -1px; width: 56px; height: 2px; background: var(--seal); pointer-events: none;
 }
 .site-content-page :is(.tieu-de-trang-banner, .tra-cuu-tieu-de, .site-page-header) > div { background: transparent; }
 .site-content-page .tieu-de-trang-banner > :is(h1, h2) { max-width: 100%; }
 .site-content-page :is(.tieu-de-trang, .tra-cuu-tieu-de) > span { background: var(--primary-soft); color: var(--primary); }
+
 .site-content-page .khung-trang-reader { background: var(--surface); }
 .site-content-page .khung-trang-reader :is(article, .prose) { line-height: 1.8; }
 .site-content-page .khung-trang-auth { width: 100%; }
@@ -30,45 +31,60 @@
 .site-content-page .khung-trang-auth > a { padding: 16px 0; }
 .site-content-page .khung-trang-auth :is(input, select, textarea) { background: var(--surface); }
 .site-content-page :is(input, select, textarea):focus-visible { outline: 3px solid var(--primary); outline-offset: 2px; }
-.site-content-page a.the-bam { border-color: var(--line); border-radius: 12px; }
-.site-content-page :where(thead th) { color: var(--secondary); background: var(--secondary-soft); }
+.site-content-page a.the-bam { border-color: var(--line); border-radius: var(--radius-card); }
+
+/*
+ * Dấu kết luận kiểu con dấu: viền đôi theo màu chữ, chữ hoa giãn rộng. Chỉ dùng cho kết luận có giá
+ * trị như văn bản (đạt/chưa đạt của bài thi, trạng thái hiệu lực); màu đặt bằng lớp text-* bên ngoài.
+ */
+.dau-cong-van {
+  display: inline-flex; align-items: center; gap: 8px; padding: 6px 18px;
+  border: 2px solid currentColor; outline: 1px solid currentColor; outline-offset: 3px; border-radius: 6px;
+  font-weight: 800; letter-spacing: .12em; text-transform: uppercase; line-height: 1.2;
+}
+
+/* Bảng: đầu cột nền giấy xám, kẻ đậm dưới như bảng trong văn bản. */
+.site-content-page :where(thead th) { color: var(--ink-2); background: var(--surface-2); border-bottom: 1px solid var(--line-strong); }
 .site-content-page :where(tbody tr):hover { background: var(--surface-2); }
 .site-content-page :where(button, a)[aria-current="page"] { font-weight: 700; }
+
 .cot-quan-tri { background: var(--surface); border-color: var(--line); }
-.cot-quan-tri a[aria-current="page"] { background: var(--primary); color: var(--on-primary); border-radius: var(--radius-btn); }
+.cot-quan-tri a[aria-current="page"] { background: var(--primary-soft); color: var(--primary); border-radius: var(--radius-btn); box-shadow: inset 3px 0 0 var(--primary); }
 .cot-quan-tri a[aria-current="page"] svg { color: inherit; }
-@media (min-width: 1024px) { .cot-quan-tri { top: 69px; box-shadow: 2px 0 12px rgb(37 55 79 / 4%); } }
+/* Ngay dưới header: viền trên 3px + .wrap 68px + kẻ dưới 1px. */
+@media (min-width: 1024px) { .cot-quan-tri { top: 72px; } }
+
 /* TraCuuChung dùng ở trang chủ và cả trang /tra-cuu mở trực tiếp. */
-.home-search { display: grid; grid-template-columns: 80px minmax(0, 1fr); gap: 8px 20px; border-radius: 16px; padding: 16px; box-shadow: var(--shadow-card); }
-.home-search-icon { display: grid; place-items: center; width: 80px; height: 80px; border-radius: 12px; background: var(--primary); color: var(--on-primary); }
+.home-search { display: grid; grid-template-columns: 56px minmax(0, 1fr); gap: 8px 16px; border-radius: var(--radius-card); padding: 16px; box-shadow: var(--shadow-card); }
+.home-search-icon { display: grid; place-items: center; width: 56px; height: 56px; border-radius: var(--radius-card); background: var(--primary-soft); color: var(--primary); }
 .shortcut-icon {
   --shortcut-tone: var(--secondary);
   color: var(--shortcut-tone);
-  background: color-mix(in srgb, var(--shortcut-tone) 9%, var(--surface));
-  border: 1px solid color-mix(in srgb, var(--shortcut-tone) 16%, var(--surface));
+  background: color-mix(in srgb, var(--shortcut-tone) 8%, var(--surface));
+  border: 1px solid color-mix(in srgb, var(--shortcut-tone) 14%, var(--surface));
 }
 .shortcut-icon[data-sac="do"] { --shortcut-tone: var(--seal); }
 .shortcut-icon:is([data-sac="luc"], [data-sac="ngoc"]) { --shortcut-tone: var(--ok); }
 .shortcut-icon:is([data-sac="vang"], [data-sac="cam"]) { --shortcut-tone: var(--warn); }
 .shortcut-icon[data-sac="tim"] { --shortcut-tone: var(--info); }
 .shortcut-icon[data-sac="trung"] { --shortcut-tone: var(--ink-2); }
-.home-search h2 { font-size: 19px; line-height: 1.3; font-weight: 700; }
-.home-search h2 + p { margin-top: 2px; font-size: 13px; }
-.home-search .tra-cuu-form form { display: grid; grid-template-columns: minmax(0, 1fr) 265px; gap: 0 12px; margin-top: 6px; }
+.home-search h2 { font-size: 18px; line-height: 1.3; font-weight: 700; }
+.home-search h2 + p { margin-top: 2px; font-size: 14px; }
+.home-search .tra-cuu-form form { display: grid; grid-template-columns: minmax(0, 1fr) 200px; gap: 0 12px; margin-top: 6px; }
 .home-search .tra-cuu-form form > p { grid-column: 1 / -1; grid-row: 2; }
-.home-search .tra-cuu-form button[type='submit'] { grid-column: 2; grid-row: 1; margin-top: 0; border-radius: var(--radius-btn); min-height: 44px; font-size: 14px; }
-.home-search .tra-cuu-form input { min-height: 44px; border-radius: var(--radius-btn); background: var(--surface-2); font-size: 14px; }
-.home-search .tra-cuu-form input::placeholder { font-size: 13px; }
-.home-keywords { grid-column: 1 / -1; display: flex; align-items: center; flex-wrap: wrap; gap: 7px; font-size: 12px; }
+.home-search .tra-cuu-form button[type='submit'] { grid-column: 2; grid-row: 1; margin-top: 0; border-radius: var(--radius-btn); min-height: 48px; font-size: 15px; }
+.home-search .tra-cuu-form input { min-height: 48px; border-radius: var(--radius-btn); background: var(--surface); font-size: 16px; }
+.home-keywords { grid-column: 1 / -1; display: flex; align-items: center; flex-wrap: wrap; gap: 6px; font-size: 14px; }
 .home-keywords > span { color: var(--ink-3); }
-.home-keywords a { background: var(--secondary-soft); color: var(--secondary); border-radius: var(--radius-btn); padding: 5px 12px; }
-.home-keywords a:hover { background: var(--primary-soft); color: var(--primary); }
+.home-keywords a { background: var(--canvas); color: var(--ink-2); border: 1px solid var(--line); border-radius: 999px; padding: 4px 12px; }
+.home-keywords a:hover { border-color: var(--primary); color: var(--primary); }
+
 @media (max-width: 767px) {
-  .site-content-page { padding-bottom: 20px; }
+  .site-content-page { padding-bottom: 24px; }
   .site-content-page > .wrap { padding-top: 16px; }
-  .site-content-page :is(.tieu-de-trang-banner, .tra-cuu-tieu-de, .site-page-header) { padding: 16px; margin-bottom: 20px; min-height: 96px; }
+  .site-content-page :is(.tieu-de-trang-banner, .tra-cuu-tieu-de, .site-page-header) { padding: 0 0 14px; margin-bottom: 20px; }
   .site-content-page .tieu-de-trang-banner h1 { font-size: 24px; }
-  .home-search { grid-template-columns: 1fr; padding: 18px 14px; }
+  .home-search { grid-template-columns: 1fr; padding: 16px 14px; }
   .home-search-icon { display: none; }
   .home-search .tra-cuu-form form { grid-template-columns: 1fr; gap: 8px; }
   .home-search .tra-cuu-form button[type='submit'] { grid-column: 1; grid-row: 3; }
@@ -76,41 +92,62 @@
 @media (prefers-reduced-motion: reduce) {
   .site-content-page .the-bam { transition: none; }
 }
-[data-theme="dark"] .site-content-page { background: var(--canvas); }
-[data-theme="dark"] .site-content-page::before, [data-theme="dark"] .site-content-page::after { opacity: .25; }
-[data-theme="dark"] .site-content-page :is(.tieu-de-trang-banner, .tra-cuu-tieu-de, .site-page-header) { background: var(--surface-2); border-color: var(--line); }
-[data-theme="dark"] .site-content-page :is(.tieu-de-trang-banner, .tra-cuu-tieu-de, .site-page-header)::before { opacity: .08; }
 @media print {
   .site-content-page { background: white; padding: 0; }
-  .site-content-page :is(.tieu-de-trang-banner, .tra-cuu-tieu-de, .site-page-header)::before { content: none; }
+  .site-content-page :is(.tieu-de-trang-banner, .tra-cuu-tieu-de, .site-page-header)::after { content: none; }
   .site-content-page .khung-trang { box-shadow: none; }
 }
-/* Hai cụm sen phía trên footer dùng chung, không nằm trong CSS riêng trang chủ. */
-.site-content-page { position: relative; isolation: isolate; padding-bottom: 64px; }
-.site-content-page::before,
-.site-content-page::after {
-  content: "";
-  position: absolute;
-  bottom: 0;
-  width: clamp(220px, 28vw, 480px);
-  aspect-ratio: 855 / 270;
-  background-image: url('/assets/vietnam-banner-resources.png');
-  background-repeat: no-repeat;
-  background-size: 202.924% 335.556%;
-  pointer-events: none;
-  z-index: -1;
+
+/*
+ * Tiêu đề trang dạng thường (TieuDeTrang variant "plain") ở mọi trang nội dung: gạch đỏ son 56px bên
+ * dưới, như dạng banner ở trên. Bỏ qua dạng "status" (căn giữa, .text-center) và tiêu đề nằm trong
+ * PageHeader (.site-page-header đã có gạch riêng).
+ */
+.site-content-page .tieu-de-trang:not(.tieu-de-trang-banner, .text-center, .site-page-header .tieu-de-trang) {
+  position: relative; padding-bottom: 16px;
 }
-.site-content-page::before { left: 0; background-position: 1.364% 92.453%; }
-.site-content-page::after { right: 0; background-position: 99% 92.453%; }
-@media (max-width: 767px) {
-  .site-content-page { padding-bottom: 58px; }
-  .site-content-page::before,
-  .site-content-page::after { width: min(48%, 190px); }
+.site-content-page .tieu-de-trang:not(.tieu-de-trang-banner, .text-center, .site-page-header .tieu-de-trang)::after {
+  content: ""; position: absolute; left: 0; bottom: 0; width: 56px; height: 2px; background: var(--seal); pointer-events: none;
 }
-@media print {
-  .site-content-page { padding-bottom: 0; }
-  .site-content-page::before,
-  .site-content-page::after { content: none; }
+
+/*
+ * Khu quản trị (.co-cot-trai, root.tsx), hướng "Công văn". Gom về một kiểu chung thay cho cỡ chữ và ô
+ * biểu tượng chỉnh riêng từng trang trong app.css (tệp này nạp sau và ngoài @layer nên thắng):
+ * - tiêu đề trang (TieuDeTrang) cùng một cỡ, ô biểu tượng 44px (gạch đỏ son theo quy tắc ở trên);
+ * - tiêu đề mục viết hoa, kẻ mực đậm;
+ * - ô số liệu viền mảnh nhìn thấy được, chữ số đều;
+ * - bộ lọc nền phẳng, ô nhập viền --line-strong (≥ 3:1).
+ */
+.co-cot-trai .tieu-de-trang:not(.tieu-de-trang-banner) { align-items: center; gap: 14px; padding-top: 0; }
+.co-cot-trai .tieu-de-trang > :is(h1, h2) { font-size: var(--text-page); line-height: 1.3; font-weight: 700; }
+.co-cot-trai .tieu-de-trang > span { width: 44px; height: 44px; border-radius: var(--radius-card); background: var(--primary-soft); color: var(--primary); }
+
+.co-cot-trai .tong-quan-chu-y {
+  gap: 10px; margin-top: 36px; margin-bottom: 16px; padding-bottom: 8px; border-bottom: 2px solid var(--ink);
+  font-size: 16px; text-transform: uppercase; letter-spacing: .04em;
 }
-.site-content-page::before,
-.site-content-page::after { mask-image: linear-gradient(to right, transparent, #000 4%, #000 96%, transparent); }
+.co-cot-trai :is(.tong-quan, .bao-cao-noi-dung) > dl > div { border-color: var(--line); background: var(--surface); }
+.co-cot-trai :is(.tong-quan, .bao-cao-noi-dung) > dl dd { font-variant-numeric: tabular-nums; }
+.co-cot-trai .tong-quan-can-chu-y { border-color: var(--line); }
+.co-cot-trai .tong-quan-can-chu-y h4 > span { border-left-color: var(--line); }
+
+.co-cot-trai .bao-cao-bo-loc { border-color: var(--line); }
+.co-cot-trai .bao-cao-bo-loc-ten { background: var(--surface-2); font-size: 16px; }
+.co-cot-trai .bao-cao-bo-loc :is(input:not([type="hidden"]), select) { border-color: var(--line-strong); }
+.co-cot-trai .bao-cao-xem { background: var(--primary); color: var(--on-primary); }
+.co-cot-trai .bao-cao-xem:hover { background: var(--primary-hover); }
+.co-cot-trai .bao-cao-trang > nav[aria-label="Loại báo cáo"] a[aria-current] { color: var(--primary); border-color: var(--primary); }
+/* Đầu trang quản trị dựng tay (người dùng, giao bài): cùng hình thức với TieuDeTrang ở trên. */
+.dau-trang-quan-tri {
+  position: relative; display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 12px;
+  padding-bottom: 16px; margin-bottom: 20px; border-bottom: 1px solid var(--line);
+}
+/* Đầu trang nằm trong khung có lề trong: đặt --dau-le bằng lề trái để gạch đỏ son thẳng hàng với chữ. */
+.dau-trang-quan-tri::after {
+  content: ""; position: absolute; left: var(--dau-le, 0px); bottom: -1px; width: 56px; height: 2px; background: var(--seal); pointer-events: none;
+}
+.dau-trang-quan-tri :is(h1, h2) { font-size: var(--text-page); line-height: 1.3; font-weight: 700; }
+.dau-trang-quan-tri-bieu-tuong {
+  display: grid; place-items: center; width: 44px; height: 44px; flex-shrink: 0;
+  border-radius: var(--radius-card); background: var(--primary-soft); color: var(--primary);
+}

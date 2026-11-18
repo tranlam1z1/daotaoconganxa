@@ -46,10 +46,12 @@ export function KhoiNoiDung({ khoi }: { khoi: KhoiBaiGiang }) {
     case "can_cu": {
       const urn = chuoi(d.urn) || khoi.citations[0] || "";
       return (
-        <figure className="rounded-xl border border-line bg-surface p-4">
-          <figcaption className="text-sm font-semibold text-primary">Căn cứ</figcaption>
+        <figure className="rounded-card border border-line bg-surface p-4">
+          <figcaption className="text-sm font-semibold uppercase tracking-[0.06em] text-primary">
+            Căn cứ
+          </figcaption>
           <p className="mt-1 font-semibold">{chuoi(d.nhan)}</p>
-          <blockquote className="mt-2 border-l-4 border-line-strong pl-3 text-base leading-relaxed text-ink-2">
+          <blockquote className="mt-2 border-l-2 border-line-strong pl-3 font-doc text-[17px] leading-relaxed text-ink-2">
             {chuoi(d.nguyen_van)}
           </blockquote>
           {urn ? (
@@ -63,8 +65,8 @@ export function KhoiNoiDung({ khoi }: { khoi: KhoiBaiGiang }) {
 
     case "tom_tat":
       return (
-        <section className="rounded-xl border border-ok bg-ok-soft p-4">
-          <h3 className="font-semibold">Ghi nhớ</h3>
+        <section className="rounded-card border border-ok/40 bg-ok-soft p-4">
+          <h3 className="text-sm font-semibold uppercase tracking-[0.06em] text-ok">Ghi nhớ</h3>
           <ul className="mt-2 list-disc space-y-2 pl-5 text-base leading-relaxed">
             {mang(d.y).map((y, i) => (
               // biome-ignore lint/suspicious/noArrayIndexKey: danh sách ý cố định của khối
@@ -78,8 +80,11 @@ export function KhoiNoiDung({ khoi }: { khoi: KhoiBaiGiang }) {
 
     case "canh_bao":
       return (
-        <aside role="note" className="rounded-xl border-l-4 border-warn bg-warn-soft p-4">
-          <p className="font-semibold">Lưu ý</p>
+        <aside role="note" className="rounded-card border border-warn/50 bg-warn-soft p-4">
+          <p className="flex items-center gap-2 text-sm font-semibold uppercase tracking-[0.06em] text-warn">
+            <Icon name="alert" kieu="net" className="size-5 shrink-0" />
+            Lưu ý
+          </p>
           <Md md={chuoi(d.md)} className="mt-1" />
         </aside>
       );
@@ -90,12 +95,12 @@ export function KhoiNoiDung({ khoi }: { khoi: KhoiBaiGiang }) {
       // Mỗi cột cần khoảng 9rem để chữ không vỡ vụn; bảng hai cột vừa màn điện thoại, không phải cuộn.
       // Tiêu đề nằm ngoài vùng cuộn để không trôi theo khi cuộn ngang.
       return (
-        <div className="overflow-hidden rounded-xl border border-line">
+        <div className="overflow-hidden rounded-card border border-line">
           {tieuDe ? <p className="px-3 pt-3 font-semibold">{tieuDe}</p> : null}
           {/* biome-ignore lint/a11y/noNoninteractiveTabindex: vùng cuộn ngang cần nhận tiêu điểm để cuộn bằng phím */}
           <section className="bang-cuon" aria-label={tieuDe || "Bảng tra"} tabIndex={0}>
             <table
-              className="w-full text-left text-[15px]"
+              className="w-full text-left text-sm"
               style={cot.length > 2 ? { minWidth: `${cot.length * 9}rem` } : undefined}
             >
               <thead className="bg-surface-2">
@@ -157,6 +162,9 @@ export function KhoiNoiDung({ khoi }: { khoi: KhoiBaiGiang }) {
         </div>
       );
 
+    case "dong_thoi_gian":
+      return <DongThoiGian d={d} />;
+
     case "hoi_nhanh":
       return <HoiNhanh d={d} />;
 
@@ -169,7 +177,10 @@ export function KhoiNoiDung({ khoi }: { khoi: KhoiBaiGiang }) {
               <div
                 // biome-ignore lint/suspicious/noArrayIndexKey: lời thoại cố định của khối
                 key={i}
-                className={cn("max-w-[90%] rounded-xl p-3", i % 2 ? "ml-auto bg-info-soft" : "bg-surface-2")}
+                className={cn(
+                  "max-w-[90%] rounded-card p-3",
+                  i % 2 ? "ml-auto bg-info-soft" : "bg-surface-2",
+                )}
               >
                 <p className="text-sm font-semibold">{chuoi(luot.vai)}</p>
                 <p className="mt-1 text-base leading-relaxed">{chuoi(luot.loi)}</p>
@@ -182,7 +193,7 @@ export function KhoiNoiDung({ khoi }: { khoi: KhoiBaiGiang }) {
     default:
       // Loại khối chưa dựng: hiện chữ thô để người học không mất nội dung.
       return (
-        <div className="rounded-xl border border-dashed border-line-strong p-4 text-base leading-relaxed">
+        <div className="rounded-card border border-dashed border-line-strong p-4 text-base leading-relaxed">
           {chuTrongDuLieu(d).map((s, i) => (
             // biome-ignore lint/suspicious/noArrayIndexKey: chữ thô chỉ đọc
             <p key={i} className={i ? "mt-2" : undefined}>
@@ -202,7 +213,7 @@ function TheLat({ truoc, sau }: { truoc: string; sau: string }) {
       onClick={() => setLat((x) => !x)}
       aria-pressed={lat}
       className={cn(
-        "min-h-28 rounded-xl border p-4 text-left text-base leading-relaxed transition-colors",
+        "min-h-28 rounded-card border p-4 text-left text-base leading-relaxed transition-colors",
         lat ? "border-primary bg-surface" : "border-line bg-surface-2 font-semibold",
       )}
     >
@@ -214,13 +225,75 @@ function TheLat({ truoc, sau }: { truoc: string; sau: string }) {
   );
 }
 
+/** Nhãn và màu của từng loại mốc; loại lạ hiện nguyên tên, màu trung tính. */
+const LOAI_MOC: Record<string, { nhan: string; mau: string }> = {
+  hieu_luc: { nhan: "Có hiệu lực", mau: "bg-ok-soft text-ok" },
+  thay_the: { nhan: "Thay thế, bãi bỏ", mau: "bg-danger-soft text-danger" },
+  het_hieu_luc: { nhan: "Hết hiệu lực", mau: "bg-danger-soft text-danger" },
+  sua_doi: { nhan: "Sửa đổi", mau: "bg-warn-soft text-warn" },
+};
+
+/** "2026-07-01" → "01/07/2026"; chuỗi khác giữ nguyên. */
+function ngayVn(iso: string): string {
+  const m = /^(\d{4})-(\d{2})-(\d{2})/.exec(iso);
+  return m ? `${m[3]}/${m[2]}/${m[1]}` : iso;
+}
+
+/**
+ * Dòng thời gian hiệu lực văn bản: các mốc xếp dọc trên một đường kẻ, ngày in đậm chữ số đều, nhãn
+ * loại mốc bằng chữ (không chỉ bằng màu), ghi chú chuyển tiếp ở cuối.
+ */
+function DongThoiGian({ d }: { d: Record<string, unknown> }) {
+  const ghiChu = chuoi(d.ghi_chu);
+  return (
+    <section className="rounded-card border border-line bg-surface p-4">
+      <p className="text-sm font-semibold uppercase tracking-[0.06em] text-ink-3">Dòng thời gian hiệu lực</p>
+      <ol className="mt-3 border-l-2 border-line-strong">
+        {mang(d.moc).map((m, i) => {
+          const moc = (m ?? {}) as Record<string, unknown>;
+          const loai = chuoi(moc.loai);
+          const kieu = LOAI_MOC[loai];
+          return (
+            // biome-ignore lint/suspicious/noArrayIndexKey: mốc cố định của khối, có thể trùng ngày
+            <li key={i} className="relative pb-4 pl-5 last:pb-0">
+              <span
+                aria-hidden="true"
+                className="absolute top-1.5 -left-[7px] size-3 rounded-full border-2 border-surface bg-primary"
+              />
+              <p className="flex flex-wrap items-center gap-x-2 gap-y-1">
+                <time dateTime={chuoi(moc.ngay)} className="font-bold tabular-nums">
+                  {ngayVn(chuoi(moc.ngay))}
+                </time>
+                {loai ? (
+                  <span
+                    className={cn(
+                      "rounded-full px-2 py-0.5 text-sm font-semibold",
+                      kieu?.mau ?? "bg-surface-2 text-ink-2",
+                    )}
+                  >
+                    {kieu?.nhan ?? loai}
+                  </span>
+                ) : null}
+              </p>
+              <p className="mt-0.5 text-base leading-relaxed">{chuoi(moc.nhan)}</p>
+            </li>
+          );
+        })}
+      </ol>
+      {ghiChu ? (
+        <p className="mt-4 border-t border-line pt-3 text-base leading-relaxed text-ink-2">{ghiChu}</p>
+      ) : null}
+    </section>
+  );
+}
+
 /** Câu tự kiểm tra trong bài: chấm ngay trên trình duyệt, không tính điểm. */
 function HoiNhanh({ d }: { d: Record<string, unknown> }) {
   const [chon, setChon] = useState<string | null>(null);
   const dapAn = chuoi(d.dap_an);
   return (
-    <section className="rounded-xl border border-line bg-surface p-4">
-      <p className="text-sm font-semibold text-primary">Tự kiểm tra</p>
+    <section className="rounded-card border border-line bg-surface p-4">
+      <p className="text-sm font-semibold uppercase tracking-[0.06em] text-primary">Tự kiểm tra</p>
       <p className="mt-1 text-base font-semibold leading-relaxed">{chuoi(d.cau_hoi)}</p>
       <div className="mt-3 grid gap-2">
         {mang(d.phuong_an).map((p) => {

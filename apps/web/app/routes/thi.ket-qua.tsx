@@ -8,7 +8,8 @@
 import { HienThiCauHoi } from "../components/cau-hoi/HienThiCauHoi";
 import { ButtonLink } from "../components/ui/Button";
 import { Notice } from "../components/ui/Field";
-import { KhungTrang, TieuDeTrang } from "../components/ui/KhungTrang";
+import { Icon } from "../components/ui/Icon";
+import { KhungTrang } from "../components/ui/KhungTrang";
 import { cn } from "../lib/cn";
 import { formatNgayGio } from "../lib/format";
 import { goiApiQuanTri, khongTimThay } from "../lib/quan-tri.server";
@@ -39,58 +40,65 @@ export default function KetQua({ loaderData }: Route.ComponentProps) {
       {choCham ? (
         <section
           aria-labelledby="ket-luan"
-          className="mt-3 rounded-xl border-2 border-warn bg-warn-soft p-6 text-center"
+          className="mt-3 rounded-card border border-line bg-surface p-6 text-center"
         >
-          <TieuDeTrang variant="status" icon="file" id="ket-luan" className="text-warn">
+          <p className="text-sm font-semibold uppercase tracking-[0.06em] text-ink-3">Kết luận</p>
+          <h1 id="ket-luan" className="dau-cong-van mt-3 whitespace-nowrap text-xl text-warn sm:text-2xl">
+            <Icon name="clock" kieu="net" className="size-6 shrink-0" />
             Đang chờ chấm
-          </TieuDeTrang>
-          <p className="mt-3 text-[15px] text-ink-2">
+          </h1>
+          <p className="mt-3 text-sm text-ink-2">
             Bài đã được nộp. Còn {kq.so_cau_cho_cham} câu tự luận chờ giảng viên chấm; điểm sẽ hiện ở đây khi
             chấm xong.
           </p>
         </section>
       ) : (
+        // Hướng "Công văn": kết luận in như con dấu (viền đôi) trên nền trắng, không tô cả khối.
         <section
           aria-labelledby="ket-luan"
-          className={cn(
-            "mt-3 rounded-xl border-2 p-6 text-center",
-            kq.dat ? "border-ok bg-ok-soft" : "border-danger bg-danger-soft",
-          )}
+          className="mt-3 rounded-card border border-line bg-surface p-6 text-center"
         >
-          <TieuDeTrang
-            icon="file"
+          <p className="text-sm font-semibold uppercase tracking-[0.06em] text-ink-3">Kết luận</p>
+          <h1
             id="ket-luan"
-            className={cn("text-4xl font-semibold", kq.dat ? "text-ok" : "text-danger")}
+            className={cn(
+              "dau-cong-van mt-3 whitespace-nowrap text-2xl sm:text-4xl",
+              kq.dat ? "text-ok" : "text-danger",
+            )}
           >
+            <Icon name={kq.dat ? "check" : "x"} kieu="net" className="size-6 shrink-0 sm:size-7" />
             {kq.dat ? "Đạt" : "Chưa đạt"}
-          </TieuDeTrang>
-          <p className="mt-3 font-sans text-3xl font-semibold tabular-nums text-ink">
+          </h1>
+          <p className="mt-5 font-sans text-3xl font-bold tabular-nums text-ink">
             {diemSo(kq.diem ?? 0)}
             <span className="text-lg font-medium text-ink-2">/100 điểm</span>
           </p>
           {coDiemTho && kq.diem_tho !== null ? (
-            <p className="mt-1 text-[15px] text-ink-2">
+            <p className="mt-1 text-sm text-ink-2">
               {diemSo(kq.diem_tho)} / {diemSo(kq.tong_diem_tho)} điểm theo thang của đề
             </p>
           ) : null}
-          <p className="mt-1 text-[15px] text-ink-2">Điểm đạt: {kq.diem_dat}</p>
+          <p className="mt-1 text-sm text-ink-2">Điểm đạt: {kq.diem_dat}</p>
         </section>
       )}
 
-      <dl className="mt-6 grid grid-cols-2 gap-3 text-[15px] sm:grid-cols-3">
-        <div className="rounded-lg border border-line bg-surface p-3">
+      {/* Ba số liệu trên một hàng kẻ, như dòng thông tin dưới tiêu đề văn bản. */}
+      <dl className="mt-6 grid grid-cols-3 divide-x divide-line border-y border-line text-sm">
+        <div className="py-3 pr-2 sm:pr-4">
           <dt className="text-sm text-ink-3">{kq.co_tu_luan ? "Số câu đạt" : "Số câu đúng"}</dt>
-          <dd className="mt-1 font-semibold">{kq.dung === null ? "—" : `${kq.dung}/${kq.tong}`}</dd>
+          <dd className="mt-1 text-base font-semibold tabular-nums">
+            {kq.dung === null ? "—" : `${kq.dung}/${kq.tong}`}
+          </dd>
         </div>
-        <div className="rounded-lg border border-line bg-surface p-3">
+        <div className="py-3 px-2 sm:px-4">
           <dt className="text-sm text-ink-3">Thời gian làm</dt>
-          <dd className="mt-1 font-semibold">
+          <dd className="mt-1 text-base font-semibold tabular-nums">
             {kq.giay_lam_bai !== null ? dinhDangThoiLuong(kq.giay_lam_bai) : "—"}
           </dd>
         </div>
-        <div className="rounded-lg border border-line bg-surface p-3">
+        <div className="py-3 px-2 sm:px-4">
           <dt className="text-sm text-ink-3">Lần làm</dt>
-          <dd className="mt-1 font-semibold">Lần {kq.lan_thu}</dd>
+          <dd className="mt-1 text-base font-semibold tabular-nums">Lần {kq.lan_thu}</dd>
         </div>
       </dl>
 
@@ -110,10 +118,13 @@ export default function KetQua({ loaderData }: Route.ComponentProps) {
 
       {kq.chi_tiet ? (
         <section aria-labelledby="xem-lai" className="mt-10">
-          <h2 id="xem-lai" className="font-sans text-lg font-semibold">
+          <h2
+            id="xem-lai"
+            className="border-b-2 border-ink pb-2 font-sans text-base font-bold uppercase tracking-[0.04em]"
+          >
             Xem lại bài làm
           </h2>
-          <ol className="mt-4 space-y-6">
+          <ol className="grid">
             {kq.chi_tiet.map((c) => {
               const tuLuan = c.de.kind === "tu_luan";
               const nhan = tuLuan
@@ -128,8 +139,8 @@ export default function KetQua({ loaderData }: Route.ComponentProps) {
                     ? "Sai"
                     : "Chưa trả lời";
               return (
-                <li key={c.thu_tu} className="rounded-xl border border-line bg-surface p-4">
-                  <p className="mb-2 flex flex-wrap items-baseline gap-x-2 text-sm font-semibold text-ink-3">
+                <li key={c.thu_tu} className="border-b border-line py-6">
+                  <p className="mb-3 flex flex-wrap items-baseline gap-x-2 text-sm font-semibold uppercase tracking-[0.06em] text-ink-3">
                     <span>
                       Câu {c.thu_tu} · {nhan}
                     </span>
@@ -152,7 +163,7 @@ export default function KetQua({ loaderData }: Route.ComponentProps) {
           </ol>
         </section>
       ) : (
-        <p className="mt-8 text-[15px] text-ink-2">
+        <p className="mt-8 text-sm text-ink-2">
           {kq.xem_dap_an_tu
             ? `Đáp án từng câu được mở sau hạn làm bài, từ ${formatNgayGio(kq.xem_dap_an_tu)}.`
             : "Đề thi này không cho xem lại đáp án từng câu."}
@@ -165,20 +176,20 @@ export default function KetQua({ loaderData }: Route.ComponentProps) {
 /** Nhận xét câu tự luận: tóm tắt, rồi điểm và nhận xét từng tiêu chí kèm đoạn trích làm bằng chứng. */
 function NhanXet({ nx }: { nx: NhanXetTuLuan }) {
   return (
-    <div className="mt-4 rounded-lg border border-line bg-surface-2 p-4">
+    <div className="mt-4 rounded-btn border border-line bg-surface-2 p-4">
       <p className="font-semibold text-ink">Nhận xét</p>
       {nx.tom_tat ? <p className="mt-1 text-base leading-relaxed text-ink">{nx.tom_tat}</p> : null}
       {nx.tieu_chi?.length ? (
         <ul className="mt-3 space-y-3">
           {nx.tieu_chi.map((tc) => (
             <li key={tc.ma} className="border-t border-line pt-3 first:border-t-0 first:pt-0">
-              <p className="flex flex-wrap items-baseline justify-between gap-2 text-[15px]">
+              <p className="flex flex-wrap items-baseline justify-between gap-2 text-sm">
                 <span className="font-medium">{tc.ten}</span>
                 <span className="tabular-nums text-ink-2">
                   {diemSo(tc.diem)}/{diemSo(tc.diem_toi_da)}
                 </span>
               </p>
-              {tc.nhan_xet ? <p className="mt-1 text-[15px] text-ink-2">{tc.nhan_xet}</p> : null}
+              {tc.nhan_xet ? <p className="mt-1 text-sm text-ink-2">{tc.nhan_xet}</p> : null}
               {tc.bang_chung ? (
                 <blockquote className="mt-1 border-l-2 border-line-strong pl-3 text-sm text-ink-3 italic">
                   “{tc.bang_chung}”

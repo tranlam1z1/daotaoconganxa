@@ -118,7 +118,7 @@ function LuotCham({ l }: { l: LuotCanCham }) {
       : "AI chưa chấm được. Học viên đang chờ điểm.";
 
   return (
-    <li className="rounded-xl border border-line bg-surface p-4">
+    <li className="rounded-card border border-line bg-surface p-4">
       <p className="text-sm text-ink-3">
         {l.course_title}
         {l.title ? ` · ${l.title}` : ""} · {l.account_name ?? "Học viên"}
@@ -129,7 +129,7 @@ function LuotCham({ l }: { l: LuotCanCham }) {
       {l.prompt.huong_dan ? <p className="mt-1 text-sm text-ink-2">{l.prompt.huong_dan}</p> : null}
 
       <h3 className="mt-4 font-sans text-sm font-semibold text-ink-2">Bài làm</h3>
-      <p className="mt-1 rounded-lg border border-line bg-surface-2 p-3 text-base leading-relaxed whitespace-pre-line">
+      <p className="mt-1 rounded-btn border border-line bg-surface-2 p-3 text-base leading-relaxed whitespace-pre-line">
         {l.response.bai_viet || "(trống)"}
       </p>
 
@@ -137,7 +137,7 @@ function LuotCham({ l }: { l: LuotCanCham }) {
         <summary className="flex min-h-11 cursor-pointer items-center text-sm font-medium text-primary">
           Đáp án gợi ý và căn cứ
         </summary>
-        <p className="text-[15px] leading-relaxed whitespace-pre-line">{l.answer.giai_thich || "—"}</p>
+        <p className="text-sm leading-relaxed whitespace-pre-line">{l.answer.giai_thich || "—"}</p>
         {l.citations.length ? (
           <p className="mt-1 font-mono text-sm text-ink-3">{l.citations.join("; ")}</p>
         ) : null}

@@ -253,12 +253,12 @@ export function TrinhPhatSachNoi({ baiId, khoiHien }: { baiId: string; khoiHien:
   };
 
   const nut =
-    "grid size-11 shrink-0 place-items-center rounded-lg border border-line-strong bg-surface dong-bam disabled:opacity-40";
+    "grid size-11 shrink-0 place-items-center rounded-btn border border-line-strong bg-surface dong-bam disabled:opacity-40";
 
   return (
     <section
       aria-labelledby="sach-noi"
-      className="rounded-xl border border-line bg-surface p-3"
+      className="rounded-card border border-line bg-surface p-3"
       data-sach-noi=""
     >
       <div className="flex flex-wrap items-baseline justify-between gap-x-3">
@@ -296,7 +296,7 @@ export function TrinhPhatSachNoi({ baiId, khoiHien }: { baiId: string; khoiHien:
           <button
             type="button"
             onClick={batTat}
-            className="inline-flex min-h-11 items-center gap-2 rounded-lg bg-primary px-4 font-semibold text-on-primary"
+            className="inline-flex min-h-11 items-center gap-2 rounded-btn bg-primary px-4 font-semibold text-on-primary"
           >
             <Icon name={dangPhat ? "pause" : "play"} kieu="net" />
             {dangTai ? "Đang tải" : dangPhat ? "Tạm dừng" : ngheTiep ? "Nghe tiếp" : "Nghe"}
@@ -321,7 +321,7 @@ export function TrinhPhatSachNoi({ baiId, khoiHien }: { baiId: string; khoiHien:
               aria-pressed={tocDo === t}
               onClick={() => doiTocDo(t)}
               className={cn(
-                "lun min-h-11 min-w-11 rounded-lg px-2 text-sm font-semibold tabular-nums",
+                "lun min-h-11 min-w-11 rounded-btn px-2 text-sm font-semibold tabular-nums",
                 tocDo === t ? "bg-primary-soft text-primary" : "text-ink-2 hover:bg-surface-2",
               )}
             >

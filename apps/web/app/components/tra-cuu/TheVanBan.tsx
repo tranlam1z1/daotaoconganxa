@@ -43,8 +43,8 @@ function doanTrichHtml(snippet: string, q: string): string {
 export function TheVanBan({ vb, stt, q }: { vb: VanBanTraCuu; stt: number; q: string }) {
   const con = vb.khop.slice(SO_KHOP_HIEN);
   return (
-    <li className="rounded-2xl border border-line bg-surface shadow-card">
-      <Link to={voiNgay(vb.href, vb.asOf)} className="block rounded-2xl p-4 dong-bam">
+    <li className="rounded-card border border-line bg-surface shadow-card">
+      <Link to={voiNgay(vb.href, vb.asOf)} className="block rounded-card p-4 dong-bam">
         <span className="flex items-center justify-between gap-3 text-sm text-ink-3">
           <span className="min-w-0 break-words">Số văn bản: {vb.soKyHieu}</span>
           {vb.ngayBanHanh ? (
@@ -56,7 +56,7 @@ export function TheVanBan({ vb, stt, q }: { vb: VanBanTraCuu; stt: number; q: st
           ) : null}
         </span>
         <span className="mt-3 flex items-start gap-3">
-          <span className="grid size-8 shrink-0 place-items-center rounded-lg bg-primary text-sm font-bold text-on-primary">
+          <span className="grid size-8 shrink-0 place-items-center rounded-btn bg-primary text-sm font-bold text-on-primary">
             {stt}
           </span>
           <span className="min-w-0 self-center text-base leading-snug font-semibold break-words">
@@ -142,8 +142,8 @@ export function TheVanBan({ vb, stt, q }: { vb: VanBanTraCuu; stt: number; q: st
 function DongKhop({ k, q }: { k: DieuKhop; q: string }) {
   return (
     <li>
-      <Link to={k.href} className="block rounded-xl border border-line px-3 py-2 dong-bam">
-        <span className="block text-[15px] font-semibold text-primary">{k.nhan}</span>
+      <Link to={k.href} className="block rounded-card border border-line px-3 py-2 dong-bam">
+        <span className="block text-sm font-semibold text-primary">{k.nhan}</span>
         {k.trangThai && k.trangThai !== "active" ? (
           <span className="mt-1 block text-sm text-warn">
             {NODE_STATUS_LABEL[k.trangThai as keyof typeof NODE_STATUS_LABEL] ||

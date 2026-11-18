@@ -37,7 +37,7 @@ export function LuoiTraCuuNhanh() {
         <li key={o.to}>
           <Link
             to={o.to}
-            className="flex h-full min-h-28 flex-col rounded-xl border border-line bg-surface p-5 shadow-card the-bam"
+            className="flex h-full min-h-28 flex-col rounded-card border border-line bg-surface p-5 shadow-card the-bam"
           >
             <span className="flex items-center gap-3 text-xl font-semibold">
               <span className="grid size-11 shrink-0 place-items-center rounded-full bg-primary-soft text-primary">

@@ -95,15 +95,12 @@ export default function GiaoBaiPage({ loaderData, actionData }: Route.ComponentP
 
   return (
     <section className="giao-bai-trang khung-trang min-w-0">
-      <header className="giao-bai-tieu-de flex items-center gap-5 rounded-t-2xl border border-line px-4 py-6 shadow-card sm:px-7">
-        <span
-          className="grid size-14 shrink-0 place-items-center rounded-2xl bg-primary-soft text-primary sm:size-[68px]"
-          aria-hidden="true"
-        >
-          <Icon name="shield" kieu="net" className="size-9" />
+      <header className="dau-trang-quan-tri justify-start gap-4 px-4 pt-6 [--dau-le:1rem] sm:px-7 sm:[--dau-le:1.75rem]">
+        <span className="dau-trang-quan-tri-bieu-tuong" aria-hidden="true">
+          <Icon name="shield" kieu="net" className="size-6" />
         </span>
-        <div className="min-w-0">
-          <h2 className="text-2xl font-bold sm:text-[30px]">Giao bài thi</h2>
+        <div className="min-w-0 flex-1">
+          <h2>Giao bài thi</h2>
           <p className="mt-2 text-sm text-ink-2">
             Giao đề đang mở cho một đơn vị hoặc một người trong phạm vi quản lý, kèm hạn làm bài.
           </p>
@@ -118,13 +115,13 @@ export default function GiaoBaiPage({ loaderData, actionData }: Route.ComponentP
       {actionData && "ok" in actionData ? <Notice className="mt-4">{actionData.ok}</Notice> : null}
 
       {deThi.length === 0 ? (
-        <div className="mt-2 rounded-xl border border-line bg-surface p-4 shadow-card sm:px-7">
+        <div className="mt-2 rounded-card border border-line bg-surface p-4 shadow-card sm:px-7">
           <EmptyState icon="cap" title="Chưa có đề thi đang mở để giao" />
         </div>
       ) : (
         <Form
           method="post"
-          className="mt-1.5 space-y-4 rounded-xl border border-line bg-surface px-4 py-5 shadow-card sm:px-7"
+          className="mt-1.5 space-y-4 rounded-card border border-line bg-surface px-4 py-5 shadow-card sm:px-7"
         >
           <input type="hidden" name="intent" value="giao" />
           <div>
@@ -156,7 +153,7 @@ export default function GiaoBaiPage({ loaderData, actionData }: Route.ComponentP
               ].map((o) => (
                 <label
                   key={o.v}
-                  className="flex min-h-12 cursor-pointer items-center gap-3 rounded-lg border border-line-strong px-4 text-[15px] has-[:checked]:border-primary has-[:checked]:bg-primary-soft"
+                  className="flex min-h-12 cursor-pointer items-center gap-3 rounded-btn border border-line-strong px-4 text-sm has-[:checked]:border-primary has-[:checked]:bg-primary-soft"
                 >
                   <input
                     type="radio"
@@ -186,7 +183,7 @@ export default function GiaoBaiPage({ loaderData, actionData }: Route.ComponentP
                   </option>
                 ))}
               </select>
-              <label className="mt-2 flex min-h-11 items-center gap-2 text-[15px]">
+              <label className="mt-2 flex min-h-11 items-center gap-2 text-sm">
                 <input
                   type="checkbox"
                   name="include_subunits"
@@ -236,7 +233,7 @@ export default function GiaoBaiPage({ loaderData, actionData }: Route.ComponentP
 
       <section
         aria-labelledby="gb-da-giao"
-        className="mt-3 rounded-xl border border-line bg-surface px-4 py-3 shadow-card sm:px-7"
+        className="mt-3 rounded-card border border-line bg-surface px-4 py-3 shadow-card sm:px-7"
       >
         <h3 id="gb-da-giao" className="font-sans text-lg font-bold">
           Bài đã giao
@@ -249,7 +246,7 @@ export default function GiaoBaiPage({ loaderData, actionData }: Route.ComponentP
             className="giao-bai-trong mt-2 text-sm text-ink-2"
           />
         ) : (
-          <ul className="mt-3 divide-y divide-line rounded-xl border border-line bg-surface">
+          <ul className="mt-3 divide-y divide-line rounded-card border border-line bg-surface">
             {giaoBai.map((g) => (
               <li key={g.id} className="px-4 py-3">
                 <div className="flex flex-wrap items-center gap-x-3 gap-y-1">

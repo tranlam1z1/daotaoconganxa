@@ -45,7 +45,7 @@ export function OTimVanBan({ q, children }: { q: string; children?: ReactNode })
             enterKeyHint="search"
             className={cn(
               // Lề gọn và chữ gợi ý nhỏ hơn một bậc để câu gợi ý hiện đủ trên điện thoại 390px.
-              "min-h-14 w-full rounded-2xl border border-line-strong bg-surface pl-11 text-base text-ellipsis text-ink placeholder:text-[15px] placeholder:text-ink-3 focus:border-primary focus:outline-none",
+              "min-h-14 w-full rounded-card border border-line-strong bg-surface pl-11 text-base text-ellipsis text-ink placeholder:text-sm placeholder:text-ink-3 focus:border-primary focus:outline-none",
               g.hoTro ? "pr-12" : "pr-3",
             )}
           />
@@ -56,7 +56,7 @@ export function OTimVanBan({ q, children }: { q: string; children?: ReactNode })
               aria-label={g.dangNghe ? "Đang nghe, bấm để dừng" : "Tìm bằng giọng nói"}
               onClick={g.dangNghe ? g.dung : g.batDau}
               className={cn(
-                "lun absolute inset-y-1.5 right-1 grid w-11 place-items-center rounded-xl",
+                "lun absolute inset-y-1.5 right-1 grid w-11 place-items-center rounded-card",
                 g.dangNghe
                   ? "bg-danger-soft text-danger motion-safe:animate-pulse"
                   : "text-ink-2 hover:bg-surface-2",
@@ -77,7 +77,7 @@ export function OTimVanBan({ q, children }: { q: string; children?: ReactNode })
         <button
           type="submit"
           disabled={dangTra}
-          className="lun mt-2 flex min-h-12 w-full items-center justify-center gap-2 rounded-2xl bg-primary px-4 text-base font-semibold text-on-primary shadow-card hover:bg-primary-hover disabled:opacity-70"
+          className="lun mt-2 flex min-h-12 w-full items-center justify-center gap-2 rounded-card bg-primary px-4 text-base font-semibold text-on-primary shadow-card hover:bg-primary-hover disabled:opacity-70"
         >
           <Icon name="search" kieu="net" className="size-5" />
           {dangTra ? "Đang tra…" : "Tra cứu văn bản"}

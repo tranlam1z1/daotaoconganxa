@@ -80,7 +80,10 @@ export default function Training({ loaderData }: Route.ComponentProps) {
       ) : (
         linhVuc.map((lv) => (
           <section key={lv.slug} className="mt-8" aria-labelledby={`lv-${lv.slug}`}>
-            <h2 id={`lv-${lv.slug}`} className="text-xl font-semibold">
+            <h2
+              id={`lv-${lv.slug}`}
+              className="border-b-2 border-ink pb-2 text-base font-bold uppercase tracking-[0.04em]"
+            >
               {lv.name}
             </h2>
             <ul className="mt-3 grid grid-cols-1 gap-3 sm:grid-cols-2 lg:grid-cols-3">

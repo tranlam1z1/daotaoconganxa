@@ -111,14 +111,14 @@ function ONgay({ ngay, kq, thuTu }: { ngay: string; kq: KetQuaNgayHen; thuTu: nu
     <div
       title={moTa}
       className={cn(
-        "relative flex aspect-square min-h-9 items-center justify-center rounded-lg text-sm tabular-nums",
+        "relative flex aspect-square min-h-9 items-center justify-center rounded-btn text-sm tabular-nums",
         mau,
       )}
     >
       <span className="sr-only">{moTa}</span>
       <span aria-hidden="true">{Number(ngay.slice(8))}</span>
       {thuTu && !laNgayHen ? (
-        <span aria-hidden="true" className="absolute right-1 top-0.5 text-[10px] leading-none opacity-80">
+        <span aria-hidden="true" className="absolute right-1 top-0.5 text-xs leading-none opacity-80">
           {thuTu}
         </span>
       ) : null}

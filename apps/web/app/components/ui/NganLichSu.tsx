@@ -77,7 +77,7 @@ export function NganLichSu({
           document.documentElement.style.overflow = "hidden";
         }}
         className={cn(
-          "lun flex min-h-11 shrink-0 items-center gap-1.5 rounded-lg px-2 text-sm font-semibold text-primary hover:bg-surface-2",
+          "lun flex min-h-11 shrink-0 items-center gap-1.5 rounded-btn px-2 text-sm font-semibold text-primary hover:bg-surface-2",
           className,
         )}
       >
@@ -111,7 +111,7 @@ export function NganLichSu({
             type="button"
             onClick={dong}
             aria-label="Đóng"
-            className="lun grid size-12 shrink-0 place-items-center rounded-lg text-ink-2 hover:bg-surface-2 hover:text-ink"
+            className="lun grid size-12 shrink-0 place-items-center rounded-btn text-ink-2 hover:bg-surface-2 hover:text-ink"
           >
             <Icon name="close" />
           </button>
@@ -127,12 +127,12 @@ export function NganLichSu({
                   .filter(Boolean)
                   .join(" · ");
                 return (
-                  <li key={m.khoa} className="flex items-center rounded-lg hover:bg-surface-2">
+                  <li key={m.khoa} className="flex items-center rounded-btn hover:bg-surface-2">
                     <Link
                       to={m.href}
                       onClick={dong}
                       aria-current={m.dangXem ? "true" : undefined}
-                      className="lun [--lun:0.985] flex min-h-14 min-w-0 flex-1 items-center gap-3 rounded-lg py-1.5 pr-1 pl-3"
+                      className="lun [--lun:0.985] flex min-h-14 min-w-0 flex-1 items-center gap-3 rounded-btn py-1.5 pr-1 pl-3"
                     >
                       <Icon
                         name="timer"
@@ -155,7 +155,7 @@ export function NganLichSu({
                       type="button"
                       aria-label={`Xóa “${m.nhan}” khỏi lịch sử`}
                       onClick={() => xoa(m.khoa)}
-                      className="lun grid size-12 shrink-0 place-items-center rounded-lg text-ink-3 hover:text-ink"
+                      className="lun grid size-12 shrink-0 place-items-center rounded-btn text-ink-3 hover:text-ink"
                     >
                       <Icon name="close" sac="trung" className="size-5" />
                     </button>
@@ -171,7 +171,7 @@ export function NganLichSu({
                   <button
                     type="button"
                     onClick={() => setHoiXoaHet(false)}
-                    className="lun min-h-11 rounded-lg border border-line-strong px-4 text-base hover:bg-surface-2"
+                    className="lun min-h-11 rounded-btn border border-line-strong px-4 text-base hover:bg-surface-2"
                   >
                     Hủy
                   </button>
@@ -181,7 +181,7 @@ export function NganLichSu({
                       xoa(null);
                       setHoiXoaHet(false);
                     }}
-                    className="lun min-h-11 rounded-lg bg-danger px-4 text-base font-semibold text-canvas"
+                    className="lun min-h-11 rounded-btn bg-danger px-4 text-base font-semibold text-canvas"
                   >
                     Xóa tất cả
                   </button>

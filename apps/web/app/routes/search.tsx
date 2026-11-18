@@ -86,7 +86,7 @@ export default function SearchPage({ loaderData }: Route.ComponentProps) {
               key={k}
               to={duongTraCuu(loc, 1, k)}
               aria-label={`Bỏ bộ lọc ${labels[k]}`}
-              className="inline-flex min-h-11 max-w-full items-center break-words rounded-lg border border-line px-3 text-sm"
+              className="inline-flex min-h-11 max-w-full items-center break-words rounded-btn border border-line px-3 text-sm"
             >
               {labels[k]}:{" "}
               {k === "family"

@@ -26,7 +26,7 @@ export function KhungCho({
           key={i}
           aria-hidden="true"
           className={cn(
-            "block animate-pulse rounded-lg bg-surface-2",
+            "block animate-pulse rounded-btn bg-surface-2",
             cao,
             i === dong - 1 && dong > 1 && "w-2/3",
           )}

@@ -242,7 +242,7 @@ export function TruongMucPhat({ d, khiDoi }: { d?: Dong; khiDoi?: () => void }) 
           className={inputClass}
         />
       </Truong>
-      <fieldset className="grid gap-3 rounded-lg border border-line p-3">
+      <fieldset className="grid gap-3 rounded-btn border border-line p-3">
         <legend className="px-1 text-sm font-medium">Khoảng tốc độ vượt (chỉ với lỗi quá tốc độ)</legend>
         <TruongKhoang
           d={d}
@@ -254,7 +254,7 @@ export function TruongMucPhat({ d, khiDoi }: { d?: Dong; khiDoi?: () => void }) 
           toiDa={300}
         />
       </fieldset>
-      <fieldset className="grid gap-3 rounded-lg border border-line p-3">
+      <fieldset className="grid gap-3 rounded-btn border border-line p-3">
         <legend className="px-1 text-sm font-medium">Khung phần trăm quá tải (chỉ với lỗi quá tải)</legend>
         <Truong id="qua_tai_loai" nhan="Mốc so sánh">
           <select id="qua_tai_loai" name="qua_tai_loai" defaultValue={chu(d?.qua_tai_loai)} className={o}>
@@ -384,10 +384,10 @@ export function TruongLuatGiayTo({ d, khiDoi }: { d?: Dong; khiDoi?: () => void 
           </select>
         </Truong>
       </div>
-      <fieldset className="grid gap-1 rounded-lg border border-line p-3">
+      <fieldset className="grid gap-1 rounded-btn border border-line p-3">
         <legend className="px-1 text-sm font-medium">Loại xe áp dụng (không tích là mọi loại)</legend>
         {PHAN_LOAI_XE.map((x) => (
-          <label key={x.id} className="flex min-h-11 cursor-pointer items-center gap-3 text-[15px]">
+          <label key={x.id} className="flex min-h-11 cursor-pointer items-center gap-3 text-sm">
             <input
               type="checkbox"
               name="vehicle_classes"
@@ -422,7 +422,7 @@ export function TruongLuatGiayTo({ d, khiDoi }: { d?: Dong; khiDoi?: () => void 
           className={inputClass}
         />
       </Truong>
-      <fieldset className="grid gap-3 rounded-lg border border-line p-3">
+      <fieldset className="grid gap-3 rounded-btn border border-line p-3">
         <legend className="px-1 text-sm font-medium">Tham số (chỉ điền ô mà kiểu kiểm cần)</legend>
         <div className="grid gap-3 sm:grid-cols-2">
           <Truong id="truong" nhan="Trường phải khớp với xe">
@@ -607,7 +607,7 @@ export function TruongTaiTrong({ d, khiDoi }: { d?: Dong; khiDoi?: () => void })
           className={o}
         />
       </Truong>
-      <fieldset className="grid gap-3 rounded-lg border border-line p-3">
+      <fieldset className="grid gap-3 rounded-btn border border-line p-3">
         <legend className="px-1 text-sm font-medium">Cụm trục (chỉ với loại giới hạn "Cụm trục")</legend>
         <div className="grid gap-3 sm:grid-cols-3">
           <Truong id="group_axles" nhan="Số trục trong cụm">

@@ -6,7 +6,7 @@ import type { Route } from "./+types/tra-cuu";
 
 export function meta(_: Route.MetaArgs) {
   return pageMeta("Tra cứu", {
-    description: "Tra cứu văn bản, quy trình và biểu mẫu cho công chức, viên chức, đảng viên.",
+    description: "Tra cứu văn bản, quy trình và biểu mẫu cho cán bộ, chiến sĩ Công an xã.",
   });
 }
 export function loader({ request }: Route.LoaderArgs) {
@@ -17,7 +17,7 @@ export default function TraCuu({ loaderData }: Route.ComponentProps) {
   return (
     <KhungTraCuu title="Tra cứu" description="Văn bản, quy trình và biểu mẫu phục vụ học tập và công tác.">
       {loaderData.lienKetCu ? (
-        <p role="status" className="mb-4 rounded-xl border border-line bg-surface-2 p-4 text-sm">
+        <p role="status" className="mb-4 rounded-card border border-line bg-surface-2 p-4 text-sm">
           Tra cứu biển báo và vi phạm giao thông đã ngừng cung cấp trên trang này. Bạn có thể tiếp tục tra cứu
           văn bản, quy trình và biểu mẫu bên dưới.
         </p>
@@ -53,10 +53,10 @@ export default function TraCuu({ loaderData }: Route.ComponentProps) {
           {
             to: "/dich-vu-cong",
             ten: "Dịch vụ công trực tuyến",
-            moTa: "Mở Cổng Dịch vụ công Quốc gia; tra cứu nội dung dành cho công chức, viên chức, đảng viên.",
+            moTa: "Mở Cổng Dịch vụ công Quốc gia; tra cứu nội dung dành cho cán bộ, chiến sĩ Công an xã.",
           },
         ].map((muc) => (
-          <Link key={muc.to} to={muc.to} className="rounded-xl border border-line bg-surface p-4 the-bam">
+          <Link key={muc.to} to={muc.to} className="rounded-card border border-line bg-surface p-4 the-bam">
             <span className="block font-semibold text-primary">{muc.ten}</span>
             <span className="mt-2 block text-sm leading-relaxed text-ink-2">{muc.moTa}</span>
           </Link>

@@ -36,7 +36,7 @@ export function TheBaiHoc({
       to={to}
       className="flex h-full min-h-28 items-start gap-3 rounded-card border border-line bg-surface p-4 shadow-card the-bam focus-visible:border-primary focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary"
     >
-      <span className="grid size-20 shrink-0 place-items-center rounded-xl bg-primary-soft text-primary">
+      <span className="grid size-20 shrink-0 place-items-center rounded-card bg-primary-soft text-primary">
         <Icon name={icon} className="size-10" />
       </span>
       <span className="flex min-w-0 flex-1 flex-col gap-1 self-stretch">

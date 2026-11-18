@@ -297,7 +297,7 @@ function BaiHoc({ ds }: { ds: HoSoCanBo["bai_hoc"] }) {
 
 function DanhSachChuDe({ nhan, ds, tone }: { nhan: string; ds: ChuDeManhYeu[]; tone: "ok" | "warn" }) {
   return (
-    <div className="rounded-xl border border-line bg-surface p-3">
+    <div className="rounded-card border border-line bg-surface p-3">
       <h4 className="font-sans text-sm font-semibold text-ink-2">{nhan}</h4>
       {ds.length === 0 ? (
         <p className="mt-2 text-sm text-ink-3">Chưa đủ lượt trả lời để xếp.</p>

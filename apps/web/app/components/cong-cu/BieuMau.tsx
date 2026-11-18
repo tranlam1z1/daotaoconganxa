@@ -8,15 +8,15 @@ import { cn } from "../../lib/cn";
 import { Icon } from "../ui/Icon";
 
 export const lopO =
-  "min-h-12 w-full min-w-0 rounded-lg border border-line-strong bg-surface px-4 text-lg tabular-nums focus:border-primary focus:outline-none";
+  "min-h-12 w-full min-w-0 rounded-btn border border-line-strong bg-surface px-4 text-lg tabular-nums focus:border-primary focus:outline-none";
 export const lopLuaChon =
-  "flex min-h-12 cursor-pointer items-center gap-3 rounded-lg border border-line px-3 py-2 text-base has-[:checked]:border-primary has-[:checked]:bg-primary-soft";
+  "flex min-h-12 cursor-pointer items-center gap-3 rounded-btn border border-line px-3 py-2 text-base has-[:checked]:border-primary has-[:checked]:bg-primary-soft";
 
 export function DauTrangCongCu({ tieuDe, children }: { tieuDe: string; children?: ReactNode }) {
   return (
     <header className="tieu-de-trang tieu-de-trang-banner relative isolate flex min-w-0 items-center gap-3">
       <span
-        className="relative grid size-12 shrink-0 place-items-center rounded-xl bg-primary-soft text-primary"
+        className="relative grid size-12 shrink-0 place-items-center rounded-card bg-primary-soft text-primary"
         aria-hidden="true"
       >
         <Icon name="shield" kieu="net" className="size-6" />

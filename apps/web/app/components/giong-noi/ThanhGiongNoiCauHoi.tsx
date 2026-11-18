@@ -86,14 +86,14 @@ export function ThanhGiongNoiCauHoi({
   if (!tts.hoTro && !coNoi) return null;
 
   return (
-    <div className="rounded-xl border border-line bg-surface-2 p-3">
+    <div className="rounded-card border border-line bg-surface-2 p-3">
       <div className="flex flex-wrap items-start gap-2">
         {tts.hoTro ? (
           <button
             type="button"
             onClick={() => (tts.dangDoc || tts.dangTai ? tts.dung() : void tts.doc(loiDoc))}
             aria-pressed={tts.dangDoc}
-            className="inline-flex min-h-11 items-center gap-2 rounded-lg border border-line-strong bg-surface px-4 text-[15px] font-medium dong-bam"
+            className="inline-flex min-h-11 items-center gap-2 rounded-btn border border-line-strong bg-surface px-4 text-sm font-medium dong-bam"
           >
             <Icon name={tts.dangDoc ? "pause" : "loa"} />
             {tts.dangTai ? "Đang chuẩn bị giọng đọc" : tts.dangDoc ? "Dừng đọc" : "Đọc câu hỏi"}

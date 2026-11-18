@@ -19,7 +19,7 @@ export function DanhSachThanhVien({
   return (
     <ul className="grid gap-3">
       {thanhVien.map((t) => (
-        <li key={t.id} className="rounded-xl border border-line bg-surface p-4">
+        <li key={t.id} className="rounded-card border border-line bg-surface p-4">
           <div className="flex items-start justify-between gap-3">
             <div className="min-w-0 flex-1">
               <button

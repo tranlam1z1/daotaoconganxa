@@ -236,7 +236,7 @@ export default function SoanDuLieuTraCuu({ loaderData, actionData }: Route.Compo
       <TieuDeTrang icon="search" className="mt-2">
         Soạn nội dung tra cứu
       </TieuDeTrang>
-      <p className="mt-2 text-[15px] leading-relaxed text-ink-2">
+      <p className="mt-2 text-sm leading-relaxed text-ink-2">
         Dòng mới vào bản nháp, hoặc chờ duyệt nếu chọn "Lưu và gửi duyệt". Người học chỉ thấy dòng đã duyệt.
         Quy trình và biểu mẫu hiện ở trang Quy trình, Biểu mẫu.
       </p>

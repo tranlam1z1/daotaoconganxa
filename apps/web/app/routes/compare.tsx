@@ -63,7 +63,7 @@ export default function Compare({ loaderData }: Route.ComponentProps) {
               type="date"
               name="from"
               defaultValue={from}
-              className="mt-1 block min-h-11 rounded-lg border border-line-strong bg-surface px-3"
+              className="mt-1 block min-h-11 rounded-btn border border-line-strong bg-surface px-3"
             />
           </label>
           <label className="text-sm">
@@ -73,7 +73,7 @@ export default function Compare({ loaderData }: Route.ComponentProps) {
               type="date"
               name="to"
               defaultValue={to}
-              className="mt-1 block min-h-11 rounded-lg border border-line-strong bg-surface px-3"
+              className="mt-1 block min-h-11 rounded-btn border border-line-strong bg-surface px-3"
             />
           </label>
           <Button type="submit">So sánh</Button>
@@ -97,7 +97,7 @@ export default function Compare({ loaderData }: Route.ComponentProps) {
           ) : (
             <ol className="mt-4 grid gap-3">
               {diff.nodes.map((n) => (
-                <li key={n.path} className="rounded-xl border border-line p-4">
+                <li key={n.path} className="rounded-card border border-line p-4">
                   <h3 className="font-semibold">
                     {pathToCitationPhrase(n.path) || n.label} ·{" "}
                     {n.changeKind === "added" ? "Thêm" : n.changeKind === "removed" ? "Bỏ" : "Thay đổi"}

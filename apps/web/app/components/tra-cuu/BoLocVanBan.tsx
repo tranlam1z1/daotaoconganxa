@@ -1,7 +1,7 @@
 import { type BoLocVanBan as BoLoc, type DanhMucLoc, NHOM_VAN_BAN } from "../../lib/bo-loc-van-ban";
 import { DOC_STATUS_LABEL, docTypeLabel } from "../../lib/format";
 
-const khung = "mt-1 min-h-11 w-full rounded-lg border border-line-strong bg-surface px-3 text-ink";
+const khung = "mt-1 min-h-11 w-full rounded-btn border border-line-strong bg-surface px-3 text-ink";
 export function BoLocVanBan({ loc, facets }: { loc: BoLoc; facets: DanhMucLoc }) {
   function chon(k: keyof BoLoc, nhan: string, options: Array<{ value: string; label?: string }>) {
     const all =

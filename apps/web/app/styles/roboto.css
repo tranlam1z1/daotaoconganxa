@@ -4,7 +4,7 @@
   font-weight: 400;
   font-stretch: normal;
   font-display: swap;
-  src: url(./fonts/roboto-0.woff2) format('truetype');
+  src: url(./fonts/roboto-0.woff2) format('woff2');
 }
 @font-face {
   font-family: 'Roboto';
@@ -12,7 +12,7 @@
   font-weight: 500;
   font-stretch: normal;
   font-display: swap;
-  src: url(./fonts/roboto-1.woff2) format('truetype');
+  src: url(./fonts/roboto-1.woff2) format('woff2');
 }
 @font-face {
   font-family: 'Roboto';
@@ -20,7 +20,7 @@
   font-weight: 600;
   font-stretch: normal;
   font-display: swap;
-  src: url(./fonts/roboto-2.woff2) format('truetype');
+  src: url(./fonts/roboto-2.woff2) format('woff2');
 }
 @font-face {
   font-family: 'Roboto';
@@ -28,5 +28,5 @@
   font-weight: 700;
   font-stretch: normal;
   font-display: swap;
-  src: url(./fonts/roboto-3.woff2) format('truetype');
+  src: url(./fonts/roboto-3.woff2) format('woff2');
 }

@@ -126,7 +126,7 @@ export default function TaoDeThiTuPdf({ loaderData, actionData }: Route.Componen
         </fieldset>
 
         <details
-          className="rounded-xl border border-line bg-surface px-4 py-3"
+          className="rounded-card border border-line bg-surface px-4 py-3"
           open={Boolean(actionData?.loi)}
         >
           <summary className="min-h-11 cursor-pointer py-2 text-sm font-medium">

@@ -23,7 +23,7 @@ function Dong({ c }: { c: HoSoChuDeWeb["manh"][number] }) {
   return (
     <li className="py-3 first:pt-0 last:pb-0">
       <p className="flex items-baseline gap-3">
-        <span className="min-w-0 flex-1 text-[15px] font-medium">{c.ten}</span>
+        <span className="min-w-0 flex-1 text-sm font-medium">{c.ten}</span>
         <span className={cn("shrink-0 text-sm font-semibold tabular-nums", mau.chu)}>{pt}%</span>
         <Link
           to="/luyen-tap"
@@ -84,11 +84,11 @@ function TheChuDe({
           >
             <Icon name="layers" />
           </span>
-          <p className="mt-3 text-[15px] font-semibold">{trong}</p>
+          <p className="mt-3 text-sm font-semibold">{trong}</p>
           <p className="mt-1 max-w-xs text-sm text-ink-2">{goiY}</p>
           <Link
             to="/luyen-tap"
-            className="mt-3 inline-flex min-h-10 items-center gap-3 rounded-xl border border-line bg-primary-soft px-4 text-sm font-semibold text-primary hover:bg-surface-2"
+            className="mt-3 inline-flex min-h-10 items-center gap-3 rounded-card border border-line bg-primary-soft px-4 text-sm font-semibold text-primary hover:bg-surface-2"
           >
             <Icon name="book" className="size-4" /> Luyện tập theo chủ đề{" "}
             <Icon name="arrowRight" className="size-4" />
@@ -107,7 +107,7 @@ export function HoSoChuDe({ hoSo }: { hoSo: HoSoChuDeWeb }) {
         <Icon name="chart" className="size-6 text-primary" /> Điểm mạnh, điểm yếu
       </h2>
       {!coDuLieu ? (
-        <p className="mt-1 text-[15px] text-ink-2">
+        <p className="mt-1 text-sm text-ink-2">
           Chưa đủ dữ liệu. Mỗi chủ đề cần ít nhất 5 câu trả lời trong luyện tập hoặc thi.
         </p>
       ) : null}

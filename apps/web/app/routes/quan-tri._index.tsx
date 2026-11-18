@@ -90,7 +90,7 @@ export default function QuanTriIndex({ loaderData }: Route.ComponentProps) {
 
 function TheCanChuY({ tieuDe, nhom, donVi }: { tieuDe: string; nhom: NhomCanChuY; donVi?: string }) {
   return (
-    <div className="tong-quan-can-chu-y rounded-xl border border-line bg-surface p-4">
+    <div className="tong-quan-can-chu-y rounded-card border border-line bg-surface p-4">
       <span className="tong-quan-icon">
         <Icon name={donVi ? "file" : "caNhan"} className="size-7" />
       </span>

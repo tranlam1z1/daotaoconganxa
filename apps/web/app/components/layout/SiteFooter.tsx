@@ -9,7 +9,7 @@ export function SiteFooter() {
     // Dùng chung trên desktop, mobile và các trạng thái lỗi.
     // Khu quản trị: lùi vào bằng bề rộng cột điều hướng cố định (--cot-trai, styles/app.css).
     <footer className="site-footer no-print w-full shrink-0 pl-[var(--cot-trai)]">
-      <div className="wrap grid items-center gap-x-8 gap-y-4 py-4 text-[12px] leading-[1.5] text-white/90 md:grid-cols-[1fr_1.2fr] xl:grid-cols-[1.05fr_1.25fr_1fr] xl:gap-x-12">
+      <div className="wrap grid items-center gap-x-8 gap-y-4 py-4 text-xs leading-[1.5] text-white/90 md:grid-cols-[1fr_1.2fr] xl:grid-cols-[1.05fr_1.25fr_1fr] xl:gap-x-12">
         <Link to="/" className="flex min-w-0 items-center gap-2.5">
           <LogoHocTap variant="trang" className="h-14 w-auto shrink-0" />
           <BrandName inverse />

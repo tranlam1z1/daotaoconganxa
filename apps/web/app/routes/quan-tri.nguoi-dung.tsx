@@ -271,7 +271,7 @@ function XetXacMinh({
   busy: boolean;
 }) {
   return (
-    <div className="mt-2 rounded-lg border border-line bg-surface-2 p-3">
+    <div className="mt-2 rounded-btn border border-line bg-surface-2 p-3">
       <dl className="grid gap-x-4 gap-y-1 text-sm [overflow-wrap:anywhere] sm:grid-cols-[9rem_1fr]">
         <dt className="text-ink-3">Mã cán bộ</dt>
         <dd className="font-mono font-medium">{u.so_hieu ?? "Chưa khai"}</dd>
@@ -346,7 +346,7 @@ function XetXacMinh({
 
 function KetQuaNhapExcel({ kq }: { kq: KetQuaNhap }) {
   return (
-    <div className="mt-4 rounded-xl border border-line bg-surface p-4">
+    <div className="mt-4 rounded-card border border-line bg-surface p-4">
       <h3 className="font-sans text-base font-semibold">
         {kq.chayThu ? "Kết quả chạy thử (chưa ghi gì)" : "Kết quả nhập"}: {kq.taoMoi.length}/{kq.tongDong}{" "}
         dòng hợp lệ, {kq.loi.length} dòng lỗi
@@ -676,10 +676,10 @@ export default function QuanTriNguoiDung({ loaderData, actionData }: Route.Compo
 
   return (
     <section className="trang-nguoi-dung">
-      <div className="nguoi-dung-tieu-de flex flex-wrap items-center justify-between gap-3">
+      <div className="dau-trang-quan-tri">
         <div className="flex min-w-0 items-center gap-4">
-          <span className="nguoi-dung-bieu-tuong">
-            <Icon name="shield" className="size-7" />
+          <span className="dau-trang-quan-tri-bieu-tuong" aria-hidden="true">
+            <Icon name="shield" kieu="net" className="size-6" />
           </span>
           <div className="min-w-0">
             <h2 className="text-2xl font-bold">Người dùng</h2>
@@ -717,7 +717,7 @@ export default function QuanTriNguoiDung({ loaderData, actionData }: Route.Compo
       {laQuanTri ? (
         <div className="mt-4">
           <details
-            className="nguoi-dung-excel rounded-xl border border-line px-5"
+            className="nguoi-dung-excel rounded-card border border-line px-5"
             open={Boolean(actionData && "nhap" in actionData)}
           >
             <summary className="flex min-h-16 cursor-pointer items-center gap-4 font-semibold text-primary">
@@ -744,7 +744,7 @@ export default function QuanTriNguoiDung({ loaderData, actionData }: Route.Compo
                   type="file"
                   required
                   accept=".xlsx,application/vnd.openxmlformats-officedocument.spreadsheetml.sheet"
-                  className="block min-h-11 w-full text-sm file:mr-3 file:min-h-11 file:rounded-lg file:border file:border-line-strong file:bg-surface file:px-3"
+                  className="block min-h-11 w-full text-sm file:mr-3 file:min-h-11 file:rounded-btn file:border file:border-line-strong file:bg-surface file:px-3"
                 />
                 <label className="mt-3 flex min-h-11 items-center gap-2 text-sm">
                   <input type="checkbox" name="chay_thu" defaultChecked />
@@ -762,7 +762,7 @@ export default function QuanTriNguoiDung({ loaderData, actionData }: Route.Compo
 
       <Form
         method="get"
-        className="nguoi-dung-bo-loc mt-3 flex flex-wrap items-end gap-4 rounded-xl border border-line p-5"
+        className="nguoi-dung-bo-loc mt-3 flex flex-wrap items-end gap-4 rounded-card border border-line p-5"
       >
         <div className="min-w-48 flex-1">
           <Label htmlFor="loc-dv">Đơn vị</Label>
@@ -796,14 +796,14 @@ export default function QuanTriNguoiDung({ loaderData, actionData }: Route.Compo
         </Button>
       </Form>
 
-      <div className="mt-3 rounded-xl border border-line p-4">
+      <div className="mt-3 rounded-card border border-line p-4">
         <p className="px-1 text-sm text-ink-3">{total.toLocaleString("vi-VN")} người</p>
         {items.length === 0 ? (
           <div className="mt-2">
             <EmptyState icon="user" title="Không có người dùng nào khớp bộ lọc" />
           </div>
         ) : (
-          <ul className="mt-2 divide-y divide-line overflow-hidden rounded-xl border border-line bg-surface">
+          <ul className="mt-2 divide-y divide-line overflow-hidden rounded-card border border-line bg-surface">
             {items.map((u, index) => {
               const ten = u.username ?? u.email ?? "";
               return (

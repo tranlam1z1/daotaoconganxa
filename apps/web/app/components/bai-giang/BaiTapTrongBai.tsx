@@ -29,7 +29,7 @@ export function BaiTapTrongBai({
   const ds = hoatDong.filter((h) => (BAI_TAP_TRONG_BAI as readonly string[]).includes(h.kind));
   if (!ds.length) return null;
   return (
-    <section aria-labelledby="bai-tap" className="rounded-xl border border-line bg-surface p-4">
+    <section aria-labelledby="bai-tap" className="rounded-card border border-line bg-surface p-4">
       <h2 id="bai-tap" className="text-lg font-semibold">
         Bài tập
       </h2>
@@ -133,7 +133,7 @@ function KetQuaTuLuan({
   const diemGiangVien = cu?.diemGiangVien ?? null;
   const nhanXet = kq.feedback.giang_vien ?? kq.feedback;
   return (
-    <div className="mt-4 rounded-xl bg-surface-2 p-4" role="status">
+    <div className="mt-4 rounded-card bg-surface-2 p-4" role="status">
       {choCham ? (
         <p className="text-base font-semibold">Bài đang chờ giảng viên chấm.</p>
       ) : (
@@ -249,7 +249,7 @@ function TracNghiem({ hd, ghiDanhId }: { hd: HoatDongHoc; ghiDanhId: string | nu
           {(hd.prompt.phuong_an ?? []).map((p) => (
             <label
               key={p.id}
-              className="flex min-h-12 items-start gap-3 rounded-lg border border-line px-3 py-2 text-base leading-relaxed"
+              className="flex min-h-12 items-start gap-3 rounded-btn border border-line px-3 py-2 text-base leading-relaxed"
             >
               <input
                 type="radio"

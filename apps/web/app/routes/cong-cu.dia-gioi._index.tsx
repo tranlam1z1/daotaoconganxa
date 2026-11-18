@@ -47,7 +47,7 @@ export default function DiaGioiHanhChinh() {
   return (
     <KhungTrang className="wrap max-w-5xl py-6 sm:py-10">
       <header className="tra-cuu-tieu-de relative isolate mb-6 flex min-h-20 items-center gap-3">
-        <span className="grid size-12 shrink-0 place-items-center rounded-xl bg-primary-soft text-primary">
+        <span className="grid size-12 shrink-0 place-items-center rounded-card bg-primary-soft text-primary">
           <Icon name="map" kieu="net" className="size-6" />
         </span>
         <div className="min-w-0">
@@ -69,7 +69,7 @@ export default function DiaGioiHanhChinh() {
         ))}
       </ul>
 
-      <div className="mt-5 flex items-start gap-3 rounded-2xl border border-line bg-primary-soft p-4 text-base leading-relaxed text-primary">
+      <div className="mt-5 flex items-start gap-3 rounded-card border border-line bg-primary-soft p-4 text-base leading-relaxed text-primary">
         <Icon name="shield" className="mt-0.5 size-7 shrink-0" />
         <p>Thông tin tra cứu chỉ phục vụ nghiệp vụ chuẩn hóa địa chỉ theo địa giới hành chính mới.</p>
       </div>

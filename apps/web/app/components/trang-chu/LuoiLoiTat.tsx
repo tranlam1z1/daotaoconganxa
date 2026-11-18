@@ -21,19 +21,20 @@ export function LuoiLoiTat({
   xemTatCa?: string;
 }) {
   return (
-    <section
-      aria-labelledby={id}
-      className="rounded-card border border-line bg-surface p-4 shadow-card sm:p-5"
-    >
-      <div className="flex items-center justify-between gap-2">
-        <h2 id={id} className="flex items-center gap-2 text-lg font-semibold text-secondary">
-          <Icon name={icon} kieu="net" className="size-6" />
+    // Hướng "Công văn": mục không đóng khung; tiêu đề viết hoa, kẻ mực đậm bên dưới.
+    <section aria-labelledby={id}>
+      <div className="flex items-center justify-between gap-2 border-b-2 border-ink pb-2">
+        <h2
+          id={id}
+          className="flex items-center gap-2 text-base font-bold uppercase tracking-[0.04em] text-ink"
+        >
+          <Icon name={icon} kieu="net" className="size-6 text-primary" />
           {tieuDe}
         </h2>
         {xemTatCa ? (
           <Link
             to={xemTatCa}
-            className="group lun -mr-2 inline-flex min-h-11 shrink-0 items-center gap-1 px-2 text-sm font-medium text-secondary underline-offset-4 hover:underline"
+            className="group lun -mr-2 inline-flex min-h-11 shrink-0 items-center gap-1 px-2 text-sm font-semibold text-primary underline-offset-4 hover:underline"
           >
             Xem tất cả
             <Icon
@@ -49,11 +50,11 @@ export function LuoiLoiTat({
           <li key={o.to} className="min-w-0">
             <Link
               to={o.to}
-              className="group flex h-full min-h-20 items-center gap-2 rounded-xl bg-surface-2/60 px-2 py-3 sm:gap-3 sm:px-3 the-bam"
+              className="group flex h-full min-h-20 items-center gap-2 rounded-card border border-line bg-surface px-2 py-3 hover:border-primary sm:gap-3 sm:px-3 the-bam"
             >
               <span
                 data-sac={sacCua(o.icon)}
-                className="shortcut-icon hinh-noi grid size-11 shrink-0 place-items-center rounded-xl"
+                className="shortcut-icon hinh-noi grid size-11 shrink-0 place-items-center rounded-card"
               >
                 <Icon name={o.icon} className="size-7" />
               </span>

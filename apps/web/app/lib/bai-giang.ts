@@ -17,6 +17,7 @@ export const KHOI_BAI_GIANG = [
   "the_lat",
   "hoi_nhanh",
   "kich_ban",
+  "dong_thoi_gian",
 ] as const;
 
 export type CheDoXem = "doc" | "slide";

@@ -22,7 +22,7 @@ export function SuaRubric({ rubric, onChange }: { rubric: Rubric; onChange: (r: 
       </p>
       {rubric.tieu_chi.map((tc, i) => (
         // biome-ignore lint/suspicious/noArrayIndexKey: tiêu chí nhập theo vị trí, mã có thể đang sửa
-        <div key={i} className="grid gap-2 rounded-lg border border-line p-3">
+        <div key={i} className="grid gap-2 rounded-btn border border-line p-3">
           <div className="grid gap-2 sm:grid-cols-[8rem_1fr_6rem_auto]">
             <Input
               aria-label={`Mã tiêu chí ${i + 1}`}

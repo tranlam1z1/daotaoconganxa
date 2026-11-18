@@ -67,9 +67,9 @@ export default function QuanTriNhom({ loaderData }: Route.ComponentProps) {
 
   return (
     <section className="khung-trang min-w-0 space-y-4">
-      <header className="flex items-start gap-4 rounded-2xl border border-line bg-surface px-4 py-6 shadow-card sm:gap-5 sm:px-6">
+      <header className="flex items-start gap-4 rounded-card border border-line bg-surface px-4 py-6 shadow-card sm:gap-5 sm:px-6">
         <span
-          className="grid size-14 shrink-0 place-items-center rounded-2xl bg-primary-soft text-primary sm:size-16"
+          className="grid size-14 shrink-0 place-items-center rounded-card bg-primary-soft text-primary sm:size-16"
           aria-hidden="true"
         >
           <Icon name="shield" kieu="net" className="size-8" />
@@ -85,7 +85,7 @@ export default function QuanTriNhom({ loaderData }: Route.ComponentProps) {
 
       <Form
         method="get"
-        className="grid gap-x-5 gap-y-3 rounded-2xl border border-line bg-surface px-4 py-5 shadow-card sm:grid-cols-2 sm:px-6 lg:grid-cols-[1.6fr_1.15fr_1fr]"
+        className="grid gap-x-5 gap-y-3 rounded-card border border-line bg-surface px-4 py-5 shadow-card sm:grid-cols-2 sm:px-6 lg:grid-cols-[1.6fr_1.15fr_1fr]"
       >
         <div className="sm:col-span-2 lg:col-span-1">
           <Label htmlFor="nhom-don-vi">Đơn vị của thành viên (gồm cả đơn vị cấp dưới)</Label>
@@ -128,7 +128,7 @@ export default function QuanTriNhom({ loaderData }: Route.ComponentProps) {
         </div>
       </Form>
 
-      <div className="rounded-2xl border border-line bg-surface p-4 shadow-card sm:p-5">
+      <div className="rounded-card border border-line bg-surface p-4 shadow-card sm:p-5">
         {items.length >= GIOI_HAN ? (
           <Notice className="mb-4">
             Danh sách chỉ hiện {GIOI_HAN} nhóm cập nhật gần nhất. Chọn đơn vị hoặc nhập tên nhóm để thu hẹp.
@@ -149,7 +149,7 @@ export default function QuanTriNhom({ loaderData }: Route.ComponentProps) {
                 <li key={g.id}>
                   <Link
                     to={`/quan-tri/nhom/${g.id}`}
-                    className="block rounded-xl border border-line bg-surface p-4 the-bam"
+                    className="block rounded-card border border-line bg-surface p-4 the-bam"
                   >
                     <span className="flex items-start justify-between gap-3">
                       <span className="min-w-0 break-words text-base font-semibold text-primary">
@@ -174,7 +174,7 @@ export default function QuanTriNhom({ loaderData }: Route.ComponentProps) {
                 </li>
               ))}
             </ul>
-            <div className="bang-cuon hidden rounded-xl border border-line p-3 md:block">
+            <div className="bang-cuon hidden rounded-card border border-line p-3 md:block">
               <table className="w-full min-w-[44rem] text-left text-sm">
                 <thead className="text-ink-3">
                   <tr>

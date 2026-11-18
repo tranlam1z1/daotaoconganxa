@@ -14,7 +14,7 @@ export function TabVanBanBieuMau({ chon }: { chon: "van-ban" | "bieu-mau" }) {
   ];
   const active = chon === "van-ban" ? family || "all" : loai || "";
   return (
-    <nav aria-label="Loại tra cứu" className="rounded-xl border border-line bg-surface p-1">
+    <nav aria-label="Loại tra cứu" className="rounded-card border border-line bg-surface p-1">
       <ul className="flex flex-wrap gap-1">
         {items.map((t) => {
           const url = new URL(t.path, "http://local");
@@ -25,7 +25,7 @@ export function TabVanBanBieuMau({ chon }: { chon: "van-ban" | "bieu-mau" }) {
                 to={url.pathname + url.search}
                 aria-current={active === t.id ? "page" : undefined}
                 className={cn(
-                  "flex min-h-11 items-center justify-center rounded-lg px-3 py-2 text-sm font-semibold",
+                  "flex min-h-11 items-center justify-center rounded-btn px-3 py-2 text-sm font-semibold",
                   active === t.id ? "bg-primary text-on-primary" : "text-ink-2 hover:bg-surface-2",
                 )}
               >

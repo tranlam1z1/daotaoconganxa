@@ -7,7 +7,7 @@ import { pageMeta } from "../lib/site";
 export function meta() {
   return pageMeta("Dịch vụ công trực tuyến", {
     description:
-      "Tra cứu dịch vụ công dành cho công chức, viên chức, đảng viên trên Cổng Dịch vụ công Quốc gia.",
+      "Tra cứu dịch vụ công dành cho cán bộ, chiến sĩ Công an xã trên Cổng Dịch vụ công Quốc gia.",
   });
 }
 export default function DichVuCong() {
@@ -18,9 +18,9 @@ export default function DichVuCong() {
     <KhungTraCuu
       title="Dịch vụ công trực tuyến"
       icon="file"
-      description="Danh mục tra cứu dành cho công chức, viên chức, đảng viên. Mở Cổng Dịch vụ công Quốc gia để thực hiện dịch vụ."
+      description="Danh mục tra cứu dành cho cán bộ, chiến sĩ Công an xã. Mở Cổng Dịch vụ công Quốc gia để thực hiện dịch vụ."
     >
-      <div className="loi-vao-dich-vu rounded-xl border border-line bg-surface-2 p-4 sm:p-6">
+      <div className="loi-vao-dich-vu rounded-card border border-line bg-surface-2 p-4 sm:p-6">
         <div className="relative">
           <h2 className="text-lg font-semibold">Cổng Dịch vụ công Quốc gia</h2>
           <p className="mt-2 text-sm text-ink-2">
@@ -32,7 +32,7 @@ export default function DichVuCong() {
             href={CONG_DICH_VU}
             target="_blank"
             rel="noopener noreferrer"
-            className="mt-3 inline-flex min-h-11 items-center rounded-lg bg-primary px-4 font-semibold text-white"
+            className="mt-3 inline-flex min-h-11 items-center rounded-btn bg-primary px-4 font-semibold text-white"
           >
             Mở Cổng Dịch vụ công Quốc gia ↗<span className="sr-only"> (tab mới)</span>
           </a>
@@ -46,7 +46,7 @@ export default function DichVuCong() {
             value={q}
             onChange={(e) => datQ(e.target.value)}
             placeholder="Ví dụ: bảo hiểm, chứng thực…"
-            className="mt-1 block min-h-11 w-full rounded-lg border border-line bg-surface px-3 text-ink"
+            className="mt-1 block min-h-11 w-full rounded-btn border border-line bg-surface px-3 text-ink"
           />
         </label>
         <label className="text-sm font-medium">
@@ -54,7 +54,7 @@ export default function DichVuCong() {
           <select
             value={nhom ?? ""}
             onChange={(e) => datNhom(e.target.value ? (e.target.value as NhomDichVu) : undefined)}
-            className="mt-1 block min-h-11 w-full rounded-lg border border-line bg-surface px-3 text-ink"
+            className="mt-1 block min-h-11 w-full rounded-btn border border-line bg-surface px-3 text-ink"
           >
             <option value="">Tất cả nhóm</option>
             {NHOM_DICH_VU.map((n) => (
@@ -67,7 +67,7 @@ export default function DichVuCong() {
         {ketQua.length} nội dung phù hợp
       </p>
       {ketQua.length === 0 ? (
-        <p className="rounded-xl border border-line p-4">
+        <p className="rounded-card border border-line p-4">
           Không tìm thấy nội dung. Thử từ khóa khác hoặc chọn tất cả nhóm.
         </p>
       ) : null}
@@ -87,7 +87,7 @@ export default function DichVuCong() {
                   href={d.url}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="the-bam flex items-start gap-3 rounded-xl border border-line bg-surface p-4"
+                  className="the-bam flex items-start gap-3 rounded-card border border-line bg-surface p-4"
                 >
                   <Icon name="file" className="mt-1 size-6 shrink-0" />
                   <span className="min-w-0 flex-1">

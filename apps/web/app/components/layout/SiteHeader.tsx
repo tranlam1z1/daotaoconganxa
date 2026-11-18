@@ -23,10 +23,7 @@ import { NganTienIch } from "./NganTienIch";
 export function BrandMark() {
   // Tên hai dòng tự xuống hàng để nhường chỗ cho các nút tài khoản.
   return (
-    <Link
-      to="/"
-      className="site-brand flex min-h-11 min-w-0 items-center font-sans xl:shrink-0"
-    >
+    <Link to="/" className="site-brand flex min-h-11 min-w-0 items-center font-sans xl:shrink-0">
       <LogoHocTap className="shrink-0" />
 
       <BrandName />
@@ -36,9 +33,12 @@ export function BrandMark() {
 
 function navClass(active: boolean, compact = false) {
   return cn(
-    "lun flex min-h-11 items-center whitespace-nowrap rounded-lg px-3 font-medium",
-    compact ? "text-[13px]" : "text-[15px]",
-    active ? "bg-primary text-on-primary" : "text-secondary hover:bg-secondary-soft",
+    "lun flex min-h-11 items-center whitespace-nowrap rounded-btn px-3 font-medium",
+    compact ? "text-xs" : "text-sm",
+    // Hướng "Công văn": mục đang chọn gạch chân lục, không tô nền đặc.
+    active
+      ? "rounded-none font-bold text-primary shadow-[inset_0_-2px_0_var(--primary)]"
+      : "text-secondary hover:bg-secondary-soft",
   );
 }
 
@@ -78,7 +78,7 @@ function DauTrangCon({ pathname }: { pathname: string }) {
         // Về mục cha trong một lần bấm; không thêm trang con vào lịch sử khi quay lại.
         replace
         aria-label="Quay lại"
-        className="lun -ml-2 grid size-11 shrink-0 place-items-center rounded-lg text-secondary hover:bg-secondary-soft"
+        className="lun -ml-2 grid size-11 shrink-0 place-items-center rounded-btn text-secondary hover:bg-secondary-soft"
       >
         <Icon name="arrowLeft" className="size-6" />
       </Link>
@@ -141,7 +141,7 @@ export function SiteHeader({
         {item === toi && nguoiDung ? (
           <>
             {/* Nền đặc: mục đang chọn có nền primary-soft, ảnh đại diện cùng màu sẽ chìm mất. */}
-            <AnhDaiDien nguoiDung={nguoiDung} className="mr-2 size-7 shrink-0 text-[13px]" />
+            <AnhDaiDien nguoiDung={nguoiDung} className="mr-2 size-7 shrink-0 text-xs" />
             {/* Tên và đơn vị được xuống dòng để hiển thị đầy đủ. */}
             <span className="flex min-w-0 max-w-36 flex-col leading-tight lg:max-w-48">
               <span className="site-account-name">{hoTen}</span>
@@ -194,7 +194,7 @@ export function SiteHeader({
               <Link
                 to="/toi#nhac-hoc"
                 aria-label="Nhắc học và thông báo"
-                className="grid size-11 place-items-center rounded-lg text-secondary hover:bg-secondary-soft"
+                className="grid size-11 place-items-center rounded-btn text-secondary hover:bg-secondary-soft"
               >
                 <Icon name="bell" kieu="net" className="size-5" />
               </Link>
@@ -212,14 +212,14 @@ export function SiteHeader({
                   className={cn(navClass(dangOMuc(toi, pathname)), "site-account-action")}
                   onClick={() => setMoTaiKhoan((mo) => !mo)}
                 >
-                  <AnhDaiDien nguoiDung={nguoiDung} className="mr-2 size-7 shrink-0 text-[13px]" />
+                  <AnhDaiDien nguoiDung={nguoiDung} className="mr-2 size-7 shrink-0 text-xs" />
                   <span className="site-account-name">{hoTen}</span>
                   <Icon name="chevronDown" className="ml-2 size-4" />
                 </button>
                 {moTaiKhoan ? (
                   <div
                     id="menu-tai-khoan"
-                    className="absolute right-0 top-full mt-2 w-56 rounded-xl border border-line bg-surface p-1.5 shadow-card"
+                    className="absolute right-0 top-full mt-2 w-56 rounded-card border border-line bg-surface p-1.5 shadow-card"
                   >
                     <Link
                       to={toi.to}

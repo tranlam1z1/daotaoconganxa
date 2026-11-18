@@ -32,7 +32,7 @@ export function ThemeToggle({ children }: { children?: ReactNode }) {
       title={`${label}. Bấm để đổi.`}
       aria-label={coChu ? undefined : `${label}. Bấm để đổi.`}
       className={cn(
-        "lun rounded-lg hover:bg-surface-2",
+        "lun rounded-btn hover:bg-surface-2",
         coChu
           ? "flex min-h-12 w-full items-center gap-3 px-3 text-left text-base text-ink"
           : "grid size-11 shrink-0 place-items-center text-ink-2 hover:text-ink",

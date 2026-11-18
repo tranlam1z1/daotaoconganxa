@@ -212,7 +212,7 @@ export default function LuyenTapOffline({ loaderData }: Route.ComponentProps) {
       ) : null}
 
       {soPhienCho > 0 ? (
-        <div className="mt-4 rounded-xl border border-line bg-surface p-4">
+        <div className="mt-4 rounded-card border border-line bg-surface p-4">
           <p className="text-base">
             {soPhienCho} phiên đã làm trên máy chưa gửi lên.
             {coMang ? "" : " Kết quả sẽ tự gửi khi có mạng."}
@@ -240,7 +240,7 @@ export default function LuyenTapOffline({ loaderData }: Route.ComponentProps) {
       ) : (
         <ul className="mt-3 grid gap-3">
           {goi.map((g) => (
-            <li key={g.code} className="rounded-xl border border-line bg-surface p-4">
+            <li key={g.code} className="rounded-card border border-line bg-surface p-4">
               <p className="text-base font-semibold">{g.name}</p>
               <p className="mt-1 text-sm text-ink-2">
                 {g.soCau} câu · tải lúc {new Date(g.taiLuc).toLocaleString("vi-VN")}
@@ -377,7 +377,7 @@ function TaiThemChuDe({
           {ds.map((t) => (
             <li
               key={t.id}
-              className="flex items-center justify-between gap-3 rounded-xl border border-line bg-surface p-3"
+              className="flex items-center justify-between gap-3 rounded-card border border-line bg-surface p-3"
             >
               <span className="min-w-0">
                 <span className="block text-base">{t.name}</span>
@@ -585,7 +585,7 @@ function KetQuaOffline({
             const a = daLam.get(c.question_id);
             const traLoi = a?.tra_loi ?? {};
             return (
-              <li key={c.question_id} className="rounded-xl border border-line bg-surface p-4">
+              <li key={c.question_id} className="rounded-card border border-line bg-surface p-4">
                 <p className="text-sm text-ink-2">
                   Câu {i + 1}
                   {a ? "" : " · chưa trả lời"}
@@ -619,7 +619,7 @@ function PhanHoiOffline({ ketQua }: { ketQua: KetQuaCauHoi }) {
     <div
       role="status"
       className={cn(
-        "mt-4 rounded-lg border-l-4 px-4 py-3",
+        "mt-4 rounded-btn border-l-4 px-4 py-3",
         ketQua.dung ? "border-ok bg-ok-soft" : "border-danger bg-danger-soft",
       )}
     >

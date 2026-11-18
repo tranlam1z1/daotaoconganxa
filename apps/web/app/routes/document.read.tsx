@@ -166,7 +166,7 @@ function TepGoc({
         tới từng Điều, khoản.
       </Notice>
       {duocDoc ? (
-        <div className="mt-3 rounded-xl border border-line bg-surface p-4">
+        <div className="mt-3 rounded-card border border-line bg-surface p-4">
           {dangDoc ? (
             <p role="status" className="text-sm text-ink-2">
               {tienDo?.soCum
@@ -205,7 +205,7 @@ function TepGoc({
       <iframe
         src={href}
         title={`Tệp PDF gốc: ${tieuDe}`}
-        className="mt-4 hidden h-[80vh] w-full rounded-2xl border border-line bg-surface md:block"
+        className="mt-4 hidden h-[80vh] w-full rounded-card border border-line bg-surface md:block"
       />
       {/* Điện thoại thường không hiện PDF trong khung: thay bằng ảnh từng trang, tải dần khi cuộn tới. */}
       <ol className="mt-4 space-y-3 md:hidden">
@@ -216,7 +216,7 @@ function TepGoc({
               alt={`Trang ${trang} trên ${soTrang}`}
               loading="lazy"
               // Chỗ giữ sẵn trước khi ảnh về, để trình duyệt chỉ tải các trang gần màn hình.
-              className="h-auto min-h-[60vw] w-full rounded-lg border border-line bg-white"
+              className="h-auto min-h-[60vw] w-full rounded-btn border border-line bg-white"
             />
           </li>
         ))}
@@ -306,7 +306,7 @@ export default function DocumentRead({ loaderData: data, actionData }: Route.Com
       </div>
 
       <details
-        className="no-print mt-3 rounded-lg border border-line bg-surface px-4"
+        className="no-print mt-3 rounded-btn border border-line bg-surface px-4"
         open={data.asOf !== data.homNay}
       >
         <summary className="flex min-h-11 cursor-pointer items-center gap-2 text-sm text-ink-2">
@@ -329,12 +329,12 @@ export default function DocumentRead({ loaderData: data, actionData }: Route.Com
               name="asOf"
               type="date"
               defaultValue={data.asOf}
-              className="min-h-11 rounded-lg border border-line-strong bg-surface px-3 text-[15px]"
+              className="min-h-11 rounded-btn border border-line-strong bg-surface px-3 text-sm"
             />
           </div>
           <button
             type="submit"
-            className="lun min-h-11 rounded-lg border border-line-strong bg-surface px-4 text-sm font-semibold hover:bg-surface-2"
+            className="lun min-h-11 rounded-btn border border-line-strong bg-surface px-4 text-sm font-semibold hover:bg-surface-2"
           >
             Xem ngày này
           </button>
@@ -368,7 +368,7 @@ export default function DocumentRead({ loaderData: data, actionData }: Route.Com
             {data.truoc ? (
               <Link
                 to={hrefDieu(data.truoc.path)}
-                className="flex min-h-14 flex-col justify-center rounded-xl border border-line bg-surface px-4 py-2 dong-bam"
+                className="flex min-h-14 flex-col justify-center rounded-card border border-line bg-surface px-4 py-2 dong-bam"
               >
                 <span className="flex items-center gap-1 text-sm text-ink-3">
                   <Icon name="arrowLeft" className="size-4" />
@@ -385,7 +385,7 @@ export default function DocumentRead({ loaderData: data, actionData }: Route.Com
             {data.sau ? (
               <Link
                 to={hrefDieu(data.sau.path)}
-                className="flex min-h-14 flex-col justify-center rounded-xl border border-line bg-surface px-4 py-2 text-right dong-bam"
+                className="flex min-h-14 flex-col justify-center rounded-card border border-line bg-surface px-4 py-2 text-right dong-bam"
               >
                 <span className="flex items-center justify-end gap-1 text-sm text-ink-3">
                   Điều sau

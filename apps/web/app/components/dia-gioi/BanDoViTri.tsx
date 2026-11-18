@@ -93,12 +93,12 @@ export function BanDoViTri({
   }, [lat, lon, saiSo, ranhGioi]);
 
   return (
-    <div className="ban-do-osm relative isolate h-60 overflow-hidden rounded-2xl border border-line bg-surface-2 shadow-card sm:h-72">
+    <div className="ban-do-osm relative isolate h-60 overflow-hidden rounded-card border border-line bg-surface-2 shadow-card sm:h-72">
       <div ref={khung} className="absolute inset-0" />
       {matNen ? (
         <p
           role="status"
-          className="absolute top-2 right-2 left-14 z-1000 rounded-xl border border-line bg-surface px-3 py-2 text-sm shadow-card"
+          className="absolute top-2 right-2 left-14 z-1000 rounded-card border border-line bg-surface px-3 py-2 text-sm shadow-card"
         >
           Không tải được ảnh nền bản đồ. Kiểm tra kết nối mạng, hoặc mở vị trí trong Google Maps.
         </p>

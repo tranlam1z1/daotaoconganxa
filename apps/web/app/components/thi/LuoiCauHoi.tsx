@@ -32,7 +32,7 @@ export function LuoiCauHoi({
                 aria-current={n === dangXem ? "step" : undefined}
                 aria-label={`Câu ${n}${tl ? ", tự luận" : ""}${lam ? ", đã trả lời" : ", chưa trả lời"}`}
                 className={cn(
-                  "relative grid size-11 place-items-center rounded-lg border text-sm font-semibold tabular-nums",
+                  "relative grid size-11 place-items-center rounded-btn border text-sm font-semibold tabular-nums",
                   lam
                     ? "border-primary bg-primary-soft text-primary"
                     : "border-line-strong bg-surface text-ink-2",
@@ -43,7 +43,7 @@ export function LuoiCauHoi({
                 {tl ? (
                   <span
                     aria-hidden="true"
-                    className="absolute top-0.5 right-1 text-[10px] leading-none text-ink-3"
+                    className="absolute top-0.5 right-1 text-xs leading-none text-ink-3"
                   >
                     TL
                   </span>

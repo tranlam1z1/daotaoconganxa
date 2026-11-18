@@ -84,16 +84,16 @@ export default function DocumentLayout({ loaderData }: Route.ComponentProps) {
           </span>
           {/* key theo đường dẫn: chọn một mục xong thì menu đóng lại, không đè lên nội dung thẻ vừa mở. */}
           <details key={pathname} className="relative ml-auto">
-            <summary className="lun flex min-h-11 cursor-pointer list-none items-center gap-1 rounded-lg px-2 font-medium text-ink-2 hover:bg-surface-2 [&::-webkit-details-marker]:hidden">
+            <summary className="lun flex min-h-11 cursor-pointer list-none items-center gap-1 rounded-btn px-2 font-medium text-ink-2 hover:bg-surface-2 [&::-webkit-details-marker]:hidden">
               Thông tin thêm
               <Icon name="menu" className="size-4" />
             </summary>
-            <ul className="absolute right-0 z-30 mt-1 w-60 rounded-lg border border-line bg-surface p-1 shadow-card">
+            <ul className="absolute right-0 z-30 mt-1 w-60 rounded-btn border border-line bg-surface p-1 shadow-card">
               {THONG_TIN_THEM.map((m) => (
                 <li key={m.to}>
                   <Link
                     to={`${loaderData.basePath}/${m.to}${search}`}
-                    className="lun flex min-h-11 items-center rounded-md px-3 text-[15px] hover:bg-surface-2"
+                    className="lun flex min-h-11 items-center rounded-btn px-3 text-sm hover:bg-surface-2"
                   >
                     {m.label}
                   </Link>
@@ -105,7 +105,7 @@ export default function DocumentLayout({ loaderData }: Route.ComponentProps) {
                     href={`${loaderData.basePath}/tep-goc`}
                     target="_blank"
                     rel="noreferrer"
-                    className="lun flex min-h-11 items-center rounded-md px-3 text-[15px] hover:bg-surface-2"
+                    className="lun flex min-h-11 items-center rounded-btn px-3 text-sm hover:bg-surface-2"
                   >
                     Tệp PDF gốc
                   </a>
@@ -115,7 +115,7 @@ export default function DocumentLayout({ loaderData }: Route.ComponentProps) {
                 <li className="mt-1 border-t border-line pt-1">
                   <Link
                     to={duongSuaVanBan(loaderData.urn)}
-                    className="lun flex min-h-11 items-center rounded-md px-3 text-[15px] text-primary hover:bg-surface-2"
+                    className="lun flex min-h-11 items-center rounded-btn px-3 text-sm text-primary hover:bg-surface-2"
                   >
                     Sửa văn bản
                   </Link>

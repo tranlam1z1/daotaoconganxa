@@ -1,0 +1,18 @@
+# Dán vào cuối /opt/daotao/docker/Caddyfile (KHÔNG sửa khối daotaonghiepvu.click đang có), rồi:
+#   docker exec daotao-caddy-1 caddy reload --config /etc/caddy/Caddyfile
+# SAMEORIGIN chứ không DENY: trang đọc văn bản nhúng PDF của chính trang này.
+conganxa.daotaonghiepvu.click {
+	encode zstd gzip
+	header {
+		Strict-Transport-Security "max-age=31536000"
+		X-Content-Type-Options nosniff
+		X-Frame-Options SAMEORIGIN
+		Referrer-Policy strict-origin-when-cross-origin
+		-Server
+	}
+	reverse_proxy conganxa-web:3000
+}
+
+api-conganxa.daotaonghiepvu.click {
+	reverse_proxy conganxa-api:3001
+}

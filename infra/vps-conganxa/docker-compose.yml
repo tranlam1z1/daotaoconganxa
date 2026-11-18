@@ -1,0 +1,84 @@
+# Bản Đào tạo nghiệp vụ Công an xã tại conganxa.daotaonghiepvu.click, trên VPS 180.93.117.43.
+# Chạy song song với dự án đang có ở daotaonghiepvu.click (stack hocluat). Mọi tên ở đây đều mang
+# tiền tố "conganxa" (project, image, volume, alias mạng) để không đè lên stack đó.
+# Caddy của stack daotao (daotao-caddy-1) nhận HTTPS và chuyển vào conganxa-web:3000 / conganxa-api:3001
+# qua mạng daotao_default (xem Caddyfile.snippet).
+# Dùng: docker compose --env-file .env up -d --build ; gieo dữ liệu: docker compose --env-file .env run --rm seed
+name: conganxa
+
+x-app: &app
+  build:
+    context: ../..
+    dockerfile: infra/vps-conganxa/Dockerfile
+  image: conganxa-app:latest
+  env_file: .env
+  restart: unless-stopped
+  volumes: ["storage:/data"]
+
+services:
+  db:
+    image: pgvector/pgvector:pg16
+    environment:
+      POSTGRES_USER: qdpl
+      POSTGRES_PASSWORD: ${PGPASSWORD:?đặt PGPASSWORD trong .env}
+      POSTGRES_DB: conganxa
+    volumes: ["pgdata:/var/lib/postgresql/data"]
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U qdpl -d conganxa"]
+      interval: 5s
+      retries: 20
+    restart: unless-stopped
+    networks: [internal]
+
+  api:
+    <<: *app
+    command: ["bun", "apps/api/src/index.ts"]
+    environment:
+      PORT: "3001"
+      API_PORT: "3001"
+    depends_on: { db: { condition: service_healthy } }
+    healthcheck:
+      test: ["CMD-SHELL", "bun -e \"fetch('http://127.0.0.1:3001/health').then(r=>process.exit(r.ok?0:1)).catch(()=>process.exit(1))\""]
+      interval: 15s
+      timeout: 5s
+      retries: 5
+      start_period: 20s
+    networks:
+      internal:
+      proxy: { aliases: [conganxa-api] }
+
+  web:
+    <<: *app
+    working_dir: /app/apps/web
+    command: ["bunx", "react-router-serve", "./build/server/index.js"]
+    environment:
+      PORT: "3000"
+      WEB_PORT: "3000"
+      API_URL: http://api:3001
+    depends_on: { api: { condition: service_healthy } }
+    networks:
+      internal:
+      proxy: { aliases: [conganxa-web] }
+
+  # Việc chạy một lần: migration + gieo dữ liệu (cùng các bước của scripts/demo.ts).
+  # Dùng chung mạng với db để CSDL nằm ở 127.0.0.1: các script demo chỉ chịu ghi vào CSDL trên máy.
+  seed:
+    <<: *app
+    restart: "no"
+    profiles: ["seed"]
+    command: ["sh", "infra/vps-conganxa/seed.sh"]
+    environment:
+      DATABASE_URL: postgres://qdpl:${PGPASSWORD}@127.0.0.1:5432/conganxa
+      DATABASE_URL_DIRECT: postgres://qdpl:${PGPASSWORD}@127.0.0.1:5432/conganxa
+    network_mode: service:db
+    depends_on: { db: { condition: service_healthy } }
+
+volumes:
+  pgdata:
+  storage:
+
+networks:
+  internal:
+  proxy:
+    name: daotao_default
+    external: true
